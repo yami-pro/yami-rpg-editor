@@ -719,7 +719,7 @@ detail-summary {
   height: 22px;
   line-height: 20px;
   text-indent: 16px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   background-color: var(--summary-background);
   border-top: var(--summary-border-dark);
@@ -820,7 +820,7 @@ legend {
   top: -7px;
   height: 7px;
   line-height: 14px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   border-bottom: 1px solid var(--window-background);
   z-index: 1;
@@ -1331,7 +1331,7 @@ check-box > check-mark::before {
   width: 16px;
   height: 16px;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-normal);
   text-align: center;
   color: var(--check-box-mark-color);
@@ -1756,7 +1756,7 @@ menu-checked {
   height: 16px;
   text-align: center;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-normal);
   pointer-events: none;
 }
@@ -2162,7 +2162,7 @@ node-icon.icon-particle-image {
   height: 14px;
   line-height: 14px;
   font-size: 10px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: Arial, var(--font-family-symbol);
   background-color: var(--node-bubble-background);
   border-radius: 25%;
@@ -2712,7 +2712,7 @@ file-head-address {
   margin: 2px 0;
   height: 20px;
   line-height: 20px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
@@ -2911,7 +2911,7 @@ file-body-icon.icon-file-font {
 
 file-body-icon.icon-file-event {
   font-family: var(--font-family-bold);
-  font-weight: bold;
+  /*font-weight: bold*/;
   text-align: center;
   color: green;
   background-image: url(images/file_other.png);
@@ -2938,7 +2938,7 @@ file-body-icon.icon-file-video {
 
 file-body-icon.icon-file-other {
   font-family: var(--font-family-bold);
-  font-weight: bold;
+  /*font-weight: bold*/;
   text-align: center;
   color: #404040;
   overflow: hidden;
@@ -3335,7 +3335,7 @@ body.maximized > #title > #title-buttons > #title-maximize::after {
   height: 20px;
   line-height: 20px;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
 }
 
@@ -3523,7 +3523,7 @@ group-info {
   top: 25px;
   max-width: 100%;
   line-height: 20px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
@@ -5186,7 +5186,7 @@ nav-item[value=particle].selected {
 #sprite-info {
   /* position: absolute; */
   /* width: 100%; */
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   text-indent: 0;
   text-align: center;
@@ -8814,7 +8814,7 @@ nav-item[value=particle].selected {
   grid-column-start: 1;
   grid-column-end: 3;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
 }
 
