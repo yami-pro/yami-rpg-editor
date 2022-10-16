@@ -269,7 +269,7 @@ Command.parseVariable = function (variable) {
 Command.parseGlobalVariable = function (id) {
   if (id === '') return Local.get('common.none')
   const variable = Data.variables.map[id]
-  return variable ? variable[3] : `#${id}`
+  return variable ? variable.name : `#${id}`
 }
 
 // 解析属性键
@@ -284,7 +284,7 @@ Command.parseAttributeKey = function (group, id) {
 Command.parseVariableTag = function IIFE() {
   const regexp = /(?<=<global:)[0-9a-f]{16}(?=>)/g
   const replacer = varKey => {
-    const varName = Data.variables.map[varKey]?.[3]
+    const varName = Data.variables.map[varKey]?.name
     return varName ? '@' + varName : varKey
   }
   return string => string.replace(regexp, replacer)
@@ -830,7 +830,7 @@ Command.FormatUpdater = class FormatUpdater {
       const {key, id} = item
       switch (key) {
         case 'variable': {
-          const name = Data.variables.map[id]?.[3]
+          const name = Data.variables.map[id]?.name
           if (item.name !== name) {
             item.name = name
             item.text = Command.parseGlobalVariable(id)
@@ -3197,6 +3197,7 @@ Command.cases.setElement = {
       {name: 'Show', value: 'show'},
       {name: 'Disable Pointer Events', value: 'disable-pointer-events'},
       {name: 'Enable Pointer Events', value: 'enable-pointer-events'},
+      {name: 'Skip Pointer Events', value: 'skip-pointer-events'},
       {name: 'Move to First', value: 'move-to-first'},
       {name: 'Move to Last', value: 'move-to-last'},
     ])
@@ -8089,6 +8090,7 @@ EventEditor.initialize = function () {
       types.input,
       types.focus,
       types.blur,
+      types.destroy,
     ],
     relatedElements: [],
   }
@@ -12952,7 +12954,7 @@ VariableGetter.confirm = function (event) {
         case 'boolean':
         case 'number':
         case 'string':
-          if (typeof variable?.[1] !== filter) {
+          if (typeof variable?.value !== filter) {
             return $('#variableGetter-global-key').getFocus()
           }
           break

@@ -56,8 +56,6 @@ const Variable = {
   searcherInput: null,
   confirm: null,
   apply: null,
-  // classes
-  Wrap: null,
 }
 
 // list methods
@@ -227,7 +225,7 @@ Variable.open = function (target = null) {
   const list = this.list
   const item = !target ? undefined
   : this.getVariableById(target.read())
-  if (item instanceof Array) {
+  if (item && item.class !== 'folder') {
     list.initialize()
     list.select(item)
     list.expandToSelection(false)
@@ -279,7 +277,7 @@ Variable.getVariableById = function IIFE() {
     const length = items.length
     for (let i = 0; i < length; i++) {
       const item = items[i]
-      if (item instanceof Array) {
+      if (item.class !== 'folder') {
         if (item.id === id) {
           return item
         }
@@ -304,7 +302,8 @@ Variable.openPropertyPanel = function (variable) {
     panel.variable = variable
     panel.show()
     const {inputs} = this
-    const {name, sort, type, value, note} = variable
+    const {name, sort, value, note} = variable
+    const type = typeof value
     inputs.name.write(name)
     inputs.sort.write(sort)
     inputs.type.write(type)
@@ -318,7 +317,7 @@ Variable.openPropertyPanel = function (variable) {
 // 关闭属性面板
 Variable.closePropertyPanel = function () {
   const panel = this.panel
-  if (panel.variable instanceof Array) {
+  if (panel.variable) {
     panel.variable = null
     panel.hide()
   }
@@ -351,8 +350,8 @@ Variable.unpackVariables = function IIFE() {
     const copies = new Array(length)
     for (let i = 0; i < length; i++) {
       const item = items[i]
-      if (Array.isArray(item)) {
-        copies[i] = new Variable.Wrap(...item)
+      if (item.class !== 'folder') {
+        copies[i] = Object.clone(item)
       } else {
         copies[i] = new ReferencedFolder(item)
       }
@@ -372,8 +371,8 @@ Variable.packVariables = function IIFE() {
     const copies = new Array(length)
     for (let i = 0; i < length; i++) {
       const item = items[i]
-      if (item instanceof Array) {
-        copies[i] = item.slice()
+      if (item.class !== 'folder') {
+        copies[i] = Object.clone(item)
       } else {
         copies[i] = {
           class: item.class,
@@ -499,7 +498,7 @@ Variable.listPointerdown = function (event) {
 // 列表 - 选择事件
 Variable.listSelect = function (event) {
   const item = event.value
-  return item instanceof Array
+  return item.class !== 'folder'
   ? Variable.openPropertyPanel(item)
   : Variable.closePropertyPanel()
 }
@@ -531,7 +530,7 @@ Variable.listRecord = function (event) {
 Variable.listPopup = function (event) {
   const item = event.value
   const selected = !!item
-  const copyable = item instanceof Array
+  const copyable = selected && item.class !== 'folder'
   const pastable = Clipboard.has('yami.data.variable')
   const undoable = Variable.history.canUndo()
   const redoable = Variable.history.canRedo()
@@ -610,7 +609,7 @@ Variable.listPopup = function (event) {
 
 // 列表 - 打开事件
 Variable.listOpen = function (event) {
-  if (event.value instanceof Array &&
+  if (event.value.class !== 'folder' &&
     Variable.target instanceof Object) {
     Variable.confirm()
   }
@@ -619,7 +618,7 @@ Variable.listOpen = function (event) {
 // 名字输入框 - 输入事件
 Variable.nameInput = function (event) {
   const item = Variable.panel.variable
-  if (item instanceof Array) {
+  if (item.class !== 'folder') {
     Variable.saveHistory(item, 'name', item.name)
     item.name = event.target.value
     Variable.list.updateItemName(item)
@@ -787,24 +786,9 @@ Variable.apply = function (event) {
   }
 }.bind(Variable)
 
-// 变量包装器类
-Variable.Wrap = class Variable extends Array {
-  get id() {return this[0]}
-  set id(v) {this[0] = v}
-  get type() {return typeof this[1]}
-  get value() {return this[1]}
-  set value(v) {this[1] = v}
-  get sort() {return this[2]}
-  set sort(v) {this[2] = v}
-  get name() {return this[3]}
-  set name(v) {this[3] = v}
-  get note() {return this[4]}
-  set note(v) {this[4] = v}
-}
-
 // 列表 - 复制
 Variable.list.copy = function (item) {
-  if (item instanceof Array) {
+  if (item && item.class !== 'folder') {
     Clipboard.write('yami.data.variable', item)
   }
 }
@@ -813,10 +797,9 @@ Variable.list.copy = function (item) {
 Variable.list.paste = function (dItem) {
   const copy = Clipboard.read('yami.data.variable')
   if (copy) {
-    const variable = new Variable.Wrap(...copy)
-    variable.id = Variable.createId()
-    variable.name += ' - Copy'
-    this.addNodeTo(variable, dItem)
+    copy.id = Variable.createId()
+    copy.name += ' - Copy'
+    this.addNodeTo(copy, dItem)
   }
 }
 
@@ -888,7 +871,13 @@ Variable.list.createFolder = function () {
 // 列表 - 创建变量
 Variable.list.createVariable = function () {
   const id = Variable.createId()
-  return new Variable.Wrap(id, false, 0, 'Variable', '')
+  return {
+    id: id,
+    name: 'Variable',
+    value: false,
+    sort: 0,
+    note: ''
+  }
 }
 
 // 列表 - 重写创建图标方法
@@ -901,8 +890,8 @@ Variable.list.createIcon = function IIFE() {
   }
   return function (item) {
     const icon = document.createElement('node-icon')
-    if (item instanceof Array) {
-      icon.addClass(classes[item.type])
+    if (item.class !== 'folder') {
+      icon.addClass(classes[typeof item.value])
     } else {
       icon.addClass('icon-folder')
     }
@@ -946,7 +935,7 @@ Variable.list.updateItemClass = function (item) {
 
 // 列表 - 创建初始化文本
 Variable.list.createInitText = function (item) {
-  if (item instanceof Array) {
+  if (item.class !== 'folder') {
     const {element} = item
     const initText = document.createElement('text')
     initText.addClass('variable-init-text')
@@ -965,21 +954,25 @@ Variable.list.updateInitText = function (item) {
     if (element.initValue !== value) {
       element.initValue = value
       switch (typeof value) {
+        case 'boolean':
+        case 'number':
+          element.initText.textContent = ` = ${value}`
+          break
         case 'string':
           value = `"${Command.parseMultiLineString(value)}"`
+          element.initText.textContent = ` = ${value}`
           break
         case 'object':
-          value = 'none'
+          element.initText.textContent = ''
           break
       }
-      element.initText.textContent = ` = ${value}`
     }
   }
 }
 
 // 列表 - 创建笔记图标
 Variable.list.createNoteIcon = function (item) {
-  if (item instanceof Array) {
+  if (item.class !== 'folder') {
     const {element} = item
     const noteIcon = document.createElement('node-icon')
     noteIcon.addClass('icon-note')

@@ -1371,9 +1371,9 @@ FileActor.skills = {
   initialize: function (list) {
     $('#fileActor-skill-confirm').on('click', () => list.save())
   },
-  parse: function ([skillId, key]) {
+  parse: function ({id, key}) {
     Command.invalid = false
-    const skillName = Command.parseFileName(skillId)
+    const skillName = Command.parseFileName(id)
     const skillClass = Command.invalid ? 'invalid' : ''
     Command.invalid = false
     const shortcutKey = key ? Command.parseGroupEnumString('shortcut-key', key) : ''
@@ -1383,26 +1383,26 @@ FileActor.skills = {
       {content: shortcutKey, class: shortcutClass},
     ]
   },
-  open: function ([skillId = '', key = ''] = []) {
+  open: function ({id = '', key = ''} = {}) {
     Window.open('fileActor-skill')
-    const elSkillId = $('#fileActor-skill-skillId')
+    const elSkillId = $('#fileActor-skill-id')
     const elSkillKey = $('#fileActor-skill-key')
     const items = Enum.getStringItems('shortcut-key', true)
     elSkillKey.loadItems(items)
-    elSkillId.write(skillId)
+    elSkillId.write(id)
     elSkillKey.write(key)
     elSkillId.getFocus()
   },
   save: function () {
-    const elSkillId = $('#fileActor-skill-skillId')
+    const elSkillId = $('#fileActor-skill-id')
     const elSkillKey = $('#fileActor-skill-key')
-    const skillId = elSkillId.read()
-    if (!skillId) {
+    const id = elSkillId.read()
+    if (!id) {
       return elSkillId.getFocus()
     }
     const key = elSkillKey.read()
     Window.close('fileActor-skill')
-    return [skillId, key]
+    return {id, key}
   },
 }
 
@@ -1411,41 +1411,41 @@ FileActor.equipments = {
   initialize: function (list) {
     $('#fileActor-equipment-confirm').on('click', () => list.save())
   },
-  parse: function ([equipmentId, key]) {
+  parse: function ({id, slot}) {
     Command.invalid = false
-    const equipmentName = Command.parseFileName(equipmentId)
+    const equipmentName = Command.parseFileName(id)
     const equipmentClass = Command.invalid ? 'invalid' : ''
     Command.invalid = false
-    const shortcutKey = key ? Command.parseGroupEnumString('equipment-slot', key) : ''
+    const shortcutKey = slot ? Command.parseGroupEnumString('equipment-slot', slot) : ''
     const shortcutClass = Command.invalid ? 'invalid' : 'weak'
     return [
       {content: equipmentName, class: equipmentClass},
       {content: shortcutKey, class: shortcutClass},
     ]
   },
-  open: function ([equipmentId = '', key = Enum.getDefStringId('equipment-slot')] = []) {
+  open: function ({id = '', slot = Enum.getDefStringId('equipment-slot')} = {}) {
     Window.open('fileActor-equipment')
-    const elEquipmentId = $('#fileActor-equipment-equipmentId')
-    const elEquipmentKey = $('#fileActor-equipment-key')
+    const elEquipmentId = $('#fileActor-equipment-id')
+    const elEquipmentKey = $('#fileActor-equipment-slot')
     const items = Enum.getStringItems('equipment-slot')
     elEquipmentKey.loadItems(items)
-    elEquipmentId.write(equipmentId)
-    elEquipmentKey.write(key)
+    elEquipmentId.write(id)
+    elEquipmentKey.write(slot)
     elEquipmentId.getFocus()
   },
   save: function () {
-    const elEquipmentId = $('#fileActor-equipment-equipmentId')
-    const elKey = $('#fileActor-equipment-key')
-    const equipmentId = elEquipmentId.read()
-    if (!equipmentId) {
+    const elEquipmentId = $('#fileActor-equipment-id')
+    const elKey = $('#fileActor-equipment-slot')
+    const id = elEquipmentId.read()
+    if (!id) {
       return elEquipmentId.getFocus()
     }
-    const key = elKey.read()
-    if (!key) {
+    const slot = elKey.read()
+    if (!slot) {
       return elKey.getFocus()
     }
     Window.close('fileActor-equipment')
-    return [equipmentId, key]
+    return {id, slot}
   },
 }
 

@@ -5972,7 +5972,7 @@ Animation.Player = class AnimationPlayer {
 
   // 加载图层上下文列表
   loadContexts(contexts) {
-    return AnimationPlayer.loadContexts(this, contexts)
+    AnimationPlayer.loadContexts(this, contexts)
   }
 
   // 更新动画
@@ -6278,53 +6278,51 @@ Animation.Player = class AnimationPlayer {
     this.step = 1000 / Data.config.animation.frameRate
   }
 
-  // 静态 - 加载上下文列表
-  static loadContexts = function IIFE() {
-    let count
-    const load = (animation, layers, parent, list) => {
-      for (const layer of layers) {
-        let context = list[count]
-        if (context === undefined) {
-          context = list[count] = {
-            animation: animation,
-            parent: null,
-            layer: null,
-            frame: null,
-            matrix: new Matrix(),
-            opacity: 0,
-            update: null,
-            reset: AnimationPlayer.contextReset,
-          }
-        }
-        count++
-        context.parent = parent
-        context.layer = layer
-        switch (layer.class) {
-          case 'bone':
-            context.update = AnimationPlayer.contextUpdate
-            break
-          case 'image':
-            context.update = AnimationPlayer.contextUpdateImage
-            break
-          case 'particle':
-            context.update = AnimationPlayer.contextUpdateParticle
-            break
-        }
-        if (layer.class === 'bone') {
-          load(animation, layer.children, context, list)
+  // 静态 - 加载动画图层上下文列表
+  static loadContexts(animation, contexts) {
+    const {motion} = animation
+    contexts.count = 0
+    if (motion !== null) {
+      // 如果动画已设置动作，加载所有图层上下文
+      this.#loadContext(animation, motion.layers, null, contexts)
+    }
+  }
+
+  // 静态 - 加载动画图层上下文
+  static #loadContext(animation, layers, parent, contexts) {
+    for (const layer of layers) {
+      let context = contexts[contexts.count]
+      if (context === undefined) {
+        context = contexts[contexts.count] = {
+          animation: animation,
+          parent: null,
+          layer: null,
+          frame: null,
+          matrix: new Matrix(),
+          opacity: 0,
+          update: null,
+          reset: AnimationPlayer.contextReset,
         }
       }
-    }
-    return (animation, contexts) => {
-      const {motion} = animation
-      count = 0
-      if (motion !== null) {
-        load(animation, motion.layers, null, contexts)
+      contexts.count++
+      context.parent = parent
+      context.layer = layer
+      switch (layer.class) {
+        case 'bone':
+          context.update = AnimationPlayer.contextUpdate
+          break
+        case 'image':
+          context.update = AnimationPlayer.contextUpdateImage
+          break
+        case 'particle':
+          context.update = AnimationPlayer.contextUpdateParticle
+          break
       }
-      contexts.count = count
-      return contexts
+      if (layer.class === 'bone') {
+        this.#loadContext(animation, layer.children, context, contexts)
+      }
     }
-  }()
+  }
 
   // 静态 - 上下文方法 - 重置
   static contextReset() {

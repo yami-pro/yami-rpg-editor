@@ -2263,8 +2263,8 @@ class AttributeListInterface {
 
   // 解析项目
   parse(item) {
-    if (item instanceof Array) {
-      let [key, value] = item
+    if (item instanceof Object) {
+      let {key, value} = item
       if (typeof value === 'string') {
         value = Command.parseMultiLineString(value)
       }
@@ -2306,26 +2306,26 @@ class AttributeListInterface {
   }
 
   // 打开窗口
-  open(item = ['', 0]) {
+  open(item = {key: '', value: 0}) {
     Window.open('object-attribute')
     AttributeListInterface.target = this.target
-    const isNew = item[0] === ''
+    const isNew = item.key === ''
     if (isNew) {
       // 新建属性数据
-      item[0] = Attribute.getDefAttributeId(this.group)
-      switch (Attribute.getGroupAttribute(this.group, item[0])?.type) {
-        case 'boolean': item[1] = false ; break
-        case 'number':  item[1] = 0     ; break
-        case 'string':  item[1] = ''    ; break
-        case 'enum':    item[1] = ''    ; break
+      item.key = Attribute.getDefAttributeId(this.group)
+      switch (Attribute.getGroupAttribute(this.group, item.key)?.type) {
+        case 'boolean': item.value = false; break
+        case 'number':  item.value = 0    ; break
+        case 'string':  item.value = ''   ; break
+        case 'enum':    item.value = ''   ; break
       }
     }
-    const key = item[0]
-    const type = Attribute.getGroupAttribute(this.group, key)?.type ?? typeof item[1]
-    const booleanValue = type === 'boolean' ? item[1] : false
-    const numberValue  = type === 'number'  ? item[1] : 0
-    const stringValue  = type === 'string'  ? item[1] : ''
-    const enumValue    = type === 'enum'    ? item[1] : ''
+    const key = item.key
+    const type = Attribute.getGroupAttribute(this.group, key)?.type ?? typeof item.value
+    const booleanValue = type === 'boolean' ? item.value : false
+    const numberValue  = type === 'number'  ? item.value : 0
+    const stringValue  = type === 'string'  ? item.value : ''
+    const enumValue    = type === 'enum'    ? item.value : ''
     const keyBox = $('#object-attribute-key')
     keyBox.loadItems(Attribute.getAttributeItems(this.group))
     const invalid = !Attribute.getGroupAttribute(this.group, key)
@@ -2380,7 +2380,7 @@ class AttributeListInterface {
         break
     }
     Window.close('object-attribute')
-    return [key, value]
+    return {key, value}
   }
 
   // 静态 - 正在编辑中的数据所在的列表
