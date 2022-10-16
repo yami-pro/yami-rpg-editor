@@ -51,11 +51,11 @@ const createEditorWindow = function () {
   // 创建窗口
   const editor = new BrowserWindow({
     title: 'Yami RPG Editor',
-    width: 1600,
+    width: 1440,
     height: 900,
     useContentSize: true,
     backgroundColor: 'white',
-    frame: false,
+    frame: true,
     show: false,
     webPreferences: {
       nodeIntegration: true,
@@ -84,6 +84,8 @@ const createEditorWindow = function () {
     editor.maximize()
     promise.then(config => {
       editor.webContents.setZoomFactor(JSON.parse(config).zoom)
+      // 打开调试器
+      editor.webContents.openDevTools({mode: 'bottom'})
     })
   })
 
