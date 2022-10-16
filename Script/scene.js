@@ -5920,7 +5920,8 @@ Scene.screenKeydown = function (event) {
   if (this.state === 'open' && (
     this.dragging === null ||
     event.code === 'ShiftLeft')) {
-    if (event.ctrlKey) {
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       switch (event.code) {
         case 'KeyX':
           this.copy()
@@ -6818,7 +6819,8 @@ Scene.listKeydown = function (event) {
   }
   const item = this.read()
   const isFile = item && item.class !== 'folder'
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyX':
         if (isFile) {

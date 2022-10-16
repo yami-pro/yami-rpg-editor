@@ -14414,7 +14414,8 @@ CustomCommand.scriptChange = function (event) {
 // 列表 - 键盘按下事件
 CustomCommand.listKeydown = function (event) {
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyC':
         this.copy(item)

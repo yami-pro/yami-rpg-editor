@@ -2443,7 +2443,8 @@ AutoTile.dprchange = function (event) {
 // 模板列表 - 键盘按下事件
 AutoTile.templatesKeydown = function (event) {
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyC':
         AutoTile.copyTemplate(item)
@@ -2633,7 +2634,8 @@ AutoTile.nodesPopup = function (event) {
 
 // 节点列表 - 键盘按下事件
 AutoTile.nodesKeydown = function (event) {
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyX':
         AutoTile.cutNode()
@@ -2762,7 +2764,8 @@ AutoTile.framesPopup = function (event) {
 
 // 帧列表 - 键盘按下事件
 AutoTile.framesKeydown = function (event) {
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyX':
         AutoTile.cutFrame()

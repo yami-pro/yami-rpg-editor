@@ -911,7 +911,8 @@ Clipboard.write = function (format, object) {
 
 // for windows
 window.on('keydown', function (event) {
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyZ':
       case 'KeyY':

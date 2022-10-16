@@ -1506,7 +1506,8 @@ class TextHistory {
 
   // 输入框 - 键盘按下事件
   inputKeydown(event) {
-    if (event.ctrlKey) {
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       switch (event.code) {
         case 'KeyZ':
           this.history.canUndo() &&
@@ -1736,7 +1737,8 @@ class NumberHistory {
 
   // 输入框 - 键盘按下事件
   inputKeydown(event) {
-    if (event.ctrlKey) {
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       switch (event.code) {
         case 'KeyZ':
           this.history.canUndo() &&
@@ -8598,7 +8600,8 @@ class ParamList extends HTMLElement {
 
   // 键盘按下事件
   keydown(event) {
-    if (event.ctrlKey) {
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       switch (event.code) {
         case 'KeyX':
           this.copy()
@@ -10232,7 +10235,8 @@ class CommandList extends HTMLElement {
 
   // 键盘按下事件
   keydown(event) {
-    if (event.ctrlKey) {
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       switch (event.code) {
         case 'KeyX':
           this.copy()

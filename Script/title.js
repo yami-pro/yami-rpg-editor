@@ -1933,7 +1933,8 @@ Menubar.createColorIcon = function (color) {
 
 // 键盘按下事件
 Menubar.keydown = function (event) {
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyN':
         Title.newProject()

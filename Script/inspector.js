@@ -283,7 +283,8 @@ Inspector.managerKeydown = function (event) {
         break
       }
     default:
-      if (event.ctrlKey) {
+      const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+      if (ctrlKey) {
         switch (event.code) {
           case 'KeyZ':
           case 'KeyY':

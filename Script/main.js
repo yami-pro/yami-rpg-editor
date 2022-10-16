@@ -267,7 +267,8 @@ Editor.updatePath = function (path) {
 // 开关快捷键
 Editor.switchHotkey = function IIFE() {
   const keydown = function (event) {
-    if (event.ctrlKey) {
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       switch (event.code) {
         case 'KeyN':
         case 'KeyO':

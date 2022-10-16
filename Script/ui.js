@@ -1833,7 +1833,8 @@ UI.zoomInput = function (event) {
 UI.screenKeydown = function (event) {
   if (this.state === 'open' &&
     this.dragging === null) {
-    if (event.ctrlKey) {
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       switch (event.code) {
         case 'KeyX':
           this.copy()
@@ -2470,7 +2471,8 @@ UI.listKeydown = function (event) {
     return
   }
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyX':
         if (item) {

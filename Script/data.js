@@ -1720,7 +1720,8 @@ Easing.dataChange = function (event) {
 // 列表 - 键盘按下事件
 Easing.listKeydown = function (event) {
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyC':
         Easing.copy(item)
@@ -2427,7 +2428,8 @@ Team.windowClosed = function (event) {
 // 列表 - 键盘按下事件
 Team.listKeydown = function (event) {
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyC':
         this.copy(item)

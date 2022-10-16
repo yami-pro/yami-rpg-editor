@@ -1465,7 +1465,8 @@ Particle.listKeydown = function (event) {
     return
   }
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyX':
         this.copy(item)

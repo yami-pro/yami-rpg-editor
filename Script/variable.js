@@ -444,7 +444,8 @@ Variable.windowClosed = function (event) {
 
 // 键盘按下事件
 Variable.keydown = function (event) {
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyZ':
         return Variable.undo()
@@ -457,7 +458,8 @@ Variable.keydown = function (event) {
 // 列表 - 键盘按下事件
 Variable.listKeydown = function (event) {
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyC':
         this.copy(item)

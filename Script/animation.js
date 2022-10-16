@@ -4108,7 +4108,9 @@ Animation.keydown = function (event) {
       }
     }
     if (!Animation.motion) return
-    if (event.ctrlKey) {
+
+    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+    if (ctrlKey) {
       return
     } else if (event.altKey) {
       return
@@ -4701,8 +4703,10 @@ Animation.listKeydown = function (event) {
   if (!this.data) {
     return
   }
+
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyX':
         if (item) {
@@ -4915,8 +4919,10 @@ Animation.layerListKeydown = function (event) {
   if (event.target !== this || !this.data) {
     return
   }
+
   const item = this.read()
-  if (event.ctrlKey) {
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyX':
         if (item) {
@@ -5103,7 +5109,9 @@ Animation.layerListChange = function (event) {
 // 时间轴列表 - 键盘按下事件
 Animation.outerTimelineListKeydown = function (event) {
   if (this.dragging !== null) return
-  if (event.ctrlKey) {
+
+  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
+  if (ctrlKey) {
     switch (event.code) {
       case 'KeyA':
         Animation.selectAllFrames()
