@@ -1336,7 +1336,7 @@ Palette.screenKeydown = function (event) {
       case 'Enter':
       case 'NumpadEnter': {
         event.stopPropagation()
-        if (event.ctrlKey) {
+        if (event.cmdOrCtrlKey) {
           Palette.editSelection()
         } else {
           Palette.openSelection()
@@ -1508,7 +1508,7 @@ Palette.marqueePointerdown = function (event) {
         return
       }
       const {x, y} = this.getTileCoords(event, true)
-      if (event.ctrlKey) {
+      if (event.cmdOrCtrlKey) {
         const tileset = this.tileset
         if (tileset.type === 'auto') {
           const i = x + y * tileset.width
@@ -2443,8 +2443,7 @@ AutoTile.dprchange = function (event) {
 // 模板列表 - 键盘按下事件
 AutoTile.templatesKeydown = function (event) {
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyC':
         AutoTile.copyTemplate(item)
@@ -2500,14 +2499,14 @@ AutoTile.templatesPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       AutoTile.copyTemplate(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       AutoTile.pasteTemplate(item)
@@ -2584,21 +2583,21 @@ AutoTile.nodesPopup = function (event) {
     },
   }, {
     label: get('cut'),
-    accelerator: 'Ctrl+X',
+    accelerator: ctrl('X'),
     enabled: deletable,
     click: () => {
       this.cutNode(id)
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copyNode(id)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.pasteNode(id ?? nodes.length)
@@ -2634,8 +2633,7 @@ AutoTile.nodesPopup = function (event) {
 
 // 节点列表 - 键盘按下事件
 AutoTile.nodesKeydown = function (event) {
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyX':
         AutoTile.cutNode()
@@ -2714,21 +2712,21 @@ AutoTile.framesPopup = function (event) {
     },
   }, {
     label: get('cut'),
-    accelerator: 'Ctrl+X',
+    accelerator: ctrl('X'),
     enabled: deletable,
     click: () => {
       this.cutFrame(id)
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copyFrame(id)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.pasteFrame(id ?? frames.length)
@@ -2764,8 +2762,7 @@ AutoTile.framesPopup = function (event) {
 
 // 帧列表 - 键盘按下事件
 AutoTile.framesKeydown = function (event) {
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyX':
         AutoTile.cutFrame()

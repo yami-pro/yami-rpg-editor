@@ -563,7 +563,7 @@ Selector.windowResize = function (event) {
 
 // 搜索框 - 键盘按下事件
 Selector.searcherKeydown = function (event) {
-  if (event.ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     return
   } else if (event.altKey) {
     return

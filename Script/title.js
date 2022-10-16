@@ -599,7 +599,7 @@ Title.tabBarPopup = function (event) {
     y: event.clientY,
   }, [{
     label: get('close'),
-    accelerator: 'Ctrl+W',
+    accelerator: ctrl('W'),
     click: () => {
       this.close(item)
     }
@@ -1407,13 +1407,13 @@ Menubar.popupFileMenu = function (target) {
       },
     }, [{
       label: get('newProject'),
-      accelerator: 'Ctrl+N',
+      accelerator: ctrl('N'),
       click: () => {
         Title.newProject()
       },
     }, {
       label: get('openProject'),
-      accelerator: 'Ctrl+O',
+      accelerator: ctrl('O'),
       click: () => {
         Title.openProject()
       },
@@ -1423,7 +1423,7 @@ Menubar.popupFileMenu = function (target) {
       submenu: this.createRecentItems(),
     }, {
       label: get('saveProject'),
-      accelerator: 'Ctrl+S',
+      accelerator: ctrl('S'),
       enabled: open,
       click: () => {
         File.save()
@@ -1460,19 +1460,19 @@ Menubar.popupEditMenu = function (target) {
     const items = {
       cut: {
         label: get('cut'),
-        accelerator: 'Ctrl+X',
+        accelerator: ctrl('X'),
         enabled: false,
         click: null,
       },
       copy: {
         label: get('copy'),
-        accelerator: 'Ctrl+C',
+        accelerator: ctrl('C'),
         enabled: false,
         click: null,
       },
       paste: {
         label: get('paste'),
-        accelerator: 'Ctrl+V',
+        accelerator: ctrl('V'),
         enabled: false,
         click: null,
       },
@@ -1484,13 +1484,13 @@ Menubar.popupEditMenu = function (target) {
       },
       undo: {
         label: get('undo'),
-        accelerator: 'Ctrl+Z',
+        accelerator: ctrl('Z'),
         enabled: false,
         click: null,
       },
       redo: {
         label: get('redo'),
-        accelerator: 'Ctrl+Y',
+        accelerator: ctrl('Y'),
         enabled: false,
         click: null,
       },
@@ -1836,7 +1836,7 @@ Menubar.createRecentItems = function () {
   items.push({
     label: get('openRecent.reopenClosedFile'),
     enabled: !!Title.getClosedTabMeta(),
-    accelerator: 'Ctrl+Shift+T',
+    accelerator: ctrl('Shift+T'),
     click: () => {
       Title.reopenClosedTab()
     },
@@ -1933,8 +1933,7 @@ Menubar.createColorIcon = function (color) {
 
 // 键盘按下事件
 Menubar.keydown = function (event) {
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyN':
         Title.newProject()

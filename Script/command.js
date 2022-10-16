@@ -14416,8 +14416,7 @@ CustomCommand.scriptChange = function (event) {
 // 列表 - 键盘按下事件
 CustomCommand.listKeydown = function (event) {
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyC':
         this.copy(item)
@@ -14490,14 +14489,14 @@ CustomCommand.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)

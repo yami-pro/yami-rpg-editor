@@ -456,8 +456,7 @@ Enum.windowClosed = function (event) {
 
 // 键盘按下事件
 Enum.keydown = function (event) {
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyZ':
         return Enum.undo()
@@ -470,8 +469,7 @@ Enum.keydown = function (event) {
 // 列表 - 键盘按下事件
 Enum.listKeydown = function (event) {
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyC':
         this.copy(item)
@@ -624,14 +622,14 @@ Enum.listPopup = function (event) {
     }],
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -652,14 +650,14 @@ Enum.listPopup = function (event) {
     },
   }, {
     label: get('undo'),
-    accelerator: 'Ctrl+Z',
+    accelerator: ctrl('Z'),
     enabled: undoable,
     click: () => {
       Enum.undo()
     },
   }, {
     label: get('redo'),
-    accelerator: 'Ctrl+Y',
+    accelerator: ctrl('Y'),
     enabled: redoable,
     click: () => {
       Enum.redo()
@@ -705,7 +703,7 @@ Enum.panelKeydown = function (event) {
   switch (event.target.tagName) {
     case 'INPUT':
     case 'TEXTAREA':
-      if (event.ctrlKey) {
+      if (event.cmdOrCtrlKey) {
         switch (event.code) {
           case 'Enter':
           case 'NumpadEnter':

@@ -928,6 +928,7 @@
       "setElement.show": "显示",
       "setElement.disable-pointer-events": "禁用指针事件",
       "setElement.enable-pointer-events": "启用指针事件",
+      "setElement.skip-pointer-events": "跳过指针事件",
       "setElement.move-to-first": "移动到头部",
       "setElement.move-to-last": "移动到末尾",
       "nestElement": "嵌套元素",
@@ -1940,13 +1941,13 @@
 
     "[comment]": "********** 角色 - 技能 **********",
     "fileActor-skill": {"title": "技能"},
-    "fileActor-skill-skillId": {"label": "技能"},
+    "fileActor-skill-id": {"label": "技能"},
     "fileActor-skill-key": {"label": "快捷键"},
 
     "[comment]": "********** 角色 - 装备 **********",
     "fileActor-equipment": {"title": "装备"},
-    "fileActor-equipment-equipmentId": {"label": "装备"},
-    "fileActor-equipment-key": {"label": "装备槽"},
+    "fileActor-equipment-id": {"label": "装备"},
+    "fileActor-equipment-slot": {"label": "装备槽"},
 
     "[comment]": "********** 变量 **********",
     "variable": {"title": "变量"},
@@ -2976,6 +2977,7 @@
       "show": "显示",
       "disable-pointer-events": "禁用指针事件",
       "enable-pointer-events": "启用指针事件",
+      "skip-pointer-events": "跳过指针事件",
       "move-to-first": "移动到头部",
       "move-to-last": "移动到末尾"
     }},

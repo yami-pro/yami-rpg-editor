@@ -1254,7 +1254,7 @@ class DetailSummary extends HTMLElement {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
-        if (!event.ctrlKey &&
+        if (!event.cmdOrCtrlKey &&
           !event.altKey) {
           this.toggle()
         }
@@ -1506,8 +1506,7 @@ class TextHistory {
 
   // 输入框 - 键盘按下事件
   inputKeydown(event) {
-    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-    if (ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'KeyZ':
           this.history.canUndo() &&
@@ -1737,8 +1736,7 @@ class NumberHistory {
 
   // 输入框 - 键盘按下事件
   inputKeydown(event) {
-    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-    if (ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'KeyZ':
           this.history.canUndo() &&
@@ -2019,7 +2017,7 @@ class TextBox extends HTMLElement {
             return
         }
       } else if (
-        !event.ctrlKey &&
+        !event.cmdOrCtrlKey &&
         !event.shiftKey) {
         switch (event.code) {
           case 'Escape':
@@ -2110,7 +2108,7 @@ class TextArea extends HTMLElement {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
-        if (!event.ctrlKey) {
+        if (!event.cmdOrCtrlKey) {
           event.stopPropagation()
         }
         break
@@ -2378,7 +2376,7 @@ class ColorBox extends HTMLElement {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
-        if (!event.ctrlKey) {
+        if (!event.cmdOrCtrlKey) {
           event.stopPropagation()
           this.mouseclick(event)
         }
@@ -2515,7 +2513,7 @@ class CheckBox extends HTMLElement {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
-        if (!event.ctrlKey &&
+        if (!event.cmdOrCtrlKey &&
           !this.hasClass('disabled')) {
           event.stopPropagation()
           this.mouseclick(event)
@@ -2752,7 +2750,7 @@ class RadioBox extends HTMLElement {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
-        if (!event.ctrlKey &&
+        if (!event.cmdOrCtrlKey &&
           !this.hasClass('disabled')) {
           event.stopPropagation()
           this.mouseclick(event)
@@ -3184,7 +3182,7 @@ class NumberBox extends HTMLElement {
   // 输入框 - 键盘按下事件
   inputKeydown(event) {
     !NumberBox.whiteList.includes(event.code) &&
-    !event.ctrlKey && event.preventDefault()
+    !event.cmdOrCtrlKey && event.preventDefault()
   }
 
   // 输入框 - 内容改变事件
@@ -3494,7 +3492,7 @@ class SelectBox extends HTMLElement {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
-        if (!event.ctrlKey) {
+        if (!event.cmdOrCtrlKey) {
           event.stopPropagation()
           Select.open(this)
         }
@@ -4628,7 +4626,7 @@ class CustomBox extends HTMLElement {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
-        if (!event.ctrlKey) {
+        if (!event.cmdOrCtrlKey) {
           event.stopPropagation()
           this.click(event)
         }
@@ -6880,7 +6878,7 @@ class NodeList extends HTMLElement {
     if (!this.data) {
       return
     }
-    if (event.ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
           this.scrollTop -= 20
@@ -7629,7 +7627,7 @@ class CommonList extends HTMLElement {
 
   // 键盘按下事件
   keydown(event) {
-    if (event.ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
           this.scrollTop -= 20
@@ -8600,8 +8598,7 @@ class ParamList extends HTMLElement {
 
   // 键盘按下事件
   keydown(event) {
-    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-    if (ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'KeyX':
           this.copy()
@@ -8774,7 +8771,7 @@ class ParamList extends HTMLElement {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: 'Ctrl+X',
+            accelerator: ctrl('X'),
             enabled: valid,
             click: () => {
               this.copy()
@@ -8782,14 +8779,14 @@ class ParamList extends HTMLElement {
             },
           }, {
             label: get('copy'),
-            accelerator: 'Ctrl+C',
+            accelerator: ctrl('C'),
             enabled: valid,
             click: () => {
               this.copy()
             },
           }, {
             label: get('paste'),
-            accelerator: 'Ctrl+V',
+            accelerator: ctrl('V'),
             enabled: pastable,
             click: () => {
               this.paste()
@@ -8803,21 +8800,21 @@ class ParamList extends HTMLElement {
             },
           }, {
             label: get('selectAll'),
-            accelerator: 'Ctrl+A',
+            accelerator: ctrl('A'),
             enabled: allSelectable,
             click: () => {
               this.select(0, Infinity)
             },
           }, {
             label: get('undo'),
-            accelerator: 'Ctrl+Z',
+            accelerator: ctrl('Z'),
             enabled: undoable,
             click: () => {
               this.undo()
             },
           }, {
             label: get('redo'),
-            accelerator: 'Ctrl+Y',
+            accelerator: ctrl('Y'),
             enabled: redoable,
             click: () => {
               this.redo()
@@ -10235,8 +10232,7 @@ class CommandList extends HTMLElement {
 
   // 键盘按下事件
   keydown(event) {
-    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-    if (ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'KeyX':
           this.copy()
@@ -10490,7 +10486,7 @@ class CommandList extends HTMLElement {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: 'Ctrl+X',
+            accelerator: ctrl('X'),
             enabled: valid,
             click: () => {
               this.copy()
@@ -10498,14 +10494,14 @@ class CommandList extends HTMLElement {
             },
           }, {
             label: get('copy'),
-            accelerator: 'Ctrl+C',
+            accelerator: ctrl('C'),
             enabled: valid,
             click: () => {
               this.copy()
             },
           }, {
             label: get('paste'),
-            accelerator: 'Ctrl+V',
+            accelerator: ctrl('V'),
             enabled: pastable,
             click: () => {
               this.paste()
@@ -10519,21 +10515,21 @@ class CommandList extends HTMLElement {
             },
           }, {
             label: get('selectAll'),
-            accelerator: 'Ctrl+A',
+            accelerator: ctrl('A'),
             enabled: allSelectable,
             click: () => {
               this.select(0, Infinity)
             },
           }, {
             label: get('undo'),
-            accelerator: 'Ctrl+Z',
+            accelerator: ctrl('Z'),
             enabled: undoable,
             click: () => {
               this.undo()
             },
           }, {
             label: get('redo'),
-            accelerator: 'Ctrl+Y',
+            accelerator: ctrl('Y'),
             enabled: redoable,
             click: () => {
               this.redo()
@@ -11848,7 +11844,7 @@ class FileBrowser extends HTMLElement {
       if (!dragging.dropPath) {
         return
       }
-      if (event.ctrlKey) {
+      if (event.cmdOrCtrlKey) {
         if (dragging.allowCopy) {
           dragging.dropMode = 'copy'
           event.dataTransfer.dropEffect = 'copy'
@@ -12408,7 +12404,7 @@ class FileNavPane extends HTMLElement {
 
   // 键盘按下事件
   keydown(event) {
-    if (event.ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
           this.scrollTop -= 20
@@ -12494,7 +12490,7 @@ class FileNavPane extends HTMLElement {
           if (element.tagName === 'FILE-NAV-ITEM') {
             const selections = this.selections
             const length = selections.length
-            if (event.ctrlKey && length !== 0) {
+            if (event.cmdOrCtrlKey && length !== 0) {
               const files = Array.from(selections)
               if (!selections.includes(element.file)) {
                 files.append(element.file)
@@ -14005,7 +14001,7 @@ class FileBodyPane extends HTMLElement {
 
   // 键盘按下事件
   keydown(event) {
-    if (event.ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
           this.scrollTop -= 20
@@ -14129,7 +14125,7 @@ class FileBodyPane extends HTMLElement {
           if (element.tagName === 'FILE-BODY-ITEM') {
             const selections = this.selections
             const length = selections.length
-            if (event.ctrlKey && length !== 0) {
+            if (event.cmdOrCtrlKey && length !== 0) {
               const elements = this.elements
               const files = Array.from(selections)
               for (let i = length - 1; i >= 0; i--) {
@@ -14253,7 +14249,7 @@ class FileBodyPane extends HTMLElement {
   wheel(event) {
     const {deltaY} = event
     if (deltaY !== 0) {
-      if (event.ctrlKey) {
+      if (event.cmdOrCtrlKey) {
         event.preventDefault()
         const index = this.viewIndex
         const delta = Math.sign(-deltaY)

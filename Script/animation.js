@@ -4108,9 +4108,7 @@ Animation.keydown = function (event) {
       }
     }
     if (!Animation.motion) return
-
-    const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-    if (ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       return
     } else if (event.altKey) {
       return
@@ -4191,7 +4189,7 @@ Animation.screenKeydown = function (event) {
   if (this.state === 'open' &&
     this.motion !== null &&
     this.dragging === null) {
-    if (event.ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowLeft':
         case 'ArrowUp':
@@ -4705,8 +4703,7 @@ Animation.listKeydown = function (event) {
   }
 
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyX':
         if (item) {
@@ -4821,7 +4818,7 @@ Animation.listPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: 'Ctrl+X',
+    accelerator: ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -4829,14 +4826,14 @@ Animation.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -4921,8 +4918,7 @@ Animation.layerListKeydown = function (event) {
   }
 
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyX':
         if (item) {
@@ -5064,7 +5060,7 @@ Animation.layerListPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: 'Ctrl+X',
+    accelerator: ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -5072,14 +5068,14 @@ Animation.layerListPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -5109,9 +5105,7 @@ Animation.layerListChange = function (event) {
 // 时间轴列表 - 键盘按下事件
 Animation.outerTimelineListKeydown = function (event) {
   if (this.dragging !== null) return
-
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyA':
         Animation.selectAllFrames()
@@ -5383,7 +5377,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('cut'),
-              accelerator: 'Ctrl+X',
+              accelerator: ctrl('X'),
               enabled: selected,
               click: () => {
                 Animation.copyFrame()
@@ -5391,7 +5385,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('copy'),
-              accelerator: 'Ctrl+C',
+              accelerator: ctrl('C'),
               enabled: selected,
               click: () => {
                 Animation.copyFrame()
@@ -5399,7 +5393,7 @@ Animation.outerTimelineListPointerup = function (event) {
             }, {
               label: get('paste'),
               enabled: pastable,
-              accelerator: 'Ctrl+V',
+              accelerator: ctrl('V'),
               click: () => {
                 Animation.pasteFrame()
               },
@@ -5419,7 +5413,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('selectAll'),
-              accelerator: 'Ctrl+A',
+              accelerator: ctrl('A'),
               enabled: marquee.layer.frames.length !== 0,
               click: () => {
                 Animation.selectAllFrames()

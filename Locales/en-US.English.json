@@ -928,6 +928,7 @@
       "setElement.show": "Show",
       "setElement.disable-pointer-events": "Disable Pointer Events",
       "setElement.enable-pointer-events": "Enable Pointer Events",
+      "setElement.skip-pointer-events": "Skip Pointer Events",
       "setElement.move-to-first": "Move to First",
       "setElement.move-to-last": "Move to Last",
       "nestElement": "Nest Element",
@@ -1940,13 +1941,13 @@
 
     "[comment]": "********** Skill **********",
     "fileActor-skill": {"title": "Skill"},
-    "fileActor-skill-skillId": {"label": "Skill"},
+    "fileActor-skill-id": {"label": "Skill"},
     "fileActor-skill-key": {"label": "Shortcut Key"},
 
     "[comment]": "********** Equipment **********",
     "fileActor-equipment": {"title": "Equipment"},
-    "fileActor-equipment-equipmentId": {"label": "Equipment"},
-    "fileActor-equipment-key": {"label": "Equipment Slot"},
+    "fileActor-equipment-id": {"label": "Equipment"},
+    "fileActor-equipment-slot": {"label": "Equipment Slot"},
 
     "[comment]": "********** Variable **********",
     "variable": {"title": "Variable"},
@@ -2976,6 +2977,7 @@
       "show": "Show",
       "disable-pointer-events": "Disable Pointer Events",
       "enable-pointer-events": "Enable Pointer Events",
+      "skip-pointer-events": "Skip Pointer Events",
       "move-to-first": "Move to First",
       "move-to-last": "Move to Last"
     }},

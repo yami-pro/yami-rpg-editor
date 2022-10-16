@@ -1167,7 +1167,7 @@ Particle.datachange = function (event) {
 Particle.keydown = function (event) {
   if (Particle.state === 'open' &&
     Particle.dragging === null) {
-    if (event.ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       return
     } else if (event.altKey) {
       return
@@ -1281,7 +1281,7 @@ Particle.zoomInput = function (event) {
 Particle.screenKeydown = function (event) {
   if (this.state === 'open' &&
     this.dragging === null) {
-    if (event.ctrlKey) {
+    if (event.cmdOrCtrlKey) {
       return
     }
     if (event.altKey) {
@@ -1465,8 +1465,7 @@ Particle.listKeydown = function (event) {
     return
   }
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyX':
         this.copy(item)
@@ -1598,7 +1597,7 @@ Particle.listPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: 'Ctrl+X',
+    accelerator: ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -1606,14 +1605,14 @@ Particle.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)

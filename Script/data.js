@@ -1720,8 +1720,7 @@ Easing.dataChange = function (event) {
 // 列表 - 键盘按下事件
 Easing.listKeydown = function (event) {
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyC':
         Easing.copy(item)
@@ -1767,14 +1766,14 @@ Easing.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       Easing.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       Easing.paste(item)
@@ -2428,8 +2427,7 @@ Team.windowClosed = function (event) {
 // 列表 - 键盘按下事件
 Team.listKeydown = function (event) {
   const item = this.read()
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyC':
         this.copy(item)
@@ -2527,14 +2525,14 @@ Team.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: 'Ctrl+C',
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: 'Ctrl+V',
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)

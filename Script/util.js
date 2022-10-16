@@ -218,7 +218,7 @@ let last = null
 
 // 重写鼠标双击事件触发方式
 const pointerdown = function (event) {
-  if (!event.ctrlKey &&
+  if (!event.cmdOrCtrlKey &&
     !event.altKey &&
     !event.shiftKey &&
     !event.doubleclickProcessed) {
@@ -306,6 +306,26 @@ EventTarget.prototype.off = function (type, listener, options) {
 //   }
 // }
 // }
+
+// ******************************** 事件访问器 ********************************
+
+Object.defineProperties(Event.prototype, {
+  dragKey: {
+    get: function () {
+      return this.spaceKey || this.altKey
+    }
+  },
+  cmdOrCtrlKey: {
+    get: process.platform === 'darwin'
+    ? function () {return this.metaKey}
+    : function () {return this.ctrlKey}
+  },
+})
+
+// 获取Ctrl组合键名称
+const ctrl = process.platform === 'darwin'
+? function (keyName) {return '⌘+' + keyName}
+: function (keyName) {return 'Ctrl+' + keyName}
 
 // ******************************** 鼠标事件方法 ********************************
 
@@ -909,10 +929,8 @@ Clipboard.write = function (format, object) {
 
 // ******************************** 禁用撤销和重做 ********************************
 
-// for windows
 window.on('keydown', function (event) {
-  const ctrlKey = process.platform === 'darwin' ? event.metaKey : event.ctrlKey
-  if (ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyZ':
       case 'KeyY':
@@ -923,12 +941,27 @@ window.on('keydown', function (event) {
         // 全选将选中该元素和文本框在内的所有文本块
         if (document.activeElement instanceof HTMLInputElement ||
           document.activeElement instanceof HTMLTextAreaElement) {
-          return
+          break
         } else {
           event.preventDefault()
         }
         break
     }
+  }
+  // 监听空格键的按下状态
+  switch (event.code) {
+    case 'Space':
+      Event.prototype.spaceKey = true
+      break
+  }
+}, {capture: true})
+
+window.on('keyup', function (event) {
+  // 监听空格键的弹起状态
+  switch (event.code) {
+    case 'Space':
+      Event.prototype.spaceKey = false
+      break
   }
 }, {capture: true})
 

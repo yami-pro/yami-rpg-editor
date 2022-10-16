@@ -243,7 +243,7 @@ Window.keydown = function (event) {
       case 'NumpadEnter': {
         const active = document.activeElement
         if (active instanceof HTMLButtonElement &&
-          !event.ctrlKey) {
+          !event.cmdOrCtrlKey) {
           return
         }
         const frames = Window.frames
@@ -260,7 +260,7 @@ Window.keydown = function (event) {
         break
       }
       case 'KeyS': {
-        if (!event.ctrlKey) return
+        if (!event.cmdOrCtrlKey) return
         const frames = Window.frames
         const frame = frames[frames.length - 1]
         const selector = `#${frame.id} > content-frame > button[name=apply]`
@@ -817,7 +817,7 @@ ImageClip.screenKeydown = function (event) {
   if (this.dragging) {
     return
   }
-  if (event.ctrlKey) {
+  if (event.cmdOrCtrlKey) {
     return
   } else if (event.altKey) {
     return
@@ -1723,7 +1723,7 @@ Selection.inputPointerup = function (event) {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: 'Ctrl+X',
+            accelerator: ctrl('X'),
             enabled: selected,
             click: () => {
               element.dispatchEvent(
@@ -1735,14 +1735,14 @@ Selection.inputPointerup = function (event) {
             },
           }, {
             label: get('copy'),
-            accelerator: 'Ctrl+C',
+            accelerator: ctrl('C'),
             enabled: selected,
             click: () => {
               document.execCommand('copy')
             }
           }, {
             label: get('paste'),
-            accelerator: 'Ctrl+V',
+            accelerator: ctrl('V'),
             enabled: pastable,
             click: () => {
               element.dispatchEvent(
@@ -1767,14 +1767,14 @@ Selection.inputPointerup = function (event) {
             }
           }, {
             label: get('undo'),
-            accelerator: 'Ctrl+Z',
+            accelerator: ctrl('Z'),
             enabled: undoable,
             click: () => {
               element.history.restore('undo')
             }
           }, {
             label: get('redo'),
-            accelerator: 'Ctrl+Y',
+            accelerator: ctrl('Y'),
             enabled: redoable,
             click: () => {
               element.history.restore('redo')
