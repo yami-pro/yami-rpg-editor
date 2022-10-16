@@ -23,6 +23,7 @@ const Scene = {
   history: null,
   textures: null,
   shiftKey: false,
+  SpaceKey: false,
   translationKey: 0b0000,
   translationTimer: null,
   showGrid: false,
@@ -5784,6 +5785,9 @@ Scene.keydown = function (event) {
       }
     } else {
       switch (event.code) {
+        case 'Space':
+          Scene.SpaceKey = true
+          break
         case 'Escape':
           Scene.closeTilemap()
           break
@@ -5949,6 +5953,8 @@ Scene.screenKeydown = function (event) {
       return
     } else {
       switch (event.code) {
+        case 'Space':
+          window.on('keyup', this.SpaceKeyup)
         case 'ShiftLeft':
           // 切换到初始图块帧
           if (!this.shiftKey) {
@@ -6111,6 +6117,17 @@ Scene.shiftKeyup = function (event) {
   }
 }.bind(Scene)
 
+// Space键弹起事件
+Scene.SpaceKeyup = function (event) {
+  if (!this.SpaceKey || event === undefined) {
+    return
+  }
+  if (event.code === 'Space') {
+    Scene.SpaceKey = false
+    window.off('keyup', this.SpaceKeyup)
+  }
+}.bind(Scene)
+
 // 位移键弹起事件
 Scene.translationKeyup = function (event) {
   if (this.translationKey === 0b0000) {
@@ -6180,7 +6197,7 @@ Scene.marqueePointerdown = function (event) {
   }
   switch (event.button) {
     case 0: {
-      if (event.altKey) {
+      if (event.altKey || Scene.SpaceKey) {
         this.dragging = event
         event.mode = 'scroll'
         event.scrollLeft = this.screen.scrollLeft
