@@ -274,21 +274,25 @@ Title.updateAppRegion = function () {
   setTimeout(() => target.element.hide())
 }
 
-// 切换主题
-Title.switchTheme = function (scheme) {
-  switch (scheme) {
-    case 'light':
-      if (document.documentElement.removeClass('dark')) {
-        this.dispatchThemechangeEvent('light')
-      }
-      break
-    case 'dark':
-      if (document.documentElement.addClass('dark')) {
-        this.dispatchThemechangeEvent('dark')
-      }
-      break
-  }
-}
+/** 切换主题
+ * @param {string} [scheme=dark] 主题名称 目前该函数的处理逻辑是默认系统主题为暗黑模式
+ */
+Title.switchTheme = function(scheme = "dark") {
+  const newTokenClass = scheme;
+
+  const targetDom = document.documentElement;
+
+  const {
+    classList,
+    classList: { 0: oldTokenClass }
+  } = targetDom;
+
+  !!oldTokenClass
+    ? classList.replace(oldTokenClass, newTokenClass)
+    : classList.add(newTokenClass);
+
+  this.dispatchThemechangeEvent(newTokenClass);
+};
 
 // 发送主题改变事件
 Title.dispatchThemechangeEvent = function IIFE() {
