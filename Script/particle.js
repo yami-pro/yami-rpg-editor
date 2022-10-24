@@ -96,6 +96,7 @@ const Particle = {
   saveToProject: null,
   loadFromProject: null,
   // events
+  webglRestored: null,
   windowResize: null,
   themechange: null,
   datachange: null,
@@ -230,6 +231,7 @@ Particle.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
+  GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#particle-head-start').on('pointerdown', this.viewPointerdown)
   $('#particle-control').on('pointerdown', this.controlPointerdown)
   $('#particle-speed').on('input', this.speedInput)
@@ -1140,6 +1142,13 @@ Particle.loadFromProject = function (project) {
   this.setZoom(particle.zoom)
 }
 
+// WebGL - 上下文恢复事件
+Particle.webglRestored = function (event) {
+  if (Particle.state === 'open') {
+    Particle.requestRendering()
+  }
+}
+
 // 窗口 - 调整大小事件
 Particle.windowResize = function (event) {
   this.updateHead()
@@ -2039,7 +2048,7 @@ Particle.Layer = class ParticleLayer {
       gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
       switch (data.color.mode) {
         default:
-          gl.uniform1ui(program.u_Mode, 0)
+          gl.uniform1i(program.u_Mode, 0)
           break
         case 'texture': {
           const tint = data.color.tint
@@ -2047,13 +2056,13 @@ Particle.Layer = class ParticleLayer {
           const green = tint[1] / 255
           const blue = tint[2] / 255
           const gray = tint[3] / 255
-          gl.uniform1ui(program.u_Mode, 1)
+          gl.uniform1i(program.u_Mode, 1)
           gl.uniform4f(program.u_Tint, red, green, blue, gray)
           break
         }
       }
       gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, vi)
-      gl.bindTexture(gl.TEXTURE_2D, texture.base)
+      gl.bindTexture(gl.TEXTURE_2D, texture.base.glTexture)
       gl.drawElements(gl.TRIANGLES, vi / 20 * 6, gl.UNSIGNED_INT, 0)
       // 重置混合模式
       gl.blend = 'normal'
@@ -2092,9 +2101,7 @@ Particle.Layer = class ParticleLayer {
       this.unitHeight = 0
     }
     if (guid) {
-      const texture = new ImageTexture(guid, {
-        wrap: GL.CLAMP_TO_EDGE,
-      })
+      const texture = new ImageTexture(guid)
       if (texture.complete) {
         this.texture = texture
         this.calculateElementSize()

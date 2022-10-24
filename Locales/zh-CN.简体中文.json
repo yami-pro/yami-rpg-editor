@@ -3,7 +3,8 @@
   "properties": {
     "common": {
       "none": "None",
-      "empty": "Empty"
+      "empty": "Empty",
+      "directory": "目录"
     },
     "stats": {
       "data": "数据",
@@ -607,6 +608,9 @@
       "message": "消息",
       "showText": "显示文本",
       "showText.alias": "文本",
+      "showChoices": "显示选项",
+      "showChoices.when": "选择",
+      "showChoices.end": "结束",
       "comment": "注释",
 
       "variable": "变量控制",
@@ -734,6 +738,13 @@
       "setString.other.trigger-key": "事件触发键盘按键",
       "setString.other.parse-timestamp": "解析时间戳",
       "setString.other.screenshot": "屏幕截图.Base64",
+      "setString.other.showText-parameters": "显示文本.参数",
+      "setString.other.showText-content": "显示文本.内容",
+      "setString.other.showChoices-parameters": "显示选项.参数",
+      "setString.other.showChoices-content-0": "显示选项.内容1",
+      "setString.other.showChoices-content-1": "显示选项.内容2",
+      "setString.other.showChoices-content-2": "显示选项.内容3",
+      "setString.other.showChoices-content-3": "显示选项.内容4",
       "setObject": "设置对象",
       "setObject.alias": "对象",
       "setList": "设置列表",
@@ -825,6 +836,7 @@
       "setEvent.enable": "启用",
       "setEvent.disable": "禁用",
       "setEvent.highest-priority": "设为最高优先级",
+      "setEvent.goto-choice-branch": "跳转到选项分支",
       "label": "标签",
       "jumpTo": "跳转到",
       "jumpTo.alias": "跳转到",
@@ -1161,7 +1173,6 @@
     "[view]": {"tip": "视图模式\n0: 16x16\n1: 32x32\n2: 64x64\n3: 128x128\n4: 256x256"},
 
     "[comment]": "********** 标题栏 **********",
-    "title-directory": {"tip": "资产目录 (Alt + `)"},
     "title-play": {"tip": "运行游戏 (F4)"},
 
     "[comment]": "********** 主页 **********",
@@ -1855,12 +1866,10 @@
     "config-font-default": {"label": "默认使用字体"},
     "config-font-pixelated": {"label": "像素化渲染", "options": {"true": "启用", "false": "禁用"}},
     "config-font-threshold": {"label": "像素化阈值", "tip": "丢弃文字边缘不透明度小于阈值(1-255)的像素\n剩下的所有像素变得完全不透明"},
-    "config-startup-summary": {"content": "启动事件"},
-    "config-startup-eventId": {"label": "调用事件"},
-    "config-showText-summary": {"content": "显示文本事件"},
-    "config-showText-eventId": {"label": "调用事件"},
-    "config-showText-parameterKey": {"label": "设置参数到事件变量"},
-    "config-showText-contentKey": {"label": "设置内容到事件变量"},
+    "config-event-summary": {"content": "特殊事件"},
+    "config-event-startup": {"label": "游戏启动事件"},
+    "config-event-showText": {"label": "显示文本事件"},
+    "config-event-showChoices": {"label": "显示选项事件"},
     "config-actor-summary": {"content": "角色"},
     "config-actor-playerTeam": {"label": "玩家队伍"},
     "config-actor-playerActor": {"label": "玩家角色"},
@@ -2235,6 +2244,14 @@
     "showText": {"title": "显示文本"},
     "showText-parameters": {"tip": "参数格式\nname1: value1, name2: value2, ...", "placeholder": "参数"},
 
+    "[comment]": "********** 指令 - 显示选项 **********",
+    "showChoices": {"title": "显示选项"},
+    "showChoices-choices-0": {"label": "选项 1"},
+    "showChoices-choices-1": {"label": "选项 2"},
+    "showChoices-choices-2": {"label": "选项 3"},
+    "showChoices-choices-3": {"label": "选项 4"},
+    "showChoices-parameters": {"label": "参数", "tip": "参数格式\nname1: value1, name2: value2, ..."},
+
     "[comment]": "********** 指令 - 注释 **********",
     "comment": {"title": "注释"},
 
@@ -2482,7 +2499,9 @@
     "setString-operand-other-data": {"label": "数据", "options": {
       "trigger-key": "事件触发键盘按键",
       "parse-timestamp": "解析时间戳",
-      "screenshot": "屏幕截图(Base64)"
+      "screenshot": "屏幕截图(Base64)",
+      "showText-parameters": "显示文本指令参数",
+      "showText-content": "显示文本指令内容"
     }},
     "setString-operand-parse-timestamp-variable": {"label": "变量"},
     "setString-operand-parse-timestamp-format": {"label": "日期格式"},
@@ -2752,10 +2771,17 @@
       "continue": "继续并重置变量",
       "enable": "启用全局事件",
       "disable": "禁用全局事件",
-      "highest-priority": "设为最高优先级"
+      "highest-priority": "设为最高优先级",
+      "goto-choice-branch": "跳转到选项分支"
     }},
     "setEvent-variable": {"label": "变量"},
     "setEvent-eventId": {"label": "事件"},
+    "setEvent-choiceIndex": {"label": "选项", "options": {
+      "0": "选项 1",
+      "1": "选项 2",
+      "2": "选项 3",
+      "3": "选项 4"
+    }},
 
     "[comment]": "********** 指令 - 标签 **********",
     "label": {"title": "标签"},

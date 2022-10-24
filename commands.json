@@ -9,6 +9,10 @@
         "value": "showText"
       },
       {
+        "class": "message",
+        "value": "showChoices"
+      },
+      {
         "class": "message-comment",
         "value": "comment"
       }

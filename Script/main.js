@@ -71,6 +71,7 @@ Editor.initialize = async function () {
     Selection.initialize()
     Zoom.initialize()
     Rename.initialize()
+    SetKey.initialize()
     SetQuantity.initialize()
     PresetObject.initialize()
     PresetElement.initialize()

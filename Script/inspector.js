@@ -6471,17 +6471,17 @@ AnimBoneFrame.initialize = function () {
 
 // 创建关键帧
 AnimBoneFrame.create = function () {
-  return [
-    0, // 0:帧起始位置
-    1, // 1:帧结束位置
-    '', // 2:过渡方式
-    0, // 3:位移X
-    0, // 4:位移Y
-    0, // 5:旋转角度
-    1, // 6:缩放X
-    1, // 7:缩放Y
-    1, // 8:不透明度
-  ]
+  return {
+    start: 0,     // 帧起始位置
+    end: 1,       // 帧结束位置
+    easingId: '', // 过渡方式
+    x: 0,         // 位移X
+    y: 0,         // 位移Y
+    rotation: 0,  // 旋转角度
+    scaleX: 1,    // 缩放X
+    scaleY: 1,    // 缩放Y
+    opacity: 1,   // 不透明度
+  }
 }
 
 // 打开数据
@@ -6493,12 +6493,12 @@ AnimBoneFrame.open = function (frame) {
 
     // 写入数据
     const write = getElementWriter('animBoneFrame')
-    write('x', frame[3])
-    write('y', frame[4])
-    write('rotation', frame[5])
-    write('scaleX', frame[6])
-    write('scaleY', frame[7])
-    write('opacity', frame[8])
+    write('x')
+    write('y')
+    write('rotation')
+    write('scaleX')
+    write('scaleY')
+    write('opacity')
   }
 }
 
@@ -6532,35 +6532,23 @@ AnimBoneFrame.write = function (options) {
 }
 
 // 更新数据
-AnimBoneFrame.update = function IIFE() {
-  const keyMap = {
-    'x': 3,
-    'y': 4,
-    'rotation': 5,
-    'scaleX': 6,
-    'scaleY': 7,
-    'opacity': 8,
-  }
-  return function (frame, key, value) {
-    Animation.planToSave()
-    switch (key) {
-      case 'x':
-      case 'y':
-      case 'rotation':
-      case 'scaleX':
-      case 'scaleY':
-      case 'opacity': {
-        const index = keyMap[key]
-        if (frame[index] !== value) {
-          frame[index] = value
-          Animation.updateFrameContexts()
-        }
-        break
+AnimBoneFrame.update = function (frame, key, value) {
+  Animation.planToSave()
+  switch (key) {
+    case 'x':
+    case 'y':
+    case 'rotation':
+    case 'scaleX':
+    case 'scaleY':
+    case 'opacity':
+      if (frame[key] !== value) {
+        frame[key] = value
+        Animation.updateFrameContexts()
       }
-    }
-    Animation.requestRendering()
+      break
   }
-}()
+  Animation.requestRendering()
+}
 
 // 参数 - 输入事件
 AnimBoneFrame.paramInput = function (event) {
@@ -6620,7 +6608,7 @@ AnimImageLayer.initialize = function () {
 // 创建图像层
 AnimImageLayer.create = function () {
   return {
-    class: 'image',
+    class: 'sprite',
     name: 'Image',
     hidden: false,
     locked: false,
@@ -6733,23 +6721,20 @@ AnimImageFrame.initialize = function () {
 
 // 创建关键帧
 AnimImageFrame.create = function () {
-  return [
-    0, // 0:帧起始位置
-    1, // 1:帧结束位置
-    '', // 2:过渡方式
-    0, // 3:位移X
-    0, // 4:位移Y
-    0, // 5:旋转角度
-    1, // 6:缩放X
-    1, // 7:缩放Y
-    1, // 8:不透明度
-    0, // 9:图像索引X
-    0, // 10:图像索引Y
-    0, // 11:色调-红
-    0, // 12:色调-绿
-    0, // 13:色调-蓝
-    0, // 14:色调-灰
-  ]
+  return {
+    start: 0,           // 0:帧起始位置
+    end: 1,             // 1:帧结束位置
+    easingId: '',       // 2:过渡方式
+    x: 0,               // 3:位移X
+    y: 0,               // 4:位移Y
+    rotation: 0,        // 5:旋转角度
+    scaleX: 1,          // 6:缩放X
+    scaleY: 1,          // 7:缩放Y
+    opacity: 1,         // 8:不透明度
+    spriteX: 0,         // 9:精灵索引X
+    spriteY: 0,         // 10:精灵索引Y
+    tint: [0, 0, 0, 0], // 11:精灵图像色调
+  }
 }
 
 // 打开数据
@@ -6761,17 +6746,17 @@ AnimImageFrame.open = function (frame) {
     Curve.load(frame)
 
     // 写入数据
-    const write = getElementWriter('animImageFrame')
-    write('x', frame[3])
-    write('y', frame[4])
-    write('rotation', frame[5])
-    write('scaleX', frame[6])
-    write('scaleY', frame[7])
-    write('opacity', frame[8])
-    write('tint-0', frame[11])
-    write('tint-1', frame[12])
-    write('tint-2', frame[13])
-    write('tint-3', frame[14])
+    const write = getElementWriter('animImageFrame', frame)
+    write('x')
+    write('y')
+    write('rotation')
+    write('scaleX')
+    write('scaleY')
+    write('opacity')
+    write('tint-0')
+    write('tint-1')
+    write('tint-2')
+    write('tint-3')
   }
 }
 
@@ -6806,43 +6791,34 @@ AnimImageFrame.write = function (options) {
 }
 
 // 更新数据
-AnimImageFrame.update = function IIFE() {
-  const keyMap = {
-    'x': 3,
-    'y': 4,
-    'rotation': 5,
-    'scaleX': 6,
-    'scaleY': 7,
-    'opacity': 8,
-    'tint-0': 11,
-    'tint-1': 12,
-    'tint-2': 13,
-    'tint-3': 14,
-  }
-  return function (frame, key, value) {
-    Animation.planToSave()
-    switch (key) {
-      case 'x':
-      case 'y':
-      case 'rotation':
-      case 'scaleX':
-      case 'scaleY':
-      case 'opacity':
-      case 'tint-0':
-      case 'tint-1':
-      case 'tint-2':
-      case 'tint-3': {
-        const index = keyMap[key]
-        if (frame[index] !== value) {
-          frame[index] = value
-          Animation.updateFrameContexts()
-        }
-        break
+AnimImageFrame.update = function (frame, key, value) {
+  Animation.planToSave()
+  switch (key) {
+    case 'x':
+    case 'y':
+    case 'rotation':
+    case 'scaleX':
+    case 'scaleY':
+    case 'opacity':
+      if (frame[key] !== value) {
+        frame[key] = value
+        Animation.updateFrameContexts()
       }
+      break
+    case 'tint-0':
+    case 'tint-1':
+    case 'tint-2':
+    case 'tint-3': {
+      const index = key.slice(-1)
+      if (frame.tint[index] !== value) {
+        frame.tint[index] = value
+        Animation.updateFrameContexts()
+      }
+      break
     }
-    Animation.requestRendering()
   }
-}()
+  Animation.requestRendering()
+}
 
 // 参数 - 输入事件
 AnimImageFrame.paramInput = function (event) {
@@ -6991,19 +6967,19 @@ AnimParticleFrame.initialize = function () {
 
 // 创建关键帧
 AnimParticleFrame.create = function () {
-  return [
-    0, // 0:帧起始位置
-    1, // 1:帧结束位置
-    '', // 2:过渡方式
-    0, // 3:位移X
-    0, // 4:位移Y
-    0, // 5:旋转角度
-    1, // 6:缩放X
-    1, // 7:缩放Y
-    1, // 8:不透明度
-    1, // 9:粒子大小
-    1, // 10:播放速度
-  ]
+  return {
+    start: 0,     // 0 帧起始位置
+    end: 1,       // 1 帧结束位置
+    easingId: '', // 2 过渡方式
+    x: 0,         // 3 位移X
+    y: 0,         // 4 位移Y
+    rotation: 0,  // 5 旋转角度
+    scaleX: 1,    // 6 缩放X
+    scaleY: 1,    // 7 缩放Y
+    opacity: 1,   // 8 不透明度
+    scale: 1,     // 9 粒子比例
+    speed: 1,     // 10 播放速度
+  }
 }
 
 // 打开数据
@@ -7014,15 +6990,15 @@ AnimParticleFrame.open = function (frame) {
     Curve.load(frame)
 
     // 写入数据
-    const write = getElementWriter('animParticleFrame')
-    write('x', frame[3])
-    write('y', frame[4])
-    write('rotation', frame[5])
-    write('scaleX', frame[6])
-    write('scaleY', frame[7])
-    write('opacity', frame[8])
-    write('scale', frame[9])
-    write('speed', frame[10])
+    const write = getElementWriter('animParticleFrame', frame)
+    write('x')
+    write('y')
+    write('rotation')
+    write('scaleX')
+    write('scaleY')
+    write('opacity')
+    write('scale')
+    write('speed')
   }
 }
 
@@ -7056,45 +7032,29 @@ AnimParticleFrame.write = function (options) {
 }
 
 // 更新数据
-AnimParticleFrame.update = function IIFE() {
-  const keyMap = {
-    'x': 3,
-    'y': 4,
-    'rotation': 5,
-    'scaleX': 6,
-    'scaleY': 7,
-    'opacity': 8,
-    'scale': 9,
-    'speed': 10,
-  }
-  return function (frame, key, value) {
-    Animation.planToSave()
-    switch (key) {
-      case 'x':
-      case 'y':
-      case 'rotation':
-      case 'scaleX':
-      case 'scaleY':
-      case 'opacity': {
-        const index = keyMap[key]
-        if (frame[index] !== value) {
-          frame[index] = value
-          Animation.updateFrameContexts()
-        }
-        break
+AnimParticleFrame.update = function (frame, key, value) {
+  Animation.planToSave()
+  switch (key) {
+    case 'x':
+    case 'y':
+    case 'rotation':
+    case 'scaleX':
+    case 'scaleY':
+    case 'opacity':
+      if (frame[key] !== value) {
+        frame[key] = value
+        Animation.updateFrameContexts()
       }
-      case 'scale':
-      case 'speed': {
-        const index = keyMap[key]
-        if (frame[index] !== value) {
-          frame[index] = value
-        }
-        break
+      break
+    case 'scale':
+    case 'speed':
+      if (frame[key] !== value) {
+        frame[key] = value
       }
-    }
-    Animation.requestRendering()
+      break
   }
-}()
+  Animation.requestRendering()
+}
 
 // 参数 - 输入事件
 AnimParticleFrame.paramInput = function (event) {

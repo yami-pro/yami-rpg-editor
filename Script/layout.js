@@ -687,9 +687,6 @@ Layout.pageSwitch = function (event) {
   // 关闭上一次的编辑器(优先执行)
   // 保存导航栏状态时可避免resize
   switch (event.last) {
-    case 'directory':
-      $('#title-directory').removeClass('selected')
-      break
     case 'scene':
       Scene.save()
       Scene.close()
@@ -758,8 +755,7 @@ Layout.pageSwitch = function (event) {
       break
     case 'directory':
       Title.tabBar.addClass('visible')
-      Title.tabBar.unselect()
-      $('#title-directory').addClass('selected')
+      Title.tabBar.select(Title.tabBar.dirItem)
       Layout.loadLayoutScheme('directory')
       break
     case 'scene':

@@ -2631,6 +2631,10 @@ file-nav-pane {
   border-right: var(--nav-bar-border);
 }
 
+file-browser.hide-nav-pane > file-nav-pane {
+  display: none;
+}
+
 file-nav-item {
   display: block;
   height: 20px;
@@ -2799,6 +2803,26 @@ file-head-address-arrow::before {
   /* background-color: blue; */
 }
 
+.upper-level-directory {
+  flex: 0 0 auto;
+  margin: 2px 0 2px 2px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  font-family: var(--font-family-symbol);
+}
+
+.upper-level-directory:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+.upper-level-directory:active {
+  color: white;
+  background-color: var(--selected-background);
+}
+
 .file-head-searcher {
   flex: 0 1 auto;
   margin: 2px;
@@ -2818,6 +2842,10 @@ file-body-pane {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+file-browser.hide-nav-pane > file-body-pane {
+  left: 0;
 }
 
 file-body-pane.horizontal {
@@ -3231,15 +3259,6 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
   justify-content: flex-end;
 }
 
-#title-directory {
-  width: 44px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  /* font-size: 14px; */
-  font-family: var(--font-family-symbol);
-}
-
 #title-play {
   width: 44px;
   height: 24px;
@@ -3249,22 +3268,18 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
   font-family: var(--font-family-symbol);
 }
 
-#title-directory:hover,
 #title-play:hover {
   background-color: var(--titlebar-button-background-hover);
 }
 
-#title-directory:active,
 #title-play:active {
   background-color: var(--titlebar-button-background-active);
 }
 
-#title-directory.selected,
 #title-play.selected {
   color: var(--toolbar-item-color-highlight);
 }
 
-#title-directory,
 #title-play,
 #title-minimize,
 #title-maximize,
@@ -6558,6 +6573,25 @@ nav-item[value=particle].selected {
 }
 
 /* --------------------------------
+ * 显示选项
+ * --------------------------------
+ */
+ #showChoices {
+  width: 400px;
+  height: 190px;
+}
+
+#showChoices-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#showChoices-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 设置布尔值
  * --------------------------------
  */
@@ -6624,11 +6658,11 @@ nav-item[value=particle].selected {
  */
 #setString {
   width: 324px;
-  height: 200px;
+  height: 214px;
 }
 
-#setString-operands {
-  height: 102px;
+#setString-operand-constant-value {
+  height: 68px;
 }
 
 #setString-confirm {
@@ -6637,29 +6671,6 @@ nav-item[value=particle].selected {
 }
 
 #setString-cancel {
-  right: 10px;
-  bottom: 10px;
-}
-
-/* --------------------------------
- * 设置字符串 - 操作数
- * --------------------------------
- */
-#setString-operand {
-  width: 324px;
-  height: 214px;
-}
-
-#setString-operand-constant-value {
-  height: 92px;
-}
-
-#setString-operand-confirm {
-  right: 108px;
-  bottom: 10px;
-}
-
-#setString-operand-cancel {
   right: 10px;
   bottom: 10px;
 }
@@ -9817,6 +9828,25 @@ error-counter {
 }
 
 #rename-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置键窗口
+ * --------------------------------
+ */
+#setKey {
+  width: 324px;
+  height: 94px;
+}
+
+#setKey-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#setKey-cancel {
   right: 10px;
   bottom: 10px;
 }

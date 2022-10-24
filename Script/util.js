@@ -316,14 +316,14 @@ Object.defineProperties(Event.prototype, {
     }
   },
   cmdOrCtrlKey: {
-    get: process.platform === 'darwin'
+    get: navigator.userAgentData.platform === 'macOS'
     ? function () {return this.metaKey}
     : function () {return this.ctrlKey}
   },
 })
 
 // 获取Ctrl组合键名称
-const ctrl = process.platform === 'darwin'
+const ctrl = navigator.userAgentData.platform === 'macOS'
 ? function (keyName) {return '⌘+' + keyName}
 : function (keyName) {return 'Ctrl+' + keyName}
 

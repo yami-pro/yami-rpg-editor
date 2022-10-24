@@ -229,8 +229,8 @@ Sprite.loadImage = async function () {
 Sprite.updateTargetInfo = function () {
   const {target} = this
   if (target) {
-    const x = target[9]
-    const y = target[10]
+    const x = target.spriteX
+    const y = target.spriteY
     const uw = this.unitWidth
     const uh = this.unitHeight
     this.info.textContent = `${x},${y} [${uw}x${uh}]`
@@ -279,8 +279,8 @@ Sprite.resize = function () {
       this.marquee.select()
     } else {
       const target = this.target
-      const hindex = target[9]
-      const vindex = target[10]
+      const hindex = target.spriteX
+      const vindex = target.spriteY
       this.centerX = hindex + 0.5
       this.centerY = vindex + 0.5
       this.marquee.select(hindex, vindex, 1, 1)
@@ -446,12 +446,12 @@ Sprite.selectSprite = function (hindex, vindex) {
         editor: editor,
         motion: Animation.motion,
         target: target,
-        hindex: target[9],
-        vindex: target[10],
+        hindex: target.spriteX,
+        vindex: target.spriteY,
       })
     }
-    target[9] = hindex
-    target[10] = vindex
+    target.spriteX = hindex
+    target.spriteY = vindex
     this.updateTargetInfo()
     Animation.loadFrames(x)
     Animation.requestRendering()

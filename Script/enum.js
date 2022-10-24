@@ -856,7 +856,7 @@ Enum.list.createString = function () {
   const id = Enum.createId()
   return {
     id: id,
-    value: id,
+    value: '',
     name: 'Item',
     note: '',
   }

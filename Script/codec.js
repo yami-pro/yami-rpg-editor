@@ -80,12 +80,16 @@ Codec.encodeTilemap = function (tilemap) {
       flags[index] = true
     }
     const trimmedMap = {}
+    const reverseMap = {}
     for (const index of indices) {
       if (flags[index]) {
-        trimmedMap[index] = tilesetMap[index]
+        const guid = tilesetMap[index]
+        trimmedMap[index] = guid
+        reverseMap[guid] = parseInt(index)
       }
     }
     tilemap.tilesetMap = trimmedMap
+    tilemap.reverseMap = reverseMap
   }
 }
 

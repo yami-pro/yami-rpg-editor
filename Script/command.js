@@ -504,10 +504,7 @@ Command.parseItem = function (item) {
 
 // 解析区域
 Command.parseRegion = function (regionId) {
-  const label = Local.get('region.common')
-  const prop = Local.get('region.by-id')
-  const name = this.parsePresetObject(regionId)
-  return `${label}(${prop}:${name})`
+  return this.parsePresetObject(regionId)
 }
 
 // 解析位置
@@ -516,7 +513,7 @@ Command.parsePosition = function (position) {
     case 'absolute': {
       const x = this.parseVariableNumber(position.x)
       const y = this.parseVariableNumber(position.y)
-      return `${Local.get('position.absolute')}(${x}, ${y})`
+      return `${Local.get('position.common')}(${x}, ${y})`
     }
     case 'relative': {
       const x = this.parseVariableNumber(position.x)
@@ -524,13 +521,13 @@ Command.parsePosition = function (position) {
       return `${Local.get('position.relative')}(${x}, ${y})`
     }
     case 'actor':
-      return this.parseActor(position.actor)
+      return `${Local.get('position.common')}(${this.parseActor(position.actor)})`
     case 'trigger':
-      return this.parseTrigger(position.trigger)
+      return `${Local.get('position.common')}(${this.parseTrigger(position.trigger)})`
     case 'light':
-      return this.parseLight(position.light)
+      return `${Local.get('position.common')}(${this.parseLight(position.light)})`
     case 'region':
-      return this.parseRegion(position.regionId)
+      return `${Local.get('position.common')}(${this.parseRegion(position.regionId)})`
   }
 }
 
@@ -972,6 +969,99 @@ Command.cases.showText = {
   }(),
 }
 
+// 显示选项
+Command.cases.showChoices = {
+  initialize: function () {
+    $('#showChoices-confirm').on('click', this.save)
+
+    // 清理内存 - 窗口已关闭事件
+    $('#showChoices').on('closed', event => {
+      this.choices = null
+    })
+  },
+  choices: null,
+  parse: function ({choices, parameters}) {
+    const contents = [
+      {color: 'flow'},
+      {text: Local.get('command.showChoices') + ': '},
+      {color: 'text'},
+    ]
+    // 添加选项内容
+    const words = Command.words
+    for (const choice of choices) {
+      words.push(choice.content)
+    }
+    contents.push(
+      {text: words.join()}
+    )
+    // 添加参数内容
+    if (parameters) {
+      contents.push(
+        {color: 'gray'},
+        {text: ` (${parameters})`},
+      )
+    }
+    contents.push({color: 'flow'})
+    // 换行
+    contents.push({break: true})
+    // 添加选项分支内容
+    const when = Local.get('command.showChoices.when')
+    for (const choice of choices) {
+      contents.push(
+        {color: 'flow'},
+        {text: when + ' '},
+        {color: 'text'},
+        {text: choice.content},
+        {children: choice.commands},
+      )
+    }
+    contents.push({text: Local.get('command.showChoices.end')})
+    return contents
+  },
+  createDefaultChoices: function () {
+    return [{
+      content: 'Yes',
+      commands: [],
+    },
+    {
+      content: 'No',
+      commands: [],
+    }]
+  },
+  load: function ({
+    choices     = this.createDefaultChoices(),
+    parameters  = '',
+  }) {
+    const write = getElementWriter('showChoices')
+    write('choices-0', choices[0]?.content ?? '')
+    write('choices-1', choices[1]?.content ?? '')
+    write('choices-2', choices[2]?.content ?? '')
+    write('choices-3', choices[3]?.content ?? '')
+    write('parameters', parameters)
+    Command.cases.showChoices.choices = choices
+    $('#showChoices-choices-0').getFocus()
+  },
+  save: function () {
+    const read = getElementReader('showChoices')
+    const choices = []
+    for (let i = 0; i < 4; i++) {
+      const content = read('choices-' + i)
+      if (content) {
+        choices.push({
+          content: content,
+          // 继承上一次的事件指令列表
+          commands: Command.cases.showChoices.choices[i]?.commands ?? []
+        })
+      }
+    }
+    if (choices.length === 0) {
+      return $('#showChoices-choices-0').getFocus()
+    }
+    const parameters = read('parameters')
+    Command.save({choices, parameters})
+  },
+}
+
 // 注释
 Command.cases.comment = {
   initialize: function () {
@@ -1261,48 +1351,290 @@ Command.cases.setString = {
   initialize: function () {
     $('#setString-confirm').on('click', this.save)
 
-    // 绑定操作数列表
-    $('#setString-operands').bind(StringOperand)
+    // 创建头部操作选项
+    $('#setString-operation').loadItems([
+      {name: 'Set', value: 'set'},
+      {name: 'Add', value: 'add'},
+    ])
 
-    // 清理内存 - 窗口已关闭事件
-    $('#setString').on('closed', event => {
-      $('#setString-operands').clear()
-    })
+    // 创建类型选项
+    $('#setString-operand-type').loadItems([
+      {name: 'Constant', value: 'constant'},
+      {name: 'Variable', value: 'variable'},
+      {name: 'String', value: 'string'},
+      {name: 'Enumeration', value: 'enum'},
+      {name: 'Object', value: 'object'},
+      {name: 'Element', value: 'element'},
+      {name: 'List', value: 'list'},
+      {name: 'Parameter', value: 'parameter'},
+      {name: 'Other', value: 'other'},
+    ])
+
+    // 设置类型关联元素
+    $('#setString-operand-type').enableHiddenMode().relate([
+      {case: 'constant', targets: [
+        $('#setString-operand-constant-value'),
+      ]},
+      {case: 'variable', targets: [
+        $('#setString-operand-common-variable'),
+      ]},
+      {case: 'string', targets: [
+        $('#setString-operand-string-method'),
+        $('#setString-operand-common-variable'),
+      ]},
+      {case: 'enum', targets: [
+        $('#setString-operand-enum-stringId'),
+      ]},
+      {case: 'object', targets: [
+        $('#setString-operand-object-property'),
+      ]},
+      {case: 'element', targets: [
+        $('#setString-operand-element-property'),
+        $('#setString-operand-element-element'),
+      ]},
+      {case: 'list', targets: [
+        $('#setString-operand-common-variable'),
+        $('#setString-operand-list-index'),
+      ]},
+      {case: 'parameter', targets: [
+        $('#setString-operand-common-variable'),
+        $('#setString-operand-parameter-paramName'),
+      ]},
+      {case: 'other', targets: [
+        $('#setString-operand-other-data'),
+      ]},
+    ])
+
+    // 创建字符串方法选项
+    $('#setString-operand-string-method').loadItems([
+      {name: 'Char', value: 'char'},
+      {name: 'Slice', value: 'slice'},
+      {name: 'Pad Start', value: 'pad-start'},
+      {name: 'Replace', value: 'replace'},
+      {name: 'Replace All', value: 'replace-all'},
+    ])
+
+    // 设置字符串方法关联元素
+    $('#setString-operand-string-method').enableHiddenMode().relate([
+      {case: 'char', targets: [
+        $('#setString-operand-string-char-index'),
+      ]},
+      {case: 'slice', targets: [
+        $('#setString-operand-string-slice-begin'),
+        $('#setString-operand-string-slice-end'),
+      ]},
+      {case: 'pad-start', targets: [
+        $('#setString-operand-string-pad-start-length'),
+        $('#setString-operand-string-pad-start-pad'),
+      ]},
+      {case: ['replace', 'replace-all'], targets: [
+        $('#setString-operand-string-replace-pattern'),
+        $('#setString-operand-string-replace-replacement'),
+      ]},
+    ])
+
+    // 创建对象属性选项
+    $('#setString-operand-object-property').loadItems([
+      {name: 'Actor - File ID', value: 'actor-file-id'},
+      {name: 'Actor - Portrait ID', value: 'actor-portrait-id'},
+      {name: 'Actor - Anim Motion Name', value: 'actor-animation-motion-name'},
+      {name: 'Skill - File ID', value: 'skill-file-id'},
+      {name: 'Skill - Key Name', value: 'skill-key'},
+      {name: 'State - File ID', value: 'state-file-id'},
+      {name: 'Equipment - File ID', value: 'equipment-file-id'},
+      {name: 'Equipment - Key Name', value: 'equipment-key'},
+      {name: 'Item - File ID', value: 'item-file-id'},
+      {name: 'Item - Key Name', value: 'item-key'},
+      {name: 'File - ID', value: 'file-id'},
+    ])
+
+    // 设置对象属性关联元素
+    $('#setString-operand-object-property').enableHiddenMode().relate([
+      {case: ['actor-file-id', 'actor-portrait-id', 'actor-animation-motion-name'], targets: [
+        $('#setString-operand-common-actor'),
+      ]},
+      {case: ['skill-file-id', 'skill-key'], targets: [
+        $('#setString-operand-common-skill'),
+      ]},
+      {case: 'state-file-id', targets: [
+        $('#setString-operand-common-state'),
+      ]},
+      {case: ['equipment-file-id', 'equipment-key'], targets: [
+        $('#setString-operand-common-equipment'),
+      ]},
+      {case: ['item-file-id', 'item-key'], targets: [
+        $('#setString-operand-common-item'),
+      ]},
+      {case: 'file-id', targets: [
+        $('#setString-operand-object-fileId'),
+      ]},
+    ])
+
+    // 创建元素属性选项
+    $('#setString-operand-element-property').loadItems([
+      {name: 'Text - Content', value: 'text-content'},
+      {name: 'Text Box - Text', value: 'textBox-text'},
+      {name: 'Dialog Box - Content', value: 'dialogBox-content'},
+    ])
+
+    // 创建其他数据选项
+    $('#setString-operand-other-data').loadItems([
+      {name: 'Event Trigger Key', value: 'trigger-key'},
+      {name: 'Parse Timestamp', value: 'parse-timestamp'},
+      {name: 'Screenshot(Base64)', value: 'screenshot'},
+      {name: 'ShowText Parameters', value: 'showText-parameters'},
+      {name: 'ShowText Content', value: 'showText-content'},
+      {name: 'ShowChoices Parameters', value: 'showChoices-parameters'},
+      {name: 'ShowChoices Content 1', value: 'showChoices-content-0'},
+      {name: 'ShowChoices Content 2', value: 'showChoices-content-1'},
+      {name: 'ShowChoices Content 3', value: 'showChoices-content-2'},
+      {name: 'ShowChoices Content 4', value: 'showChoices-content-3'},
+    ])
+
+    // 设置其他数据关联元素
+    $('#setString-operand-other-data').enableHiddenMode().relate([
+      {case: 'parse-timestamp', targets: [
+        $('#setString-operand-parse-timestamp-variable'),
+        $('#setString-operand-parse-timestamp-format')
+      ]},
+      {case: 'screenshot', targets: [
+        $('#setString-operand-screenshot-width'),
+        $('#setString-operand-screenshot-height')
+      ]},
+    ])
   },
-  parseOperation: function (operation) {
-    switch (operation) {
-      case 'set': return '='
-      case 'add': return '+='
-    }
-  },
-  parseOperands: function (operands) {
-    const words = Command.words
-    for (const operand of operands) {
-      words.push(StringOperand.parseOperand(operand))
-    }
-    return words.join(' + ')
-  },
-  parse: function ({variable, operation, operands}) {
+
+  // 解析指令
+  parse: function ({variable, operation, operand}) {
     const varDesc = Command.parseVariable(variable)
     const operator = this.parseOperation(operation)
-    const expression = this.parseOperands(operands)
+    const expression = this.parseOperand(operand)
     return [
       {color: 'variable'},
       {text: Local.get('command.setString.alias') + ': '},
       {text: `${varDesc} ${operator} ${expression}`},
     ]
   },
+
+  // 加载数据
   load: function ({
     variable  = {type: 'local', key: ''},
     operation = 'set',
-    operands  = [{type: 'constant', value: ''}],
+    operand   = {type: 'constant', value: ''},
   }) {
+    // 写入数据
+    let constantValue = ''
+    let stringMethod = 'char'
+    let commonVariable = {type: 'local', key: ''}
+    let stringCharIndex = 0
+    let stringSliceBegin = 0
+    let stringSliceEnd = 0
+    let stringPadStartLength = 2
+    let stringPadStartPad = '0'
+    let stringReplacePattern = ''
+    let stringReplaceReplacement = ''
+    let enumStringId = ''
+    let objectProperty = 'actor-file-id'
+    let elementProperty = 'text-content'
+    let elementElement = {type: 'trigger'}
+    let commonActor = {type: 'trigger'}
+    let commonSkill = {type: 'trigger'}
+    let commonState = {type: 'trigger'}
+    let commonEquipment = {type: 'trigger'}
+    let commonItem = {type: 'trigger'}
+    let objectFileId = ''
+    let listIndex = 0
+    let parameterParamName = ''
+    let otherData = 'trigger-key'
+    let parseTimestampVariable = {type: 'local', key: ''}
+    let parseTimestampFormat = '{Y}/{M}/{D} {h}:{m}:{s}'
+    let screenshotWidth = 320
+    let screenshotHeight = 180
+    switch (operand.type) {
+      case 'constant':
+        constantValue = operand.value
+        break
+      case 'variable':
+        commonVariable = operand.variable
+        break
+      case 'string':
+        stringMethod = operand.method
+        commonVariable = operand.variable
+        stringCharIndex = operand.index ?? stringCharIndex
+        stringSliceBegin = operand.begin ?? stringSliceBegin
+        stringSliceEnd = operand.end ?? stringSliceEnd
+        stringPadStartLength = operand.length ?? stringPadStartLength
+        stringPadStartPad = operand.pad ?? stringPadStartPad
+        stringReplacePattern = operand.pattern ?? stringReplacePattern
+        stringReplaceReplacement = operand.replacement ?? stringReplaceReplacement
+        break
+      case 'enum':
+        enumStringId = operand.stringId
+        break
+      case 'object':
+        objectProperty = operand.property
+        commonActor = operand.actor ?? commonActor
+        commonSkill = operand.skill ?? commonSkill
+        commonState = operand.state ?? commonState
+        commonEquipment = operand.equipment ?? commonEquipment
+        commonItem = operand.item ?? commonItem
+        objectFileId = operand.fileId ?? objectFileId
+        break
+      case 'element':
+        elementProperty = operand.property
+        elementElement = operand.element
+        break
+      case 'list':
+        commonVariable = operand.variable
+        listIndex = operand.index
+        break
+      case 'parameter':
+        commonVariable = operand.variable
+        parameterParamName = operand.paramName
+        break
+      case 'other':
+        otherData = operand.data
+        parseTimestampVariable = operand.variable ?? parseTimestampVariable
+        parseTimestampFormat = operand.format ?? parseTimestampFormat
+        screenshotWidth = operand.width ?? screenshotWidth
+        screenshotHeight = operand.height ?? screenshotHeight
+        break
+    }
     const write = getElementWriter('setString')
     write('variable', variable)
     write('operation', operation)
-    write('operands', operands.slice())
+    write('operand-type', operand.type)
+    write('operand-constant-value', constantValue)
+    write('operand-string-method', stringMethod)
+    write('operand-common-variable', commonVariable)
+    write('operand-string-char-index', stringCharIndex)
+    write('operand-string-slice-begin', stringSliceBegin)
+    write('operand-string-slice-end', stringSliceEnd)
+    write('operand-string-pad-start-length', stringPadStartLength)
+    write('operand-string-pad-start-pad', stringPadStartPad)
+    write('operand-string-replace-pattern', stringReplacePattern)
+    write('operand-string-replace-replacement', stringReplaceReplacement)
+    write('operand-enum-stringId', enumStringId)
+    write('operand-object-property', objectProperty)
+    write('operand-element-property', elementProperty)
+    write('operand-element-element', elementElement)
+    write('operand-common-actor', commonActor)
+    write('operand-common-skill', commonSkill)
+    write('operand-common-state', commonState)
+    write('operand-common-equipment', commonEquipment)
+    write('operand-common-item', commonItem)
+    write('operand-object-fileId', objectFileId)
+    write('operand-list-index', listIndex)
+    write('operand-parameter-paramName', parameterParamName)
+    write('operand-other-data', otherData)
+    write('operand-parse-timestamp-variable', parseTimestampVariable)
+    write('operand-parse-timestamp-format', parseTimestampFormat)
+    write('operand-screenshot-width', screenshotWidth)
+    write('operand-screenshot-height', screenshotHeight)
     $('#setString-variable').getFocus()
   },
+
+  // 保存数据
   save: function () {
     const read = getElementReader('setString')
     const variable = read('variable')
@@ -1310,11 +1642,283 @@ Command.cases.setString = {
       return $('#setString-variable').getFocus()
     }
     const operation = read('operation')
-    const operands = read('operands')
-    if (operands.length === 0) {
-      return $('#setString-operands').getFocus()
+    const type = read('operand-type')
+    let operand
+    switch (type) {
+      case 'constant': {
+        const value = read('operand-constant-value')
+        operand = {type, value}
+        break
+      }
+      case 'variable': {
+        const variable = read('operand-common-variable')
+        if (VariableGetter.isNone(variable)) {
+          return $('#setString-operand-common-variable').getFocus()
+        }
+        operand = {type, variable}
+        break
+      }
+      case 'string': {
+        const method = read('operand-string-method')
+        const variable = read('operand-common-variable')
+        if (VariableGetter.isNone(variable)) {
+          return $('#setString-operand-common-variable').getFocus()
+        }
+        switch (method) {
+          case 'char': {
+            const index = read('operand-string-char-index')
+            operand = {type, method, variable, index}
+            break
+          }
+          case 'slice': {
+            const begin = read('operand-string-slice-begin')
+            const end = read('operand-string-slice-end')
+            operand = {type, method, variable, begin, end}
+            break
+          }
+          case 'pad-start': {
+            const length = read('operand-string-pad-start-length')
+            const pad = read('operand-string-pad-start-pad')
+            operand = {type, method, variable, length, pad}
+            break
+          }
+          case 'replace':
+          case 'replace-all': {
+            const pattern = read('operand-string-replace-pattern')
+            if (pattern === '') {
+              return $('#setString-operand-string-replace-pattern').getFocus()
+            }
+            const replacement = read('operand-string-replace-replacement')
+            operand = {type, method, variable, pattern, replacement}
+            break
+          }
+        }
+        break
+      }
+      case 'enum': {
+        const stringId = read('operand-enum-stringId')
+        if (stringId === '') {
+          return $('#setString-operand-enum-stringId').getFocus()
+        }
+        operand = {type, stringId}
+        break
+      }
+      case 'object': {
+        const property = read('operand-object-property')
+        switch (property) {
+          case 'actor-file-id':
+          case 'actor-portrait-id':
+          case 'actor-animation-motion-name': {
+            const actor = read('operand-common-actor')
+            operand = {type, property, actor}
+            break
+          }
+          case 'skill-file-id':
+          case 'skill-key': {
+            const skill = read('operand-common-skill')
+            operand = {type, property, skill}
+            break
+          }
+          case 'state-file-id': {
+            const state = read('operand-common-state')
+            operand = {type, property, state}
+            break
+          }
+          case 'equipment-file-id':
+          case 'equipment-key': {
+            const equipment = read('operand-common-equipment')
+            operand = {type, property, equipment}
+            break
+          }
+          case 'item-file-id':
+          case 'item-key': {
+            const item = read('operand-common-item')
+            operand = {type, property, item}
+            break
+          }
+          case 'file-id': {
+            const fileId = read('operand-object-fileId')
+            operand = {type, property, fileId}
+            break
+          }
+        }
+        break
+      }
+      case 'element': {
+        const property = read('operand-element-property')
+        const element = read('operand-element-element')
+        operand = {type, property, element}
+        break
+      }
+      case 'list': {
+        const variable = read('operand-common-variable')
+        const index = read('operand-list-index')
+        if (VariableGetter.isNone(variable)) {
+          return $('#setString-operand-common-variable').getFocus()
+        }
+        operand = {type, variable, index}
+        break
+      }
+      case 'parameter': {
+        const variable = read('operand-common-variable')
+        const paramName = read('operand-parameter-paramName')
+        if (VariableGetter.isNone(variable)) {
+          return $('#setString-operand-common-variable').getFocus()
+        }
+        if (paramName === '') {
+          return $('#setString-operand-parameter-paramName').getFocus()
+        }
+        operand = {type, variable, paramName}
+        break
+      }
+      case 'other': {
+        const data = read('operand-other-data')
+        switch (data) {
+          case 'parse-timestamp': {
+            const variable = read('operand-parse-timestamp-variable')
+            const format = read('operand-parse-timestamp-format')
+            if (VariableGetter.isNone(variable)) {
+              return $('#setString-operand-parse-timestamp-variable').getFocus()
+            }
+            operand = {type, data, variable, format}
+            break
+          }
+          case 'screenshot': {
+            const width = read('operand-screenshot-width')
+            const height = read('operand-screenshot-height')
+            operand = {type, data, width, height}
+            break
+          }
+          default:
+            operand = {type, data}
+            break
+        }
+        break
+      }
     }
-    Command.save({variable, operation, operands})
+    Command.save({variable, operation, operand})
+  },
+
+  // 解析字符串操作
+  parseOperation: function (operation) {
+    switch (operation) {
+      case 'set': return '='
+      case 'add': return '+='
+    }
+  },
+
+  // 解析字符串方法
+  parseStringMethod: function (operand) {
+    const method = operand.method
+    const variable = operand.variable
+    const methodName = Local.get('command.setString.string.' + method)
+    const varName = Command.parseVariable(variable)
+    switch (method) {
+      case 'char': {
+        const index = Command.parseVariableNumber(operand.index)
+        return `${methodName}(${varName}, ${index})`
+      }
+      case 'slice': {
+        const begin = Command.parseVariableNumber(operand.begin)
+        const end = Command.parseVariableNumber(operand.end)
+        return `${methodName}(${varName}, ${begin}, ${end})`
+      }
+      case 'pad-start': {
+        const length = operand.length
+        const pad = Command.parseVariableString(operand.pad)
+        return `${methodName}(${varName}, ${length}, ${pad})`
+      }
+      case 'replace':
+      case 'replace-all': {
+        const pattern = Command.parseVariableString(operand.pattern)
+        const replacement = Command.parseVariableString(operand.replacement)
+        return `${methodName}(${varName}, ${pattern}, ${replacement})`
+      }
+    }
+  },
+
+  // 解析枚举字符串
+  parseEnumString: function (operand) {
+    const name = Command.parseEnumString(operand.stringId)
+    return `${Local.get('command.setString.enum')}(${name})`
+  },
+
+  // 解析对象属性
+  parseObjectProperty: function (operand) {
+    const property = Local.get('command.setString.object.' + operand.property)
+    switch (operand.property) {
+      case 'actor-file-id':
+      case 'actor-portrait-id':
+      case 'actor-animation-motion-name':
+        return `${Command.parseActor(operand.actor)} -> ${property}`
+      case 'skill-file-id':
+      case 'skill-key':
+        return `${Command.parseSkill(operand.skill)} -> ${property}`
+      case 'state-file-id':
+        return `${Command.parseState(operand.state)} -> ${property}`
+      case 'equipment-file-id':
+      case 'equipment-key':
+        return `${Command.parseEquipment(operand.equipment)} -> ${property}`
+      case 'item-file-id':
+      case 'item-key':
+        return `${Command.parseItem(operand.item)} -> ${property}`
+      case 'file-id':
+        return `${Command.parseFileName(operand.fileId)} -> ${property}`
+    }
+  },
+
+  // 解析元素属性
+  parseElementProperty: function (operand) {
+    const element = Command.parseElement(operand.element)
+    const property = Local.get('command.setString.element.' + operand.property)
+    return `${element} -> ${property}`
+  },
+
+  // 解析其他数据
+  parseOther: function (operand) {
+    const label = Local.get('command.setString.other.' + operand.data)
+    switch (operand.data) {
+      case 'trigger-key':
+      case 'showText-parameters':
+      case 'showText-content':
+      case 'showChoices-parameters':
+      case 'showChoices-content-0':
+      case 'showChoices-content-1':
+      case 'showChoices-content-2':
+      case 'showChoices-content-3':
+        return label
+      case 'parse-timestamp': {
+        const variable = Command.parseVariable(operand.variable)
+        const format = Command.parseVariableString(operand.format)
+        return `${label}(${variable}, ${format})`
+      }
+      case 'screenshot':
+        return `${label}(${operand.width}, ${operand.height})`
+    }
+  },
+
+  // 解析操作数
+  parseOperand: function (operand) {
+    switch (operand.type) {
+      case 'constant':
+        return `"${Command.parseMultiLineString(operand.value)}"`
+      case 'variable':
+        return Command.parseVariable(operand.variable)
+      case 'string':
+        return this.parseStringMethod(operand)
+      case 'enum':
+        return this.parseEnumString(operand)
+      case 'object':
+        return this.parseObjectProperty(operand)
+      case 'element':
+        return this.parseElementProperty(operand)
+      case 'list':
+        return Command.parseListItem(operand.variable, operand.index)
+      case 'parameter':
+        return Command.parseParameter(operand.variable, operand.paramName)
+      case 'other':
+        return this.parseOther(operand)
+    }
   },
 }
 
@@ -2368,6 +2972,15 @@ Command.cases.setEvent = {
       {name: 'Enable', value: 'enable'},
       {name: 'Disable', value: 'disable'},
       {name: 'Set to Highest Priority', value: 'highest-priority'},
+      {name: 'Go to Choice Branch', value: 'goto-choice-branch'},
+    ])
+
+    // 创建选择分支选项
+    $('#setEvent-choiceIndex').loadItems([
+      {name: 'Choice #1', value: 0},
+      {name: 'Choice #2', value: 1},
+      {name: 'Choice #3', value: 2},
+      {name: 'Choice #4', value: 3},
     ])
 
     // 设置操作关联元素
@@ -2378,9 +2991,12 @@ Command.cases.setEvent = {
       {case: ['enable', 'disable', 'highest-priority'], targets: [
         $('#setEvent-eventId'),
       ]},
+      {case: 'goto-choice-branch', targets: [
+        $('#setEvent-choiceIndex'),
+      ]},
     ])
   },
-  parse: function ({operation, variable, eventId}) {
+  parse: function ({operation, variable, eventId, choiceIndex}) {
     const words = Command.words
     .push(Local.get('command.setEvent.' + operation))
     switch (operation) {
@@ -2393,6 +3009,9 @@ Command.cases.setEvent = {
       case 'highest-priority':
         words.push(Command.parseFileName(eventId))
         break
+      case 'goto-choice-branch':
+        words.push(`#${choiceIndex + 1}`)
+        break
     }
     return [
       {color: 'flow'},
@@ -2401,14 +3020,16 @@ Command.cases.setEvent = {
     ]
   },
   load: function ({
-    operation = 'stop',
-    variable  = {type: 'global', key: ''},
-    eventId   = '',
+    operation   = 'stop',
+    variable    = {type: 'global', key: ''},
+    eventId     = '',
+    choiceIndex = 0,
   }) {
     const write = getElementWriter('setEvent')
     write('operation', operation)
     write('variable', variable)
     write('eventId', eventId)
+    write('choiceIndex', choiceIndex)
     $('#setEvent-operation').getFocus()
   },
   save: function () {
@@ -2436,6 +3057,11 @@ Command.cases.setEvent = {
           return $('#setEvent-eventId').getFocus()
         }
         Command.save({operation, eventId})
+        break
+      }
+      case 'goto-choice-branch': {
+        const choiceIndex = read('choiceIndex')
+        Command.save({operation, choiceIndex})
         break
       }
     }
@@ -8367,9 +8993,8 @@ EventEditor.windowResize = function (event) {
 
 // 数据 - 改变事件
 EventEditor.dataChange = function (event) {
-  this.changed = true
-  console.log(event)
-}.bind(EventEditor)
+  EventEditor.changed = true
+}
 
 // 指令列表 - 更新事件
 EventEditor.listUpdate = function (event) {
@@ -9243,608 +9868,6 @@ NumberOperand.windowClosed = function (event) {
 // 确定按钮 - 鼠标点击事件
 NumberOperand.confirm = function (event) {
   return NumberOperand.target.save()
-}
-
-// ******************************** 设置字符串 - 操作数窗口 ********************************
-
-const StringOperand = {
-  // properties
-  target: null,
-  // methods
-  initialize: null,
-  parseStringMethod: null,
-  parseEnumString: null,
-  parseObjectProperty: null,
-  parseElementProperty: null,
-  parseOther: null,
-  parseOperand: null,
-  parse: null,
-  open: null,
-  save: null,
-  // events
-  windowClosed: null,
-  confirm: null,
-}
-
-// 初始化
-StringOperand.initialize = function () {
-  // 创建头部操作选项
-  $('#setString-operation').loadItems([
-    {name: 'Set', value: 'set'},
-    {name: 'Add', value: 'add'},
-  ])
-
-  // 创建操作选项
-  $('#setString-operand-operation').loadItems([
-    {name: 'Add', value: 'add'},
-  ])
-
-  // 写入操作选项
-  $('#setString-operand-operation').write('add')
-
-  // 创建类型选项
-  $('#setString-operand-type').loadItems([
-    {name: 'Constant', value: 'constant'},
-    {name: 'Variable', value: 'variable'},
-    {name: 'String', value: 'string'},
-    {name: 'Enumeration', value: 'enum'},
-    {name: 'Object', value: 'object'},
-    {name: 'Element', value: 'element'},
-    {name: 'List', value: 'list'},
-    {name: 'Parameter', value: 'parameter'},
-    {name: 'Other', value: 'other'},
-  ])
-
-  // 设置类型关联元素
-  $('#setString-operand-type').enableHiddenMode().relate([
-    {case: 'constant', targets: [
-      $('#setString-operand-constant-value'),
-    ]},
-    {case: 'variable', targets: [
-      $('#setString-operand-common-variable'),
-    ]},
-    {case: 'string', targets: [
-      $('#setString-operand-string-method'),
-      $('#setString-operand-common-variable'),
-    ]},
-    {case: 'enum', targets: [
-      $('#setString-operand-enum-stringId'),
-    ]},
-    {case: 'object', targets: [
-      $('#setString-operand-object-property'),
-    ]},
-    {case: 'element', targets: [
-      $('#setString-operand-element-property'),
-      $('#setString-operand-element-element'),
-    ]},
-    {case: 'list', targets: [
-      $('#setString-operand-common-variable'),
-      $('#setString-operand-list-index'),
-    ]},
-    {case: 'parameter', targets: [
-      $('#setString-operand-common-variable'),
-      $('#setString-operand-parameter-paramName'),
-    ]},
-    {case: 'other', targets: [
-      $('#setString-operand-other-data'),
-    ]},
-  ])
-
-  // 创建字符串方法选项
-  $('#setString-operand-string-method').loadItems([
-    {name: 'Char', value: 'char'},
-    {name: 'Slice', value: 'slice'},
-    {name: 'Pad Start', value: 'pad-start'},
-    {name: 'Replace', value: 'replace'},
-    {name: 'Replace All', value: 'replace-all'},
-  ])
-
-  // 设置字符串方法关联元素
-  $('#setString-operand-string-method').enableHiddenMode().relate([
-    {case: 'char', targets: [
-      $('#setString-operand-string-char-index'),
-    ]},
-    {case: 'slice', targets: [
-      $('#setString-operand-string-slice-begin'),
-      $('#setString-operand-string-slice-end'),
-    ]},
-    {case: 'pad-start', targets: [
-      $('#setString-operand-string-pad-start-length'),
-      $('#setString-operand-string-pad-start-pad'),
-    ]},
-    {case: ['replace', 'replace-all'], targets: [
-      $('#setString-operand-string-replace-pattern'),
-      $('#setString-operand-string-replace-replacement'),
-    ]},
-  ])
-
-  // 创建对象属性选项
-  $('#setString-operand-object-property').loadItems([
-    {name: 'Actor - File ID', value: 'actor-file-id'},
-    {name: 'Actor - Portrait ID', value: 'actor-portrait-id'},
-    {name: 'Actor - Anim Motion Name', value: 'actor-animation-motion-name'},
-    {name: 'Skill - File ID', value: 'skill-file-id'},
-    {name: 'Skill - Key Name', value: 'skill-key'},
-    {name: 'State - File ID', value: 'state-file-id'},
-    {name: 'Equipment - File ID', value: 'equipment-file-id'},
-    {name: 'Equipment - Key Name', value: 'equipment-key'},
-    {name: 'Item - File ID', value: 'item-file-id'},
-    {name: 'Item - Key Name', value: 'item-key'},
-    {name: 'File - ID', value: 'file-id'},
-  ])
-
-  // 设置对象属性关联元素
-  $('#setString-operand-object-property').enableHiddenMode().relate([
-    {case: ['actor-file-id', 'actor-portrait-id', 'actor-animation-motion-name'], targets: [
-      $('#setString-operand-common-actor'),
-    ]},
-    {case: ['skill-file-id', 'skill-key'], targets: [
-      $('#setString-operand-common-skill'),
-    ]},
-    {case: 'state-file-id', targets: [
-      $('#setString-operand-common-state'),
-    ]},
-    {case: ['equipment-file-id', 'equipment-key'], targets: [
-      $('#setString-operand-common-equipment'),
-    ]},
-    {case: ['item-file-id', 'item-key'], targets: [
-      $('#setString-operand-common-item'),
-    ]},
-    {case: 'file-id', targets: [
-      $('#setString-operand-object-fileId'),
-    ]},
-  ])
-
-  // 创建元素属性选项
-  $('#setString-operand-element-property').loadItems([
-    {name: 'Text - Content', value: 'text-content'},
-    {name: 'Text Box - Text', value: 'textBox-text'},
-    {name: 'Dialog Box - Content', value: 'dialogBox-content'},
-  ])
-
-  // 创建其他数据选项
-  $('#setString-operand-other-data').loadItems([
-    {name: 'Event Trigger Key', value: 'trigger-key'},
-    {name: 'Parse Timestamp', value: 'parse-timestamp'},
-    {name: 'Screenshot(Base64)', value: 'screenshot'},
-  ])
-
-  // 设置其他数据关联元素
-  $('#setString-operand-other-data').enableHiddenMode().relate([
-    {case: 'parse-timestamp', targets: [
-      $('#setString-operand-parse-timestamp-variable'),
-      $('#setString-operand-parse-timestamp-format')
-    ]},
-    {case: 'screenshot', targets: [
-      $('#setString-operand-screenshot-width'),
-      $('#setString-operand-screenshot-height')
-    ]},
-  ])
-
-  // 侦听事件
-  $('#setString-operand').on('closed', this.windowClosed)
-  $('#setString-operand-confirm').on('click', this.confirm)
-}
-
-// 解析字符串方法
-StringOperand.parseStringMethod = function (operand) {
-  const method = operand.method
-  const variable = operand.variable
-  const methodName = Local.get('command.setString.string.' + method)
-  const varName = Command.parseVariable(variable)
-  switch (method) {
-    case 'char': {
-      const index = Command.parseVariableNumber(operand.index)
-      return `${methodName}(${varName}, ${index})`
-    }
-    case 'slice': {
-      const begin = Command.parseVariableNumber(operand.begin)
-      const end = Command.parseVariableNumber(operand.end)
-      return `${methodName}(${varName}, ${begin}, ${end})`
-    }
-    case 'pad-start': {
-      const length = operand.length
-      const pad = Command.parseVariableString(operand.pad)
-      return `${methodName}(${varName}, ${length}, ${pad})`
-    }
-    case 'replace':
-    case 'replace-all': {
-      const pattern = Command.parseVariableString(operand.pattern)
-      const replacement = Command.parseVariableString(operand.replacement)
-      return `${methodName}(${varName}, ${pattern}, ${replacement})`
-    }
-  }
-}
-
-// 解析枚举字符串
-StringOperand.parseEnumString = function (operand) {
-  const name = Command.parseEnumString(operand.stringId)
-  return `${Local.get('command.setString.enum')}(${name})`
-}
-
-// 解析对象属性
-StringOperand.parseObjectProperty = function (operand) {
-  const property = Local.get('command.setString.object.' + operand.property)
-  switch (operand.property) {
-    case 'actor-file-id':
-    case 'actor-portrait-id':
-    case 'actor-animation-motion-name':
-      return `${Command.parseActor(operand.actor)} -> ${property}`
-    case 'skill-file-id':
-    case 'skill-key':
-      return `${Command.parseSkill(operand.skill)} -> ${property}`
-    case 'state-file-id':
-      return `${Command.parseState(operand.state)} -> ${property}`
-    case 'equipment-file-id':
-    case 'equipment-key':
-      return `${Command.parseEquipment(operand.equipment)} -> ${property}`
-    case 'item-file-id':
-    case 'item-key':
-      return `${Command.parseItem(operand.item)} -> ${property}`
-    case 'file-id':
-      return `${Command.parseFileName(operand.fileId)} -> ${property}`
-  }
-}
-
-// 解析元素属性
-StringOperand.parseElementProperty = function (operand) {
-  const element = Command.parseElement(operand.element)
-  const property = Local.get('command.setString.element.' + operand.property)
-  return `${element} -> ${property}`
-}
-
-// 解析其他数据
-StringOperand.parseOther = function (operand) {
-  const label = Local.get('command.setString.other.' + operand.data)
-  switch (operand.data) {
-    case 'trigger-key':
-      return label
-    case 'parse-timestamp': {
-      const variable = Command.parseVariable(operand.variable)
-      const format = Command.parseVariableString(operand.format)
-      return `${label}(${variable}, ${format})`
-    }
-    case 'screenshot':
-      return `${label}(${operand.width}, ${operand.height})`
-  }
-}
-
-// 解析操作数
-StringOperand.parseOperand = function (operand) {
-  switch (operand.type) {
-    case 'constant':
-      return `"${Command.parseMultiLineString(operand.value)}"`
-    case 'variable':
-      return Command.parseVariable(operand.variable)
-    case 'string':
-      return this.parseStringMethod(operand)
-    case 'enum':
-      return this.parseEnumString(operand)
-    case 'object':
-      return this.parseObjectProperty(operand)
-    case 'element':
-      return this.parseElementProperty(operand)
-    case 'list':
-      return Command.parseListItem(operand.variable, operand.index)
-    case 'parameter':
-      return Command.parseParameter(operand.variable, operand.paramName)
-    case 'other':
-      return this.parseOther(operand)
-  }
-}
-
-// 解析项目
-StringOperand.parse = function (operand, data, index) {
-  let operator
-  if (index === 0) {
-    switch ($('#setString-operation').read()) {
-      case 'set': operator = '= '; break
-      case 'add': operator = '+= '; break
-    }
-  } else {
-    operator = '+ '
-  }
-  return operator + this.parseOperand(operand, false)
-}
-
-// 打开数据
-StringOperand.open = function (operand = {
-  type: 'constant',
-  value: '',
-}) {
-  Window.open('setString-operand')
-
-  // 切换操作选择框
-  if (this.target.start === 0) {
-    $('#setString-operation').save()
-    $('#setString-operation').show()
-    $('#setString-operation').getFocus()
-    $('#setString-operand-operation').hide()
-  } else {
-    $('#setString-operation').hide()
-    $('#setString-operand-operation').show()
-    $('#setString-operand-type').getFocus()
-  }
-
-  // 写入数据
-  const write = getElementWriter('setString-operand')
-  let constantValue = ''
-  let stringMethod = 'char'
-  let commonVariable = {type: 'local', key: ''}
-  let stringCharIndex = 0
-  let stringSliceBegin = 0
-  let stringSliceEnd = 0
-  let stringPadStartLength = 2
-  let stringPadStartPad = '0'
-  let stringReplacePattern = ''
-  let stringReplaceReplacement = ''
-  let enumStringId = ''
-  let objectProperty = 'actor-file-id'
-  let elementProperty = 'text-content'
-  let elementElement = {type: 'trigger'}
-  let commonActor = {type: 'trigger'}
-  let commonSkill = {type: 'trigger'}
-  let commonState = {type: 'trigger'}
-  let commonEquipment = {type: 'trigger'}
-  let commonItem = {type: 'trigger'}
-  let objectFileId = ''
-  let listIndex = 0
-  let parameterParamName = ''
-  let otherData = 'trigger-key'
-  let parseTimestampVariable = {type: 'local', key: ''}
-  let parseTimestampFormat = '{Y}/{M}/{D} {h}:{m}:{s}'
-  let screenshotWidth = 320
-  let screenshotHeight = 180
-  switch (operand.type) {
-    case 'constant':
-      constantValue = operand.value
-      break
-    case 'variable':
-      commonVariable = operand.variable
-      break
-    case 'string':
-      stringMethod = operand.method
-      commonVariable = operand.variable
-      stringCharIndex = operand.index ?? stringCharIndex
-      stringSliceBegin = operand.begin ?? stringSliceBegin
-      stringSliceEnd = operand.end ?? stringSliceEnd
-      stringPadStartLength = operand.length ?? stringPadStartLength
-      stringPadStartPad = operand.pad ?? stringPadStartPad
-      stringReplacePattern = operand.pattern ?? stringReplacePattern
-      stringReplaceReplacement = operand.replacement ?? stringReplaceReplacement
-      break
-    case 'enum':
-      enumStringId = operand.stringId
-      break
-    case 'object':
-      objectProperty = operand.property
-      commonActor = operand.actor ?? commonActor
-      commonSkill = operand.skill ?? commonSkill
-      commonState = operand.state ?? commonState
-      commonEquipment = operand.equipment ?? commonEquipment
-      commonItem = operand.item ?? commonItem
-      objectFileId = operand.fileId ?? objectFileId
-      break
-    case 'element':
-      elementProperty = operand.property
-      elementElement = operand.element
-      break
-    case 'list':
-      commonVariable = operand.variable
-      listIndex = operand.index
-      break
-    case 'parameter':
-      commonVariable = operand.variable
-      parameterParamName = operand.paramName
-      break
-    case 'other':
-      otherData = operand.data
-      parseTimestampVariable = operand.variable ?? parseTimestampVariable
-      parseTimestampFormat = operand.format ?? parseTimestampFormat
-      screenshotWidth = operand.width ?? screenshotWidth
-      screenshotHeight = operand.height ?? screenshotHeight
-      break
-  }
-  write('type', operand.type)
-  write('constant-value', constantValue)
-  write('string-method', stringMethod)
-  write('common-variable', commonVariable)
-  write('string-char-index', stringCharIndex)
-  write('string-slice-begin', stringSliceBegin)
-  write('string-slice-end', stringSliceEnd)
-  write('string-pad-start-length', stringPadStartLength)
-  write('string-pad-start-pad', stringPadStartPad)
-  write('string-replace-pattern', stringReplacePattern)
-  write('string-replace-replacement', stringReplaceReplacement)
-  write('enum-stringId', enumStringId)
-  write('object-property', objectProperty)
-  write('element-property', elementProperty)
-  write('element-element', elementElement)
-  write('common-actor', commonActor)
-  write('common-skill', commonSkill)
-  write('common-state', commonState)
-  write('common-equipment', commonEquipment)
-  write('common-item', commonItem)
-  write('object-fileId', objectFileId)
-  write('list-index', listIndex)
-  write('parameter-paramName', parameterParamName)
-  write('other-data', otherData)
-  write('parse-timestamp-variable', parseTimestampVariable)
-  write('parse-timestamp-format', parseTimestampFormat)
-  write('screenshot-width', screenshotWidth)
-  write('screenshot-height', screenshotHeight)
-}
-
-// 保存数据
-StringOperand.save = function () {
-  const read = getElementReader('setString-operand')
-  const type = read('type')
-  let operand
-  switch (type) {
-    case 'constant': {
-      const value = read('constant-value')
-      operand = {type, value}
-      break
-    }
-    case 'variable': {
-      const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
-        return $('#setString-operand-common-variable').getFocus()
-      }
-      operand = {type, variable}
-      break
-    }
-    case 'string': {
-      const method = read('string-method')
-      const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
-        return $('#setString-operand-common-variable').getFocus()
-      }
-      switch (method) {
-        case 'char': {
-          const index = read('string-char-index')
-          operand = {type, method, variable, index}
-          break
-        }
-        case 'slice': {
-          const begin = read('string-slice-begin')
-          const end = read('string-slice-end')
-          operand = {type, method, variable, begin, end}
-          break
-        }
-        case 'pad-start': {
-          const length = read('string-pad-start-length')
-          const pad = read('string-pad-start-pad')
-          operand = {type, method, variable, length, pad}
-          break
-        }
-        case 'replace':
-        case 'replace-all': {
-          const pattern = read('string-replace-pattern')
-          if (pattern === '') {
-            return $('#setString-operand-string-replace-pattern').getFocus()
-          }
-          const replacement = read('string-replace-replacement')
-          operand = {type, method, variable, pattern, replacement}
-          break
-        }
-      }
-      break
-    }
-    case 'enum': {
-      const stringId = read('enum-stringId')
-      if (stringId === '') {
-        return $('#setString-operand-enum-stringId').getFocus()
-      }
-      operand = {type, stringId}
-      break
-    }
-    case 'object': {
-      const property = read('object-property')
-      switch (property) {
-        case 'actor-file-id':
-        case 'actor-portrait-id':
-        case 'actor-animation-motion-name': {
-          const actor = read('common-actor')
-          operand = {type, property, actor}
-          break
-        }
-        case 'skill-file-id':
-        case 'skill-key': {
-          const skill = read('common-skill')
-          operand = {type, property, skill}
-          break
-        }
-        case 'state-file-id': {
-          const state = read('common-state')
-          operand = {type, property, state}
-          break
-        }
-        case 'equipment-file-id':
-        case 'equipment-key': {
-          const equipment = read('common-equipment')
-          operand = {type, property, equipment}
-          break
-        }
-        case 'item-file-id':
-        case 'item-key': {
-          const item = read('common-item')
-          operand = {type, property, item}
-          break
-        }
-        case 'file-id': {
-          const fileId = read('object-fileId')
-          operand = {type, property, fileId}
-          break
-        }
-      }
-      break
-    }
-    case 'element': {
-      const property = read('element-property')
-      const element = read('element-element')
-      operand = {type, property, element}
-      break
-    }
-    case 'list': {
-      const variable = read('common-variable')
-      const index = read('list-index')
-      if (VariableGetter.isNone(variable)) {
-        return $('#setString-operand-common-variable').getFocus()
-      }
-      operand = {type, variable, index}
-      break
-    }
-    case 'parameter': {
-      const variable = read('common-variable')
-      const paramName = read('parameter-paramName')
-      if (VariableGetter.isNone(variable)) {
-        return $('#setString-operand-common-variable').getFocus()
-      }
-      if (paramName === '') {
-        return $('#setString-operand-parameter-paramName').getFocus()
-      }
-      operand = {type, variable, paramName}
-      break
-    }
-    case 'other': {
-      const data = read('other-data')
-      switch (data) {
-        case 'parse-timestamp': {
-          const variable = read('parse-timestamp-variable')
-          const format = read('parse-timestamp-format')
-          if (VariableGetter.isNone(variable)) {
-            return $('#setString-operand-parse-timestamp-variable').getFocus()
-          }
-          operand = {type, data, variable, format}
-          break
-        }
-        case 'screenshot': {
-          const width = read('screenshot-width')
-          const height = read('screenshot-height')
-          operand = {type, data, width, height}
-          break
-        }
-        default:
-          operand = {type, data}
-          break
-      }
-      break
-    }
-  }
-  $('#setString-operation').save()
-  Window.close('setString-operand')
-  return operand
-}
-
-// 窗口 - 已关闭事件
-StringOperand.windowClosed = function (event) {
-  $('#setString-operation').restore()
-}
-
-// 确定按钮 - 鼠标点击事件
-StringOperand.confirm = function (event) {
-  return StringOperand.target.save()
 }
 
 // ******************************** 条件分支 - 分支窗口 ********************************
