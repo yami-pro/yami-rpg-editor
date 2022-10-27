@@ -3,7 +3,8 @@
   "properties": {
     "common": {
       "none": "None",
-      "empty": "Empty"
+      "empty": "Empty",
+      "directory": "Directory"
     },
     "stats": {
       "data": "Data",
@@ -607,6 +608,9 @@
       "message": "Message",
       "showText": "Show Text",
       "showText.alias": "Text",
+      "showChoices": "Show Choices",
+      "showChoices.when": "When",
+      "showChoices.end": "End",
       "comment": "Comment",
 
       "variable": "Variable",
@@ -734,6 +738,13 @@
       "setString.other.trigger-key": "EventTriggerKey",
       "setString.other.parse-timestamp": "ParseTimestamp",
       "setString.other.screenshot": "Screenshot.Base64",
+      "setString.other.showText-parameters": "ShowText.Parameters",
+      "setString.other.showText-content": "ShowText.Content",
+      "setString.other.showChoices-parameters": "ShowChoices.Parameters",
+      "setString.other.showChoices-content-0": "ShowChoices.Content1",
+      "setString.other.showChoices-content-1": "ShowChoices.Content2",
+      "setString.other.showChoices-content-2": "ShowChoices.Content3",
+      "setString.other.showChoices-content-3": "ShowChoices.Content4",
       "setObject": "Set Object",
       "setObject.alias": "Object",
       "setList": "Set List",
@@ -825,6 +836,7 @@
       "setEvent.enable": "Enable",
       "setEvent.disable": "Disable",
       "setEvent.highest-priority": "Set to Highest Priority",
+      "setEvent.goto-choice-branch": "Go to Choice Branch",
       "label": "Label",
       "jumpTo": "Jump to",
       "jumpTo.alias": "Jump to",
@@ -1161,7 +1173,6 @@
     "[view]": {"tip": "View Mode\n0: 16x16\n1: 32x32\n2: 64x64\n3: 128x128\n4: 256x256"},
 
     "[comment]": "********** Title Bar **********",
-    "title-directory": {"tip": "Asset Directory (Alt + `)"},
     "title-play": {"tip": "Run Game (F4)"},
 
     "[comment]": "********** Home **********",
@@ -1855,12 +1866,10 @@
     "config-font-default": {"label": "Default"},
     "config-font-pixelated": {"label": "Pixelated", "options": {"true": "Enabled", "false": "Disabled"}},
     "config-font-threshold": {"label": "Threshold", "tip": "Discards pixels with text edge opacity less than a threshold (1-255)\nAll remaining pixels become opaque"},
-    "config-startup-summary": {"content": "Startup Event"},
-    "config-startup-eventId": {"label": "Call Event"},
-    "config-showText-summary": {"content": "ShowText Event"},
-    "config-showText-eventId": {"label": "Call Event"},
-    "config-showText-parameterKey": {"label": "Set Parameters to Event Var"},
-    "config-showText-contentKey": {"label": "Set Content to Event Var"},
+    "config-event-summary": {"content": "Special Events"},
+    "config-event-startup": {"label": "Startup"},
+    "config-event-showText": {"label": "Show Text"},
+    "config-event-showChoices": {"label": "Show Choices"},
     "config-actor-summary": {"content": "Actor"},
     "config-actor-playerTeam": {"label": "Player Team"},
     "config-actor-playerActor": {"label": "Player Actor"},
@@ -2235,6 +2244,14 @@
     "showText": {"title": "Show Text"},
     "showText-parameters": {"tip": "Parameter Format\nname1: value1, name2: value2, ...", "placeholder": "Parameters"},
 
+    "[comment]": "********** Command - Show Choices **********",
+    "showChoices": {"title": "Show Choices"},
+    "showChoices-choices-0": {"label": "Choice 1"},
+    "showChoices-choices-1": {"label": "Choice 2"},
+    "showChoices-choices-2": {"label": "Choice 3"},
+    "showChoices-choices-3": {"label": "Choice 4"},
+    "showChoices-parameters": {"label": "Parameters", "tip": "Parameter Format\nname1: value1, name2: value2, ..."},
+
     "[comment]": "********** Command - Comment **********",
     "comment": {"title": "Comment"},
 
@@ -2482,7 +2499,9 @@
     "setString-operand-other-data": {"label": "Data", "options": {
       "trigger-key": "Event Trigger Key",
       "parse-timestamp": "Parse Timestamp",
-      "screenshot": "Screenshot(Base64)"
+      "screenshot": "Screenshot(Base64)",
+      "showText-parameters": "ShowText Parameters",
+      "showText-content": "ShowText Content"
     }},
     "setString-operand-parse-timestamp-variable": {"label": "Variable"},
     "setString-operand-parse-timestamp-format": {"label": "Date Format"},
@@ -2752,10 +2771,17 @@
       "continue": "Continue and Reset Variable",
       "enable": "Enable Global Event",
       "disable": "Disable Global Event",
-      "highest-priority": "Set to Highest Priority"
+      "highest-priority": "Set to Highest Priority",
+      "goto-choice-branch": "Go to Choice Branch"
     }},
     "setEvent-variable": {"label": "Variable"},
     "setEvent-eventId": {"label": "Event"},
+    "setEvent-choiceIndex": {"label": "Choice", "options": {
+      "0": "Choice 1",
+      "1": "Choice 2",
+      "2": "Choice 3",
+      "3": "Choice 4"
+    }},
 
     "[comment]": "********** Command - Label **********",
     "label": {"title": "Label"},

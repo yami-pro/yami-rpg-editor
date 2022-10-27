@@ -39,6 +39,8 @@ class Printer {
   effects           //:array
 
   constructor(texture) {
+    texture.base.printer = this
+    texture.base.onRestore = Printer.restoreTexture
     this.texture = texture
     this.context = GL.context2d
     this.content = ''
@@ -387,7 +389,7 @@ class Printer {
     const texture = this.texture
     const base = texture.base
     gl.bindFBO(gl.frameBuffer)
-    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, base, 0)
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, base.glTexture, 0)
     gl.setViewport(0, 0, base.width, base.height)
     gl.reset()
 
@@ -485,7 +487,7 @@ class Printer {
     while (this.index < length) {
       // 匹配标签
       const char = content[this.index]
-      if (char === '<' && this.matchTag() === true) {
+      if (char === '<' && this.matchTag()) {
         continue
       }
 
@@ -719,6 +721,7 @@ class Printer {
       this.index += match[0].length
       return true
     }
+    return false
   }
 
   // 静态属性
@@ -916,6 +919,16 @@ class Printer {
       command.string = ''
     }
     this.commandCount = 0
+  }
+
+  // 恢复打印机纹理
+  static restoreTexture(base) {
+    base.restoreNormalTexture()
+    Promise.resolve().then(() => {
+      const {content} = base.printer
+      base.printer.reset()
+      base.printer.draw(content)
+    })
   }
 
   // 绘制文字

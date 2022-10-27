@@ -1027,9 +1027,13 @@ class AttributeContext {
       const items = []
       const group = this.groupMap[groupKey]
       if (group) {
+        const attrTypes = [attrType]
+        if (attrType === 'string') {
+          attrTypes.push('enum')
+        }
         const itemCache = this.itemCache
         for (const attr of group.itemList) {
-          if (!attrType || attr.type === attrType) {
+          if (!attrType || attrTypes.includes(attr.type)) {
             let item = itemCache[attr.id]
             if (item === undefined) {
               item = itemCache[attr.id] = {

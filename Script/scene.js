@@ -233,6 +233,7 @@ const Scene = {
   // keyboard key status
   SpaceKey: false,
   // events
+  webglRestored: null,
   windowResize: null,
   themechange: null,
   dprchange: null,
@@ -654,6 +655,7 @@ Scene.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
+  GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#scene-head-start').on('pointerdown', this.switchPointerdown)
   $('#scene-layer').on('pointerdown', this.layerPointerdown)
   $('#scene-brush').on('pointerdown', this.brushPointerdown)
@@ -2493,7 +2495,6 @@ Scene.drawTileLayer = function (
 ) {
   const gl = GL
   const vertices = gl.arrays[0].float32
-  const attributes = gl.arrays[1].uint16
   const push = gl.batchRenderer.push
   const response = gl.batchRenderer.response
   const textures = this.textures
@@ -2550,28 +2551,28 @@ Scene.drawTileLayer = function (
                 }
                 const st = (sy + 0.002) / texture.height
                 const sb = (sy + sh - 0.002) / texture.height
-                const vi = response[0] * 4
+                const vi = response[0] * 5
                 const si = response[1]
-                const ai = vi / 8
-                const param = si << 8 | si
                 vertices[vi    ] = dl
                 vertices[vi + 1] = dt
                 vertices[vi + 2] = sl
                 vertices[vi + 3] = st
-                vertices[vi + 4] = dl
-                vertices[vi + 5] = db
-                vertices[vi + 6] = sl
-                vertices[vi + 7] = sb
-                vertices[vi + 8] = dr
-                vertices[vi + 9] = db
-                vertices[vi + 10] = sr
-                vertices[vi + 11] = sb
-                vertices[vi + 12] = dr
-                vertices[vi + 13] = dt
-                vertices[vi + 14] = sr
-                vertices[vi + 15] = st
-                attributes[ai    ] = param
-                attributes[ai + 1] = param
+                vertices[vi + 4] = si
+                vertices[vi + 5] = dl
+                vertices[vi + 6] = db
+                vertices[vi + 7] = sl
+                vertices[vi + 8] = sb
+                vertices[vi + 9] = si
+                vertices[vi + 10] = dr
+                vertices[vi + 11] = db
+                vertices[vi + 12] = sr
+                vertices[vi + 13] = sb
+                vertices[vi + 14] = si
+                vertices[vi + 15] = dr
+                vertices[vi + 16] = dt
+                vertices[vi + 17] = sr
+                vertices[vi + 18] = st
+                vertices[vi + 19] = si
               } else if (texture === undefined) {
                 const guid = tileset.image
                 const image = Palette.images[guid]
@@ -2639,8 +2640,6 @@ Scene.drawTileLayer = function (
                 vertices[vi + 13] = dt
                 vertices[vi + 14] = sr
                 vertices[vi + 15] = st
-                attributes[ai    ] = param
-                attributes[ai + 1] = param
               } else if (texture === undefined) {
                 const guid = autoTile.image
                 const image = Palette.images[guid]
@@ -2672,20 +2671,17 @@ Scene.drawTileLayer = function (
     ).translate(-sl, -st)
     switch (layer) {
       case 'upper':
-        gl.uniform1ui(program.u_TintMode, 0)
+        gl.uniform1i(program.u_TintMode, 0)
         break
       case 'lower':
-        gl.uniform1ui(program.u_TintMode, 1)
+        gl.uniform1i(program.u_TintMode, 1)
         gl.uniform4f(program.u_Tint, -0.2, -0.2, -0.2, 0.8)
         break
     }
     gl.bindVertexArray(program.vao)
     gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
-    gl.uniform1ui(program.u_LightMode, lightModeIndex)
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.vertexBuffers[1])
-    gl.bufferData(gl.ARRAY_BUFFER, attributes, gl.STREAM_DRAW, 0, endIndex / 2)
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.vertexBuffers[0])
-    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, endIndex * 4)
+    gl.uniform1i(program.u_LightMode, lightModeIndex)
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, endIndex * 5)
     gl.batchRenderer.draw()
   }
 }
@@ -4102,7 +4098,7 @@ Scene.createStartPositionTexture = function () {
     context.fillText('\uf041', 128, y)
     texture = new Texture()
     texture.fromImage(canvas)
-    texture.protectBaseTexture()
+    texture.base.protected = true
     this.startPositionTexture = texture
   }
   return texture
@@ -4153,11 +4149,11 @@ Scene.drawStartPosition = function () {
       .translate(-sl, -st)
       gl.bindVertexArray(program.vao)
       gl.uniformMatrix3fv(program.u_Matrix, false, gl.matrix)
-      gl.uniform1ui(program.u_LightMode, 0)
-      gl.uniform1ui(program.u_ColorMode, 0)
+      gl.uniform1i(program.u_LightMode, 0)
+      gl.uniform1i(program.u_ColorMode, 0)
       gl.uniform4f(program.u_Tint, 0, 0, 0, 0)
       gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, 16)
-      gl.bindTexture(gl.TEXTURE_2D, texture.base)
+      gl.bindTexture(gl.TEXTURE_2D, texture.base.glTexture)
       gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_INT, 0)
     }
   }
@@ -5115,28 +5111,29 @@ Scene.setTile = function (sTiles, sx, sy, dx, dy) {
   const si = sx + sy * sro
   const di = dx + dy * dro
   const sTile = sTiles[si]
-  if (dTiles[di] !== sTile) {
-    const sMap = this.marquee.tilesetMap
-    const dMap = tilemap.tilesetMap
-    const rMap = tilemap.reverseMap
-    if (sTile === 0) {
+  const dTile = dTiles[di]
+  if (sTile === 0) {
+    if (dTile !== 0) {
       this.recordMapData(di)
       dTiles[di] = 0
-      return
     }
-    const guid = sMap[sTile >> 24]
-    let index = rMap[guid]
-    if (index === undefined) {
-      index = this.getNewTilesetIndex(dMap)
-      if (index === 0) return
-      dMap[index] = guid
-      rMap[guid] = index
-    }
-    const nTile = sTile & 0xffffff | index << 24
-    if (dTiles[di] !== nTile) {
-      this.recordMapData(di)
-      dTiles[di] = nTile
-    }
+    return
+  }
+  const sMap = this.marquee.tilesetMap
+  const rMap = tilemap.reverseMap
+  const guid = sMap[sTile >> 24]
+  let index = rMap[guid]
+  if (index === undefined) {
+    const dMap = tilemap.tilesetMap
+    index = this.getNewTilesetIndex(dMap)
+    if (index === 0) return
+    dMap[index] = guid
+    rMap[guid] = index
+  }
+  const nTile = sTile & 0xffffff | index << 24
+  if (dTile !== nTile) {
+    this.recordMapData(di)
+    dTiles[di] = nTile
   }
 }
 
@@ -5659,7 +5656,7 @@ Scene.createDefaultAnimation = function IIFE() {
     texture.height = height
     texture.offsetX = -width / 2
     texture.offsetY = -height / 2
-    texture.protectBaseTexture()
+    texture.base.protected = true
   })
 
   // 返回函数
@@ -5669,13 +5666,13 @@ Scene.createDefaultAnimation = function IIFE() {
       motion = Inspector.animMotion.create()
       data = {sprites: [], motions: [motion]}
       const frames = motion.layers[0].frames
-      frames[0][4] = -8
-      frames[0][6] = 0.25
-      frames[0][7] = 0.25
-      frames[1] = frames[0].slice()
-      frames[1][0] = 1
-      frames[1][1] = 2
-      frames[1][10] = 1
+      frames[0].y = -8
+      frames[0].scaleX = 0.25
+      frames[0].scaleY = 0.25
+      frames[1] = Object.clone(frames[0])
+      frames[1].start = 1
+      frames[1].end = 2
+      frames[1].spriteY = 1
       DefaultPlayer = class DefaultPlayer extends Animation.Player {
         constructor(target) {
           super(data)
@@ -5734,6 +5731,13 @@ Scene.loadFromProject = function (project) {
   this.switchLayer(scene.layer)
   this.switchBrush(scene.brush)
   this.setZoom(scene.zoom)
+}
+
+// WebGL - 上下文恢复事件
+Scene.webglRestored = function (event) {
+  if (Scene.state === 'open') {
+    Scene.requestRendering()
+  }
 }
 
 // 窗口 - 调整大小事件
@@ -8218,14 +8222,14 @@ class Parallax {
         ).translate(-cl, -ct)
         gl.bindVertexArray(program.vao)
         gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
-        gl.uniform1ui(program.u_LightMode, lightModeIndex)
+        gl.uniform1i(program.u_LightMode, lightModeIndex)
         if (lightMode === 'anchor') {
           gl.uniform2f(program.u_LightCoord, anchor.x, anchor.y)
         }
-        gl.uniform1ui(program.u_ColorMode, 0)
+        gl.uniform1i(program.u_ColorMode, 0)
         gl.uniform4f(program.u_Tint, red, green, blue, gray)
         gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, 16)
-        gl.bindTexture(gl.TEXTURE_2D, texture.base)
+        gl.bindTexture(gl.TEXTURE_2D, texture.base.glTexture)
         gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
         gl.blend = 'normal'
       }
@@ -8346,7 +8350,7 @@ class Light {
     const intensity = light.intensity
     gl.bindVertexArray(program.vao)
     gl.uniformMatrix3fv(program.u_Matrix, false, projMatrix)
-    gl.uniform1ui(program.u_LightMode, 0)
+    gl.uniform1i(program.u_LightMode, 0)
     gl.uniform4f(program.u_LightColor, red, green, blue, intensity)
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, 16)
     gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
@@ -8398,10 +8402,10 @@ class Light {
     .rotateAt(ox, oy, this.angle)
     gl.bindVertexArray(program.vao)
     gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
-    gl.uniform1ui(program.u_LightMode, mode)
+    gl.uniform1i(program.u_LightMode, mode)
     gl.uniform4f(program.u_LightColor, red, green, blue, 0)
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, 16)
-    gl.bindTexture(gl.TEXTURE_2D, texture?.base)
+    gl.bindTexture(gl.TEXTURE_2D, texture?.base.glTexture)
     gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
   }
 

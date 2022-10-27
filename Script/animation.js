@@ -197,6 +197,7 @@ const Animation = {
   saveToProject: null,
   loadFromProject: null,
   // events
+  webglRestored: null,
   windowResize: null,
   themechange: null,
   datachange: null,
@@ -416,7 +417,7 @@ Animation.initialize = function () {
   // 设置检查器类型映射表
   this.inspectorTypeMap = {
     bone: 'animBoneFrame',
-    image: 'animImageFrame',
+    sprite: 'animImageFrame',
     particle: 'animParticleFrame',
   }
 
@@ -510,8 +511,8 @@ Animation.initialize = function () {
   }
   History.processors['animation-easing-change'] = (operation, data) => {
     const {motion, target, easingId} = data
-    data.easingId = target[2]
-    target[2] = easingId
+    data.easingId = target.easingId
+    target.easingId = easingId
     if (Curve.target === target) {
       Curve.list.write(easingId)
     }
@@ -524,10 +525,10 @@ Animation.initialize = function () {
   }
   History.processors['animation-target-shift'] = (operation, data) => {
     const {editor, motion, target, x, y} = data
-    data.x = target[3]
-    data.y = target[4]
-    target[3] = x
-    target[4] = y
+    data.x = target.x
+    data.y = target.y
+    target.x = x
+    target.y = y
     if (editor.target === target) {
       editor.write({x, y})
     }
@@ -539,10 +540,10 @@ Animation.initialize = function () {
   }
   History.processors['animation-target-resize'] = (operation, data) => {
     const {editor, motion, target, scaleX, scaleY} = data
-    data.scaleX = target[6]
-    data.scaleY = target[7]
-    target[6] = scaleX
-    target[7] = scaleY
+    data.scaleX = target.scaleX
+    data.scaleY = target.scaleY
+    target.scaleX = scaleX
+    target.scaleY = scaleY
     if (editor.target === target) {
       editor.write({scaleX, scaleY})
     }
@@ -554,8 +555,8 @@ Animation.initialize = function () {
   }
   History.processors['animation-target-rotate'] = (operation, data) => {
     const {editor, motion, target, rotation} = data
-    data.rotation = target[5]
-    target[5] = rotation
+    data.rotation = target.rotation
+    target.rotation = rotation
     if (editor.target === target) {
       editor.write({rotation})
     }
@@ -567,10 +568,10 @@ Animation.initialize = function () {
   }
   History.processors['animation-target-index'] = (operation, data) => {
     const {editor, motion, target, hindex, vindex} = data
-    data.hindex = target[9]
-    data.vindex = target[10]
-    target[9] = hindex
-    target[10] = vindex
+    data.hindex = target.spriteX
+    data.vindex = target.spriteY
+    target.spriteX = hindex
+    target.spriteY = vindex
     Animation.setMotion(motion)
     Animation.selectFrame(target)
     Animation.requestRendering()
@@ -588,6 +589,7 @@ Animation.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
+  GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#animation-head-start').on('pointerdown', this.switchPointerdown)
   $('#animation-speed').on('input', this.speedInput)
   $('#animation-zoom').on('focus', this.zoomFocus)
@@ -864,7 +866,7 @@ Animation.openLayer = function (layer) {
     case 'bone':
       Inspector.close()
       break
-    case 'image':
+    case 'sprite':
       Inspector.open('animImageLayer', layer)
       break
     case 'particle':
@@ -911,14 +913,14 @@ Animation.previousKeyFrame = function () {
     let x = -1
     const {frames} = contexts[y].layer
     for (const frame of frames) {
-      if (frame[0] < index) {
-        x = frame[0]
+      if (frame.start < index) {
+        x = frame.start
       } else {
         break
       }
     }
     if (x === -1 && frames.length !== 0) {
-      x = frames[frames.length - 1][0]
+      x = frames[frames.length - 1].start
     }
     if (x !== -1) {
       this.selectMarquee(x, y, 1, x)
@@ -931,8 +933,8 @@ Animation.previousKeyFrame = function () {
     for (let i = 0; i < count; i++) {
       const {frames} = contexts[i].layer
       for (const frame of frames) {
-        if (frame[0] < index) {
-          x = Math.max(x, frame[0])
+        if (frame.start < index) {
+          x = Math.max(x, frame.start)
         } else {
           break
         }
@@ -942,7 +944,7 @@ Animation.previousKeyFrame = function () {
       for (let i = 0; i < count; i++) {
         const {frames} = contexts[i].layer
         if (frames.length !== 0) {
-          x = Math.max(x, frames[frames.length - 1][0])
+          x = Math.max(x, frames[frames.length - 1].start)
         }
       }
     }
@@ -962,13 +964,13 @@ Animation.nextKeyFrame = function () {
     let x = -1
     const {frames} = contexts[y].layer
     for (const frame of frames) {
-      if (frame[0] > index) {
-        x = frame[0]
+      if (frame.start > index) {
+        x = frame.start
         break
       }
     }
     if (x === -1 && frames.length !== 0) {
-      x = frames[0][0]
+      x = frames[0].start
     }
     if (x !== -1) {
       this.selectMarquee(x, y, 1, x)
@@ -981,8 +983,8 @@ Animation.nextKeyFrame = function () {
     for (let i = 0; i < count; i++) {
       const {frames} = contexts[i].layer
       for (const frame of frames) {
-        if (frame[0] > index) {
-          x = Math.min(x, frame[0])
+        if (frame.start > index) {
+          x = Math.min(x, frame.start)
           break
         }
       }
@@ -991,7 +993,7 @@ Animation.nextKeyFrame = function () {
       for (let i = 0; i < count; i++) {
         const {frames} = contexts[i].layer
         if (frames.length !== 0) {
-          x = Math.min(x, frames[0][0])
+          x = Math.min(x, frames[0].start)
         }
       }
     }
@@ -1186,12 +1188,12 @@ Animation.shiftTarget = function (x, y) {
         editor: editor,
         motion: this.motion,
         target: target,
-        x: target[3],
-        y: target[4],
+        x: target.x,
+        y: target.y,
       })
     }
-    target[3] = x
-    target[4] = y
+    target.x = x
+    target.y = y
     this.updateFrameContexts()
     this.requestRendering()
 
@@ -1225,15 +1227,15 @@ Animation.resizeTarget = function (scaleX, scaleY) {
         editor: editor,
         motion: this.motion,
         target: target,
-        scaleX: target[6],
-        scaleY: target[7],
+        scaleX: target.scaleX,
+        scaleY: target.scaleY,
       })
     }
     if (scaleX !== undefined) {
-      target[6] = scaleX
+      target.scaleX = scaleX
     }
     if (scaleY !== undefined) {
-      target[7] = scaleY
+      target.scaleY = scaleY
     }
     this.updateFrameContexts()
     this.requestRendering()
@@ -1268,10 +1270,10 @@ Animation.rotateTarget = function (rotation) {
         editor: editor,
         motion: this.motion,
         target: target,
-        rotation: target[5],
+        rotation: target.rotation,
       })
     }
-    target[5] = rotation
+    target.rotation = rotation
     this.updateFrameContexts()
     this.requestRendering()
 
@@ -1416,7 +1418,7 @@ Animation.updateControlPoints = function (context) {
   let L, T, R, B
   const {layer, frame} = context
   switch (layer.class) {
-    case 'image': {
+    case 'sprite': {
       const key = layer.sprite
       const texture = this.player.textures[key]
       if (texture instanceof ImageTexture) {
@@ -1528,12 +1530,12 @@ Animation.updateControlPoints = function (context) {
   rectResize.BL.y = y2 + oy2 - oy1
   rectResize.BR.x = x3 + ox3 - ox2
   rectResize.BR.y = y3 + oy3 - oy2
-  let rotation = frame[5]
+  let rotation = frame.rotation
   let node = context
   while (node = node.parent) {
     const frame = node.frame
     if (frame !== null) {
-      rotation += frame[5]
+      rotation += frame.rotation
     }
   }
   this.controlPointRotation = rotation
@@ -1645,8 +1647,8 @@ Animation.getKeyFrame = function (x, y) {
     const {layer, x: sx, length} = this.timelineMarquee
     const ex = sx + length
     for (const frame of layer.frames) {
-      const start = frame[0]
-      const end = frame[1]
+      const start = frame.start
+      const end = frame.end
       if (sx >= end) continue
       if (ex <= start) break
       // 如果指向第一个关键帧则返回有效帧
@@ -1920,7 +1922,7 @@ Animation.selectFrame = function (frame, fStart, fLength) {
     const length = timelines.length
     for (let y = 0; y < length; y++) {
       if (timelines[y].layer === layer) {
-        const x = fStart ?? frame[0]
+        const x = fStart ?? frame.start
         const w = fLength ?? 1
         const i = this.player.index
         this.selectMarquee(x, y, w, x)
@@ -2090,7 +2092,7 @@ Animation.selectFrameAtHomeEnd = function (direction) {
   switch (direction) {
     case 'home':
       if (fLength !== 0) {
-        const head = frames[0][0]
+        const head = frames[0].start
         x = x !== head || length !== 1 ? head : 0
       } else {
         x = 0
@@ -2098,7 +2100,7 @@ Animation.selectFrameAtHomeEnd = function (direction) {
       break
     case 'end':
       if (fLength !== 0) {
-        const foot = frames[fLength - 1][1] - 1
+        const foot = frames[fLength - 1].end - 1
         x = x !== foot || length !== 1 ? foot : this.frameMax - 1
       } else {
         x = this.frameMax - 1
@@ -2118,8 +2120,8 @@ Animation.selectAllFramesOfKey = function () {
   }
   const {layer, y, origin} = marquee
   for (const frame of layer.frames) {
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (origin >= end) continue
     if (origin < start) break
     this.selectMarquee(start, y, end - start, origin)
@@ -2171,7 +2173,7 @@ Animation.multiSelectFramesToHomeEnd = function (direction) {
   switch (direction) {
     case 'home':
       if (fLength !== 0) {
-        const head = frames[0][0]
+        const head = frames[0].start
         x = x === origin ? x + length - 1 : x
         x = x !== head ? head : 0
       } else {
@@ -2180,7 +2182,7 @@ Animation.multiSelectFramesToHomeEnd = function (direction) {
       break
     case 'end':
       if (fLength !== 0) {
-        const foot = frames[fLength - 1][1] - 1
+        const foot = frames[fLength - 1].end - 1
         x = x === origin ? x + length - 1 : x
         x = x !== foot ? foot : this.frameMax - 1
       } else {
@@ -2200,8 +2202,8 @@ Animation.openFrame = function () {
   const marquee = this.timelineMarquee
   const {layer, x} = marquee
   for (const frame of layer.frames) {
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (x < start) break
     if (this.target !== frame) {
@@ -2250,9 +2252,7 @@ Animation.loadTextures = function () {
       continue
     }
     if (imageId) {
-      const texture = new ImageTexture(imageId, {
-        wrap: GL.CLAMP_TO_EDGE,
-      })
+      const texture = new ImageTexture(imageId)
       texture.on('load', () => {
         if (player.textures === textures) {
           const {base} = texture
@@ -2332,7 +2332,7 @@ Animation.drawImageLayers = function (contexts = this.player.contexts) {
   for (let i = 0; i < count; i++) {
     const context = contexts[i]
     const {layer, frame} = context
-    if (layer.class === 'image' &&
+    if (layer.class === 'sprite' &&
       !layer.hidden &&
       frame !== null) {
       const key = layer.sprite
@@ -2706,12 +2706,12 @@ Animation.drawBoneSpinner = function () {
     const mi = vi
     const innerRadius = 16 * scale
     const outerRadius = 20 * scale
-    let rotation = target[5]
+    let rotation = target.rotation
     let node = context
     while (node = node.parent) {
       const frame = node.frame
       if (frame !== null) {
-        rotation += frame[5]
+        rotation += frame.rotation
       }
     }
     const angle = Math.radians(rotation)
@@ -2757,7 +2757,7 @@ Animation.drawHoverWireframe = function () {
         switch (context.layer.class) {
           case 'bone':
             break
-          case 'image':
+          case 'sprite':
             this.drawImageWireframe(context, 0xffffffff)
             break
           case 'particle':
@@ -2777,7 +2777,7 @@ Animation.drawTargetWireframe = function () {
     switch (context.layer.class) {
       case 'bone':
         break
-      case 'image':
+      case 'sprite':
         this.drawImageWireframe(context, 0xffc0ff00)
         break
       case 'particle':
@@ -3051,11 +3051,11 @@ Animation.drawImageControlPoints = function () {
     ).multiply(Animation.matrix)
     gl.bindVertexArray(program.vao)
     gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
-    gl.uniform1ui(program.u_LightMode, 0)
-    gl.uniform1ui(program.u_ColorMode, 0)
+    gl.uniform1i(program.u_LightMode, 0)
+    gl.uniform1i(program.u_ColorMode, 0)
     gl.uniform4f(program.u_Tint, 0, 0, 0, 0)
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, vi)
-    gl.bindTexture(gl.TEXTURE_2D, texture.base)
+    gl.bindTexture(gl.TEXTURE_2D, texture.base.glTexture)
     gl.drawElements(gl.TRIANGLES, vi / 16 * 6, gl.UNSIGNED_INT, 0)
   }
 }
@@ -3079,9 +3079,9 @@ Animation.createTimelines = function IIFE() {
       const count = frames.length
       for (let i = 0; i < count; i++) {
         const frame = frames[i]
-        const start = frame[0]
-        const length = frame[1] - start
-        const easing = frame[2] !== ''
+        const start = frame.start
+        const length = frame.end - start
+        const easing = frame.easingId !== ''
         let {key} = frame
         if (key === undefined) {
           key = document.createElement('box')
@@ -3131,8 +3131,8 @@ Animation.getFrame = function (frames, x) {
   const length = frames.length
   for (let i = 0; i < length; i++) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (x < start) break
     return frame
@@ -3146,13 +3146,13 @@ Animation.sortFrames = function (frames) {
   const length = frames.length
   for (let i = 0; i < length; i++) {
     let frame = frames[i]
-    const start = frame[0]
+    const start = frame.start
     if (start < end) {
       frame = this.cloneFrame(frames, i)
-      frame[0] = end
-      frame[1] += end - start
+      frame.start = end
+      frame.end += end - start
     }
-    end = frame[1]
+    end = frame.end
   }
 }
 
@@ -3161,8 +3161,8 @@ Animation.shiftFrames = function (frames, start, offset) {
   const length = frames.length
   for (let i = start; i < length; i++) {
     const frame = this.cloneFrame(frames, i)
-    frame[0] += offset
-    frame[1] += offset
+    frame.start += offset
+    frame.end += offset
   }
 }
 
@@ -3186,7 +3186,7 @@ Animation.saveFrames = function (layers, sMarquee, dMarquee = sMarquee) {
 // 克隆关键帧
 Animation.cloneFrame = function (frames, index) {
   const frame = frames[index]
-  const clone = frames[index] = frame.slice()
+  const clone = frames[index] = Object.clone(frame)
   return Object.defineProperty(clone, 'key', {
     configurable: true,
     value: frame.key,
@@ -3206,39 +3206,39 @@ Animation.insertFrame = function () {
   this.saveFrames([layer], {layer, x, length})
   for (let i = 0; i < fLength; i++) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (x > start) {
       // 插入到关键帧中间
-      const insert = frame.slice()
+      const insert = Object.clone(frame)
       // const next = frames[i + 1]
-      // if (next && ex > next[0]) {
-      //   this.shiftFrames(frames, i + 1, ex - next[0])
+      // if (next && ex > next.start) {
+      //   this.shiftFrames(frames, i + 1, ex - next.start)
       // }
-      insert[0] = x
-      insert[1] = Math.max(ex, end)
-      this.cloneFrame(frames, i)[1] = x
+      insert.start = x
+      insert.end = Math.max(ex, end)
+      this.cloneFrame(frames, i).end = x
       frames.splice(i + 1, 0, insert)
     } else if (x === start) {
       // 插入到关键帧之前
       const proto = frames[i - 1] ?? frame
-      const insert = proto.slice()
+      const insert = Object.clone(proto)
       // this.shiftFrames(frames, i, length)
-      insert[0] = x
-      insert[1] = ex
+      insert.start = x
+      insert.end = ex
       frames.splice(i, 0, insert)
     } else {
       // 插入到空白帧
       if (i !== 0) {
-        this.cloneFrame(frames, i - 1)[1] = x
+        this.cloneFrame(frames, i - 1).end = x
       }
-      const insert = frame.slice()
+      const insert = Object.clone(frame)
       // if (ex > start) {
       //   this.shiftFrames(frames, i, ex - start)
       // }
-      insert[0] = x
-      insert[1] = ex
+      insert.start = x
+      insert.end = ex
       frames.splice(i, 0, insert)
     }
     this.sortFrames(frames)
@@ -3250,17 +3250,17 @@ Animation.insertFrame = function () {
   const last = frames[fLength - 1]
   let insert = last
   if (last) {
-    insert = last.slice()
+    insert = Object.clone(last)
   } else {
     const map = this.inspectorTypeMap
     const key = map[layer.class]
     insert = Inspector[key].create()
   }
-  if (last && last[1] !== x) {
-    this.cloneFrame(frames, fLength - 1)[1] = x
+  if (last && last.end !== x) {
+    this.cloneFrame(frames, fLength - 1).end = x
   }
-  insert[0] = x
-  insert[1] = ex
+  insert.start = x
+  insert.end = ex
   frames.push(insert)
   this.updateTimeline()
   this.loadFrames(x)
@@ -3280,20 +3280,20 @@ Animation.extendFrame = function () {
   this.saveFrames([layer], {layer, x, length})
   for (let i = 0; i < fLength; i++) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (x >= start) {
       // 插入到关键帧之前或中间
-      this.cloneFrame(frames, i)[1] += length
+      this.cloneFrame(frames, i).end += length
       // const next = frames[i + 1]
-      // if (next && frame[1] > next[0]) {
-      //   this.shiftFrames(frames, i + 1, frame[1] - next[0])
+      // if (next && frame.end > next.start) {
+      //   this.shiftFrames(frames, i + 1, frame.end - next.start)
       // }
     } else {
       // 插入到空白帧
       if (i === 0) return
-      this.cloneFrame(frames, i - 1)[1] = ex
+      this.cloneFrame(frames, i - 1).end = ex
       // if (ex > start) {
       //   this.shiftFrames(frames, i, ex - start)
       // }
@@ -3305,7 +3305,7 @@ Animation.extendFrame = function () {
   }
   // 追加到尾部
   if (fLength !== 0) {
-    this.cloneFrame(frames, fLength - 1)[1] = ex
+    this.cloneFrame(frames, fLength - 1).end = ex
     this.updateTimeline()
     this.openFrame()
   }
@@ -3325,11 +3325,11 @@ Animation.deleteFrame = function (shrink = false) {
   if (shrink) block: {
     while (--i >= 0) {
       const frame = frames[i]
-      const start = frame[0]
+      const start = frame.start
       if (ex > start) {
         if (x <= start) {
           // 计算删除关键帧后的偏移值
-          const end = frame[1]
+          const end = frame.end
           const extra = Math.max(end - ex, 0)
           this.shiftFrames(frames, ++i, -length - extra)
         } else {
@@ -3343,8 +3343,8 @@ Animation.deleteFrame = function (shrink = false) {
   }
   while (--i >= 0) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (ex <= start) continue
     if (x >= end) break
     if (x <= start) {
@@ -3352,7 +3352,7 @@ Animation.deleteFrame = function (shrink = false) {
       frames.splice(i, 1)
     } else {
       // 裁剪关键帧
-      this.cloneFrame(frames, i)[1] = x + Math.max(end - ex, 0)
+      this.cloneFrame(frames, i).end = x + Math.max(end - ex, 0)
     }
   }
   this.updateTimeline()
@@ -3372,30 +3372,30 @@ Animation.copyFrame = function (returnData = false) {
   const fLength = frames.length
   for (let i = 0; i < fLength; i++) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (ex <= start) break
-    copies.push(frame.slice())
+    copies.push(Object.clone(frame))
   }
   if (copies.length !== 0) {
     // 重置关键帧位置
     for (const frame of copies) {
-      frame[0] -= x
-      frame[1] -= x
+      frame.start -= x
+      frame.end -= x
     }
     // 选中关键帧头部则必要时扩展选框长度
     // 否则裁剪尾部关键帧
     const last = copies[copies.length - 1]
-    if (last[0] >= 0) {
-      length = Math.max(last[1], length)
+    if (last.start >= 0) {
+      length = Math.max(last.end, length)
     } else {
-      last[1] = Math.min(last[1], length)
+      last.end = Math.min(last.end, length)
     }
     // 裁剪头部关键帧
     const first = copies[0]
-    if (first[0] < 0) {
-      first[0] = 0
+    if (first.start < 0) {
+      first.start = 0
     }
     const data = {copies, length}
     if (returnData) {
@@ -3420,25 +3420,25 @@ Animation.pasteFrame = function (data, destination) {
     {layer, x, length: dLength},
   )
   for (const frame of copies) {
-    frame[0] += x
-    frame[1] += x
+    frame.start += x
+    frame.end += x
   }
   // const ex = x + dLength
   const frames = layer.frames
   const fLength = frames.length
   for (let i = 0; i < fLength; i++) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (x > start) {
       // 插入到关键帧中间
       // const next = frames[i + 1]
-      // if (next && ex > next[0]) {
-      //   this.shiftFrames(frames, i + 1, ex - next[0])
+      // if (next && ex > next.start) {
+      //   this.shiftFrames(frames, i + 1, ex - next.start)
       // }
       if (x < end) {
-        this.cloneFrame(frames, i)[1] = x
+        this.cloneFrame(frames, i).end = x
       }
       frames.splice(i + 1, 0, ...copies)
     } else if (x === start) {
@@ -3474,8 +3474,8 @@ Animation.selectAllFrames = function () {
   const {frames} = layer
   const {length} = frames
   if (length !== 0) {
-    const start = frames[0][0]
-    const end = frames[length - 1][1]
+    const start = frames[0].start
+    const end = frames[length - 1].end
     this.selectMarquee(start, y, end - start, start)
   }
 }
@@ -3523,8 +3523,8 @@ Animation.adjustMarquee = function () {
   // 调整选框头部
   for (let i = 0; i < fLength; i++) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (ex <= start) break
     if (x !== start) {
@@ -3537,8 +3537,8 @@ Animation.adjustMarquee = function () {
   // 调整选框尾部
   for (let i = fLength - 1; i >= 0; i--) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (ex <= start) continue
     if (x >= end) break
     if (ex > end) {
@@ -3570,7 +3570,7 @@ Animation.shiftSelectedFrames = function (mode) {
     case 'left': {
       const frames = sLayer.frames
       const frame = this.getFrame(frames, dx - 1)
-      dx = frame ? frame[0] : dx - 1
+      dx = frame ? frame.start : dx - 1
       break
     }
     case 'up':
@@ -3644,7 +3644,7 @@ Animation.selectControlPoint = function (x, y) {
         if (!emitter?.hasArea) return null
         // 符合条件则执行下面的内容
       }
-      case 'image':
+      case 'sprite':
         if (this.controlPointVisible) {
           const radius = 6 / this.scale
           const {rectList} = points
@@ -4067,6 +4067,13 @@ Animation.loadFromProject = function (project) {
   this.setZoom(animation.zoom)
 }
 
+// WebGL - 上下文恢复事件
+Animation.webglRestored = function (event) {
+  if (Animation.state === 'open') {
+    Animation.requestRendering()
+  }
+}
+
 // 窗口 - 调整大小事件
 Animation.windowResize = function (event) {
   this.updateHead()
@@ -4258,8 +4265,8 @@ Animation.screenKeydown = function (event) {
             offsetX *= 10
             offsetY *= 10
           }
-          const x = Math.roundTo(target[3] + offsetX, 4)
-          const y = Math.roundTo(target[4] + offsetY, 4)
+          const x = Math.roundTo(target.x + offsetX, 4)
+          const y = Math.roundTo(target.y + offsetY, 4)
           this.shiftTarget(x, y)
         }
         break
@@ -4365,7 +4372,7 @@ Animation.marqueePointerdown = function (event) {
           case points.rectRotate.TR:
           case points.rectRotate.BL:
           case points.rectRotate.BR: {
-            const rotation = target[5]
+            const rotation = target.rotation
             const matrix = GL.matrix
             .set(Animation.matrix)
             .multiply(context.matrix)
@@ -4390,10 +4397,10 @@ Animation.marqueePointerdown = function (event) {
           case points.rectResize.BR: {
             const layer = context.layer
             event.mode = 'object-resize'
-            event.startScaleX = target[6]
-            event.startScaleY = target[7]
+            event.startScaleX = target.scaleX
+            event.startScaleY = target.scaleY
             switch (context.layer.class) {
-              case 'image': {
+              case 'sprite': {
                 const key = layer.sprite
                 const texture = this.player.textures[key]
                 event.startWidth = texture.width
@@ -4422,8 +4429,8 @@ Animation.marqueePointerdown = function (event) {
         this.dragging = event
         event.mode = 'object-move'
         event.enabled = false
-        event.startX = object[3]
-        event.startY = object[4]
+        event.startX = object.x
+        event.startY = object.y
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
       }
@@ -4523,7 +4530,7 @@ Animation.pointermove = function (event) {
           if (event.shiftKey) {
             rotation = Math.round(rotation / 15) * 15
           }
-          if (Animation.target[5] !== rotation) {
+          if (Animation.target.rotation !== rotation) {
             Animation.rotateTarget(rotation)
           }
           dragging.lastAngle = currentAngle
@@ -4614,8 +4621,8 @@ Animation.pointermove = function (event) {
             scaleY = height / dragging.startHeight
             scaleY = Math.roundTo(dragging.startScaleY + scaleY, 2)
           }
-          if (scaleX !== undefined && Animation.target[6] !== scaleX ||
-            scaleY !== undefined && Animation.target[7] !== scaleY) {
+          if (scaleX !== undefined && Animation.target.scaleX !== scaleX ||
+            scaleY !== undefined && Animation.target.scaleY !== scaleY) {
             Animation.resizeTarget(scaleX, scaleY)
           }
         }
@@ -4657,7 +4664,7 @@ Animation.pointermove = function (event) {
             x = Math.round(dragging.startX + distX)
             y = Math.round(dragging.startY + distY)
           }
-          if (target[3] !== x || target[4] !== y) {
+          if (target.x !== x || target.y !== y) {
             Animation.shiftTarget(x, y)
           }
         }
@@ -5048,7 +5055,7 @@ Animation.layerListPopup = function (event) {
     }, {
       label: get('create.image'),
       click: () => {
-        this.create(item, 'image')
+        this.create(item, 'sprite')
       },
     }, {
       label: get('create.particleEmitter'),
@@ -5531,8 +5538,8 @@ Animation.innerTimelineListDblclick = function (event) {
     const layer = timelines[y]?.layer
     if (layer !== undefined) {
       for (const frame of layer.frames) {
-        const start = frame[0]
-        const end = frame[1]
+        const start = frame.start
+        const end = frame.end
         if (x >= end) continue
         if (x < start) break
         Animation.selectMarquee(start, y, end - start, x)
@@ -5671,7 +5678,7 @@ Animation.layerList.create = function (dItem, type) {
     case 'bone':
       data = Inspector.animBoneLayer.create()
       break
-    case 'image':
+    case 'sprite':
       data = Inspector.animImageLayer.create()
       break
     case 'particle':
@@ -5722,7 +5729,7 @@ Animation.layerList.createIcon = function IIFE() {
       icon.addClass('anim-layer-bone')
       return icon
     },
-    image: () => {
+    sprite: () => {
       const icon = document.createElement('node-icon')
       icon.addClass('anim-layer-image')
       return icon
@@ -5793,8 +5800,8 @@ Animation.timelineMarquee.isSelected = function () {
   const fLength = frames.length
   for (let i = 0; i < fLength; i++) {
     const frame = frames[i]
-    const start = frame[0]
-    const end = frame[1]
+    const start = frame.start
+    const end = frame.end
     if (x >= end) continue
     if (ex <= start) break
     return true
@@ -5806,14 +5813,14 @@ Animation.timelineMarquee.isSelected = function () {
 Animation.timelineMarquee.isExtendable = function () {
   const frames = this.layer.frames
   const frame = frames[0]
-  return frame ? this.x >= frame[0] : false
+  return frame ? this.x >= frame.start : false
 }
 
 // 时间轴选框 - 判断是否可收缩
 Animation.timelineMarquee.isShrinkable = function () {
   const frames = this.layer.frames
   const frame = frames[frames.length - 1]
-  return frame ? this.x < frame[1] : false
+  return frame ? this.x < frame.end : false
 }
 
 // ******************************** 动画播放器类 ********************************
@@ -5923,14 +5930,14 @@ Animation.Player = class AnimationPlayer {
       const last = frames.length - 1
       for (let i = 0; i <= last; i++) {
         const frame = frames[i]
-        const start = frame[0]
-        const end = frame[1]
+        const start = frame.start
+        const end = frame.end
         if (index >= start && index < end) {
-          const easingId = frame[2]
+          const easingId = frame.easingId
           if (easingId !== '' && i < last) {
             const next = frames[i + 1]
             const time = Easing.get(easingId).map(
-              (index - start) / (next[0] - start)
+              (index - start) / (next.start - start)
             )
             context.update(frame, time, next)
           } else {
@@ -5994,7 +6001,7 @@ Animation.Player = class AnimationPlayer {
       const frames = contexts[i].layer.frames
       const frame = frames[frames.length - 1]
       if (frame !== undefined) {
-        length = Math.max(length, frame[1])
+        length = Math.max(length, frame.end)
       }
     }
     this.length = length
@@ -6050,7 +6057,7 @@ Animation.Player = class AnimationPlayer {
     for (let i = 0; i < count; i++) {
       const context = contexts[i]
       const {layer} = context
-      if (layer.class === 'image' &&
+      if (layer.class === 'sprite' &&
         context.frame !== null) {
         const key = layer.sprite
         const texture = this.getTexture(key)
@@ -6086,8 +6093,8 @@ Animation.Player = class AnimationPlayer {
     const th = base.height
     const sw = texture.width
     const sh = texture.height
-    const sx = frame[9] * sw
-    const sy = frame[10] * sh
+    const sx = frame.spriteX * sw
+    const sy = frame.spriteY * sh
     const L = texture.offsetX
     const T = texture.offsetY
     const R = L + sw
@@ -6167,9 +6174,7 @@ Animation.Player = class AnimationPlayer {
       const sprite = this.sprites[spriteId]
       const imageId = this.images[spriteId]
       if (sprite !== undefined && imageId) {
-        const texture = new ImageTexture(imageId, {
-          wrap: GL.CLAMP_TO_EDGE,
-        })
+        const texture = new ImageTexture(imageId)
         textures[spriteId] = null
         texture.on('load', () => {
           if (this.textures === textures) {
@@ -6305,8 +6310,8 @@ Animation.Player = class AnimationPlayer {
         case 'bone':
           context.update = AnimationPlayer.contextUpdate
           break
-        case 'image':
-          context.update = AnimationPlayer.contextUpdateImage
+        case 'sprite':
+          context.update = AnimationPlayer.contextUpdateSprite
           break
         case 'particle':
           context.update = AnimationPlayer.contextUpdateParticle
@@ -6343,20 +6348,20 @@ Animation.Player = class AnimationPlayer {
       matrix.set(AnimationPlayer.matrix)
       this.opacity = 1
     }
-    let positionX = frame[3]
-    let positionY = frame[4]
-    let rotation = frame[5]
-    let scaleX = frame[6]
-    let scaleY = frame[7]
-    let opacity = frame[8]
+    let positionX = frame.x
+    let positionY = frame.y
+    let rotation = frame.rotation
+    let scaleX = frame.scaleX
+    let scaleY = frame.scaleY
+    let opacity = frame.opacity
     if (next !== undefined) {
       const reverse = 1 - time
-      positionX = positionX * reverse + next[3] * time
-      positionY = positionY * reverse + next[4] * time
-      rotation = rotation * reverse + next[5] * time
-      scaleX = scaleX * reverse + next[6] * time
-      scaleY = scaleY * reverse + next[7] * time
-      opacity = opacity * reverse + next[8] * time
+      positionX = positionX * reverse + next.x * time
+      positionY = positionY * reverse + next.y * time
+      rotation = rotation * reverse + next.rotation * time
+      scaleX = scaleX * reverse + next.scaleX * time
+      scaleY = scaleY * reverse + next.scaleY * time
+      opacity = opacity * reverse + next.opacity * time
     }
     matrix
     .translate(positionX, positionY)
@@ -6366,8 +6371,8 @@ Animation.Player = class AnimationPlayer {
     this.frame = frame
   }
 
-  // 静态 - 上下文方法 - 更新图像
-  static contextUpdateImage(frame, time, next) {
+  // 静态 - 上下文方法 - 更新精灵
+  static contextUpdateSprite(frame, time, next) {
     AnimationPlayer.contextUpdate.call(this, frame, time, next)
     // 获取或创建色调数组
     let tint = this.tint
@@ -6375,16 +6380,16 @@ Animation.Player = class AnimationPlayer {
       tint = this.tint = new Int16Array(4)
     }
     // 更新色调
-    let red = frame[11]
-    let green = frame[12]
-    let blue = frame[13]
-    let gray = frame[14]
+    let red = frame.tint[0]
+    let green = frame.tint[1]
+    let blue = frame.tint[2]
+    let gray = frame.tint[3]
     if (next !== undefined) {
       const reverse = 1 - time
-      red = Math.clamp(red * reverse + next[11] * time, -255, 255)
-      green = Math.clamp(green * reverse + next[12] * time, -255, 255)
-      blue = Math.clamp(blue * reverse + next[13] * time, -255, 255)
-      gray = Math.clamp(gray * reverse + next[14] * time, 0, 255)
+      red = Math.clamp(red * reverse + next.tint[0] * time, -255, 255)
+      green = Math.clamp(green * reverse + next.tint[1] * time, -255, 255)
+      blue = Math.clamp(blue * reverse + next.tint[2] * time, -255, 255)
+      gray = Math.clamp(gray * reverse + next.tint[3] * time, 0, 255)
     }
     tint[0] = red
     tint[1] = green
@@ -6407,12 +6412,12 @@ Animation.Player = class AnimationPlayer {
       this.animation.emitters.push(emitter)
     }
     // 更新粒子发射器
-    let scale = frame[9]
-    let speed = frame[10]
+    let scale = frame.scale
+    let speed = frame.speed
     if (next !== undefined) {
       const reverse = 1 - time
-      scale = scale * reverse + next[9] * time
-      speed = speed * reverse + next[10] * time
+      scale = scale * reverse + next.scale * time
+      speed = speed * reverse + next.speed * time
     }
     emitter.scale = scale
     emitter.speed = speed
@@ -6501,7 +6506,7 @@ Curve.load = function (frame) {
     this.target = frame
     if (frame) {
       this.list.show()
-      this.list.write(frame[2])
+      this.list.write(frame.easingId)
     } else {
       this.list.hide()
       this.index = null
@@ -6566,7 +6571,7 @@ Curve.updateEasingOptions = function () {
 
 // 更新时间轴
 Curve.updateTimeline = function (target) {
-  const easing = target[2] !== ''
+  const easing = target.easingId !== ''
   const {key} = target
   if (key.easing !== easing) {
     key.easing = easing
@@ -6782,9 +6787,9 @@ Curve.easingIdInput = function (event) {
     type: 'animation-easing-change',
     motion: Animation.motion,
     target: Animation.target,
-    easingId: Curve.target[2],
+    easingId: Curve.target.easingId,
   })
-  Curve.target[2] = event.value
+  Curve.target.easingId = event.value
   Curve.updateTimeline(Curve.target)
 }
 

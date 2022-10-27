@@ -38,13 +38,13 @@ const Title = {
   windowLeaveFullScreen: null,
   windowDrop: null,
   windowDirchange: null,
+  windowLocalize: null,
   pointerenter: null,
   pointermove: null,
   tabBarPointerdown: null,
   tabBarSelect: null,
   tabBarClosed: null,
   tabBarPopup: null,
-  directoryClick: null,
   playClick: null,
   minimizeClick: null,
   maximizeClick: null,
@@ -99,12 +99,12 @@ Title.initialize = function () {
   // 侦听事件
   window.on('drop', this.windowDrop)
   window.on('dirchange', this.windowDirchange)
+  window.on('localize', this.windowLocalize)
   $('#title').on('pointerenter', this.pointerenter)
   $('#title-tabBar').on('pointerdown', this.tabBarPointerdown)
   $('#title-tabBar').on('select', this.tabBarSelect)
   $('#title-tabBar').on('closed', this.tabBarClosed)
   $('#title-tabBar').on('popup', this.tabBarPopup)
-  $('#title-directory').on('click', this.directoryClick)
   $('#title-play').on('click', this.playClick)
   $('#title-minimize').on('click', this.minimizeClick)
   $('#title-maximize').on('click', this.maximizeClick)
@@ -368,8 +368,15 @@ Title.loadFromProject = function (project) {
   const {openTabs, activeTab} = project
 
   // 加载标签页
-  const items = []
+  const dirItem = {
+    icon: '\uf07c',
+    name: Local.get('common.directory'),
+    meta: {guid: ''},
+    type: 'directory',
+  }
+  const items = [dirItem]
   const tabBar = this.tabBar
+  tabBar.dirItem = dirItem
   const map = Data.manifest.guidMap
   for (const guid of openTabs) {
     const meta = map[guid]
@@ -466,6 +473,7 @@ Title.windowDrop = function (event) {
 Title.windowDirchange = function (event) {
   const {tabBar} = Title
   for (const item of tabBar.data) {
+    if (item === tabBar.dirItem) continue
     const name = tabBar.parseName(item.meta)
     if (item.name !== name) {
       item.name = name
@@ -473,6 +481,14 @@ Title.windowDirchange = function (event) {
         item.tab.text.textContent = tabBar.parseTabName(item)
       }
     }
+  }
+}
+
+// 窗口 - 本地化事件
+Title.windowLocalize = function (event) {
+  const text = Title.tabBar.dirItem?.tab?.text
+  if (text instanceof HTMLElement) {
+    text.textContent = Local.get('common.directory')
   }
 }
 
@@ -532,6 +548,9 @@ Title.tabBarSelect = function (event) {
   }
   const context = event.value
   switch (context.type) {
+    case 'directory':
+      Layout.manager.switch('directory')
+      break
     case 'scene':
       Layout.manager.switch('scene')
       Scene.open(context)
@@ -573,7 +592,9 @@ Title.tabBarClosed = function (event) {
         Particle.destroy(context)
         break
     }
-    Title.addRecentTab(context.meta.guid)
+    if (context.meta.guid) {
+      Title.addRecentTab(context.meta.guid)
+    }
   }
   if (closedItems.includes(lastValue)) {
     const items = this.data
@@ -600,6 +621,7 @@ Title.tabBarPopup = function (event) {
   }, [{
     label: get('close'),
     accelerator: ctrl('W'),
+    enabled: item.type !== 'directory',
     click: () => {
       this.close(item)
     }
@@ -616,11 +638,6 @@ Title.tabBarPopup = function (event) {
       this.closeTabsToTheRight(item)
     }
   }])
-}
-
-// 目录按钮 - 鼠标点击事件
-Title.directoryClick = function (event) {
-  Layout.manager.switch('directory')
 }
 
 // 播放按钮 - 鼠标点击事件
@@ -1967,9 +1984,6 @@ Menubar.keydown = function (event) {
     }
   } else if (event.altKey) {
     switch (event.code) {
-      case 'Backquote':
-        Layout.manager.switch('directory')
-        break
       case 'Digit1':
       case 'Digit2':
       case 'Digit3':
@@ -2015,6 +2029,9 @@ Menubar.keydown = function (event) {
         break
       case 'KeyF':
         Palette.flipTiles()
+        break
+      case 'Pause':
+        GL.WEBGL_lose_context.loseContext()
         break
     }
   }

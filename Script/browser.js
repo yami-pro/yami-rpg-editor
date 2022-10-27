@@ -12,6 +12,7 @@ Browser.unselect = null
 Browser.updateHead = null
 Browser.openScript = null
 Browser.createFile = null
+Browser.updateNavVisibility = null
 Browser.saveToProject = null
 Browser.loadFromProject = null
 // events
@@ -117,6 +118,19 @@ Browser.createFile = function (filename, data) {
   )
 }
 
+// 更新左侧栏的可见性
+Browser.updateNavVisibility = function () {
+  if (this.page.hasClass('visible')) {
+    if (Browser.clientWidth >= 500) {
+      if (this.removeClass('hide-nav-pane')) {
+        this.nav.update()
+      }
+    } else {
+      this.addClass('hide-nav-pane')
+    }
+  }
+}
+
 // 保存状态到项目文件
 Browser.saveToProject = function (project) {
   const {browser} = project
@@ -147,6 +161,7 @@ Browser.loadFromProject = function (project) {
 
 // 页面 - 调整大小事件
 Browser.pageResize = function (event) {
+  Browser.updateNavVisibility()
   Browser.updateHead()
   Browser.nav.resize()
   Browser.body.computeGridProperties()

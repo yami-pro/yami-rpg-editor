@@ -275,7 +275,7 @@ Data.createVariableMap = function IIFE() {
       if (item.children) {
         set(item.children, map)
       } else {
-        map[item[0]] = item
+        map[item.id] = item
       }
     }
   }
@@ -727,8 +727,7 @@ Project.initialize = function () {
     #config-lightArea-expansionRight, #config-lightArea-expansionBottom,
     #config-collision-actor-enabled, #config-collision-scene-enabled, #config-collision-scene-size,
     #config-font-default, #config-font-pixelated, #config-font-threshold,
-    #config-startup-eventId, #config-showText-eventId,
-    #config-showText-parameterKey, #config-showText-contentKey,
+    #config-event-startup, #config-event-showText, #config-event-showChoices,
     #config-actor-playerTeam, #config-actor-playerActor,
     #config-actor-partyMembers-0, #config-actor-partyMembers-1,
     #config-actor-partyMembers-2, #config-actor-partyMembers-3,
@@ -778,10 +777,9 @@ Project.open = function () {
   write('font-default')
   write('font-pixelated')
   write('font-threshold')
-  write('startup-eventId')
-  write('showText-eventId')
-  write('showText-parameterKey')
-  write('showText-contentKey')
+  write('event-startup')
+  write('event-showText')
+  write('event-showChoices')
   write('actor-playerTeam')
   write('actor-playerActor')
   write('actor-partyMembers-0')
@@ -965,6 +963,7 @@ const Easing = {
   delete: null,
   createId: null,
   createData: null,
+  setEasingKey: null,
   getItemById: null,
   updateMaps: null,
   updateCanvases: null,
@@ -985,6 +984,7 @@ const Easing = {
   dataChange: null,
   listKeydown: null,
   listSelect: null,
+  listOpen: null,
   listPopup: null,
   modeSelect: null,
   pointInput: null,
@@ -1011,6 +1011,8 @@ Easing.list.updateNodeElement = null
 Easing.list.updateItemName = null
 Easing.list.addElementClass = null
 Easing.list.updateTextNode = null
+Easing.list.createKeyTextNode = null
+Easing.list.updateKeyTextNode = null
 
 // 初始化
 Easing.initialize = function () {
@@ -1025,6 +1027,8 @@ Easing.initialize = function () {
   list.bind(() => this.data)
   list.creators.push(list.addElementClass)
   list.updaters.push(list.updateTextNode)
+  list.creators.push(list.createKeyTextNode)
+  list.updaters.push(list.updateKeyTextNode)
 
   // 创建模式选项
   $('#easing-mode').loadItems([
@@ -1118,6 +1122,7 @@ Easing.initialize = function () {
   list.on('keydown', this.listKeydown)
   list.on('select', this.listSelect)
   list.on('change', this.dataChange)
+  list.on('open', this.listOpen)
   list.on('popup', this.listPopup)
   $('#easing-mode').on('input', this.modeSelect)
   $(`#easing-points-0-x, #easing-points-0-y, #easing-points-1-x, #easing-points-1-y,
@@ -1284,9 +1289,19 @@ Easing.createId = function () {
 Easing.createData = function () {
   return {
     id: this.createId(),
+    key: '',
     name: '',
     points: [{x: 0, y: 0}, {x: 1, y: 1}],
   }
+}
+
+// 设置过渡曲线的键
+Easing.setEasingKey = function (item) {
+  SetKey.open(item.key, key => {
+    item.key = key
+    this.changed = true
+    this.list.updateKeyTextNode(item)
+  })
 }
 
 // 获取ID匹配的数据
@@ -1748,6 +1763,11 @@ Easing.listSelect = function (event) {
   Easing.load(event.value)
 }
 
+// 列表 - 打开事件
+Easing.listOpen = function (event) {
+  Easing.setEasingKey(event.value)
+}
+
 // 列表 - 菜单弹出事件
 Easing.listPopup = function (event) {
   const item = event.value
@@ -1791,6 +1811,12 @@ Easing.listPopup = function (event) {
     enabled: selected,
     click: () => {
       this.rename(item)
+    },
+  }, {
+    label: get('set-key'),
+    enabled: selected,
+    click: () => {
+      Easing.setEasingKey(item)
     },
   }])
 }
@@ -2188,6 +2214,7 @@ Easing.list.updateNodeElement = function (element) {
     // 创建文本节点
     const textNode = document.createTextNode('')
     element.appendChild(textNode)
+    
 
     // 设置元素属性
     element.draggable = true
@@ -2207,7 +2234,8 @@ Easing.list.updateNodeElement = function (element) {
 
 // 列表 - 重写更新项目名称方法
 Easing.list.updateItemName = function (item) {
-  return this.updateTextNode(item)
+  this.updateTextNode(item)
+  this.updateKeyTextNode(item)
 }
 
 // 列表 - 添加元素类名
@@ -2226,6 +2254,25 @@ Easing.list.updateTextNode = function (item) {
   const text = `${sn}:${item.name}`
   if (textNode.nodeValue !== text) {
     textNode.nodeValue = text
+  }
+}
+
+// 创建键文本节点
+Easing.list.createKeyTextNode = function (item) {
+  const keyTextNode = document.createElement('text')
+  keyTextNode.key = ''
+  keyTextNode.addClass('variable-init-text')
+  item.element.appendChild(keyTextNode)
+  item.element.keyTextNode = keyTextNode
+}
+
+// 更新键文本节点
+Easing.list.updateKeyTextNode = function (item) {
+  const keyTextNode = item.element.keyTextNode
+  const key = item.key
+  if (keyTextNode.key !== key) {
+    keyTextNode.key = key
+    keyTextNode.textContent = ' = ' + key
   }
 }
 

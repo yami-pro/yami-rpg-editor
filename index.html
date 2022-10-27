@@ -45,7 +45,6 @@
   </box>
   <tab-bar id='title-tabBar'></tab-bar>
   <box id='title-buttons'>
-    <box id='title-directory'>&#xf07c;</box>
     <box id='title-play'>&#xf04b;</box>
     <minimize id='title-minimize'></minimize>
     <maximize id='title-maximize'></maximize>
@@ -142,7 +141,7 @@
           </box>
         </box>
         <box id='scene-head-end'>
-          <slider-box id='scene-zoom' name='zoom' min='0' max='4'></slider-box>
+          <slider-box id='scene-zoom' name='zoom' min='0' max='4' active-wheel></slider-box>
         </box>
       </box>
       <box id='scene-body'>
@@ -178,7 +177,7 @@
           <item id='ui-element-container' class='toolbar-item' value='container'></item>
         </box>
         <box id='ui-head-end'>
-          <slider-box id='ui-zoom' name='zoom' min='0' max='4'></slider-box>
+          <slider-box id='ui-zoom' name='zoom' min='0' max='4' active-wheel></slider-box>
         </box>
       </box>
       <box id='ui-body'>
@@ -209,7 +208,7 @@
           <number-box id='animation-speed' min='0' max='4' step='0.05' decimals='2'><text class='label'>speed:</text></number-box>
         </box>
         <box id='animation-head-end'>
-          <slider-box id='animation-zoom' name='zoom' min='0' max='4'></slider-box>
+          <slider-box id='animation-zoom' name='zoom' min='0' max='4' active-wheel></slider-box>
         </box>
       </box>
       <box id='animation-body'>
@@ -281,7 +280,7 @@
           <number-box id='particle-duration' min='0' max='60000' unit='ms'><text class='label'>duration:</text></number-box>
         </box>
         <box id='particle-head-end'>
-          <slider-box id='particle-zoom' name='zoom' min='0' max='4'></slider-box>
+          <slider-box id='particle-zoom' name='zoom' min='0' max='4' active-wheel></slider-box>
         </box>
       </box>
       <box id='particle-body'>
@@ -1850,10 +1849,10 @@
         <text class='project-label'>Expansion Right</text><number-box id='config-tileArea-expansionRight' min='0' max='400' unit='px'></number-box>
         <text class='project-label'>Expansion Bottom</text><number-box id='config-tileArea-expansionBottom' min='0' max='400' unit='px'></number-box>
         <text id='config-animationArea-summary' class='project-summary'>Animation Rendering Area</text>
-        <text class='project-label'>Expansion Top</text><number-box id='config-animationArea-expansionTop' min='0' max='400' unit='px'></number-box>
-        <text class='project-label'>Expansion Left</text><number-box id='config-animationArea-expansionLeft' min='0' max='400' unit='px'></number-box>
-        <text class='project-label'>Expansion Right</text><number-box id='config-animationArea-expansionRight' min='0' max='400' unit='px'></number-box>
-        <text class='project-label'>Expansion Bottom</text><number-box id='config-animationArea-expansionBottom' min='0' max='400' unit='px'></number-box>
+        <text class='project-label'>Expansion Top</text><number-box id='config-animationArea-expansionTop' min='0' max='800' unit='px'></number-box>
+        <text class='project-label'>Expansion Left</text><number-box id='config-animationArea-expansionLeft' min='0' max='800' unit='px'></number-box>
+        <text class='project-label'>Expansion Right</text><number-box id='config-animationArea-expansionRight' min='0' max='800' unit='px'></number-box>
+        <text class='project-label'>Expansion Bottom</text><number-box id='config-animationArea-expansionBottom' min='0' max='800' unit='px'></number-box>
         <text id='config-lightArea-summary' class='project-summary'>Light Rendering Area</text>
         <text class='project-label'>Expansion Top</text><number-box id='config-lightArea-expansionTop' min='0' max='400' unit='px'></number-box>
         <text class='project-label'>Expansion Left</text><number-box id='config-lightArea-expansionLeft' min='0' max='400' unit='px'></number-box>
@@ -1868,12 +1867,10 @@
         <text class='project-label'>Default</text><text-box id='config-font-default'></text-box>
         <text class='project-label'>Pixelated</text><select-box id='config-font-pixelated'></select-box>
         <text class='project-label'>Threshold</text><number-box id='config-font-threshold' min='1' max='255' unit='alpha'></number-box>
-        <text id='config-startup-summary' class='project-summary'>Startup Event</text>
-        <text class='project-label'>Call Event</text><custom-box id='config-startup-eventId' type='file' filter='event'></custom-box>
-        <text id='config-showText-summary' class='project-summary'>ShowText Event</text>
-        <text class='project-label'>Call Event</text><custom-box id='config-showText-eventId' type='file' filter='event'></custom-box>
-        <text class='project-label'>Set Parameters to Event Var</text><text-box id='config-showText-parameterKey'></text-box>
-        <text class='project-label'>Set Content to Event Var</text><text-box id='config-showText-contentKey'></text-box>
+        <text id='config-event-summary' class='project-summary'>Special Events</text>
+        <text class='project-label'>Startup</text><custom-box id='config-event-startup' type='file' filter='event'></custom-box>
+        <text class='project-label'>Show Text</text><custom-box id='config-event-showText' type='file' filter='event'></custom-box>
+        <text class='project-label'>Show Choices</text><custom-box id='config-event-showChoices' type='file' filter='event'></custom-box>
         <text id='config-actor-summary' class='project-summary'>Actor</text>
         <text class='project-label'>Player Team</text><select-box id='config-actor-playerTeam'></select-box>
         <text class='project-label'>Player Actor</text><custom-box id='config-actor-playerActor' type='file' filter='actor'></custom-box>
@@ -2436,6 +2433,18 @@
   </content-frame>
 </window-frame>
 
+<!-- 设置键窗口 -->
+<window-frame id='setKey'>
+  <title-bar>Set Key<close></close></title-bar>
+  <content-frame>
+    <grid-box>
+      <text>Key</text><text-box id='setKey-key'></text-box>
+    </grid-box>
+    <button id='setKey-confirm' name='confirm'>Confirm</button>
+    <button id='setKey-cancel' name='cancel'>Cancel</button>
+  </content-frame>
+</window-frame>
+
 <!-- 设置数量窗口 -->
 <window-frame id='setQuantity'>
   <title-bar>Set Quantity<close></close></title-bar>
@@ -2705,6 +2714,22 @@
   </content-frame>
 </window-frame>
 
+<!-- 显示选项 -->
+<window-frame id='showChoices'>
+  <title-bar>Show Choices<close></close></title-bar>
+  <content-frame>
+    <grid-box>
+      <text>Choice 1</text><text-box id='showChoices-choices-0'></text-box>
+      <text>Choice 2</text><text-box id='showChoices-choices-1'></text-box>
+      <text>Choice 3</text><text-box id='showChoices-choices-2'></text-box>
+      <text>Choice 4</text><text-box id='showChoices-choices-3'></text-box>
+      <text>Parameters</text><text-box id='showChoices-parameters'></text-box>
+    </grid-box>
+    <button id='showChoices-confirm' name='confirm'>Confirm</button>
+    <button id='showChoices-cancel' name='cancel'>Cancel</button>
+  </content-frame>
+</window-frame>
+
 <!-- 设置布尔值 -->
 <window-frame id='setBoolean'>
   <title-bar>Set Boolean<close></close></title-bar>
@@ -2780,19 +2805,7 @@
   <content-frame>
     <grid-box>
       <text>Variable</text><custom-box id='setString-variable' type='variable' filter='writable-string'></custom-box>
-      <text>Expression</text><param-list id='setString-operands'></param-list>
-    </grid-box>
-    <button id='setString-confirm' name='confirm'>Confirm</button>
-    <button id='setString-cancel' name='cancel'>Cancel</button>
-  </content-frame>
-</window-frame>
-
-<!-- 设置字符串 - 操作数 -->
-<window-frame id='setString-operand'>
-  <title-bar>String Operand<close></close></title-bar>
-  <content-frame>
-    <grid-box>
-      <text>Operation</text><select-box id='setString-operation'></select-box><select-box id='setString-operand-operation'></select-box>
+      <text>Operation</text><select-box id='setString-operation'></select-box>
       <text>Type</text><select-box id='setString-operand-type'></select-box>
       <text>Constant</text><text-area id='setString-operand-constant-value'></text-area>
       <text>String Method</text><select-box id='setString-operand-string-method'></select-box>
@@ -2822,8 +2835,8 @@
       <text>Image Width</text><number-box id='setString-operand-screenshot-width' min='64' max='3840' unit='px'></number-box>
       <text>Image Height</text><number-box id='setString-operand-screenshot-height' min='64' max='3840' unit='px'></number-box>
     </grid-box>
-    <button id='setString-operand-confirm' name='confirm'>Confirm</button>
-    <button id='setString-operand-cancel' name='cancel'>Cancel</button>
+    <button id='setString-confirm' name='confirm'>Confirm</button>
+    <button id='setString-cancel' name='cancel'>Cancel</button>
   </content-frame>
 </window-frame>
 
@@ -3058,6 +3071,7 @@
       <text>Operation</text><select-box id='setEvent-operation'></select-box>
       <text>Variable</text><custom-box id='setEvent-variable' type='variable' filter='object'></custom-box>
       <text>Event</text><custom-box id='setEvent-eventId' type='file' filter='event'></custom-box>
+      <text>Choice</text><select-box id="setEvent-choiceIndex"></select-box>
     </grid-box>
     <button id='setEvent-confirm' name='confirm'>Confirm</button>
     <button id='setEvent-cancel' name='cancel'>Cancel</button>

@@ -112,6 +112,7 @@ const UI = {
   saveToProject: null,
   loadFromProject: null,
   // events
+  webglRestored: null,
   windowResize: null,
   themechange: null,
   datachange: null,
@@ -238,7 +239,7 @@ UI.initialize = function () {
     if (!image) return
     image.guid = 'ui:control-point'
     this.controlPointTexture = new ImageTexture(image)
-    this.controlPointTexture.protectBaseTexture()
+    this.controlPointTexture.base.protected = true
   })
 
   // 创建位移计时器
@@ -443,6 +444,7 @@ UI.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
+  GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#ui-head-start').on('pointerdown', this.switchPointerdown)
   $('#ui-zoom').on('focus', this.zoomFocus)
   $('#ui-zoom').on('input', this.zoomInput)
@@ -1609,11 +1611,11 @@ UI.drawControlPoints = function () {
     ).multiply(UI.matrix)
     gl.bindVertexArray(program.vao)
     gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
-    gl.uniform1ui(program.u_LightMode, 0)
-    gl.uniform1ui(program.u_ColorMode, 0)
+    gl.uniform1i(program.u_LightMode, 0)
+    gl.uniform1i(program.u_ColorMode, 0)
     gl.uniform4f(program.u_Tint, 0, 0, 0, 0)
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STREAM_DRAW, 0, vi)
-    gl.bindTexture(gl.TEXTURE_2D, texture.base)
+    gl.bindTexture(gl.TEXTURE_2D, texture.base.glTexture)
     gl.drawElements(gl.TRIANGLES, vi / 16 * 6, gl.UNSIGNED_INT, 0)
   }
 }
@@ -1749,6 +1751,13 @@ UI.saveToProject = function (project) {
 UI.loadFromProject = function (project) {
   const {ui} = project
   this.setZoom(ui.zoom)
+}
+
+// WebGL - 上下文恢复事件
+UI.webglRestored = function (event) {
+  if (UI.state === 'open') {
+    UI.requestRendering()
+  }
 }
 
 // 窗口 - 调整大小事件
@@ -4221,10 +4230,10 @@ UI.ProgressBar = class ProgressBarElement extends UI.Element {
       const program = GL.imageProgram.use()
       GL.bindVertexArray(program.vao)
       GL.uniformMatrix3fv(program.u_Matrix, false, GL.matrix)
-      GL.uniform1ui(program.u_LightMode, 0)
+      GL.uniform1i(program.u_LightMode, 0)
       switch (this.colorMode) {
         case 'texture':
-          GL.uniform1ui(program.u_ColorMode, 0)
+          GL.uniform1i(program.u_ColorMode, 0)
           GL.uniform4f(program.u_Tint, 0, 0, 0, 0)
           break
         case 'fixed': {
@@ -4233,13 +4242,13 @@ UI.ProgressBar = class ProgressBarElement extends UI.Element {
           const green = color[1] / 255
           const blue = color[2] / 255
           const alpha = color[3] / 255
-          GL.uniform1ui(program.u_ColorMode, 1)
+          GL.uniform1i(program.u_ColorMode, 1)
           GL.uniform4f(program.u_Color, red, green, blue, alpha)
           break
         }
       }
       GL.bufferData(GL.ARRAY_BUFFER, vertices, GL.STREAM_DRAW, 0, vertexLength)
-      GL.bindTexture(GL.TEXTURE_2D, base)
+      GL.bindTexture(GL.TEXTURE_2D, base.glTexture)
       GL.drawArrays(GL.TRIANGLE_FAN, 0, drawingLength)
     }
 
