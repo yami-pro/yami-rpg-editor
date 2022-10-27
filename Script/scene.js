@@ -23,7 +23,6 @@ const Scene = {
   history: null,
   textures: null,
   shiftKey: false,
-  SpaceKey: false,
   translationKey: 0b0000,
   translationTimer: null,
   showGrid: false,
@@ -231,6 +230,8 @@ const Scene = {
   loadFromConfig: null,
   saveToProject: null,
   loadFromProject: null,
+  // keyboard key status
+  SpaceKey: false,
   // events
   windowResize: null,
   themechange: null,
@@ -5785,9 +5786,6 @@ Scene.keydown = function (event) {
       }
     } else {
       switch (event.code) {
-        case 'Space':
-          Scene.SpaceKey = true
-          break
         case 'Escape':
           Scene.closeTilemap()
           break
@@ -5954,7 +5952,9 @@ Scene.screenKeydown = function (event) {
     } else {
       switch (event.code) {
         case 'Space':
+          this.SpaceKey = true
           window.on('keyup', this.SpaceKeyup)
+          break
         case 'ShiftLeft':
           // 切换到初始图块帧
           if (!this.shiftKey) {
@@ -6123,7 +6123,7 @@ Scene.SpaceKeyup = function (event) {
     return
   }
   if (event.code === 'Space') {
-    Scene.SpaceKey = false
+    this.SpaceKey = false
     window.off('keyup', this.SpaceKeyup)
   }
 }.bind(Scene)
