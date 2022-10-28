@@ -8,3 +8,12 @@ config.json
 # folders
 node_modules/
 redist/
+*.pak
+*.dll
+*.exe
+*.dat
+_electron/LICENSE
+_electron/LICENSES.chromium.html
+*.bin
+_electron/version
+*.json

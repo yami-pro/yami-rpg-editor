@@ -5376,7 +5376,7 @@ text.animation-motion-direction {
   -webkit-mask-position: 0 0;
 }
 
-#palette-mirror::after {
+#palette-flip::after {
   -webkit-mask-image: url(images/animation_buttons.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
