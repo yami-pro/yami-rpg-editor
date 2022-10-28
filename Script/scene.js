@@ -231,7 +231,7 @@ const Scene = {
   saveToProject: null,
   loadFromProject: null,
   // key status
-  SpaceKey: false,
+  spaceKey: false,
   // events
   webglRestored: null,
   windowResize: null,
@@ -5960,8 +5960,8 @@ Scene.screenKeydown = function (event) {
     } else {
       switch (event.code) {
         case 'Space':
-          this.SpaceKey = true
-          window.on('keyup', this.SpaceKeyup)
+          this.spaceKey = true
+          window.on('keyup', this.spaceKeyup)
           break
         case 'ShiftLeft':
           // 切换到初始图块帧
@@ -6126,13 +6126,13 @@ Scene.shiftKeyup = function (event) {
 }.bind(Scene)
 
 // Space键弹起事件
-Scene.SpaceKeyup = function (event) {
-  if (!this.SpaceKey || event === undefined) {
+Scene.spaceKeyup = function (event) {
+  if (!this.spaceKey || event === undefined) {
     return
   }
   if (event.code === 'Space') {
-    this.SpaceKey = false
-    window.off('keyup', this.SpaceKeyup)
+    this.spaceKey = false
+    window.off('keyup', this.spaceKeyup)
   }
 }.bind(Scene)
 

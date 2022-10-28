@@ -90,7 +90,7 @@ const Palette = {
   saveToProject: null,
   loadFromProject: null,
   // key status
-  SpaceKey: false,
+  spaceKey: false,
   // events
   windowResize: null,
   themechange: null,
@@ -1447,21 +1447,21 @@ Palette.screenKeydown = function (event) {
   } else {
     switch (event.code) {
       case 'Space':
-        this.SpaceKey = true
-        window.on('keyup', this.SpaceKeyup)
+        this.spaceKey = true
+        window.on('keyup', this.spaceKeyup)
         break
     }
   }
 }.bind(Palette)
 
 // Space键弹起事件
-Scene.SpaceKeyup = function (event) {
-  if (!this.SpaceKey || event === undefined) {
+Scene.spaceKeyup = function (event) {
+  if (!this.spaceKey || event === undefined) {
     return
   }
   if (event.code === 'Space') {
-    this.SpaceKey = false
-    window.off('keyup', this.SpaceKeyup)
+    this.spaceKey = false
+    window.off('keyup', this.spaceKeyup)
   }
 }.bind(Scene)
 
