@@ -89,6 +89,8 @@ const Palette = {
   switchEdit: null,
   saveToProject: null,
   loadFromProject: null,
+  // key status
+  SpaceKey: false,
   // events
   windowResize: null,
   themechange: null,
@@ -1330,6 +1332,10 @@ Palette.zoomInput = function (event) {
 
 // 屏幕 - 键盘按下事件
 Palette.screenKeydown = function (event) {
+  // 禁止空格键的浏览器滚动事件
+  if (event.code == 'Space') {
+    event.preventDefault()
+  }
   if (Palette.state === 'open' &&
     Palette.dragging === null) {
     switch (event.code) {
@@ -1438,8 +1444,26 @@ Palette.screenKeydown = function (event) {
         Palette.setZoom(2)
         break
     }
+  } else {
+    switch (event.code) {
+      case 'Space':
+        this.SpaceKey = true
+        window.on('keyup', this.SpaceKeyup)
+        break
+    }
   }
-}
+}.bind(Palette)
+
+// Space键弹起事件
+Scene.SpaceKeyup = function (event) {
+  if (!this.SpaceKey || event === undefined) {
+    return
+  }
+  if (event.code === 'Space') {
+    this.SpaceKey = false
+    window.off('keyup', this.SpaceKeyup)
+  }
+}.bind(Scene)
 
 // 屏幕 - 鼠标滚轮事件
 Palette.screenWheel = function IIFE() {
@@ -1497,7 +1521,7 @@ Palette.marqueePointerdown = function (event) {
     case 0: {
       // 如果正在修改图块组宽高，让它立即生效
       document.activeElement.blur()
-      if (event.altKey) {
+      if (event.dragKey) {
         this.dragging = event
         event.mode = 'scroll'
         event.scrollLeft = this.screen.scrollLeft

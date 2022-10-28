@@ -54,8 +54,8 @@ const createEditorWindow = function () {
   // 创建窗口
   const editor = new BrowserWindow({
     title: 'Yami RPG Editor',
-    width: 1440,
-    height: 900,
+    width: 1280,
+    height: 800,
     useContentSize: true,
     backgroundColor: 'white',
     frame: true,

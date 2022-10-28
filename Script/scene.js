@@ -230,7 +230,7 @@ const Scene = {
   loadFromConfig: null,
   saveToProject: null,
   loadFromProject: null,
-  // keyboard key status
+  // key status
   SpaceKey: false,
   // events
   webglRestored: null,
@@ -5919,6 +5919,10 @@ Scene.zoomInput = function (event) {
 
 // 屏幕 - 键盘按下事件
 Scene.screenKeydown = function (event) {
+  // 禁止空格键的浏览器滚动事件
+  if (event.code == 'Space') {
+    event.preventDefault()
+  }
   if (this.state === 'open' && (
     this.dragging === null ||
     event.code === 'ShiftLeft')) {
