@@ -89,8 +89,6 @@ const Palette = {
   switchEdit: null,
   saveToProject: null,
   loadFromProject: null,
-  // key status
-  spaceKey: false,
   // events
   windowResize: null,
   themechange: null,
@@ -1448,26 +1446,8 @@ Palette.screenKeydown = function (event) {
         Palette.setZoom(2)
         break
     }
-  } else {
-    switch (event.code) {
-      case 'Space':
-        this.spaceKey = true
-        window.on('keyup', this.spaceKeyup)
-        break
-    }
   }
-}.bind(Palette)
-
-// Space键弹起事件
-Scene.spaceKeyup = function (event) {
-  if (!this.spaceKey || event === undefined) {
-    return
-  }
-  if (event.code === 'Space') {
-    this.spaceKey = false
-    window.off('keyup', this.spaceKeyup)
-  }
-}.bind(Scene)
+}
 
 // 屏幕 - 鼠标滚轮事件
 Palette.screenWheel = function IIFE() {
