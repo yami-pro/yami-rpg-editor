@@ -20,22 +20,25 @@ app.on('window-all-closed', () => {
 
 const createEditorMenu = function () {
   // 创建模板
-  const template = [{
-    label: 'Menu',
-    submenu: [{
-      label: 'Reload',
-      accelerator: 'F5',
-      role: 'forceReload',
-    }, {
-      label: 'FullScreen',
-      accelerator: 'F11',
-      role: 'toggleFullScreen',
-    }, {
-      label: 'Toogle DevTools',
-      accelerator: 'F12',
-      role: 'toggleDevTools',
-    }],
-  }]
+  const template = [
+    {
+      label: 'Menu',
+      submenu: [
+        { label: 'Reload', accelerator: 'F5', role: 'forceReload', },
+        { label: 'FullScreen', accelerator: 'F11', role: 'toggleFullScreen', },
+        { label: 'Toogle DevTools', accelerator: 'F12', role: 'toggleDevTools', }
+      ],
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut', },
+        { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy', },
+        { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste', },
+        { label: 'SelectAll', accelerator: 'CmdOrCtrl+A', role: 'selectAll', }
+      ],
+    }
+  ]
 
   // 设置菜单
   const menu = Menu.buildFromTemplate(template)
@@ -82,6 +85,8 @@ const createEditorWindow = function () {
   editor.once('ready-to-show', event => {
     // 窗口最大化
     editor.maximize()
+    // 激活
+    editor.show()
     promise.then(config => {
       editor.webContents.setZoomFactor(JSON.parse(config).zoom)
       // 打开调试器

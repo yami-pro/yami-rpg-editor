@@ -84,7 +84,8 @@
 :root {
   --font-size-normal: 12px;
   --font-family-normal: Inter, Microsoft YaHei UI;
-  --font-family-bold: Inter Bold, Microsoft YaHei UI;
+  /*--font-family-bold: Inter Bold, Microsoft YaHei UI;*/
+  --font-family-bold: Inter, Microsoft YaHei UI;
   --font-family-mono: Consolas, Microsoft YaHei UI;
   --font-family-title: Arial, Microsoft YaHei UI;
   --font-family-accelerator: Segoe UI;
@@ -128,7 +129,7 @@
   --nav-bar-background: #d0d0d0;
   --nav-bar-border: 1px solid #c0c0c0;
   --nav-item-background: transparent;
-  --nav-item-background-hover: #d8d8d8;
+  --nav-item-background-hover: #cccccc;
   --nav-item-background-selected: #e0e0e0;
   --group-page-background: #e0e0e0;
   --group-head-background: #e8e8e8;
@@ -136,11 +137,11 @@
   --summary-background: #e8e8e8;
   --summary-background-hover: #f0f0f0;
   --summary-border-dark: 1px solid #b0b0b0;
-  --summary-border-light: 1px solid #d8d8d8;
+  --summary-border-light: 1px solid #cccccc;
   --window-background: #f0f0f0;
   --window-outline: var(--1dpx) solid rgba(0, 0, 0, 0.25);
   --title-background: #d0d0d0;
-  --tab-item-background: #d8d8d8;
+  --tab-item-background: #cccccc;
   --tab-item-background-hover: #e0e0e0;
   --tab-item-background-selected: #f0f0f0;
   --tab-item-border: 1px solid #b0b0b0;
@@ -183,7 +184,7 @@
   --number-box-label-blue: #0000ff;
   --selector-browser-background: #f0f0f0;
   --selector-browser-border: 1px solid #c0c0c0;
-  --viewer-background: #d8d8d8;
+  --viewer-background: #cccccc;
   --selected-background: #2080d0;
   --selected-background-blur: rgba(0, 0, 0, 0.1);
   --selection-background: rgba(32, 128, 192, 0.996);
@@ -200,7 +201,7 @@
   --list-item-background-hover: rgba(0, 0, 0, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(255, 255, 255, 0.75);
   --timeline-ruler-background: url(images/timeline_scale_light.png);
-  --timeline-frame-list-background: #d8d8d8;
+  --timeline-frame-list-background: #cccccc;
   --timeline-grid: url(images/timeline_grid_light.png);
   --timeline-grid-border: 1px solid #c0c0c0;
   --timeline-key-background: rgba(0, 0, 0, 0.2);
@@ -258,7 +259,7 @@
  * --------------------------------
  */
 :root.dark {
-  --text-color: #d8d8d8;
+  --text-color: #cccccc;
   --text-color-inverse: #000000;
   --text-color-unit: #808080;
   --text-color-rename: #ffffff;
@@ -290,16 +291,16 @@
   --nav-bar-background: #282828;
   --nav-bar-border: 1px solid #202020;
   --nav-item-background: transparent;
-  --nav-item-background-hover: #303030;
-  --nav-item-background-selected: #303030;
-  --group-page-background: #303030;
+  --nav-item-background-hover: #333333;
+  --nav-item-background-selected: #333333;
+  --group-page-background: #333333;
   --group-head-background: #3c3c3c;
   --stage-page-background: #202020;
   --summary-background: #383838;
   --summary-background-hover: #404040;
   --summary-border-dark: 1px solid #181818;
   --summary-border-light: 1px solid #282828;
-  --window-background: #303030;
+  --window-background: #333333;
   --window-outline: var(--1dpx) solid rgba(0, 0, 0, 0.5);
   --title-background: #282828;
   --tab-item-background: #202020;
@@ -335,7 +336,7 @@
   --suggestion-widget-background: #202020;
   --slider-thumb-background: #484848;
   --slider-thumb-background-hover: #505050;
-  --slider-thumb-background-active: #303030;
+  --slider-thumb-background-active: #333333;
   --slider-bar-background: #18191a;
   --slider-filler-background: #c0c0c0;
   --check-box-mark-color: #0060ac;
@@ -373,7 +374,7 @@
   --timeline-marquee-background: rgba(0, 255, 255, 0.25);
   --timeline-marquee-shift-background: rgba(255, 255, 0, 0.25);
   --timeline-marquee-shift-background-disabled: rgba(255, 0, 0, 0.25);
-  --command-gutter-border: 1px dotted #303030;
+  --command-gutter-border: 1px dotted #333333;
   --command-line-number-color: rgba(255, 255, 255, 0.25);
   --command-color-mark-minor: rgba(255, 255, 255, 0.3);
   --command-color-mark-minor-selected: rgba(255, 255, 255, 0.3);
