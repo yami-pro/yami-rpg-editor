@@ -43,7 +43,7 @@ const Animation = {
   translationTimer: null,
   showMark: false,
   showOnionskin: false,
-  flipped: false,
+  mirror: false,
   loop: false,
   background: null,
   matrix: null,
@@ -69,6 +69,7 @@ const Animation = {
   context: null,
   meta: null,
   player: null,
+  mode: null,
   sprites: null,
   motions: null,
   layers: null,
@@ -117,7 +118,6 @@ const Animation = {
   getFrameCoords: null,
   getKeyFrame: null,
   getLayerIndex: null,
-  getDirParamsByAngle: null,
   getMotionListItems: null,
   getSpriteListItems: null,
   updateCamera: null,
@@ -145,21 +145,21 @@ const Animation = {
   loadFrames: null,
   drawBackground: null,
   drawOnionskins: null,
-  drawImageLayers: null,
+  drawSpriteLayers: null,
   drawEmitters: null,
   emitParticles: null,
   updateParticles: null,
   drawParticles: null,
   drawCoordinateAxes: null,
-  drawBoneJoints: null,
-  drawBoneArrows: null,
-  drawBoneSpinner: null,
+  drawJointNodes: null,
+  drawJointArrows: null,
+  drawJointSpinner: null,
   drawHoverWireframe: null,
   drawTargetWireframe: null,
-  drawImageWireframe: null,
+  drawSpriteWireframe: null,
   drawEmitterWireframe: null,
   drawTargetAnchor: null,
-  drawImageControlPoints: null,
+  drawSpriteControlPoints: null,
   createTimelines: null,
   getFrame: null,
   sortFrames: null,
@@ -188,7 +188,7 @@ const Animation = {
   stopRendering: null,
   switchMark: null,
   switchOnionskin: null,
-  switchFlip: null,
+  switchMirror: null,
   switchSettings: null,
   switchLoop: null,
   planToSave: null,
@@ -224,6 +224,7 @@ const Animation = {
   listPointerdown: null,
   listSelect: null,
   listRecord: null,
+  listUpdate: null,
   listOpen: null,
   listPopup: null,
   listChange: null,
@@ -266,6 +267,10 @@ Animation.list.cancelSearch = null
 Animation.list.updateHead = null
 Animation.list.createIcon = null
 Animation.list.createText = null
+Animation.list.updateText = null
+Animation.list.createDirText = null
+Animation.list.updateDirText = null
+Animation.list.updateDirections = null
 Animation.list.createLoopIcon = null
 Animation.list.updateLoopIcon = null
 Animation.list.onDelete = null
@@ -321,7 +326,7 @@ Animation.initialize = function () {
 
   // 创建控制点
   const points = {
-    boneRotate: {},
+    jointRotate: {},
     rectRotate: {
       TL: {x: 0, y: 0, angle: 225},
       TR: {x: 0, y: 0, angle: 315},
@@ -416,8 +421,8 @@ Animation.initialize = function () {
 
   // 设置检查器类型映射表
   this.inspectorTypeMap = {
-    bone: 'animBoneFrame',
-    sprite: 'animImageFrame',
+    joint: 'animJointFrame',
+    sprite: 'animSpriteFrame',
     particle: 'animParticleFrame',
   }
 
@@ -429,6 +434,9 @@ Animation.initialize = function () {
   const {list} = this
   list.removable = true
   list.bind(() => this.motions)
+  list.updaters.push(list.updateText)
+  list.creators.push(list.createDirText)
+  list.updaters.push(list.updateDirText)
   list.creators.push(list.createLoopIcon)
   list.creators.push(list.updateLoopIcon)
 
@@ -454,6 +462,15 @@ Animation.initialize = function () {
   History.processors['animation-object-remove'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
+  }
+  History.processors['animation-motion-id-change'] = (operation, data) => {
+    const {motion, id} = data
+    data.id = motion.id
+    motion.id = id
+    list.update()
+    list.select(motion)
+    list.scrollToSelection()
+    Animation.planToSave()
   }
   History.processors['animation-layer-rename'] = (operation, data) => {
     const {motion, response} = data
@@ -608,6 +625,7 @@ Animation.initialize = function () {
   list.on('pointerdown', this.listPointerdown)
   list.on('select', this.listSelect)
   list.on('record', this.listRecord)
+  list.on('update', this.listUpdate)
   list.on('open', this.listOpen)
   list.on('popup', this.listPopup)
   list.on('change', this.listChange)
@@ -673,7 +691,7 @@ Animation.open = function (context) {
 Animation.load = function (context) {
   const firstLoad = !context.editor
   if (firstLoad) {
-    const data = {sprites: [], motions: []}
+    const data = {mode: '1-dir', sprites: [], motions: []}
     const player = new Animation.Player(data)
     player.onionskin = {prev: [], next: []}
     context.editor = {
@@ -691,6 +709,7 @@ Animation.load = function (context) {
   const {animation, editor} = context
 
   // 加载动画属性
+  this.mode = animation.mode
   this.sprites = animation.sprites
   this.motions = animation.motions
 
@@ -726,12 +745,13 @@ Animation.load = function (context) {
   }
 }
 
-// 保存精灵
+// 保存动画
 Animation.save = function () {
   if (this.state === 'open') {
     const {animation, editor} = this.context
 
-    // 保存界面属性
+    // 保存动画属性
+    animation.mode = this.mode
     animation.sprites = this.sprites
     animation.motions = this.motions
 
@@ -761,6 +781,7 @@ Animation.close = function () {
     this.context = null
     this.meta = null
     this.player = null
+    this.mode = null
     this.sprites = null
     this.motions = null
     this.history = null
@@ -863,11 +884,11 @@ Animation.redo = function () {
 Animation.openLayer = function (layer) {
   this.layerList.selectWithNoEvent(layer)
   switch (layer.class) {
-    case 'bone':
+    case 'joint':
       Inspector.close()
       break
     case 'sprite':
-      Inspector.open('animImageLayer', layer)
+      Inspector.open('animSpriteLayer', layer)
       break
     case 'particle':
       Inspector.open('animParticleLayer', layer)
@@ -1093,8 +1114,15 @@ Animation.editMotion = function (motion) {
       return motion.id
     },
     input(id) {
-      motion.id = id
-      Animation.requestRefreshingList()
+      if (motion.id !== id) {
+        Animation.history.save({
+          type: 'animation-motion-id-change',
+          motion: motion,
+          id: motion.id,
+        })
+        motion.id = id
+        Animation.requestRefreshingList()
+      }
     },
   }
   Enum.open(proxy, 'string')
@@ -1294,7 +1322,7 @@ Animation.setControlPoint = function (point) {
       case null:
         cursor = ''
         break
-      case points.boneRotate:
+      case points.jointRotate:
       case points.rectRotate.TL:
       case points.rectRotate.TR:
       case points.rectRotate.BL:
@@ -1319,8 +1347,8 @@ Animation.setControlPoint = function (point) {
         } else {
           cursor = 'nesw-resize'
         }
-        // 水平翻转视图模式
-        if (this.flipped) switch (cursor) {
+        // 水平镜像视图模式
+        if (this.mirror) switch (cursor) {
           case 'nwse-resize':
             cursor = 'nesw-resize'
             break
@@ -1337,10 +1365,7 @@ Animation.setControlPoint = function (point) {
 
 // 更新动作对象
 Animation.updateMotion = function () {
-  let item = this.list.read()
-  if (item?.class === 'folder') {
-    item = null
-  }
+  const item = this.list.read()
   if (item !== this.motion) {
     this.setMotion(item)
   }
@@ -1611,7 +1636,7 @@ Animation.getPointerCoords = function IIFE() {
     const dpr = window.devicePixelRatio
     point.x = (coords.x * dpr - (this.outerWidth >> 1)) / this.scaleX
     point.y = (coords.y * dpr - (this.outerHeight >> 1)) / this.scaleY
-    if (this.flipped) {
+    if (this.mirror) {
       point.x = -point.x
     }
     return point
@@ -1668,16 +1693,6 @@ Animation.getLayerIndex = function (layer) {
     }
   }
   return -1
-}
-
-// 获取指定角度的方向参数
-Animation.getDirParamsByAngle = function (angle) {
-  const dirMap = Data.config.animation.dirMap
-  const directions = dirMap.length
-  const destAngle = Math.radians(angle)
-  const proportion = Math.modRadians(destAngle) / (Math.PI * 2)
-  const direction = Math.floor((proportion * directions + 0.5) % directions)
-  return dirMap[direction]
 }
 
 // 获取动作列表选项
@@ -1792,8 +1807,8 @@ Animation.updateMatrix = function () {
   const matrix = this.matrix.reset()
   .scale(this.scaleX, this.scaleY)
   .translate(-this.scrollLeft, -this.scrollTop)
-  if (this.flipped) {
-    matrix.fliph()
+  if (this.mirror) {
+    matrix.mirrorh()
   }
 }
 
@@ -1916,7 +1931,7 @@ Animation.selectFrame = function (frame, fStart, fLength) {
     return
   }
   this.layerList.expandToItem(layer)
-  if (Inspector.animImageFrame.target !== frame) {
+  if (Inspector.animSpriteFrame.target !== frame) {
     const list = this.innerTimelineList
     const timelines = list.childNodes
     const length = timelines.length
@@ -2317,14 +2332,14 @@ Animation.drawOnionskins = function () {
     GL.alpha = 0.25
     const {prev, next} =
     this.player.onionskin
-    this.drawImageLayers(prev)
-    this.drawImageLayers(next)
+    this.drawSpriteLayers(prev)
+    this.drawSpriteLayers(next)
     GL.alpha = 1
   }
 }
 
-// 绘制图像图层
-Animation.drawImageLayers = function (contexts = this.player.contexts) {
+// 绘制精灵图层
+Animation.drawSpriteLayers = function (contexts = this.player.contexts) {
   const {player} = this
   const {count} = contexts
   const gl = GL
@@ -2351,7 +2366,7 @@ Animation.drawImageLayers = function (contexts = this.player.contexts) {
           gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
           gl.uniform4f(program.u_Tint, 0, 0, 0, 0)
         }
-        player.drawImage(context, texture, 'raw')
+        player.drawSprite(context, texture, 'raw')
       }
     }
   }
@@ -2531,8 +2546,8 @@ Animation.drawCoordinateAxes = function () {
   gl.drawArrays(gl.LINES, 0, 4)
 }
 
-// 绘制骨骼关节
-Animation.drawBoneJoints = function () {
+// 绘制关节节点
+Animation.drawJointNodes = function () {
   if (!this.showMark) return
   const gl = GL
   const vertices = gl.arrays[0].float32
@@ -2542,7 +2557,7 @@ Animation.drawBoneJoints = function () {
   for (let i = 0; i < count; i++) {
     const context = contexts[i]
     const {layer, frame} = context
-    if (layer.class === 'bone' &&
+    if (layer.class === 'joint' &&
       !layer.hidden &&
       frame !== null) {
       matrix
@@ -2593,8 +2608,8 @@ Animation.drawBoneJoints = function () {
   }
 }
 
-// 绘制骨骼箭头
-Animation.drawBoneArrows = function () {
+// 绘制关节箭头
+Animation.drawJointArrows = function () {
   if (!this.showMark) return
   const gl = GL
   const vertices = gl.arrays[0].float32
@@ -2604,7 +2619,7 @@ Animation.drawBoneArrows = function () {
   for (let i = 0; i < count; i++) {
     const context = contexts[i]
     const {layer, frame, parent} = context
-    if (layer.class === 'bone' &&
+    if (layer.class === 'joint' &&
       frame !== null &&
       parent !== null &&
       parent.frame !== null &&
@@ -2670,13 +2685,13 @@ Animation.drawBoneArrows = function () {
   }
 }
 
-// 绘制骨骼旋转器
-Animation.drawBoneSpinner = function () {
+// 绘制关节旋转器
+Animation.drawJointSpinner = function () {
   const context = this.targetContext
   const target = this.target
   if (target !== null &&
     context !== null &&
-    context.layer.class === 'bone' &&
+    context.layer.class === 'joint' &&
     !context.layer.hidden) {
     const gl = GL
     const vertices = gl.arrays[0].float32
@@ -2755,10 +2770,10 @@ Animation.drawHoverWireframe = function () {
       if (context.frame === hover &&
         !context.layer.hidden) {
         switch (context.layer.class) {
-          case 'bone':
+          case 'joint':
             break
           case 'sprite':
-            this.drawImageWireframe(context, 0xffffffff)
+            this.drawSpriteWireframe(context, 0xffffffff)
             break
           case 'particle':
             this.drawEmitterWireframe(context, 0xffffffff)
@@ -2775,10 +2790,10 @@ Animation.drawTargetWireframe = function () {
   const context = this.targetContext
   if (context !== null && this.target !== null) {
     switch (context.layer.class) {
-      case 'bone':
+      case 'joint':
         break
       case 'sprite':
-        this.drawImageWireframe(context, 0xffc0ff00)
+        this.drawSpriteWireframe(context, 0xffc0ff00)
         break
       case 'particle':
         this.drawEmitterWireframe(context, 0xffc0ff00)
@@ -2787,8 +2802,8 @@ Animation.drawTargetWireframe = function () {
   }
 }
 
-// 绘制图像线框
-Animation.drawImageWireframe = function (context, color) {
+// 绘制精灵线框
+Animation.drawSpriteWireframe = function (context, color) {
   const key = context.layer.sprite
   const texture = this.player.textures[key]
   if (!texture) return
@@ -3005,8 +3020,8 @@ Animation.drawTargetAnchor = function () {
   }
 }
 
-// 绘制图像控制点
-Animation.drawImageControlPoints = function () {
+// 绘制精灵控制点
+Animation.drawSpriteControlPoints = function () {
   const context = this.targetContext
   const target = this.target
   const texture = UI.controlPointTexture
@@ -3628,13 +3643,13 @@ Animation.selectControlPoint = function (x, y) {
   if (target !== null && context !== null) {
     const points = this.controlPoints
     switch (context.layer.class) {
-      case 'bone': {
+      case 'joint': {
         const radius = 10 / Math.max(this.scale, 1)
         if (target === this.selectObject(x, y)) {
           const ox = context.matrix[6]
           const oy = context.matrix[7]
           if (Math.dist(ox, oy, x, y) > radius) {
-            return points.boneRotate
+            return points.jointRotate
           }
         }
         break
@@ -3672,7 +3687,7 @@ Animation.selectObject = function (x, y) {
   let target = null
   let weight = 0
 
-  // 选择骨骼对象 - 关节
+  // 选择关节对象 - 节点
   if (this.showMark && target === null) {
     const active = this.targetContext
     const scale = Math.max(this.scale, 1)
@@ -3682,7 +3697,7 @@ Animation.selectObject = function (x, y) {
       const frame = context.frame
       const layer = context.layer
       if (frame !== null &&
-        layer.class === 'bone' &&
+        layer.class === 'joint' &&
         !layer.hidden &&
         !layer.locked) {
         const ox = context.matrix[6]
@@ -3728,7 +3743,7 @@ Animation.selectObject = function (x, y) {
     }
   }
 
-  // 选择骨骼对象 - 手臂
+  // 选择关节对象 - 手臂
   if (this.showMark && target === null) {
     const active = this.targetContext
     const scale = Math.max(this.scale, 1)
@@ -3926,17 +3941,17 @@ Animation.renderingFunction = function () {
     Animation.drawBackground()
     if (Animation.layers !== null) {
       Animation.drawOnionskins()
-      Animation.drawImageLayers()
+      Animation.drawSpriteLayers()
       Animation.drawParticles()
       Animation.drawCoordinateAxes()
       Animation.drawEmitters()
-      Animation.drawBoneJoints()
-      Animation.drawBoneArrows()
-      Animation.drawBoneSpinner()
+      Animation.drawJointNodes()
+      Animation.drawJointArrows()
+      Animation.drawJointSpinner()
       Animation.drawHoverWireframe()
       Animation.drawTargetWireframe()
       Animation.drawTargetAnchor()
-      Animation.drawImageControlPoints()
+      Animation.drawSpriteControlPoints()
     }
   }
 }
@@ -3982,16 +3997,16 @@ Animation.switchOnionskin = function IIFE() {
   }
 }()
 
-// 开关翻转
-Animation.switchFlip = function IIFE() {
-  const item = $('#animation-switch-flip')
-  return function (enabled = !this.flipped) {
+// 开关镜像
+Animation.switchMirror = function IIFE() {
+  const item = $('#animation-switch-mirror')
+  return function (enabled = !this.mirror) {
     if (enabled) {
       item.addClass('selected')
     } else {
       item.removeClass('selected')
     }
-    this.flipped = enabled
+    this.mirror = enabled
     this.requestRendering()
     if (this.state === 'open') {
       this.updateMatrix()
@@ -4050,7 +4065,7 @@ Animation.saveToProject = function (project) {
   const {animation} = project
   animation.mark = this.showMark ?? animation.mark
   animation.onionskin = this.showOnionskin ?? animation.onionskin
-  animation.flip = this.flipped ?? animation.flip
+  animation.mirror = this.mirror ?? animation.mirror
   animation.loop = this.loop ?? animation.loop
   animation.speed = this.speed ?? animation.speed
   animation.zoom = this.zoom ?? animation.zoom
@@ -4061,7 +4076,7 @@ Animation.loadFromProject = function (project) {
   const {animation} = project
   this.switchMark(animation.mark)
   this.switchOnionskin(animation.onionskin)
-  this.switchFlip(animation.flip)
+  this.switchMirror(animation.mirror)
   this.switchLoop(animation.loop)
   this.setSpeed(animation.speed)
   this.setZoom(animation.zoom)
@@ -4134,7 +4149,7 @@ Animation.keydown = function (event) {
           Animation.nextKeyFrame()
           break
         case 'KeyC':
-          Animation.switchFlip()
+          Animation.switchMirror()
           break
         case 'Space':
           Animation.play()
@@ -4165,8 +4180,8 @@ Animation.switchPointerdown = function (event) {
             return Animation.switchMark()
           case 'onionskin':
             return Animation.switchOnionskin()
-          case 'flip':
-            return Animation.switchFlip()
+          case 'mirror':
+            return Animation.switchMirror()
           case 'settings':
             return Animation.switchSettings()
         }
@@ -4367,7 +4382,7 @@ Animation.marqueePointerdown = function (event) {
         const points = this.controlPoints
         this.dragging = event
         switch (this.controlPointActive) {
-          case points.boneRotate:
+          case points.jointRotate:
           case points.rectRotate.TL:
           case points.rectRotate.TR:
           case points.rectRotate.BL:
@@ -4525,7 +4540,7 @@ Animation.pointermove = function (event) {
           const currentAngle = Math.atan2(distY, distX)
           const angle = Math.modRadians(currentAngle - dragging.lastAngle)
           const increment = angle < Math.PI ? angle : angle - Math.PI * 2
-          dragging.rotationRadians += Animation.flipped ? -increment : increment
+          dragging.rotationRadians += Animation.mirror ? -increment : increment
           let rotation = Math.round(dragging.startRotation + Math.degrees(dragging.rotationRadians))
           if (event.shiftKey) {
             rotation = Math.round(rotation / 15) * 15
@@ -4544,7 +4559,7 @@ Animation.pointermove = function (event) {
           const distX = (event.clientX - dragging.clientX) / Animation.scaleX
           const distY = (event.clientY - dragging.clientY) / Animation.scaleY
           const dist = Math.sqrt(distX ** 2 + distY ** 2)
-          const distAngle = Math.atan2(distY, Animation.flipped ? -distX : distX)
+          const distAngle = Math.atan2(distY, Animation.mirror ? -distX : distX)
           let width = undefined
           let height = undefined
           switch (point) {
@@ -4640,8 +4655,8 @@ Animation.pointermove = function (event) {
         }
         if (Animation.target) {
           const target = Animation.target
-          const flipX = Animation.flipped ? -1 : 1
-          const distX = (event.clientX - dragging.clientX) / Animation.scaleX * flipX
+          const mirrorX = Animation.mirror ? -1 : 1
+          const distX = (event.clientX - dragging.clientX) / Animation.scaleX * mirrorX
           const distY = (event.clientY - dragging.clientY) / Animation.scaleY
           let x
           let y
@@ -4746,7 +4761,6 @@ Animation.listPointerdown = function (event) {
     case 0: {
       const element = event.target
       if (element.tagName === 'NODE-ITEM' &&
-        element.item.class !== 'folder' &&
         element.hasClass('selected')) {
         Inspector.open('animMotion', element.item)
       }
@@ -4760,8 +4774,7 @@ Animation.listPointerdown = function (event) {
 
 // 列表 - 选择事件
 Animation.listSelect = function (event) {
-  const item = event.value
-  Animation.setMotion(item.class === 'folder' ? null : item)
+  Animation.setMotion(event.value)
 }
 
 // 列表 - 记录事件
@@ -4778,6 +4791,11 @@ Animation.listRecord = function (event) {
       })
       break
   }
+}
+
+// 列表 - 更新事件
+Animation.listUpdate = function (event) {
+  this.updateDirections()
 }
 
 // 列表 - 打开事件
@@ -5048,12 +5066,12 @@ Animation.layerListPopup = function (event) {
   }, [{
     label: get('create'),
     submenu: [{
-      label: get('create.bone'),
+      label: get('create.joint'),
       click: () => {
-        this.create(item, 'bone')
+        this.create(item, 'joint')
       },
     }, {
-      label: get('create.image'),
+      label: get('create.sprite'),
       click: () => {
         this.create(item, 'sprite')
       },
@@ -5615,22 +5633,85 @@ Animation.list.createIcon = function () {
 
 // 列表 - 重写创建文本方法
 Animation.list.createText = function (item) {
-  const enumString = Enum.getString(item.id)
-  if (enumString) return document.createTextNode(enumString.name)
-  return document.createTextNode(Command.parseUnlinkedId(item.id))
+  const textNode = document.createElement('text')
+  textNode.style.pointerEvents = 'none'
+  return textNode
+}
+
+// 列表 - 更新文本
+Animation.list.updateText = function (item) {
+  const {element} = item
+  if (element.enumId !== item.id) {
+    element.enumId = item.id
+    const enumString = Enum.getString(item.id)
+    element.textNode.textContent = enumString
+    ? enumString.name
+    : Command.parseUnlinkedId(item.id)
+  }
+}
+
+// 列表 - 创建动作方向文本
+Animation.list.createDirText = function (item) {
+  const dirText = document.createElement('text')
+  dirText.addClass('animation-motion-direction')
+  item.element.appendChild(dirText)
+  item.element.dirText = dirText
+}
+
+// 列表 - 更新动作方向文本
+Animation.list.updateDirText = function (item) {
+  const {direction, dirText} = item.element
+  if (direction !== undefined) {
+    dirText.textContent = direction
+  }
+}
+
+// 列表 - 更新所有动作方向
+Animation.list.updateDirections = function (replace = false) {
+  let dirMap
+  switch (Animation.mode) {
+    case '1-dir':
+    case '1-dir-mirror':
+      dirMap = {0: ''}
+      break
+    case '2-dir':
+      dirMap = {0: ' ←', 1: ' →'}
+      break
+    case '3-dir-mirror':
+      dirMap = {0: ' ↓', 1: ' →', 2: ' ↑'}
+      break
+    case '4-dir':
+      dirMap = {0: ' ↓', 1: ' ←', 2: ' →', 3: ' ↑'}
+      break
+    case '5-dir-mirror':
+      dirMap = {0: ' ↓', 1: ' →', 2: ' ↑', 3: ' ↘', 4: ' ↗'}
+      break
+    case '8-dir':
+      dirMap = {0: ' ↓', 1: ' ←', 2: ' →', 3: ' ↑', 4: ' ↙', 5: ' ↘', 6: ' ↖', 7: ' ↗'}
+      break
+  }
+  const dirCounters = {}
+  for (const item of this.data) {
+    const {id, element} = item
+    if (dirCounters[id] === undefined) {
+      dirCounters[id] = 0
+    }
+    element.direction = dirMap[dirCounters[id]++] ?? ''
+    if (replace && element.dirText?.parentNode) {
+      element.dirText.textContent = element.direction
+    }
+  }
 }
 
 // 列表 - 创建循环图标
 Animation.list.createLoopIcon = function (item) {
-  if (item.class === 'motion') {
-    const {element} = item
-    const loopIcon = document.createElement('node-icon')
-    loopIcon.addClass('icon-loop')
-    loopIcon.textContent = '\uf112'
-    element.appendChild(loopIcon)
-    element.loopIcon = loopIcon
-    element.loop = null
-  }
+  const {element} = item
+  const loopIcon = document.createElement('node-icon')
+  loopIcon.addClass('icon-loop')
+  loopIcon.textContent = '\uf112'
+  element.appendChild(loopIcon)
+  element.loopIcon = loopIcon
+  element.loop = null
 }
 
 // 列表 - 更新循环图标
@@ -5675,11 +5756,11 @@ Animation.layerList.update = function () {
 Animation.layerList.create = function (dItem, type) {
   let data
   switch (type) {
-    case 'bone':
-      data = Inspector.animBoneLayer.create()
+    case 'joint':
+      data = Inspector.animJointLayer.create()
       break
     case 'sprite':
-      data = Inspector.animImageLayer.create()
+      data = Inspector.animSpriteLayer.create()
       break
     case 'particle':
       data = Inspector.animParticleLayer.create()
@@ -5724,14 +5805,14 @@ Animation.layerList.restoreMotion = function (motion) {
 Animation.layerList.createIcon = function IIFE() {
   // 图标创建函数集合
   const iconCreators = {
-    bone: () => {
+    joint: () => {
       const icon = document.createElement('node-icon')
-      icon.addClass('anim-layer-bone')
+      icon.addClass('anim-layer-joint')
       return icon
     },
     sprite: () => {
       const icon = document.createElement('node-icon')
-      icon.addClass('anim-layer-image')
+      icon.addClass('anim-layer-sprite')
       return icon
     },
     particle: () => {
@@ -5832,7 +5913,7 @@ Animation.Player = class AnimationPlayer {
   loopStart //:number
   anchorX   //:number
   anchorY   //:number
-  flip      //:string
+  mirror    //:string
   data      //:object
   suffix    //:string
   motion    //:object
@@ -5849,8 +5930,9 @@ Animation.Player = class AnimationPlayer {
     this.loopStart = 0
     this.anchorX = 0
     this.anchorY = 0
-    this.flip = 'none'
+    this.mirror = 'none'
     this.data = animation
+    this.dirMap = AnimationPlayer.dirMaps[animation.mode]
     this.suffix = ''
     this.motion = null
     this.motions = {}
@@ -5900,18 +5982,18 @@ Animation.Player = class AnimationPlayer {
   setPosition(x, y) {
     const matrix = AnimationPlayer
     .matrix.set6f(1, 0, 0, 1, x, y)
-    switch (this.flip) {
+    switch (this.mirror) {
       case 'none':
         break
       case 'horizontal':
-        matrix.fliph()
+        matrix.mirrorh()
         break
       case 'vertical':
-        matrix.flipv()
+        matrix.mirrorv()
         break
       case 'both':
-        matrix.fliph()
-        matrix.flipv()
+        matrix.mirrorh()
+        matrix.mirrorv()
         break
     }
   }
@@ -5965,9 +6047,18 @@ Animation.Player = class AnimationPlayer {
 
   // 加载动作哈希表
   loadMotions() {
+    const dirSuffixList = AnimationPlayer.dirSuffixLists[this.data.mode]
+    const dirCounters = {}
     const motionMap = this.motions
     for (const motion of this.data.motions) {
-      motionMap[motion.id] = motion
+      if (dirCounters[motion.id] === undefined) {
+        dirCounters[motion.id] = 0
+      }
+      const suffixIndex = dirCounters[motion.id]++
+      const suffix = dirSuffixList[suffixIndex]
+      if (suffix !== undefined) {
+        motionMap[motion.id + suffix] = motion
+      }
     }
   }
 
@@ -6063,7 +6154,7 @@ Animation.Player = class AnimationPlayer {
         const texture = this.getTexture(key)
         if (texture !== null) {
           context.opacity *= opacity
-          this.drawImage(context, texture)
+          this.drawSprite(context, texture)
         }
       }
     }
@@ -6077,8 +6168,8 @@ Animation.Player = class AnimationPlayer {
     }
   }
 
-  // 绘制图像
-  drawImage(context, texture, light) {
+  // 绘制精灵
+  drawSprite(context, texture, light) {
     const gl = GL
     const vertices = gl.arrays[0].float32
     const attributes = gl.arrays[0].uint32
@@ -6266,11 +6357,79 @@ Animation.Player = class AnimationPlayer {
     }
   }
 
+  // 获取指定角度的方向参数
+  getDirParamsByAngle(angle) {
+    const dirMap = this.dirMap
+    const directions = dirMap.length
+    const destAngle = Math.radians(angle)
+    const proportion = Math.modRadians(destAngle) / (Math.PI * 2)
+    const direction = Math.floor((proportion * directions + 0.5) % directions)
+    return dirMap[direction]
+  }
+
   // 静态 - 动画属性
   static step = 0
   static matrix = new Matrix()
   static lightSamplingModes = {raw: 0, global: 1, anchor: 2}
   static stage
+
+  // 各种模式的动画方向后缀列表
+  static dirSuffixLists = {
+    '1-dir': [''],
+    '1-dir-mirror': [''],
+    '2-dir': ['.left', '.right'],
+    '3-dir-mirror': ['.down', '.right', '.up'],
+    '4-dir': ['.down', '.left', '.right', '.up'],
+    '5-dir-mirror': ['.down', '.right', '.up', '.down-right', '.up-right'],
+    '8-dir': ['.down', '.left', '.right', '.up', '.down-left', '.down-right', '.up-left', '.up-right'],
+  }
+
+  // 各种模式的动画方向映射表
+  static dirMaps = {
+    '1-dir': [
+      {suffix: '', mirror: 'none'},
+    ],
+    '1-dir-mirror': [
+      {suffix: '', mirror: 'none'},
+      {suffix: '', mirror: 'horizontal'},
+    ],
+    '2-dir': [
+      {suffix: '.right', mirror: 'none'},
+      {suffix: '.left', mirror: 'none'},
+    ],
+    '3-dir-mirror': [
+      {suffix: '.right', mirror: 'none'},
+      {suffix: '.down', mirror: 'none'},
+      {suffix: '.right', mirror: 'horizontal'},
+      {suffix: '.up', mirror: 'none'},
+    ],
+    '4-dir': [
+      {suffix: '.right', mirror: 'none'},
+      {suffix: '.down', mirror: 'none'},
+      {suffix: '.left', mirror: 'none'},
+      {suffix: '.up', mirror: 'none'},
+    ],
+    '5-dir-mirror': [
+      {suffix: '.right', mirror: 'none'},
+      {suffix: '.down-right', mirror: 'none'},
+      {suffix: '.down', mirror: 'none'},
+      {suffix: '.down-right', mirror: 'horizontal'},
+      {suffix: '.right', mirror: 'horizontal'},
+      {suffix: '.up-right', mirror: 'horizontal'},
+      {suffix: '.up', mirror: 'none'},
+      {suffix: '.up-right', mirror: 'none'},
+    ],
+    '8-dir': [
+      {suffix: '.right', mirror: 'none'},
+      {suffix: '.down-right', mirror: 'none'},
+      {suffix: '.down', mirror: 'none'},
+      {suffix: '.down-left', mirror: 'none'},
+      {suffix: '.left', mirror: 'none'},
+      {suffix: '.up-left', mirror: 'none'},
+      {suffix: '.up', mirror: 'none'},
+      {suffix: '.up-right', mirror: 'none'},
+    ],
+  }
 
   // 静态 - 更新动画步长
   static updateStep() {
@@ -6307,7 +6466,7 @@ Animation.Player = class AnimationPlayer {
       context.parent = parent
       context.layer = layer
       switch (layer.class) {
-        case 'bone':
+        case 'joint':
           context.update = AnimationPlayer.contextUpdate
           break
         case 'sprite':
@@ -6317,7 +6476,7 @@ Animation.Player = class AnimationPlayer {
           context.update = AnimationPlayer.contextUpdateParticle
           break
       }
-      if (layer.class === 'bone') {
+      if (layer.class === 'joint') {
         this.#loadContext(animation, layer.children, context, contexts)
       }
     }

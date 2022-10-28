@@ -2657,15 +2657,15 @@ class Matrix extends Float32Array {
     return this
   }
 
-  // 水平翻转
-  fliph() {
+  // 水平镜像
+  mirrorh() {
     this[0] = -this[0]
     this[3] = -this[3]
     return this
   }
 
-  // 垂直翻转
-  flipv() {
+  // 垂直镜像
+  mirrorv() {
     this[1] = -this[1]
     this[4] = -this[4]
     return this

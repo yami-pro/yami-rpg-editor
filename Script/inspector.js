@@ -41,10 +41,10 @@ const Inspector = {
   uiWindow: null,
   uiContainer: null,
   animMotion: null,
-  animBoneLayer: null,
-  animBoneFrame: null,
-  animImageLayer: null,
-  animImageFrame: null,
+  animJointLayer: null,
+  animJointFrame: null,
+  animSpriteLayer: null,
+  animSpriteFrame: null,
   animParticleLayer: null,
   animParticleFrame: null,
   particleLayer: null,
@@ -184,9 +184,9 @@ Inspector.initialize = function () {
   this.uiVideo.initialize()
   this.uiWindow.initialize()
   this.animMotion.initialize()
-  this.animBoneFrame.initialize()
-  this.animImageLayer.initialize()
-  this.animImageFrame.initialize()
+  this.animJointFrame.initialize()
+  this.animSpriteLayer.initialize()
+  this.animSpriteFrame.initialize()
   this.animParticleLayer.initialize()
   this.animParticleFrame.initialize()
   this.particleLayer.initialize()
@@ -718,8 +718,8 @@ FileUI.initialize = function () {
 FileUI.create = function () {
   const {resolution} = Data.config
   return {
-    width: resolution.minWidth,
-    height: resolution.minHeight,
+    width: resolution.width,
+    height: resolution.height,
     nodes: [],
   }
 }
@@ -790,9 +790,9 @@ Inspector.fileUI = FileUI}
   create: null,
   open: null,
   close: null,
-  // update: null,
+  update: null,
   // events
-  // paramInput: null,
+  paramInput: null,
 }
 
 // 初始化
@@ -812,16 +812,32 @@ FileAnimation.initialize = function () {
     },
   }
 
+  // 创建动画模式选项
+  $('#fileAnimation-mode').loadItems([
+    {name: '1 Directional', value: '1-dir'},
+    {name: '2 Directional', value: '2-dir'},
+    {name: '4 Directional', value: '4-dir'},
+    {name: '8 Directional', value: '8-dir'},
+    {name: '1 Directional - Mirror', value: '1-dir-mirror'},
+    {name: '3 Directional - Mirror', value: '3-dir-mirror'},
+    {name: '5 Directional - Mirror', value: '5-dir-mirror'},
+  ])
+
   // 绑定精灵图列表
   $('#fileAnimation-sprites').bind(this.sprites)
 
   // 侦听事件
+  const elements = $('#fileAnimation-mode')
+  elements.on('input', this.paramInput)
+  elements.on('focus', Inspector.inputFocus)
+  elements.on('blur', Inspector.inputBlur(this, this.owner))
   $('#fileAnimation-sprites').on('change', Animation.listChange)
 }
 
 // 创建动画
 FileAnimation.create = function () {
   return {
+    mode: '1-dir-mirror',
     sprites: [],
     motions: [],
   }
@@ -837,6 +853,7 @@ FileAnimation.open = function (animation) {
 
     // 写入数据
     const write = getElementWriter('fileAnimation', animation)
+    write('mode')
     write('sprites')
   }
 }
@@ -852,18 +869,26 @@ FileAnimation.close = function () {
 }
 
 // 更新数据
-// FileAnimation.update = function (animation, key, value) {
-//   Animation.planToSave()
-// }
+FileAnimation.update = function (animation, key, value) {
+  Animation.planToSave()
+  switch (key) {
+    case 'mode':
+      if (animation.mode !== value) {
+        animation.mode = value
+        Animation.list.updateDirections(true)
+        break
+      }
+  }
+}
 
 // 参数 - 输入事件
-// FileAnimation.paramInput = function (event) {
-//   FileAnimation.update(
-//     FileAnimation.target,
-//     Inspector.getKey(this),
-//     this.read(),
-//   )
-// }
+FileAnimation.paramInput = function (event) {
+  FileAnimation.update(
+    FileAnimation.target,
+    Inspector.getKey(this),
+    this.read(),
+  )
+}
 
 // 精灵图列表接口
 FileAnimation.sprites = {
@@ -3294,9 +3319,9 @@ SceneActor.update = function (actor, key, value) {
       if (actor.angle !== value) {
         actor.angle = value
         if (actor.player) {
-          const params = Animation.getDirParamsByAngle(value)
+          const params = actor.player.getDirParamsByAngle(value)
           actor.player.switch(actor.data.idleMotion, params.suffix)
-          actor.player.flip = params.flip
+          actor.player.mirror = params.mirror
         }
       }
       break
@@ -3727,7 +3752,7 @@ Inspector.sceneLight = SceneLight}
 // 初始化
 SceneAnimation.initialize = function () {
   // 创建翻转选项
-  $('#sceneAnimation-flip').loadItems([
+  $('#sceneAnimation-mirror').loadItems([
     {name: 'None', value: 'none'},
     {name: 'Horizontal', value: 'horizontal'},
     {name: 'Vertical', value: 'vertical'},
@@ -3750,7 +3775,7 @@ SceneAnimation.initialize = function () {
   $('#sceneAnimation-animationId').on('write', this.animationIdWrite)
   const elements = $(`#sceneAnimation-name,
     #sceneAnimation-animationId, #sceneAnimation-motion,
-    #sceneAnimation-flip, #sceneAnimation-x, #sceneAnimation-y`)
+    #sceneAnimation-mirror, #sceneAnimation-x, #sceneAnimation-y`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, Scene))
@@ -3767,7 +3792,7 @@ SceneAnimation.create = function () {
     presetId: '',
     animationId: '',
     motion: '',
-    flip: 'none',
+    mirror: 'none',
     x: 0,
     y: 0,
     conditions: [],
@@ -3786,7 +3811,7 @@ SceneAnimation.open = function (animation) {
     write('name')
     write('animationId')
     write('motion')
-    write('flip')
+    write('mirror')
     write('x')
     write('y')
     write('conditions')
@@ -3846,10 +3871,10 @@ SceneAnimation.update = function (animation, key, value) {
         }
       }
       break
-    case 'flip':
-      if (animation.flip !== value) {
-        animation.flip = value
-        animation.player.flip = value
+    case 'mirror':
+      if (animation.mirror !== value) {
+        animation.mirror = value
+        animation.player.mirror = value
       }
       break
     case 'x':
@@ -4408,8 +4433,8 @@ SceneTilemap.initialize = function () {
 }
 
 // 创建瓦片地图
-SceneTilemap.create = function () {
-  const tiles = Scene.createTiles(4, 4)
+SceneTilemap.create = function (width = 4, height = 4) {
+  const tiles = Scene.createTiles(width, height)
   return Codec.decodeTilemap({
     class: 'tilemap',
     name: 'Tilemap',
@@ -4424,8 +4449,8 @@ SceneTilemap.create = function () {
     blend: 'normal',
     x: 0,
     y: 0,
-    width: tiles.width,
-    height: tiles.height,
+    width: width,
+    height: height,
     anchorX: 0,
     anchorY: 0,
     offsetX: 0,
@@ -6071,7 +6096,6 @@ UIVideo.close = function () {
 // 更新数据
 UIVideo.update = function (node, key, value) {
   UI.planToSave()
-  // const element = node.instance
   switch (key) {
     case 'video':
     case 'loop':
@@ -6079,7 +6103,6 @@ UIVideo.update = function (node, key, value) {
     case 'blend':
       if (node[key] !== value) {
         node[key] = value
-        // element[key] = value
       }
       break
   }
@@ -6357,9 +6380,10 @@ AnimMotion.create = function (motionId) {
   return {
     class: 'motion',
     id: motionId,
+    direction: Animation.mode === '1-dir' ? 'fixed' : 'right',
     loop: false,
     loopStart: 0,
-    layers: [Inspector.animImageLayer.create()],
+    layers: [Inspector.animSpriteLayer.create()],
   }
 }
 
@@ -6415,31 +6439,31 @@ AnimMotion.paramInput = function (event) {
 
 Inspector.animMotion = AnimMotion}
 
-// ******************************** 动画 - 骨骼层页面 ********************************
+// ******************************** 动画 - 关节层页面 ********************************
 
-{const AnimBoneLayer = {
+{const AnimJointLayer = {
   // methods
   create: null,
 }
 
-// 创建骨骼层
-AnimBoneLayer.create = function () {
+// 创建关节层
+AnimJointLayer.create = function () {
   return {
-    class: 'bone',
-    name: 'Bone',
+    class: 'joint',
+    name: 'Joint',
     expanded: true,
     hidden: false,
     locked: false,
-    frames: [Inspector.animBoneFrame.create()],
+    frames: [Inspector.animJointFrame.create()],
     children: [],
   }
 }
 
-Inspector.animBoneLayer = AnimBoneLayer}
+Inspector.animJointLayer = AnimJointLayer}
 
-// ******************************** 动画 - 骨骼帧页面 ********************************
+// ******************************** 动画 - 关节帧页面 ********************************
 
-{const AnimBoneFrame = {
+{const AnimJointFrame = {
   // properties
   motion: null,
   target: null,
@@ -6455,10 +6479,10 @@ Inspector.animBoneLayer = AnimBoneLayer}
 }
 
 // 初始化
-AnimBoneFrame.initialize = function () {
+AnimJointFrame.initialize = function () {
   // 侦听事件
-  const elements = $(`#animBoneFrame-x, #animBoneFrame-y, #animBoneFrame-rotation,
-    #animBoneFrame-scaleX, #animBoneFrame-scaleY, #animBoneFrame-opacity`)
+  const elements = $(`#animJointFrame-x, #animJointFrame-y, #animJointFrame-rotation,
+    #animJointFrame-scaleX, #animJointFrame-scaleY, #animJointFrame-opacity`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(
@@ -6470,7 +6494,7 @@ AnimBoneFrame.initialize = function () {
 }
 
 // 创建关键帧
-AnimBoneFrame.create = function () {
+AnimJointFrame.create = function () {
   return {
     start: 0,     // 帧起始位置
     end: 1,       // 帧结束位置
@@ -6485,14 +6509,14 @@ AnimBoneFrame.create = function () {
 }
 
 // 打开数据
-AnimBoneFrame.open = function (frame) {
+AnimJointFrame.open = function (frame) {
   if (this.target !== frame) {
     this.target = frame
     this.motion = Animation.motion
     Curve.load(frame)
 
     // 写入数据
-    const write = getElementWriter('animBoneFrame')
+    const write = getElementWriter('animJointFrame', frame)
     write('x')
     write('y')
     write('rotation')
@@ -6503,7 +6527,7 @@ AnimBoneFrame.open = function (frame) {
 }
 
 // 关闭数据
-AnimBoneFrame.close = function () {
+AnimJointFrame.close = function () {
   if (this.target) {
     Animation.unselectMarquee(this.target)
     Curve.load(null)
@@ -6513,26 +6537,26 @@ AnimBoneFrame.close = function () {
 }
 
 // 写入数据
-AnimBoneFrame.write = function (options) {
+AnimJointFrame.write = function (options) {
   if (options.x !== undefined) {
-    $('#animBoneFrame-x').write(options.x)
+    $('#animJointFrame-x').write(options.x)
   }
   if (options.y !== undefined) {
-    $('#animBoneFrame-y').write(options.y)
+    $('#animJointFrame-y').write(options.y)
   }
   if (options.rotation !== undefined) {
-    $('#animBoneFrame-rotation').write(options.rotation)
+    $('#animJointFrame-rotation').write(options.rotation)
   }
   if (options.scaleX !== undefined) {
-    $('#animBoneFrame-scaleX').write(options.scaleX)
+    $('#animJointFrame-scaleX').write(options.scaleX)
   }
   if (options.scaleY !== undefined) {
-    $('#animBoneFrame-scaleY').write(options.scaleY)
+    $('#animJointFrame-scaleY').write(options.scaleY)
   }
 }
 
 // 更新数据
-AnimBoneFrame.update = function (frame, key, value) {
+AnimJointFrame.update = function (frame, key, value) {
   Animation.planToSave()
   switch (key) {
     case 'x':
@@ -6551,19 +6575,19 @@ AnimBoneFrame.update = function (frame, key, value) {
 }
 
 // 参数 - 输入事件
-AnimBoneFrame.paramInput = function (event) {
-  AnimBoneFrame.update(
-    AnimBoneFrame.target,
+AnimJointFrame.paramInput = function (event) {
+  AnimJointFrame.update(
+    AnimJointFrame.target,
     Inspector.getKey(this),
     this.read(),
   )
 }
 
-Inspector.animBoneFrame = AnimBoneFrame}
+Inspector.animJointFrame = AnimJointFrame}
 
-// ******************************** 动画 - 图像层页面 ********************************
+// ******************************** 动画 - 精灵层页面 ********************************
 
-{const AnimImageLayer = {
+{const AnimSpriteLayer = {
   // properties
   motion: null,
   target: null,
@@ -6578,23 +6602,23 @@ Inspector.animBoneFrame = AnimBoneFrame}
 }
 
 // 初始化
-AnimImageLayer.initialize = function () {
+AnimSpriteLayer.initialize = function () {
   // 创建混合模式选项
-  $('#animImageLayer-blend').loadItems([
+  $('#animSpriteLayer-blend').loadItems([
     {name: 'Normal', value: 'normal'},
     {name: 'Additive', value: 'additive'},
     {name: 'Subtract', value: 'subtract'},
   ])
 
   // 创建光照模式选项
-  $('#animImageLayer-light').loadItems([
+  $('#animSpriteLayer-light').loadItems([
     {name: 'Raw', value: 'raw'},
     {name: 'Global Sampling', value: 'global'},
     {name: 'Anchor Sampling', value: 'anchor'},
   ])
 
   // 侦听事件
-  const elements = $('#animImageLayer-sprite, #animImageLayer-blend, #animImageLayer-light')
+  const elements = $('#animSpriteLayer-sprite, #animSpriteLayer-blend, #animSpriteLayer-light')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(
@@ -6605,22 +6629,22 @@ AnimImageLayer.initialize = function () {
   ))
 }
 
-// 创建图像层
-AnimImageLayer.create = function () {
+// 创建精灵层
+AnimSpriteLayer.create = function () {
   return {
     class: 'sprite',
-    name: 'Image',
+    name: 'Sprite',
     hidden: false,
     locked: false,
     sprite: '',
     blend: 'normal',
     light: 'raw',
-    frames: [Inspector.animImageFrame.create()],
+    frames: [Inspector.animSpriteFrame.create()],
   }
 }
 
 // 打开数据
-AnimImageLayer.open = function (layer) {
+AnimSpriteLayer.open = function (layer) {
   if (this.target !== layer) {
     this.target = layer
     this.motion = Animation.motion
@@ -6628,10 +6652,10 @@ AnimImageLayer.open = function (layer) {
     // 创建精灵图选项
     const id = Animation.meta.guid
     const items = Animation.getSpriteListItems(id)
-    $('#animImageLayer-sprite').loadItems(items)
+    $('#animSpriteLayer-sprite').loadItems(items)
 
     // 写入数据
-    const write = getElementWriter('animImageLayer', layer)
+    const write = getElementWriter('animSpriteLayer', layer)
     write('sprite')
     write('blend')
     write('light')
@@ -6639,7 +6663,7 @@ AnimImageLayer.open = function (layer) {
 }
 
 // 关闭数据
-AnimImageLayer.close = function () {
+AnimSpriteLayer.close = function () {
   if (this.target) {
     this.target = null
     this.motion = null
@@ -6647,7 +6671,7 @@ AnimImageLayer.close = function () {
 }
 
 // 更新数据
-AnimImageLayer.update = function (layer, key, value) {
+AnimSpriteLayer.update = function (layer, key, value) {
   Animation.planToSave()
   switch (key) {
     case 'sprite':
@@ -6662,19 +6686,19 @@ AnimImageLayer.update = function (layer, key, value) {
 }
 
 // 参数 - 输入事件
-AnimImageLayer.paramInput = function (event) {
-  AnimImageLayer.update(
-    AnimImageLayer.target,
+AnimSpriteLayer.paramInput = function (event) {
+  AnimSpriteLayer.update(
+    AnimSpriteLayer.target,
     Inspector.getKey(this),
     this.read(),
   )
 }
 
-Inspector.animImageLayer = AnimImageLayer}
+Inspector.animSpriteLayer = AnimSpriteLayer}
 
-// ******************************** 动画 - 图像帧页面 ********************************
+// ******************************** 动画 - 精灵帧页面 ********************************
 
-{const AnimImageFrame = {
+{const AnimSpriteFrame = {
   // properties
   motion: null,
   target: null,
@@ -6690,20 +6714,20 @@ Inspector.animImageLayer = AnimImageLayer}
 }
 
 // 初始化
-AnimImageFrame.initialize = function () {
+AnimSpriteFrame.initialize = function () {
   // 同步滑动框和数字框的数值
-  $('#animImageFrame-tint-0-slider').synchronize($('#animImageFrame-tint-0'))
-  $('#animImageFrame-tint-1-slider').synchronize($('#animImageFrame-tint-1'))
-  $('#animImageFrame-tint-2-slider').synchronize($('#animImageFrame-tint-2'))
-  $('#animImageFrame-tint-3-slider').synchronize($('#animImageFrame-tint-3'))
+  $('#animSpriteFrame-tint-0-slider').synchronize($('#animSpriteFrame-tint-0'))
+  $('#animSpriteFrame-tint-1-slider').synchronize($('#animSpriteFrame-tint-1'))
+  $('#animSpriteFrame-tint-2-slider').synchronize($('#animSpriteFrame-tint-2'))
+  $('#animSpriteFrame-tint-3-slider').synchronize($('#animSpriteFrame-tint-3'))
 
   // 侦听事件
-  const elements = $(`#animImageFrame-x, #animImageFrame-y, #animImageFrame-rotation,
-    #animImageFrame-scaleX, #animImageFrame-scaleY, #animImageFrame-opacity,
-    #animImageFrame-tint-0, #animImageFrame-tint-1, #animImageFrame-tint-2, #animImageFrame-tint-3`)
+  const elements = $(`#animSpriteFrame-x, #animSpriteFrame-y, #animSpriteFrame-rotation,
+    #animSpriteFrame-scaleX, #animSpriteFrame-scaleY, #animSpriteFrame-opacity,
+    #animSpriteFrame-tint-0, #animSpriteFrame-tint-1, #animSpriteFrame-tint-2, #animSpriteFrame-tint-3`)
   const sliders = $(`
-    #animImageFrame-tint-0-slider, #animImageFrame-tint-1-slider,
-    #animImageFrame-tint-2-slider, #animImageFrame-tint-3-slider`)
+    #animSpriteFrame-tint-0-slider, #animSpriteFrame-tint-1-slider,
+    #animSpriteFrame-tint-2-slider, #animSpriteFrame-tint-3-slider`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(
@@ -6720,25 +6744,25 @@ AnimImageFrame.initialize = function () {
 }
 
 // 创建关键帧
-AnimImageFrame.create = function () {
+AnimSpriteFrame.create = function () {
   return {
-    start: 0,           // 0:帧起始位置
-    end: 1,             // 1:帧结束位置
-    easingId: '',       // 2:过渡方式
-    x: 0,               // 3:位移X
-    y: 0,               // 4:位移Y
-    rotation: 0,        // 5:旋转角度
-    scaleX: 1,          // 6:缩放X
-    scaleY: 1,          // 7:缩放Y
-    opacity: 1,         // 8:不透明度
-    spriteX: 0,         // 9:精灵索引X
-    spriteY: 0,         // 10:精灵索引Y
-    tint: [0, 0, 0, 0], // 11:精灵图像色调
+    start: 0,           // 帧起始位置
+    end: 1,             // 帧结束位置
+    easingId: '',       // 过渡方式
+    x: 0,               // 位移X
+    y: 0,               // 位移Y
+    rotation: 0,        // 旋转角度
+    scaleX: 1,          // 缩放X
+    scaleY: 1,          // 缩放Y
+    opacity: 1,         // 不透明度
+    spriteX: 0,         // 精灵索引X
+    spriteY: 0,         // 精灵索引Y
+    tint: [0, 0, 0, 0], // 精灵图像色调
   }
 }
 
 // 打开数据
-AnimImageFrame.open = function (frame) {
+AnimSpriteFrame.open = function (frame) {
   if (this.target !== frame) {
     this.target = frame
     this.motion = Animation.motion
@@ -6746,7 +6770,7 @@ AnimImageFrame.open = function (frame) {
     Curve.load(frame)
 
     // 写入数据
-    const write = getElementWriter('animImageFrame', frame)
+    const write = getElementWriter('animSpriteFrame', frame)
     write('x')
     write('y')
     write('rotation')
@@ -6761,7 +6785,7 @@ AnimImageFrame.open = function (frame) {
 }
 
 // 关闭数据
-AnimImageFrame.close = function () {
+AnimSpriteFrame.close = function () {
   if (this.target) {
     Animation.unselectMarquee(this.target)
     Sprite.close()
@@ -6772,26 +6796,26 @@ AnimImageFrame.close = function () {
 }
 
 // 写入数据
-AnimImageFrame.write = function (options) {
+AnimSpriteFrame.write = function (options) {
   if (options.x !== undefined) {
-    $('#animImageFrame-x').write(options.x)
+    $('#animSpriteFrame-x').write(options.x)
   }
   if (options.y !== undefined) {
-    $('#animImageFrame-y').write(options.y)
+    $('#animSpriteFrame-y').write(options.y)
   }
   if (options.rotation !== undefined) {
-    $('#animImageFrame-rotation').write(options.rotation)
+    $('#animSpriteFrame-rotation').write(options.rotation)
   }
   if (options.scaleX !== undefined) {
-    $('#animImageFrame-scaleX').write(options.scaleX)
+    $('#animSpriteFrame-scaleX').write(options.scaleX)
   }
   if (options.scaleY !== undefined) {
-    $('#animImageFrame-scaleY').write(options.scaleY)
+    $('#animSpriteFrame-scaleY').write(options.scaleY)
   }
 }
 
 // 更新数据
-AnimImageFrame.update = function (frame, key, value) {
+AnimSpriteFrame.update = function (frame, key, value) {
   Animation.planToSave()
   switch (key) {
     case 'x':
@@ -6821,15 +6845,15 @@ AnimImageFrame.update = function (frame, key, value) {
 }
 
 // 参数 - 输入事件
-AnimImageFrame.paramInput = function (event) {
-  AnimImageFrame.update(
-    AnimImageFrame.target,
+AnimSpriteFrame.paramInput = function (event) {
+  AnimSpriteFrame.update(
+    AnimSpriteFrame.target,
     Inspector.getKey(this),
     this.read(),
   )
 }
 
-Inspector.animImageFrame = AnimImageFrame}
+Inspector.animSpriteFrame = AnimSpriteFrame}
 
 // ******************************** 动画 - 粒子层页面 ********************************
 
@@ -6968,17 +6992,17 @@ AnimParticleFrame.initialize = function () {
 // 创建关键帧
 AnimParticleFrame.create = function () {
   return {
-    start: 0,     // 0 帧起始位置
-    end: 1,       // 1 帧结束位置
-    easingId: '', // 2 过渡方式
-    x: 0,         // 3 位移X
-    y: 0,         // 4 位移Y
-    rotation: 0,  // 5 旋转角度
-    scaleX: 1,    // 6 缩放X
-    scaleY: 1,    // 7 缩放Y
-    opacity: 1,   // 8 不透明度
-    scale: 1,     // 9 粒子比例
-    speed: 1,     // 10 播放速度
+    start: 0,     // 帧起始位置
+    end: 1,       // 帧结束位置
+    easingId: '', // 过渡方式
+    x: 0,         // 位移X
+    y: 0,         // 位移Y
+    rotation: 0,  // 旋转角度
+    scaleX: 1,    // 缩放X
+    scaleY: 1,    // 缩放Y
+    opacity: 1,   // 不透明度
+    scale: 1,     // 粒子比例
+    speed: 1,     // 播放速度
   }
 }
 

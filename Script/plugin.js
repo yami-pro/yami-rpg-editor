@@ -223,6 +223,13 @@ PluginManager.createOverview = function (meta, detailed) {
           elWrap.appendChild(elType)
           break
         }
+        case 'attribute-group': {
+          const elType = document.createElement('text')
+          elType.textContent = get('attribute.group')
+          elType.addClass('plugin-type')
+          elWrap.appendChild(elType)
+          break
+        }
         case 'enum':
         case 'enum-value': {
           const elType = document.createElement('text')
@@ -235,6 +242,13 @@ PluginManager.createOverview = function (meta, detailed) {
             text += `(${get('value')})`
           }
           elType.textContent = text
+          elType.addClass('plugin-type')
+          elWrap.appendChild(elType)
+          break
+        }
+        case 'enum-group': {
+          const elType = document.createElement('text')
+          elType.textContent = get('enum.group')
           elType.addClass('plugin-type')
           elWrap.appendChild(elType)
           break
@@ -950,8 +964,10 @@ PluginManager.parseMeta = function IIFE() {
     'variable': setParameter,
     'attribute': setAttribute,
     'attribute-key': setAttribute,
+    'attribute-group': setParameter,
     'enum': setEnum,
     'enum-value': setEnum,
+    'enum-group': setParameter,
     'actor': setParameter,
     'region': setParameter,
     'light': setParameter,
@@ -1071,10 +1087,14 @@ PluginManager.reconstruct = function IIFE() {
       case 'attribute':
       case 'attribute-key':
         return !!Attribute.getGroupAttribute(parameter.filter, value)
+      case 'attribute-group':
+        return !!Attribute.getGroup(value)
       case 'enum':
       case 'enum-value':
         if (parameter.filter === 'any') return !!Enum.getString(value)
         return !!Enum.getGroupString(parameter.filter, value)
+      case 'enum-group':
+        return !!Enum.getEnumGroup(value)
       case 'actor':
       case 'region':
       case 'light':
@@ -1134,6 +1154,9 @@ PluginManager.reconstruct = function IIFE() {
       case 'attribute-key':
         if (Attribute.getGroupAttribute(parameter.filter, value)) return value
         return Attribute.getDefAttributeId(parameter.filter)
+      case 'attribute-group':
+        if (Attribute.getGroup(value)) return value
+        return ''
       case 'enum':
       case 'enum-value':
         if (parameter.filter === 'any') {
@@ -1143,6 +1166,9 @@ PluginManager.reconstruct = function IIFE() {
           if (Enum.getGroupString(parameter.filter, value)) return value
           return Enum.getDefStringId(parameter.filter)
         }
+      case 'enum-group':
+        if (Enum.getEnumGroup(value)) return value
+        return ''
       case 'actor':
       case 'region':
       case 'light':

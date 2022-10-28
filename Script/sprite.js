@@ -108,9 +108,9 @@ Sprite.initialize = function () {
 
   // 侦听事件
   window.on('themechange', this.themechange)
-  $('#animImageFrame').on('resize', this.windowResize)
-  $('#animImageFrame-properties-detail').on('toggle', this.windowResize)
-  $('#animImageFrame-sprite-detail').on('toggle', this.windowResize)
+  $('#animSpriteFrame').on('resize', this.windowResize)
+  $('#animSpriteFrame-properties-detail').on('toggle', this.windowResize)
+  $('#animSpriteFrame-sprite-detail').on('toggle', this.windowResize)
   this.slider.on('focus', this.zoomFocus)
   this.slider.on('input', this.zoomInput)
   this.screen.on('keydown', this.screenKeydown)
@@ -431,7 +431,7 @@ Sprite.selectSprite = function (hindex, vindex) {
     this.marquee.select(hindex, vindex, 1, 1)
     Animation.planToSave()
     const x = Animation.timelineMarquee.x
-    const editor = Inspector.animImageFrame
+    const editor = Inspector.animSpriteFrame
     const history = Animation.history
     const index = history.index
     const length = history.length

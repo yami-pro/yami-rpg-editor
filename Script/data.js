@@ -641,7 +641,6 @@ const Project = {
   data: null,
   changed: false,
   importedFonts: null,
-  dirMap: null,
   // methods
   initialize: null,
   open: null,
@@ -696,8 +695,6 @@ Project.initialize = function () {
   // 绑定角色临时属性列表
   $('#config-actor-tempAttributes').bind(new AttributeListInterface())
 
-  // 绑定方向映射列表
-  $('#config-animation-dirMap').bind(this.dirMap)
 
   // 创建脚本语言选项
   $('#config-script-language').loadItems([
@@ -716,8 +713,7 @@ Project.initialize = function () {
   $('#project-settings').on('change', this.dataChange)
   $('#project-confirm').on('click', this.confirm)
   $(`#config-window-title, #config-window-width, #config-window-height,
-    #config-window-display, #config-resolution-minWidth, #config-resolution-minHeight,
-    #config-resolution-maxWidth, #config-resolution-maxHeight,
+    #config-window-display, #config-resolution-width, #config-resolution-height,
     #config-scene-padding, #config-scene-animationInterval,
     #config-tileArea-expansionTop, #config-tileArea-expansionLeft,
     #config-tileArea-expansionRight, #config-tileArea-expansionBottom,
@@ -727,7 +723,8 @@ Project.initialize = function () {
     #config-lightArea-expansionRight, #config-lightArea-expansionBottom,
     #config-collision-actor-enabled, #config-collision-scene-enabled, #config-collision-scene-size,
     #config-font-default, #config-font-pixelated, #config-font-threshold,
-    #config-event-startup, #config-event-showText, #config-event-showChoices,
+    #config-event-startup, #config-event-loadGame, #config-event-initScene,
+    #config-event-showText, #config-event-showChoices,
     #config-actor-playerTeam, #config-actor-playerActor,
     #config-actor-partyMembers-0, #config-actor-partyMembers-1,
     #config-actor-partyMembers-2, #config-actor-partyMembers-3,
@@ -752,10 +749,8 @@ Project.open = function () {
   write('window-width')
   write('window-height')
   write('window-display')
-  write('resolution-minWidth')
-  write('resolution-minHeight')
-  write('resolution-maxWidth')
-  write('resolution-maxHeight')
+  write('resolution-width')
+  write('resolution-height')
   write('scene-padding')
   write('scene-animationInterval')
   write('tileArea-expansionTop')
@@ -778,6 +773,8 @@ Project.open = function () {
   write('font-pixelated')
   write('font-threshold')
   write('event-startup')
+  write('event-loadGame')
+  write('event-initScene')
   write('event-showText')
   write('event-showChoices')
   write('actor-playerTeam')
@@ -788,7 +785,6 @@ Project.open = function () {
   write('actor-partyMembers-3')
   write('actor-tempAttributes')
   write('animation-frameRate')
-  write('animation-dirMap')
   write('script-language')
   write('script-outDir')
 }
@@ -881,47 +877,6 @@ Project.importedFonts = {
   input: function (fontId) {
     this.fontId = fontId
     this.target.save()
-  },
-}
-
-// 导入方向映射列表接口
-Project.dirMap = {
-  initialize: function (list) {
-    // 创建翻转选项
-    $('#dirMap-flip').loadItems([
-      {name: 'None', value: 'none'},
-      {name: 'Horizontal', value: 'horizontal'},
-      {name: 'Vertical', value: 'vertical'},
-      {name: 'Both', value: 'both'},
-    ])
-    $('#dirMap-confirm').on('click', () => list.save())
-  },
-  parse: function (params, data, index) {
-    const angle = (360 * index / data.length) % 360
-    const degrees = Math.round(angle).toString().padStart(3, '0')
-    const info = `${degrees}deg -> motion${params.suffix}`
-    switch (params.flip) {
-      case 'none':
-        return info
-      case 'horizontal':
-        return info + ' ↔'
-      case 'vertical':
-        return info + ' ↕'
-      case 'both':
-        return info + ' ↔ ↕'
-    }
-  },
-  open: function (params = {suffix: '', flip: 'none'}) {
-    Window.open('dirMap')
-    $('#dirMap-suffix').write(params.suffix)
-    $('#dirMap-flip').write(params.flip)
-    $('#dirMap-suffix').getFocus('all')
-  },
-  save: function () {
-    const suffix = $('#dirMap-suffix').read()
-    const flip = $('#dirMap-flip').read()
-    Window.close('dirMap')
-    return {suffix, flip}
   },
 }
 

@@ -48,6 +48,7 @@
       "attribute.equipment": "Equipment Attribute",
       "attribute.element": "Element Attribute",
       "enum": "Enum String",
+      "enum.group": "Enum Group",
       "enum.shortcut-key": "Shortcut Key",
       "enum.equipment-slot": "Equipment Slot",
       "enum.global-event": "Custom Global Event",
@@ -105,7 +106,11 @@
       "keydown": "KeyDown",
       "keyup": "KeyUp",
       "mousedown": "MouseDown",
+      "mousedownLB": "MouseDown LB",
+      "mousedownRB": "MouseDown RB",
       "mouseup": "MouseUp",
+      "mouseupLB": "MouseUp LB",
+      "mouseupRB": "MouseUp RB",
       "mousemove": "MouseMove",
       "mouseenter": "MouseEnter",
       "mouseleave": "MouseLeave",
@@ -327,8 +332,8 @@
     },
     "menuAnimationLayerList": {
       "create": "Create",
-      "create.bone": "Bone",
-      "create.image": "Image",
+      "create.joint": "Joint",
+      "create.sprite": "Sprite",
       "create.particleEmitter": "Particle Emitter",
       "cut": "Cut",
       "copy": "Copy",
@@ -437,7 +442,8 @@
       "copy": "Copy",
       "paste": "Paste",
       "delete": "Delete",
-      "rename": "Rename"
+      "rename": "Rename",
+      "set-key": "Set Key"
     },
     "menuTeamList": {
       "insert": "Insert",
@@ -533,7 +539,7 @@
       "common": "Equipment",
       "trigger": "TriggerEquipment",
       "latest": "LatestEquipment",
-      "by-key": "槽",
+      "by-slot": "Slot",
       "variable": "Var"
     },
     "item": {
@@ -543,12 +549,8 @@
       "by-key": "Key",
       "variable": "Var"
     },
-    "region": {
-      "common": "Region",
-      "by-id": "ID"
-    },
     "position": {
-      "absolute": "Absolute",
+      "common": "Position",
       "relative": "Relative"
     },
     "angle": {
@@ -609,6 +611,8 @@
       "showText": "Show Text",
       "showText.alias": "Text",
       "showChoices": "Show Choices",
+      "showChoices.def.0": "Yes",
+      "showChoices.def.1": "No",
       "showChoices.when": "When",
       "showChoices.end": "End",
       "comment": "Comment",
@@ -768,6 +772,7 @@
       "if.object.is-trigger": "is Trigger",
       "if.object.is-light": "is Light",
       "if.object.is-element": "is Element",
+      "if.actor.present-active": "is Present and Active",
       "if.actor.present": "is Present",
       "if.actor.absent": "is Absent",
       "if.actor.active": "is Active",
@@ -835,6 +840,8 @@
       "setEvent.continue": "Continue and Reset Variable",
       "setEvent.enable": "Enable",
       "setEvent.disable": "Disable",
+      "setEvent.prevent-scene-input-events": "Prevent Scene Input Events",
+      "setEvent.restore-scene-input-events": "Restore Scene Input Events",
       "setEvent.highest-priority": "Set to Highest Priority",
       "setEvent.goto-choice-branch": "Go to Choice Branch",
       "label": "Label",
@@ -1155,7 +1162,6 @@
       "closeUnsavedTiles": "Discard changes to tiles?",
       "closeUnsavedEvent": "Discard changes to the event?",
       "closeUnsavedData": "Discard changes to data?",
-      "webGLContextLost": "WebGL context lost",
       "compileError": "An error occurred while compiling, Continue?",
       "yes": "Yes",
       "no": "No",
@@ -1170,6 +1176,7 @@
     "[apply]": {"content": "Apply"},
     "[search]": {"placeholder": "Search"},
     "[zoom]": {"tip": "Scale\n0: 25%\n1: 50%\n2: 100%\n3: 200%\n4: 400%"},
+    "[back]": {"tip": "Upper Level Directory (Backspace | Mouse Back Button)"},
     "[view]": {"tip": "View Mode\n0: 16x16\n1: 32x32\n2: 64x64\n3: 128x128\n4: 256x256"},
 
     "[comment]": "********** Title Bar **********",
@@ -1229,7 +1236,7 @@
     "[comment]": "********** Animation **********",
     "animation-switch-mark": {"tip": "Mark"},
     "animation-switch-onionskin": {"tip": "Onionskin"},
-    "animation-switch-flip": {"tip": "Flip (C)"},
+    "animation-switch-mirror": {"tip": "Mirror (C)"},
     "animation-switch-settings": {"tip": "Settings"},
     "animation-speed": {"tip": "Playback Speed"},
     "animation-timeline-previousKey": {"tip": "Previous Key Frame (Z)"},
@@ -1267,6 +1274,16 @@
     "fileUI-height": {"label": "Height"},
 
     "[comment]": "********** Inspector - File - Animation **********",
+    "fileAnimation-general-grid": {"label": "General"},
+    "fileAnimation-mode": {"label": "Mode", "options": {
+      "1-dir": "1 Directional",
+      "2-dir": "2 Directional",
+      "4-dir": "4 Directional",
+      "8-dir": "8 Directional",
+      "1-dir-mirror": "1 Directional - Mirror",
+      "3-dir-mirror": "3 Directional - Mirror",
+      "5-dir-mirror": "5 Directional - Mirror"
+    }},
     "fileAnimation-sprites": {"label": "Sprites"},
 
     "[comment]": "********** Inspector - File - Tileset **********",
@@ -1463,7 +1480,7 @@
     "sceneAnimation-name": {"label": "Name"},
     "sceneAnimation-animationId": {"label": "Animation"},
     "sceneAnimation-motion": {"label": "Motion"},
-    "sceneAnimation-flip": {"label": "Flip", "options": {"none": "None", "horizontal": "Horizontal", "vertical": "Vertical", "both": "Both"}},
+    "sceneAnimation-mirror": {"label": "Mirror", "options": {"none": "None", "horizontal": "Horizontal", "vertical": "Vertical", "both": "Both"}},
     "sceneAnimation-x": {"label": "X"},
     "sceneAnimation-y": {"label": "Y"},
     "sceneAnimation-conditions": {"label": "Conditions"},
@@ -1679,34 +1696,34 @@
     "animMotion-loop": {"label": "Loop"},
     "animMotion-loopStart": {"label": "Loop Start"},
 
-    "[comment]": "********** Inspector - Animation - Bone Frame **********",
-    "animBoneFrame-properties-grid": {"label": "Frame"},
-    "animBoneFrame-position-box": {"label": "Position"},
-    "animBoneFrame-rotation-box": {"label": "Rotation"},
-    "animBoneFrame-scale-box": {"label": "Scale"},
-    "animBoneFrame-opacity-box": {"label": "Opacity"},
+    "[comment]": "********** Inspector - Animation - Joint Frame **********",
+    "animJointFrame-properties-grid": {"label": "Frame"},
+    "animJointFrame-position-box": {"label": "Position"},
+    "animJointFrame-rotation-box": {"label": "Rotation"},
+    "animJointFrame-scale-box": {"label": "Scale"},
+    "animJointFrame-opacity-box": {"label": "Opacity"},
 
-    "[comment]": "********** Inspector - Animation - Image Layer **********",
-    "animImageLayer-properties-grid": {"label": "Image Layer"},
-    "animImageLayer-sprite": {"label": "Sprite"},
-    "animImageLayer-blend": {"label": "Blend", "options": {"normal": "Normal", "additive": "Additive", "subtract": "Subtract"}},
-    "animImageLayer-light": {"label": "Light", "options": {
+    "[comment]": "********** Inspector - Animation - Sprite Layer **********",
+    "animSpriteLayer-properties-grid": {"label": "Sprite Layer"},
+    "animSpriteLayer-sprite": {"label": "Sprite"},
+    "animSpriteLayer-blend": {"label": "Blend", "options": {"normal": "Normal", "additive": "Additive", "subtract": "Subtract"}},
+    "animSpriteLayer-light": {"label": "Light", "options": {
       "raw": "Raw",
       "anchor": "Anchor Sampling",
       "global": "Global Sampling"
       }
     },
 
-    "[comment]": "********** Inspector - Animation - Image Frame **********",
-    "animImageFrame-properties-grid": {"label": "Frame"},
-    "animImageFrame-position-box": {"label": "Position"},
-    "animImageFrame-rotation-box": {"label": "Rotation"},
-    "animImageFrame-scale-box": {"label": "Scale"},
-    "animImageFrame-opacity-box": {"label": "Opacity"},
-    "animImageFrame-tint-0-box": {"label": "Tint - Red"},
-    "animImageFrame-tint-1-box": {"label": "Tint - Green"},
-    "animImageFrame-tint-2-box": {"label": "Tint - Blue"},
-    "animImageFrame-tint-3-box": {"label": "Tint - Gray"},
+    "[comment]": "********** Inspector - Animation - Sprite Frame **********",
+    "animSpriteFrame-properties-grid": {"label": "Frame"},
+    "animSpriteFrame-position-box": {"label": "Position"},
+    "animSpriteFrame-rotation-box": {"label": "Rotation"},
+    "animSpriteFrame-scale-box": {"label": "Scale"},
+    "animSpriteFrame-opacity-box": {"label": "Opacity"},
+    "animSpriteFrame-tint-0-box": {"label": "Tint - Red"},
+    "animSpriteFrame-tint-1-box": {"label": "Tint - Green"},
+    "animSpriteFrame-tint-2-box": {"label": "Tint - Blue"},
+    "animSpriteFrame-tint-3-box": {"label": "Tint - Gray"},
     "sprite-label": {"content": "Sprite"},
 
     "[comment]": "********** Inspector - Animation - Particle Layer **********",
@@ -1834,11 +1851,9 @@
     "config-window-width": {"label": "Width"},
     "config-window-height": {"label": "Height"},
     "config-window-display": {"label": "Display", "options": {"window": "Window", "maximized": "Maximized", "fullscreen": "Fullscreen"}},
-    "config-resolution-summary": {"content": "Virtual Resolution"},
-    "config-resolution-minWidth": {"label": "Min Width"},
-    "config-resolution-minHeight": {"label": "Min Height"},
-    "config-resolution-maxWidth": {"label": "Max Width"},
-    "config-resolution-maxHeight": {"label": "Max Height"},
+    "config-resolution-summary": {"content": "Resolution"},
+    "config-resolution-width": {"label": "Width"},
+    "config-resolution-height": {"label": "Height"},
     "config-scene-summary": {"content": "Scene"},
     "config-scene-padding": {"label": "Padding"},
     "config-scene-animationInterval": {"label": "Animation Interval"},
@@ -1868,6 +1883,8 @@
     "config-font-threshold": {"label": "Threshold", "tip": "Discards pixels with text edge opacity less than a threshold (1-255)\nAll remaining pixels become opaque"},
     "config-event-summary": {"content": "Special Events"},
     "config-event-startup": {"label": "Startup"},
+    "config-event-loadGame": {"label": "Load Game"},
+    "config-event-initScene": {"label": "Init Scene"},
     "config-event-showText": {"label": "Show Text"},
     "config-event-showChoices": {"label": "Show Choices"},
     "config-actor-summary": {"content": "Actor"},
@@ -1880,15 +1897,9 @@
     "config-actor-tempAttributes": {"label": "Temporary Attributes"},
     "config-animation-summary": {"content": "Animation"},
     "config-animation-frameRate": {"label": "Frame Rate"},
-    "config-animation-dirMap": {"label": "Direction Mapping"},
     "config-script-summary": {"content": "Script"},
     "config-script-language": {"label": "Default Scripting Language"},
     "config-script-outDir": {"label": "Output Directory"},
-
-    "[comment]": "********** Direction Mapping **********",
-    "dirMap": {"title": "Direction Mapping"},
-    "dirMap-suffix": {"label": "Motion Suffix"},
-    "dirMap-flip": {"label": "Flip", "options": {"none": "None", "horizontal": "Horizontal", "vertical": "Vertical", "both": "Both"}},
 
     "[comment]": "********** Easing **********",
     "easing": {"title": "Easing"},
@@ -2067,6 +2078,10 @@
     "rename": {"title": "Rename"},
     "rename-name": {"label": "Name"},
 
+    "[comment]": "********** Set Key **********",
+    "setKey": {"title": "setKey"},
+    "setKey-key": {"label": "Key"},
+
     "[comment]": "********** Set Quantity **********",
     "setQuantity": {"title": "Set Quantity"},
     "setQuantity-quantity": {"label": "Quantity"},
@@ -2147,11 +2162,11 @@
     "equipmentGetter-type": {"label": "Type", "options": {
       "trigger": "Event Trigger Equipment",
       "latest": "Latest Equipment Slot",
-      "by-key": "Select By Slot",
+      "by-slot": "Select By Slot",
       "variable": "Variable"
     }},
     "equipmentGetter-actor": {"label": "Actor"},
-    "equipmentGetter-key": {"label": "Equipment Slot"},
+    "equipmentGetter-slot": {"label": "Equipment Slot"},
     "equipmentGetter-variable": {"label": "Variable"},
 
     "[comment]": "********** Item Getter **********",
@@ -2435,12 +2450,7 @@
     "[comment]": "********** Command - Set String **********",
     "setString": {"title": "Set String"},
     "setString-variable": {"label": "Variable"},
-    "setString-operands": {"label": "Expression"},
-    "setString-operand": {"title": "String Operand"},
     "setString-operation": {"label": "Operation", "options": {"set": "Set", "add": "Add"}},
-    "setString-operand-operation": {"options": {
-      "add": "Add"
-    }},
     "setString-operand-type": {"label": "Type", "options": {
       "constant": "Constant",
       "variable": "Variable",
@@ -2646,6 +2656,7 @@
     "if-condition-common-light": {"label": "Light"},
     "if-condition-common-element": {"label": "Element"},
     "if-condition-actor-operation": {"label": "Operation", "options": {
+      "present-active": "Present and Active",
       "present": "Present",
       "absent": "Absent",
       "active": "Active",
@@ -2771,6 +2782,8 @@
       "continue": "Continue and Reset Variable",
       "enable": "Enable Global Event",
       "disable": "Disable Global Event",
+      "prevent-scene-input-events": "Prevent Scene Input Events",
+      "restore-scene-input-events": "Restore Scene Input Events",
       "highest-priority": "Set to Highest Priority",
       "goto-choice-branch": "Go to Choice Branch"
     }},
@@ -3304,7 +3317,7 @@
     "changeActorEquipment-actor": {"label": "Actor"},
     "changeActorEquipment-operation": {"label": "Operation", "options": {"add": "Add", "remove": "Remove"}},
     "changeActorEquipment-equipment": {"label": "Equipment"},
-    "changeActorEquipment-key": {"label": "Key"},
+    "changeActorEquipment-slot": {"label": "Slot"},
 
     "[comment]": "********** Command - Change Actor Skill **********",
     "changeActorSkill": {"title": "Change Actor Skill"},
@@ -3484,7 +3497,7 @@
     "useItem": {"title": "Use Item"},
     "useItem-actor": {"label": "Actor"},
     "useItem-mode": {"label": "Mode", "options": {
-      "by-key": "By Key",
+      "by-key": "By Shortcut Key",
       "by-id": "By Item Id",
       "by-item": "By Item Instance"
     }},

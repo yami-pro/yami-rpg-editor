@@ -1209,10 +1209,12 @@ Palette.switchScroll = function IIFE() {
   return function (enabled = !this.scrollable) {
     if (enabled) {
       item.addClass('selected')
+      this.screen.addClass('scrollable')
       this.screen.on('scroll', this.screenUserscroll)
       this.screen.off('userscroll', this.screenUserscroll)
     } else {
       item.removeClass('selected')
+      this.screen.removeClass('scrollable')
       this.screen.off('scroll', this.screenUserscroll)
       this.screen.on('userscroll', this.screenUserscroll)
     }
@@ -1332,9 +1334,11 @@ Palette.zoomInput = function (event) {
 
 // 屏幕 - 键盘按下事件
 Palette.screenKeydown = function (event) {
-  // 禁止空格键的浏览器滚动事件
-  if (event.code == 'Space') {
-    event.preventDefault()
+  switch (event.code) {
+    case 'Space':
+      // 阻止默认的下滚行为
+      event.preventDefault()
+      break
   }
   if (Palette.state === 'open' &&
     Palette.dragging === null) {

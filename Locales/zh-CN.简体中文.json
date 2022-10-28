@@ -48,6 +48,7 @@
       "attribute.equipment": "装备属性",
       "attribute.element": "元素属性",
       "enum": "枚举字符串",
+      "enum.group": "枚举群组",
       "enum.shortcut-key": "快捷键",
       "enum.equipment-slot": "装备槽",
       "enum.global-event": "自定义全局事件",
@@ -105,7 +106,11 @@
       "keydown": "键盘按下",
       "keyup": "键盘弹起",
       "mousedown": "鼠标按下",
+      "mousedownLB": "鼠标左键按下",
+      "mousedownRB": "鼠标右键按下",
       "mouseup": "鼠标弹起",
+      "mouseupLB": "鼠标左键弹起",
+      "mouseupRB": "鼠标右键弹起",
       "mousemove": "鼠标移动",
       "mouseenter": "鼠标进入",
       "mouseleave": "鼠标离开",
@@ -327,8 +332,8 @@
     },
     "menuAnimationLayerList": {
       "create": "创建",
-      "create.bone": "骨骼",
-      "create.image": "图像",
+      "create.joint": "关节",
+      "create.sprite": "精灵",
       "create.particleEmitter": "粒子发射器",
       "cut": "剪切",
       "copy": "复制",
@@ -437,7 +442,8 @@
       "copy": "复制",
       "paste": "粘贴",
       "delete": "删除",
-      "rename": "重命名"
+      "rename": "重命名",
+      "set-key": "设置键"
     },
     "menuTeamList": {
       "insert": "插入",
@@ -533,7 +539,7 @@
       "common": "装备",
       "trigger": "事件触发装备",
       "latest": "最新创建装备",
-      "by-key": "槽",
+      "by-slot": "槽",
       "variable": "变量"
     },
     "item": {
@@ -543,12 +549,8 @@
       "by-key": "键",
       "variable": "变量"
     },
-    "region": {
-      "common": "区域",
-      "by-id": "ID"
-    },
     "position": {
-      "absolute": "绝对坐标",
+      "common": "位置",
       "relative": "相对坐标"
     },
     "angle": {
@@ -609,6 +611,8 @@
       "showText": "显示文本",
       "showText.alias": "文本",
       "showChoices": "显示选项",
+      "showChoices.def.0": "是",
+      "showChoices.def.1": "否",
       "showChoices.when": "选择",
       "showChoices.end": "结束",
       "comment": "注释",
@@ -768,6 +772,7 @@
       "if.object.is-trigger": "是触发器",
       "if.object.is-light": "是光源",
       "if.object.is-element": "是元素",
+      "if.actor.present-active": "存在且已激活",
       "if.actor.present": "存在",
       "if.actor.absent": "不存在",
       "if.actor.active": "已激活",
@@ -835,6 +840,8 @@
       "setEvent.continue": "继续并重置变量",
       "setEvent.enable": "启用",
       "setEvent.disable": "禁用",
+      "setEvent.prevent-scene-input-events": "阻止场景输入事件",
+      "setEvent.restore-scene-input-events": "恢复场景输入事件",
       "setEvent.highest-priority": "设为最高优先级",
       "setEvent.goto-choice-branch": "跳转到选项分支",
       "label": "标签",
@@ -1155,7 +1162,6 @@
       "closeUnsavedTiles": "放弃图块的更改?",
       "closeUnsavedEvent": "放弃事件的更改?",
       "closeUnsavedData": "放弃数据的更改?",
-      "webGLContextLost": "WebGL上下文丢失",
       "compileError": "编译时发生错误，是否继续?",
       "yes": "是",
       "no": "否",
@@ -1170,6 +1176,7 @@
     "[apply]": {"content": "应用"},
     "[search]": {"placeholder": "查找"},
     "[zoom]": {"tip": "缩放比例\n0: 25%\n1: 50%\n2: 100%\n3: 200%\n4: 400%"},
+    "[back]": {"tip": "返回上一级目录 (Backspace | 鼠标后退键)"},
     "[view]": {"tip": "视图模式\n0: 16x16\n1: 32x32\n2: 64x64\n3: 128x128\n4: 256x256"},
 
     "[comment]": "********** 标题栏 **********",
@@ -1229,7 +1236,7 @@
     "[comment]": "********** 动画 **********",
     "animation-switch-mark": {"tip": "标记"},
     "animation-switch-onionskin": {"tip": "残像"},
-    "animation-switch-flip": {"tip": "水平翻转 (C)"},
+    "animation-switch-mirror": {"tip": "水平镜像 (C)"},
     "animation-switch-settings": {"tip": "设置"},
     "animation-speed": {"tip": "播放速度"},
     "animation-timeline-previousKey": {"tip": "上一个关键帧 (Z)"},
@@ -1267,6 +1274,16 @@
     "fileUI-height": {"label": "高度"},
 
     "[comment]": "********** 检查器 - 文件 - 动画 **********",
+    "fileAnimation-general-grid": {"label": "基本设置"},
+    "fileAnimation-mode": {"label": "模式", "options": {
+      "1-dir": "单方向",
+      "2-dir": "二方向",
+      "4-dir": "四方向",
+      "8-dir": "八方向",
+      "1-dir-mirror": "单方向 - 镜像",
+      "3-dir-mirror": "三方向 - 镜像",
+      "5-dir-mirror": "五方向 - 镜像"
+    }},
     "fileAnimation-sprites": {"label": "精灵图"},
 
     "[comment]": "********** 检查器 - 文件 - 图块组 **********",
@@ -1463,7 +1480,7 @@
     "sceneAnimation-name": {"label": "名称"},
     "sceneAnimation-animationId": {"label": "动画"},
     "sceneAnimation-motion": {"label": "动作"},
-    "sceneAnimation-flip": {"label": "翻转", "options": {"none": "不翻转", "horizontal": "水平翻转", "vertical": "垂直翻转", "both": "水平垂直翻转"}},
+    "sceneAnimation-mirror": {"label": "镜像", "options": {"none": "无", "horizontal": "水平镜像", "vertical": "垂直镜像", "both": "水平垂直镜像"}},
     "sceneAnimation-x": {"label": "X"},
     "sceneAnimation-y": {"label": "Y"},
     "sceneAnimation-conditions": {"label": "条件"},
@@ -1679,34 +1696,34 @@
     "animMotion-loop": {"label": "循环播放"},
     "animMotion-loopStart": {"label": "循环起始帧"},
 
-    "[comment]": "********** 检查器 - 动画 - 骨骼帧 **********",
-    "animBoneFrame-properties-grid": {"label": "动画帧"},
-    "animBoneFrame-position-box": {"label": "位置"},
-    "animBoneFrame-rotation-box": {"label": "旋转"},
-    "animBoneFrame-scale-box": {"label": "缩放"},
-    "animBoneFrame-opacity-box": {"label": "不透明度"},
+    "[comment]": "********** 检查器 - 动画 - 关节帧 **********",
+    "animJointFrame-properties-grid": {"label": "动画帧"},
+    "animJointFrame-position-box": {"label": "位置"},
+    "animJointFrame-rotation-box": {"label": "旋转"},
+    "animJointFrame-scale-box": {"label": "缩放"},
+    "animJointFrame-opacity-box": {"label": "不透明度"},
 
-    "[comment]": "********** 检查器 - 动画 - 图像层 **********",
-    "animImageLayer-properties-grid": {"label": "图像层"},
-    "animImageLayer-sprite": {"label": "精灵图"},
-    "animImageLayer-blend": {"label": "混合模式", "options": {"normal": "正常", "additive": "加法", "subtract": "减法"}},
-    "animImageLayer-light": {"label": "光线采样", "options": {
+    "[comment]": "********** 检查器 - 动画 - 精灵层 **********",
+    "animSpriteLayer-properties-grid": {"label": "精灵层"},
+    "animSpriteLayer-sprite": {"label": "精灵图"},
+    "animSpriteLayer-blend": {"label": "混合模式", "options": {"normal": "正常", "additive": "加法", "subtract": "减法"}},
+    "animSpriteLayer-light": {"label": "光线采样", "options": {
       "raw": "原始图像",
       "anchor": "锚点采样",
       "global": "全局采样"
       }
     },
 
-    "[comment]": "********** 检查器 - 动画 - 图像帧 **********",
-    "animImageFrame-properties-grid": {"label": "动画帧"},
-    "animImageFrame-position-box": {"label": "位置"},
-    "animImageFrame-rotation-box": {"label": "旋转"},
-    "animImageFrame-scale-box": {"label": "缩放"},
-    "animImageFrame-opacity-box": {"label": "不透明度"},
-    "animImageFrame-tint-0-box": {"label": "色调 - 红"},
-    "animImageFrame-tint-1-box": {"label": "色调 - 绿"},
-    "animImageFrame-tint-2-box": {"label": "色调 - 蓝"},
-    "animImageFrame-tint-3-box": {"label": "色调 - 灰"},
+    "[comment]": "********** 检查器 - 动画 - 精灵帧 **********",
+    "animSpriteFrame-properties-grid": {"label": "动画帧"},
+    "animSpriteFrame-position-box": {"label": "位置"},
+    "animSpriteFrame-rotation-box": {"label": "旋转"},
+    "animSpriteFrame-scale-box": {"label": "缩放"},
+    "animSpriteFrame-opacity-box": {"label": "不透明度"},
+    "animSpriteFrame-tint-0-box": {"label": "色调 - 红"},
+    "animSpriteFrame-tint-1-box": {"label": "色调 - 绿"},
+    "animSpriteFrame-tint-2-box": {"label": "色调 - 蓝"},
+    "animSpriteFrame-tint-3-box": {"label": "色调 - 灰"},
     "sprite-label": {"content": "精灵"},
 
     "[comment]": "********** 检查器 - 动画 - 粒子层 **********",
@@ -1834,11 +1851,9 @@
     "config-window-width": {"label": "宽度"},
     "config-window-height": {"label": "高度"},
     "config-window-display": {"label": "显示模式", "options": {"window": "窗口模式", "maximized": "窗口最大化", "fullscreen": "全屏显示"}},
-    "config-resolution-summary": {"content": "虚拟分辨率"},
-    "config-resolution-minWidth": {"label": "最小宽度"},
-    "config-resolution-minHeight": {"label": "最小高度"},
-    "config-resolution-maxWidth": {"label": "最大宽度"},
-    "config-resolution-maxHeight": {"label": "最大高度"},
+    "config-resolution-summary": {"content": "游戏分辨率"},
+    "config-resolution-width": {"label": "宽度"},
+    "config-resolution-height": {"label": "高度"},
     "config-scene-summary": {"content": "场景"},
     "config-scene-padding": {"label": "边距"},
     "config-scene-animationInterval": {"label": "动画播放间隔"},
@@ -1868,6 +1883,8 @@
     "config-font-threshold": {"label": "像素化阈值", "tip": "丢弃文字边缘不透明度小于阈值(1-255)的像素\n剩下的所有像素变得完全不透明"},
     "config-event-summary": {"content": "特殊事件"},
     "config-event-startup": {"label": "游戏启动事件"},
+    "config-event-loadGame": {"label": "存档加载结束事件"},
+    "config-event-initScene": {"label": "场景初始化事件"},
     "config-event-showText": {"label": "显示文本事件"},
     "config-event-showChoices": {"label": "显示选项事件"},
     "config-actor-summary": {"content": "角色"},
@@ -1880,15 +1897,9 @@
     "config-actor-tempAttributes": {"label": "临时属性"},
     "config-animation-summary": {"content": "动画"},
     "config-animation-frameRate": {"label": "动画帧率"},
-    "config-animation-dirMap": {"label": "方向映射表"},
     "config-script-summary": {"content": "脚本"},
     "config-script-language": {"label": "默认脚本语言"},
     "config-script-outDir": {"label": "编译输出目录"},
-
-    "[comment]": "********** 方向映射 **********",
-    "dirMap": {"title": "方向映射"},
-    "dirMap-suffix": {"label": "动作后缀"},
-    "dirMap-flip": {"label": "翻转", "options": {"none": "不翻转", "horizontal": "水平翻转", "vertical": "垂直翻转", "both": "水平垂直翻转"}},
 
     "[comment]": "********** 过渡 **********",
     "easing": {"title": "过渡"},
@@ -2067,6 +2078,10 @@
     "rename": {"title": "重命名"},
     "rename-name": {"label": "名称"},
 
+    "[comment]": "********** 设置键 **********",
+    "setKey": {"title": "设置键"},
+    "setKey-key": {"label": "键"},
+
     "[comment]": "********** 设置数量 **********",
     "setQuantity": {"title": "设置数量"},
     "setQuantity-quantity": {"label": "数量"},
@@ -2147,11 +2162,11 @@
     "equipmentGetter-type": {"label": "类型", "options": {
       "trigger": "事件触发装备",
       "latest": "最新创建装备",
-      "by-key": "指定装备槽",
+      "by-slot": "指定装备槽",
       "variable": "装备变量"
     }},
     "equipmentGetter-actor": {"label": "角色"},
-    "equipmentGetter-key": {"label": "装备槽"},
+    "equipmentGetter-slot": {"label": "装备槽"},
     "equipmentGetter-variable": {"label": "变量"},
 
     "[comment]": "********** 物品访问器 **********",
@@ -2435,12 +2450,7 @@
     "[comment]": "********** 指令 - 设置字符串 **********",
     "setString": {"title": "设置字符串"},
     "setString-variable": {"label": "变量"},
-    "setString-operands": {"label": "表达式"},
-    "setString-operand": {"title": "操作数"},
     "setString-operation": {"label": "操作", "options": {"set": "赋值", "add": "加法"}},
-    "setString-operand-operation": {"options": {
-      "add": "加法"
-    }},
     "setString-operand-type": {"label": "类型", "options": {
       "constant": "常量",
       "variable": "变量",
@@ -2646,6 +2656,7 @@
     "if-condition-common-light": {"label": "光源"},
     "if-condition-common-element": {"label": "元素"},
     "if-condition-actor-operation": {"label": "操作", "options": {
+      "present-active": "存在且已激活",
       "present": "存在",
       "absent": "不存在",
       "active": "已激活",
@@ -2771,6 +2782,8 @@
       "continue": "继续并重置变量",
       "enable": "启用全局事件",
       "disable": "禁用全局事件",
+      "prevent-scene-input-events": "阻止场景输入事件",
+      "restore-scene-input-events": "恢复场景输入事件",
       "highest-priority": "设为最高优先级",
       "goto-choice-branch": "跳转到选项分支"
     }},
@@ -3304,7 +3317,7 @@
     "changeActorEquipment-actor": {"label": "角色"},
     "changeActorEquipment-operation": {"label": "操作", "options": {"add": "添加", "remove": "移除"}},
     "changeActorEquipment-equipment": {"label": "装备"},
-    "changeActorEquipment-key": {"label": "键"},
+    "changeActorEquipment-slot": {"label": "装备槽"},
 
     "[comment]": "********** 指令 - 改变角色技能 **********",
     "changeActorSkill": {"title": "改变角色技能"},
@@ -3484,7 +3497,7 @@
     "useItem": {"title": "使用物品"},
     "useItem-actor": {"label": "角色"},
     "useItem-mode": {"label": "模式", "options": {
-      "by-key": "指定物品键",
+      "by-key": "指定快捷键",
       "by-id": "指定物品ID",
       "by-item": "指定物品实例"
     }},

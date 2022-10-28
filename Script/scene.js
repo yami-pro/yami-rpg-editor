@@ -637,9 +637,9 @@ Scene.initialize = function () {
     const {editor, target, angle} = data
     data.angle = target.angle
     target.angle = angle
-    const params = Animation.getDirParamsByAngle(angle)
+    const params = target.player.getDirParamsByAngle(angle)
     target.player.switch(target.data.idleMotion, params.suffix)
-    target.player.flip = params.flip
+    target.player.mirror = params.mirror
     if (editor.target === target) {
       editor.write({angle})
     }
@@ -1294,6 +1294,7 @@ Scene.openTilemap = function (tilemap) {
     this.switchLayer('tilemap')
     this.computeActiveTilemapId()
     this.requestRendering()
+    this.marquee.resize()
   }
 }
 
@@ -1445,9 +1446,9 @@ Scene.redirectTarget = function (angle) {
     }
     this.requestRendering()
     target.angle = angle
-    const params = Animation.getDirParamsByAngle(angle)
+    const params = target.player.getDirParamsByAngle(angle)
     target.player.switch(target.data.idleMotion, params.suffix)
-    target.player.flip = params.flip
+    target.player.mirror = params.mirror
     if (editor.target === target) {
       editor.write({angle})
     }
@@ -2061,7 +2062,7 @@ Scene.loadActorContext = function (actor) {
     const animation = Data.animations[animationId]
     if (animation !== undefined) {
       const player = new Animation.Player(animation)
-      const params = Animation.getDirParamsByAngle(actor.angle)
+      const params = player.getDirParamsByAngle(actor.angle)
       // 加载精灵哈希表
       const images = {}
       const sprites = data.sprites
@@ -2072,7 +2073,7 @@ Scene.loadActorContext = function (actor) {
       }
       player.setSpriteImages(images)
       player.switch(data.idleMotion, params.suffix)
-      player.flip = params.flip
+      player.mirror = params.mirror
       Object.defineProperty(
         actor, 'player', {
           configurable: true,
@@ -2115,7 +2116,7 @@ Scene.loadAnimationContext = function (animation) {
     )
     const player = new Animation.Player(data)
     player.switch(animation.motion)
-    player.flip = animation.flip
+    player.mirror = animation.mirror
     Object.defineProperty(
       animation, 'player', {
         configurable: true,
@@ -5664,7 +5665,7 @@ Scene.createDefaultAnimation = function IIFE() {
     // 初始化默认动画播放器类
     if (DefaultPlayer === null) {
       motion = Inspector.animMotion.create()
-      data = {sprites: [], motions: [motion]}
+      data = {mode: '1-dir', sprites: [], motions: [motion]}
       const frames = motion.layers[0].frames
       frames[0].y = -8
       frames[0].scaleX = 0.25
@@ -7097,7 +7098,7 @@ Scene.listPopup = function (event) {
       click: () => {
         // 关闭图块组检查器
         Inspector.fileTileset.close()
-        this.addNodeTo(Inspector.sceneTilemap.create(), item)
+        this.addNodeTo(Inspector.sceneTilemap.create(Scene.width, Scene.height), item)
       },
     }],
   }, {

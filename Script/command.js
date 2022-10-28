@@ -463,12 +463,12 @@ Command.parseEquipment = function (equipment) {
       return Local.get('equipment.trigger')
     case 'latest':
       return Local.get('equipment.latest')
-    case 'by-key': {
+    case 'by-slot': {
       const actor = Command.parseActor(equipment.actor)
       const label = Local.get('equipment.common')
-      const prop = Local.get('equipment.by-key')
-      const key = Command.parseGroupEnumString('equipment-slot', equipment.key)
-      return `${actor} -> ${label}(${prop}:${key})`
+      const prop = Local.get('equipment.by-slot')
+      const slot = Command.parseGroupEnumString('equipment-slot', equipment.slot)
+      return `${actor} -> ${label}(${prop}:${slot})`
     }
     case 'variable': {
       const label = Local.get('equipment.common')
@@ -539,11 +539,11 @@ Command.parseAngle = function (angle) {
     case 'position':
       return `${desc} ${this.parsePosition(angle.position)}`
     case 'absolute':
-      return `${desc} ${this.parseVariableNumber(angle.degrees)}°`
+      return `${desc} ${this.parseDegrees(this.parseVariableNumber(angle.degrees))}`
     case 'relative':
-      return `${desc} ${this.parseVariableNumber(angle.degrees)}°`
+      return `${desc} ${this.parseDegrees(this.parseVariableNumber(angle.degrees))}`
     case 'direction':
-      return `${desc} ${angle.degrees}°`
+      return `${desc} ${this.parseDegrees(angle.degrees)}`
     case 'random':
       return desc
   }
@@ -2969,8 +2969,10 @@ Command.cases.setEvent = {
       {name: 'Stop Propagation', value: 'stop-propagation'},
       {name: 'Pause and Save to Variable', value: 'pause'},
       {name: 'Continue and Reset Variable', value: 'continue'},
-      {name: 'Enable', value: 'enable'},
-      {name: 'Disable', value: 'disable'},
+      {name: 'Enable Global Event', value: 'enable'},
+      {name: 'Disable Global Event', value: 'disable'},
+      {name: 'Prevent Scene Input Events', value: 'prevent-scene-input-events'},
+      {name: 'Restore Scene Input Events', value: 'restore-scene-input-events'},
       {name: 'Set to Highest Priority', value: 'highest-priority'},
       {name: 'Go to Choice Branch', value: 'goto-choice-branch'},
     ])
@@ -3038,6 +3040,8 @@ Command.cases.setEvent = {
     switch (operation) {
       case 'stop':
       case 'stop-propagation':
+      case 'prevent-scene-input-events':
+      case 'restore-scene-input-events':
         Command.save({operation})
         break
       case 'pause':
@@ -3325,8 +3329,8 @@ Command.cases.setImage = {
   parse: function ({element, properties}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    for (const entry of properties) {
-      words.push(ImageProperty.parse(entry))
+    for (const property of properties) {
+      words.push(ImageProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3586,8 +3590,8 @@ Command.cases.setText = {
   parse: function ({element, properties}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    for (const entry of properties) {
-      words.push(TextProperty.parse(entry))
+    for (const property of properties) {
+      words.push(TextProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3631,8 +3635,8 @@ Command.cases.setTextBox = {
   parse: function ({element, properties}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    for (const entry of properties) {
-      words.push(TextBoxProperty.parse(entry))
+    for (const property of properties) {
+      words.push(TextBoxProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3676,8 +3680,8 @@ Command.cases.setDialogBox = {
   parse: function ({element, properties}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    for (const entry of properties) {
-      words.push(DialogBoxProperty.parse(entry))
+    for (const property of properties) {
+      words.push(DialogBoxProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3761,8 +3765,8 @@ Command.cases.setProgressBar = {
   parse: function ({element, properties}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    for (const entry of properties) {
-      words.push(ProgressBarProperty.parse(entry))
+    for (const property of properties) {
+      words.push(ProgressBarProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3914,8 +3918,8 @@ Command.cases.moveElement = {
   parse: function ({element, properties, easingId, duration, wait}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    for (const entry of properties) {
-      words.push(TransformProperty.parse(entry))
+    for (const property of properties) {
+      words.push(TransformProperty.parse(property))
     }
     words.push(Command.parseEasing(easingId, duration, wait))
     return [
@@ -4080,8 +4084,8 @@ Command.cases.moveLight = {
   parse: function ({light, properties, easingId, duration, wait}) {
     const words = Command.words
     .push(Command.parseLight(light))
-    for (const entry of properties) {
-      words.push(LightProperty.parse(entry))
+    for (const property of properties) {
+      words.push(LightProperty.parse(property))
     }
     words.push(Command.parseEasing(easingId, duration, wait))
     return [
@@ -5536,18 +5540,18 @@ Command.cases.changeActorEquipment = {
         return Local.get('command.changeActorEquipment.' + operation)
     }
   },
-  parse: function ({actor, operation, equipment, key}) {
+  parse: function ({actor, operation, equipment, slot}) {
     const words = Command.words
     .push(Command.parseActor(actor))
     .push(this.parseOperation(operation))
     switch (operation) {
       case 'add':
         words
-        .push(Command.parseVariableString(key))
+        .push(Command.parseGroupEnumString('equipment-slot', slot))
         .push(Command.parseEquipment(equipment))
         break
       case 'remove':
-        words.push(Command.parseVariableString(key))
+        words.push(Command.parseGroupEnumString('equipment-slot', slot))
         break
     }
     return [
@@ -5559,32 +5563,36 @@ Command.cases.changeActorEquipment = {
   load: function ({
     actor       = {type: 'trigger'},
     operation   = 'add',
-    key         = '',
+    slot        = '',
     equipment   = {type: 'trigger'},
   }) {
+    // 加载装备选项
+    $('#changeActorEquipment-slot').loadItems(
+      Enum.getStringItems('equipment-slot')
+    )
     const write = getElementWriter('changeActorEquipment')
     write('actor', actor)
     write('operation', operation)
-    write('key', key)
     write('equipment', equipment)
+    $('#changeActorEquipment-slot').write2(slot)
     $('#changeActorEquipment-actor').getFocus()
   },
   save: function () {
     const read = getElementReader('changeActorEquipment')
     const actor = read('actor')
     const operation = read('operation')
-    const key = read('key')
-    if (key === '') {
-      return $('#changeActorEquipment-key').getFocus()
+    const slot = read('slot')
+    if (slot === '') {
+      return $('#changeActorEquipment-slot').getFocus()
     }
     switch (operation) {
       case 'add': {
         const equipment = read('equipment')
-        Command.save({actor, operation, key, equipment})
+        Command.save({actor, operation, slot, equipment})
         break
       }
       case 'remove':
-        Command.save({actor, operation, key})
+        Command.save({actor, operation, slot})
         break
     }
   },
@@ -8595,7 +8603,6 @@ const EventEditor = {
   clearCommandBuffers: null,
   // events
   windowLocalize: null,
-  windowDataChange: null,
   windowClose: null,
   windowClosed: null,
   windowResize: null,
@@ -8630,7 +8637,11 @@ EventEditor.initialize = function () {
     keydown: {name: 'KeyDown', value: 'keydown'},
     keyup: {name: 'KeyUp', value: 'keyup'},
     mousedown: {name: 'MouseDown', value: 'mousedown'},
+    mousedownLB: {name: 'MouseDown LB', value: 'mousedownLB'},
+    mousedownRB: {name: 'MouseDown RB', value: 'mousedownRB'},
     mouseup: {name: 'MouseUp', value: 'mouseup'},
+    mouseupLB: {name: 'MouseUp LB', value: 'mouseupLB'},
+    mouseupRB: {name: 'MouseUp RB', value: 'mouseupRB'},
     mousemove: {name: 'MouseMove', value: 'mousemove'},
     mouseenter: {name: 'MouseEnter', value: 'mouseenter'},
     mouseleave: {name: 'MouseLeave', value: 'mouseleave'},
@@ -8706,7 +8717,11 @@ EventEditor.initialize = function () {
     element: [
       types.autorun,
       types.mousedown,
+      types.mousedownLB,
+      types.mousedownRB,
       types.mouseup,
+      types.mouseupLB,
+      types.mouseupRB,
       types.mousemove,
       types.mouseenter,
       types.mouseleave,
@@ -8737,7 +8752,6 @@ EventEditor.initialize = function () {
 
   // 侦听事件
   window.on('localize', this.windowLocalize)
-  window.on('datachange', this.windowDataChange)
   $('#event').on('close', this.windowClose)
   $('#event').on('closed', this.windowClosed)
   $('#event').on('resize', this.windowResize)
@@ -8906,18 +8920,6 @@ EventEditor.windowLocalize = function (event) {
   for (const selectBox of types.relatedElements) {
     if (selectBox.read()) selectBox.update()
   }
-  // 清除之前的语言环境生成的指令列表项
-  EventEditor.clearCommandBuffers()
-}
-
-// 窗口 - 数据改变事件
-EventEditor.windowDataChange = function (event) {
-  switch (event.key) {
-    case 'easings':
-    case 'teams':
-      EventEditor.clearCommandBuffers()
-      break
-  }
 }
 
 // 窗口 - 关闭事件
@@ -8953,6 +8955,7 @@ EventEditor.windowClosed = function (event) {
   this.inserting = false
   this.callback = null
   this.list.clear()
+  this.clearCommandBuffers()
 }.bind(EventEditor)
 
 // 窗口 - 调整大小事件
@@ -10207,6 +10210,7 @@ IfCondition.initialize = function () {
 
   // 创建角色操作选项
   $('#if-condition-actor-operation').loadItems([
+    {name: 'Present and Active', value: 'present-active'},
     {name: 'Present', value: 'present'},
     {name: 'Absent', value: 'absent'},
     {name: 'active', value: 'active'},
@@ -10529,7 +10533,7 @@ IfCondition.open = function (condition = {
   let commonTrigger = {type: 'trigger'}
   let commonLight = {type: 'trigger'}
   let commonElement = {type: 'trigger'}
-  let actorOperation = 'present'
+  let actorOperation = 'present-active'
   let actorItemId = ''
   let actorEquipmentId = ''
   let actorQuantity = 1
@@ -11286,7 +11290,7 @@ ImageProperty.initialize = function () {
 }
 
 // 解析属性
-ImageProperty.parse = function ([key, value]) {
+ImageProperty.parse = function ({key, value}) {
   const get = Local.createGetter('command.setImage')
   const name = get(key)
   switch (key) {
@@ -11309,7 +11313,7 @@ ImageProperty.parse = function ([key, value]) {
 }
 
 // 打开数据
-ImageProperty.open = function ([key = 'image', value = ''] = []) {
+ImageProperty.open = function ({key = 'image', value = ''} = {}) {
   Window.open('setImage-property')
   const write = getElementWriter('setImage-property')
   let image = ''
@@ -11406,7 +11410,7 @@ ImageProperty.save = function () {
       break
   }
   Window.close('setImage-property')
-  return [key, value]
+  return {key, value}
 }
 
 // 确定按钮 - 鼠标点击事件
@@ -11497,7 +11501,7 @@ TextProperty.initialize = function () {
 }
 
 // 解析属性
-TextProperty.parse = function ([key, value]) {
+TextProperty.parse = function ({key, value}) {
   const get = Local.createGetter('command.setText')
   const name = get(key)
   switch (key) {
@@ -11542,7 +11546,7 @@ TextProperty.parse = function ([key, value]) {
 }
 
 // 打开数据
-TextProperty.open = function ([key = 'content', value = ''] = []) {
+TextProperty.open = function ({key = 'content', value = ''} = {}) {
   Window.open('setText-property')
   const write = getElementWriter('setText-property')
   let content = ''
@@ -11662,7 +11666,7 @@ TextProperty.save = function () {
       break
   }
   Window.close('setText-property')
-  return [key, value]
+  return {key, value}
 }
 
 // 确定按钮 - 鼠标点击事件
@@ -11730,7 +11734,7 @@ TextBoxProperty.initialize = function () {
 }
 
 // 解析属性
-TextBoxProperty.parse = function ([key, value]) {
+TextBoxProperty.parse = function ({key, value}) {
   const get = Local.createGetter('command.setTextBox')
   const name = get(key)
   switch (key) {
@@ -11755,7 +11759,7 @@ TextBoxProperty.parse = function ([key, value]) {
 }
 
 // 打开数据
-TextBoxProperty.open = function ([key = 'type', value = 'text'] = []) {
+TextBoxProperty.open = function ({key = 'type', value = 'text'} = {}) {
   Window.open('setTextBox-property')
   const write = getElementWriter('setTextBox-property')
   let type = 'text'
@@ -11828,7 +11832,7 @@ TextBoxProperty.save = function () {
       break
   }
   Window.close('setTextBox-property')
-  return [key, value]
+  return {key, value}
 }
 
 // 确定按钮 - 鼠标点击事件
@@ -11923,7 +11927,7 @@ DialogBoxProperty.initialize = function () {
 }
 
 // 解析属性
-DialogBoxProperty.parse = function ([key, value]) {
+DialogBoxProperty.parse = function ({key, value}) {
   const get = Local.createGetter('command.setDialogBox')
   const name = get(key)
   switch (key) {
@@ -11969,7 +11973,7 @@ DialogBoxProperty.parse = function ([key, value]) {
 }
 
 // 打开数据
-DialogBoxProperty.open = function ([key = 'content', value = ''] = []) {
+DialogBoxProperty.open = function ({key = 'content', value = ''} = {}) {
   Window.open('setDialogBox-property')
   const write = getElementWriter('setDialogBox-property')
   let content = ''
@@ -12097,7 +12101,7 @@ DialogBoxProperty.save = function () {
       break
   }
   Window.close('setDialogBox-property')
-  return [key, value]
+  return {key, value}
 }
 
 // 确定按钮 - 鼠标点击事件
@@ -12188,7 +12192,7 @@ ProgressBarProperty.initialize = function () {
 }
 
 // 解析属性
-ProgressBarProperty.parse = function ([key, value]) {
+ProgressBarProperty.parse = function ({key, value}) {
   const get = Local.createGetter('command.setProgressBar')
   const name = get(key)
   switch (key) {
@@ -12212,7 +12216,7 @@ ProgressBarProperty.parse = function ([key, value]) {
 }
 
 // 打开数据
-ProgressBarProperty.open = function ([key = 'image', value = ''] = []) {
+ProgressBarProperty.open = function ({key = 'image', value = ''} = {}) {
   Window.open('setProgressBar-property')
   const write = getElementWriter('setProgressBar-property')
   let image = ''
@@ -12325,7 +12329,7 @@ ProgressBarProperty.save = function () {
       break
   }
   Window.close('setProgressBar-property')
-  return [key, value]
+  return {key, value}
 }
 
 // 确定按钮 - 鼠标点击事件
@@ -12426,12 +12430,12 @@ TransformProperty.initialize = function () {
 }
 
 // 解析属性
-TransformProperty.parse = function ([key, value]) {
+TransformProperty.parse = function ({key, value}) {
   return `${Local.get('command.moveElement.' + key)}(${Command.parseVariableNumber(value)})`
 }
 
 // 打开数据
-TransformProperty.open = function ([key = 'anchorX', value = 0] = []) {
+TransformProperty.open = function ({key = 'anchorX', value = 0} = {}) {
   Window.open('moveElement-property')
   const properties = {
     anchorX: 0,
@@ -12481,7 +12485,7 @@ TransformProperty.save = function () {
   const key = read('key')
   const value = read(key)
   Window.close('moveElement-property')
-  return [key, value]
+  return {key, value}
 }
 
 // 确定按钮 - 鼠标点击事件
@@ -12566,7 +12570,7 @@ LightProperty.initialize = function () {
 }
 
 // 解析属性
-LightProperty.parse = function ([key, value]) {
+LightProperty.parse = function ({key, value}) {
   switch (key) {
     case 'x':
     case 'y':
@@ -12587,10 +12591,7 @@ LightProperty.parse = function ([key, value]) {
 }
 
 // 打开数据
-LightProperty.open = function ([
-  key   = 'x',
-  value = 0,
-] = []) {
+LightProperty.open = function ({key = 'x', value = 0} = {}) {
   Window.open('moveLight-property')
   const write = getElementWriter('moveLight-property')
   let x = 0
@@ -12703,7 +12704,7 @@ LightProperty.save = function () {
       break
   }
   Window.close('moveLight-property')
-  return [key, value]
+  return {key, value}
 }
 
 // 确定按钮 - 鼠标点击事件
@@ -13392,15 +13393,15 @@ EquipmentGetter.initialize = function () {
   $('#equipmentGetter-type').loadItems([
     {name: 'Event Trigger Equipment', value: 'trigger'},
     {name: 'Latest Equipment', value: 'latest'},
-    {name: 'Select By Key', value: 'by-key'},
+    {name: 'Select By Slot', value: 'by-slot'},
     {name: 'Variable', value: 'variable'},
   ])
 
   // 设置类型关联元素
   $('#equipmentGetter-type').enableHiddenMode().relate([
-    {case: 'by-key', targets: [
+    {case: 'by-slot', targets: [
       $('#equipmentGetter-actor'),
-      $('#equipmentGetter-key'),
+      $('#equipmentGetter-slot'),
     ]},
     {case: 'variable', targets: [
       $('#equipmentGetter-variable'),
@@ -13416,21 +13417,21 @@ EquipmentGetter.open = function (target) {
   this.target = target
   Window.open('equipmentGetter')
   // 加载快捷键选项
-  $('#equipmentGetter-key').loadItems(
+  $('#equipmentGetter-slot').loadItems(
     Enum.getStringItems('equipment-slot')
   )
 
   let actor = {type: 'trigger'}
-  let key = Enum.getDefStringId('equipment-slot')
-  let variable = {type: 'local', key: ''}
+  let slot = Enum.getDefStringId('equipment-slot')
+  let variable = {type: 'local', slot: ''}
   const equipment = target.dataValue
   switch (equipment.type) {
     case 'trigger':
     case 'latest':
       break
-    case 'by-key':
+    case 'by-slot':
       actor = equipment.actor
-      key = equipment.key
+      slot = equipment.slot
       break
     case 'variable':
       variable = equipment.variable
@@ -13438,7 +13439,7 @@ EquipmentGetter.open = function (target) {
   }
   $('#equipmentGetter-type').write(equipment.type)
   $('#equipmentGetter-actor').write(actor)
-  $('#equipmentGetter-key').write(key)
+  $('#equipmentGetter-slot').write(slot)
   $('#equipmentGetter-variable').write(variable)
   $('#equipmentGetter-type').getFocus()
 }
@@ -13453,13 +13454,13 @@ EquipmentGetter.confirm = function (event) {
     case 'latest':
       getter = {type}
       break
-    case 'by-key': {
+    case 'by-slot': {
       const actor = read('actor')
-      const key = read('key')
-      if (key === '') {
-        return $('#equipmentGetter-key').getFocus()
+      const slot = read('slot')
+      if (slot === '') {
+        return $('#equipmentGetter-slot').getFocus()
       }
-      getter = {type, actor, key}
+      getter = {type, actor, slot}
       break
     }
     case 'variable': {

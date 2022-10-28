@@ -2013,10 +2013,7 @@ class TextBox extends HTMLElement {
   static addKeydownFilter = function IIFE() {
     const keydown = function (event) {
       if (event.altKey) {
-        switch (event.code) {
-          case 'F4':
-            return
-        }
+        return
       } else if (
         !event.cmdOrCtrlKey &&
         !event.shiftKey) {
@@ -3041,7 +3038,7 @@ class SliderBox extends HTMLElement {
   // 输入框 - 鼠标滚轮事件
   inputWheel(event) {
     if (event.deltaY === 0) return
-    if (document.activeElement === this || this.parentNode.activeWheel) {
+    if (this.parentNode.activeWheel) {
       // 阻止滚动页面的默认行为
       event.preventDefault()
       const input = this
@@ -4461,6 +4458,8 @@ class CustomBox extends HTMLElement {
         return this.updatePresetElement(value)
       case 'array':
         return this.updateArray(value)
+      case 'attribute-group':
+        return this.updateAttributeGroup(value)
       case 'enum-group':
         return this.updateEnumGroup(value)
       case 'enum-string':
@@ -4559,6 +4558,23 @@ class CustomBox extends HTMLElement {
     this.info.textContent = array.length !== 0
     ? Command.parseMultiLineString(array.join(', '))
     : Local.get('common.empty')
+  }
+
+  // 更新属性群组信息
+  updateAttributeGroup(groupId) {
+    if (groupId === '') {
+      this.info.textContent = Local.get('common.none')
+      this.info.removeClass('invalid')
+      return
+    }
+    const group = Attribute.getGroup(groupId)
+    if (group) {
+      this.info.textContent = group.groupName
+      this.info.removeClass('invalid')
+    } else {
+      this.info.textContent = Command.parseUnlinkedId(groupId)
+      this.info.addClass('invalid')
+    }
   }
 
   // 更新枚举群组信息
@@ -4676,6 +4692,8 @@ class CustomBox extends HTMLElement {
         return PresetElement.open(this)
       case 'array':
         return ArrayList.open(this)
+      case 'attribute-group':
+        return Attribute.open(this, 'group')
       case 'enum-group':
         return Enum.open(this, 'group')
       case 'enum-string':
@@ -10277,9 +10295,6 @@ class CommandList extends HTMLElement {
         case 'KeyY':
           this.redo()
           break
-        case 'Slash':
-          this.toggle()
-          break
         case 'ArrowUp':
           this.scrollTop -= 20
           break
@@ -10344,7 +10359,7 @@ class CommandList extends HTMLElement {
           this.insert()
           break
         case 'Slash':
-          this.insert('comment')
+          this.toggle()
           break
         case 'Backslash':
           this.insert('script')
@@ -10497,17 +10512,10 @@ class CommandList extends HTMLElement {
             },
           }, {
             label: get('toggle'),
-            accelerator: ctrl('/'),
+            accelerator: '/',
             enabled: pEnabled && valid,
             click: () => {
               this.toggle()
-            },
-          }, {
-            label: get('comment'),
-            accelerator: '/',
-            enabled: pEnabled,
-            click: () => {
-              this.insert('comment')
             },
           }, {
             label: get('script'),
@@ -10866,6 +10874,11 @@ class ParameterPane extends HTMLElement {
         wrap.input.loadItems(Attribute.getAttributeItems(parameter.filter))
         return wrap
       }
+      case 'attribute-group': {
+        const wrap = this.createCustomBox()
+        wrap.input.setAttribute('type', 'attribute-group')
+        return wrap
+      }
       case 'enum':
       case 'enum-value':
         if (parameter.filter === 'any') {
@@ -10877,6 +10890,11 @@ class ParameterPane extends HTMLElement {
           wrap.input.loadItems(Enum.getStringItems(parameter.filter))
           return wrap
         }
+      case 'enum-group': {
+        const wrap = this.createCustomBox()
+        wrap.input.setAttribute('type', 'enum-group')
+        return wrap
+      }
       case 'actor':
       case 'region':
       case 'light':

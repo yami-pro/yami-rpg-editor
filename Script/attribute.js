@@ -15,6 +15,8 @@ const Attribute = {
     enum: $('#attribute-enum'),
     enumBox: $('#attribute-enum-box'),
   },
+  mode: null,
+  target: null,
   data: null,
   idList: null,
   settings: null,
@@ -27,7 +29,9 @@ const Attribute = {
   undo: null,
   redo: null,
   createId: null,
+  getItemById: null,
   setFolderGroup: null,
+  getGroup: null,
   getGroupAttribute: null,
   getDefAttributeId: null,
   getAttributeItems: null,
@@ -42,8 +46,10 @@ const Attribute = {
   keydown: null,
   listKeydown: null,
   listPointerdown: null,
+  listDoubleclick: null,
   listSelect: null,
   listRecord: null,
+  listOpen: null,
   listPopup: null,
   nameInput: null,
   keyInput: null,
@@ -188,8 +194,10 @@ Attribute.initialize = function () {
   $('#attribute').on('closed', this.windowClosed)
   list.on('keydown', this.listKeydown)
   list.on('pointerdown', this.listPointerdown)
+  list.on('doubleclick', this.listDoubleclick, {capture: true})
   list.on('select', this.listSelect)
   list.on('record', this.listRecord)
+  list.on('open', this.listOpen)
   list.on('popup', this.listPopup)
   this.inputs.name.on('input', this.nameInput)
   this.inputs.key.on('input', this.keyInput)
@@ -206,14 +214,32 @@ Attribute.initialize = function () {
 }
 
 // 打开窗口
-Attribute.open = function () {
+Attribute.open = function (target = null, mode = 'normal') {
+  this.mode = mode
+  this.target = target
   this.history = new History(100)
   this.unpackAttribute()
   Window.open('attribute')
 
-  // 更新列表
-  this.list.update()
-  this.list.restoreScroll()
+  // 查询项目并更新列表
+  const list = this.list
+  const item = !target ? undefined
+  : this.getItemById(target.read())
+  if (item) {
+    list.initialize()
+    list.select(item)
+    list.expandToSelection(false)
+    list.update()
+    list.restoreScroll()
+    list.scrollToSelection('middle')
+  } else {
+    list.update()
+    list.restoreScroll()
+    // 打开枚举输入框时默认选择第一项
+    if (target instanceof Object) {
+      list.select(list.data[0])
+    }
+  }
 
   // 列表获得焦点
   this.list.getFocus()
@@ -245,6 +271,29 @@ Attribute.createId = function () {
   return id
 }
 
+// 获取ID匹配的项目
+Attribute.getItemById = function IIFE() {
+  const find = (items, id) => {
+    const length = items.length
+    for (let i = 0; i < length; i++) {
+      const item = items[i]
+      if (item.id === id) {
+        return item
+      }
+      if (item.class === 'folder') {
+        const result = find(item.children, id)
+        if (result !== undefined) {
+          return result
+        }
+      }
+    }
+    return undefined
+  }
+  return function (id) {
+    return find(this.data, id)
+  }
+}()
+
 // 设置文件夹分组
 Attribute.setFolderGroup = function (folder, newGroup) {
   const oldGroup = folder.element.group
@@ -259,6 +308,11 @@ Attribute.setFolderGroup = function (folder, newGroup) {
     this.list.update()
     this.changed = true
   }
+}
+
+// 获取属性群组
+Attribute.getGroup = function (groupKey) {
+  return Data.attribute.context.getGroup(groupKey)
 }
 
 // 获取群组属性
@@ -484,6 +538,24 @@ Attribute.listPointerdown = function (event) {
   }
 }
 
+// 列表 - 鼠标双击事件
+Attribute.listDoubleclick = function (event) {
+  switch (Attribute.mode) {
+    case 'group':
+      if (Attribute.list.read()?.class === 'folder') {
+        event.stopPropagation()
+        Attribute.confirm()
+      }
+      break
+    case 'attribute':
+      if (Attribute.list.read()?.value !== undefined) {
+        event.stopPropagation()
+        Attribute.confirm()
+      }
+      break
+  }
+}
+
 // 列表 - 选择事件
 Attribute.listSelect = function (event) {
   const item = event.value
@@ -513,6 +585,11 @@ Attribute.listRecord = function (event) {
       })
       break
   }
+}
+
+// 列表 - 打开事件
+Attribute.listOpen = function (event) {
+  Attribute.listDoubleclick(event)
 }
 
 // 列表 - 菜单弹出事件
@@ -726,7 +803,29 @@ Attribute.searcherInput = function (event) {
 
 // 确定按钮 - 鼠标点击事件
 Attribute.confirm = function (event) {
-  this.apply()
+  switch (this.mode) {
+    case 'normal':
+      this.apply()
+      break
+    case 'group': {
+      const item = this.list.read()
+      if (item?.class !== 'folder') {
+        return this.list.getFocus()
+      }
+      this.apply()
+      this.target.input(item.id)
+      break
+    }
+    case 'attribute': {
+      const item = this.list.read()
+      if (item?.value === undefined) {
+        return this.list.getFocus()
+      }
+      this.apply()
+      this.target.input(item.id)
+      break
+    }
+  }
   Window.close('attribute')
 }.bind(Attribute)
 
@@ -1007,6 +1106,11 @@ class AttributeContext {
     this.groupMap = groupMap
     this.itemCache = {}
     this.itemLists = {}
+  }
+
+  // 获取群组
+  getGroup(groupKey) {
+    return this.groupMap[groupKey]
   }
 
   // 获取群组属性

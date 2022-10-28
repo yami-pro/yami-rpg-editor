@@ -201,7 +201,7 @@
         <box id='animation-head-start'>
           <item id='animation-switch-mark' class='toolbar-item' value='mark'></item>
           <item id='animation-switch-onionskin' class='toolbar-item' value='onionskin'></item>
-          <item id='animation-switch-flip' class='toolbar-item' value='flip'></item>
+          <item id='animation-switch-mirror' class='toolbar-item' value='mirror'></item>
           <item id='animation-switch-settings' class='toolbar-item' value='settings'></item>
         </box>
         <box id='animation-head-center'>
@@ -360,6 +360,12 @@
 
         <!-- 文件 - 动画 -->
         <page-frame value='fileAnimation'>
+          <detail-box open>
+            <detail-summary>General</detail-summary>
+            <detail-grid id='fileAnimation-general-grid'>
+              <text>Direction</text><select-box id="fileAnimation-mode"></select-box>
+            </detail-grid>
+          </detail-box>
           <detail-box open>
             <detail-summary>Sprites</detail-summary>
             <param-list id='fileAnimation-sprites' class='inspector-list' flexible></param-list>
@@ -858,7 +864,7 @@
               <text>Name</text><text-box id='sceneAnimation-name'></text-box>
               <text>Animation</text><custom-box id='sceneAnimation-animationId' type='file' filter='animation'></custom-box>
               <text>Motion</text><select-box id='sceneAnimation-motion'></select-box>
-              <text>Flip</text><select-box id='sceneAnimation-flip'></select-box>
+              <text>Mirror</text><select-box id='sceneAnimation-mirror'></select-box>
               <text>X</text><number-box id='sceneAnimation-x' min='-128' max='640' step='0.1' decimals='4' unit='tile'></number-box>
               <text>Y</text><number-box id='sceneAnimation-y' min='-128' max='640' step='0.1' decimals='4' unit='tile'></number-box>
             </detail-grid>
@@ -1315,92 +1321,92 @@
           </detail-box>
         </page-frame>
 
-        <!-- 动画 - 骨骼帧 -->
-        <page-frame id='animBoneFrame' value='animBoneFrame'>
+        <!-- 动画 - 关节帧 -->
+        <page-frame id='animJointFrame' value='animJointFrame'>
           <detail-box open>
             <detail-summary>Frame</detail-summary>
-            <detail-grid id='animBoneFrame-properties-grid'>
+            <detail-grid id='animJointFrame-properties-grid'>
               <text>Position</text>
-              <box id='animBoneFrame-position-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animBoneFrame-x' min='-10000' max='10000' decimals='4' unit='px'></number-box>
-                <number-box id='animBoneFrame-y' min='-10000' max='10000' decimals='4' unit='px'></number-box>
+              <box id='animJointFrame-position-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animJointFrame-x' min='-10000' max='10000' decimals='4' unit='px'></number-box>
+                <number-box id='animJointFrame-y' min='-10000' max='10000' decimals='4' unit='px'></number-box>
               </box>
               <text>Rotation</text>
-              <box id='animBoneFrame-rotation-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animBoneFrame-rotation' min='-36000' max='36000' decimals='4' unit='deg'></number-box>
+              <box id='animJointFrame-rotation-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animJointFrame-rotation' min='-36000' max='36000' decimals='4' unit='deg'></number-box>
               </box>
               <text>Scale</text>
-              <box id='animBoneFrame-scale-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animBoneFrame-scaleX' min='-100' max='100' step='0.1' decimals='4'></number-box>
-                <number-box id='animBoneFrame-scaleY' min='-100' max='100' step='0.1' decimals='4'></number-box>
+              <box id='animJointFrame-scale-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animJointFrame-scaleX' min='-100' max='100' step='0.1' decimals='4'></number-box>
+                <number-box id='animJointFrame-scaleY' min='-100' max='100' step='0.1' decimals='4'></number-box>
               </box>
               <text>Opacity</text>
-              <box id='animBoneFrame-opacity-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animBoneFrame-opacity' min='0' max='1' step='0.05' decimals='4'></number-box>
+              <box id='animJointFrame-opacity-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animJointFrame-opacity' min='0' max='1' step='0.05' decimals='4'></number-box>
               </box>
             </detail-grid>
           </detail-box>
         </page-frame>
 
-        <!-- 动画 - 图像层 -->
-        <page-frame value='animImageLayer'>
+        <!-- 动画 - 精灵层 -->
+        <page-frame value='animSpriteLayer'>
           <detail-box open>
-            <detail-summary>Image Layer</detail-summary>
-            <detail-grid id='animImageLayer-properties-grid'>
-              <text>Sprite</text><select-box id='animImageLayer-sprite'></select-box>
-              <text>Blend</text><select-box id='animImageLayer-blend'></select-box>
-              <text>Light Sampling</text><select-box id='animImageLayer-light'></select-box>
+            <detail-summary>Sprite Layer</detail-summary>
+            <detail-grid id='animSpriteLayer-properties-grid'>
+              <text>Sprite</text><select-box id='animSpriteLayer-sprite'></select-box>
+              <text>Blend</text><select-box id='animSpriteLayer-blend'></select-box>
+              <text>Light Sampling</text><select-box id='animSpriteLayer-light'></select-box>
             </detail-grid>
           </detail-box>
         </page-frame>
 
-        <!-- 动画 - 图像帧 -->
-        <page-frame id='animImageFrame' value='animImageFrame'>
-          <detail-box id='animImageFrame-properties-detail' open>
+        <!-- 动画 - 精灵帧 -->
+        <page-frame id='animSpriteFrame' value='animSpriteFrame'>
+          <detail-box id='animSpriteFrame-properties-detail' open>
             <detail-summary>Frame</detail-summary>
-            <detail-grid id='animImageFrame-properties-grid'>
+            <detail-grid id='animSpriteFrame-properties-grid'>
               <text>Position</text>
-              <box id='animImageFrame-position-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animImageFrame-x' min='-10000' max='10000' decimals='4' unit='px'></number-box>
-                <number-box id='animImageFrame-y' min='-10000' max='10000' decimals='4' unit='px'></number-box>
+              <box id='animSpriteFrame-position-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animSpriteFrame-x' min='-10000' max='10000' decimals='4' unit='px'></number-box>
+                <number-box id='animSpriteFrame-y' min='-10000' max='10000' decimals='4' unit='px'></number-box>
               </box>
               <text>Rotation</text>
-              <box id='animImageFrame-rotation-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animImageFrame-rotation' min='-36000' max='36000' decimals='4' unit='deg'></number-box>
+              <box id='animSpriteFrame-rotation-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animSpriteFrame-rotation' min='-36000' max='36000' decimals='4' unit='deg'></number-box>
               </box>
               <text>Scale</text>
-              <box id='animImageFrame-scale-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animImageFrame-scaleX' min='-100' max='100' step='0.1' decimals='4'></number-box>
-                <number-box id='animImageFrame-scaleY' min='-100' max='100' step='0.1' decimals='4'></number-box>
+              <box id='animSpriteFrame-scale-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animSpriteFrame-scaleX' min='-100' max='100' step='0.1' decimals='4'></number-box>
+                <number-box id='animSpriteFrame-scaleY' min='-100' max='100' step='0.1' decimals='4'></number-box>
               </box>
               <text>Opacity</text>
-              <box id='animImageFrame-opacity-box' class='uiElement-grid-box with-2-columns'>
-                <number-box id='animImageFrame-opacity' min='0' max='1' step='0.05' decimals='4'></number-box>
+              <box id='animSpriteFrame-opacity-box' class='uiElement-grid-box with-2-columns'>
+                <number-box id='animSpriteFrame-opacity' min='0' max='1' step='0.05' decimals='4'></number-box>
               </box>
               <text>Tint - Red</text>
-              <flex-box id='animImageFrame-tint-0-box'>
-                <slider-box id='animImageFrame-tint-0-slider' min='-255' max='255' step='15'></slider-box>
-                <number-box id='animImageFrame-tint-0' min='-255' max='255' step='5'></number-box>
+              <flex-box id='animSpriteFrame-tint-0-box'>
+                <slider-box id='animSpriteFrame-tint-0-slider' min='-255' max='255' step='15'></slider-box>
+                <number-box id='animSpriteFrame-tint-0' min='-255' max='255' step='5'></number-box>
               </flex-box>
               <text>Tint - Green</text>
-              <flex-box id='animImageFrame-tint-1-box'>
-                <slider-box id='animImageFrame-tint-1-slider' min='-255' max='255' step='15'></slider-box>
-                <number-box id='animImageFrame-tint-1' min='-255' max='255' step='5'></number-box>
+              <flex-box id='animSpriteFrame-tint-1-box'>
+                <slider-box id='animSpriteFrame-tint-1-slider' min='-255' max='255' step='15'></slider-box>
+                <number-box id='animSpriteFrame-tint-1' min='-255' max='255' step='5'></number-box>
               </flex-box>
               <text>Tint - Blue</text>
-              <flex-box id='animImageFrame-tint-2-box'>
-                <slider-box id='animImageFrame-tint-2-slider' min='-255' max='255' step='15'></slider-box>
-                <number-box id='animImageFrame-tint-2' min='-255' max='255' step='5'></number-box>
+              <flex-box id='animSpriteFrame-tint-2-box'>
+                <slider-box id='animSpriteFrame-tint-2-slider' min='-255' max='255' step='15'></slider-box>
+                <number-box id='animSpriteFrame-tint-2' min='-255' max='255' step='5'></number-box>
               </flex-box>
               <text>Tint - Gray</text>
-              <flex-box id='animImageFrame-tint-3-box'>
-                <slider-box id='animImageFrame-tint-3-slider' min='0' max='255' step='15'></slider-box>
-                <number-box id='animImageFrame-tint-3' min='0' max='255' step='5'></number-box>
+              <flex-box id='animSpriteFrame-tint-3-box'>
+                <slider-box id='animSpriteFrame-tint-3-slider' min='0' max='255' step='15'></slider-box>
+                <number-box id='animSpriteFrame-tint-3' min='0' max='255' step='5'></number-box>
               </flex-box>
             </detail-grid>
           </detail-box>
-          <detail-box id='animImageFrame-sprite-detail' open>
-            <detail-summary id='animImageFrame-sprite-summary'>
+          <detail-box id='animSpriteFrame-sprite-detail' open>
+            <detail-summary id='animSpriteFrame-sprite-summary'>
               <text id='sprite-label'>Sprite</text>
               <box id='sprite-info'></box>
               <slider-box id='sprite-zoom' name='zoom' min='0' max='4'></slider-box>
@@ -1836,10 +1842,8 @@
         <text class='project-label'>Height</text><number-box id='config-window-height' min='240' max='3840' unit='px'></number-box>
         <text class='project-label'>Display</text><select-box id='config-window-display'></select-box>
         <text id='config-resolution-summary' class='project-summary'>Virtual Resolution</text>
-        <text class='project-label'>Min Width</text><number-box id='config-resolution-minWidth' min='240' max='3840' unit='px'></number-box>
-        <text class='project-label'>Min Height</text><number-box id='config-resolution-minHeight' min='240' max='3840' unit='px'></number-box>
-        <text class='project-label'>Max Width</text><number-box id='config-resolution-maxWidth' min='240' max='3840' unit='px'></number-box>
-        <text class='project-label'>Max Height</text><number-box id='config-resolution-maxHeight' min='240' max='3840' unit='px'></number-box>
+        <text class='project-label'>Width</text><number-box id='config-resolution-width' min='240' max='3840' unit='px'></number-box>
+        <text class='project-label'>Height</text><number-box id='config-resolution-height' min='240' max='3840' unit='px'></number-box>
         <text id='config-scene-summary' class='project-summary'>Scene</text>
         <text class='project-label'>Padding</text><number-box id='config-scene-padding' min='0' max='3840' unit='px'></number-box>
         <text class='project-label'>Animation Interval</text><number-box id='config-scene-animationInterval' min='0' max='1000' unit='ms'></number-box>
@@ -1869,6 +1873,8 @@
         <text class='project-label'>Threshold</text><number-box id='config-font-threshold' min='1' max='255' unit='alpha'></number-box>
         <text id='config-event-summary' class='project-summary'>Special Events</text>
         <text class='project-label'>Startup</text><custom-box id='config-event-startup' type='file' filter='event'></custom-box>
+        <text class='project-label'>Load Game</text><custom-box id='config-event-loadGame' type='file' filter='event'></custom-box>
+        <text class='project-label'>Init Scene</text><custom-box id='config-event-initScene' type='file' filter='event'></custom-box>
         <text class='project-label'>Show Text</text><custom-box id='config-event-showText' type='file' filter='event'></custom-box>
         <text class='project-label'>Show Choices</text><custom-box id='config-event-showChoices' type='file' filter='event'></custom-box>
         <text id='config-actor-summary' class='project-summary'>Actor</text>
@@ -1881,7 +1887,6 @@
         <text class='project-label'>Temporary Attributes</text><param-list id='config-actor-tempAttributes' group='actor' flexible></param-list>
         <text id='config-animation-summary' class='project-summary'>Animation</text>
         <text class='project-label'>Frame Rate</text><number-box id='config-animation-frameRate' min='1' max='240' unit='fps'></number-box>
-        <text class='project-label'>Direction Map</text><param-list id='config-animation-dirMap' flexible></param-list>
         <text id='config-script-summary' class='project-summary'>Script</text>
         <text class='project-label'>Default Scripting Language</text><select-box id='config-script-language'></select-box>
         <text class='project-label'>Output Directory</text><text-box id='config-script-outDir'></text-box>
@@ -1889,19 +1894,6 @@
     </box>
     <button id='project-confirm' name='confirm'>Confirm</button>
     <button id='project-cancel' name='cancel'>Cancel</button>
-  </content-frame>
-</window-frame>
-
-<!-- 方向映射窗口 -->
-<window-frame id='dirMap'>
-  <title-bar>Direction Mapping<close></close></title-bar>
-  <content-frame>
-    <grid-box>
-      <text>Motion Suffix</text><text-box id='dirMap-suffix'></text-box>
-      <text>Flip</text><select-box id='dirMap-flip'></select-box>
-    </grid-box>
-    <button id='dirMap-confirm' name='confirm'>Confirm</button>
-    <button id='dirMap-cancel' name='cancel'>Cancel</button>
   </content-frame>
 </window-frame>
 
@@ -2414,7 +2406,7 @@
   <title-bar>Zoom<close></close></title-bar>
   <content-frame>
     <grid-box>
-      <text>Zoom Factor</text><number-box id='zoom-factor' min='1' max='2' decimals='4'></number-box>
+      <text>Zoom Factor</text><number-box id='zoom-factor' min='0.6666' max='2' decimals='4'></number-box>
     </grid-box>
     <button id='zoom-confirm' name='confirm'>Confirm</button>
     <button id='zoom-cancel' name='cancel'>Cancel</button>
@@ -2559,7 +2551,7 @@
     <grid-box>
       <text>Type</text><select-box id='equipmentGetter-type'></select-box>
       <text>Actor</text><custom-box id='equipmentGetter-actor' type='actor'></custom-box>
-      <text>Slot</text><select-box id='equipmentGetter-key'></select-box>
+      <text>Slot</text><select-box id='equipmentGetter-slot'></select-box>
       <text>Variable</text><custom-box id='equipmentGetter-variable' type='variable' filter='object'></custom-box>
     </grid-box>
     <button id='equipmentGetter-confirm' name='confirm'>Confirm</button>
@@ -3879,7 +3871,7 @@
     <grid-box>
       <text>Actor</text><custom-box id='changeActorEquipment-actor' type='actor'></custom-box>
       <text>Operation</text><select-box id='changeActorEquipment-operation'></select-box>
-      <text>Key</text><string-var id='changeActorEquipment-key'></string-var>
+      <text>Shortcut Key</text><select-box id='changeActorEquipment-slot'></select-box>
       <text>Equipment</text><custom-box id='changeActorEquipment-equipment' type='equipment'></custom-box>
     </grid-box>
     <button id='changeActorEquipment-confirm' name='confirm'>Confirm</button>
