@@ -4126,7 +4126,7 @@ UI.DialogBox = class DialogBoxElement extends UI.Text {
     super({...data,
       direction: 'horizontal-tb',
       horizontalAlign: 'left',
-      horizontalAlign: 'top',
+      verticalAlign: 'top',
       overflow: 'wrap-truncate',
     })
   }

@@ -94,7 +94,6 @@ const Particle = {
   loadFromConfig: null,
   loadFromProject: null,
   saveToProject: null,
-  loadFromProject: null,
   // events
   webglRestored: null,
   windowResize: null,
