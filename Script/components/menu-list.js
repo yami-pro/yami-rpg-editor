@@ -467,4 +467,9 @@ customElements.define('menu-list', MenuList)
 // 创建菜单列表实例
 const Menu = new MenuList()
 
-export { MenuList }
+export {
+  // class
+  MenuList,
+  // variable
+  Menu
+}

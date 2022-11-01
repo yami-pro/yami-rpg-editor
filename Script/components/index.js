@@ -2,8 +2,8 @@
 
 import './html-element.js';
 import './html-button-element.js';
-import'./object.js';
-import'./scroll.js';
+import './object.js';
+import './scroll.js';
 
 export { CheckBox } from './check-box.js';
 export { ColorBox } from './color-box.js';
@@ -12,15 +12,15 @@ export { CustomBox } from './custom-box.js';
 export { DetailBox } from './detail-box.js';
 export { DetailSummary } from './detail-summary.js';
 export { DragAndDropHint } from './drag-and-drop-hint.js';
-export { FileBodyPane } from './file-body-pane.js';
 export { FileBrowser } from './file-browser.js';
 export { FileHeadPane } from './file-head-pane.js';
 export { FileNavPane } from './file-nav-pane.js';
+export { FileBodyPane } from './file-body-pane.js';
 export { FileVar } from './file-var.js';
 export { FilterBox } from './filter-box.js';
 export { KeyboardBox } from './keyboard-box.js';
 export { MarqueeArea } from './marquee-area.js';
-export { MenuList } from './menu-list.js';
+export { MenuList, Menu } from './menu-list.js';
 export { NavBar } from './nav-bar.js';
 export { NodeList } from './node-list.js';
 export { NumberBox } from './number-box.js';
@@ -32,7 +32,7 @@ export { RadioBox } from './radio-box.js';
 export { RadioProxy } from './radio-proxy.js';
 export { ScrollBar } from './scroll-bar.js';
 export { SelectBox } from './select-box.js';
-export { SelectList } from './select-list.js';
+export { SelectList, Select } from './select-list.js';
 export { SliderBox } from './slider-box.js';
 export { StringVar } from './string-var.js';
 export { SwitchItem } from './switch-item.js';

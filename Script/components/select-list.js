@@ -359,4 +359,9 @@ customElements.define('select-list', SelectList)
 // 创建选择列表实例
 const Select = new SelectList()
 
-export { SelectList }
+export {
+  // class
+  SelectList,
+  // variable
+  Select
+}
