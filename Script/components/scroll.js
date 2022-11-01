@@ -1,5 +1,7 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
+
 // ******************************** 滚动侦听器 ********************************
 
 namespace: {

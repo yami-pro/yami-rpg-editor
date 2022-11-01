@@ -198,3 +198,5 @@ class SliderBox extends HTMLElement {
 }
 
 customElements.define('slider-box', SliderBox)
+
+export { SliderBox }

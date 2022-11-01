@@ -105,3 +105,5 @@ class ColorBox extends HTMLElement {
 }
 
 customElements.define('color-box', ColorBox)
+
+export { ColorBox }

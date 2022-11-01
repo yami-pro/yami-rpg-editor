@@ -95,3 +95,5 @@ class MarqueeArea extends HTMLElement {
 }
 
 customElements.define('marquee-area', MarqueeArea)
+
+export { MarqueeArea }

@@ -1,3 +1,5 @@
+'use strict'
+
 // ******************************** 数值操作历史 ********************************
 
 class NumberHistory {
@@ -148,3 +150,5 @@ class NumberHistory {
 
 // 数值操作历史恢复中状态开关
 NumberHistory.restoring = false
+
+export { NumberHistory }

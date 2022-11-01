@@ -48,3 +48,5 @@ class DetailSummary extends HTMLElement {
 }
 
 customElements.define('detail-summary', DetailSummary)
+
+export { DetailSummary }

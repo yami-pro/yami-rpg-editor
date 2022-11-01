@@ -115,3 +115,5 @@ class KeyboardBox extends HTMLElement {
 }
 
 customElements.define('keyboard-box', KeyboardBox)
+
+export { KeyboardBox }

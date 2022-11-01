@@ -72,3 +72,5 @@ class SwitchItem extends HTMLElement {
 }
 
 customElements.define('switch-item', SwitchItem)
+
+export { SwitchItem }

@@ -1,3 +1,5 @@
+'use strict'
+
 // ******************************** 参数操作历史 ********************************
 
 class ParamHistory {
@@ -164,3 +166,5 @@ class ParamHistory {
     }
   }
 }
+
+export { ParamHistory }

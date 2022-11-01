@@ -1,3 +1,5 @@
+'use strict'
+
 // ******************************** 指令操作历史 ********************************
 
 class CommandHistory {
@@ -203,3 +205,5 @@ class CommandHistory {
     return this.index + 1 < this.stack.length
   }
 }
+
+export { CommandHistory }

@@ -313,3 +313,5 @@ class SelectBox extends HTMLElement {
 }
 
 customElements.define('select-box', SelectBox)
+
+export { SelectBox }

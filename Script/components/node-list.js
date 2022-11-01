@@ -1,5 +1,8 @@
 'use strict'
 
+import { TextBox } from './text-box.js'
+import { Timer } from '../util/index.js'
+
 // ******************************** 节点列表 ********************************
 
 class NodeList extends HTMLElement {
@@ -1579,3 +1582,5 @@ class NodeList extends HTMLElement {
 }
 
 customElements.define('node-list', NodeList)
+
+export { NodeList }

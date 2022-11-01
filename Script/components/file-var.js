@@ -1,5 +1,7 @@
 'use strict'
 
+import { CustomBox } from './custom-box.js'
+
 // ******************************** 文件变量框 ********************************
 
 class FileVar extends HTMLElement {
@@ -144,3 +146,5 @@ class FileVar extends HTMLElement {
 }
 
 customElements.define('file-var', FileVar)
+
+export { FileVar }

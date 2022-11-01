@@ -85,3 +85,5 @@ class History extends Array {
   // 操作历史处理器集合
   static processors = {}
 }
+
+export { History }

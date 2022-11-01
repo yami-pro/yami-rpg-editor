@@ -1515,3 +1515,5 @@ class CommandList extends HTMLElement {
 }
 
 customElements.define('command-list', CommandList)
+
+export { CommandList }

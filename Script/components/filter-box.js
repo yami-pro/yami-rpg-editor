@@ -112,3 +112,5 @@ class FilterBox extends HTMLElement {
 }
 
 customElements.define('filter-box', FilterBox)
+
+export { FilterBox }

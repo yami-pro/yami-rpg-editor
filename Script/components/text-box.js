@@ -1,5 +1,7 @@
 'use strict'
 
+import { TextHistory } from '../history/index.js'
+
 // ******************************** 文本框 ********************************
 
 class TextBox extends HTMLElement {
@@ -208,3 +210,5 @@ class TextBox extends HTMLElement {
 }
 
 customElements.define('text-box', TextBox)
+
+export { TextBox }

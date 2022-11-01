@@ -208,3 +208,5 @@ Timer.removeUpdater = function (key, updater) {
     updaters[key] = null
   }
 }
+
+export { Timer }

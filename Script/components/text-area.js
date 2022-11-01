@@ -1,5 +1,8 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
+import { TextHistory } from '../history/index.js'
+
 // ******************************** 文本区域 ********************************
 
 class TextArea extends HTMLElement {
@@ -131,3 +134,5 @@ class TextArea extends HTMLElement {
 }
 
 customElements.define('text-area', TextArea)
+
+export { TextArea }

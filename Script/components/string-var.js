@@ -1,5 +1,8 @@
 'use strict'
 
+import { TextBox } from './text-box.js'
+import { CustomBox } from './custom-box.js'
+
 // ******************************** 字符串变量框 ********************************
 
 class StringVar extends HTMLElement {
@@ -143,3 +146,5 @@ class StringVar extends HTMLElement {
 }
 
 customElements.define('string-var', StringVar)
+
+export { StringVar }

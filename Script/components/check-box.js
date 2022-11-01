@@ -149,3 +149,5 @@ class CheckBox extends HTMLElement {
 }
 
 customElements.define('check-box', CheckBox)
+
+export { CheckBox }

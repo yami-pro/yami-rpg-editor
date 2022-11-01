@@ -1,6 +1,9 @@
 'use strict'
 
-import { Editor } from "./editor.js"
+import '../util/index.js';
+import '../components/index.js';
+
+import { Editor } from './editor.js'
 
 // ******************************** 主函数 ********************************
 

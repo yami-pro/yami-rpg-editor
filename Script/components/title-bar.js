@@ -103,3 +103,5 @@ class TitleBar extends HTMLElement {
 }
 
 customElements.define('title-bar', TitleBar)
+
+export { TitleBar }

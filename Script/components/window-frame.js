@@ -244,3 +244,5 @@ class WindowFrame extends HTMLElement {
 }
 
 customElements.define('window-frame', WindowFrame)
+
+export { WindowFrame }

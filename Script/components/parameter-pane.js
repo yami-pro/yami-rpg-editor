@@ -588,3 +588,5 @@ class ParameterPane extends HTMLElement {
 }
 
 customElements.define('parameter-pane', ParameterPane)
+
+export { ParameterPane }

@@ -1,3 +1,5 @@
+'use strict'
+
 // ******************************** 文本操作历史 ********************************
 
 class TextHistory {
@@ -366,3 +368,5 @@ TextHistory.inputReplace = function IIFE() {
     this.value = value
   }
 }()
+
+export { TextHistory }

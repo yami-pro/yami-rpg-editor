@@ -141,6 +141,7 @@ const $ = function IIFE() {
     }
   }
 }()
+window.$ = $
 
 // 获取元素读取器
 const getElementReader = function (prefix) {
@@ -186,3 +187,5 @@ window.on('resize', function IIFE() {
     }
   }
 }())
+
+export { measureText }

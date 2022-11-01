@@ -489,3 +489,5 @@ class FileBrowser extends HTMLElement {
 }
 
 customElements.define('file-browser', FileBrowser)
+
+export { FileBrowser }

@@ -51,3 +51,5 @@ class StageColor {
   // 静态 - RGBA数组
   static rgba = new Float64Array(4)
 }
+
+export { StageColor }

@@ -1,5 +1,8 @@
 'use strict'
 
+import { NumberBox } from './number-box.js'
+import { CustomBox } from './custom-box.js'
+
 // ******************************** 数字变量框 ********************************
 
 class NumberVar extends HTMLElement {
@@ -143,3 +146,5 @@ class NumberVar extends HTMLElement {
 }
 
 customElements.define('number-var', NumberVar)
+
+export { NumberVar }

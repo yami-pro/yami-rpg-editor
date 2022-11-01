@@ -355,3 +355,5 @@ class CustomBox extends HTMLElement {
 }
 
 customElements.define('custom-box', CustomBox)
+
+export { CustomBox }

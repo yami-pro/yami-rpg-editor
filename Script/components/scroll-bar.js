@@ -328,3 +328,5 @@ class ScrollBar extends HTMLElement {
 }
 
 customElements.define('scroll-bar', ScrollBar)
+
+export { ScrollBar }

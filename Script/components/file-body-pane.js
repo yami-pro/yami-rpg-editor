@@ -1,5 +1,8 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
+import { TextBox } from './text-box.js'
+
 // ******************************** 文件身体面板 ********************************
 
 class FileBodyPane extends HTMLElement {
@@ -1473,3 +1476,5 @@ class FileBodyPane extends HTMLElement {
 }
 
 customElements.define('file-body-pane', FileBodyPane)
+
+export { FileBodyPane }

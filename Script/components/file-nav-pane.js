@@ -1,5 +1,8 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
+import { TextBox } from './text-box.js'
+
 // ******************************** 文件导航面板 ********************************
 
 class FileNavPane extends HTMLElement {
@@ -690,3 +693,5 @@ class FileNavPane extends HTMLElement {
 }
 
 customElements.define('file-nav-pane', FileNavPane)
+
+export { FileNavPane }

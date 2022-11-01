@@ -68,3 +68,5 @@ class DetailBox extends HTMLElement {
 }
 
 customElements.define('detail-box', DetailBox)
+
+export { DetailBox }

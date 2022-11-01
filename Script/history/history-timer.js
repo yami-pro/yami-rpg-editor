@@ -1,3 +1,7 @@
+'use strict'
+
+import { Timer } from '../util/index.js'
+
 // ******************************** 历史操作计时器 ********************************
 
 const HistoryTimer = new Timer({
@@ -27,3 +31,5 @@ HistoryTimer.finish = function () {
     this.remove()
   }
 }
+
+export { HistoryTimer }

@@ -1,5 +1,8 @@
 'use strict'
 
+import { TextBox } from './text-box.js'
+import { SliderBox } from './slider-box.js'
+
 // ******************************** 文件头部面板 ********************************
 
 class FileHeadPane extends HTMLElement {
@@ -201,3 +204,5 @@ class FileHeadPane extends HTMLElement {
 }
 
 customElements.define('file-head-pane', FileHeadPane)
+
+export { FileHeadPane }
