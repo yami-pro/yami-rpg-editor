@@ -665,3 +665,5 @@ Title.closeClick = function (event) {
   .ipcRenderer
   .send('close-window')
 }
+
+export { Title }

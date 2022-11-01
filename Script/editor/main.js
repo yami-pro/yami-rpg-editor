@@ -1,5 +1,7 @@
 'use strict'
 
+import { Editor } from "./editor.js"
+
 // ******************************** 主函数 ********************************
 
 !async function main () {

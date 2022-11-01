@@ -256,3 +256,5 @@ NewProject.confirm = function (event) {
     }])
   })
 }
+
+export { NewProject }

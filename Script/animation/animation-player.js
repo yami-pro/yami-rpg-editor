@@ -2,7 +2,7 @@
 
 // ******************************** 动画播放器类 ********************************
 
-Animation.Player = class AnimationPlayer {
+class AnimationPlayer {
   visible   //:boolean
   index     //:number
   length    //:number
@@ -678,3 +678,5 @@ Animation.Player = class AnimationPlayer {
     emitter.speed = speed
   }
 }
+
+export { AnimationPlayer }

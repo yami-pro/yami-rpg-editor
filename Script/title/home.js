@@ -356,3 +356,5 @@ Home.recentPointerup = function (event) {
     }
   }
 }
+
+export { Home }

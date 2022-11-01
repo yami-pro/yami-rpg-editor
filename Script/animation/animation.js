@@ -1,5 +1,7 @@
 'use strict'
 
+import { AnimationPlayer } from "./animation-player.js"
+
 // ******************************** 动画窗口 ********************************
 
 const Animation = {
@@ -5903,3 +5905,7 @@ Animation.timelineMarquee.isShrinkable = function () {
   const frame = frames[frames.length - 1]
   return frame ? this.x < frame.end : false
 }
+
+Animation.Player = AnimationPlayer
+
+export { Animation }

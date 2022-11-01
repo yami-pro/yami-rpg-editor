@@ -715,3 +715,5 @@ Menubar.pointerover = function (event) {
     }
   }
 }
+
+export { Menubar }

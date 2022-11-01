@@ -1,5 +1,7 @@
 'use strict'
 
+import { Title } from "../title/index.js"
+
 // ******************************** 编辑器对象 ********************************
 
 const Editor = {
@@ -411,3 +413,5 @@ Editor.loadProject = function () {
 Editor.saveManifest = function () {
   return Data.saveManifest()
 }
+
+export { Editor }

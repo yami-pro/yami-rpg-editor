@@ -448,3 +448,5 @@ Deployment.confirm = function (event) {
     }])
   })
 }
+
+export { Deployment }

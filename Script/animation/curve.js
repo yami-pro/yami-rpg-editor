@@ -373,3 +373,5 @@ Curve.easingIdInput = function (event) {
 Curve.settingsPointerdown = function () {
   Easing.open()
 }
+
+export { Curve }
