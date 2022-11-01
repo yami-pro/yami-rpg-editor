@@ -245,3 +245,5 @@ Project.importedFonts = {
     this.target.save()
   },
 }
+
+export { Project }

@@ -147,3 +147,5 @@ class EnumerationContext {
     return this.itemLists[key]
   }
 }
+
+export { EnumerationContext }

@@ -90,3 +90,5 @@ IfBranch.windowClosed = function (event) {
 IfBranch.confirm = function (event) {
   return IfBranch.target.save()
 }
+
+export { IfBranch }

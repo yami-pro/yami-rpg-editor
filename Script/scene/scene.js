@@ -7867,3 +7867,5 @@ Scene.list.onResume = function (item) {
   Scene.reloadObjectContext(item)
   Scene.requestRendering()
 }
+
+export { Scene }

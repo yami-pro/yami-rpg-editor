@@ -2,7 +2,7 @@
 
 // ******************************** 粒子发射器类 ********************************
 
-Particle.Emitter = class ParticleEmitter {
+class ParticleEmitter {
   data      //:object
   startX    //:number
   startY    //:number
@@ -131,3 +131,7 @@ Particle.Emitter = class ParticleEmitter {
     }
   }
 }
+
+Particle.Emitter = ParticleEmitter
+
+export { ParticleEmitter }

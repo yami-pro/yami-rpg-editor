@@ -842,3 +842,5 @@ NumberOperand.windowClosed = function (event) {
 NumberOperand.confirm = function (event) {
   return NumberOperand.target.save()
 }
+
+export { NumberOperand }

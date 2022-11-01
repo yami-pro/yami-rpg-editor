@@ -1,3 +1,5 @@
+'use strict'
+
 // ******************************** 路径工具 ********************************
 
 const Path = require('path')
@@ -17,3 +19,5 @@ Path.slash = function IIFE() {
 // Path.ext = function (path) {
 //   return path.slice(path.lastIndexOf('.') + 1)
 // }
+
+export { Path }

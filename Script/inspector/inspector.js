@@ -462,3 +462,5 @@ Inspector.ParamHistory = class ParamHistory {
     return data?.type.indexOf('inspector-param') === 0
   }
 }
+
+export { Inspector }

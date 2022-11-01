@@ -78,3 +78,5 @@ class SinglePlayer {
     }
   }
 }
+
+export { SinglePlayer }

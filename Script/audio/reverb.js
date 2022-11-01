@@ -111,3 +111,5 @@ class Reverb {
   // 共享卷机器
   static convolver = null
 }
+
+export { Reverb }

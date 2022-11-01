@@ -180,3 +180,5 @@ class FolderItem {
     return item
   }
 }
+
+export { FolderItem }

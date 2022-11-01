@@ -2,7 +2,7 @@
 
 // ******************************** 粒子图层类 ********************************
 
-Particle.Layer = class ParticleLayer {
+class ParticleLayer {
   emitter       //:object
   data          //:object
   texture       //:object
@@ -352,3 +352,7 @@ Particle.Layer = class ParticleLayer {
   static sharedUint32A = new Uint32Array(GL.arrays[0].uint32.buffer, 512 * 512 * 88, 512 * 512)
   static sharedUint32B = new Uint32Array(GL.arrays[0].uint32.buffer, 512 * 512 * 92, 512 * 512)
 }
+
+Particle.Layer = ParticleLayer
+
+export { ParticleLayer }

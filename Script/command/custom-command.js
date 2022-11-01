@@ -402,3 +402,5 @@ CustomCommand.list.restoreSelection = function () {
   this.update()
   this.scrollToSelection()
 }
+
+export { CustomCommand }

@@ -1014,3 +1014,5 @@ AutoTile.confirm = function (event) {
   Window.close('autoTile')
   // console.log(JSON.stringify(tiles[index], null, 2))
 }.bind(AutoTile)
+
+export { AutoTile }

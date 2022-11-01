@@ -119,3 +119,5 @@ class TextureManager {
     }
   }
 }
+
+export { TextureManager }

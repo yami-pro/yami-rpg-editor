@@ -165,3 +165,5 @@ TextBoxProperty.save = function () {
 TextBoxProperty.confirm = function (event) {
   return TextBoxProperty.target.save()
 }
+
+export { TextBoxProperty }

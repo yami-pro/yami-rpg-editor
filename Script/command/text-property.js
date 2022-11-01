@@ -255,3 +255,5 @@ TextProperty.save = function () {
 TextProperty.confirm = function (event) {
   return TextProperty.target.save()
 }
+
+export { TextProperty }

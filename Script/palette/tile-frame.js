@@ -355,3 +355,5 @@ TileFrame.pointermove = function (event) {
     }
   }
 }.bind(TileFrame)
+
+export { TileFrame }

@@ -109,3 +109,5 @@ LightGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('lightGetter')
 }.bind(LightGetter)
+
+export { LightGetter }

@@ -210,3 +210,5 @@ SwitchCondition.save = function () {
 SwitchCondition.confirm = function (event) {
   return SwitchCondition.target.save()
 }
+
+export { SwitchCondition }

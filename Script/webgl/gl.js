@@ -1835,3 +1835,5 @@ GL.createTextureFBO = function (texture) {
 
 // 初始化WebGL上下文
 GL.initialize()
+
+export { GL }

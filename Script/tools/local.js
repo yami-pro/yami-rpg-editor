@@ -253,3 +253,5 @@ Local.createGetter = function (path) {
 Local.get = function (key) {
   return this.properties[key] ?? ''
 }
+
+export { Local }

@@ -455,3 +455,5 @@ Color.confirm = function (event) {
   }
   Window.close('color')
 }.bind(Color)
+
+export { Color }

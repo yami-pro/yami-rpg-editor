@@ -75,3 +75,5 @@ SwitchBranch.windowClosed = function (event) {
 SwitchBranch.confirm = function (event) {
   return SwitchBranch.target.save()
 }
+
+export { SwitchBranch }

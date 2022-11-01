@@ -39,3 +39,5 @@ SetQuantity.confirm = function (event) {
   this.callback($('#setQuantity-quantity').read())
   Window.close('setQuantity')
 }.bind(SetQuantity)
+
+export { SetQuantity }

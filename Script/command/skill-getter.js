@@ -101,3 +101,5 @@ SkillGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('skillGetter')
 }.bind(SkillGetter)
+
+export { SkillGetter }

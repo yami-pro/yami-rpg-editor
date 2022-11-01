@@ -2,7 +2,7 @@
 
 // ******************************** 根元素 ********************************
 
-UI.Root = class RootElement extends UI.Element {
+class RootElement extends UI.Element {
   background  //:number
 
   constructor() {
@@ -38,3 +38,7 @@ UI.Root = class RootElement extends UI.Element {
     this.destroyChildren()
   }
 }
+
+UI.Root = RootElement
+
+export { RootElement }

@@ -119,3 +119,5 @@ class Texture {
     }
   }
 }
+
+export { Texture }

@@ -89,3 +89,5 @@ AudioManager.close = function () {
   this.player.stop()
   this.waveforms = {}
 }
+
+export { AudioManager }

@@ -104,3 +104,5 @@ class ScriptListInterface {
     }
   }()
 }
+
+export { ScriptListInterface }

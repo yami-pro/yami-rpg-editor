@@ -205,3 +205,5 @@ ImageProperty.save = function () {
 ImageProperty.confirm = function (event) {
   return ImageProperty.target.save()
 }
+
+export { ImageProperty }

@@ -117,3 +117,5 @@ class EventListInterface {
     }
   }
 }
+
+export { EventListInterface }

@@ -2,7 +2,7 @@
 
 // ******************************** 文本元素 ********************************
 
-UI.Text = class TextElement extends UI.Element {
+class TextElement extends UI.Element {
   texture           //:object
   printer           //:object
   _direction        //:string
@@ -388,3 +388,7 @@ UI.Text = class TextElement extends UI.Element {
     delete this.node.instance
   }
 }
+
+UI.Text = TextElement
+
+export { TextElement }

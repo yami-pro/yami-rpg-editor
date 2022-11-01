@@ -218,3 +218,5 @@ LightProperty.save = function () {
 LightProperty.confirm = function (event) {
   return LightProperty.target.save()
 }
+
+export { LightProperty }

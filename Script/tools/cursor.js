@@ -23,3 +23,5 @@ Cursor.open = function (className) {
 Cursor.close = function (className) {
   this.region.removeClass(className)
 }
+
+export { Cursor }

@@ -213,3 +213,5 @@ Selector.confirm = function (event) {
       break
   }
 }
+
+export { Selector }

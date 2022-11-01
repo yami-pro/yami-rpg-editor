@@ -110,3 +110,5 @@ AncestorGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('ancestorGetter')
 }.bind(AncestorGetter)
+
+export { AncestorGetter }

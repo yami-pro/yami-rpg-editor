@@ -2,7 +2,7 @@
 
 // ******************************** 图像元素 ********************************
 
-UI.Image = class ImageElement extends UI.Element {
+class ImageElement extends UI.Element {
   texture   //:object
   _display  //:string
   _image    //:string
@@ -133,3 +133,7 @@ UI.Image = class ImageElement extends UI.Element {
     delete this.node.instance
   }
 }
+
+UI.Image = ImageElement
+
+export { ImageElement }

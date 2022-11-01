@@ -2,7 +2,7 @@
 
 // ******************************** 窗口元素 ********************************
 
-UI.Window = class WindowElement extends UI.Element {
+class WindowElement extends UI.Element {
   _layout       //:string
   scrollWidth   //:number
   scrollHeight  //:number
@@ -272,3 +272,7 @@ UI.Window = class WindowElement extends UI.Element {
     }
   }
 }
+
+UI.Window = WindowElement
+
+export { WindowElement }

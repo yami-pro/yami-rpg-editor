@@ -114,3 +114,5 @@ const Meta = function IIFE() {
     static versionId = 0
   }
 }()
+
+export { Meta }

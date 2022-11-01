@@ -2,7 +2,7 @@
 
 // ******************************** 文本框元素 ********************************
 
-UI.TextBox = class TextBoxElement extends UI.Element {
+class TextBoxElement extends UI.Element {
   focusing              //:boolean
   texture               //:object
   _type                 //:string
@@ -305,3 +305,7 @@ UI.TextBox = class TextBoxElement extends UI.Element {
     delete this.node.instance
   }
 }
+
+UI.TextBox = TextBoxElement
+
+export { TextBoxElement }

@@ -48,3 +48,5 @@ FrameGenerator.confirm = function (event) {
   this.callback(strideX, strideY, count)
   Window.close('autoTile-generateFrames')
 }.bind(FrameGenerator)
+
+export { FrameGenerator }

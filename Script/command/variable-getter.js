@@ -330,3 +330,5 @@ VariableGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('variableGetter')
 }.bind(VariableGetter)
+
+export { VariableGetter }

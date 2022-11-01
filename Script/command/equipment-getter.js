@@ -100,3 +100,5 @@ EquipmentGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('equipmentGetter')
 }.bind(EquipmentGetter)
+
+export { EquipmentGetter }

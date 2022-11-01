@@ -147,3 +147,5 @@ ElementGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('elementGetter')
 }.bind(ElementGetter)
+
+export { ElementGetter }

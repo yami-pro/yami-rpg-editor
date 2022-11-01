@@ -2,7 +2,7 @@
 
 // ******************************** 纹理集合类 ********************************
 
-Scene.Textures = class Textures {
+class Textures {
   state //:string
 
   constructor() {
@@ -54,3 +54,7 @@ Scene.Textures = class Textures {
     }
   }
 }
+
+Scene.Textures = Textures
+
+export { Textures }

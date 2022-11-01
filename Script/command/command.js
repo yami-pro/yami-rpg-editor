@@ -7950,3 +7950,5 @@ Command.custom = {
     }
   },
 }
+
+export { Command }

@@ -168,3 +168,5 @@ PresetObject.confirm = function (event) {
   this.target.input(presetId)
   Window.close('presetObject')
 }.bind(PresetObject)
+
+export { PresetObject }

@@ -38,3 +38,5 @@ Rename.confirm = function (event) {
   this.callback($('#rename-name').read())
   Window.close('rename')
 }.bind(Rename)
+
+export { Rename }

@@ -492,3 +492,5 @@ Browser.bodyPopup = function (event) {
     }, items)
   }
 }
+
+export { Browser }

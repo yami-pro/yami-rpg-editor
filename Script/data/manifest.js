@@ -81,3 +81,5 @@ class Manifest {
     }
   }
 }
+
+export { Manifest }

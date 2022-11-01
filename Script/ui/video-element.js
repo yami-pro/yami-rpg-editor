@@ -2,7 +2,7 @@
 
 // ******************************** 视频元素 ********************************
 
-UI.Video = class VideoElement extends UI.Element {
+class VideoElement extends UI.Element {
   video   //:string
   loop    //:boolean
   flip    //:string
@@ -37,3 +37,7 @@ UI.Video = class VideoElement extends UI.Element {
     delete this.node.instance
   }
 }
+
+UI.Video = VideoElement
+
+export { VideoElement }

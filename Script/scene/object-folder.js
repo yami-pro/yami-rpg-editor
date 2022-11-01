@@ -44,3 +44,5 @@ ObjectFolder.confirm = function (event) {
   }
   Window.close('object-folder')
 }
+
+export { ObjectFolder }

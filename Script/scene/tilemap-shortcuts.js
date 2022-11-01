@@ -66,3 +66,5 @@ class TilemapShortcuts {
     }
   }
 }
+
+export { TilemapShortcuts }

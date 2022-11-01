@@ -75,3 +75,5 @@ class Vector {
     new Vector(),
   ]
 }
+
+export { Vector }

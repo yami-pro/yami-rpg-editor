@@ -164,3 +164,5 @@ class Light {
     this.measureHeight = measureHeight
   }
 }
+
+export { Light }

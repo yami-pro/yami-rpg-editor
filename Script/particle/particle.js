@@ -1721,3 +1721,5 @@ Particle.list.onResume = function () {
   Particle.emitter.updateLayers()
   Particle.requestRendering()
 }
+
+export { Particle }

@@ -155,3 +155,5 @@ TransformProperty.save = function () {
 TransformProperty.confirm = function (event) {
   return TransformProperty.target.save()
 }
+
+export { TransformProperty }

@@ -2,7 +2,7 @@
 
 // ******************************** 元素基类 ********************************
 
-UI.Element = class UIElement {
+class UIElement {
   node      //:object
   x         //:number
   y         //:number
@@ -306,3 +306,7 @@ UI.Element = class UIElement {
     )
   }
 }
+
+UI.Element = UIElement
+
+export { UIElement }

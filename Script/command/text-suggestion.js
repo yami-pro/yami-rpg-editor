@@ -268,3 +268,5 @@ TextSuggestion.list.selectDefaultCommand = function () {
     return
   }
 }
+
+export { TextSuggestion }

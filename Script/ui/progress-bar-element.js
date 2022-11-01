@@ -2,7 +2,7 @@
 
 // ******************************** 进度条元素 ********************************
 
-UI.ProgressBar = class ProgressBarElement extends UI.Element {
+class ProgressBarElement extends UI.Element {
   texture       //:object
   _image        //:string
   display       //:string
@@ -380,3 +380,7 @@ UI.ProgressBar = class ProgressBarElement extends UI.Element {
     drawingLength: null,
   }
 }
+
+UI.ProgressBar = ProgressBarElement
+
+export { ProgressBarElement }

@@ -268,3 +268,5 @@ DialogBoxProperty.save = function () {
 DialogBoxProperty.confirm = function (event) {
   return DialogBoxProperty.target.save()
 }
+
+export { DialogBoxProperty }

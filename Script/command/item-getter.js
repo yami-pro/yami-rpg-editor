@@ -101,3 +101,5 @@ ItemGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('itemGetter')
 }.bind(ItemGetter)
+
+export { ItemGetter }

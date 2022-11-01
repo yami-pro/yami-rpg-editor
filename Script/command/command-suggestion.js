@@ -360,3 +360,5 @@ CommandSuggestion.list.selectDefaultCommand = function () {
     }
   }
 }
+
+export { CommandSuggestion }

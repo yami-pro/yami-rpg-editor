@@ -171,3 +171,5 @@ class Parallax {
   // 静态 - 光线采样模式映射表
   static lightSamplingModes = {raw: 0, global: 1, anchor: 2, ambient: 3}
 }
+
+export { Parallax }

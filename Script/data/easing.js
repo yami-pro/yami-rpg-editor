@@ -1350,3 +1350,5 @@ Easing.list.updateKeyTextNode = function (item) {
     keyTextNode.textContent = ' = ' + key
   }
 }
+
+export { Easing }

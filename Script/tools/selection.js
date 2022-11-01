@@ -626,3 +626,5 @@ Selection.globalVariable = {
     }
   }
 }
+
+export { Selection }

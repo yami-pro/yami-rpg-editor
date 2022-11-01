@@ -2,7 +2,7 @@
 
 // ******************************** 坐标点类 ********************************
 
-Scene.Point = class Point {
+class Point {
   x //:number
   y //:number
 
@@ -18,3 +18,7 @@ Scene.Point = class Point {
     return this
   }
 }
+
+Scene.Point = Point
+
+export { Point }

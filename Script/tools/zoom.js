@@ -36,3 +36,5 @@ Zoom.confirm = function (event) {
     Editor.config.zoom = $('#zoom-factor').read()
   )
 }
+
+export { Zoom }

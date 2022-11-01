@@ -38,3 +38,5 @@ SetKey.confirm = function (event) {
   this.callback($('#setKey-key').read())
   Window.close('setKey')
 }.bind(SetKey)
+
+export { SetKey }

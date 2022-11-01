@@ -88,3 +88,5 @@ AngleGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('angleGetter')
 }.bind(AngleGetter)
+
+export { AngleGetter }

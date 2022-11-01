@@ -434,3 +434,5 @@ TileNode.pointermove = function (event) {
     }
   }
 }.bind(TileNode)
+
+export { TileNode }

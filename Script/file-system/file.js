@@ -326,3 +326,5 @@ File.updateRoot = function (path) {
 File.route = function (relativePath) {
   return this.root + relativePath
 }
+
+export { File }

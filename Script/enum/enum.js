@@ -957,3 +957,5 @@ Enum.list.updateNoteIcon = function (item) {
     }
   }
 }
+
+export { Enum }

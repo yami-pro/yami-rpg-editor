@@ -1051,3 +1051,5 @@ Attribute.list.updateNoteIcon = function (item) {
     }
   }
 }
+
+export { Attribute }

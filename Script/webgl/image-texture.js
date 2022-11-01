@@ -151,3 +151,5 @@ ImageTexture.prototype.on = BaseTexture.prototype.on
 
 // 执行加载回调
 ImageTexture.prototype.reply = BaseTexture.prototype.reply
+
+export { ImageTexture }

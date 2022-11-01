@@ -44,3 +44,5 @@ SceneShift.confirm = function (event) {
   SceneShift.callback(x, y)
   Window.close('scene-shift')
 }
+
+export { SceneShift }

@@ -1859,3 +1859,5 @@ Palette.pointermove = function (event) {
     }
   }
 }.bind(Palette)
+
+export { Palette }

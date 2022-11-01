@@ -2,7 +2,7 @@
 
 // ******************************** 对话框元素 ********************************
 
-UI.DialogBox = class DialogBoxElement extends UI.Text {
+class DialogBoxElement extends UI.Text {
   constructor(data) {
     super({...data,
       direction: 'horizontal-tb',
@@ -12,3 +12,7 @@ UI.DialogBox = class DialogBoxElement extends UI.Text {
     })
   }
 }
+
+UI.DialogBox = DialogBoxElement
+
+export { DialogBoxElement }

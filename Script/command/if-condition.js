@@ -960,3 +960,5 @@ IfCondition.save = function () {
 IfCondition.confirm = function (event) {
   return IfCondition.target.save()
 }
+
+export { IfCondition }

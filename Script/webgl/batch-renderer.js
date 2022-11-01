@@ -137,3 +137,5 @@ class BatchRenderer {
     this.draw = draw
   }
 }
+
+export { BatchRenderer }

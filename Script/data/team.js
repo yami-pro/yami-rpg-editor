@@ -485,3 +485,5 @@ Team.list.updateMark = function (item) {
     }
   }
 }
+
+export { Team }

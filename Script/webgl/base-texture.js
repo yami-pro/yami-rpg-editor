@@ -73,3 +73,5 @@ class BaseTexture {
 
   static CALLBACK = Symbol('LOAD_CALLBACK')
 }
+
+export { BaseTexture }

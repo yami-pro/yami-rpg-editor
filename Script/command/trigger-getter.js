@@ -74,3 +74,5 @@ TriggerGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('triggerGetter')
 }.bind(TriggerGetter)
+
+export { TriggerGetter }

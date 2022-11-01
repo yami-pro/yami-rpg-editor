@@ -151,3 +151,5 @@ class FileItem {
     return FileItem.dataMapNames[file.type] !== undefined
   }
 }
+
+export { FileItem }

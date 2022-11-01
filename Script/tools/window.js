@@ -310,3 +310,5 @@ Window.ambient.update = function () {
   }
   this.removeClass('open')
 }
+
+export { Window }

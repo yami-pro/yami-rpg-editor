@@ -2,7 +2,7 @@
 
 // ******************************** 容器元素 ********************************
 
-UI.Container = class ContainerElement extends UI.Element {
+class ContainerElement extends UI.Element {
   // 绘制图像
   draw() {
     this.drawChildren()
@@ -23,3 +23,7 @@ UI.Container = class ContainerElement extends UI.Element {
     delete this.node.instance
   }
 }
+
+UI.Container = ContainerElement
+
+export { ContainerElement }

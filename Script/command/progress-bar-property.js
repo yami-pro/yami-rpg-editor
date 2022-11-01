@@ -227,3 +227,5 @@ ProgressBarProperty.save = function () {
 ProgressBarProperty.confirm = function (event) {
   return ProgressBarProperty.target.save()
 }
+
+export { ProgressBarProperty }

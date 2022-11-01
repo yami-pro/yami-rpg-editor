@@ -436,3 +436,5 @@ Data.loadScript = async function (file) {
     })
   }
 }
+
+export { Data }

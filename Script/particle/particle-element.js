@@ -2,7 +2,7 @@
 
 // ******************************** 粒子元素类 ********************************
 
-Particle.Element = class ParticleElement {
+class ParticleElement {
   emitter           //:object
   layer             //:object
   data              //:object
@@ -463,3 +463,7 @@ Particle.Element = class ParticleElement {
   static sharedFloat64Array = new Float64Array(4)
   static sharedClampedArray = new Uint8ClampedArray(4)
 }
+
+Particle.Element = ParticleElement
+
+export { ParticleElement }

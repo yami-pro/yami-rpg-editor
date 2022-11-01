@@ -242,3 +242,5 @@ class ConditionListInterface {
     })
   }
 }
+
+export { ConditionListInterface }

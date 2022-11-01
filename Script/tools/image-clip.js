@@ -360,3 +360,5 @@ ImageClip.confirm = function (event) {
   ])
   Window.close('imageClip')
 }.bind(ImageClip)
+
+export { ImageClip }

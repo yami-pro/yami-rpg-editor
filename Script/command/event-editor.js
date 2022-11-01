@@ -448,3 +448,5 @@ EventEditor.apply = function (event) {
     this.callback()
   }
 }.bind(EventEditor)
+
+export { EventEditor }

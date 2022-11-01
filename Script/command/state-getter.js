@@ -74,3 +74,5 @@ StateGetter.confirm = function (event) {
   this.target.input(getter)
   Window.close('stateGetter')
 }.bind(StateGetter)
+
+export { StateGetter }

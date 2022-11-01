@@ -4,3 +4,8 @@
 
 const FS = require('fs')
 const FSP = FS.promises
+
+export {
+  FS,
+  FSP
+}
