@@ -1,5 +1,7 @@
 'use strict'
 
+import { Timer } from '../util/timer.js'
+
 // ******************************** 滚动条 ********************************
 
 class ScrollBar extends HTMLElement {

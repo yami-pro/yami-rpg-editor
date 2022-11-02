@@ -1,6 +1,7 @@
 'use strict'
 
 import { Easing } from './easing.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 过渡窗口加载 ********************************
 

@@ -1081,3 +1081,5 @@ class Printer {
     }
   }
 }
+
+export { Printer }

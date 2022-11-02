@@ -2,6 +2,8 @@
 
 import { Particle } from './particle.js'
 import { Scene } from '../scene/scene.js'
+import { Timer } from '../util/timer.js'
+import { Matrix } from '../webgl/matrix.js'
 
 // ******************************** 粒子窗口加载 ********************************
 

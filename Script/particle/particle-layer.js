@@ -2,6 +2,7 @@
 
 import { GL } from '../webgl/gl.js'
 import { Particle } from './particle.js'
+import { Easing } from '../data/easing.js'
 
 // ******************************** 粒子图层类 ********************************
 

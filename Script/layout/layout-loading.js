@@ -3,6 +3,10 @@
 import { Layout } from './layout.js'
 import { Scene } from '../scene/scene.js'
 import { UI } from '../ui/ui.js'
+import { Animation } from '../animation/animation.js'
+import { Browser } from '../browser/browser.js'
+import { Palette } from '../palette/palette.js'
+import { File } from '../file-system/file.js'
 
 // ******************************** 布局对象加载 ********************************
 

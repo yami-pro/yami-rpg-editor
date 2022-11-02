@@ -3,6 +3,7 @@
 import '../util/index.js'
 import '../webgl/index.js'
 import '../components/index.js'
+import '../ui/index.js'
 
 import '../animation/index.js'
 import '../attribute/index.js'

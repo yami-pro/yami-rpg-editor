@@ -1,6 +1,7 @@
 'use strict'
 
 import { UI } from './ui.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 窗口元素 ********************************
 

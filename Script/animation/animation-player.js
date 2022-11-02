@@ -2,6 +2,7 @@
 
 import { Matrix } from '../webgl/matrix.js'
 import { Scene } from '../scene/scene.js'
+import { Easing } from '../data/easing.js'
 
 // ******************************** 动画播放器类 ********************************
 

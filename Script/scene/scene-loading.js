@@ -1,9 +1,18 @@
 'use strict'
 
 import { Scene } from './scene.js'
+import { ObjectFolder } from './object-folder.js'
+import { SceneShift } from './scene-shift.js'
+import { TilemapShortcuts } from './tilemap-shortcuts.js'
+
 import { Timer } from '../util/timer.js'
 import { File } from '../file-system/file.js'
 import { ImageTexture } from '../webgl/image-texture.js'
+import { Palette } from '../palette/palette.js'
+import { Matrix } from '../webgl/matrix.js'
+import { GL } from '../webgl/gl.js'
+import { History } from '../history/history.js'
+import { Easing } from '../data/easing.js'
 
 // ******************************** 场景窗口加载 ********************************
 

@@ -3,6 +3,11 @@
 import { UI } from './ui.js'
 import { Scene } from '../scene/scene.js'
 import { Timer } from '../util/timer.js'
+import { File } from '../file-system/file.js'
+import { Matrix } from '../webgl/matrix.js'
+import { GL } from '../webgl/gl.js'
+import { History } from '../history/history.js'
+import { Easing } from '../data/easing.js'
 
 // ******************************** UI 窗口加载 ********************************
 

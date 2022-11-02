@@ -1,5 +1,7 @@
 'use strict'
 
+import { Timer } from '../util/timer.js'
+
 // ******************************** 菜单列表 ********************************
 
 class MenuList extends HTMLElement {

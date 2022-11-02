@@ -3,6 +3,7 @@
 import { Menubar } from './menu-bar.js'
 import { Scene } from '../scene/scene.js'
 import { UI } from '../ui/ui.js'
+import { Easing } from '../data/easing.js'
 
 // ******************************** 菜单栏对象加载 ********************************
 

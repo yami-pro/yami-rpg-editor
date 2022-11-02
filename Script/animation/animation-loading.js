@@ -2,9 +2,15 @@
 
 import { Animation } from './animation.js'
 import { AnimationPlayer } from './animation-player.js'
+import { Curve } from './curve.js'
+
 import { Scene } from '../scene/scene.js'
 import { Timer } from '../util/timer.js'
 import { UI } from '../ui/ui.js'
+import { Matrix } from '../webgl/matrix.js'
+import { GL } from '../webgl/gl.js'
+import { History } from '../history/history.js'
+import { Easing } from '../data/easing.js'
 
 // ******************************** 动画窗口加载 ********************************
 

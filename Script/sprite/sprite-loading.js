@@ -2,6 +2,7 @@
 
 import { Sprite } from './sprite.js'
 import { Palette } from '../palette/palette.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 精灵窗口加载 ********************************
 
