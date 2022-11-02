@@ -1,9 +1,9 @@
 'use strict'
 
-export { ddd } from './directory.js';
-export { ddd } from './file-item.js';
-export { ddd } from './file-system.js';
-export { ddd } from './file.js';
-export { ddd } from './folder-item.js';
-export { ddd } from './guid.js';
-export { ddd } from './path.js';
+export { Directory } from './directory.js';
+export { FileItem } from './file-item.js';
+export { FS, FSP } from './file-system.js';
+export { File } from './file.js';
+export { FolderItem } from './folder-item.js';
+export { GUID } from './guid.js';
+export { Path } from './path.js';

@@ -1,5 +1,7 @@
 'use strict'
 
+import './gl-extension.js';
+
 export { GL } from './gl.js';
 export { BaseTexture } from './base-texture.js';
 export { BatchRenderer } from './batch-renderer.js';
