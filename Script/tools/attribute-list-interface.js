@@ -1,6 +1,6 @@
 'use strict'
 
-import { SelectBox } from '../components/index.js';
+import { SelectBox } from '../components/index.js'
 
 // ******************************** 属性列表接口 ********************************
 

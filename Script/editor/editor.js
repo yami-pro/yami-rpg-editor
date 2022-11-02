@@ -1,15 +1,16 @@
 'use strict'
 
+import '../config/config.js'
 import {
   Title,
   Menubar,
   Home
-} from '../title/index.js';
+} from '../title/index.js'
 import { AudioManager } from '../audio/index.js'
 import {
   Local,
   Window
-} from '../tools/index.js';
+} from '../tools/index.js'
 import { Data } from '../data/index.js'
 import { Log } from '../log/log.js'
 

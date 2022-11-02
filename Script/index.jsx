@@ -1,4 +1,6 @@
-import { createElement, render } from './preact';
+'use strict'
+
+import { createElement, render } from './preact'
 
 function Body() {
   return (

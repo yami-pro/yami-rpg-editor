@@ -1,7 +1,7 @@
 'use strict'
 
-import '../util/index.js';
-import '../components/index.js';
+import '../util/index.js'
+import '../components/index.js'
 
 import { Editor } from './editor.js'
 

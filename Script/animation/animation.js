@@ -1,6 +1,6 @@
 'use strict'
 
-import { AnimationPlayer } from "./animation-player.js"
+import { AnimationPlayer } from './animation-player.js'
 
 // ******************************** 动画窗口 ********************************
 
