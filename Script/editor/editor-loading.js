@@ -12,6 +12,7 @@ import { Log } from '../log/log.js'
 import { Path } from '../file-system/path.js'
 import { Layout } from '../layout/layout.js'
 import { Scene } from '../scene/scene.js'
+import { UI } from '../ui/ui.js'
 
 // ******************************** 编辑器对象加载 ********************************
 

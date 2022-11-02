@@ -1,5 +1,8 @@
 'use strict'
 
+import { PresetElement } from './preset-element.js'
+import { UI } from '../ui/ui.js'
+
 // ******************************** 预设元素窗口加载 ********************************
 
 // list methods

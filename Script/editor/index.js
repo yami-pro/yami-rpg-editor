@@ -1,6 +1,7 @@
 'use strict'
 
 import '../util/index.js'
+import '../webgl/index.js'
 import '../components/index.js'
 
 import '../animation/index.js'
@@ -26,7 +27,6 @@ import '../sprite/index.js'
 import '../title/index.js'
 import '../tools/index.js'
 import '../variable/index.js'
-import '../webgl/index.js'
 
 import './editor-loading.js'
 import { Editor } from './editor.js'

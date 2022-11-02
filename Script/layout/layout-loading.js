@@ -2,6 +2,7 @@
 
 import { Layout } from './layout.js'
 import { Scene } from '../scene/scene.js'
+import { UI } from '../ui/ui.js'
 
 // ******************************** 布局对象加载 ********************************
 

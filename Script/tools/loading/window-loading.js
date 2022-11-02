@@ -3,7 +3,7 @@
 import { Window } from '../window.js'
 import { measureText } from '../../util/util.js'
 import { Title } from '../../title/title.js'
-import { Menubar } from '../../title/title.js'
+import { Menubar } from '../../title/menu-bar.js'
 import { Scene } from '../../scene/scene.js'
 import { Layout } from '../../layout/layout.js'
 import { UI } from '../../ui/ui.js'
