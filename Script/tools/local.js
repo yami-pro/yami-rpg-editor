@@ -1,5 +1,10 @@
 'use strict'
 
+import {
+  Path,
+  FSP
+} from '../file-system/index.js'
+
 // ******************************** 本地化对象 ********************************
 
 const Local = {

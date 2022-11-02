@@ -1,5 +1,7 @@
 'use strict'
 
+import { AudioManager } from './audio-manager.js'
+
 // ******************************** 单源播放器类 ********************************
 
 class SinglePlayer {
