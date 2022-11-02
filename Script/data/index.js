@@ -2,6 +2,7 @@
 
 import './data-loading.js'
 import './easing-loading.js'
+import './meta-loading.js'
 import './project-loading.js'
 import './team-loading.js'
 

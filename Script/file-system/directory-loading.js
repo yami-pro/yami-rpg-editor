@@ -1,8 +1,9 @@
 'use strict'
 
 import { Directory } from './directory.js'
-import { FS, FSP } from '../file-system/file-system.js'
 import { FolderItem } from './folder-item.js'
+import { FileItem } from './file-item.js'
+import { FS, FSP } from './file-system.js'
 import { Path } from '../file-system/path.js'
 import { Meta } from '../data/meta.js'
 import { Log } from '../log/log.js'

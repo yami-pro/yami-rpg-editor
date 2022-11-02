@@ -2,6 +2,7 @@
 
 import { Log } from './log.js'
 import { Timer } from '../util/timer.js'
+import { Editor } from '../editor/editor.js'
 
 // ******************************** 日志窗口加载 ********************************
 

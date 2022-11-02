@@ -8,6 +8,8 @@ import { FolderItem } from '../file-system/folder-item.js'
 import { Path } from '../file-system/path.js'
 import { Window } from '../tools/window.js'
 import { Data } from '../data/data.js'
+import { Directory } from '../file-system/directory.js'
+import { FileItem } from '../file-system/file-item.js'
 
 // ******************************** 文件身体面板 ********************************
 

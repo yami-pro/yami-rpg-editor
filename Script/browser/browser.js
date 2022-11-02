@@ -7,6 +7,7 @@ import { File } from '../file-system/file.js'
 import { FolderItem } from '../file-system/folder-item.js'
 import { Path } from '../file-system/path.js'
 import { Data } from '../data/data.js'
+import { Directory } from '../file-system/directory.js'
 
 // ******************************** 项目浏览器 ********************************
 

@@ -118,4 +118,4 @@ Meta.meta = function IIFE() {
     // 静态 - 版本ID
     static versionId = 0
   }
-}
+}()
