@@ -3,7 +3,7 @@
 import { AudioManager } from './audio-manager.js'
 import { SinglePlayer } from './single-player.js'
 
-// ******************************** 音频管理器实现 ********************************
+// ******************************** 音频管理器加载 ********************************
 
 // 初始化
 AudioManager.initialize = function () {

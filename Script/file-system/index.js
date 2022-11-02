@@ -1,5 +1,8 @@
 'use strict'
 
+import './directory-loading.js'
+import './file-loading.js'
+
 export { Directory } from './directory.js'
 export { FileItem } from './file-item.js'
 export { FS, FSP } from './file-system.js'

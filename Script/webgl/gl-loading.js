@@ -7,7 +7,7 @@ import { TextureManager } from './texture-manager.js'
 import { BaseTexture } from './base-texture.js'
 import { BatchRenderer } from './batch-renderer.js'
 
-// ******************************** WebGL方法 ********************************
+// ******************************** WebGL方法加载 ********************************
 
 // WebGL上下文方法 - 恢复上下文
 GL.restore = function () {

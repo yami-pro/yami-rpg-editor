@@ -1,5 +1,7 @@
 'use strict'
 
+import './inspector-loading.js'
+
 import './anim-joint-frame.js'
 import './anim-joint-layer.js'
 import './anim-motion.js'
