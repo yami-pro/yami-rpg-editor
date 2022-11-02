@@ -10,6 +10,8 @@ import { File } from '../file-system/file.js'
 
 import { Inspector } from '../inspector/inspector.js'
 import { GL } from '../webgl/gl.js'
+import { Title } from '../title/title.js'
+import { Home } from '../title/home.js'
 
 // ******************************** 布局对象加载 ********************************
 

@@ -4,6 +4,9 @@ import { Home } from './home.js'
 import { FS, FSP } from '../file-system/file-system.js'
 import { File } from '../file-system/file.js'
 import { Path } from '../file-system/path.js'
+import { Editor } from '../editor/editor.js'
+import { Local } from '../tools/local.js'
+import { Menu } from '../components/menu-list.js'
 
 // ******************************** 主页面对象加载 ********************************
 

@@ -379,6 +379,7 @@ Data.parseGUID = function IIFE() {
 
 // 加载脚本
 Data.loadScript = async function (file) {
+  debugger
   const meta = file.meta
   if (meta !== undefined) {
     const {scripts} = this

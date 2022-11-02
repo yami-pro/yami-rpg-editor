@@ -10,6 +10,16 @@ import { File } from '../file-system/file.js'
 import { Path } from '../file-system/path.js'
 import { Window } from '../tools/window.js'
 import { Data } from '../data/data.js'
+import { Editor } from '../editor/editor.js'
+import { Local } from '../tools/local.js'
+import { Menu } from '../components/menu-list.js'
+import { ctrl } from '../util/ctrl.js'
+import { Layout } from '../layout/layout.js'
+import { Title } from '../title/title.js'
+import { Animation } from '../animation/animation.js'
+import { Particle } from '../particle/particle.js'
+import { Zoom } from '../tools/zoom.js'
+
 
 // ******************************** 菜单栏对象加载 ********************************
 
