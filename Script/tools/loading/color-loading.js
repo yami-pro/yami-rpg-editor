@@ -1,7 +1,7 @@
 'use strict'
 
 import { Color } from '../color.js'
-import { UI } from '../ui/ui.js'
+import { UI } from '../../ui/ui.js'
 
 // ******************************** 拾色器窗口加载 ********************************
 
