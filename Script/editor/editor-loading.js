@@ -43,6 +43,9 @@ import { PresetElement } from '../tools/preset-element.js'
 import { ArrayList } from '../tools/array-list.js'
 import { AttributeListInterface } from '../tools/attribute-list-interface.js'
 import { ConditionListInterface } from '../tools/condition-list-interface.js'
+import { Palette } from '../palette/palette.js'
+import { Sprite } from '../sprite/sprite.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 编辑器对象加载 ********************************
 

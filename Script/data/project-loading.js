@@ -1,6 +1,7 @@
 'use strict'
 
 import { Project } from './project.js'
+import { Inspector } from '../inspector/inspector.js'
 
 // ******************************** 项目设置窗口加载 ********************************
 

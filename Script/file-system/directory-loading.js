@@ -1,6 +1,7 @@
 'use strict'
 
 import { Directory } from './directory.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 目录对象加载 ********************************
 

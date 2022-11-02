@@ -1,6 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
+import { AudioManager } from '../audio/audio-manager.js'
 
 // ******************************** 文件 - 视频页面 ********************************
 

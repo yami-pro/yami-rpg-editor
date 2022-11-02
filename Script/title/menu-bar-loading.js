@@ -4,6 +4,7 @@ import { Menubar } from './menu-bar.js'
 import { Scene } from '../scene/scene.js'
 import { UI } from '../ui/ui.js'
 import { Easing } from '../data/easing.js'
+import { Palette } from '../palette/palette.js'
 
 // ******************************** 菜单栏对象加载 ********************************
 

@@ -4,6 +4,9 @@ import { Particle } from './particle.js'
 import { Scene } from '../scene/scene.js'
 import { Timer } from '../util/timer.js'
 import { Matrix } from '../webgl/matrix.js'
+import { GL } from '../webgl/gl.js'
+import { History } from '../history/history.js'
+import { Inspector } from '../inspector/inspector.js'
 
 // ******************************** 粒子窗口加载 ********************************
 

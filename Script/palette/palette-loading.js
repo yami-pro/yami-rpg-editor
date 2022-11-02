@@ -1,8 +1,13 @@
 'use strict'
 
 import { Palette } from './palette.js'
+import { AutoTile } from './auto-tile.js'
 import { Timer } from '../util/timer.js'
 import { Scene } from '../scene/scene.js'
+import { Inspector } from '../inspector/inspector.js'
+import { FrameGenerator } from './frame-generator.js'
+import { TileFrame } from './tile-frame.js'
+import { TileNode } from './tile-node.js'
 
 // ******************************** 调色板加载 ********************************
 

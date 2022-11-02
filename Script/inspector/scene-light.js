@@ -2,6 +2,9 @@
 
 import { Inspector } from './inspector.js'
 import { Scene } from '../scene/scene.js'
+import { ConditionListInterface } from '../tools/condition-list-interface.js'
+import { EventListInterface } from '../tools/event-list-interface.js'
+import { ScriptListInterface } from '../tools/script-list-interface.js'
 
 // ******************************** 场景 - 光源页面 ********************************
 

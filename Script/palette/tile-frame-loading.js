@@ -1,6 +1,8 @@
 'use strict'
 
 import { TileFrame } from './tile-frame.js'
+import { Palette } from './palette.js'
+import { AutoTile } from './auto-tile.js'
 
 // ******************************** 图块帧索引窗口加载 ********************************
 

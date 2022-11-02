@@ -1,6 +1,7 @@
 'use strict'
 
 import { Data } from './data.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 数据对象加载 ********************************
 

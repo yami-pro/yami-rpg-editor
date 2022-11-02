@@ -2,6 +2,7 @@
 
 import { NewProject } from './new-project.js'
 import { Timer } from '../util/timer.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 新建项目窗口加载 ********************************
 

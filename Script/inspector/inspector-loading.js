@@ -1,6 +1,8 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
+import { History } from '../history/history.js'
+import { ParamHistory } from '../history/param-history.js'
 
 // ******************************** 检查器加载 ********************************
 

@@ -2,6 +2,7 @@
 
 import { Inspector } from './inspector.js'
 import { Timer } from '../util/timer.js'
+import { AudioManager } from '../audio/audio-manager.js'
 
 // ******************************** 文件 - 音频页面 ********************************
 

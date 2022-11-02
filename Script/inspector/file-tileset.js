@@ -2,6 +2,7 @@
 
 import { Inspector } from './inspector.js'
 import { Scene } from '../scene/scene.js'
+import { Palette } from '../palette/palette.js'
 
 // ******************************** 文件 - 图块组页面 ********************************
 

@@ -1,6 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
+import { Sprite } from '../sprite/sprite.js'
 
 // ******************************** 动画 - 精灵帧页面 ********************************
 

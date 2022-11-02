@@ -1,5 +1,7 @@
 'use strict'
 
+import { NumberBox } from './number-box.js'
+
 // ******************************** 滑动框 ********************************
 
 class SliderBox extends HTMLElement {

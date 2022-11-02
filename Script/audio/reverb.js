@@ -1,5 +1,7 @@
 'use strict'
 
+import { AudioManager } from '../audio/audio-manager.js'
+
 // ******************************** 混响类 ********************************
 
 class Reverb {

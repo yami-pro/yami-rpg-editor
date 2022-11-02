@@ -1,7 +1,27 @@
 'use strict'
 
 import { Command } from '../command.js'
+import { EventEditor } from '../event-editor.js'
+import { CommandSuggestion } from '../command-suggestion.js'
+import { TextSuggestion } from '../text-suggestion.js'
+import { VariableGetter } from '../variable-getter.js'
+import { ActorGetter } from '../actor-getter.js'
+import { SkillGetter } from '../skill-getter.js'
+import { StateGetter } from '../state-getter.js'
+import { EquipmentGetter } from '../equipment-getter.js'
+import { ItemGetter } from '../item-getter.js'
+import { PositionGetter } from '../position-getter.js'
+import { AngleGetter } from '../angle-getter.js'
+import { TriggerGetter } from '../trigger-getter.js'
+import { LightGetter } from '../light-getter.js'
+import { ElementGetter } from '../element-getter.js'
+import { AncestorGetter } from '../ancestor-getter.js'
+import { NumberOperand } from '../number-operand.js'
+import { IfBranch } from '../if-branch.js'
+import { IfCondition } from '../if-condition.js'
+
 import { Scene } from '../../scene/scene.js'
+
 
 // ******************************** 指令对象加载 ********************************
 

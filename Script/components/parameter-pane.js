@@ -1,5 +1,8 @@
 'use strict'
 
+import { NumberBox } from './number-box.js'
+import { ParamList } from './param-list.js'
+
 // ******************************** 脚本参数面板 ********************************
 
 class ParameterPane extends HTMLElement {

@@ -3,6 +3,9 @@
 import { AutoTile } from './auto-tile.js'
 import { Easing } from '../data/easing.js'
 import { Scene } from '../scene/scene.js'
+import { Palette } from './palette.js'
+import { FrameGenerator } from './frame-generator.js'
+import { TileFrame } from './tile-frame.js'
 
 // ******************************** 自动图块加载 ********************************
 

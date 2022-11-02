@@ -1,6 +1,7 @@
 'use strict'
 
 import { CommandSuggestion } from '../command-suggestion.js'
+import { FS, FSP } from '../../file-system/file-system.js'
 
 // ******************************** 指令提示框加载 ********************************
 

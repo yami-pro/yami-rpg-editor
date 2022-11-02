@@ -1,6 +1,7 @@
 'use strict'
 
 import { AncestorGetter } from '../ancestor-getter.js'
+import { TextSuggestion } from '../text-suggestion.js'
 
 // ******************************** 祖先元素访问器窗口加载 ********************************
 

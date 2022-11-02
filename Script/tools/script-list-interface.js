@@ -1,5 +1,7 @@
 'use strict'
 
+import { Inspector } from '../inspector/inspector.js'
+
 // ******************************** 脚本列表接口 ********************************
 
 class ScriptListInterface {

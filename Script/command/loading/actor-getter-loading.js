@@ -1,6 +1,7 @@
 'use strict'
 
 import { ActorGetter } from '../actor-getter.js'
+import { TextSuggestion } from '../text-suggestion.js'
 
 // ******************************** 角色访问器窗口加载 ********************************
 

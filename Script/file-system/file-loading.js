@@ -2,6 +2,7 @@
 
 import { File } from './file.js'
 import { UI } from '../ui/ui.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 文件系统加载 ********************************
 

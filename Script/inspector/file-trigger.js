@@ -1,6 +1,8 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
+import { EventListInterface } from '../tools/event-list-interface.js'
+import { ScriptListInterface } from '../tools/script-list-interface.js'
 
 // ******************************** 文件 - 触发器页面 ********************************
 

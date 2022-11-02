@@ -1,6 +1,7 @@
 'use strict'
 
 import { Home } from './home.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 主页面对象加载 ********************************
 

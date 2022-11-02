@@ -2,6 +2,7 @@
 
 import { Easing } from './easing.js'
 import { Timer } from '../util/timer.js'
+import { Inspector } from '../inspector/inspector.js'
 
 // ******************************** 过渡窗口加载 ********************************
 

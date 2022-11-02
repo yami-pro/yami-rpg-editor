@@ -2,6 +2,7 @@
 
 import { Deployment } from './deployment.js'
 import { Timer } from '../util/timer.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 部署项目窗口加载 ********************************
 

@@ -2,7 +2,7 @@
 
 import { Local } from '../local.js'
 import { Path } from '../../file-system/path.js'
-import { FSP } from '../../file-system/file-system.js'
+import { FS, FSP } from '../../file-system/file-system.js'
 import { Editor } from '../../editor/editor.js'
 import { Log } from '../../log/log.js'
 

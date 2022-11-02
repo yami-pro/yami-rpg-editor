@@ -1,5 +1,8 @@
 'use strict'
 
+import { Inspector } from '../inspector/inspector.js'
+import { IfCondition } from '../command/if-condition.js'
+
 // ******************************** 条件列表接口类 ********************************
 
 class ConditionListInterface {

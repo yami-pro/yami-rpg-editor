@@ -8,6 +8,7 @@ import { Matrix } from '../webgl/matrix.js'
 import { GL } from '../webgl/gl.js'
 import { History } from '../history/history.js'
 import { Easing } from '../data/easing.js'
+import { Inspector } from '../inspector/inspector.js'
 
 // ******************************** UI 窗口加载 ********************************
 

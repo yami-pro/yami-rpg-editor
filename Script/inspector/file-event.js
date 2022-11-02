@@ -1,6 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
+import { EventEditor } from '../command/event-editor.js'
 
 // ******************************** 文件 - 事件页面 ********************************
 

@@ -1,5 +1,7 @@
 'use strict'
 
+import { FS, FSP } from '../file-system/file-system.js'
+
 // ******************************** 文件项目 ********************************
 
 class FileItem {

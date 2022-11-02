@@ -1,6 +1,7 @@
 'use strict'
 
 import { IfBranch } from '../if-branch.js'
+import { IfCondition } from '../if-condition.js'
 
 // ******************************** 条件分支 - 分支窗口加载 ********************************
 

@@ -2,6 +2,7 @@
 
 import { Timer } from '../util/timer.js'
 import { TextBox } from './text-box.js'
+import { FS, FSP } from '../file-system/file-system.js'
 
 // ******************************** 文件身体面板 ********************************
 

@@ -3,6 +3,7 @@
 import { Sprite } from './sprite.js'
 import { Palette } from '../palette/palette.js'
 import { Timer } from '../util/timer.js'
+import { Inspector } from '../inspector/inspector.js'
 
 // ******************************** 精灵窗口加载 ********************************
 

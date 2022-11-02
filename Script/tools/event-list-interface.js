@@ -1,5 +1,8 @@
 'use strict'
 
+import { Inspector } from '../inspector/inspector.js'
+import { EventEditor } from '../command/event-editor.js'
+
 // ******************************** 事件列表接口类 ********************************
 
 class EventListInterface {

@@ -1,5 +1,7 @@
 'use strict'
 
+import { ParamHistory } from '../history/param-history.js'
+
 // ******************************** 参数列表 ********************************
 
 class ParamList extends HTMLElement {

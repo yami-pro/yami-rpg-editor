@@ -1,5 +1,9 @@
 'use strict'
 
+import { Inspector } from '../inspector/inspector.js'
+import { EventEditor } from '../command/event-editor.js'
+import { FS, FSP } from '../file-system/file-system.js'
+
 // ******************************** 项目浏览器 ********************************
 
 const Browser = $('#project-browser')
