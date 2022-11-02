@@ -1,7 +1,7 @@
 'use strict'
 
 import { PresetObject } from '../preset-object.js'
-import { Scene } from '../../scene/index.js'
+import { Scene } from '../../scene/scene.js'
 
 // ******************************** 场景预设对象窗口加载 ********************************
 

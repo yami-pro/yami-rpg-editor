@@ -1,7 +1,7 @@
 'use strict'
 
-import { Timer } from '../util/index.js'
-import { TextHistory } from '../history/index.js'
+import { Timer } from '../util/timer.js'
+import { TextHistory } from '../history/text-history.js'
 
 // ******************************** 文本区域 ********************************
 

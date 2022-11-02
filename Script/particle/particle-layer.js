@@ -1,6 +1,6 @@
 'use strict'
 
-import { GL } from '../webgl/index.js'
+import { GL } from '../webgl/gl.js'
 import { Particle } from './particle.js'
 
 // ******************************** 粒子图层类 ********************************

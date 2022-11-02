@@ -1,6 +1,6 @@
 'use strict'
 
-import { TextHistory } from '../history/index.js'
+import { TextHistory } from '../history/text-history.js'
 
 // ******************************** 文本框 ********************************
 

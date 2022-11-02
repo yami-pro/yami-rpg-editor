@@ -1,7 +1,7 @@
 'use strict'
 
 import { PluginManager } from './plugin.js'
-import { Easing } from '../data/index.js'
+import { Easing } from '../data/easing.js'
 
 // ******************************** 插件窗口加载 ********************************
 

@@ -1,12 +1,10 @@
 'use strict'
 
 import { Local } from '../local.js'
-import {
-  Path,
-  FSP
-} from '../../file-system/index.js'
+import { Path } from '../../file-system/path.js'
+import { FSP } from '../../file-system/file-system.js'
 import { Editor } from '../../editor/editor.js'
-import { Log } from '../../log/index.js'
+import { Log } from '../../log/log.js'
 
 // ******************************** 本地化对象加载 ********************************
 

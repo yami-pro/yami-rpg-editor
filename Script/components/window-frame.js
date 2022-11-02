@@ -1,6 +1,6 @@
 'use strict'
 
-import { Window } from '../tools/index.js'
+import { Window } from '../tools/window.js'
 
 // ******************************** 窗口框架 ********************************
 

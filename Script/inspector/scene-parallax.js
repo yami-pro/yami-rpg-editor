@@ -1,7 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
-import { Scene } from '../scene/index.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 场景 - 视差图页面 ********************************
 

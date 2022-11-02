@@ -1,7 +1,7 @@
 'use strict'
 
 import { Sprite } from './sprite.js'
-import { Palette } from '../palette/index.js'
+import { Palette } from '../palette/palette.js'
 
 // ******************************** 精灵窗口加载 ********************************
 

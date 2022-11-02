@@ -1,7 +1,7 @@
 'use strict'
 
-import { NumberHistory } from '../history/index.js'
-import { measureText } from '../util/index.js'
+import { NumberHistory } from '../history/number-history.js'
+import { measureText } from '../util/util.js'
 
 // ******************************** 数字框 ********************************
 

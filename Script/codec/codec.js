@@ -1,6 +1,6 @@
 'use strict'
 
-import { Scene } from '../scene/index.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 编解码器 ********************************
 // undefined按位运算等价于0，因此不会产生NaN

@@ -1,7 +1,7 @@
 'use strict'
 
 import { TextBox } from './text-box.js'
-import { Timer } from '../util/index.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 节点列表 ********************************
 

@@ -3,7 +3,7 @@
 import { Title } from './title.js'
 import { NewProject } from './new-project.js'
 import { Deployment } from './deployment.js'
-import { Scene } from '../scene/index.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 标题栏对象加载 ********************************
 

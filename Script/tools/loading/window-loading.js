@@ -1,15 +1,13 @@
 'use strict'
 
 import { Window } from '../window.js'
-import { measureText } from '../../util/index.js'
-import {
-  Title,
-  Menubar
-} from '../../title/index.js'
-import { Scene } from '../../scene/index.js'
+import { measureText } from '../../util/util.js'
+import { Title } from '../../title/title.js'
+import { Menubar } from '../../title/title.js'
+import { Scene } from '../../scene/scene.js'
 import { Layout } from '../../layout/layout.js'
-import { UI } from '../../ui/index.js'
-import { Particle } from '../../particle/index.js'
+import { UI } from '../../ui/ui.js'
+import { Particle } from '../../particle/particle.js'
 
 // ******************************** 窗口对象加载 ********************************
 

@@ -1,21 +1,17 @@
 'use strict'
 
 import { Editor } from './editor.js'
-import {
-  Title,
-  Menubar,
-  Home
-} from '../title/index.js'
-import { AudioManager } from '../audio/index.js'
-import {
-  Local,
-  Window
-} from '../tools/index.js'
-import { Data } from '../data/index.js'
-import { Log } from '../log/index.js'
-import { Path } from '../file-system/index.js'
-import { Layout } from '../layout/index.js'
-import { Scene } from '../scene/index.js'
+import { Title } from '../title/title.js'
+import { Menubar } from '../title/menu-bar.js'
+import { Home } from '../title/home.js'
+import { AudioManager } from '../audio/audio-manager.js'
+import { Local } from '../tools/local.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
+import { Log } from '../log/log.js'
+import { Path } from '../file-system/path.js'
+import { Layout } from '../layout/layout.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 编辑器对象加载 ********************************
 

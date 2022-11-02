@@ -1,6 +1,6 @@
 'use strict'
 
-import { Scene } from '../scene/index.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 瓦片地图快捷方式列表类 ********************************
 

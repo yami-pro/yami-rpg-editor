@@ -1,8 +1,8 @@
 'use strict'
 
 import { AutoTile } from './auto-tile.js'
-import { Easing } from '../data/index.js'
-import { Scene } from '../scene/index.js'
+import { Easing } from '../data/easing.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 自动图块加载 ********************************
 

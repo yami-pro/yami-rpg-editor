@@ -1,7 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
-import { UI } from '../ui/index.js'
+import { UI } from '../ui/ui.js'
 
 // ******************************** 元素 - 图像页面 ********************************
 

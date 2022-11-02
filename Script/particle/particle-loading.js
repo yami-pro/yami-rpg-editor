@@ -1,7 +1,7 @@
 'use strict'
 
 import { Particle } from './particle.js'
-import { Scene } from '../scene/index.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 粒子窗口加载 ********************************
 

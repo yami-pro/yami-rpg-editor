@@ -1,9 +1,9 @@
 'use strict'
 
 import { Scene } from './scene.js'
-import { Timer } from '../util/index.js'
-import { File } from '../file-system/index.js'
-import { ImageTexture } from '../webgl/index.js'
+import { Timer } from '../util/timer.js'
+import { File } from '../file-system/file.js'
+import { ImageTexture } from '../webgl/image-texture.js'
 
 // ******************************** 场景窗口加载 ********************************
 

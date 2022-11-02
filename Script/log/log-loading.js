@@ -1,7 +1,7 @@
 'use strict'
 
 import { Log } from './log.js'
-import { Timer } from '../util/index.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 日志窗口加载 ********************************
 

@@ -1,7 +1,7 @@
 'use strict'
 
 import { Layout } from './layout.js'
-import { Scene } from '../scene/index.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 布局对象加载 ********************************
 

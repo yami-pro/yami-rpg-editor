@@ -1,7 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
-import { Scene } from '../scene/index.js'
+import { Scene } from '../scene/scene.js'
 
 // ******************************** 文件 - 角色页面 ********************************
 

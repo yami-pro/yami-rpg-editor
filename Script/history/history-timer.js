@@ -1,6 +1,6 @@
 'use strict'
 
-import { Timer } from '../util/index.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 历史操作计时器 ********************************
 

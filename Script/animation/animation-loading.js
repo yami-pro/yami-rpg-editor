@@ -2,8 +2,8 @@
 
 import { Animation } from './animation.js'
 import { AnimationPlayer } from './animation-player.js'
-import { Scene } from '../scene/index.js'
-import { Timer } from '../util/index.js'
+import { Scene } from '../scene/scene.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 动画窗口加载 ********************************
 

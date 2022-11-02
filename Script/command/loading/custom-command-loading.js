@@ -1,8 +1,8 @@
 'use strict'
 
 import { CustomCommand } from '../custom-command.js'
-import { PluginManager } from '../../plugin/index.js'
-import { Easing } from '../../data/index.js'
+import { PluginManager } from '../../plugin/plugin.js'
+import { Easing } from '../../data/easing.js'
 
 // ******************************** 自定义指令窗口加载 ********************************
 

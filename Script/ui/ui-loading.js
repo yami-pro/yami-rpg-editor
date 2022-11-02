@@ -1,8 +1,8 @@
 'use strict'
 
 import { UI } from './ui.js'
-import { Scene } from '../scene/index.js'
-import { Timer } from '../util/index.js'
+import { Scene } from '../scene/scene.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** UI 窗口加载 ********************************
 

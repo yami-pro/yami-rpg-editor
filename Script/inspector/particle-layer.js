@@ -1,7 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
-import { Particle } from '../particle/index.js'
+import { Particle } from '../particle/particle.js'
 
 // ******************************** 粒子 - 图层页面 ********************************
 

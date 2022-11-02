@@ -1,6 +1,6 @@
 'use strict'
 
-import { Timer } from '../util/index.js'
+import { Timer } from '../util/timer.js'
 import { TextBox } from './text-box.js'
 
 // ******************************** 文件身体面板 ********************************

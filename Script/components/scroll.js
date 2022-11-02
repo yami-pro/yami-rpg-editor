@@ -1,6 +1,6 @@
 'use strict'
 
-import { Timer } from '../util/index.js'
+import { Timer } from '../util/timer.js'
 
 // ******************************** 滚动侦听器 ********************************
 

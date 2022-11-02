@@ -1,6 +1,6 @@
 'use strict'
 
-import { FileItem } from '../file-system/index.js'
+import { FileItem } from '../file-system/file-item.js'
 
 // ******************************** 元数据类 ********************************
 
