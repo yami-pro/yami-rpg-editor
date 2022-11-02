@@ -1,5 +1,6 @@
 'use strict'
 
+import { UI } from './ui.js'
 import { Scene } from '../scene/index.js'
 import { Timer } from '../util/index.js'
 

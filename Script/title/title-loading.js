@@ -1,5 +1,6 @@
 'use strict'
 
+import { Title } from './title.js'
 import { NewProject } from './new-project.js'
 import { Deployment } from './deployment.js'
 

@@ -1,5 +1,7 @@
 'use strict'
 
+import { Matrix } from '../webgl/index.js'
+
 // ******************************** 动画播放器类 ********************************
 
 class AnimationPlayer {
