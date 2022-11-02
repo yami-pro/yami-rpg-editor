@@ -15,6 +15,7 @@ import { Data } from '../data/index.js'
 import { Log } from '../log/log.js'
 import { Path } from '../file-system/index.js'
 import { Layout } from '../layout/layout.js'
+import { Scene } from '../scene/index.js'
 
 // ******************************** 编辑器对象 ********************************
 

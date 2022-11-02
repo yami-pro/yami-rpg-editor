@@ -1,5 +1,7 @@
 'use strict'
 
+import './scene-loading.js'
+
 export { Scene } from './scene.js'
 export { Light } from './light.js'
 export { ObjectFolder } from './object-folder.js'
