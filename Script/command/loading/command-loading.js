@@ -19,8 +19,22 @@ import { AncestorGetter } from '../ancestor-getter.js'
 import { NumberOperand } from '../number-operand.js'
 import { IfBranch } from '../if-branch.js'
 import { IfCondition } from '../if-condition.js'
+import { SwitchBranch } from '../switch-branch.js'
+import { SwitchCondition } from '../switch-condition.js'
+import { ImageProperty } from '../image-property.js'
+import { TextProperty } from '../text-property.js'
+import { TextBoxProperty } from '../text-box-property.js'
+import { DialogBoxProperty } from '../dialog-box-property.js'
+import { ProgressBarProperty } from '../progress-bar-property.js'
+import { TransformProperty } from '../transform-property.js'
+import { LightProperty } from '../light-property.js'
 
+import { PresetElement } from '../../tools/preset-element.js'
 import { Scene } from '../../scene/scene.js'
+import { File } from '../../file-system/file.js'
+import { Window } from '../../tools/window.js'
+import { Data } from '../../data/data.js'
+import { NodeList } from '../../components/node-list.js'
 
 
 // ******************************** 指令对象加载 ********************************

@@ -3,6 +3,7 @@
 import { GL } from '../webgl/gl.js'
 import { Particle } from './particle.js'
 import { Easing } from '../data/easing.js'
+import { ImageTexture } from '../webgl/image-texture.js'
 
 // ******************************** 粒子图层类 ********************************
 

@@ -1,6 +1,7 @@
 'use strict'
 
 import { UI } from './ui.js'
+import { GL } from '../webgl/gl.js'
 
 // ******************************** 根元素 ********************************
 

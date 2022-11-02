@@ -1,5 +1,7 @@
 'use strict'
 
+import { Window } from '../tools/window.js'
+
 // ******************************** 移动场景 ********************************
 
 const SceneShift = {

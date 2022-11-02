@@ -2,6 +2,7 @@
 
 import { Inspector } from './inspector.js'
 import { EventEditor } from '../command/event-editor.js'
+import { File } from '../file-system/file.js'
 
 // ******************************** 文件 - 事件页面 ********************************
 

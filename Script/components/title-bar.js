@@ -1,5 +1,7 @@
 'use strict'
 
+import { Window } from '../tools/window.js'
+
 // ******************************** 标题栏 ********************************
 
 class TitleBar extends HTMLElement {

@@ -2,6 +2,7 @@
 
 import { SelectBox } from '../components/select-box.js'
 import { Inspector } from '../inspector/inspector.js'
+import { Window } from '../tools/window.js'
 
 // ******************************** 属性列表接口 ********************************
 

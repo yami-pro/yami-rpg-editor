@@ -2,6 +2,8 @@
 
 import { AncestorGetter } from '../ancestor-getter.js'
 import { TextSuggestion } from '../text-suggestion.js'
+import { PresetElement } from '../../tools/preset-element.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 祖先元素访问器窗口加载 ********************************
 

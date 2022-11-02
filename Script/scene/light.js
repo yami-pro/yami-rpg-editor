@@ -1,6 +1,7 @@
 'use strict'
 
 import { Scene } from '../scene/scene.js'
+import { GL } from '../webgl/gl.js'
 
 // ******************************** 光源类 ********************************
 

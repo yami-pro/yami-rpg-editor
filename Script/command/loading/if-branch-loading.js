@@ -2,6 +2,7 @@
 
 import { IfBranch } from '../if-branch.js'
 import { IfCondition } from '../if-condition.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 条件分支 - 分支窗口加载 ********************************
 

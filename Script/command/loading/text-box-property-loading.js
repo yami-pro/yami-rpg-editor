@@ -1,6 +1,7 @@
 'use strict'
 
 import { TextBoxProperty } from '../text-box-property.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 设置文本框 - 属性窗口加载 ********************************
 

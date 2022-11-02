@@ -1,6 +1,10 @@
 'use strict'
 
 import { Attribute } from './attribute.js'
+import { History } from '../history/history.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 属性窗口加载 ********************************
 

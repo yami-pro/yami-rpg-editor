@@ -1,6 +1,8 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
+import { File } from '../file-system/file.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 文件 - 脚本页面 ********************************
 

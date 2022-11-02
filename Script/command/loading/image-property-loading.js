@@ -1,6 +1,7 @@
 'use strict'
 
 import { ImageProperty } from '../image-property.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 设置图像 - 属性窗口加载 ********************************
 

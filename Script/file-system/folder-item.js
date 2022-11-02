@@ -1,6 +1,11 @@
 'use strict'
 
-import { FS, FSP } from '../file-system/file-system.js'
+import { FS, FSP } from './file-system.js'
+import { File } from './file.js'
+import { Path } from './path.js'
+import { FileItem } from './file-item.js'
+import { Directory } from './directory.js'
+import { Meta } from '../data/meta.js'
 
 // ******************************** 文件夹项目 ********************************
 
@@ -122,7 +127,7 @@ class FolderItem {
       }
       const meta = item.meta
       if (meta !== null) {
-        meta.versionId = Meta.versionId
+        meta.versionId = Meta.meta.versionId
       }
       children[i] = item
     }

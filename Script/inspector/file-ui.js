@@ -2,6 +2,7 @@
 
 import { Inspector } from './inspector.js'
 import { UI } from '../ui/ui.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 文件 - 界面页面 ********************************
 

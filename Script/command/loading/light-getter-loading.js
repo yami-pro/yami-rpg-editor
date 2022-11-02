@@ -2,6 +2,7 @@
 
 import { LightGetter } from '../light-getter.js'
 import { TextSuggestion } from '../text-suggestion.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 光源访问器窗口加载 ********************************
 

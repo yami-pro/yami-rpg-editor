@@ -1,5 +1,7 @@
 'use strict'
 
+import { Window } from '../tools/window.js'
+
 // ******************************** 选择列表 ********************************
 
 class SelectList extends HTMLElement {

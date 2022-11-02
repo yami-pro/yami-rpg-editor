@@ -1,6 +1,7 @@
 'use strict'
 
 import { IfCondition } from '../if-condition.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 条件分支 - 条件窗口加载 ********************************
 

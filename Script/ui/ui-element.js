@@ -2,6 +2,7 @@
 
 import { UI } from './ui.js'
 import { Matrix } from '../webgl/matrix.js'
+import { GL } from '../webgl/gl.js'
 
 // ******************************** 元素基类 ********************************
 

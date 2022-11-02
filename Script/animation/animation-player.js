@@ -3,6 +3,9 @@
 import { Matrix } from '../webgl/matrix.js'
 import { Scene } from '../scene/scene.js'
 import { Easing } from '../data/easing.js'
+import { GL } from '../webgl/gl.js'
+import { ImageTexture } from '../webgl/image-texture.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 动画播放器类 ********************************
 

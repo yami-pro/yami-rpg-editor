@@ -1,5 +1,7 @@
 'use strict'
 
+import { PresetElement } from '../tools/preset-element.js'
+
 // ******************************** 自定义框 ********************************
 
 class CustomBox extends HTMLElement {

@@ -1,6 +1,7 @@
 'use strict'
 
 import { TriggerGetter } from '../trigger-getter.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 触发器访问器窗口加载 ********************************
 

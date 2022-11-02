@@ -1,6 +1,8 @@
 'use strict'
 
 import { Inspector } from '../inspector/inspector.js'
+import { File } from '../file-system/file.js'
+import { NodeList } from '../components/node-list.js'
 
 // ******************************** 脚本列表接口 ********************************
 

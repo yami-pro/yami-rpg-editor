@@ -2,6 +2,7 @@
 
 import { UI } from './ui.js'
 import { Timer } from '../util/timer.js'
+import { GL } from '../webgl/gl.js'
 
 // ******************************** 窗口元素 ********************************
 

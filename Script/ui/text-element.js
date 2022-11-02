@@ -1,6 +1,8 @@
 'use strict'
 
 import { UI } from './ui.js'
+import { GL } from '../webgl/gl.js'
+import { INTRGBA } from '../util/util.js'
 
 // ******************************** 文本元素 ********************************
 

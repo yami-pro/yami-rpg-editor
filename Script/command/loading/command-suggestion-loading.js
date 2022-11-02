@@ -2,6 +2,7 @@
 
 import { CommandSuggestion } from '../command-suggestion.js'
 import { FS, FSP } from '../../file-system/file-system.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 指令提示框加载 ********************************
 

@@ -1,6 +1,8 @@
 'use strict'
 
 import { Scene } from '../scene/scene.js'
+import { GL } from '../webgl/gl.js'
+import { ImageTexture } from '../webgl/image-texture.js'
 
 // ******************************** 视差图类 ********************************
 

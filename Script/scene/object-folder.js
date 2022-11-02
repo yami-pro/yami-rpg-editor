@@ -1,5 +1,7 @@
 'use strict'
 
+import { Window } from '../tools/window.js'
+
 // ******************************** 默认对象文件夹 ********************************
 
 const ObjectFolder = {

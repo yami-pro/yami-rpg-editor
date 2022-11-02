@@ -1,6 +1,7 @@
 'use strict'
 
 import { Scene } from './scene.js'
+import { ImageTexture } from '../webgl/image-texture.js'
 
 // ******************************** 纹理集合类 ********************************
 

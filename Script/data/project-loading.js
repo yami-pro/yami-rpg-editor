@@ -2,6 +2,10 @@
 
 import { Project } from './project.js'
 import { Inspector } from '../inspector/inspector.js'
+import { AttributeListInterface } from '../tools/attribute-list-interface.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 项目设置窗口加载 ********************************
 

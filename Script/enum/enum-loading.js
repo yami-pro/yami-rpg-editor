@@ -1,6 +1,10 @@
 'use strict'
 
 import { Enum } from './enum.js'
+import { History } from '../history/history.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 枚举窗口加载 ********************************
 

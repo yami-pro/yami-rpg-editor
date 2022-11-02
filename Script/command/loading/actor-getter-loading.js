@@ -2,6 +2,7 @@
 
 import { ActorGetter } from '../actor-getter.js'
 import { TextSuggestion } from '../text-suggestion.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 角色访问器窗口加载 ********************************
 

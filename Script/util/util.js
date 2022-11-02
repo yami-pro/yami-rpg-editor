@@ -130,19 +130,6 @@ const measureText = function IIFE() {
   window.on('dragenter', dragenter)
 }
 
-// CSS 选择器
-const $ = function IIFE() {
-  const regexp = /^#(\w|-)+$/
-  return function (selector) {
-    if (regexp.test(selector)) {
-      return document.querySelector(selector)
-    } else {
-      return document.querySelectorAll(selector)
-    }
-  }
-}()
-window.$ = $
-
 // 获取元素读取器
 const getElementReader = function (prefix) {
   return function (suffix) {
@@ -188,4 +175,7 @@ window.on('resize', function IIFE() {
   }
 }())
 
-export { measureText }
+export {
+  measureText,
+  INTRGBA
+}

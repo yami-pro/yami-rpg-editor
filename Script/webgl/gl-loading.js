@@ -6,6 +6,8 @@ import { Texture } from './texture.js'
 import { TextureManager } from './texture-manager.js'
 import { BaseTexture } from './base-texture.js'
 import { BatchRenderer } from './batch-renderer.js'
+import { File } from '../file-system/file.js'
+import { Data } from '../data/data.js'
 
 // ******************************** WebGL方法加载 ********************************
 

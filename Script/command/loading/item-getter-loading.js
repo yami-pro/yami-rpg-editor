@@ -1,6 +1,7 @@
 'use strict'
 
 import { ItemGetter } from '../item-getter.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 物品访问器窗口加载 ********************************
 

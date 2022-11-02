@@ -2,6 +2,11 @@
 
 import { PluginManager } from './plugin.js'
 import { Easing } from '../data/easing.js'
+import { ScriptListInterface } from '../tools/script-list-interface.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
+import { NodeList } from '../components/node-list.js'
 
 // ******************************** 插件窗口加载 ********************************
 

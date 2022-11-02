@@ -2,6 +2,12 @@
 
 import { Directory } from './directory.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { FolderItem } from './folder-item.js'
+import { Path } from '../file-system/path.js'
+import { Meta } from '../data/meta.js'
+import { Log } from '../log/log.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 目录对象加载 ********************************
 
@@ -18,7 +24,7 @@ Directory.read = function () {
     if (this.symbol === symbol) {
       this.symbol = null
       this.assets = assets
-      Meta.versionId++
+      Meta.meta.versionId++
       return assets.update().then(
         async ({promises}) => {
           this.createInoMap()
@@ -54,7 +60,7 @@ Directory.update = function () {
   const {assets} = this
   if (assets !== null &&
     this.updating === null) {
-    Meta.versionId++
+    Meta.meta.versionId++
     this.updating = assets.update().then(
       async ({changed, promises}) => {
         if (this.assets !== assets) {

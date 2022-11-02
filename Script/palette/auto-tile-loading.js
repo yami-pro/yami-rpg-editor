@@ -6,6 +6,10 @@ import { Scene } from '../scene/scene.js'
 import { Palette } from './palette.js'
 import { FrameGenerator } from './frame-generator.js'
 import { TileFrame } from './tile-frame.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
+import { NodeList } from '../components/node-list.js'
 
 // ******************************** 自动图块加载 ********************************
 

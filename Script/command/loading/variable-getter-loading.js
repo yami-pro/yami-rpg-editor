@@ -1,6 +1,8 @@
 'use strict'
 
 import { VariableGetter } from '../variable-getter.js'
+import { Window } from '../../tools/window.js'
+import { Data } from '../../data/data.js'
 
 // ******************************** 变量访问器窗口加载 ********************************
 

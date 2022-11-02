@@ -2,6 +2,7 @@
 
 import { SwitchCondition } from '../switch-condition.js'
 import { IfCondition } from '../if-condition.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 匹配 - 条件窗口加载 ********************************
 

@@ -1,6 +1,7 @@
 'use strict'
 
 import { Inspector } from './inspector.js'
+import { File } from '../file-system/file.js'
 
 // ******************************** 文件 - 图像页面 ********************************
 

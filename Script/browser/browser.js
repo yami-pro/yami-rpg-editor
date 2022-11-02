@@ -3,6 +3,10 @@
 import { Inspector } from '../inspector/inspector.js'
 import { EventEditor } from '../command/event-editor.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { File } from '../file-system/file.js'
+import { FolderItem } from '../file-system/folder-item.js'
+import { Path } from '../file-system/path.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 项目浏览器 ********************************
 

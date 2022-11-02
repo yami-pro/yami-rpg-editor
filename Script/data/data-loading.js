@@ -2,6 +2,11 @@
 
 import { Data } from './data.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { Manifest } from './manifest.js'
+import { File } from '../file-system/file.js'
+import { AttributeContext } from '../attribute/attribute-context.js'
+import { EnumerationContext } from '../enum/enumeration-context.js'
+import { Log } from '../log/log.js'
 
 // ******************************** 数据对象加载 ********************************
 

@@ -1,6 +1,7 @@
 'use strict'
 
 import { NumberOperand } from '../number-operand.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 设置数值 - 操作数窗口加载 ********************************
 

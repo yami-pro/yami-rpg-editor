@@ -1,6 +1,7 @@
 'use strict'
 
 import { LightProperty } from '../light-property.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 移动光源 - 属性窗口加载 ********************************
 

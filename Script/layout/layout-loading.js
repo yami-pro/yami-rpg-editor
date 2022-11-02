@@ -9,6 +9,7 @@ import { Palette } from '../palette/palette.js'
 import { File } from '../file-system/file.js'
 
 import { Inspector } from '../inspector/inspector.js'
+import { GL } from '../webgl/gl.js'
 
 // ******************************** 布局对象加载 ********************************
 

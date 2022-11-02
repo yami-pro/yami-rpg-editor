@@ -2,6 +2,8 @@
 
 import { Home } from './home.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { File } from '../file-system/file.js'
+import { Path } from '../file-system/path.js'
 
 // ******************************** 主页面对象加载 ********************************
 

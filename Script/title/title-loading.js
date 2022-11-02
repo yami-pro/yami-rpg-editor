@@ -6,6 +6,10 @@ import { Deployment } from './deployment.js'
 import { Scene } from '../scene/scene.js'
 import { UI } from '../ui/ui.js'
 import { AudioManager } from '../audio/audio-manager.js'
+import { File } from '../file-system/file.js'
+import { Path } from '../file-system/path.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 标题栏对象加载 ********************************
 

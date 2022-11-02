@@ -2,6 +2,7 @@
 
 import { Inspector } from './inspector.js'
 import { Particle } from '../particle/particle.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 粒子 - 图层页面 ********************************
 

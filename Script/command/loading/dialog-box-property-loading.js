@@ -1,6 +1,7 @@
 'use strict'
 
 import { DialogBoxProperty } from '../dialog-box-property.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 设置对话框 - 属性窗口加载 ********************************
 

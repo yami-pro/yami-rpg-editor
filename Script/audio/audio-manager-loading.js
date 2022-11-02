@@ -2,6 +2,7 @@
 
 import { AudioManager } from './audio-manager.js'
 import { SinglePlayer } from './single-player.js'
+import { File } from '../file-system/file.js'
 
 // ******************************** 音频管理器加载 ********************************
 

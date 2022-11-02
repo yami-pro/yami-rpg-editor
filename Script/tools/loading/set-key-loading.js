@@ -1,6 +1,7 @@
 'use strict'
 
 import { SetKey } from '../set-key.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 设置键窗口加载 ********************************
 

@@ -1,6 +1,7 @@
 'use strict'
 
 import { Scene } from './scene.js'
+import './point.js'
 import { ObjectFolder } from './object-folder.js'
 import { SceneShift } from './scene-shift.js'
 import { TilemapShortcuts } from './tilemap-shortcuts.js'
@@ -14,6 +15,11 @@ import { GL } from '../webgl/gl.js'
 import { History } from '../history/history.js'
 import { Easing } from '../data/easing.js'
 import { Inspector } from '../inspector/inspector.js'
+import { StageColor } from '../util/stage-color.js'
+import { Log } from '../log/log.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
+import { INTRGBA } from '../util/util.js'
 
 // ******************************** 场景窗口加载 ********************************
 

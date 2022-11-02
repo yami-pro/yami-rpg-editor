@@ -1,5 +1,10 @@
 'use strict'
 
+import { File } from '../file-system/file.js'
+import { FolderItem } from '../file-system/folder-item.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
+
 // ******************************** 资源选择器 ********************************
 
 const Selector = $('#selector-browser')

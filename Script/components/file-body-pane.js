@@ -3,6 +3,11 @@
 import { Timer } from '../util/timer.js'
 import { TextBox } from './text-box.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { File } from '../file-system/file.js'
+import { FolderItem } from '../file-system/folder-item.js'
+import { Path } from '../file-system/path.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 文件身体面板 ********************************
 

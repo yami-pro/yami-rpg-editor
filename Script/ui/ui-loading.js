@@ -9,6 +9,10 @@ import { GL } from '../webgl/gl.js'
 import { History } from '../history/history.js'
 import { Easing } from '../data/easing.js'
 import { Inspector } from '../inspector/inspector.js'
+import { StageColor } from '../util/stage-color.js'
+import { Window } from '../tools/window.js'
+import { ImageTexture } from '../webgl/image-texture.js'
+import { Data } from '../data/data.js'
 
 // ******************************** UI 窗口加载 ********************************
 

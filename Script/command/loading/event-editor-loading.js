@@ -1,6 +1,7 @@
 'use strict'
 
 import { EventEditor } from '../event-editor.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 事件编辑器加载 ********************************
 

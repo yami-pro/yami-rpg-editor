@@ -1,6 +1,7 @@
 'use strict'
 
 import { SwitchBranch } from '../switch-branch.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 匹配 - 分支窗口加载 ********************************
 

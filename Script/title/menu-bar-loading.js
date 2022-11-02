@@ -5,6 +5,11 @@ import { Scene } from '../scene/scene.js'
 import { UI } from '../ui/ui.js'
 import { Easing } from '../data/easing.js'
 import { Palette } from '../palette/palette.js'
+import { GL } from '../webgl/gl.js'
+import { File } from '../file-system/file.js'
+import { Path } from '../file-system/path.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 菜单栏对象加载 ********************************
 

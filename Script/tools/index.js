@@ -11,6 +11,7 @@ import './loading/set-key-loading.js'
 import './loading/set-quantity-loading.js'
 import './loading/window-loading.js'
 import './loading/zoom-loading.js'
+import './loading/preset-element-loading.js'
 
 export { ArrayList } from './array-list.js'
 export { AttributeListInterface } from './attribute-list-interface.js'

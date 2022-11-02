@@ -1,6 +1,8 @@
 'use strict'
 
 import { GL } from './gl.js'
+import { File } from '../file-system/file.js'
+import { ImageTexture } from '../webgl/image-texture.js'
 
 // ******************************** 纹理管理器类 ********************************
 

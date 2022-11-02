@@ -1,6 +1,7 @@
 'use strict'
 
 import { TransformProperty } from '../transform-property.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 移动元素 - 属性窗口加载 ********************************
 

@@ -2,6 +2,9 @@
 
 import { Color } from '../color.js'
 import { UI } from '../../ui/ui.js'
+import { File } from '../../file-system/file.js'
+import { Window } from '../../tools/window.js'
+import { Data } from '../../data/data.js'
 
 // ******************************** 拾色器窗口加载 ********************************
 

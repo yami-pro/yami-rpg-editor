@@ -1,6 +1,8 @@
 'use strict'
 
 import { UI } from './ui.js'
+import { GL } from '../webgl/gl.js'
+import { ImageTexture } from '../webgl/image-texture.js'
 
 // ******************************** 进度条元素 ********************************
 

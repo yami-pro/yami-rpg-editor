@@ -2,6 +2,7 @@
 
 import { Inspector } from './inspector.js'
 import { ParamHistory } from '../history/param-history.js'
+import { Window } from '../tools/window.js'
 
 // ******************************** 文件 - 动画页面 ********************************
 

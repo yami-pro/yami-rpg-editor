@@ -2,6 +2,8 @@
 
 import { Inspector } from '../inspector/inspector.js'
 import { IfCondition } from '../command/if-condition.js'
+import { Window } from '../tools/window.js'
+import { NodeList } from '../components/node-list.js'
 
 // ******************************** 条件列表接口类 ********************************
 

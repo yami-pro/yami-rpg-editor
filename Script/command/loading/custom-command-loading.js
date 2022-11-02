@@ -3,6 +3,11 @@
 import { CustomCommand } from '../custom-command.js'
 import { PluginManager } from '../../plugin/plugin.js'
 import { Easing } from '../../data/easing.js'
+import { ScriptListInterface } from '../../tools/script-list-interface.js'
+import { File } from '../../file-system/file.js'
+import { Window } from '../../tools/window.js'
+import { Data } from '../../data/data.js'
+import { NodeList } from '../../components/node-list.js'
 
 // ******************************** 自定义指令窗口加载 ********************************
 

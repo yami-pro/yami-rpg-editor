@@ -1,6 +1,7 @@
 'use strict'
 
 import { PositionGetter } from '../position-getter.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 位置访问器窗口加载 ********************************
 

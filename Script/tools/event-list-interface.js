@@ -2,6 +2,7 @@
 
 import { Inspector } from '../inspector/inspector.js'
 import { EventEditor } from '../command/event-editor.js'
+import { NodeList } from '../components/node-list.js'
 
 // ******************************** 事件列表接口类 ********************************
 

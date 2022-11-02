@@ -1,6 +1,7 @@
 'use strict'
 
 import { Scene } from '../scene/scene.js'
+import { GL } from '../webgl/gl.js'
 
 // ******************************** 编解码器 ********************************
 // undefined按位运算等价于0，因此不会产生NaN

@@ -2,6 +2,10 @@
 
 import { Team } from './team.js'
 import { Easing } from './easing.js'
+import { GL } from '../webgl/gl.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 队伍窗口加载 ********************************
 

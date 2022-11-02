@@ -3,6 +3,7 @@
 import { Curve } from './curve.js'
 import { Easing } from '../data/easing.js'
 import { Timer } from '../util/timer.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 曲线窗口 ********************************
 

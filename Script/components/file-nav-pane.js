@@ -3,6 +3,8 @@
 import { Timer } from '../util/timer.js'
 import { TextBox } from './text-box.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { File } from '../file-system/file.js'
+import { Path } from '../file-system/path.js'
 
 // ******************************** 文件导航面板 ********************************
 

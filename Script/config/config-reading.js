@@ -1,5 +1,8 @@
 'use strict'
 
+import { File } from '../file-system/file.js'
+import { Path } from '../file-system/path.js'
+
 // ******************************** 读取配置文件 ********************************
 
 if (window.process) {

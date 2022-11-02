@@ -1,6 +1,7 @@
 'use strict'
 
 import { AudioManager } from './audio-manager.js'
+import { File } from '../file-system/file.js'
 
 // ******************************** 单源播放器类 ********************************
 

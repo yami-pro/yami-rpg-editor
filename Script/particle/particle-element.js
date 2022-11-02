@@ -1,6 +1,7 @@
 'use strict'
 
 import { Particle } from './particle.js'
+import { GL } from '../webgl/gl.js'
 
 // ******************************** 粒子元素类 ********************************
 

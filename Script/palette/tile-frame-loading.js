@@ -3,6 +3,7 @@
 import { TileFrame } from './tile-frame.js'
 import { Palette } from './palette.js'
 import { AutoTile } from './auto-tile.js'
+import { Window } from '../tools/window.js'
 
 // ******************************** 图块帧索引窗口加载 ********************************
 

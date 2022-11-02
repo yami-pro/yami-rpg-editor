@@ -1,5 +1,8 @@
 'use strict'
 
+import { Meta } from './meta.js'
+import { Data } from '../data/data.js'
+
 // ******************************** 元数据清单类 ********************************
 
 class Manifest {
@@ -39,7 +42,7 @@ class Manifest {
     const {metaList} = this
     const {guidMap} = this
     const {pathMap} = this
-    const {versionId} = Meta
+    const {versionId} = Meta.meta
     let i = metaList.length
     while (--i >= 0) {
       const meta = metaList[i]

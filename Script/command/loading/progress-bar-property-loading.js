@@ -1,6 +1,7 @@
 'use strict'
 
 import { ProgressBarProperty } from '../progress-bar-property.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 设置进度条 - 属性窗口加载 ********************************
 

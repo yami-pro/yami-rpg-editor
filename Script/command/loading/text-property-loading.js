@@ -1,6 +1,7 @@
 'use strict'
 
 import { TextProperty } from '../text-property.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 设置文本 - 属性窗口加载 ********************************
 

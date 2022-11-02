@@ -1,5 +1,18 @@
 'use strict'
 
+// CSS 选择器
+const $ = function IIFE() {
+  const regexp = /^#(\w|-)+$/
+  return function (selector) {
+    if (regexp.test(selector)) {
+      return document.querySelector(selector)
+    } else {
+      return document.querySelectorAll(selector)
+    }
+  }
+}()
+window.$ = $
+
 // ******************************** CSS静态方法 ********************************
 
 // 编码字符串为URL

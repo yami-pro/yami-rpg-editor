@@ -1,6 +1,7 @@
 'use strict'
 
 import { SkillGetter } from '../skill-getter.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 技能访问器窗口加载 ********************************
 

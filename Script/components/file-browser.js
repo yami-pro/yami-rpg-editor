@@ -1,5 +1,9 @@
 'use strict'
 
+import { File } from '../file-system/file.js'
+import { FolderItem } from '../file-system/folder-item.js'
+import { Path } from '../file-system/path.js'
+
 // ******************************** 文件浏览器 ********************************
 
 class FileBrowser extends HTMLElement {

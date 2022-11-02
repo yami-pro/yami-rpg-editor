@@ -1,6 +1,13 @@
 'use strict'
 
-import { FS, FSP } from '../file-system/file-system.js'
+
+import { FS, FSP } from './file-system.js'
+import { Directory } from './directory.js'
+import { Path } from './path.js'
+import { GL } from '../webgl/gl.js'
+import { Meta } from '../data/meta.js'
+import { Log } from '../log/log.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 文件项目 ********************************
 
@@ -81,7 +88,7 @@ class FileItem {
         throw new Error(`GUID already exists: ${guid}`)
       }
     }
-    this.meta = new Meta(this, guid)
+    this.meta = new Meta.meta(this, guid)
     this.meta.mtimeMs = stats.mtimeMs
   }
 

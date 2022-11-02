@@ -1,6 +1,7 @@
 'use strict'
 
 import { StateGetter } from '../state-getter.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 状态访问器窗口加载 ********************************
 

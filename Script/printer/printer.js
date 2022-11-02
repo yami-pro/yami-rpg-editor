@@ -1,6 +1,10 @@
 'use strict'
 
 import { UI } from '../ui/ui.js'
+import { GL } from '../webgl/gl.js'
+import { File } from '../file-system/file.js'
+import { Data } from '../data/data.js'
+import { INTRGBA } from '../util/util.js'
 
 // ******************************** 打印机类 ********************************
 

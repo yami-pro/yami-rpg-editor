@@ -2,6 +2,7 @@
 
 import { TextBox } from './text-box.js'
 import { SliderBox } from './slider-box.js'
+import { FolderItem } from '../file-system/folder-item.js'
 
 // ******************************** 文件头部面板 ********************************
 

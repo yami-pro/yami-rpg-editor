@@ -3,6 +3,7 @@
 import { Inspector } from './inspector.js'
 import { EventListInterface } from '../tools/event-list-interface.js'
 import { ScriptListInterface } from '../tools/script-list-interface.js'
+import { File } from '../file-system/file.js'
 
 // ******************************** 文件 - 触发器页面 ********************************
 

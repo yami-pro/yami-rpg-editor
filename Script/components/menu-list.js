@@ -1,6 +1,7 @@
 'use strict'
 
 import { Timer } from '../util/timer.js'
+import { Window } from '../tools/window.js'
 
 // ******************************** 菜单列表 ********************************
 

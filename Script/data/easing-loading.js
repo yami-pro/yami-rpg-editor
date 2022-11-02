@@ -3,6 +3,10 @@
 import { Easing } from './easing.js'
 import { Timer } from '../util/timer.js'
 import { Inspector } from '../inspector/inspector.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
+import { NodeList } from '../components/node-list.js'
 
 // ******************************** 过渡窗口加载 ********************************
 

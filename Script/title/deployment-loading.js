@@ -3,6 +3,11 @@
 import { Deployment } from './deployment.js'
 import { Timer } from '../util/timer.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { File } from '../file-system/file.js'
+import { Path } from '../file-system/path.js'
+import { Log } from '../log/log.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 部署项目窗口加载 ********************************
 

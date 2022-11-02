@@ -5,6 +5,7 @@ import { Path } from '../../file-system/path.js'
 import { FS, FSP } from '../../file-system/file-system.js'
 import { Editor } from '../../editor/editor.js'
 import { Log } from '../../log/log.js'
+import { File } from '../../file-system/file.js'
 
 // ******************************** 本地化对象加载 ********************************
 

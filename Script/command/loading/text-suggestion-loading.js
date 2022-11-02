@@ -2,6 +2,7 @@
 
 import { TextSuggestion } from '../text-suggestion.js'
 import { Scene } from '../../scene/scene.js'
+import { Window } from '../../tools/window.js'
 
 // ******************************** 文本提示框加载 ********************************
 

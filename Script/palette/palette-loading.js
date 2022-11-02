@@ -8,6 +8,9 @@ import { Inspector } from '../inspector/inspector.js'
 import { FrameGenerator } from './frame-generator.js'
 import { TileFrame } from './tile-frame.js'
 import { TileNode } from './tile-node.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 调色板加载 ********************************
 

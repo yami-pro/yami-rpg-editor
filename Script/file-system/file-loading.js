@@ -3,6 +3,9 @@
 import { File } from './file.js'
 import { UI } from '../ui/ui.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { Path } from '../file-system/path.js'
+import { Log } from '../log/log.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 文件系统加载 ********************************
 

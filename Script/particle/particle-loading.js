@@ -7,6 +7,11 @@ import { Matrix } from '../webgl/matrix.js'
 import { GL } from '../webgl/gl.js'
 import { History } from '../history/history.js'
 import { Inspector } from '../inspector/inspector.js'
+import { StageColor } from '../util/stage-color.js'
+import { File } from '../file-system/file.js'
+import { Window } from '../tools/window.js'
+import { ImageTexture } from '../webgl/image-texture.js'
+import { Data } from '../data/data.js'
 
 // ******************************** 粒子窗口加载 ********************************
 

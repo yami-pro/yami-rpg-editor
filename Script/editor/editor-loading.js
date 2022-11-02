@@ -46,6 +46,8 @@ import { ConditionListInterface } from '../tools/condition-list-interface.js'
 import { Palette } from '../palette/palette.js'
 import { Sprite } from '../sprite/sprite.js'
 import { FS, FSP } from '../file-system/file-system.js'
+import { GL } from '../webgl/gl.js'
+import { File } from '../file-system/file.js'
 
 // ******************************** 编辑器对象加载 ********************************
 

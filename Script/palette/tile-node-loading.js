@@ -4,6 +4,7 @@ import { Palette } from './palette.js'
 import { TileNode } from './tile-node.js'
 import { Scene } from '../scene/scene.js'
 import { Timer } from '../util/timer.js'
+import { Window } from '../tools/window.js'
 
 // ******************************** 图块节点窗口加载 ********************************
 

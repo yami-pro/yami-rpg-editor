@@ -1,6 +1,7 @@
 'use strict'
 
 import { FrameGenerator } from './frame-generator.js'
+import { Window } from '../tools/window.js'
 
 // ******************************** 图块帧生成器窗口加载 ********************************
 
