@@ -1,6 +1,8 @@
 'use strict'
 
+import { Palette } from './palette.js'
 import { TileNode } from './tile-node.js'
+import { Scene } from '../scene/index.js'
 
 // ******************************** 图块节点窗口加载 ********************************
 

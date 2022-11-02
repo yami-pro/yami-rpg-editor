@@ -1,5 +1,9 @@
 'use strict'
 
+import { Palette } from './palette.js'
+import { Timer } from '../util/index.js'
+import { Scene } from '../scene/index.js'
+
 // ******************************** 调色板加载 ********************************
 
 // 初始化

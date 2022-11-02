@@ -1,5 +1,7 @@
 'use strict'
 
+import { Scene } from '../scene/index.js'
+
 // ******************************** 瓦片地图快捷方式列表类 ********************************
 
 class TilemapShortcuts {

@@ -1,5 +1,8 @@
 'use strict'
 
+import { Inspector } from './inspector.js'
+import { UI } from '../ui/index.js'
+
 // ******************************** 元素 - 进度条页面 ********************************
 
 {

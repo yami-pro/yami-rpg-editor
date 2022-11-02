@@ -1,5 +1,7 @@
 'use strict'
 
+import { Scene } from '../scene/index.js'
+
 // ******************************** 光源类 ********************************
 
 class Light {

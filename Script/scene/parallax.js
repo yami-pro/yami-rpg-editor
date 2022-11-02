@@ -1,5 +1,7 @@
 'use strict'
 
+import { Scene } from '../scene/index.js'
+
 // ******************************** 视差图类 ********************************
 
 class Parallax {

@@ -1,5 +1,6 @@
 'use strict'
 
+import { Editor } from './editor.js'
 import {
   Title,
   Menubar,

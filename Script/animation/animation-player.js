@@ -1,6 +1,7 @@
 'use strict'
 
 import { Matrix } from '../webgl/index.js'
+import { Scene } from '../scene/index.js'
 
 // ******************************** 动画播放器类 ********************************
 

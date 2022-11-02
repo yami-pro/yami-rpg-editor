@@ -1,6 +1,7 @@
 'use strict'
 
 import { Menubar } from './menu-bar.js'
+import { Scene } from '../scene/index.js'
 
 // ******************************** 菜单栏对象加载 ********************************
 

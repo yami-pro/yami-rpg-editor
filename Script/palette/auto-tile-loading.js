@@ -1,5 +1,9 @@
 'use strict'
 
+import { AutoTile } from './auto-tile.js'
+import { Easing } from '../data/index.js'
+import { Scene } from '../scene/index.js'
+
 // ******************************** 自动图块加载 ********************************
 
 // list methods

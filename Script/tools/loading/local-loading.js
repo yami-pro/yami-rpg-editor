@@ -5,6 +5,8 @@ import {
   Path,
   FSP
 } from '../../file-system/index.js'
+import { Editor } from '../../editor/editor.js'
+import { Log } from '../../log/index.js'
 
 // ******************************** 本地化对象加载 ********************************
 

@@ -1,6 +1,7 @@
 'use strict'
 
 import { Command } from '../command.js'
+import { Scene } from '../../scene/index.js'
 
 // ******************************** 指令对象加载 ********************************
 

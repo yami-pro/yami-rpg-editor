@@ -1,6 +1,7 @@
 'use strict'
 
 import { TextSuggestion } from '../text-suggestion.js'
+import { Scene } from '../../scene/index.js'
 
 // ******************************** 文本提示框加载 ********************************
 
