@@ -1,5 +1,7 @@
 'use strict'
 
+import { GL } from './gl.js'
+
 // ******************************** 纹理管理器类 ********************************
 
 class TextureManager {

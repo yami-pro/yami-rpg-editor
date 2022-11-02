@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 进度条元素 ********************************
 
 class ProgressBarElement extends UI.Element {

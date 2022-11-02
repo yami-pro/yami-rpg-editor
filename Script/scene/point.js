@@ -1,5 +1,7 @@
 'use strict'
 
+import { Scene } from './scene.js'
+
 // ******************************** 坐标点类 ********************************
 
 class Point {

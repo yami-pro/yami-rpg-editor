@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 图像元素 ********************************
 
 class ImageElement extends UI.Element {

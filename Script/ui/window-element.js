@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 窗口元素 ********************************
 
 class WindowElement extends UI.Element {

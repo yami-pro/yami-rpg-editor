@@ -1,5 +1,7 @@
 'use strict'
 
+import { Particle } from './particle.js'
+
 // ******************************** 粒子发射器类 ********************************
 
 class ParticleEmitter {

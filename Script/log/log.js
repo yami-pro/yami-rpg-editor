@@ -1,5 +1,7 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
+
 // ******************************** 日志窗口 ********************************
 
 const Log = {
@@ -134,3 +136,5 @@ Log.catchError = function IIFE() {
     }
   }
 }()
+
+export { Log }

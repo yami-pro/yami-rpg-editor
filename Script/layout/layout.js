@@ -1371,3 +1371,5 @@ Layout.pointermove = function (event) {
     }
   }
 }
+
+export { Layout }

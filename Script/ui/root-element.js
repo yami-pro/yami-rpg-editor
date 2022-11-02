@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 根元素 ********************************
 
 class RootElement extends UI.Element {

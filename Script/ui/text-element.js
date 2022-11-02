@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 文本元素 ********************************
 
 class TextElement extends UI.Element {

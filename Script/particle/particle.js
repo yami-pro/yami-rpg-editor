@@ -1,5 +1,7 @@
 'use strict'
 
+import { Scene } from '../scene/index.js'
+
 // ******************************** 粒子窗口 ********************************
 
 const Particle = {

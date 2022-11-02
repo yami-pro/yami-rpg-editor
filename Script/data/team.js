@@ -1,5 +1,7 @@
 'use strict'
 
+import { Easing } from './easing.js'
+
 // ******************************** 队伍窗口 ********************************
 
 const Team = {

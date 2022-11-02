@@ -1,5 +1,9 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
+import { File } from '../file-system/index.js'
+import { ImageTexture } from '../webgl/index.js'
+
 // ******************************** 场景窗口 ********************************
 
 const Scene = {

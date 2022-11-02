@@ -1,5 +1,7 @@
 'use strict'
 
+import { Scene } from './scene.js'
+
 // ******************************** 纹理集合类 ********************************
 
 class Textures {

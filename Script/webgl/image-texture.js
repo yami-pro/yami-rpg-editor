@@ -1,5 +1,9 @@
 'use strict'
 
+import { GL } from './gl.js'
+import { Texture } from './texture.js'
+import { BaseTexture } from './base-texture.js'
+
 // ******************************** 图像纹理类 ********************************
 
 class ImageTexture extends Texture {

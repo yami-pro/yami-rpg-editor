@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 容器元素 ********************************
 
 class ContainerElement extends UI.Element {

@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 对话框元素 ********************************
 
 class DialogBoxElement extends UI.Text {

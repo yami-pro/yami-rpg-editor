@@ -1,5 +1,7 @@
 'use strict'
 
+import { UI } from './ui.js'
+
 // ******************************** 视频元素 ********************************
 
 class VideoElement extends UI.Element {

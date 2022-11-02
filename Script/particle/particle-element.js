@@ -1,5 +1,7 @@
 'use strict'
 
+import { Particle } from './particle.js'
+
 // ******************************** 粒子元素类 ********************************
 
 class ParticleElement {

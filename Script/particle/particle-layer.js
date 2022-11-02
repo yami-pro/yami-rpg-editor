@@ -1,5 +1,8 @@
 'use strict'
 
+import { GL } from '../webgl/index.js'
+import { Particle } from './particle.js'
+
 // ******************************** 粒子图层类 ********************************
 
 class ParticleLayer {

@@ -1,5 +1,7 @@
 'use strict'
 
+import { Window } from '../tools/index.js'
+
 // ******************************** 窗口框架 ********************************
 
 class WindowFrame extends HTMLElement {

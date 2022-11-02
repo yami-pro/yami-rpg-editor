@@ -1,5 +1,8 @@
 'use strict'
 
+import { Scene } from '../scene/index.js'
+import { Timer } from '../util/index.js'
+
 // ******************************** UI 窗口 ********************************
 
 const UI = {

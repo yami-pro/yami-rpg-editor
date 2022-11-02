@@ -1,5 +1,7 @@
 'use strict'
 
+import { FileItem } from '../file-system/index.js'
+
 // ******************************** 元数据类 ********************************
 
 const Meta = function IIFE() {

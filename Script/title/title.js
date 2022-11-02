@@ -1,5 +1,8 @@
 'use strict'
 
+import { NewProject } from './new-project.js'
+import { Deployment } from './deployment.js'
+
 // ******************************** 标题栏对象 ********************************
 
 const Title = {
