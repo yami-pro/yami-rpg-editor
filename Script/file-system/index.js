@@ -1,7 +1,7 @@
 'use strict'
 
-import './directory-loading.js'
-import './file-loading.js'
+import './loading/directory-loading.js'
+import './loading/file-loading.js'
 
 // export { Directory } from './directory.js'
 // export { FileItem } from './file-item.js'

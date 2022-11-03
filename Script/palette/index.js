@@ -1,10 +1,10 @@
 'use strict'
 
-import './auto-tile-loading.js'
-import './frame-generator-loading.js'
-import './palette-loading.js'
-import './tile-frame-loading.js'
-import './tile-node-loading.js'
+import './loading/auto-tile-loading.js'
+import './loading/frame-generator-loading.js'
+import './loading/palette-loading.js'
+import './loading/tile-frame-loading.js'
+import './loading/tile-node-loading.js'
 
 export { AutoTile } from './auto-tile.js'
 export { FrameGenerator } from './frame-generator.js'

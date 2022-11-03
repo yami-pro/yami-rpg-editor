@@ -1,5 +1,5 @@
 'use strict'
 
-import './layout-loading.js'
+import './loading/layout-loading.js'
 
 export { Layout } from './layout.js'

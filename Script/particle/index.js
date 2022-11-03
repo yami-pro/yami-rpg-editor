@@ -1,6 +1,6 @@
 'use strict'
 
-import './particle-loading.js'
+import './loading/particle-loading.js'
 
 export { Particle } from './particle.js'
 export { ParticleElement } from './particle-element.js'

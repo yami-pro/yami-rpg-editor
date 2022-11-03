@@ -1,6 +1,6 @@
 'use strict'
 
-import './scene-loading.js'
+import './loading/scene-loading.js'
 
 export { Scene } from './scene.js'
 export { Light } from './light.js'

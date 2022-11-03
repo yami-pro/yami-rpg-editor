@@ -1,6 +1,6 @@
 'use strict'
 
-import './gl-loading.js'
+import './loading/gl-loading.js'
 
 export { GL } from './gl.js'
 export { BaseTexture } from './base-texture.js'

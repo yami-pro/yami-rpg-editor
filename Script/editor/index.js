@@ -29,7 +29,7 @@ import '../title/index.js'
 import '../tools/index.js'
 import '../variable/index.js'
 
-import './editor-loading.js'
+import './loading/editor-loading.js'
 import { Editor } from './editor.js'
 
 // ******************************** 主函数 ********************************

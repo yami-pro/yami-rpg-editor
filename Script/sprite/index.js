@@ -1,5 +1,5 @@
 'use strict'
 
-import './sprite-loading.js'
+import './loading/sprite-loading.js'
 
 export { Sprite } from './sprite.js'

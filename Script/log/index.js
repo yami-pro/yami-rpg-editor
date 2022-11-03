@@ -1,5 +1,5 @@
 'use strict'
 
-import './log-loading.js'
+import './loading/log-loading.js'
 
 export { Log } from './log.js'

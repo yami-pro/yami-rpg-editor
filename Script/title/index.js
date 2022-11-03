@@ -1,10 +1,10 @@
 'use strict'
 
-import './deployment-loading.js'
-import './home-loading.js'
-import './menu-bar-loading.js'
-import './new-project-loading.js'
-import './title-loading.js'
+import './loading/deployment-loading.js'
+import './loading/home-loading.js'
+import './loading/menu-bar-loading.js'
+import './loading/new-project-loading.js'
+import './loading/title-loading.js'
 
 export { Deployment } from './deployment.js'
 export { Home } from './home.js'

@@ -1,6 +1,6 @@
 'use strict'
 
-import './audio-manager-loading.js'
+import './loading/audio-manager-loading.js'
 
 export { AudioManager } from './audio-manager.js'
 export { Reverb } from './reverb.js'

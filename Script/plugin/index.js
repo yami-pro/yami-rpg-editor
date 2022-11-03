@@ -1,5 +1,5 @@
 'use strict'
 
-import './plugin-loading.js'
+import './loading/plugin-loading.js'
 
 export { PluginManager } from './plugin.js'
