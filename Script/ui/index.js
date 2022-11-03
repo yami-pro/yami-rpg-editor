@@ -1,6 +1,6 @@
 'use strict'
 
-import './ui-loading.js'
+import './loading/ui-loading.js'
 
 export { UI } from './ui.js'
 export { ContainerElement } from './container-element.js'

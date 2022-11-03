@@ -1,6 +1,7 @@
 'use strict'
 
 import { Home } from '../home.js'
+import { Title } from '../title.js'
 
 import { FS, FSP } from '../../file-system/file-system.js'
 import { File } from '../../file-system/file.js'

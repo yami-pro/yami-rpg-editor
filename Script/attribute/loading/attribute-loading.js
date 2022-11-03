@@ -261,6 +261,11 @@ Attribute.getGroup = function (groupKey) {
   return Data.attribute.context.getGroup(groupKey)
 }
 
+// 获取属性
+Attribute.getAttribute = function (attrId) {
+  return Data.attribute.context.getAttribute(attrId)
+}
+
 // 获取群组属性
 Attribute.getGroupAttribute = function (groupKey, attrId) {
   return Data.attribute.context.getGroupAttribute(groupKey, attrId)
@@ -272,8 +277,8 @@ Attribute.getDefAttributeId = function (groupKey) {
 }
 
 // 获取属性选项列表
-Attribute.getAttributeItems = function (groupKey, attrType) {
-  return Data.attribute.context.getAttributeItems(groupKey, attrType)
+Attribute.getAttributeItems = function (groupKey, attrType, allowNone) {
+  return Data.attribute.context.getAttributeItems(groupKey, attrType, allowNone)
 }
 
 // 打开属性面板
@@ -478,6 +483,12 @@ Attribute.listKeydown = function (event) {
 // 列表 - 指针按下事件
 Attribute.listPointerdown = function (event) {
   switch (event.button) {
+    case 0:
+      if (event.target === this) {
+        this.unselect()
+        Attribute.closePropertyPanel()
+      }
+      break
     case 3:
       this.cancelSearch()
       break
@@ -494,7 +505,7 @@ Attribute.listDoubleclick = function (event) {
       }
       break
     case 'attribute':
-      if (Attribute.list.read()?.value !== undefined) {
+      if (Attribute.list.read()?.key !== undefined) {
         event.stopPropagation()
         Attribute.confirm()
       }
@@ -755,20 +766,20 @@ Attribute.confirm = function (event) {
       break
     case 'group': {
       const item = this.list.read()
-      if (item?.class !== 'folder') {
+      if (item && item.class !== 'folder') {
         return this.list.getFocus()
       }
       this.apply()
-      this.target.input(item.id)
+      this.target.input(item ? item.id : '')
       break
     }
     case 'attribute': {
       const item = this.list.read()
-      if (item?.value === undefined) {
+      if (item && item.class === 'folder') {
         return this.list.getFocus()
       }
       this.apply()
-      this.target.input(item.id)
+      this.target.input(item ? item.id : '')
       break
     }
   }

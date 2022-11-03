@@ -41,6 +41,8 @@
       "parallax": "Parallax",
       "tilemap": "Tilemap",
       "element": "Element",
+      "attribute": "Attribute",
+      "attribute.group": "Attribute Group",
       "attribute.actor": "Actor Attribute",
       "attribute.skill": "Skill Attribute",
       "attribute.state": "State Attribute",
@@ -50,6 +52,7 @@
       "enum": "Enum String",
       "enum.group": "Enum Group",
       "enum.shortcut-key": "Shortcut Key",
+      "enum.cooldown-key": "Cooldown Key",
       "enum.equipment-slot": "Equipment Slot",
       "enum.global-event": "Custom Global Event",
       "enum.scene-event": "Custom Scene Event",
@@ -402,6 +405,7 @@
       "set-as": "Set As",
       "set-as.none": "None",
       "set-as.shortcut-key": "Shortcut Keys",
+      "set-as.cooldown-key": "Cooldown Keys",
       "set-as.equipment-slot": "Equipment Slots",
       "set-as.global-event": "Global Events",
       "set-as.scene-event": "Scene Events",
@@ -1079,7 +1083,6 @@
       "skill": "Skill",
       "castSkill": "Cast Skill",
       "setSkill": "Set Skill",
-      "setSkill.set-key": "SetShortcutKey",
       "setSkill.set-cooldown": "SetCooldownTime",
       "setSkill.increase-cooldown": "IncreaseCooldownTime",
       "setSkill.decrease-cooldown": "DecreaseCooldownTime",
@@ -1099,10 +1102,10 @@
       "setBag.swap": "SwapItemLocations",
       "setBag.sort": "SortSimply",
       "setBag.sort-by-filename": "SortByFilename",
+      "setBag.reference": "UseSomeoneElse'sBag",
       "setBag.reset": "Reset",
       "useItem": "Use Item",
       "setItem": "Set Item",
-      "setItem.set-key": "SetShortcutKey",
       "setItem.increase": "Increase",
       "setItem.decrease": "Decrease",
       "setCooldown": "Set Cooldown",
@@ -1110,6 +1113,10 @@
       "setCooldown.increase": "Increase",
       "setCooldown.decrease": "Decrease",
       "setCooldown.reset": "Reset",
+      "setShortcut": "Set Shortcut",
+      "setShortcut.set-item-shortcut": "Set",
+      "setShortcut.set-skill-shortcut": "Set",
+      "setShortcut.delete-shortcut": "Delete",
 
       "scene": "Scene",
       "activateScene": "Activate Scene",
@@ -2874,6 +2881,11 @@
     "[comment]": "********** Command - Tint Image **********",
     "tintImage": {"title": "Tint Image"},
     "tintImage-element": {"label": "Element"},
+    "tintImage-mode": {"label": "Mode", "options": {
+      "full": "Full Mode",
+      "rgb": "RGB Mode",
+      "gray": "Gray Mode"
+    }},
     "tintImage-tint-0": {"label": "Tint - Red"},
     "tintImage-tint-1": {"label": "Tint - Green"},
     "tintImage-tint-2": {"label": "Tint - Blue"},
@@ -3442,12 +3454,10 @@
     "setSkill": {"title": "Set Skill"},
     "setSkill-skill": {"label": "Skill"},
     "setSkill-operation": {"label": "Operation", "options": {
-      "set-key": "Set Shortcut Key",
       "set-cooldown": "Set Cooldown Time",
       "increase-cooldown": "Increase Cooldown Time",
       "decrease-cooldown": "Decrease Cooldown Time"
     }},
-    "setSkill-key": {"label": "Shortcut Key"},
     "setSkill-cooldown": {"label": "Cooldown"},
 
     "[comment]": "********** Command - Create Trigger **********",
@@ -3483,6 +3493,7 @@
       "swap": "Swap Item Locations",
       "sort": "Sort Simply",
       "sort-by-filename": "Sort by Filename",
+      "reference": "Use Someone Else's Bag",
       "reset": "Reset"
     }},
     "setBag-money": {"label": "Money"},
@@ -3492,6 +3503,7 @@
     "setBag-equipment": {"label": "Equipment"},
     "setBag-index1": {"label": "Index A"},
     "setBag-index2": {"label": "Index B"},
+    "setBag-refActorId": {"label": "Global Actor"},
 
     "[comment]": "********** Command - Use Item **********",
     "useItem": {"title": "Use Item"},
@@ -3510,11 +3522,9 @@
     "setItem": {"title": "Set Item"},
     "setItem-item": {"label": "Item"},
     "setItem-operation": {"label": "Operation", "options": {
-      "set-key": "Set Shortcut Key",
       "increase": "Increase",
       "decrease": "Decrease"
     }},
-    "setItem-key": {"label": "Shortcut Key"},
     "setItem-quantity": {"label": "Quantity"},
 
     "[comment]": "********** Command - Set Cooldown **********",
@@ -3526,8 +3536,20 @@
       "decrease": "Decrease",
       "reset": "Reset"
     }},
-    "setCooldown-key": {"label": "Key"},
-    "setCooldown-cooldown": {"label": "Cooldown"},
+    "setCooldown-key": {"label": "Cooldown Key"},
+    "setCooldown-cooldown": {"label": "Cooldown Time"},
+
+    "[comment]": "********** Command - Set Shortcut **********",
+    "setShortcut": {"title": "Set Shortcut"},
+    "setShortcut-actor": {"label": "Actor"},
+    "setShortcut-operation": {"label": "Operation", "options": {
+      "set-item-shortcut": "Set Item Shortcut",
+      "set-skill-shortcut": "Set Skill Shortcut",
+      "delete-shortcut": "Delete Shortcut"
+    }},
+    "setShortcut-item": {"label": "Item"},
+    "setShortcut-skill": {"label": "Skill"},
+    "setShortcut-key": {"label": "Shortcut Key"},
 
     "[comment]": "********** Command - Activate Scene **********",
     "activateScene": {"title": "Activate Scene"},

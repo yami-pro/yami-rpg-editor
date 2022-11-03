@@ -450,6 +450,12 @@ Enum.listKeydown = function (event) {
 // 列表 - 指针按下事件
 Enum.listPointerdown = function (event) {
   switch (event.button) {
+    case 0:
+      if (event.target === this) {
+        this.unselect()
+        Enum.closePropertyPanel()
+      }
+      break
     case 3:
       this.cancelSearch()
       break
@@ -684,20 +690,20 @@ Enum.confirm = function (event) {
       break
     case 'group': {
       const item = this.list.read()
-      if (item?.class !== 'folder') {
+      if (item && item.class !== 'folder') {
         return this.list.getFocus()
       }
       this.apply()
-      this.target.input(item.id)
+      this.target.input(item ? item.id : '')
       break
     }
     case 'string': {
       const item = this.list.read()
-      if (item?.value === undefined) {
+      if (item && item.class === 'folder') {
         return this.list.getFocus()
       }
       this.apply()
-      this.target.input(item.id)
+      this.target.input(item ? item.id : '')
       break
     }
   }

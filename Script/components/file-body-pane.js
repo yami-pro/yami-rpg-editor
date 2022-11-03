@@ -1460,7 +1460,6 @@ class FileBodyPane extends HTMLElement {
         filename += file.extname
       }
       if (filename !== file.name) {
-        item.nameBox.textContent = name
         const dir = Path.dirname(file.path)
         const path = File.route(`${dir}/${filename}`)
         // 当目标文件不存在或就是自己时重命名
@@ -1473,6 +1472,7 @@ class FileBodyPane extends HTMLElement {
             File.route(file.path),
             path,
           ).then(() => {
+            item.nameBox.textContent = name
             return Directory.update()
           })
         })

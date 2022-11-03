@@ -1596,6 +1596,26 @@ string-var.variable:focus-within::before {
 }
 
 /* --------------------------------
+ * 选择变量框
+ * --------------------------------
+ */
+select-var:focus-within::before {
+  position: absolute;
+  font-family: var(--font-family-mono);
+  color: var(--text-color-disabled);
+}
+
+select-var.constant:focus-within::before {
+  content: 'enum';
+  margin-left: -2.6em;
+}
+
+select-var.variable:focus-within::before {
+  content: 'var';
+  margin-left: -2em;
+}
+
+/* --------------------------------
  * 文件变量框
  * --------------------------------
  */
@@ -7149,7 +7169,7 @@ text.animation-motion-direction {
  */
 #tintImage {
   width: 428px;
-  height: 262px;
+  height: 286px;
 }
 
 #tintImage-grid-box {
@@ -7161,7 +7181,7 @@ text.animation-motion-direction {
   left: 318px;
   top: 10px;
   width: 100px;
-  height: 188px;
+  height: 212px;
 }
 
 #tintImage-confirm {
@@ -8418,6 +8438,25 @@ text.animation-motion-direction {
 }
 
 #setCooldown-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置快捷键
+ * --------------------------------
+ */
+#setShortcut {
+  width: 324px;
+  height: 166px;
+}
+
+#setShortcut-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#setShortcut-cancel {
   right: 10px;
   bottom: 10px;
 }

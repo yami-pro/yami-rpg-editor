@@ -292,6 +292,16 @@ Command.parseVariableString = function (string) {
   }
 }
 
+// 解析可变枚举值
+Command.parseVariableEnum = function (groupKey, string) {
+  switch (typeof string) {
+    case 'string':
+      return Command.parseGroupEnumString(groupKey, string)
+    case 'object':
+      return this.parseVariable(string)
+  }
+}
+
 // 解析可变文件
 Command.parseVariableFile = function (string) {
   switch (typeof string) {
@@ -1525,7 +1535,7 @@ Command.cases.setString = {
     let parameterParamName = ''
     let otherData = 'trigger-key'
     let parseTimestampVariable = {type: 'local', key: ''}
-    let parseTimestampFormat = '{Y}/{M}/{D} {h}:{m}:{s}'
+    let parseTimestampFormat = '{Y}-{M}-{D} {h}:{m}:{s}'
     let screenshotWidth = 320
     let screenshotHeight = 180
     switch (operand.type) {
@@ -3473,6 +3483,31 @@ Command.cases.tintImage = {
   initialize: function () {
     $('#tintImage-confirm').on('click', this.save)
 
+    // 创建模式选项
+    $('#tintImage-mode').loadItems([
+      {name: 'Full', value: 'full'},
+      {name: 'RGB', value: 'rgb'},
+      {name: 'Gray', value: 'gray'},
+    ])
+
+    // 设置模式关联元素
+    $('#tintImage-mode').enableHiddenMode().relate([
+      {case: 'full', targets: [
+        $('#tintImage-tint-0'),
+        $('#tintImage-tint-1'),
+        $('#tintImage-tint-2'),
+        $('#tintImage-tint-3'),
+      ]},
+      {case: 'rgb', targets: [
+        $('#tintImage-tint-0'),
+        $('#tintImage-tint-1'),
+        $('#tintImage-tint-2'),
+      ]},
+      {case: 'gray', targets: [
+        $('#tintImage-tint-3'),
+      ]},
+    ])
+
     // 创建等待结束选项
     $('#tintImage-wait').loadItems([
       {name: 'Yes', value: true},
@@ -3493,24 +3528,44 @@ Command.cases.tintImage = {
     })
 
     // 写入滤镜框 - 色调输入框输入事件
-    $('#tintImage-tint-0, #tintImage-tint-1, #tintImage-tint-2, #tintImage-tint-3')
+    $('#tintImage-mode, #tintImage-tint-0, #tintImage-tint-1, #tintImage-tint-2, #tintImage-tint-3')
     .on('input', function (event) {
-      $('#tintImage-filter').write([
-        $('#tintImage-tint-0').read(),
-        $('#tintImage-tint-1').read(),
-        $('#tintImage-tint-2').read(),
-        $('#tintImage-tint-3').read(),
-      ])
+      const tint = [0, 0, 0, 0]
+      const read = getElementReader('tintImage')
+      switch (read('mode')) {
+        case 'full':
+          tint[0] = read('tint-0')
+          tint[1] = read('tint-1')
+          tint[2] = read('tint-2')
+          tint[3] = read('tint-3')
+          break
+        case 'rgb':
+          tint[0] = read('tint-0')
+          tint[1] = read('tint-1')
+          tint[2] = read('tint-2')
+          break
+        case 'gray':
+          tint[3] = read('tint-3')
+          break
+      }
+      $('#tintImage-filter').write(tint)
     })
   },
-  parseTint: function ([red, green, blue, gray]) {
+  parseTint: function (mode, [red, green, blue, gray]) {
     const tint = Local.get('command.tintImage.tint')
-    return `${tint}(${red}, ${green}, ${blue}, ${gray})`
+    switch (mode) {
+      case 'full':
+        return `${tint}(${red}, ${green}, ${blue}, ${gray})`
+      case 'rgb':
+        return `${tint}(${red}, ${green}, ${blue})`
+      case 'gray':
+        return `${tint}(${gray})`
+    }
   },
-  parse: function ({element, tint, easingId, duration, wait}) {
+  parse: function ({element, mode, tint, easingId, duration, wait}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    .push(this.parseTint(tint))
+    .push(this.parseTint(mode, tint))
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'element'},
@@ -3520,6 +3575,7 @@ Command.cases.tintImage = {
   },
   load: function ({
     element   = {type: 'trigger'},
+    mode      = 'full',
     tint      = [0, 0, 0, 0],
     easingId  = Data.easings[0].id,
     duration  = 0,
@@ -3527,6 +3583,7 @@ Command.cases.tintImage = {
   }) {
     const write = getElementWriter('tintImage')
     write('element', element)
+    write('mode', mode)
     write('tint-0', tint[0])
     write('tint-1', tint[1])
     write('tint-2', tint[2])
@@ -3540,15 +3597,28 @@ Command.cases.tintImage = {
   save: function () {
     const read = getElementReader('tintImage')
     const element = read('element')
-    const red = read('tint-0')
-    const green = read('tint-1')
-    const blue = read('tint-2')
-    const gray = read('tint-3')
+    const mode = read('mode')
+    let red = read('tint-0')
+    let green = read('tint-1')
+    let blue = read('tint-2')
+    let gray = read('tint-3')
+    switch (mode) {
+      case 'full':
+        break
+      case 'rgb':
+        gray = 0
+        break
+      case 'gray':
+        red = 0
+        green = 0
+        blue = 0
+        break
+    }
     const easingId = read('easingId')
     const duration = read('duration')
     const wait = read('wait')
     const tint = [red, green, blue, gray]
-    Command.save({element, tint, easingId, duration, wait})
+    Command.save({element, mode, tint, easingId, duration, wait})
   },
 }
 
@@ -6325,30 +6395,16 @@ Command.cases.setSkill = {
 
     // 创建操作选项
     $('#setSkill-operation').loadItems([
-      {name: 'Set Shortcut Key', value: 'set-key'},
       {name: 'Set Cooldown Time', value: 'set-cooldown'},
       {name: 'Increase Cooldown Time', value: 'increase-cooldown'},
       {name: 'Decrease Cooldown Time', value: 'decrease-cooldown'},
     ])
-
-    // 设置操作关联元素
-    $('#setSkill-operation').enableHiddenMode().relate([
-      {case: 'set-key', targets: [
-        $('#setSkill-key'),
-      ]},
-      {case: ['set-cooldown', 'increase-cooldown', 'decrease-cooldown'], targets: [
-        $('#setSkill-cooldown'),
-      ]},
-    ])
   },
-  parse: function ({skill, operation, key, cooldown}) {
+  parse: function ({skill, operation, cooldown}) {
     const words = Command.words
     .push(Command.parseSkill(skill))
     .push(Local.get('command.setSkill.' + operation))
     switch (operation) {
-      case 'set-key':
-        words.push(Command.parseGroupEnumString('shortcut-key', key))
-        break
       case 'set-cooldown':
       case 'increase-cooldown':
       case 'decrease-cooldown':
@@ -6363,18 +6419,12 @@ Command.cases.setSkill = {
   },
   load: function ({
     skill     = {type: 'trigger'},
-    operation = 'set-key',
-    key       = '',
+    operation = 'set-cooldown',
     cooldown  = 0,
   }) {
-    // 加载快捷键选项
-    $('#setSkill-key').loadItems(
-      Enum.getStringItems('shortcut-key', true)
-    )
     const write = getElementWriter('setSkill')
     write('skill', skill)
     write('operation', operation)
-    write('key', key)
     write('cooldown', cooldown)
     $('#setSkill-skill').getFocus()
   },
@@ -6383,18 +6433,10 @@ Command.cases.setSkill = {
     const skill = read('skill')
     const operation = read('operation')
     switch (operation) {
-      case 'set-key': {
-        const key = read('key')
-        Command.save({skill, operation, key})
-        break
-      }
       case 'set-cooldown':
       case 'increase-cooldown':
       case 'decrease-cooldown': {
         const cooldown = read('cooldown')
-        if (cooldown === 0) {
-          return $('#setSkill-cooldown').getFocus('all')
-        }
         Command.save({skill, operation, cooldown})
         break
       }
@@ -6545,6 +6587,7 @@ Command.cases.setBag = {
       {name: 'Swap Indices', value: 'swap'},
       {name: 'Sort Simply', value: 'sort'},
       {name: 'Sort by Filename', value: 'sort-by-filename'},
+      {name: 'Use Someone Else\'s Bag', value: 'reference'},
       {name: 'Reset', value: 'reset'},
     ])
 
@@ -6567,9 +6610,12 @@ Command.cases.setBag = {
         $('#setBag-index1'),
         $('#setBag-index2'),
       ]},
+      {case: 'reference', targets: [
+        $('#setBag-refActorId'),
+      ]},
     ])
   },
-  parse: function ({actor, operation, money, itemId, quantity, equipmentId, equipment, index1, index2}) {
+  parse: function ({actor, operation, money, itemId, quantity, equipmentId, equipment, index1, index2, refActorId}) {
     const words = Command.words
     .push(Command.parseActor(actor))
     .push(Local.get('command.setBag.' + operation))
@@ -6596,6 +6642,9 @@ Command.cases.setBag = {
         words.push(`${a} <-> ${b}`)
         break
       }
+      case 'reference':
+        words.push(Command.parseFileName(refActorId))
+        break
     }
     return [
       {color: 'bag'},
@@ -6613,6 +6662,7 @@ Command.cases.setBag = {
     equipment   = {type: 'latest'},
     index1      = 0,
     index2      = 1,
+    refActorId  = '',
   }) {
     const write = getElementWriter('setBag')
     write('actor', actor)
@@ -6624,6 +6674,7 @@ Command.cases.setBag = {
     write('equipment', equipment)
     write('index1', index1)
     write('index2', index2)
+    write('refActorId', refActorId)
     $('#setBag-actor').getFocus()
   },
   save: function () {
@@ -6674,6 +6725,11 @@ Command.cases.setBag = {
       case 'reset':
         Command.save({actor, operation})
         break
+      case 'reference': {
+        const refActorId = read('refActorId')
+        Command.save({actor, operation, refActorId})
+        break
+      }
     }
   },
 }
@@ -6788,29 +6844,15 @@ Command.cases.setItem = {
 
     // 创建操作选项
     $('#setItem-operation').loadItems([
-      {name: 'Set Shortcut Key', value: 'set-key'},
       {name: 'Increase', value: 'increase'},
       {name: 'Decrease', value: 'decrease'},
     ])
-
-    // 设置操作关联元素
-    $('#setItem-operation').enableHiddenMode().relate([
-      {case: 'set-key', targets: [
-        $('#setItem-key'),
-      ]},
-      {case: ['increase', 'decrease'], targets: [
-        $('#setItem-quantity'),
-      ]},
-    ])
   },
-  parse: function ({item, operation, key, quantity}) {
+  parse: function ({item, operation, quantity}) {
     const words = Command.words
     .push(Command.parseItem(item))
     .push(Local.get('command.setItem.' + operation))
     switch (operation) {
-      case 'set-key':
-        words.push(Command.parseGroupEnumString('shortcut-key', key))
-        break
       case 'increase':
       case 'decrease':
         words.push(Command.parseVariableNumber(quantity))
@@ -6824,18 +6866,12 @@ Command.cases.setItem = {
   },
   load: function ({
     item      = {type: 'trigger'},
-    operation = 'set-key',
-    key       = '',
+    operation = 'increase',
     quantity  = 1,
   }) {
-    // 加载快捷键选项
-    $('#setItem-key').loadItems(
-      Enum.getStringItems('shortcut-key', true)
-    )
     const write = getElementWriter('setItem')
     write('item', item)
     write('operation', operation)
-    write('key', key)
     write('quantity', quantity)
     $('#setItem-item').getFocus()
   },
@@ -6844,17 +6880,9 @@ Command.cases.setItem = {
     const item = read('item')
     const operation = read('operation')
     switch (operation) {
-      case 'set-key': {
-        const key = read('key')
-        Command.save({item, operation, key})
-        break
-      }
       case 'increase':
       case 'decrease': {
         const quantity = read('quantity')
-        if (quantity === 0) {
-          return $('#setItem-quantity').getFocus('all')
-        }
         Command.save({item, operation, quantity})
         break
       }
@@ -6882,14 +6910,11 @@ Command.cases.setCooldown = {
       ]},
     ])
   },
-  parseOperation: function (operation) {
-    return Local.get('command.setCooldown.' + operation)
-  },
   parse: function ({actor, operation, key, cooldown}) {
     const words = Command.words
     .push(Command.parseActor(actor))
-    .push(this.parseOperation(operation))
-    .push(Command.parseVariableString(key))
+    .push(Local.get('command.setCooldown.' + operation))
+    .push(Command.parseVariableEnum('cooldown-key', key))
     switch (operation) {
       case 'set':
       case 'increase':
@@ -6906,9 +6931,13 @@ Command.cases.setCooldown = {
   load: function ({
     actor     = {type: 'trigger'},
     operation = 'set',
-    key       = '',
+    key       = Enum.getDefStringId('cooldown-key'),
     cooldown  = 0,
   }) {
+    // 加载快捷键选项
+    $('#setCooldown-key').loadItems(
+      Enum.getStringItems('cooldown-key')
+    )
     const write = getElementWriter('setCooldown')
     write('actor', actor)
     write('operation', operation)
@@ -6929,13 +6958,104 @@ Command.cases.setCooldown = {
       case 'increase':
       case 'decrease': {
         const cooldown = read('cooldown')
-        if (cooldown === 0) {
-          return $('#setCooldown-cooldown').getFocus('all')
-        }
         Command.save({actor, operation, key, cooldown})
         break
       }
       case 'reset':
+        Command.save({actor, operation, key})
+        break
+    }
+  },
+}
+
+// 设置快捷键
+Command.cases.setShortcut = {
+  initialize: function () {
+    $('#setShortcut-confirm').on('click', this.save)
+
+    // 创建操作选项
+    $('#setShortcut-operation').loadItems([
+      {name: 'Set Item Shortcut', value: 'set-item-shortcut'},
+      {name: 'Set Skill Shortcut', value: 'set-skill-shortcut'},
+      {name: 'Delete Shortcut', value: 'delete-shortcut'},
+    ])
+
+    // 设置操作关联元素
+    $('#setShortcut-operation').enableHiddenMode().relate([
+      {case: 'set-item-shortcut', targets: [
+        $('#setShortcut-item'),
+        $('#setShortcut-key'),
+      ]},
+      {case: 'set-skill-shortcut', targets: [
+        $('#setShortcut-skill'),
+        $('#setShortcut-key'),
+      ]},
+      {case: 'delete-shortcut', targets: [
+        $('#setShortcut-key'),
+      ]},
+    ])
+  },
+  parse: function ({actor, operation, item, skill, key}) {
+    const words = Command.words
+    .push(Command.parseActor(actor))
+    .push(Local.get('command.setShortcut.' + operation))
+    const shortcutKey = Command.parseGroupEnumString('shortcut-key', key)
+    switch (operation) {
+      case 'set-item-shortcut':
+        words.push(Command.parseItem(item)).push(shortcutKey)
+        break
+      case 'set-skill-shortcut':
+        words.push(Command.parseSkill(skill)).push(shortcutKey)
+        break
+      case 'delete-shortcut':
+        words.push(shortcutKey)
+        break
+    }
+    return [
+      {color: 'bag'},
+      {text: Local.get('command.setShortcut') + ': '},
+      {text: words.join()},
+    ]
+  },
+  load: function ({
+    actor     = {type: 'trigger'},
+    operation = 'set-item-shortcut',
+    item      = {type: 'trigger'},
+    skill     = {type: 'trigger'},
+    key       = Enum.getDefStringId('shortcut-key'),
+  }) {
+    // 加载快捷键选项
+    $('#setShortcut-key').loadItems(
+      Enum.getStringItems('shortcut-key')
+    )
+    const write = getElementWriter('setShortcut')
+    write('actor', actor)
+    write('operation', operation)
+    write('item', item)
+    write('skill', skill)
+    write('key', key)
+    $('#setShortcut-operation').getFocus()
+  },
+  save: function () {
+    const read = getElementReader('setShortcut')
+    const actor = read('actor')
+    const operation = read('operation')
+    const key = read('key')
+    if (key === '') {
+      return $('#setShortcut-key').getFocus()
+    }
+    switch (operation) {
+      case 'set-item-shortcut': {
+        const item = read('item')
+        Command.save({actor, operation, item, key})
+        break
+      }
+      case 'set-skill-shortcut': {
+        const skill = read('skill')
+        Command.save({actor, operation, skill, key})
+        break
+      }
+      case 'delete-shortcut':
         Command.save({actor, operation, key})
         break
     }

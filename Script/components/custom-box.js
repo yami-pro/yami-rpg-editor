@@ -75,6 +75,7 @@ class CustomBox extends HTMLElement {
 
   // 更新信息
   update() {
+    this.info.removeClass('invalid')
     const value = this.dataValue
     switch (this.type) {
       case 'file':
@@ -112,6 +113,8 @@ class CustomBox extends HTMLElement {
         return this.updatePresetElement(value)
       case 'array':
         return this.updateArray(value)
+      case 'attribute':
+        return this.updateAttribute(value)
       case 'attribute-group':
         return this.updateAttributeGroup(value)
       case 'enum-group':
@@ -125,9 +128,7 @@ class CustomBox extends HTMLElement {
   updateFile(guid) {
     Command.invalid = false
     this.info.textContent = Command.parseFileName(guid)
-    Command.invalid
-    ? this.info.addClass('invalid')
-    : this.info.removeClass('invalid')
+    if (Command.invalid) this.info.addClass('invalid')
   }
 
   // 更新图像剪辑信息
@@ -218,15 +219,28 @@ class CustomBox extends HTMLElement {
   updateAttributeGroup(groupId) {
     if (groupId === '') {
       this.info.textContent = Local.get('common.none')
-      this.info.removeClass('invalid')
       return
     }
     const group = Attribute.getGroup(groupId)
     if (group) {
       this.info.textContent = group.groupName
-      this.info.removeClass('invalid')
     } else {
       this.info.textContent = Command.parseUnlinkedId(groupId)
+      this.info.addClass('invalid')
+    }
+  }
+
+  // 更新属性信息
+  updateAttribute(attrId) {
+    if (attrId === '') {
+      this.info.textContent = Local.get('common.none')
+      return
+    }
+    const attribute = Attribute.getAttribute(attrId)
+    if (attribute) {
+      this.info.textContent = attribute.name
+    } else {
+      this.info.textContent = Command.parseUnlinkedId(attrId)
       this.info.addClass('invalid')
     }
   }
@@ -235,13 +249,11 @@ class CustomBox extends HTMLElement {
   updateEnumGroup(groupId) {
     if (groupId === '') {
       this.info.textContent = Local.get('common.none')
-      this.info.removeClass('invalid')
       return
     }
     const group = Enum.getEnumGroup(groupId)
     if (group) {
       this.info.textContent = group.groupName
-      this.info.removeClass('invalid')
     } else {
       this.info.textContent = Command.parseUnlinkedId(groupId)
       this.info.addClass('invalid')
@@ -252,13 +264,11 @@ class CustomBox extends HTMLElement {
   updateEnumString(stringId) {
     if (stringId === '') {
       this.info.textContent = Local.get('common.none')
-      this.info.removeClass('invalid')
       return
     }
     const string = Enum.getString(stringId)
     if (string) {
       this.info.textContent = string.name
-      this.info.removeClass('invalid')
     } else {
       this.info.textContent = Command.parseUnlinkedId(stringId)
       this.info.addClass('invalid')
@@ -346,6 +356,8 @@ class CustomBox extends HTMLElement {
         return PresetElement.open(this)
       case 'array':
         return ArrayList.open(this)
+      case 'attribute':
+        return Attribute.open(this, 'attribute')
       case 'attribute-group':
         return Attribute.open(this, 'group')
       case 'enum-group':

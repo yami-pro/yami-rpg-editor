@@ -3,19 +3,21 @@
 // ******************************** 属性上下文类 ********************************
 
 class AttributeContext {
+  itemMap   //:object
   groupMap  //:object
   itemCache //:object
   itemLists //:object
 
   constructor(attribute) {
+    const itemMap = {}
     const groupMap = {}
 
     // 加载数据
     const load = (groupKeys, items) => {
       for (const item of items) {
         const itemKey = item.id
+        itemMap[itemKey] = item
         if (item.class === 'folder') {
-          // 这里可能会创建用不到的属性分组
           groupMap[itemKey] = {
             groupName: item.name,
             itemMap: {},
@@ -51,6 +53,7 @@ class AttributeContext {
         }
       }
     }
+    this.itemMap = itemMap
     this.groupMap = groupMap
     this.itemCache = {}
     this.itemLists = {}
@@ -59,6 +62,11 @@ class AttributeContext {
   // 获取群组
   getGroup(groupKey) {
     return this.groupMap[groupKey]
+  }
+
+  // 获取属性
+  getAttribute(attrId) {
+    return this.itemMap[attrId]
   }
 
   // 获取群组属性
@@ -72,8 +80,11 @@ class AttributeContext {
   }
 
   // 获取属性选项列表
-  getAttributeItems(groupKey, attrType = '') {
-    const key = groupKey + attrType
+  getAttributeItems(groupKey, attrType = '', allowNone = false) {
+    let key = groupKey + attrType
+    if (allowNone) {
+      key += '-allowNone'
+    }
     if (!this.itemLists[key]) {
       // 获取分组的全部同类型选项
       const items = []
@@ -96,6 +107,12 @@ class AttributeContext {
             items.push(item)
           }
         }
+      }
+      if (allowNone) {
+        items.unshift({
+          name: Local.get('common.none'),
+          value: '',
+        })
       }
       if (items.length === 0) {
         items.push({

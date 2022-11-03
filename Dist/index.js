@@ -1,3 +1,4 @@
+"use strict";
 (() => {
   // Script/preact/constants.js
   var EMPTY_OBJ = {};
@@ -5220,7 +5221,8 @@
       id: "attribute-list-fieldset",
       class: "input pad"
     }, /* @__PURE__ */ createElement("legend", null, "List"), /* @__PURE__ */ createElement("node-list", {
-      id: "attribute-list"
+      id: "attribute-list",
+      padded: true
     })), /* @__PURE__ */ createElement("field-set", {
       id: "attribute-properties-fieldset"
     }, /* @__PURE__ */ createElement("legend", null, "Properties"), /* @__PURE__ */ createElement("flex-box", {
@@ -5285,7 +5287,8 @@
       id: "enum-list-fieldset",
       class: "input pad"
     }, /* @__PURE__ */ createElement("legend", null, "List"), /* @__PURE__ */ createElement("node-list", {
-      id: "enum-list"
+      id: "enum-list",
+      padded: true
     })), /* @__PURE__ */ createElement("field-set", {
       id: "enum-properties-fieldset"
     }, /* @__PURE__ */ createElement("legend", null, "Properties"), /* @__PURE__ */ createElement("flex-box", {
@@ -6834,6 +6837,8 @@
     }, /* @__PURE__ */ createElement("text", null, "Element"), /* @__PURE__ */ createElement("custom-box", {
       id: "tintImage-element",
       type: "element"
+    }), /* @__PURE__ */ createElement("text", null, "Mode"), /* @__PURE__ */ createElement("select-box", {
+      id: "tintImage-mode"
     }), /* @__PURE__ */ createElement("text", null, "Tint - Red"), /* @__PURE__ */ createElement("number-box", {
       id: "tintImage-tint-0",
       min: "-255",
@@ -6866,7 +6871,7 @@
     })), /* @__PURE__ */ createElement("filter-box", {
       id: "tintImage-filter",
       width: "96",
-      height: "184"
+      height: "208"
     }), /* @__PURE__ */ createElement("button", {
       id: "tintImage-confirm",
       name: "confirm"
@@ -8187,11 +8192,9 @@
       type: "skill"
     }), /* @__PURE__ */ createElement("text", null, "Operation"), /* @__PURE__ */ createElement("select-box", {
       id: "setSkill-operation"
-    }), /* @__PURE__ */ createElement("text", null, "Shortcut Key"), /* @__PURE__ */ createElement("select-box", {
-      id: "setSkill-key"
     }), /* @__PURE__ */ createElement("text", null, "Cooldown"), /* @__PURE__ */ createElement("number-var", {
       id: "setSkill-cooldown",
-      min: "0",
+      min: "1",
       max: "3600000",
       unit: "ms"
     })), /* @__PURE__ */ createElement("button", {
@@ -8298,6 +8301,10 @@
       id: "setBag-index2",
       min: "0",
       max: "10000"
+    }), /* @__PURE__ */ createElement("text", null, "Global Actor"), /* @__PURE__ */ createElement("custom-box", {
+      id: "setBag-refActorId",
+      type: "file",
+      filter: "actor"
     })), /* @__PURE__ */ createElement("button", {
       id: "setBag-confirm",
       name: "confirm"
@@ -8335,11 +8342,9 @@
       type: "item"
     }), /* @__PURE__ */ createElement("text", null, "Operation"), /* @__PURE__ */ createElement("select-box", {
       id: "setItem-operation"
-    }), /* @__PURE__ */ createElement("text", null, "Shortcut Key"), /* @__PURE__ */ createElement("select-box", {
-      id: "setItem-key"
     }), /* @__PURE__ */ createElement("text", null, "Quantity"), /* @__PURE__ */ createElement("number-var", {
       id: "setItem-quantity",
-      min: "0",
+      min: "1",
       max: "10000"
     })), /* @__PURE__ */ createElement("button", {
       id: "setItem-confirm",
@@ -8354,11 +8359,11 @@
       type: "actor"
     }), /* @__PURE__ */ createElement("text", null, "Operation"), /* @__PURE__ */ createElement("select-box", {
       id: "setCooldown-operation"
-    }), /* @__PURE__ */ createElement("text", null, "Key"), /* @__PURE__ */ createElement("string-var", {
+    }), /* @__PURE__ */ createElement("text", null, "Cooldown Key"), /* @__PURE__ */ createElement("select-var", {
       id: "setCooldown-key"
-    }), /* @__PURE__ */ createElement("text", null, "Cooldown"), /* @__PURE__ */ createElement("number-var", {
+    }), /* @__PURE__ */ createElement("text", null, "Cooldown Time"), /* @__PURE__ */ createElement("number-var", {
       id: "setCooldown-cooldown",
-      min: "0",
+      min: "1",
       max: "3600000",
       unit: "ms"
     })), /* @__PURE__ */ createElement("button", {
@@ -8366,6 +8371,27 @@
       name: "confirm"
     }, "Confirm"), /* @__PURE__ */ createElement("button", {
       id: "setCooldown-cancel",
+      name: "cancel"
+    }, "Cancel"))), /* @__PURE__ */ createElement("window-frame", {
+      id: "setShortcut"
+    }, /* @__PURE__ */ createElement("title-bar", null, "Set Shortcut", /* @__PURE__ */ createElement("close", null)), /* @__PURE__ */ createElement("content-frame", null, /* @__PURE__ */ createElement("grid-box", null, /* @__PURE__ */ createElement("text", null, "Actor"), /* @__PURE__ */ createElement("custom-box", {
+      id: "setShortcut-actor",
+      type: "actor"
+    }), /* @__PURE__ */ createElement("text", null, "Operation"), /* @__PURE__ */ createElement("select-box", {
+      id: "setShortcut-operation"
+    }), /* @__PURE__ */ createElement("text", null, "Item"), /* @__PURE__ */ createElement("custom-box", {
+      id: "setShortcut-item",
+      type: "item"
+    }), /* @__PURE__ */ createElement("text", null, "Skill"), /* @__PURE__ */ createElement("custom-box", {
+      id: "setShortcut-skill",
+      type: "skill"
+    }), /* @__PURE__ */ createElement("text", null, "Shortcut Key"), /* @__PURE__ */ createElement("select-box", {
+      id: "setShortcut-key"
+    })), /* @__PURE__ */ createElement("button", {
+      id: "setShortcut-confirm",
+      name: "confirm"
+    }, "Confirm"), /* @__PURE__ */ createElement("button", {
+      id: "setShortcut-cancel",
       name: "cancel"
     }, "Cancel"))), /* @__PURE__ */ createElement("window-frame", {
       id: "activateScene"

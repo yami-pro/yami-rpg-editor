@@ -57,13 +57,19 @@ class SelectBox extends HTMLElement {
 
   // 写入数据(无效时写入默认值)
   write2(value) {
-    const items = this.dataItems
-    for (const item of items) {
+    for (const item of this.dataItems) {
+
       if (item.value === value) {
-        return this.write(value)
+        this.write(value)
+        return
       }
     }
-    return this.write(items[0].value)
+    this.writeDefault()
+  }
+
+  // 写入默认值
+  writeDefault() {
+    this.write(this.dataItems[0].value)
   }
 
   // 输入数据

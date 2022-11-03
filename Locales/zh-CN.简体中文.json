@@ -41,6 +41,8 @@
       "parallax": "视差图",
       "tilemap": "瓦片地图",
       "element": "元素",
+      "attribute": "属性",
+      "attribute.group": "属性群组",
       "attribute.actor": "角色属性",
       "attribute.skill": "技能属性",
       "attribute.state": "状态属性",
@@ -50,6 +52,7 @@
       "enum": "枚举字符串",
       "enum.group": "枚举群组",
       "enum.shortcut-key": "快捷键",
+      "enum.cooldown-key": "冷却键",
       "enum.equipment-slot": "装备槽",
       "enum.global-event": "自定义全局事件",
       "enum.scene-event": "自定义场景事件",
@@ -402,6 +405,7 @@
       "set-as": "设置为",
       "set-as.none": "无",
       "set-as.shortcut-key": "快捷键",
+      "set-as.cooldown-key": "冷却键",
       "set-as.equipment-slot": "装备槽",
       "set-as.global-event": "全局事件",
       "set-as.scene-event": "场景事件",
@@ -1079,7 +1083,6 @@
       "skill": "技能",
       "castSkill": "施放技能",
       "setSkill": "设置技能",
-      "setSkill.set-key": "设置快捷键",
       "setSkill.set-cooldown": "设置冷却时间",
       "setSkill.increase-cooldown": "增加冷却时间",
       "setSkill.decrease-cooldown": "减少冷却时间",
@@ -1099,10 +1102,10 @@
       "setBag.swap": "交换物品位置",
       "setBag.sort": "简单排序",
       "setBag.sort-by-filename": "按文件名排序",
+      "setBag.reference": "使用其他角色的包裹",
       "setBag.reset": "重置",
       "useItem": "使用物品",
       "setItem": "设置物品",
-      "setItem.set-key": "设置快捷键",
       "setItem.increase": "增加",
       "setItem.decrease": "减少",
       "setCooldown": "设置冷却时间",
@@ -1110,6 +1113,10 @@
       "setCooldown.increase": "增加",
       "setCooldown.decrease": "减少",
       "setCooldown.reset": "重置",
+      "setShortcut": "设置快捷键",
+      "setShortcut.set-item-shortcut": "设置",
+      "setShortcut.set-skill-shortcut": "设置",
+      "setShortcut.delete-shortcut": "删除",
 
       "scene": "场景",
       "activateScene": "激活场景",
@@ -2874,6 +2881,11 @@
     "[comment]": "********** 指令 - 改变图像色调 **********",
     "tintImage": {"title": "改变图像色调"},
     "tintImage-element": {"label": "元素"},
+    "tintImage-mode": {"label": "模式", "options": {
+      "full": "完全模式",
+      "rgb": "RGB模式",
+      "gray": "灰度模式"
+    }},
     "tintImage-tint-0": {"label": "色调 - 红"},
     "tintImage-tint-1": {"label": "色调 - 绿"},
     "tintImage-tint-2": {"label": "色调 - 蓝"},
@@ -3442,12 +3454,10 @@
     "setSkill": {"title": "设置技能"},
     "setSkill-skill": {"label": "技能"},
     "setSkill-operation": {"label": "操作", "options": {
-      "set-key": "设置快捷键",
       "set-cooldown": "设置冷却时间",
       "increase-cooldown": "增加冷却时间",
       "decrease-cooldown": "减少冷却时间"
     }},
-    "setSkill-key": {"label": "快捷键"},
     "setSkill-cooldown": {"label": "时间"},
 
     "[comment]": "********** 指令 - 创建触发器 **********",
@@ -3483,6 +3493,7 @@
       "swap": "交换物品位置",
       "sort": "简单排序",
       "sort-by-filename": "按文件名排序",
+      "reference": "使用其他角色的包裹",
       "reset": "重置"
     }},
     "setBag-money": {"label": "金钱"},
@@ -3492,6 +3503,7 @@
     "setBag-equipment": {"label": "装备"},
     "setBag-index1": {"label": "索引 A"},
     "setBag-index2": {"label": "索引 B"},
+    "setBag-refActorId": {"label": "全局角色"},
 
     "[comment]": "********** 指令 - 使用物品 **********",
     "useItem": {"title": "使用物品"},
@@ -3510,11 +3522,9 @@
     "setItem": {"title": "设置物品"},
     "setItem-item": {"label": "物品"},
     "setItem-operation": {"label": "操作", "options": {
-      "set-key": "设置快捷键",
       "increase": "增加",
       "decrease": "减少"
     }},
-    "setItem-key": {"label": "快捷键"},
     "setItem-quantity": {"label": "数量"},
 
     "[comment]": "********** 指令 - 设置冷却时间 **********",
@@ -3526,8 +3536,20 @@
       "decrease": "减少",
       "reset": "重置"
     }},
-    "setCooldown-key": {"label": "键"},
-    "setCooldown-cooldown": {"label": "时间"},
+    "setCooldown-key": {"label": "冷却键"},
+    "setCooldown-cooldown": {"label": "冷却时间"},
+
+    "[comment]": "********** 指令 - 设置快捷键 **********",
+    "setShortcut": {"title": "设置快捷键"},
+    "setShortcut-actor": {"label": "角色"},
+    "setShortcut-operation": {"label": "操作", "options": {
+      "set-item-shortcut": "设置物品快捷键",
+      "set-skill-shortcut": "设置技能快捷键",
+      "delete-shortcut": "删除快捷键"
+    }},
+    "setShortcut-item": {"label": "物品"},
+    "setShortcut-skill": {"label": "技能"},
+    "setShortcut-key": {"label": "快捷键"},
 
     "[comment]": "********** 指令 - 激活场景 **********",
     "activateScene": {"title": "激活场景"},

@@ -398,8 +398,11 @@
       },
       {
         "class": "bag",
-        "value": "setCooldown",
-        "keywords": "gcd"
+        "value": "setCooldown"
+      },
+      {
+        "class": "bag",
+        "value": "setShortcut"
       }
     ]
   },

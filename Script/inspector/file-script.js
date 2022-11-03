@@ -41,7 +41,7 @@ import { Data } from '../data/data.js'
   */
 
   export default class Plugin {
-    start() {}
+    onStart() {}
   }`
   }
 

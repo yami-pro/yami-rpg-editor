@@ -181,7 +181,11 @@ PluginManager.createOverview = function (meta, detailed) {
         case 'attribute':
         case 'attribute-key': {
           const elType = document.createElement('text')
-          let text = get(`attribute.${parameter.filter}`)
+          let attrType = 'attribute'
+          if (parameter.filter !== 'any') {
+            attrType += '.' + parameter.filter
+          }
+          let text = get(attrType)
           if (type === 'attribute-key') {
             text += `(${get('key')})`
           }
@@ -200,7 +204,7 @@ PluginManager.createOverview = function (meta, detailed) {
         case 'enum':
         case 'enum-value': {
           const elType = document.createElement('text')
-          let enumType = type
+          let enumType = 'enum'
           if (parameter.filter !== 'any') {
             enumType += '.' + parameter.filter
           }
@@ -305,6 +309,7 @@ PluginManager.parseMeta = function IIFE() {
   const color = /^[\da-f]{8}$/
   const separator = /\s*,\s*/
   const spacing = /\s+/
+  const strExp = /(?:'[^']*'|"[^"]")(?=\s*,?)/g
   const langName = /^([a-zA-Z\-]+)(?:\s+extends\s+([a-zA-Z\-]+))?/
   const langProp = /(#\S+)\s+([\s\S]+?)(?=\s+#|$)/g
   const parseInitialValue = () => {
@@ -368,9 +373,9 @@ PluginManager.parseMeta = function IIFE() {
   const parseStringList = () => {
     if (content[0] === '[' && content[content.length - 1] === ']') {
       const strings = []
-      const slices = content.slice(1, -1).split(separator)
-      for (const slice of slices) {
-        const string = parseString(slice.trim())
+      let match
+      while (match = strExp.exec(content)) {
+        const string = parseString(match[0])
         if (string !== null) {
           strings.push(string)
         }
@@ -479,7 +484,7 @@ PluginManager.parseMeta = function IIFE() {
         value: '',
       }
       Object.defineProperties(parameter, {
-        filter: {writable: true, value: 'actor'},
+        filter: {writable: true, value: 'any'},
       })
       parameters.push(parameter)
       paramMap[content] = parameter
@@ -604,6 +609,7 @@ PluginManager.parseMeta = function IIFE() {
   }
   const enumFilters = {
     'shortcut-key': 1,
+    'cooldown-key': 1,
     'equipment-slot': 1,
     'global-event': 1,
     'scene-event': 1,
@@ -1053,6 +1059,7 @@ PluginManager.reconstruct = function IIFE() {
         return value === '' || !!Data.variables.map[value]
       case 'attribute':
       case 'attribute-key':
+        if (parameter.filter === 'any') return !!Attribute.getAttribute(value)
         return !!Attribute.getGroupAttribute(parameter.filter, value)
       case 'attribute-group':
         return !!Attribute.getGroup(value)
@@ -1119,8 +1126,13 @@ PluginManager.reconstruct = function IIFE() {
         return ''
       case 'attribute':
       case 'attribute-key':
-        if (Attribute.getGroupAttribute(parameter.filter, value)) return value
-        return Attribute.getDefAttributeId(parameter.filter)
+        if (parameter.filter === 'any') {
+          if (Attribute.getAttribute(value)) return value
+          return ''
+        } else {
+          if (Attribute.getGroupAttribute(parameter.filter, value)) return value
+          return Attribute.getDefAttributeId(parameter.filter)
+        }
       case 'attribute-group':
         if (Attribute.getGroup(value)) return value
         return ''

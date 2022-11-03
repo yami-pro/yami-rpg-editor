@@ -222,11 +222,16 @@ class ParameterPane extends HTMLElement {
         return wrap
       }
       case 'attribute':
-      case 'attribute-key': {
-        const wrap = this.createSelectBox()
-        wrap.input.loadItems(Attribute.getAttributeItems(parameter.filter))
-        return wrap
-      }
+      case 'attribute-key':
+        if (parameter.filter === 'any') {
+          const wrap = this.createCustomBox()
+          wrap.input.setAttribute('type', 'attribute')
+          return wrap
+        } else {
+          const wrap = this.createSelectBox()
+          wrap.input.loadItems(Attribute.getAttributeItems(parameter.filter, '', true))
+          return wrap
+        }
       case 'attribute-group': {
         const wrap = this.createCustomBox()
         wrap.input.setAttribute('type', 'attribute-group')
@@ -240,7 +245,7 @@ class ParameterPane extends HTMLElement {
           return wrap
         } else {
           const wrap = this.createSelectBox()
-          wrap.input.loadItems(Enum.getStringItems(parameter.filter))
+          wrap.input.loadItems(Enum.getStringItems(parameter.filter, true))
           return wrap
         }
       case 'enum-group': {

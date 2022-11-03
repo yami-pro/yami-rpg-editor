@@ -32,6 +32,7 @@ const Attribute = {
   getItemById: null,
   setFolderGroup: null,
   getGroup: null,
+  getAttribute: null,
   getGroupAttribute: null,
   getDefAttributeId: null,
   getAttributeItems: null,

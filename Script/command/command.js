@@ -23,6 +23,7 @@ const Command = {
   parseVariableTag: null,
   parseVariableNumber: null,
   parseVariableString: null,
+  parseVariableEnum: null,
   parseVariableFile: null,
   parseMultiLineString: null,
   parseSpriteName: null,
