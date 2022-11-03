@@ -9,6 +9,9 @@ import { Window } from '../../tools/window.js'
 import { Data } from '../../data/data.js'
 import { NodeList } from '../../components/node-list.js'
 import { Local } from '../../tools/local.js'
+import { Command } from '../../command/command.js'
+import { Attribute } from '../../attribute/attribute.js'
+import { Enum } from '../../enum/enum.js'
 
 // ******************************** 插件窗口加载 ********************************
 

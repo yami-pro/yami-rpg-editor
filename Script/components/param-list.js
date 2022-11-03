@@ -1,5 +1,8 @@
 'use strict'
 
+import { CommonList } from './common-list.js'
+import { DetailBox } from './detail-box.js'
+
 import { ParamHistory } from '../history/param-history.js'
 
 // ******************************** 参数列表 ********************************

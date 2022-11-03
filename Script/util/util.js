@@ -177,5 +177,7 @@ window.on('resize', function IIFE() {
 
 export {
   measureText,
+  getElementReader,
+  getElementWriter,
   INTRGBA
 }

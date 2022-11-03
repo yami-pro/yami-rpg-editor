@@ -20,6 +20,13 @@ import { Title } from '../../title/title.js'
 import { Animation } from '../../animation/animation.js'
 import { Particle } from '../../particle/particle.js'
 import { Zoom } from '../../tools/zoom.js'
+import { Project } from '../../data/project.js'
+import { Variable } from '../../variable/variable.js'
+import { Attribute } from '../../attribute/attribute.js'
+import { Enum } from '../../enum/enum.js'
+import { Team } from '../../data/team.js'
+import { PluginManager } from '../../plugin/plugin.js'
+import { CustomCommand } from '../../command/custom-command.js'
 
 
 // ******************************** 菜单栏对象加载 ********************************

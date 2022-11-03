@@ -9,6 +9,7 @@ import { AttributeContext } from '../../attribute/attribute-context.js'
 import { EnumerationContext } from '../../enum/enumeration-context.js'
 import { Log } from '../../log/log.js'
 import { PluginManager } from '../../plugin/plugin.js'
+import { Editor } from '../../editor/editor.js'
 
 // ******************************** 数据对象加载 ********************************
 

@@ -1,6 +1,27 @@
 'use strict'
 
+import { Command } from '../command/command.js'
+import { Local } from '../tools/local.js'
+// import { Attribute } from '../attribute/attribute.js'
+import { Enum } from '../enum/enum.js'
+import { Selector } from '../browser/selector.js'
+import { ImageClip } from '../tools/image-clip.js'
+import { VariableGetter } from '../command/variable-getter.js'
+// import { Variable } from '../variable/variable.js'
+import { ActorGetter } from '../command/actor-getter.js'
+import { SkillGetter } from '../command/skill-getter.js'
+import { StateGetter } from '../command/state-getter.js'
+import { EquipmentGetter } from '../command/equipment-getter.js'
+import { ItemGetter } from '../command/item-getter.js'
+import { PositionGetter } from '../command/position-getter.js'
+import { AngleGetter } from '../command/angle-getter.js'
+import { TriggerGetter } from '../command/trigger-getter.js'
+import { LightGetter } from '../command/light-getter.js'
+import { ElementGetter } from '../command/element-getter.js'
+import { AncestorGetter } from '../command/ancestor-getter.js'
+import { PresetObject } from '../tools/preset-object.js'
 import { PresetElement } from '../tools/preset-element.js'
+import { ArrayList } from '../tools/array-list.js'
 
 // ******************************** 自定义框 ********************************
 

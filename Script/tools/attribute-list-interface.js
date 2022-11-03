@@ -4,6 +4,10 @@ import { Window } from './window.js'
 
 import { SelectBox } from '../components/select-box.js'
 import { Inspector } from '../inspector/inspector.js'
+import { Command } from '../command/command.js'
+import { Attribute } from '../attribute/attribute.js'
+import { Enum } from '../enum/enum.js'
+import { getElementWriter } from '../util/util.js'
 
 // ******************************** 属性列表接口 ********************************
 

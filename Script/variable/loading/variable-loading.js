@@ -6,6 +6,7 @@ import { History } from '../../history/history.js'
 import { File } from '../../file-system/file.js'
 import { Window } from '../../tools/window.js'
 import { Data } from '../../data/data.js'
+import { Command } from '../../command/command.js'
 
 // ******************************** 变量窗口加载 ********************************
 

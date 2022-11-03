@@ -2,9 +2,12 @@
 
 import { NumberBox } from './number-box.js'
 import { ParamList } from './param-list.js'
+import { DetailSummary } from './detail-summary.js'
+
 import { File } from '../file-system/file.js'
 import { Data } from '../data/data.js'
 import { NodeList } from '../components/node-list.js'
+import { PluginManager } from '../plugin/plugin.js'
 
 // ******************************** 脚本参数面板 ********************************
 

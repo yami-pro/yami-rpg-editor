@@ -428,3 +428,5 @@ Codec.getTilemaps = function IIFE() {
     return getTilemaps(scene.objects, [])
   }
 }()
+
+export { Codec }

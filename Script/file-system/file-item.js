@@ -4,6 +4,9 @@
 import { FS, FSP } from './file-system.js'
 import { Directory } from './directory.js'
 import { Path } from './path.js'
+import { GUID } from './guid.js'
+import { File } from './file.js'
+
 import { GL } from '../webgl/gl.js'
 import { Meta } from '../data/meta.js'
 import { Log } from '../log/log.js'

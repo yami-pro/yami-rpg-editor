@@ -7,6 +7,7 @@ import { GL } from '../../webgl/gl.js'
 import { File } from '../../file-system/file.js'
 import { Window } from '../../tools/window.js'
 import { Data } from '../../data/data.js'
+import { Codec } from '../../codec/codec.js'
 
 // ******************************** 队伍窗口加载 ********************************
 
