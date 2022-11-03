@@ -84,7 +84,6 @@ Local.setLanguage = async function (language) {
       }
     }
   }
-  debugger
   for (const {key, filename} of this.languages) {
     if (key !== language) continue
     if (this.active !== filename) {
