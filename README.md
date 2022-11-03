@@ -11,7 +11,7 @@ npm install
 ## Run 
 ```shell
 esbuild Script/index.jsx --jsx-factory=createElement --jsx-fragment=Fragment --bundle --outfile=Dist/index.js
-esbuild Script/editor/src/index.js --jsx-factory=createElement --jsx-fragment=Fragment --bundle --platform=node --external:electron --outfile=Dist/data.js
+esbuild Script/editor/index.js --jsx-factory=createElement --jsx-fragment=Fragment --bundle --platform=node --external:electron --outfile=Dist/data.js
 npm run start
 ```
 
