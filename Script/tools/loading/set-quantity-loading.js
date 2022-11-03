@@ -1,7 +1,7 @@
 'use strict'
 
 import { SetQuantity } from '../set-quantity.js'
-import { Window } from '../../tools/window.js'
+import { Window } from '../window.js'
 
 // ******************************** 设置数量窗口加载 ********************************
 

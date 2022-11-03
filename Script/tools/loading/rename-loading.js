@@ -1,7 +1,7 @@
 'use strict'
 
 import { Rename } from '../rename.js'
-import { Window } from '../../tools/window.js'
+import { Window } from '../window.js'
 
 // ******************************** 重命名窗口加载 ********************************
 

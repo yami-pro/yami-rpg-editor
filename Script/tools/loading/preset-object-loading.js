@@ -1,6 +1,7 @@
 'use strict'
 
 import { PresetObject } from '../preset-object.js'
+
 import { Scene } from '../../scene/scene.js'
 import { Window } from '../../tools/window.js'
 

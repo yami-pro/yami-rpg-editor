@@ -1,7 +1,7 @@
 'use strict'
 
 import { Zoom } from '../zoom.js'
-import { Window } from '../../tools/window.js'
+import { Window } from '../window.js'
 
 // ******************************** 缩放窗口加载 ********************************
 

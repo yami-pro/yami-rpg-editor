@@ -1,8 +1,9 @@
 'use strict'
 
 import { PresetElement } from '../preset-element.js'
+import { Window } from '../window.js'
+
 import { UI } from '../../ui/ui.js'
-import { Window } from '../../tools/window.js'
 import { Data } from '../../data/data.js'
 
 // ******************************** 预设元素窗口加载 ********************************

@@ -1,6 +1,7 @@
 'use strict'
 
 import { Window } from '../window.js'
+
 import { measureText } from '../../util/util.js'
 import { Title } from '../../title/title.js'
 import { Menubar } from '../../title/menu-bar.js'

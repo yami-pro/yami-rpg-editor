@@ -1,7 +1,7 @@
 'use strict'
 
 import { Selection } from '../selection.js'
-import { Window } from '../../tools/window.js'
+import { Window } from '../window.js'
 
 // ******************************** 选取文本加载 ********************************
 

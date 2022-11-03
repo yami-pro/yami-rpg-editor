@@ -1,7 +1,7 @@
 'use strict'
 
 import { ArrayList } from '../array-list.js'
-import { Window } from '../../tools/window.js'
+import { Window } from '../window.js'
 
 // ******************************** 数组窗口加载 ********************************
 

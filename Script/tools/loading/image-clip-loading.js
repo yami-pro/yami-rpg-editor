@@ -1,9 +1,11 @@
 'use strict'
 
 import { ImageClip } from '../image-clip.js'
+import { Window } from '../window.js'
+
 import { File } from '../../file-system/file.js'
 import { Path } from '../../file-system/path.js'
-import { Window } from '../../tools/window.js'
+
 
 // ******************************** 图像剪辑窗口加载 ********************************
 
