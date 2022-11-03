@@ -18,6 +18,9 @@ import { Window } from '../../tools/window.js'
 import { ImageTexture } from '../../webgl/image-texture.js'
 import { Data } from '../../data/data.js'
 import { NodeList } from '../../components/node-list.js'
+import { Layout } from '../../layout/layout.js'
+import { Particle } from '../../particle/particle.js'
+import { Enum } from '../../enum/enum.js'
 
 // ******************************** 动画窗口加载 ********************************
 

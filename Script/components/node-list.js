@@ -1,6 +1,8 @@
 'use strict'
 
 import { TextBox } from './text-box.js'
+import { CommonList } from './common-list.js'
+
 import { Timer } from '../util/timer.js'
 
 // ******************************** 节点列表 ********************************

@@ -12,6 +12,9 @@ import { Path } from '../../file-system/path.js'
 import { Window } from '../../tools/window.js'
 import { Data } from '../../data/data.js'
 import { Editor } from '../../editor/editor.js'
+import { Local } from '../../tools/local.js'
+import { Layout } from '../../layout/layout.js'
+import { Animation } from '../../animation/animation.js'
 
 // ******************************** 标题栏对象加载 ********************************
 

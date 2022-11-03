@@ -2,6 +2,7 @@
 
 import { EventEditor } from '../event-editor.js'
 import { Window } from '../../tools/window.js'
+import { Local } from '../../tools/local.js'
 
 // ******************************** 事件编辑器加载 ********************************
 

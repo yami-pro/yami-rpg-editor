@@ -1,5 +1,7 @@
 'use strict'
 
+import { TitleBar } from './title-bar.js'
+
 import { Window } from '../tools/window.js'
 
 // ******************************** 窗口框架 ********************************

@@ -8,6 +8,7 @@ import { File } from '../../file-system/file.js'
 import { Window } from '../../tools/window.js'
 import { Data } from '../../data/data.js'
 import { NodeList } from '../../components/node-list.js'
+import { Local } from '../../tools/local.js'
 
 // ******************************** 插件窗口加载 ********************************
 

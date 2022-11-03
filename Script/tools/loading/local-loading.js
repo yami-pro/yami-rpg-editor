@@ -7,6 +7,9 @@ import { FS, FSP } from '../../file-system/file-system.js'
 import { Editor } from '../../editor/editor.js'
 import { Log } from '../../log/log.js'
 import { File } from '../../file-system/file.js'
+import { TextBox } from '../../components/text-box.js'
+import { SelectBox } from '../../components/select-box.js'
+import { WindowFrame } from '../../components/window-frame.js'
 
 // ******************************** 本地化对象加载 ********************************
 
@@ -81,6 +84,7 @@ Local.setLanguage = async function (language) {
       }
     }
   }
+  debugger
   for (const {key, filename} of this.languages) {
     if (key !== language) continue
     if (this.active !== filename) {
@@ -91,7 +95,7 @@ Local.setLanguage = async function (language) {
         this.language = language
         window.dispatchEvent(new Event('localize'))
       } catch (error) {
-        Log.throw(new Error('Failed to load language pack'))
+        Log.throw(error)
       }
     }
     return
