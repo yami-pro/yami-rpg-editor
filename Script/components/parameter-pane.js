@@ -1,9 +1,5 @@
 'use strict'
 
-import { NumberBox } from './number-box.js'
-import { ParamList } from './param-list.js'
-import { Select } from './select-list.js'
-import { DetailSummary } from './detail-summary.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 脚本参数面板 ********************************
@@ -53,7 +49,7 @@ class ParameterPane extends HTMLElement {
   // 绑定数据
   bind(scriptList) {
     this.scriptList = scriptList
-    if (scriptList instanceof ParamList) {
+    if (scriptList instanceof Yami.ParamList) {
       const {object} = scriptList
       const {update} = object
       this.getData = () => scriptList.data
@@ -369,7 +365,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'number-box'
     const label = document.createElement('text')
-    const input = new NumberBox()
+    const input = new Yami.NumberBox()
     input.decimals = 10
     return {tag, label, input}
   }
@@ -394,7 +390,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'select-box'
     const label = document.createElement('text')
-    const input = new SelectBox()
+    const input = new Yami.SelectBox()
     return {tag, label, input}
   }
 
@@ -544,7 +540,7 @@ class ParameterPane extends HTMLElement {
     }
     const {parameters, key} = element
     const {scriptList} = this
-    if (scriptList instanceof ParamList) {
+    if (scriptList instanceof Yami.ParamList) {
       const {history} = scriptList
       const {editor} = history
       if (editor) {
@@ -588,8 +584,8 @@ class ParameterPane extends HTMLElement {
   static scriptChange(event) {
     for (const meta of this.metas) {
       if (meta === event.changedMeta) {
-        if (this.contains(Select.target)) {
-          Select.close()
+        if (this.contains(Yami.Select.target)) {
+          Yami.Select.close()
         }
         this.update()
         return

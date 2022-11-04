@@ -1,8 +1,6 @@
 'use strict'
 
 import { ActorGetter } from '../actor-getter.js'
-// import { Yami.TextSuggestion } from '../text-suggestion.js'
-// import { Yami.VariableGetter } from '../variable-getter.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 角色访问器窗口加载 ********************************

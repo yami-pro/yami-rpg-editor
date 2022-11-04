@@ -1,8 +1,6 @@
 'use strict'
 
 import { AncestorGetter } from '../ancestor-getter.js'
-// import { Yami.TextSuggestion } from '../text-suggestion.js'
-// import { Yami.VariableGetter } from '../variable-getter.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 祖先元素访问器窗口加载 ********************************

@@ -1,7 +1,5 @@
 'use strict'
 
-import { TextBox } from './text-box.js'
-import { SliderBox } from './slider-box.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 文件头部面板 ********************************
@@ -20,11 +18,11 @@ class FileHeadPane extends HTMLElement {
     this.back.addClass('upper-level-directory')
     this.back.name = 'back'
     this.back.textContent = '\uf0a8'
-    this.searcher = new TextBox()
+    this.searcher = new Yami.TextBox()
     this.searcher.addCloseButton()
     this.searcher.addClass('file-head-searcher')
     this.searcher.name = 'search'
-    this.view = new SliderBox()
+    this.view = new Yami.SliderBox()
     this.view.addClass('file-head-view')
     this.view.name = 'view'
     this.view.input.max = '4'

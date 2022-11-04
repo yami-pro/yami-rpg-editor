@@ -1,6 +1,5 @@
 'use strict'
 
-import { TextBox } from './text-box.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 文件身体面板 ********************************
@@ -1390,7 +1389,7 @@ class FileBodyPane extends HTMLElement {
 
   // 静态 - 创建文本输入框
   static textBox = function IIFE() {
-    const textBox = new TextBox()
+    const textBox = new Yami.TextBox()
     textBox.setMaxLength(64)
     textBox.addClass('file-body-text-box')
     textBox.input.addClass('file-body-text-box-input')

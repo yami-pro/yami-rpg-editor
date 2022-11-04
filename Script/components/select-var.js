@@ -1,7 +1,6 @@
 'use strict'
 
-import { SelectBox } from './select-box.js'
-import { CustomBox } from './custom-box.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 选择变量框 ********************************
 
@@ -15,8 +14,8 @@ class SelectVar extends HTMLElement {
 
     // 设置属性
     this.mode = null
-    this.selectBox = new SelectBox()
-    this.varBox = new CustomBox()
+    this.selectBox = new Yami.SelectBox()
+    this.varBox = new Yami.CustomBox()
     this.varBox.setAttribute('type', 'variable')
     this.varBox.setAttribute('filter', 'all')
 

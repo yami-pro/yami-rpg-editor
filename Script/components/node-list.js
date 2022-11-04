@@ -1,7 +1,5 @@
 'use strict'
 
-import { TextBox } from './text-box.js'
-import { CommonList } from './common-list.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 节点列表 ********************************
@@ -164,12 +162,12 @@ class NodeList extends HTMLElement {
 
   // 重新调整
   resize() {
-    return CommonList.resize(this)
+    return Yami.CommonList.resize(this)
   }
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return CommonList.updateHeadAndFoot(this)
+    return Yami.CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -1068,7 +1066,7 @@ class NodeList extends HTMLElement {
 
   // 清除元素
   clearElements(start) {
-    return CommonList.clearElements(this, start)
+    return Yami.CommonList.clearElements(this, start)
   }
 
   // 清除列表
@@ -1511,7 +1509,7 @@ class NodeList extends HTMLElement {
 
   // 静态 - 文本输入框
   static textBox = function IIFE() {
-    const textBox = new TextBox()
+    const textBox = new Yami.TextBox()
     textBox.addClass('node-list-text-box')
     textBox.input.addClass('node-list-text-box-input')
 

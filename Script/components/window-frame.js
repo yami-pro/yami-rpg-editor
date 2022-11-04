@@ -1,6 +1,5 @@
 'use strict'
 
-import { TitleBar } from './title-bar.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 窗口框架 ********************************
@@ -207,7 +206,7 @@ class WindowFrame extends HTMLElement {
   // 设置标题
   setTitle(text) {
     const titleBar = this.firstElementChild
-    if (titleBar instanceof TitleBar) {
+    if (titleBar instanceof Yami.TitleBar) {
       for (const childNode of titleBar.childNodes) {
         if (childNode instanceof Text) {
           childNode.nodeValue = text

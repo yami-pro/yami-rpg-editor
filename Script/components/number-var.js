@@ -1,7 +1,6 @@
 'use strict'
 
-import { NumberBox } from './number-box.js'
-import { CustomBox } from './custom-box.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 数字变量框 ********************************
 
@@ -15,8 +14,8 @@ class NumberVar extends HTMLElement {
 
     // 设置属性
     this.mode = null
-    this.numBox = new NumberBox(this)
-    this.varBox = new CustomBox()
+    this.numBox = new Yami.NumberBox(this)
+    this.varBox = new Yami.CustomBox()
     this.varBox.setAttribute('type', 'variable')
     this.varBox.setAttribute('filter', 'number')
 

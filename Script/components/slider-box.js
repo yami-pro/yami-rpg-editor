@@ -1,6 +1,6 @@
 'use strict'
 
-import { NumberBox } from './number-box.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 滑动框 ********************************
 
@@ -103,7 +103,7 @@ class SliderBox extends HTMLElement {
     }
 
     // 设置新的同步关系
-    if (number instanceof NumberBox) {
+    if (number instanceof Yami.NumberBox) {
       const writeSlider = slider.write
       const writeNumber = number.write
 

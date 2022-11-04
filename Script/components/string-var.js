@@ -1,7 +1,6 @@
 'use strict'
 
-import { TextBox } from './text-box.js'
-import { CustomBox } from './custom-box.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 字符串变量框 ********************************
 
@@ -15,8 +14,8 @@ class StringVar extends HTMLElement {
 
     // 设置属性
     this.mode = null
-    this.strBox = new TextBox()
-    this.varBox = new CustomBox()
+    this.strBox = new Yami.TextBox()
+    this.varBox = new Yami.CustomBox()
     this.varBox.setAttribute('type', 'variable')
     this.varBox.setAttribute('filter', 'string')
 

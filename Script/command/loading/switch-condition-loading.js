@@ -1,7 +1,6 @@
 'use strict'
 
 import { SwitchCondition } from '../switch-condition.js'
-// import { Yami.IfCondition } from '../if-condition.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 匹配 - 条件窗口加载 ********************************

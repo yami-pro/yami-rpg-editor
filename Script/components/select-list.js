@@ -1,6 +1,5 @@
 'use strict'
 
-import { CommonList } from './common-list.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 选择列表 ********************************
@@ -141,12 +140,12 @@ class SelectList extends HTMLElement {
 
   // 重新调整
   resize() {
-    return CommonList.resize(this)
+    return Yami.CommonList.resize(this)
   }
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return CommonList.updateHeadAndFoot(this)
+    return Yami.CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -227,7 +226,7 @@ class SelectList extends HTMLElement {
 
   // 清除元素
   clearElements(start) {
-    return CommonList.clearElements(this, start)
+    return Yami.CommonList.clearElements(this, start)
   }
 
   // 清除列表

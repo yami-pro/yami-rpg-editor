@@ -1,6 +1,6 @@
 'use strict'
 
-import { CustomBox } from './custom-box.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件变量框 ********************************
 
@@ -14,8 +14,8 @@ class FileVar extends HTMLElement {
 
     // 设置属性
     this.mode = null
-    this.fileBox = new CustomBox()
-    this.varBox = new CustomBox()
+    this.fileBox = new Yami.CustomBox()
+    this.varBox = new Yami.CustomBox()
     this.fileBox.setAttribute('type', 'file')
     this.fileBox.setAttribute('filter', this.getAttribute('filter'))
     this.varBox.setAttribute('type', 'variable')

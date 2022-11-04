@@ -1,6 +1,6 @@
 'use strict'
 
-import { Select } from './select-list.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 选择框 ********************************
 
@@ -294,7 +294,7 @@ class SelectBox extends HTMLElement {
       case 'NumpadEnter':
         if (!event.cmdOrCtrlKey) {
           event.stopPropagation()
-          Select.open(this)
+          Yami.Select.open(this)
         }
         break
       case 'ArrowUp':
@@ -314,7 +314,7 @@ class SelectBox extends HTMLElement {
   pointerdown(event) {
     switch (event.button) {
       case 0:
-        Select.open(this)
+        Yami.Select.open(this)
         break
     }
   }

@@ -1,7 +1,6 @@
 'use strict'
 
 import { LightGetter } from '../light-getter.js'
-// import { Yami.TextSuggestion } from '../text-suggestion.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 光源访问器窗口加载 ********************************

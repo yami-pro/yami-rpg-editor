@@ -1,7 +1,6 @@
 'use strict'
 
 import { IfBranch } from '../if-branch.js'
-// import { Yami.IfCondition } from '../if-condition.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 条件分支 - 分支窗口加载 ********************************

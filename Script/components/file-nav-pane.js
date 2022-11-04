@@ -1,7 +1,5 @@
 'use strict'
 
-import { TextBox } from './text-box.js'
-import { CommonList } from './common-list.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 文件导航面板 ********************************
@@ -94,12 +92,12 @@ class FileNavPane extends HTMLElement {
 
   // 重新调整
   resize() {
-    return CommonList.resize(this)
+    return Yami.CommonList.resize(this)
   }
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return CommonList.updateHeadAndFoot(this)
+    return Yami.CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -619,7 +617,7 @@ class FileNavPane extends HTMLElement {
 
   // 静态 - 创建文本输入框
   static textBox = function IIFE() {
-    const textBox = new TextBox()
+    const textBox = new Yami.TextBox()
     textBox.setMaxLength(64)
     textBox.addClass('file-nav-text-box')
     textBox.input.addClass('file-nav-text-box-input')
