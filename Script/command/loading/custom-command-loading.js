@@ -1,14 +1,7 @@
 'use strict'
 
 import { CustomCommand } from '../custom-command.js'
-import { PluginManager } from '../../plugin/plugin.js'
-import { Easing } from '../../data/easing.js'
-import { ScriptListInterface } from '../../tools/script-list-interface.js'
-import { File } from '../../file-system/file.js'
-import { Window } from '../../tools/window.js'
-import { Data } from '../../data/data.js'
-import { NodeList } from '../../components/node-list.js'
-import { getElementWriter } from '../../util/util.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 自定义指令窗口加载 ********************************
 
@@ -17,14 +10,14 @@ CustomCommand.list.insert = null
 CustomCommand.list.toggle = null
 CustomCommand.list.copy = null
 CustomCommand.list.paste = null
-CustomCommand.list.delete = PluginManager.list.delete
+CustomCommand.list.delete = Yami.PluginManager.list.delete
 CustomCommand.list.saveSelection = null
 CustomCommand.list.restoreSelection = null
-CustomCommand.list.updateNodeElement = Easing.list.updateNodeElement
-CustomCommand.list.addElementClass = PluginManager.list.addElementClass
-CustomCommand.list.updateTextNode = PluginManager.list.updateTextNode
-CustomCommand.list.updateToggleStyle = PluginManager.list.updateToggleStyle
-CustomCommand.list.createEditIcon = PluginManager.list.createEditIcon
+CustomCommand.list.updateNodeElement = Yami.Easing.list.updateNodeElement
+CustomCommand.list.addElementClass = Yami.PluginManager.list.addElementClass
+CustomCommand.list.updateTextNode = Yami.PluginManager.list.updateTextNode
+CustomCommand.list.updateToggleStyle = Yami.PluginManager.list.updateToggleStyle
+CustomCommand.list.createEditIcon = Yami.PluginManager.list.createEditIcon
 
 // 初始化
 CustomCommand.initialize = function () {
@@ -46,7 +39,7 @@ CustomCommand.initialize = function () {
   list.on('change', this.listChange)
   list.on('popup', this.listPopup)
   list.on('open', this.listOpen)
-  list.on('pointerdown', ScriptListInterface.listPointerdown)
+  list.on('pointerdown', Yami.ScriptListInterface.listPointerdown)
   $('#command-alias, #command-keywords').on('input', this.paramInput)
   $('#command-confirm').on('click', this.confirm)
   $('#command-apply').on('click', this.apply)
@@ -54,10 +47,10 @@ CustomCommand.initialize = function () {
 
 // 打开窗口
 CustomCommand.open = function () {
-  Window.open('command')
+  Yami.Window.open('command')
 
   // 创建数据副本
-  this.data = Object.clone(Data.commands)
+  this.data = Object.clone(Yami.Data.commands)
 
   // 更新列表项目
   this.list.restoreSelection()
@@ -73,14 +66,14 @@ CustomCommand.open = function () {
 // 加载指令
 CustomCommand.load = async function (item) {
   const symbol = this.symbol = Symbol()
-  const meta = await Data.scripts[item.id]
+  const meta = await Yami.Data.scripts[item.id]
   if (this.symbol === symbol) {
     this.symbol = null
     this.meta = meta
     this.loadOverview()
     const data = this.list.read()
     if (data) {
-      const write = getElementWriter('command', data)
+      const write = Yami.getElementWriter('command', data)
       write('alias')
       write('keywords')
       this.settingsPane.show()
@@ -101,7 +94,7 @@ CustomCommand.unload = function () {
 CustomCommand.loadOverview = function () {
   const {meta} = this
   if (!meta) return
-  const elements = PluginManager.createOverview(meta, true)
+  const elements = Yami.PluginManager.createOverview(meta, true)
   const overview = this.overview.clear()
   for (const element of elements) {
     overview.appendChild(element)
@@ -120,20 +113,20 @@ CustomCommand.createData = function (id) {
 }
 
 // 获取ID匹配的数据
-CustomCommand.getItemById = Easing.getItemById
+CustomCommand.getItemById = Yami.Easing.getItemById
 
 // 窗口 - 关闭事件
 CustomCommand.windowClose = function (event) {
   if (this.changed) {
     event.preventDefault()
-    const get = Local.createGetter('confirmation')
-    Window.confirm({
+    const get = Yami.Local.createGetter('confirmation')
+    Yami.Window.confirm({
       message: get('closeUnsavedCommands'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Window.close('command')
+        Yami.Window.close('command')
       },
     }, {
       label: get('no'),
@@ -151,7 +144,7 @@ CustomCommand.windowClosed = function (event) {
 }.bind(CustomCommand)
 
 // 指针按下事件
-CustomCommand.pointerdown = PluginManager.pointerdown
+CustomCommand.pointerdown = Yami.PluginManager.pointerdown
 
 // 脚本元数据改变事件
 CustomCommand.scriptChange = function (event) {
@@ -208,10 +201,10 @@ CustomCommand.listChange = function (event) {
 CustomCommand.listPopup = function (event) {
   const item = event.value
   const selected = !!item
-  const pastable = Clipboard.has('yami.data.customCommand')
+  const pastable = Yami.Clipboard.has('yami.data.customCommand')
   const deletable = selected
-  const get = Local.createGetter('menuCustomCommandList')
-  Menu.popup({
+  const get = Yami.Local.createGetter('menuCustomCommandList')
+  Yami.Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -236,14 +229,14 @@ CustomCommand.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: ctrl('C'),
+    accelerator: Yami.ctrl('C'),
     enabled: selected,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: ctrl('V'),
+    accelerator: Yami.ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -280,7 +273,7 @@ CustomCommand.paramInput = function (event) {
 // 确定按钮 - 鼠标点击事件
 CustomCommand.confirm = function (event) {
   this.apply()
-  Window.close('command')
+  Yami.Window.close('command')
 }.bind(CustomCommand)
 
 // 应用按钮 - 鼠标点击事件
@@ -293,17 +286,17 @@ CustomCommand.apply = function (event) {
     if (event instanceof Event) {
       commands = Object.clone(commands)
     } else {
-      NodeList.deleteCaches(commands)
+      Yami.NodeList.deleteCaches(commands)
     }
-    Data.commands = commands
-    File.planToSave(Data.manifest.project.commands)
+    Yami.Data.commands = commands
+    Yami.File.planToSave(Yami.Data.manifest.project.commands)
     Command.custom.loadCommandList()
   }
 }.bind(CustomCommand)
 
 // 列表 - 编辑
 CustomCommand.list.edit = function (item) {
-  Selector.open({
+  Yami.Selector.open({
     filter: 'script',
     read: () => item.id,
     input: id => {
@@ -321,7 +314,7 @@ CustomCommand.list.edit = function (item) {
 
 // 列表 - 插入
 CustomCommand.list.insert = function (dItem) {
-  Selector.open({
+  Yami.Selector.open({
     filter: 'script',
     read: () => '',
     input: id => {
@@ -342,13 +335,13 @@ CustomCommand.list.toggle = function (item) {
 // 列表 - 复制
 CustomCommand.list.copy = function (item) {
   if (item) {
-    Clipboard.write('yami.data.customCommand', item)
+    Yami.Clipboard.write('yami.data.customCommand', item)
   }
 }
 
 // 列表 - 粘贴
 CustomCommand.list.paste = function (dItem) {
-  const copy = Clipboard.read('yami.data.customCommand')
+  const copy = Yami.Clipboard.read('yami.data.customCommand')
   if (copy) {
     this.addNodeTo(copy, dItem)
   }
@@ -356,7 +349,7 @@ CustomCommand.list.paste = function (dItem) {
 
 // 列表 - 保存选项状态
 CustomCommand.list.saveSelection = function () {
-  const {commands} = Data
+  const {commands} = Yami.Data
   // 将数据保存在外部可以切换项目后重置
   if (commands.selection === undefined) {
     Object.defineProperty(commands, 'selection', {
@@ -372,7 +365,7 @@ CustomCommand.list.saveSelection = function () {
 
 // 列表 - 恢复选项状态
 CustomCommand.list.restoreSelection = function () {
-  const id = Data.commands.selection
+  const id = Yami.Data.commands.selection
   const item = CustomCommand.getItemById(id) ?? this.data[0]
   this.select(item)
   this.update()

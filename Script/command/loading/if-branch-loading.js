@@ -2,7 +2,7 @@
 
 import { IfBranch } from '../if-branch.js'
 import { IfCondition } from '../if-condition.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 条件分支 - 分支窗口加载 ********************************
 
@@ -39,7 +39,7 @@ IfBranch.open = function (branch) {
     IfCondition.target = this.target
     IfCondition.open()
   } else {
-    Window.open('if-branch')
+    Yami.Window.open('if-branch')
     $('#if-branch-mode').write(branch.mode)
     $('#if-branch-conditions').write(branch.conditions.slice())
     $('#if-branch-conditions').getFocus()
@@ -65,7 +65,7 @@ IfBranch.save = function () {
       return element.getFocus()
     }
     const commands = this.commands
-    Window.close('if-branch')
+    Yami.Window.close('if-branch')
     return {mode, conditions, commands}
   }
 }

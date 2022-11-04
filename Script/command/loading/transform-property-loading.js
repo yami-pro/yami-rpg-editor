@@ -1,7 +1,7 @@
 'use strict'
 
 import { TransformProperty } from '../transform-property.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 移动元素 - 属性窗口加载 ********************************
 
@@ -85,12 +85,12 @@ TransformProperty.initialize = function () {
 
 // 解析属性
 TransformProperty.parse = function ({key, value}) {
-  return `${Local.get('command.moveElement.' + key)}(${Command.parseVariableNumber(value)})`
+  return `${Yami.Local.get('command.moveElement.' + key)}(${Command.parseVariableNumber(value)})`
 }
 
 // 打开数据
 TransformProperty.open = function ({key = 'anchorX', value = 0} = {}) {
-  Window.open('moveElement-property')
+  Yami.Window.open('moveElement-property')
   const properties = {
     anchorX: 0,
     anchorY: 0,
@@ -112,7 +112,7 @@ TransformProperty.open = function ({key = 'anchorX', value = 0} = {}) {
   if (key in properties) {
     properties[key] = value
   }
-  const write = getElementWriter('moveElement-property', properties)
+  const write = Yami.getElementWriter('moveElement-property', properties)
   write('key', key)
   write('anchorX')
   write('anchorY')
@@ -135,10 +135,10 @@ TransformProperty.open = function ({key = 'anchorX', value = 0} = {}) {
 
 // 保存数据
 TransformProperty.save = function () {
-  const read = getElementReader('moveElement-property')
+  const read = Yami.getElementReader('moveElement-property')
   const key = read('key')
   const value = read(key)
-  Window.close('moveElement-property')
+  Yami.Window.close('moveElement-property')
   return {key, value}
 }
 

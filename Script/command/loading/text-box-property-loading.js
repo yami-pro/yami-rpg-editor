@@ -1,7 +1,7 @@
 'use strict'
 
 import { TextBoxProperty } from '../text-box-property.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 设置文本框 - 属性窗口加载 ********************************
 
@@ -52,7 +52,7 @@ TextBoxProperty.initialize = function () {
 
 // 解析属性
 TextBoxProperty.parse = function ({key, value}) {
-  const get = Local.createGetter('command.setTextBox')
+  const get = Yami.Local.createGetter('command.setTextBox')
   const name = get(key)
   switch (key) {
     case 'type':
@@ -77,8 +77,8 @@ TextBoxProperty.parse = function ({key, value}) {
 
 // 打开数据
 TextBoxProperty.open = function ({key = 'type', value = 'text'} = {}) {
-  Window.open('setTextBox-property')
-  const write = getElementWriter('setTextBox-property')
+  Yami.Window.open('setTextBox-property')
+  const write = Yami.getElementWriter('setTextBox-property')
   let type = 'text'
   let text = ''
   let number = 0
@@ -122,7 +122,7 @@ TextBoxProperty.open = function ({key = 'type', value = 'text'} = {}) {
 
 // 保存数据
 TextBoxProperty.save = function () {
-  const read = getElementReader('setTextBox-property')
+  const read = Yami.getElementReader('setTextBox-property')
   const key = read('key')
   let value
   switch (key) {
@@ -148,7 +148,7 @@ TextBoxProperty.save = function () {
       value = read('color')
       break
   }
-  Window.close('setTextBox-property')
+  Yami.Window.close('setTextBox-property')
   return {key, value}
 }
 

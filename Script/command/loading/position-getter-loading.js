@@ -1,7 +1,7 @@
 'use strict'
 
 import { PositionGetter } from '../position-getter.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 位置访问器窗口加载 ********************************
 
@@ -48,14 +48,14 @@ PositionGetter.initialize = function () {
 // 打开窗口
 PositionGetter.open = function (target) {
   this.target = target
-  Window.open('positionGetter')
+  Yami.Window.open('positionGetter')
 
   let commonX = 0
   let commonY = 0
   let actor = {type: 'trigger'}
   let trigger = {type: 'trigger'}
   let light = {type: 'trigger'}
-  let regionId = PresetObject.getDefaultPresetId('region')
+  let regionId = Yami.PresetObject.getDefaultPresetId('region')
   const position = target.dataValue
   switch (position.type) {
     case 'absolute':
@@ -91,7 +91,7 @@ PositionGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 PositionGetter.confirm = function (event) {
-  const read = getElementReader('positionGetter')
+  const read = Yami.getElementReader('positionGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -132,5 +132,5 @@ PositionGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('positionGetter')
+  Yami.Window.close('positionGetter')
 }.bind(PositionGetter)

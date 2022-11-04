@@ -1,7 +1,7 @@
 'use strict'
 
 import { TriggerGetter } from '../trigger-getter.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 触发器访问器窗口加载 ********************************
 
@@ -28,7 +28,7 @@ TriggerGetter.initialize = function () {
 // 打开窗口
 TriggerGetter.open = function (target) {
   this.target = target
-  Window.open('triggerGetter')
+  Yami.Window.open('triggerGetter')
 
   let variable = {type: 'local', key: ''}
   const trigger = target.dataValue
@@ -47,7 +47,7 @@ TriggerGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 TriggerGetter.confirm = function (event) {
-  const read = getElementReader('triggerGetter')
+  const read = Yami.getElementReader('triggerGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -65,5 +65,5 @@ TriggerGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('triggerGetter')
+  Yami.Window.close('triggerGetter')
 }.bind(TriggerGetter)

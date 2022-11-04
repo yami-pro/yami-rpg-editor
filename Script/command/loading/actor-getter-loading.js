@@ -2,7 +2,8 @@
 
 import { ActorGetter } from '../actor-getter.js'
 import { TextSuggestion } from '../text-suggestion.js'
-import { Window } from '../../tools/window.js'
+import { VariableGetter } from '../variable-getter.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 角色访问器窗口加载 ********************************
 
@@ -56,12 +57,12 @@ ActorGetter.initialize = function () {
 // 打开窗口
 ActorGetter.open = function (target) {
   this.target = target
-  Window.open('actorGetter')
+  Yami.Window.open('actorGetter')
 
   let name = ''
   let memberId = 0
   let actorId = ''
-  let presetId = PresetObject.getDefaultPresetId('actor')
+  let presetId = Yami.PresetObject.getDefaultPresetId('actor')
   let variable = {type: 'local', key: ''}
   const actor = target.dataValue
   switch (actor.type) {
@@ -97,7 +98,7 @@ ActorGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 ActorGetter.confirm = function (event) {
-  const read = getElementReader('actorGetter')
+  const read = Yami.getElementReader('actorGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -146,5 +147,5 @@ ActorGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('actorGetter')
+  Yami.Window.close('actorGetter')
 }.bind(ActorGetter)

@@ -1,7 +1,7 @@
 'use strict'
 
 import { EquipmentGetter } from '../equipment-getter.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 装备访问器窗口加载 ********************************
 
@@ -33,14 +33,14 @@ EquipmentGetter.initialize = function () {
 // 打开窗口
 EquipmentGetter.open = function (target) {
   this.target = target
-  Window.open('equipmentGetter')
+  Yami.Window.open('equipmentGetter')
   // 加载快捷键选项
   $('#equipmentGetter-slot').loadItems(
-    Enum.getStringItems('equipment-slot')
+    Yami.Enum.getStringItems('equipment-slot')
   )
 
   let actor = {type: 'trigger'}
-  let slot = Enum.getDefStringId('equipment-slot')
+  let slot = Yami.Enum.getDefStringId('equipment-slot')
   let variable = {type: 'local', slot: ''}
   const equipment = target.dataValue
   switch (equipment.type) {
@@ -64,7 +64,7 @@ EquipmentGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 EquipmentGetter.confirm = function (event) {
-  const read = getElementReader('equipmentGetter')
+  const read = Yami.getElementReader('equipmentGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -91,5 +91,5 @@ EquipmentGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('equipmentGetter')
+  Yami.Window.close('equipmentGetter')
 }.bind(EquipmentGetter)

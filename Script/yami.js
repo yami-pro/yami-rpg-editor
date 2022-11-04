@@ -1,6 +1,7 @@
 'use strict'
 
 export {
+  ctrl,
   Timer,
   StageColor,
   measureText,

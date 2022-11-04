@@ -1,7 +1,7 @@
 'use strict'
 
 import { TextProperty } from '../text-property.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 设置文本 - 属性窗口加载 ********************************
 
@@ -75,7 +75,7 @@ TextProperty.initialize = function () {
 
 // 解析属性
 TextProperty.parse = function ({key, value}) {
-  const get = Local.createGetter('command.setText')
+  const get = Yami.Local.createGetter('command.setText')
   const name = get(key)
   switch (key) {
     case 'content': {
@@ -90,7 +90,7 @@ TextProperty.parse = function ({key, value}) {
     case 'letterSpacing':
       return `${name}(${value})`
     case 'color':
-      return `${name}(#${Color.simplifyHexColor(value)})`
+      return `${name}(#${Yami.Color.simplifyHexColor(value)})`
     case 'font':
       return `${name}(${value || get('font.default')})`
     case 'effect':
@@ -100,16 +100,16 @@ TextProperty.parse = function ({key, value}) {
         case 'shadow': {
           const x = value.shadowOffsetX
           const y = value.shadowOffsetY
-          const color = Color.simplifyHexColor(value.color)
+          const color = Yami.Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.shadow')}, ${x}, ${y}, #${color})`
         }
         case 'stroke': {
           const width = value.strokeWidth
-          const color = Color.simplifyHexColor(value.color)
+          const color = Yami.Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.stroke')}, ${width}, #${color})`
         }
         case 'outline': {
-          const color = Color.simplifyHexColor(value.color)
+          const color = Yami.Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.outline')}, #${color})`
         }
       }
@@ -120,8 +120,8 @@ TextProperty.parse = function ({key, value}) {
 
 // 打开数据
 TextProperty.open = function ({key = 'content', value = ''} = {}) {
-  Window.open('setText-property')
-  const write = getElementWriter('setText-property')
+  Yami.Window.open('setText-property')
+  const write = Yami.getElementWriter('setText-property')
   let content = ''
   let size = 16
   let lineSpacing = 0
@@ -182,7 +182,7 @@ TextProperty.open = function ({key = 'content', value = ''} = {}) {
 
 // 保存数据
 TextProperty.save = function () {
-  const read = getElementReader('setText-property')
+  const read = Yami.getElementReader('setText-property')
   const key = read('key')
   let value
   switch (key) {
@@ -238,7 +238,7 @@ TextProperty.save = function () {
       value = read('blend')
       break
   }
-  Window.close('setText-property')
+  Yami.Window.close('setText-property')
   return {key, value}
 }
 

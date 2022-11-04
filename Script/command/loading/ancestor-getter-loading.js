@@ -2,8 +2,8 @@
 
 import { AncestorGetter } from '../ancestor-getter.js'
 import { TextSuggestion } from '../text-suggestion.js'
-import { PresetElement } from '../../tools/preset-element.js'
-import { Window } from '../../tools/window.js'
+import { VariableGetter } from '../variable-getter.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 祖先元素访问器窗口加载 ********************************
 
@@ -40,10 +40,10 @@ AncestorGetter.initialize = function () {
 // 打开窗口
 AncestorGetter.open = function (target) {
   this.target = target
-  Window.open('ancestorGetter')
+  Yami.Window.open('ancestorGetter')
 
   let name = ''
-  let presetId = PresetElement.getDefaultPresetId()
+  let presetId = Yami.PresetElement.getDefaultPresetId()
   let variable = {type: 'local', key: ''}
   const element = target.dataValue
   switch (element.type) {
@@ -69,7 +69,7 @@ AncestorGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 AncestorGetter.confirm = function (event) {
-  const read = getElementReader('ancestorGetter')
+  const read = Yami.getElementReader('ancestorGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -103,5 +103,5 @@ AncestorGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('ancestorGetter')
+  Yami.Window.close('ancestorGetter')
 }.bind(AncestorGetter)

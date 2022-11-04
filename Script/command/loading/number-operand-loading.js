@@ -1,7 +1,7 @@
 'use strict'
 
 import { NumberOperand } from '../number-operand.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 设置数值 - 操作数窗口加载 ********************************
 
@@ -287,7 +287,7 @@ NumberOperand.initialize = function () {
 // 解析数学方法
 NumberOperand.parseMathMethod = function (operand) {
   const method = operand.method
-  const label = Local.get('command.setNumber.math.' + method)
+  const label = Yami.Local.get('command.setNumber.math.' + method)
   switch (method) {
     case 'round': {
       const varName = Command.parseVariable(operand.variable)
@@ -325,7 +325,7 @@ NumberOperand.parseMathMethod = function (operand) {
 // 解析字符串方法
 NumberOperand.parseStringMethod = function (operand) {
   const method = operand.method
-  const methodName = Local.get('command.setNumber.string.' + method)
+  const methodName = Yami.Local.get('command.setNumber.string.' + method)
   switch (method) {
     case 'length':
     case 'parse': {
@@ -344,7 +344,7 @@ NumberOperand.parseStringMethod = function (operand) {
 
 // 解析对象属性
 NumberOperand.parseObjectProperty = function (operand) {
-  const property = Local.get('command.setNumber.object.' + operand.property)
+  const property = Yami.Local.get('command.setNumber.object.' + operand.property)
   switch (operand.property) {
     case 'actor-x':
     case 'actor-y':
@@ -399,13 +399,13 @@ NumberOperand.parseObjectProperty = function (operand) {
 // 解析元素属性
 NumberOperand.parseElementProperty = function (operand) {
   const element = Command.parseElement(operand.element)
-  const property = Local.get('command.setNumber.element.' + operand.property)
+  const property = Yami.Local.get('command.setNumber.element.' + operand.property)
   return `${element} -> ${property}`
 }
 
 // 解析其他数据
 NumberOperand.parseOther = function (operand) {
-  return Local.get('command.setNumber.other.' + operand.data)
+  return Yami.Local.get('command.setNumber.other.' + operand.data)
 }
 
 // 解析操作数
@@ -474,7 +474,7 @@ NumberOperand.open = function (operand = {
   type: 'constant',
   value: 0,
 }) {
-  Window.open('setNumber-operand')
+  Yami.Window.open('setNumber-operand')
 
   // 切换操作选择框
   if (this.target.start === 0) {
@@ -489,7 +489,7 @@ NumberOperand.open = function (operand = {
   }
 
   // 写入数据
-  const write = getElementWriter('setNumber-operand')
+  const write = Yami.getElementWriter('setNumber-operand')
   let constantValue = 0
   let mathMethod = 'round'
   let mathDecimals = 0
@@ -596,7 +596,7 @@ NumberOperand.open = function (operand = {
 
 // 保存数据
 NumberOperand.save = function () {
-  const read = getElementReader('setNumber-operand')
+  const read = Yami.getElementReader('setNumber-operand')
   const operation = read('operation')
   const type = read('type')
   let operand
@@ -813,7 +813,7 @@ NumberOperand.save = function () {
     }
   }
   $('#setNumber-operation').save()
-  Window.close('setNumber-operand')
+  Yami.Window.close('setNumber-operand')
   return operand
 }
 

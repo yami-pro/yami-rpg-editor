@@ -1,7 +1,7 @@
 'use strict'
 
 import { ItemGetter } from '../item-getter.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 物品访问器窗口加载 ********************************
 
@@ -33,15 +33,15 @@ ItemGetter.initialize = function () {
 // 打开窗口
 ItemGetter.open = function (target) {
   this.target = target
-  Window.open('itemGetter')
+  Yami.Window.open('itemGetter')
 
   // 加载快捷键选项
   $('#itemGetter-key').loadItems(
-    Enum.getStringItems('shortcut-key')
+    Yami.Enum.getStringItems('shortcut-key')
   )
 
   let actor = {type: 'trigger'}
-  let key = Enum.getDefStringId('shortcut-key')
+  let key = Yami.Enum.getDefStringId('shortcut-key')
   let variable = {type: 'local', key: ''}
   const item = target.dataValue
   switch (item.type) {
@@ -65,7 +65,7 @@ ItemGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 ItemGetter.confirm = function (event) {
-  const read = getElementReader('itemGetter')
+  const read = Yami.getElementReader('itemGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -92,5 +92,5 @@ ItemGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('itemGetter')
+  Yami.Window.close('itemGetter')
 }.bind(ItemGetter)

@@ -1,7 +1,7 @@
 'use strict'
 
 import { AngleGetter } from '../angle-getter.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 角度访问器窗口加载 ********************************
 
@@ -33,7 +33,7 @@ AngleGetter.initialize = function () {
 // 打开窗口
 AngleGetter.open = function (target) {
   this.target = target
-  Window.open('angleGetter')
+  Yami.Window.open('angleGetter')
 
   let positionPosition = {type: 'actor', actor: {type: 'trigger'}}
   let commonDegrees = 0
@@ -58,7 +58,7 @@ AngleGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 AngleGetter.confirm = function (event) {
-  const read = getElementReader('angleGetter')
+  const read = Yami.getElementReader('angleGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -79,5 +79,5 @@ AngleGetter.confirm = function (event) {
       break
   }
   this.target.input(getter)
-  Window.close('angleGetter')
+  Yami.Window.close('angleGetter')
 }.bind(AngleGetter)

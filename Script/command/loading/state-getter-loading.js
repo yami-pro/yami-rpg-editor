@@ -1,7 +1,7 @@
 'use strict'
 
 import { StateGetter } from '../state-getter.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 状态访问器窗口加载 ********************************
 
@@ -28,7 +28,7 @@ StateGetter.initialize = function () {
 // 打开窗口
 StateGetter.open = function (target) {
   this.target = target
-  Window.open('stateGetter')
+  Yami.Window.open('stateGetter')
 
   let variable = {type: 'local', key: ''}
   const state = target.dataValue
@@ -47,7 +47,7 @@ StateGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 StateGetter.confirm = function (event) {
-  const read = getElementReader('stateGetter')
+  const read = Yami.getElementReader('stateGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -65,5 +65,5 @@ StateGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('stateGetter')
+  Yami.Window.close('stateGetter')
 }.bind(StateGetter)

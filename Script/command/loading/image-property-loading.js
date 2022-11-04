@@ -1,7 +1,7 @@
 'use strict'
 
 import { ImageProperty } from '../image-property.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 设置图像 - 属性窗口加载 ********************************
 
@@ -70,7 +70,7 @@ ImageProperty.initialize = function () {
 
 // 解析属性
 ImageProperty.parse = function ({key, value}) {
-  const get = Local.createGetter('command.setImage')
+  const get = Yami.Local.createGetter('command.setImage')
   const name = get(key)
   switch (key) {
     case 'image':
@@ -93,8 +93,8 @@ ImageProperty.parse = function ({key, value}) {
 
 // 打开数据
 ImageProperty.open = function ({key = 'image', value = ''} = {}) {
-  Window.open('setImage-property')
-  const write = getElementWriter('setImage-property')
+  Yami.Window.open('setImage-property')
+  const write = Yami.getElementWriter('setImage-property')
   let image = ''
   let display = 'stretch'
   let flip = 'none'
@@ -153,7 +153,7 @@ ImageProperty.open = function ({key = 'image', value = ''} = {}) {
 
 // 保存数据
 ImageProperty.save = function () {
-  const read = getElementReader('setImage-property')
+  const read = Yami.getElementReader('setImage-property')
   const key = read('key')
   let value
   switch (key) {
@@ -188,7 +188,7 @@ ImageProperty.save = function () {
       value = read('clip-3')
       break
   }
-  Window.close('setImage-property')
+  Yami.Window.close('setImage-property')
   return {key, value}
 }
 

@@ -1,8 +1,7 @@
 'use strict'
 
 import { CommandSuggestion } from '../command-suggestion.js'
-import { FS, FSP } from '../../file-system/file-system.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 指令提示框加载 ********************************
 
@@ -34,7 +33,7 @@ CommandSuggestion.initialize = function () {
 
   // 加载指令数据
   const path = 'commands.json'
-  this.data = FSP.readFile(path, 'utf8').then(
+  this.data = Yami.FSP.readFile(path, 'utf8').then(
     data => this.data = JSON.parse(data)
   )
 
@@ -56,7 +55,7 @@ CommandSuggestion.open = function () {
   list.scrollAndResize()
   const point = list.getSelectionPosition()
   if (point) {
-    Window.open('command-widget')
+    Yami.Window.open('command-widget')
     const {widget, list, searcher} = this
     const x = point.x - 5
     const y = point.y
@@ -80,7 +79,7 @@ CommandSuggestion.open = function () {
 
 // 选择指令
 CommandSuggestion.select = function (item) {
-  Window.close('command-widget')
+  Yami.Window.close('command-widget')
   Command.open(item.value)
 }
 
@@ -110,7 +109,7 @@ CommandSuggestion.pointerdown = function (event) {
   if (!widget.contains(event.target) &&
     !list.contains(event.target)) {
     event.preventDefault()
-    Window.close('command-widget')
+    Yami.Window.close('command-widget')
   }
 }
 
@@ -214,7 +213,7 @@ CommandSuggestion.listUpdate = function (event) {
     this.style.left = `${x}px`
     this.style.top = `${top}px`
     this.style.height = `${lines * 20}px`
-    this.style.zIndex = Window.frames.length - 1
+    this.style.zIndex = Yami.Window.frames.length - 1
     this.show()
   } else {
     this.hide()
@@ -296,7 +295,7 @@ CommandSuggestion.list.updateCommandNames = function IIFE() {
     }
   }
   return function () {
-    update(this.data, Local.createGetter('command'))
+    update(this.data, Yami.Local.createGetter('command'))
   }
 }()
 

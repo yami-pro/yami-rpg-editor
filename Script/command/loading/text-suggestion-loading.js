@@ -1,8 +1,7 @@
 'use strict'
 
 import { TextSuggestion } from '../text-suggestion.js'
-import { Scene } from '../../scene/scene.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 文本提示框加载 ********************************
 
@@ -203,7 +202,7 @@ TextSuggestion.listUpdate = function (event) {
     this.style.top = `${top}px`
     this.style.width = `calc(${rw}px - var(--2dpx))`
     this.style.height = `${lines * 20}px`
-    this.style.zIndex = Window.frames.length + 1
+    this.style.zIndex = Yami.Window.frames.length + 1
     this.show()
   } else {
     this.hide()

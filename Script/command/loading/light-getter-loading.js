@@ -2,7 +2,7 @@
 
 import { LightGetter } from '../light-getter.js'
 import { TextSuggestion } from '../text-suggestion.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 光源访问器窗口加载 ********************************
 
@@ -38,10 +38,10 @@ LightGetter.initialize = function () {
 // 打开窗口
 LightGetter.open = function (target) {
   this.target = target
-  Window.open('lightGetter')
+  Yami.Window.open('lightGetter')
 
   let name = ''
-  let presetId = PresetObject.getDefaultPresetId('light')
+  let presetId = Yami.PresetObject.getDefaultPresetId('light')
   let variable = {type: 'local', key: ''}
   const light = target.dataValue
   switch (light.type) {
@@ -67,7 +67,7 @@ LightGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 LightGetter.confirm = function (event) {
-  const read = getElementReader('lightGetter')
+  const read = Yami.getElementReader('lightGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -101,5 +101,5 @@ LightGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('lightGetter')
+  Yami.Window.close('lightGetter')
 }.bind(LightGetter)

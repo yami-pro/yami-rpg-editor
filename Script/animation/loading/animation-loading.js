@@ -4595,7 +4595,7 @@ Animation.listPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: ctrl('X'),
+    accelerator: Yami.ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -4603,14 +4603,14 @@ Animation.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: ctrl('C'),
+    accelerator: Yami.ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: ctrl('V'),
+    accelerator: Yami.ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -4837,7 +4837,7 @@ Animation.layerListPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: ctrl('X'),
+    accelerator: Yami.ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -4845,14 +4845,14 @@ Animation.layerListPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: ctrl('C'),
+    accelerator: Yami.ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: ctrl('V'),
+    accelerator: Yami.ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -5154,7 +5154,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('cut'),
-              accelerator: ctrl('X'),
+              accelerator: Yami.ctrl('X'),
               enabled: selected,
               click: () => {
                 Animation.copyFrame()
@@ -5162,7 +5162,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('copy'),
-              accelerator: ctrl('C'),
+              accelerator: Yami.ctrl('C'),
               enabled: selected,
               click: () => {
                 Animation.copyFrame()
@@ -5170,7 +5170,7 @@ Animation.outerTimelineListPointerup = function (event) {
             }, {
               label: get('paste'),
               enabled: pastable,
-              accelerator: ctrl('V'),
+              accelerator: Yami.ctrl('V'),
               click: () => {
                 Animation.pasteFrame()
               },
@@ -5190,7 +5190,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('selectAll'),
-              accelerator: ctrl('A'),
+              accelerator: Yami.ctrl('A'),
               enabled: marquee.layer.frames.length !== 0,
               click: () => {
                 Animation.selectAllFrames()

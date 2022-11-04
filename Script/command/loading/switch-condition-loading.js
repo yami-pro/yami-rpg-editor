@@ -2,7 +2,7 @@
 
 import { SwitchCondition } from '../switch-condition.js'
 import { IfCondition } from '../if-condition.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 匹配 - 条件窗口加载 ********************************
 
@@ -68,7 +68,7 @@ SwitchCondition.initialize = function () {
 SwitchCondition.parse = function (condition) {
   switch (condition.type) {
     case 'none':
-      return Local.get('common.none')
+      return Yami.Local.get('common.none')
     case 'boolean':
     case 'number':
       return condition.value.toString()
@@ -76,16 +76,16 @@ SwitchCondition.parse = function (condition) {
       return `"${Command.parseMultiLineString(condition.value)}"`
     case 'enum': {
       const name = Command.parseEnumString(condition.stringId)
-      return `${Local.get('command.switch.enum')}(${name})`
+      return `${Yami.Local.get('command.switch.enum')}(${name})`
     }
     case 'keyboard': {
       const key = condition.keycode
-      const keyboard = Local.get('command.switch.keyboard')
+      const keyboard = Yami.Local.get('command.switch.keyboard')
       return `${keyboard}["${key}"]`
     }
     case 'mouse': {
       const button = IfCondition.parseMouseButton(condition.button)
-      const mouse = Local.get('command.switch.mouse')
+      const mouse = Yami.Local.get('command.switch.mouse')
       return `${mouse}[${button}]`
     }
     case 'variable':
@@ -95,7 +95,7 @@ SwitchCondition.parse = function (condition) {
 
 // 打开数据
 SwitchCondition.open = function (condition = {type: 'number', value: 0}) {
-  Window.open('switch-condition')
+  Yami.Window.open('switch-condition')
   let booleanValue = false
   let numberValue = 0
   let stringValue = ''
@@ -103,7 +103,7 @@ SwitchCondition.open = function (condition = {type: 'number', value: 0}) {
   let keyboardKeycode = ''
   let mouseButton = 0
   let variableVariable = {type: 'local', key: ''}
-  const write = getElementWriter('switch-condition')
+  const write = Yami.getElementWriter('switch-condition')
   switch (condition.type) {
     case 'none':
       break
@@ -142,7 +142,7 @@ SwitchCondition.open = function (condition = {type: 'number', value: 0}) {
 
 // 保存数据
 SwitchCondition.save = function () {
-  const read = getElementReader('switch-condition')
+  const read = Yami.getElementReader('switch-condition')
   const type = read('type')
   let condition
   switch (type) {
@@ -194,7 +194,7 @@ SwitchCondition.save = function () {
       break
     }
   }
-  Window.close('switch-condition')
+  Yami.Window.close('switch-condition')
   return condition
 }
 

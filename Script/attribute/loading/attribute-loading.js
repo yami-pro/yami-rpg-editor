@@ -607,14 +607,14 @@ Attribute.listPopup = function (event) {
     }],
   }, {
     label: get('copy'),
-    accelerator: ctrl('C'),
+    accelerator: Yami.ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: ctrl('V'),
+    accelerator: Yami.ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -635,14 +635,14 @@ Attribute.listPopup = function (event) {
     },
   }, {
     label: get('undo'),
-    accelerator: ctrl('Z'),
+    accelerator: Yami.ctrl('Z'),
     enabled: undoable,
     click: () => {
       Attribute.undo()
     },
   }, {
     label: get('redo'),
-    accelerator: ctrl('Y'),
+    accelerator: Yami.ctrl('Y'),
     enabled: redoable,
     click: () => {
       Attribute.redo()

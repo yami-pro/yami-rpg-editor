@@ -1,7 +1,7 @@
 'use strict'
 
 import { ProgressBarProperty } from '../progress-bar-property.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 设置进度条 - 属性窗口加载 ********************************
 
@@ -75,7 +75,7 @@ ProgressBarProperty.initialize = function () {
 
 // 解析属性
 ProgressBarProperty.parse = function ({key, value}) {
-  const get = Local.createGetter('command.setProgressBar')
+  const get = Yami.Local.createGetter('command.setProgressBar')
   const name = get(key)
   switch (key) {
     case 'image':
@@ -99,8 +99,8 @@ ProgressBarProperty.parse = function ({key, value}) {
 
 // 打开数据
 ProgressBarProperty.open = function ({key = 'image', value = ''} = {}) {
-  Window.open('setProgressBar-property')
-  const write = getElementWriter('setProgressBar-property')
+  Yami.Window.open('setProgressBar-property')
+  const write = Yami.getElementWriter('setProgressBar-property')
   let image = ''
   let display = 'stretch'
   let blend = 'normal'
@@ -169,7 +169,7 @@ ProgressBarProperty.open = function ({key = 'image', value = ''} = {}) {
 
 // 保存数据
 ProgressBarProperty.save = function () {
-  const read = getElementReader('setProgressBar-property')
+  const read = Yami.getElementReader('setProgressBar-property')
   const key = read('key')
   let value
   switch (key) {
@@ -210,7 +210,7 @@ ProgressBarProperty.save = function () {
       value = read('color-3')
       break
   }
-  Window.close('setProgressBar-property')
+  Yami.Window.close('setProgressBar-property')
   return {key, value}
 }
 

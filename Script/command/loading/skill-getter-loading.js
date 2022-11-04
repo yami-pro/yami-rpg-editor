@@ -1,7 +1,7 @@
 'use strict'
 
 import { SkillGetter } from '../skill-getter.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 技能访问器窗口加载 ********************************
 
@@ -33,15 +33,15 @@ SkillGetter.initialize = function () {
 // 打开窗口
 SkillGetter.open = function (target) {
   this.target = target
-  Window.open('skillGetter')
+  Yami.Window.open('skillGetter')
 
   // 加载快捷键选项
   $('#skillGetter-key').loadItems(
-    Enum.getStringItems('shortcut-key')
+    Yami.Enum.getStringItems('shortcut-key')
   )
 
   let actor = {type: 'trigger'}
-  let key = Enum.getDefStringId('shortcut-key')
+  let key = Yami.Enum.getDefStringId('shortcut-key')
   let variable = {type: 'local', key: ''}
   const skill = target.dataValue
   switch (skill.type) {
@@ -65,7 +65,7 @@ SkillGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 SkillGetter.confirm = function (event) {
-  const read = getElementReader('skillGetter')
+  const read = Yami.getElementReader('skillGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -92,5 +92,5 @@ SkillGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Window.close('skillGetter')
+  Yami.Window.close('skillGetter')
 }.bind(SkillGetter)

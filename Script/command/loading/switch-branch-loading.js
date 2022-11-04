@@ -1,7 +1,7 @@
 'use strict'
 
 import { SwitchBranch } from '../switch-branch.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 匹配 - 分支窗口加载 ********************************
 
@@ -27,7 +27,7 @@ SwitchBranch.open = function (branch) {
     SwitchCondition.target = this.target
     SwitchCondition.open()
   } else {
-    Window.open('switch-branch')
+    Yami.Window.open('switch-branch')
     $('#switch-branch-conditions').write(branch.conditions.slice())
     $('#switch-branch-conditions').getFocus()
     this.commands = branch.commands
@@ -49,7 +49,7 @@ SwitchBranch.save = function () {
       return element.getFocus()
     }
     const commands = this.commands
-    Window.close('switch-branch')
+    Yami.Window.close('switch-branch')
     return {conditions, commands}
   }
 }
