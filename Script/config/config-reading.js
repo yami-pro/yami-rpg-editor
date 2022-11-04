@@ -1,7 +1,6 @@
 'use strict'
 
-import { File } from '../file-system/file.js'
-import { Path } from '../file-system/path.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 读取配置文件 ********************************
 
@@ -13,7 +12,7 @@ if (window.process) {
   .then(json => JSON.parse(json))
   .catch(error => {
     // 如果不存在配置文件或加载出错
-    return File.get({
+    return Yami.File.get({
       local: 'default.json',
       type: 'json',
     }).then(config => {
@@ -32,7 +31,7 @@ if (window.process) {
       .then(path => {
         const dirname = `${path}/Games`
         for (const key of Object.keys(config.dialogs)) {
-          config.dialogs[key] = Path.slash(dirname)
+          config.dialogs[key] = Yami.Path.slash(dirname)
         }
         return config
       })

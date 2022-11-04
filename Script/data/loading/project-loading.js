@@ -1,13 +1,7 @@
 'use strict'
 
 import { Project } from '../project.js'
-
-import { Inspector } from '../../inspector/inspector.js'
-import { AttributeListInterface } from '../../tools/attribute-list-interface.js'
-import { File } from '../../file-system/file.js'
-import { Window } from '../../tools/window.js'
-import { Data } from '../../data/data.js'
-import { getElementWriter } from '../../util/util.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 项目设置窗口加载 ********************************
 
@@ -52,7 +46,7 @@ Project.initialize = function () {
   ])
 
   // 绑定角色临时属性列表
-  $('#config-actor-tempAttributes').bind(new AttributeListInterface())
+  $('#config-actor-tempAttributes').bind(new Yami.AttributeListInterface())
 
 
   // 创建脚本语言选项
@@ -93,17 +87,17 @@ Project.initialize = function () {
 
 // 打开窗口
 Project.open = function () {
-  Window.open('project-settings')
+  Yami.Window.open('project-settings')
 
   // 创建数据副本
-  this.data = Object.clone(Data.config)
+  this.data = Object.clone(Yami.Data.config)
 
   // 创建队伍选项
-  const items = Data.createTeamItems()
+  const items = Yami.Data.createTeamItems()
   $('#config-actor-playerTeam').loadItems(items)
 
   // 写入数据
-  const write = getElementWriter('config', this.data)
+  const write = Yami.getElementWriter('config', this.data)
   write('window-title')
   write('window-width')
   write('window-height')
@@ -152,14 +146,14 @@ Project.open = function () {
 Project.windowClose = function (event) {
   if (Project.changed) {
     event.preventDefault()
-    const get = Local.createGetter('confirmation')
-    Window.confirm({
+    const get = Yami.Local.createGetter('confirmation')
+    Yami.Window.confirm({
       message: get('closeUnsavedProjectSettings'),
     }, [{
       label: get('yes'),
       click: () => {
         Project.changed = false
-        Window.close('project-settings')
+        Yami.Window.close('project-settings')
       },
     }, {
       label: get('no'),
@@ -180,7 +174,7 @@ Project.dataChange = function (event) {
 
 // 参数 - 输入事件
 Project.paramInput = function (event) {
-  const key = Inspector.getKey(this)
+  const key = Yami.Inspector.getKey(this)
   const value = this.read()
   const keys = key.split('-')
   const end = keys.length - 1
@@ -198,21 +192,21 @@ Project.paramInput = function (event) {
 Project.confirm = function (event) {
   if (this.changed) {
     this.changed = false
-    const last = Data.config
-    const title1 = Data.config.window.title
+    const last = Yami.Data.config
+    const title1 = Yami.Data.config.window.title
     const title2 = this.data.window.title
-    Data.config = this.data
-    File.planToSave(Data.manifest.project.config)
+    Yami.Data.config = this.data
+    Yami.File.planToSave(Yami.Data.manifest.project.config)
     // 更新标题名称
     if (title1 !== title2) {
-      Title.updateTitleName()
+      Yami.Title.updateTitleName()
     }
     const datachange = new Event('datachange')
     datachange.key = 'config'
     datachange.last = last
     window.dispatchEvent(datachange)
   }
-  Window.close('project-settings')
+  Yami.Window.close('project-settings')
 }.bind(Project)
 
 // 导入字体列表接口
@@ -221,11 +215,11 @@ Project.importedFonts = {
   filter: 'font',
   initialize: function () {},
   parse: function (fontId) {
-    return Command.parseFileName(fontId)
+    return Yami.Command.parseFileName(fontId)
   },
   open: function (fontId = '') {
     this.fontId = fontId
-    Selector.open(this, false)
+    Yami.Selector.open(this, false)
   },
   save: function () {
     return this.fontId

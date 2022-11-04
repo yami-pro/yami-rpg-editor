@@ -147,6 +147,17 @@ export {
 export {} from './config/config-reading.js'
 
 export {
+  Directory,
+  FileItem,
+  FS,
+  FSP,
+  File,
+  FolderItem,
+  GUID,
+  Path
+} from './file-system/index.js'
+
+export {
   Data,
   Easing,
   Manifest,
@@ -159,17 +170,6 @@ export {
   Enum,
   EnumerationContext
 } from './enum/index.js'
-
-export {
-  Directory,
-  FileItem,
-  FS,
-  FSP,
-  File,
-  FolderItem,
-  GUID,
-  Path
-} from './file-system/index.js'
 
 export { Inspector } from './inspector/index.js'
 

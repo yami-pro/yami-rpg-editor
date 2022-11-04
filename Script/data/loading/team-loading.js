@@ -1,13 +1,7 @@
 'use strict'
 
 import { Team } from '../team.js'
-import { Easing } from '../easing.js'
-
-import { GL } from '../../webgl/gl.js'
-import { File } from '../../file-system/file.js'
-import { Window } from '../../tools/window.js'
-import { Data } from '../../data/data.js'
-import { Codec } from '../../codec/codec.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 队伍窗口加载 ********************************
 
@@ -18,12 +12,12 @@ Team.list.paste = null
 Team.list.delete = null
 Team.list.saveSelection = null
 Team.list.restoreSelection = null
-Team.list.updateNodeElement = Easing.list.updateNodeElement
+Team.list.updateNodeElement = Yami.Easing.list.updateNodeElement
 Team.list.createIcon = null
 Team.list.updateIcon = null
-Team.list.updateItemName = Easing.list.updateItemName
-Team.list.addElementClass = Easing.list.addElementClass
-Team.list.updateTextNode = Easing.list.updateTextNode
+Team.list.updateItemName = Yami.Easing.list.updateItemName
+Team.list.addElementClass = Yami.Easing.list.addElementClass
+Team.list.updateTextNode = Yami.Easing.list.updateTextNode
 Team.list.createMark = null
 Team.list.updateMark = null
 
@@ -56,7 +50,7 @@ Team.initialize = function () {
 
 // 打开窗口
 Team.open = function (data) {
-  Window.open('team')
+  Yami.Window.open('team')
 
   // 解包队伍数据
   this.unpackTeams()
@@ -71,7 +65,7 @@ Team.open = function (data) {
 // 创建ID
 Team.createId = function () {
   let id
-  do {id = GUID.generate64bit()}
+  do {id = Yami.GUID.generate64bit()}
   while (this.getItemById(id))
   return id
 }
@@ -95,14 +89,14 @@ Team.createData = function () {
 }
 
 // 获取ID匹配的数据
-Team.getItemById = Easing.getItemById
+Team.getItemById = Yami.Easing.getItemById
 
 // 解包队伍数据
 Team.unpackTeams = function () {
-  const code = Data.teams.relations
-  const items = Data.teams.list
+  const code = Yami.Data.teams.relations
+  const items = Yami.Data.teams.list
   const length = items.length
-  const sRelations = Codec.decodeRelations(code, length)
+  const sRelations = Yami.Codec.decodeRelations(code, length)
   const copies = new Array(length)
   const a = length * 2
   for (let i = 0; i < length; i++) {
@@ -132,7 +126,7 @@ Team.packTeams = function () {
   const items = this.data
   const length = items.length
   const copies = new Array(length)
-  const dRelations = GL.arrays[0].uint8
+  const dRelations = Yami.GL.arrays[0].uint8
   let ri = 0
   for (let i = 0; i < length; i++) {
     const item = items[i]
@@ -146,26 +140,26 @@ Team.packTeams = function () {
       color: item.color,
     }
   }
-  const code = Codec.encodeRelations(
+  const code = Yami.Codec.encodeRelations(
     new Uint8Array(dRelations.buffer, 0, ri)
   )
-  Data.teams.list = copies
-  Data.teams.relations = code
-  Data.createTeamMap()
+  Yami.Data.teams.list = copies
+  Yami.Data.teams.relations = code
+  Yami.Data.createTeamMap()
 }
 
 // 窗口 - 关闭事件
 Team.windowClose = function (event) {
   if (Team.changed) {
     event.preventDefault()
-    const get = Local.createGetter('confirmation')
-    Window.confirm({
+    const get = Yami.Local.createGetter('confirmation')
+    Yami.Window.confirm({
       message: get('closeUnsavedTeams'),
     }, [{
       label: get('yes'),
       click: () => {
         Team.changed = false
-        Window.close('team')
+        Yami.Window.close('team')
       },
     }, {
       label: get('no'),
@@ -213,7 +207,7 @@ Team.listPointerdown = function (event) {
       if (event.target.hasClass('team-icon')) {
         const element = event.target.parentNode
         const team = element.item
-        return Color.open({
+        return Yami.Color.open({
           read: () => {
             return team.color
           },
@@ -265,10 +259,10 @@ Team.listPopup = function (event) {
   const length = Team.data.length
   const selected = !!item
   const insertable = length < Team.maximum
-  const pastable = insertable && Clipboard.has('yami.data.team')
+  const pastable = insertable && Yami.Clipboard.has('yami.data.team')
   const deletable = selected && length > 1
-  const get = Local.createGetter('menuTeamList')
-  Menu.popup({
+  const get = Yami.Local.createGetter('menuTeamList')
+  Yami.Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -314,12 +308,12 @@ Team.confirm = function (event) {
   if (this.changed) {
     this.changed = false
     this.packTeams()
-    File.planToSave(Data.manifest.project.teams)
+    Yami.File.planToSave(Yami.Data.manifest.project.teams)
     const datachange = new Event('datachange')
     datachange.key = 'teams'
     window.dispatchEvent(datachange)
   }
-  Window.close('team')
+  Yami.Window.close('team')
 }.bind(Team)
 
 // 列表 - 插入
@@ -337,13 +331,13 @@ Team.list.insert = function (dItem) {
 // 列表 - 复制
 Team.list.copy = function (item) {
   if (item) {
-    Clipboard.write('yami.data.team', item)
+    Yami.Clipboard.write('yami.data.team', item)
   }
 }
 
 // 列表 - 粘贴
 Team.list.paste = function (dItem) {
-  const copy = Clipboard.read('yami.data.team')
+  const copy = Yami.Clipboard.read('yami.data.team')
   if (copy) {
     const dId = Team.createId()
     const cRelations = copy.relations
@@ -367,8 +361,8 @@ Team.list.paste = function (dItem) {
 Team.list.delete = function (item) {
   const items = this.data
   if (items.length > 1) {
-    const get = Local.createGetter('confirmation')
-    Window.confirm({
+    const get = Yami.Local.createGetter('confirmation')
+    Yami.Window.confirm({
       message: get('deleteSingleFile').replace('<filename>', item.name),
     }, [{
       label: get('yes'),
@@ -406,7 +400,7 @@ Team.list.saveSelection = function () {
 
 // 列表 - 恢复选项状态
 Team.list.restoreSelection = function () {
-  const id = Data.teams.selection
+  const id = Yami.Data.teams.selection
   const item = Team.getItemById(id) ?? this.data[0]
   this.select(item)
   this.update()
