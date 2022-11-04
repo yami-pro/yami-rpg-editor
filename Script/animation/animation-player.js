@@ -1,11 +1,6 @@
 'use strict'
 
-import { Matrix } from '../webgl/matrix.js'
-import { Scene } from '../scene/scene.js'
-import { Easing } from '../data/easing.js'
-import { GL } from '../webgl/gl.js'
-import { ImageTexture } from '../webgl/image-texture.js'
-import { Data } from '../data/data.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 动画播放器类 ********************************
 
@@ -121,7 +116,7 @@ class AnimationPlayer {
           const easingId = frame.easingId
           if (easingId !== '' && i < last) {
             const next = frames[i + 1]
-            const time = Easing.get(easingId).map(
+            const time = Yami.Easing.get(easingId).map(
               (index - start) / (next.start - start)
             )
             context.update(frame, time, next)
@@ -264,7 +259,7 @@ class AnimationPlayer {
     const {emitters} = this
     const {length} = emitters
     if (length !== 0) {
-      GL.batchRenderer.draw()
+      Yami.GL.batchRenderer.draw()
       for (let i = 0; i < length; i++) {
         emitters[i].draw()
       }
@@ -273,7 +268,7 @@ class AnimationPlayer {
 
   // 绘制精灵
   drawSprite(context, texture, light) {
-    const gl = GL
+    const gl = Yami.GL
     const vertices = gl.arrays[0].float32
     const attributes = gl.arrays[0].uint32
     const renderer = gl.batchRenderer
@@ -314,7 +309,7 @@ class AnimationPlayer {
     renderer.setBlendMode(layer.blend)
     renderer.push(base.index)
     if (light === undefined) {
-      light = Scene.showLight ? layer.light : 'raw'
+      light = Yami.Scene.showLight ? layer.light : 'raw'
     }
     const vi = response[0] * 8
     const mode = AnimationPlayer.lightSamplingModes[light]
@@ -382,7 +377,7 @@ class AnimationPlayer {
             texture.offsetX = -width / 2
             texture.offsetY = -height / 2
             textures[spriteId] = texture
-            Scene.requestRendering()
+            Yami.Scene.requestRendering()
           } else {
             texture.destroy()
           }
@@ -472,7 +467,7 @@ class AnimationPlayer {
 
   // 静态 - 动画属性
   static step = 0
-  static matrix = new Matrix()
+  static matrix = new Yami.Matrix()
   static lightSamplingModes = {raw: 0, global: 1, anchor: 2}
   static stage
 
@@ -536,7 +531,7 @@ class AnimationPlayer {
 
   // 静态 - 更新动画步长
   static updateStep() {
-    this.step = 1000 / Data.config.animation.frameRate
+    this.step = 1000 / Yami.Data.config.animation.frameRate
   }
 
   // 静态 - 加载动画图层上下文列表
@@ -559,7 +554,7 @@ class AnimationPlayer {
           parent: null,
           layer: null,
           frame: null,
-          matrix: new Matrix(),
+          matrix: new Yami.Matrix(),
           opacity: 0,
           update: null,
           reset: AnimationPlayer.contextReset,
@@ -666,9 +661,9 @@ class AnimationPlayer {
     let emitter = this.emitter
     if (emitter === undefined) {
       const guid = this.layer.particleId
-      const data = Data.particles[guid]
+      const data = Yami.Data.particles[guid]
       if (!data) return
-      emitter = new Particle.Emitter(data)
+      emitter = new Yami.Particle.Emitter(data)
       emitter.matrix = this.matrix
       this.emitter = emitter
       this.animation.emitters.push(emitter)

@@ -22,4 +22,9 @@ import './util.js'
 
 export { Timer } from './timer.js'
 export { StageColor } from './stage-color.js'
-export { measureText } from './util.js'
+export {
+  measureText,
+  getElementReader,
+  getElementWriter,
+  INTRGBA
+} from './util.js'

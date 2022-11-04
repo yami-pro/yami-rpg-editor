@@ -1,10 +1,7 @@
 'use strict'
 
 import { Curve } from '../curve.js'
-
-import { Easing } from '../../data/easing.js'
-import { Timer } from '../../util/timer.js'
-import { Data } from '../../data/data.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 曲线窗口 ********************************
 
@@ -12,7 +9,7 @@ import { Data } from '../../data/data.js'
 // 初始化
 Curve.initialize = function () {
   // 创建映射表
-  this.curveMap = new Easing.CurveMap()
+  this.curveMap = new Yami.Easing.CurveMap()
 
   // 创建默认过渡选项
   this.list.defaultItem = {name: 'No Easing', value: ''}
@@ -95,7 +92,7 @@ Curve.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Layout.getGroupOfElement(head)
+    const {nav} = Yami.Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -113,7 +110,7 @@ Curve.updateEasingOptions = function () {
   if (list.data !== easings) {
     list.data = easings
     const head = list.defaultItem
-    const items = Data.createEasingItems()
+    const items = Yami.Data.createEasingItems()
     list.loadItems([head, ...items])
   }
 }
@@ -135,7 +132,7 @@ Curve.updateTimeline = function (target) {
 // 调整大小
 Curve.resize = function () {
   if (this.state === 'open') {
-    const screenBox = CSS.getDevicePixelContentBoxSize(this.page)
+    const screenBox = Yami.CSS.getDevicePixelContentBoxSize(this.page)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
 
@@ -248,7 +245,7 @@ Curve.drawCurve = function () {
 // 请求渲染
 Curve.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('sharedRendering2', this.renderingFunction)
+    Yami.Timer.appendUpdater('sharedRendering2', this.renderingFunction)
   }
 }
 
@@ -259,7 +256,7 @@ Curve.renderingFunction = function () {
 
 // 停止渲染
 Curve.stopRendering = function () {
-  Timer.removeUpdater('sharedRendering2', this.renderingFunction)
+  Yami.Timer.removeUpdater('sharedRendering2', this.renderingFunction)
 }
 
 // 窗口 - 调整大小事件
@@ -321,7 +318,7 @@ Curve.easingIdWrite = function (event) {
     Curve.requestRendering()
     // 更新曲线映射表
     if (id !== '') {
-      const easing = Data.easings.map[id]
+      const easing = Yami.Data.easings.map[id]
       const points = easing?.points ??
       [{x: 0, y: 0}, {x: 1, y: 1}]
       const {startPoint, endPoint} = Easing
@@ -332,10 +329,10 @@ Curve.easingIdWrite = function (event) {
 
 // 曲线列表 - 输入事件
 Curve.easingIdInput = function (event) {
-  Animation.history.save({
+  Yami.Animation.history.save({
     type: 'animation-easing-change',
-    motion: Animation.motion,
-    target: Animation.target,
+    motion: Yami.Animation.motion,
+    target: Yami.Animation.target,
     easingId: Curve.target.easingId,
   })
   Curve.target.easingId = event.value
@@ -344,5 +341,5 @@ Curve.easingIdInput = function (event) {
 
 // 设置按钮 - 指针按下事件
 Curve.settingsPointerdown = function () {
-  Easing.open()
+  Yami.Easing.open()
 }
