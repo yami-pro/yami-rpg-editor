@@ -1,7 +1,7 @@
 'use strict'
 
 import { LightGetter } from '../light-getter.js'
-import { TextSuggestion } from '../text-suggestion.js'
+// import { Yami.TextSuggestion } from '../text-suggestion.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 光源访问器窗口加载 ********************************
@@ -32,7 +32,7 @@ LightGetter.initialize = function () {
 
   // 侦听事件
   $('#lightGetter-confirm').on('click', this.confirm)
-  TextSuggestion.listen($('#lightGetter-name'), 'light')
+  Yami.TextSuggestion.listen($('#lightGetter-name'), 'light')
 }
 
 // 打开窗口

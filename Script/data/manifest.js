@@ -1,7 +1,7 @@
 'use strict'
 
 import { Meta } from './meta.js'
-import { Data } from '../data/data.js'
+import { Data } from './data.js'
 
 // ******************************** 元数据清单类 ********************************
 

@@ -1,8 +1,8 @@
 'use strict'
 
 import { AncestorGetter } from '../ancestor-getter.js'
-import { TextSuggestion } from '../text-suggestion.js'
-import { VariableGetter } from '../variable-getter.js'
+// import { Yami.TextSuggestion } from '../text-suggestion.js'
+// import { Yami.VariableGetter } from '../variable-getter.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 祖先元素访问器窗口加载 ********************************
@@ -34,7 +34,7 @@ AncestorGetter.initialize = function () {
 
   // 侦听事件
   $('#ancestorGetter-confirm').on('click', this.confirm)
-  TextSuggestion.listen($('#ancestorGetter-name'), 'element')
+  Yami.TextSuggestion.listen($('#ancestorGetter-name'), 'element')
 }
 
 // 打开窗口
@@ -95,7 +95,7 @@ AncestorGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#ancestorGetter-variable').getFocus()
       }
       getter = {type, variable}

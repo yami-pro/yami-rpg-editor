@@ -18,7 +18,7 @@ class FileNavPane extends HTMLElement {
     super()
 
     // 创建重命名计时器
-    const timer = new Timer({
+    const timer = new Yami.Timer({
       duration: 500,
       callback: timer => {
         const files = this.selections

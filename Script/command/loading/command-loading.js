@@ -1,33 +1,33 @@
 'use strict'
 
 import { Command } from '../command.js'
-import { EventEditor } from '../event-editor.js'
-import { CommandSuggestion } from '../command-suggestion.js'
-import { TextSuggestion } from '../text-suggestion.js'
-import { VariableGetter } from '../variable-getter.js'
-import { ActorGetter } from '../actor-getter.js'
-import { SkillGetter } from '../skill-getter.js'
-import { StateGetter } from '../state-getter.js'
-import { EquipmentGetter } from '../equipment-getter.js'
-import { ItemGetter } from '../item-getter.js'
-import { PositionGetter } from '../position-getter.js'
-import { AngleGetter } from '../angle-getter.js'
-import { TriggerGetter } from '../trigger-getter.js'
-import { LightGetter } from '../light-getter.js'
-import { ElementGetter } from '../element-getter.js'
-import { AncestorGetter } from '../ancestor-getter.js'
-import { NumberOperand } from '../number-operand.js'
-import { IfBranch } from '../if-branch.js'
-import { IfCondition } from '../if-condition.js'
-import { SwitchBranch } from '../switch-branch.js'
-import { SwitchCondition } from '../switch-condition.js'
-import { ImageProperty } from '../image-property.js'
-import { TextProperty } from '../text-property.js'
-import { TextBoxProperty } from '../text-box-property.js'
-import { DialogBoxProperty } from '../dialog-box-property.js'
-import { ProgressBarProperty } from '../progress-bar-property.js'
-import { TransformProperty } from '../transform-property.js'
-import { LightProperty } from '../light-property.js'
+// import { Yami.EventEditor } from '../event-editor.js'
+// import { Yami.CommandSuggestion } from '../command-suggestion.js'
+// import { Yami.TextSuggestion } from '../text-suggestion.js'
+// import { Yami.VariableGetter } from '../variable-getter.js'
+// import { Yami.ActorGetter } from '../actor-getter.js'
+// import { Yami.SkillGetter } from '../skill-getter.js'
+// import { Yami.StateGetter } from '../state-getter.js'
+// import { Yami.EquipmentGetter } from '../equipment-getter.js'
+// import { Yami.ItemGetter } from '../item-getter.js'
+// import { Yami.PositionGetter } from '../position-getter.js'
+// import { Yami.AngleGetter } from '../angle-getter.js'
+// import { Yami.TriggerGetter } from '../trigger-getter.js'
+// import { Yami.LightGetter } from '../light-getter.js'
+// import { Yami.ElementGetter } from '../element-getter.js'
+// import { Yami.AncestorGetter } from '../ancestor-getter.js'
+// import { Yami.NumberOperand } from '../number-operand.js'
+// import { Yami.IfBranch } from '../if-branch.js'
+// import { Yami.IfCondition } from '../if-condition.js'
+// import { Yami.SwitchBranch } from '../switch-branch.js'
+// import { Yami.SwitchCondition } from '../switch-condition.js'
+// import { Yami.ImageProperty } from '../image-property.js'
+// import { Yami.TextProperty } from '../text-property.js'
+// import { Yami.TextBoxProperty } from '../text-box-property.js'
+// import { Yami.DialogBoxProperty } from '../dialog-box-property.js'
+// import { Yami.ProgressBarProperty } from '../progress-bar-property.js'
+// import { Yami.TransformProperty } from '../transform-property.js'
+// import { Yami.LightProperty } from '../light-property.js'
 
 import * as Yami from '../../yami.js'
 
@@ -39,20 +39,20 @@ Command.initialize = function () {
   this.words = new Command.WordList()
 
   // 初始化相关对象
-  CommandSuggestion.initialize()
-  TextSuggestion.initialize()
-  VariableGetter.initialize()
-  ActorGetter.initialize()
-  SkillGetter.initialize()
-  StateGetter.initialize()
-  EquipmentGetter.initialize()
-  ItemGetter.initialize()
-  PositionGetter.initialize()
-  AngleGetter.initialize()
-  TriggerGetter.initialize()
-  LightGetter.initialize()
-  ElementGetter.initialize()
-  AncestorGetter.initialize()
+  Yami.CommandSuggestion.initialize()
+  Yami.TextSuggestion.initialize()
+  Yami.VariableGetter.initialize()
+  Yami.ActorGetter.initialize()
+  Yami.SkillGetter.initialize()
+  Yami.StateGetter.initialize()
+  Yami.EquipmentGetter.initialize()
+  Yami.ItemGetter.initialize()
+  Yami.PositionGetter.initialize()
+  Yami.AngleGetter.initialize()
+  Yami.TriggerGetter.initialize()
+  Yami.LightGetter.initialize()
+  Yami.ElementGetter.initialize()
+  Yami.AncestorGetter.initialize()
   Command.custom.initialize()
 
   // 初始化指令模块
@@ -70,7 +70,7 @@ Command.insert = function (target, id) {
     target.scrollAndResize()
     return this.open(id)
   }
-  CommandSuggestion.open()
+  Yami.CommandSuggestion.open()
 }
 
 // 编辑指令
@@ -1195,7 +1195,7 @@ Command.cases.setBoolean = {
   save: function () {
     const read = Yami.getElementReader('setBoolean')
     const variable = read('variable')
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return $('#setBoolean-variable').getFocus()
     }
     const operation = read('operation')
@@ -1209,7 +1209,7 @@ Command.cases.setBoolean = {
       }
       case 'variable': {
         const variable = read('common-variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setBoolean-common-variable').getFocus()
         }
         operand = {type, variable}
@@ -1217,7 +1217,7 @@ Command.cases.setBoolean = {
       }
       case 'list': {
         const variable = read('common-variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setBoolean-common-variable').getFocus()
         }
         const index = read('list-index')
@@ -1227,7 +1227,7 @@ Command.cases.setBoolean = {
       case 'parameter': {
         const variable = read('common-variable')
         const paramName = read('parameter-paramName')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setBoolean-common-variable').getFocus()
         }
         if (paramName === '') {
@@ -1247,7 +1247,7 @@ Command.cases.setNumber = {
     $('#setNumber-confirm').on('click', this.save)
 
     // 绑定操作数列表
-    $('#setNumber-operands').bind(NumberOperand)
+    $('#setNumber-operands').bind(Yami.NumberOperand)
 
     // 清理内存 - 窗口已关闭事件
     $('#setNumber').on('closed', event => {
@@ -1271,7 +1271,7 @@ Command.cases.setNumber = {
     const length = operands.length
     for (let i = 0; i < length; i++) {
       const operand = operands[i]
-      let operandName = NumberOperand.parseOperand(operand)
+      let operandName = Yami.NumberOperand.parseOperand(operand)
       if (i !== 0) switch (operand.operation.replace('()', '')) {
         case 'add': expression += ' + '; break
         case 'sub': expression += ' - '; break
@@ -1315,7 +1315,7 @@ Command.cases.setNumber = {
   save: function () {
     const read = Yami.getElementReader('setNumber')
     const variable = read('variable')
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return $('#setNumber-variable').getFocus()
     }
     const operation = read('operation')
@@ -1620,7 +1620,7 @@ Command.cases.setString = {
   save: function () {
     const read = Yami.getElementReader('setString')
     const variable = read('variable')
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return $('#setString-variable').getFocus()
     }
     const operation = read('operation')
@@ -1634,7 +1634,7 @@ Command.cases.setString = {
       }
       case 'variable': {
         const variable = read('operand-common-variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setString-operand-common-variable').getFocus()
         }
         operand = {type, variable}
@@ -1643,7 +1643,7 @@ Command.cases.setString = {
       case 'string': {
         const method = read('operand-string-method')
         const variable = read('operand-common-variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setString-operand-common-variable').getFocus()
         }
         switch (method) {
@@ -1735,7 +1735,7 @@ Command.cases.setString = {
       case 'list': {
         const variable = read('operand-common-variable')
         const index = read('operand-list-index')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setString-operand-common-variable').getFocus()
         }
         operand = {type, variable, index}
@@ -1744,7 +1744,7 @@ Command.cases.setString = {
       case 'parameter': {
         const variable = read('operand-common-variable')
         const paramName = read('operand-parameter-paramName')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setString-operand-common-variable').getFocus()
         }
         if (paramName === '') {
@@ -1759,7 +1759,7 @@ Command.cases.setString = {
           case 'parse-timestamp': {
             const variable = read('operand-parse-timestamp-variable')
             const format = read('operand-parse-timestamp-format')
-            if (VariableGetter.isNone(variable)) {
+            if (Yami.VariableGetter.isNone(variable)) {
               return $('#setString-operand-parse-timestamp-variable').getFocus()
             }
             operand = {type, data, variable, format}
@@ -2059,7 +2059,7 @@ Command.cases.setObject = {
   save: function () {
     const read = Yami.getElementReader('setObject')
     const variable = read('variable')
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return $('#setObject-variable').getFocus()
     }
     const type = read('operand-type')
@@ -2110,7 +2110,7 @@ Command.cases.setObject = {
       }
       case 'variable': {
         const variable = read('operand-variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setObject-operand-variable').getFocus()
         }
         operand = {type, variable}
@@ -2118,7 +2118,7 @@ Command.cases.setObject = {
       }
       case 'list': {
         const variable = read('operand-variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setObject-operand-variable').getFocus()
         }
         const index = read('operand-list-index')
@@ -2285,7 +2285,7 @@ Command.cases.setList = {
   save: function () {
     const read = Yami.getElementReader('setList')
     const variable = read('variable')
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return $('#setList-variable').getFocus()
     }
     const operation = read('operation')
@@ -2330,7 +2330,7 @@ Command.cases.setList = {
       case 'set-variable': {
         const index = read('index')
         const operand = read('operand')
-        if (VariableGetter.isNone(operand)) {
+        if (Yami.VariableGetter.isNone(operand)) {
           return $('#setList-operand').getFocus()
         }
         Command.save({variable, operation, index, operand})
@@ -2339,7 +2339,7 @@ Command.cases.setList = {
       case 'push':
       case 'remove': {
         const operand = read('operand')
-        if (VariableGetter.isNone(operand)) {
+        if (Yami.VariableGetter.isNone(operand)) {
           return $('#setList-operand').getFocus()
         }
         Command.save({variable, operation, operand})
@@ -2347,7 +2347,7 @@ Command.cases.setList = {
       }
       case 'split': {
         const operand = read('operand')
-        if (VariableGetter.isNone(operand)) {
+        if (Yami.VariableGetter.isNone(operand)) {
           return $('#setList-operand').getFocus()
         }
         const separator = read('separator')
@@ -2379,7 +2379,7 @@ Command.cases.deleteVariable = {
   save: function () {
     const elVariable = $('#deleteVariable-variable')
     const variable = elVariable.read()
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return elVariable.getFocus()
     }
     Command.save({variable})
@@ -2393,10 +2393,10 @@ Command.cases.if = {
     $('#if-confirm').on('click', this.save)
 
     // 绑定分支列表
-    $('#if-branches').bind(IfBranch)
+    $('#if-branches').bind(Yami.IfBranch)
 
     // 绑定条件列表
-    $('#if-branch-conditions').bind(IfCondition)
+    $('#if-branch-conditions').bind(Yami.IfCondition)
 
     // 清理内存 - 窗口已关闭事件
     $('#if').on('closed', event => {
@@ -2411,7 +2411,7 @@ Command.cases.if = {
     const textIf = Yami.Local.get('command.if.alias')
     for (const branch of branches) {
       contents.push(
-        {text: `${textIf} ${IfBranch.parse(branch)}`},
+        {text: `${textIf} ${Yami.IfBranch.parse(branch)}`},
         {children: branch.commands},
       )
     }
@@ -2460,10 +2460,10 @@ Command.cases.switch = {
     $('#switch-confirm').on('click', this.save)
 
     // 绑定分支列表
-    $('#switch-branches').bind(SwitchBranch)
+    $('#switch-branches').bind(Yami.SwitchBranch)
 
     // 绑定条件列表
-    $('#switch-branch-conditions').bind(SwitchCondition)
+    $('#switch-branch-conditions').bind(Yami.SwitchCondition)
 
     // 清理内存 - 窗口已关闭事件
     $('#switch').on('closed', event => {
@@ -2481,7 +2481,7 @@ Command.cases.switch = {
     const textCase = Yami.Local.get('command.switch.case')
     for (const branch of branches) {
       contents.push(
-        {text: `${textCase} ${SwitchBranch.parse(branch)}`},
+        {text: `${textCase} ${Yami.SwitchBranch.parse(branch)}`},
         {children: branch.commands},
       )
     }
@@ -2509,7 +2509,7 @@ Command.cases.switch = {
   save: function () {
     const read = Yami.getElementReader('switch')
     const variable = read('variable')
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return $('#switch-variable').getFocus()
     }
     const branches = read('branches')
@@ -2536,7 +2536,7 @@ Command.cases.loop = {
     $('#loop-confirm').on('click', this.save)
 
     // 绑定条件列表
-    $('#loop-conditions').bind(IfCondition)
+    $('#loop-conditions').bind(Yami.IfCondition)
 
     // 创建模式选项
     $('#loop-mode').loadItems([
@@ -2553,7 +2553,7 @@ Command.cases.loop = {
   parse: function ({mode, conditions, commands}) {
     let info
     if (conditions.length !== 0) {
-      const condition = IfBranch.parse({mode, conditions})
+      const condition = Yami.IfBranch.parse({mode, conditions})
       info = `${Yami.Local.get('command.loop.while')} ${condition}`
     } else {
       info = Yami.Local.get('command.loop')
@@ -2690,10 +2690,10 @@ Command.cases.forEach = {
       case 'list': {
         const list = read('list')
         const variable = read('variable')
-        if (VariableGetter.isNone(list)) {
+        if (Yami.VariableGetter.isNone(list)) {
           return $('#forEach-list').getFocus()
         }
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#forEach-variable').getFocus()
         }
         Command.save({data, list, variable, commands})
@@ -2705,7 +2705,7 @@ Command.cases.forEach = {
       case 'bag': {
         const actor = read('actor')
         const variable = read('variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#forEach-variable').getFocus()
         }
         Command.save({data, actor, variable, commands})
@@ -2714,7 +2714,7 @@ Command.cases.forEach = {
       case 'element': {
         const element = read('element')
         const variable = read('variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#forEach-variable').getFocus()
         }
         Command.save({data, element, variable, commands})
@@ -2722,7 +2722,7 @@ Command.cases.forEach = {
       }
       case 'save': {
         const filename = read('filename')
-        if (VariableGetter.isNone(filename)) {
+        if (Yami.VariableGetter.isNone(filename)) {
           return $('#forEach-filename').getFocus()
         }
         Command.save({data, filename, commands})
@@ -2833,7 +2833,7 @@ Command.cases.callEvent = {
     $('#callEvent-type').on('write', event => {
       const type = event.value
       const elEventType = $('#callEvent-eventType')
-      const eventTypes = Yami.Enum.getMergedItems(EventEditor.types[type], type + '-event')
+      const eventTypes = Yami.Enum.getMergedItems(Yami.EventEditor.types[type], type + '-event')
       // 加载事件类型选项(创建了全局事件类型但是没用到)
       elEventType.loadItems(eventTypes)
       elEventType.write(eventTypes[0].value)
@@ -3029,7 +3029,7 @@ Command.cases.setEvent = {
       case 'pause':
       case 'continue': {
         const variable = read('variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#setEvent-variable').getFocus()
         }
         Command.save({operation, variable})
@@ -3301,7 +3301,7 @@ Command.cases.setImage = {
     $('#setImage-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setImage-properties').bind(ImageProperty)
+    $('#setImage-properties').bind(Yami.ImageProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setImage').on('closed', event => {
@@ -3312,7 +3312,7 @@ Command.cases.setImage = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(ImageProperty.parse(property))
+      words.push(Yami.ImageProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3462,7 +3462,7 @@ Command.cases.loadImage = {
       }
       case 'base64': {
         const variable = read('variable')
-        if (VariableGetter.isNone(variable)) {
+        if (Yami.VariableGetter.isNone(variable)) {
           return $('#loadImage-variable').getFocus()
         }
         Command.save({element, type, variable})
@@ -3622,7 +3622,7 @@ Command.cases.setText = {
     $('#setText-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setText-properties').bind(TextProperty)
+    $('#setText-properties').bind(Yami.TextProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setText').on('closed', event => {
@@ -3633,7 +3633,7 @@ Command.cases.setText = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(TextProperty.parse(property))
+      words.push(Yami.TextProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3667,7 +3667,7 @@ Command.cases.setTextBox = {
     $('#setTextBox-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setTextBox-properties').bind(TextBoxProperty)
+    $('#setTextBox-properties').bind(Yami.TextBoxProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setTextBox').on('closed', event => {
@@ -3678,7 +3678,7 @@ Command.cases.setTextBox = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(TextBoxProperty.parse(property))
+      words.push(Yami.TextBoxProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3712,7 +3712,7 @@ Command.cases.setDialogBox = {
     $('#setDialogBox-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setDialogBox-properties').bind(DialogBoxProperty)
+    $('#setDialogBox-properties').bind(Yami.DialogBoxProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setDialogBox').on('closed', event => {
@@ -3723,7 +3723,7 @@ Command.cases.setDialogBox = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(DialogBoxProperty.parse(property))
+      words.push(Yami.DialogBoxProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3797,7 +3797,7 @@ Command.cases.setProgressBar = {
     $('#setProgressBar-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setProgressBar-properties').bind(ProgressBarProperty)
+    $('#setProgressBar-properties').bind(Yami.ProgressBarProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setProgressBar').on('closed', event => {
@@ -3808,7 +3808,7 @@ Command.cases.setProgressBar = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(ProgressBarProperty.parse(property))
+      words.push(Yami.ProgressBarProperty.parse(property))
     }
     return [
       {color: 'element'},
@@ -3936,7 +3936,7 @@ Command.cases.moveElement = {
     $('#moveElement-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#moveElement-properties').bind(TransformProperty)
+    $('#moveElement-properties').bind(Yami.TransformProperty)
 
     // 创建等待结束选项
     $('#moveElement-wait').loadItems([
@@ -3961,7 +3961,7 @@ Command.cases.moveElement = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(TransformProperty.parse(property))
+      words.push(Yami.TransformProperty.parse(property))
     }
     words.push(Command.parseEasing(easingId, duration, wait))
     return [
@@ -4102,7 +4102,7 @@ Command.cases.moveLight = {
     $('#moveLight-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#moveLight-properties').bind(LightProperty)
+    $('#moveLight-properties').bind(Yami.LightProperty)
 
     // 创建等待选项
     $('#moveLight-wait').loadItems([
@@ -4127,7 +4127,7 @@ Command.cases.moveLight = {
     const words = Command.words
     .push(Command.parseLight(light))
     for (const property of properties) {
-      words.push(LightProperty.parse(property))
+      words.push(Yami.LightProperty.parse(property))
     }
     words.push(Command.parseEasing(easingId, duration, wait))
     return [
@@ -6106,7 +6106,7 @@ Command.cases.getTarget = {
     const selector = read('selector')
     const condition = read('condition')
     const variable = read('variable')
-    if (VariableGetter.isNone(variable)) {
+    if (Yami.VariableGetter.isNone(variable)) {
       return $('#getTarget-variable').getFocus()
     }
     switch (condition) {
@@ -7990,7 +7990,7 @@ Command.custom = {
   // 加载指令列表
   loadCommandList: async function () {
     if (!Yami.Data.commands) return
-    const {list} = CommandSuggestion
+    const {list} = Yami.CommandSuggestion
     if (!this.customFolder) {
       if (list.data instanceof Promise) {
         await list.data
@@ -8030,7 +8030,7 @@ Command.custom = {
     }
     this.customFolder.children = commands
     this.commandNameMap = commandNameMap
-    CommandSuggestion.windowLocalize()
+    Yami.CommandSuggestion.windowLocalize()
     // 重新构建指令项目的父对象引用
     Yami.NodeList.createParents(commands, this.customFolder)
   },

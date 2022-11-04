@@ -168,16 +168,16 @@ class WindowFrame extends HTMLElement {
   // 居中位置
   center() {
     const rect = this.rect()
-    const x = Yami.CSS.rasterize((window.innerWidth - rect.width) / 2)
-    const y = Yami.CSS.rasterize((window.innerHeight - rect.height) / 2)
+    const x = CSS.rasterize((window.innerWidth - rect.width) / 2)
+    const y = CSS.rasterize((window.innerHeight - rect.height) / 2)
     this.setPosition(x, y, rect)
   }
 
   // 绝对位置
   absolute(left, top) {
     const rect = this.rect()
-    const x = Yami.CSS.rasterize(left)
-    const y = Yami.CSS.rasterize(top)
+    const x = CSS.rasterize(left)
+    const y = CSS.rasterize(top)
     this.setPosition(x, y, rect)
   }
 
@@ -185,8 +185,8 @@ class WindowFrame extends HTMLElement {
   overlap(parent) {
     const rect = this.rect()
     const {left, top} = parent.style
-    const x = Yami.CSS.rasterize(parseFloat(left) + 24)
-    const y = Yami.CSS.rasterize(parseFloat(top) + 24)
+    const x = CSS.rasterize(parseFloat(left) + 24)
+    const y = CSS.rasterize(parseFloat(top) + 24)
     this.setPosition(x, y, rect)
   }
 

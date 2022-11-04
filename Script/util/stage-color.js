@@ -1,7 +1,7 @@
 'use strict'
 
+import { INTRGBA } from './util.js'
 import { GL } from '../webgl/gl.js'
-import { INTRGBA } from '../util/util.js'
 
 // ******************************** 舞台颜色类 ********************************
 

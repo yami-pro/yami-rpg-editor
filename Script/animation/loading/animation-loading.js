@@ -1,7 +1,6 @@
 'use strict'
 
 import { Animation } from '../animation.js'
-import { AnimationPlayer } from '../animation-player.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 动画窗口加载 ********************************
@@ -1356,7 +1355,7 @@ Animation.resize = function () {
   if (this.state === 'open' &&
     this.screen.clientWidth !== 0) {
     const scale = this.scale
-    const screenBox = Yami.CSS.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = CSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const stageWidth = screenWidth + this.padding
@@ -5656,4 +5655,4 @@ Animation.timelineMarquee.isShrinkable = function () {
   return frame ? this.x < frame.end : false
 }
 
-Animation.Player = AnimationPlayer
+Animation.Player = Yami.AnimationPlayer

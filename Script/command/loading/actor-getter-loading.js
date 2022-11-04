@@ -1,8 +1,8 @@
 'use strict'
 
 import { ActorGetter } from '../actor-getter.js'
-import { TextSuggestion } from '../text-suggestion.js'
-import { VariableGetter } from '../variable-getter.js'
+// import { Yami.TextSuggestion } from '../text-suggestion.js'
+// import { Yami.VariableGetter } from '../variable-getter.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 角色访问器窗口加载 ********************************
@@ -51,7 +51,7 @@ ActorGetter.initialize = function () {
 
   // 侦听事件
   $('#actorGetter-confirm').on('click', this.confirm)
-  TextSuggestion.listen($('#actorGetter-name'), 'actor')
+  Yami.TextSuggestion.listen($('#actorGetter-name'), 'actor')
 }
 
 // 打开窗口
@@ -139,7 +139,7 @@ ActorGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#actorGetter-variable').getFocus()
       }
       getter = {type, variable}

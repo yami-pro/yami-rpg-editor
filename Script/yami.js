@@ -2,7 +2,6 @@
 
 export {
   ctrl,
-  CSS,
   Timer,
   StageColor,
   measureText,
@@ -10,6 +9,15 @@ export {
   getElementWriter,
   INTRGBA
 } from './util/index.js'
+
+export {
+  CommandHistory,
+  HistoryTimer,
+  History,
+  NumberHistory,
+  ParamHistory,
+  TextHistory
+} from './history/index.js'
 
 export {
   CheckBox,
@@ -52,6 +60,8 @@ export {
   TitleBar,
   WindowFrame
 } from './components/index.js'
+
+export { PluginManager } from './plugin/index.js'
 
 export {
   GL,
@@ -100,7 +110,7 @@ export {
   Selector
 } from './browser/index.js'
 
-export { Codec } from './codec/codec.js'
+export { Codec } from './codec/index.js'
 
 export {
   ActorGetter,
@@ -161,15 +171,6 @@ export {
   Path
 } from './file-system/index.js'
 
-export {
-  CommandHistory,
-  HistoryTimer,
-  History,
-  NumberHistory,
-  ParamHistory,
-  TextHistory
-} from './history/index.js'
-
 export { Inspector } from './inspector/index.js'
 
 export { Layout } from './layout/index.js'
@@ -190,8 +191,6 @@ export {
   ParticleEmitter,
   ParticleLayer
 } from './particle/index.js'
-
-export { PluginManager } from './plugin/index.js'
 
 export { Printer } from './printer/printer.js'
 

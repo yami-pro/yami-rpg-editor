@@ -1,7 +1,5 @@
 'use strict'
 
-import './loading/ui-loading.js'
-
 export { UI } from './ui.js'
 export { ContainerElement } from './container-element.js'
 export { DialogBoxElement } from './dialog-box-element.js'
@@ -13,3 +11,5 @@ export { TextElement } from './text-element.js'
 export { UIElement } from './ui-element.js'
 export { VideoElement } from './video-element.js'
 export { WindowElement } from './window-element.js'
+
+import './loading/ui-loading.js'

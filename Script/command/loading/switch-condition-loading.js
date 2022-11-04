@@ -1,7 +1,7 @@
 'use strict'
 
 import { SwitchCondition } from '../switch-condition.js'
-import { IfCondition } from '../if-condition.js'
+// import { Yami.IfCondition } from '../if-condition.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 匹配 - 条件窗口加载 ********************************
@@ -84,7 +84,7 @@ SwitchCondition.parse = function (condition) {
       return `${keyboard}["${key}"]`
     }
     case 'mouse': {
-      const button = IfCondition.parseMouseButton(condition.button)
+      const button = Yami.IfCondition.parseMouseButton(condition.button)
       const mouse = Yami.Local.get('command.switch.mouse')
       return `${mouse}[${button}]`
     }

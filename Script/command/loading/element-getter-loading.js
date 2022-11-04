@@ -1,7 +1,7 @@
 'use strict'
 
 import { ElementGetter } from '../element-getter.js'
-import { TextSuggestion } from '../text-suggestion.js'
+// import { Yami.TextSuggestion } from '../text-suggestion.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 元素访问器窗口加载 ********************************
@@ -42,7 +42,7 @@ ElementGetter.initialize = function () {
 
   // 侦听事件
   $('#elementGetter-confirm').on('click', this.confirm)
-  TextSuggestion.listen($('#elementGetter-name'), 'element')
+  Yami.TextSuggestion.listen($('#elementGetter-name'), 'element')
 }
 
 // 打开窗口

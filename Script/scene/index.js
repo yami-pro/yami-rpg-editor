@@ -1,7 +1,5 @@
 'use strict'
 
-import './loading/scene-loading.js'
-
 export { Scene } from './scene.js'
 export { Light } from './light.js'
 export { ObjectFolder } from './object-folder.js'
@@ -10,3 +8,5 @@ export { Point } from './point.js'
 export { SceneShift } from './scene-shift.js'
 export { Textures } from './textures.js'
 export { TilemapShortcuts } from './tilemap-shortcuts.js'
+
+import './loading/scene-loading.js'

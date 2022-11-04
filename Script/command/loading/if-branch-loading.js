@@ -1,7 +1,7 @@
 'use strict'
 
 import { IfBranch } from '../if-branch.js'
-import { IfCondition } from '../if-condition.js'
+// import { Yami.IfCondition } from '../if-condition.js'
 import * as Yami from '../../yami.js'
 
 // ******************************** 条件分支 - 分支窗口加载 ********************************
@@ -28,7 +28,7 @@ IfBranch.parse = function (branch) {
     case 'any': joint = ' || '; break
   }
   for (const condition of branch.conditions) {
-    words.push(IfCondition.parse(condition))
+    words.push(Yami.IfCondition.parse(condition))
   }
   return words.join(joint)
 }
@@ -36,8 +36,8 @@ IfBranch.parse = function (branch) {
 // 打开数据
 IfBranch.open = function (branch) {
   if (this.target.inserting) {
-    IfCondition.target = this.target
-    IfCondition.open()
+    Yami.IfCondition.target = this.target
+    Yami.IfCondition.open()
   } else {
     Yami.Window.open('if-branch')
     $('#if-branch-mode').write(branch.mode)
@@ -50,7 +50,7 @@ IfBranch.open = function (branch) {
 // 保存数据
 IfBranch.save = function () {
   if (this.target.inserting) {
-    const condition = IfCondition.save()
+    const condition = Yami.IfCondition.save()
     if (condition !== undefined) {
       const mode = 'all'
       const conditions = [condition]
