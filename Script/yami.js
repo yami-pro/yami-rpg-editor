@@ -22,6 +22,7 @@ export {
 export {
   CheckBox,
   ColorBox,
+  CommonList,
   CommandList,
   CustomBox,
   DetailBox,
