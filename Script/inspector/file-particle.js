@@ -1,6 +1,7 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
+// import { Inspector } from './inspector.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 粒子页面 ********************************
 

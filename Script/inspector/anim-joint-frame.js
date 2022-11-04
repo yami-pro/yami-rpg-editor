@@ -1,6 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 动画 - 关节帧页面 ********************************
 
@@ -26,8 +26,8 @@ import { Inspector } from './inspector.js'
     const elements = $(`#animJointFrame-x, #animJointFrame-y, #animJointFrame-rotation,
       #animJointFrame-scaleX, #animJointFrame-scaleY, #animJointFrame-opacity`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(
       this, Animation, data => {
         data.type = 'inspector-frame-change'
         data.motion = this.motion
@@ -54,11 +54,11 @@ import { Inspector } from './inspector.js'
   AnimJointFrame.open = function (frame) {
     if (this.target !== frame) {
       this.target = frame
-      this.motion = Animation.motion
-      Curve.load(frame)
+      this.motion = Yami.Animation.motion
+      Yami.Curve.load(frame)
 
       // 写入数据
-      const write = getElementWriter('animJointFrame', frame)
+      const write = Yami.getElementWriter('animJointFrame', frame)
       write('x')
       write('y')
       write('rotation')
@@ -71,8 +71,8 @@ import { Inspector } from './inspector.js'
   // 关闭数据
   AnimJointFrame.close = function () {
     if (this.target) {
-      Animation.unselectMarquee(this.target)
-      Curve.load(null)
+      Yami.Animation.unselectMarquee(this.target)
+      Yami.Curve.load(null)
       this.target = null
       this.motion = null
     }
@@ -99,7 +99,7 @@ import { Inspector } from './inspector.js'
 
   // 更新数据
   AnimJointFrame.update = function (frame, key, value) {
-    Animation.planToSave()
+    Yami.Animation.planToSave()
     switch (key) {
       case 'x':
       case 'y':
@@ -109,21 +109,21 @@ import { Inspector } from './inspector.js'
       case 'opacity':
         if (frame[key] !== value) {
           frame[key] = value
-          Animation.updateFrameContexts()
+          Yami.Animation.updateFrameContexts()
         }
         break
     }
-    Animation.requestRendering()
+    Yami.Animation.requestRendering()
   }
 
   // 参数 - 输入事件
   AnimJointFrame.paramInput = function (event) {
     AnimJointFrame.update(
       AnimJointFrame.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.animJointFrame = AnimJointFrame
+  Yami.Inspector.animJointFrame = AnimJointFrame
 }

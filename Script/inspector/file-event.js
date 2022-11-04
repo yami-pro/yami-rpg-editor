@@ -1,8 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { EventEditor } from '../command/event-editor.js'
-import { File } from '../file-system/file.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 事件页面 ********************************
 
@@ -25,8 +23,8 @@ import { File } from '../file-system/file.js'
   // 初始化
   FileEvent.initialize = function () {
     // 创建类型选项
-    $('#fileEvent-type').loadItems(EventEditor.types.global)
-    EventEditor.types.relatedElements.push($('#fileEvent-type'))
+    $('#fileEvent-type').loadItems(Yami.EventEditor.types.global)
+    Yami.EventEditor.types.relatedElements.push($('#fileEvent-type'))
 
     // 侦听事件
     $('#fileEvent-type').on('input', this.paramInput)
@@ -34,7 +32,7 @@ import { File } from '../file-system/file.js'
 
   // 创建事件
   FileEvent.create = function (filter) {
-    const type = EventEditor.types[filter][0].value
+    const type = Yami.EventEditor.types[filter][0].value
     switch (filter) {
       case 'global':
         return {
@@ -57,13 +55,13 @@ import { File } from '../file-system/file.js'
       this.meta = meta
 
       $('#fileEvent-type').loadItems(
-        Enum.getMergedItems(
-          EventEditor.types.global,
+        Yami.Enum.getMergedItems(
+          Yami.EventEditor.types.global,
           'global-event',
       ))
 
       // 写入数据
-      const write = getElementWriter('fileEvent')
+      const write = Yami.getElementWriter('fileEvent')
       write('type', event.type)
     }
   }
@@ -71,7 +69,7 @@ import { File } from '../file-system/file.js'
   // 关闭数据
   FileEvent.close = function () {
     if (this.target) {
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.target = null
       this.meta = null
     }
@@ -86,7 +84,7 @@ import { File } from '../file-system/file.js'
 
   // 更新数据
   FileEvent.update = function (event, key, value) {
-    File.planToSave(this.meta)
+    Yami.File.planToSave(this.meta)
     switch (key) {
       case 'type':
         if (event.type !== value) {
@@ -100,10 +98,10 @@ import { File } from '../file-system/file.js'
   FileEvent.paramInput = function (event) {
     FileEvent.update(
       FileEvent.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.fileEvent = FileEvent
+  Yami.Inspector.fileEvent = FileEvent
 }

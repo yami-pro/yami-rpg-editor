@@ -1,7 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { File } from '../file-system/file.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 图像页面 ********************************
 
@@ -43,12 +42,12 @@ import { File } from '../file-system/file.js'
       const elResolution = $('#fileImage-resolution')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = File.parseFileSize(size)
+      elSize.textContent = Yami.File.parseFileSize(size)
       elResolution.textContent = ''
 
       // 加载图像
       const image = this.image.hide()
-      const path = File.route(file.path)
+      const path = Yami.File.route(file.path)
       image.src = path
 
       // 更新图像信息
@@ -78,7 +77,7 @@ import { File } from '../file-system/file.js'
   // 关闭数据
   FileImage.close = function () {
     if (this.target) {
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.symbol = null
@@ -130,5 +129,5 @@ import { File } from '../file-system/file.js'
     }
   }
 
-  Inspector.fileImage = FileImage
+  Yami.Inspector.fileImage = FileImage
 }

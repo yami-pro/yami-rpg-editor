@@ -1,7 +1,9 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { UI } from '../ui/ui.js'
+import * as Yami from '../yami.js'
+
+// import { Inspector } from './inspector.js'
+// import { UI } from '../ui/ui.js'
 
 // ******************************** 元素 - 视频页面 ********************************
 

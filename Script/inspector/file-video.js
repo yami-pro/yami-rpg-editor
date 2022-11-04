@@ -1,8 +1,10 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { AudioManager } from '../audio/audio-manager.js'
-import { File } from '../file-system/file.js'
+import * as Yami from '../yami.js'
+
+// import { Inspector } from './inspector.js'
+// import { AudioManager } from '../audio/audio-manager.js'
+// import { File } from '../file-system/file.js'
 
 // ******************************** 文件 - 视频页面 ********************************
 

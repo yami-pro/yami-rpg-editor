@@ -1,10 +1,10 @@
 'use strict'
 
-import { Timer } from '../util/timer.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 历史操作计时器 ********************************
 
-const HistoryTimer = new Timer({
+const HistoryTimer = new Yami.Timer({
   duration: 2000,
   callback: timer => {
     timer.complete = true

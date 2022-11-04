@@ -1,13 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { Scene } from '../scene/scene.js'
-import { AttributeListInterface } from '../tools/attribute-list-interface.js'
-import { EventListInterface } from '../tools/event-list-interface.js'
-import { ScriptListInterface } from '../tools/script-list-interface.js'
-import { File } from '../file-system/file.js'
-import { Window } from '../tools/window.js'
-import { Data } from '../data/data.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 角色页面 ********************************
 
@@ -34,7 +27,7 @@ import { Data } from '../data/data.js'
   // 初始化
   FileActor.initialize = function () {
     // 绑定属性列表
-    $('#fileActor-attributes').bind(new AttributeListInterface())
+    $('#fileActor-attributes').bind(new Yami.AttributeListInterface())
 
     // 绑定精灵图列表
     $('#fileActor-sprites').bind(this.sprites)
@@ -46,10 +39,10 @@ import { Data } from '../data/data.js'
     $('#fileActor-equipments').bind(this.equipments)
 
     // 绑定事件列表
-    $('#fileActor-events').bind(new EventListInterface())
+    $('#fileActor-events').bind(new Yami.EventListInterface())
 
     // 绑定脚本列表
-    $('#fileActor-scripts').bind(new ScriptListInterface())
+    $('#fileActor-scripts').bind(new Yami.ScriptListInterface())
 
     // 绑定脚本参数面板
     $('#fileActor-parameter-pane').bind($('#fileActor-scripts'))
@@ -89,7 +82,7 @@ import { Data } from '../data/data.js'
       this.meta = meta
 
       // 写入数据
-      const write = getElementWriter('fileActor', actor)
+      const write = Yami.getElementWriter('fileActor', actor)
       write('portrait')
       write('animationId')
       write('idleMotion')
@@ -109,7 +102,7 @@ import { Data } from '../data/data.js'
   // 关闭数据
   FileActor.close = function () {
     if (this.target) {
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       $('#fileActor-sprites').clear()
@@ -124,43 +117,43 @@ import { Data } from '../data/data.js'
 
   // 更新数据
   FileActor.update = function (actor, key, value) {
-    File.planToSave(this.meta)
+    Yami.File.planToSave(this.meta)
     switch (key) {
       case 'portrait':
         if (actor.portrait !== value) {
           actor.portrait = value
-          Browser.body.updateIcon(this.meta.file)
+          Yami.Browser.body.updateIcon(this.meta.file)
         }
         break
       case 'animationId':
         if (actor.animationId !== value) {
           const id = actor.animationId
           actor.animationId = value
-          if (Scene.actors instanceof Array) {
-            const animation = Data.animations[id]
-            for (const actor of Scene.actors) {
+          if (Yami.Scene.actors instanceof Array) {
+            const animation = Yami.Data.animations[id]
+            for (const actor of Yami.Scene.actors) {
               if (actor.player?.data === animation) {
-                Scene.destroyObjectContext(actor)
-                Scene.loadActorContext(actor)
+                Yami.Scene.destroyObjectContext(actor)
+                Yami.Scene.loadActorContext(actor)
               }
             }
-            Scene.requestRendering()
+            Yami.Scene.requestRendering()
           }
         }
         break
       case 'idleMotion':
         if (actor[key] !== value) {
           actor[key] = value
-          if (Scene.actors instanceof Array) {
+          if (Yami.Scene.actors instanceof Array) {
             const id = actor.animationId
-            const animation = Data.animations[id]
-            for (const {player} of Scene.actors) {
+            const animation = Yami.Data.animations[id]
+            for (const {player} of Yami.Scene.actors) {
               if (player?.data === animation) {
                 player.reset()
                 player.switch(value, player.suffix)
               }
             }
-            Scene.requestRendering()
+            Yami.Scene.requestRendering()
           }
         }
         break
@@ -179,7 +172,7 @@ import { Data } from '../data/data.js'
   FileActor.animationIdWrite = function (event) {
     const elIdleMotion = $('#fileActor-idleMotion')
     const elMoveMotion = $('#fileActor-moveMotion')
-    const items = Animation.getMotionListItems(event.value)
+    const items = Yami.Animation.getMotionListItems(event.value)
     elIdleMotion.loadItems(items)
     elMoveMotion.loadItems(items)
     elIdleMotion.write2(elIdleMotion.read())
@@ -190,14 +183,14 @@ import { Data } from '../data/data.js'
   FileActor.paramInput = function (event) {
     FileActor.update(
       FileActor.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
   // 列表 - 改变事件
   FileActor.listChange = function (event) {
-    File.planToSave(FileActor.meta)
+    Yami.File.planToSave(FileActor.meta)
   }
 
   // 精灵图列表接口
@@ -208,35 +201,35 @@ import { Data } from '../data/data.js'
       // 重载场景角色动画 - 改变事件
       list.on('change', event => {
         const guid = FileActor.meta.guid
-        if (Scene.actors instanceof Array) {
-          for (const actor of Scene.actors) {
+        if (Yami.Scene.actors instanceof Array) {
+          for (const actor of Yami.Scene.actors) {
             if (actor.actorId === guid) {
-              Scene.destroyObjectContext(actor)
-              Scene.loadActorContext(actor)
+              Yami.Scene.destroyObjectContext(actor)
+              Yami.Scene.loadActorContext(actor)
             }
           }
         }
       })
     },
     parse: function ({id, image}) {
-      Command.invalid = false
+      Yami.Command.invalid = false
       const animationId = FileActor.target.animationId
-      const spriteName = Command.parseSpriteName(animationId, id)
-      const spriteClass = Command.invalid ? 'invalid' : ''
-      Command.invalid = false
-      const fileName = Command.parseFileName(image)
-      const fileClass = Command.invalid ? 'invalid' : ''
+      const spriteName = Yami.Command.parseSpriteName(animationId, id)
+      const spriteClass = Yami.Command.invalid ? 'invalid' : ''
+      Yami.Command.invalid = false
+      const fileName = Yami.Command.parseFileName(image)
+      const fileClass = Yami.Command.invalid ? 'invalid' : ''
       return [
         {content: spriteName, class: spriteClass},
         {content: fileName, class: fileClass},
       ]
     },
     open: function ({id = '', image = ''} = {}) {
-      Window.open('fileActor-sprite')
+      Yami.Window.open('fileActor-sprite')
       const animationId = FileActor.target.animationId
-      const items = Animation.getSpriteListItems(animationId)
+      const items = Yami.Animation.getSpriteListItems(animationId)
       $('#fileActor-sprite-id').loadItems(items)
-      const write = getElementWriter('fileActor-sprite')
+      const write = Yami.getElementWriter('fileActor-sprite')
       write('id', id)
       write('image', image)
       if (!id) {
@@ -246,13 +239,13 @@ import { Data } from '../data/data.js'
       }
     },
     save: function () {
-      const read = getElementReader('fileActor-sprite')
+      const read = Yami.getElementReader('fileActor-sprite')
       const id = read('id')
       if (!id) {
         return $('#fileActor-sprite-id').getFocus()
       }
       const image = read('image')
-      Window.close('fileActor-sprite')
+      Yami.Window.close('fileActor-sprite')
       return {id, image}
     },
   }
@@ -263,22 +256,22 @@ import { Data } from '../data/data.js'
       $('#fileActor-skill-confirm').on('click', () => list.save())
     },
     parse: function ({id, key}) {
-      Command.invalid = false
-      const skillName = Command.parseFileName(id)
-      const skillClass = Command.invalid ? 'invalid' : ''
-      Command.invalid = false
-      const shortcutKey = key ? Command.parseGroupEnumString('shortcut-key', key) : ''
-      const shortcutClass = Command.invalid ? 'invalid' : 'weak'
+      Yami.Command.invalid = false
+      const skillName = Yami.Command.parseFileName(id)
+      const skillClass = Yami.Command.invalid ? 'invalid' : ''
+      Yami.Command.invalid = false
+      const shortcutKey = key ? Yami.Command.parseGroupEnumString('shortcut-key', key) : ''
+      const shortcutClass = Yami.Command.invalid ? 'invalid' : 'weak'
       return [
         {content: skillName, class: skillClass},
         {content: shortcutKey, class: shortcutClass},
       ]
     },
     open: function ({id = '', key = ''} = {}) {
-      Window.open('fileActor-skill')
+      Yami.Window.open('fileActor-skill')
       const elSkillId = $('#fileActor-skill-id')
       const elSkillKey = $('#fileActor-skill-key')
-      const items = Enum.getStringItems('shortcut-key', true)
+      const items = Yami.Enum.getStringItems('shortcut-key', true)
       elSkillKey.loadItems(items)
       elSkillId.write(id)
       elSkillKey.write(key)
@@ -292,7 +285,7 @@ import { Data } from '../data/data.js'
         return elSkillId.getFocus()
       }
       const key = elSkillKey.read()
-      Window.close('fileActor-skill')
+      Yami.Window.close('fileActor-skill')
       return {id, key}
     },
   }
@@ -303,22 +296,22 @@ import { Data } from '../data/data.js'
       $('#fileActor-equipment-confirm').on('click', () => list.save())
     },
     parse: function ({id, slot}) {
-      Command.invalid = false
-      const equipmentName = Command.parseFileName(id)
-      const equipmentClass = Command.invalid ? 'invalid' : ''
-      Command.invalid = false
-      const shortcutKey = slot ? Command.parseGroupEnumString('equipment-slot', slot) : ''
-      const shortcutClass = Command.invalid ? 'invalid' : 'weak'
+      Yami.Command.invalid = false
+      const equipmentName = Yami.Command.parseFileName(id)
+      const equipmentClass = Yami.Command.invalid ? 'invalid' : ''
+      Yami.Command.invalid = false
+      const shortcutKey = slot ? Yami.Command.parseGroupEnumString('equipment-slot', slot) : ''
+      const shortcutClass = Yami.Command.invalid ? 'invalid' : 'weak'
       return [
         {content: equipmentName, class: equipmentClass},
         {content: shortcutKey, class: shortcutClass},
       ]
     },
-    open: function ({id = '', slot = Enum.getDefStringId('equipment-slot')} = {}) {
-      Window.open('fileActor-equipment')
+    open: function ({id = '', slot = Yami.Enum.getDefStringId('equipment-slot')} = {}) {
+      Yami.Window.open('fileActor-equipment')
       const elEquipmentId = $('#fileActor-equipment-id')
       const elEquipmentKey = $('#fileActor-equipment-slot')
-      const items = Enum.getStringItems('equipment-slot')
+      const items = Yami.Enum.getStringItems('equipment-slot')
       elEquipmentKey.loadItems(items)
       elEquipmentId.write(id)
       elEquipmentKey.write(slot)
@@ -335,10 +328,10 @@ import { Data } from '../data/data.js'
       if (!slot) {
         return elKey.getFocus()
       }
-      Window.close('fileActor-equipment')
+      Yami.Window.close('fileActor-equipment')
       return {id, slot}
     },
   }
 
-  Inspector.fileActor = FileActor
+  Yami.Inspector.fileActor = FileActor
 }

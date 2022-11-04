@@ -1,10 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { AttributeListInterface } from '../tools/attribute-list-interface.js'
-import { EventListInterface } from '../tools/event-list-interface.js'
-import { ScriptListInterface } from '../tools/script-list-interface.js'
-import { File } from '../file-system/file.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 物品页面 ********************************
 
@@ -27,13 +23,13 @@ import { File } from '../file-system/file.js'
   // 初始化
   FileItem.initialize = function () {
     // 绑定属性列表
-    $('#fileItem-attributes').bind(new AttributeListInterface())
+    $('#fileItem-attributes').bind(new Yami.AttributeListInterface())
 
     // 绑定事件列表
-    $('#fileItem-events').bind(new EventListInterface())
+    $('#fileItem-events').bind(new Yami.EventListInterface())
 
     // 绑定脚本列表
-    $('#fileItem-scripts').bind(new ScriptListInterface())
+    $('#fileItem-scripts').bind(new Yami.ScriptListInterface())
 
     // 绑定脚本参数面板
     $('#fileItem-parameter-pane').bind($('#fileItem-scripts'))
@@ -61,7 +57,7 @@ import { File } from '../file-system/file.js'
       this.meta = meta
 
       // 写入数据
-      const write = getElementWriter('fileItem', item)
+      const write = Yami.getElementWriter('fileItem', item)
       write('icon')
       write('clip')
       write('attributes')
@@ -73,7 +69,7 @@ import { File } from '../file-system/file.js'
   // 关闭数据
   FileItem.close = function () {
     if (this.target) {
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       $('#fileItem-attributes').clear()
@@ -85,13 +81,13 @@ import { File } from '../file-system/file.js'
 
   // 更新数据
   FileItem.update = function (item, key, value) {
-    File.planToSave(this.meta)
+    Yami.File.planToSave(this.meta)
     switch (key) {
       case 'icon':
       case 'clip':
         if (item[key] !== value) {
           item[key] = value
-          Browser.body.updateIcon(this.meta.file)
+          Yami.Browser.body.updateIcon(this.meta.file)
         }
         break
     }
@@ -101,15 +97,15 @@ import { File } from '../file-system/file.js'
   FileItem.paramInput = function (event) {
     FileItem.update(
       FileItem.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
   // 列表 - 改变事件
   FileItem.listChange = function (event) {
-    File.planToSave(FileItem.meta)
+    Yami.File.planToSave(FileItem.meta)
   }
 
-  Inspector.fileItem = FileItem
+  Yami.Inspector.fileItem = FileItem
 }

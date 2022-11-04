@@ -1,10 +1,12 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { History } from '../history/history.js'
-import { ParamHistory } from '../history/param-history.js'
-import { Log } from '../log/log.js'
-import { Window } from '../tools/window.js'
+import * as Yami from '../yami.js'
+
+// import { Inspector } from './inspector.js'
+// import { History } from '../history/history.js'
+// import { ParamHistory } from '../history/param-history.js'
+// import { Log } from '../log/log.js'
+// import { Window } from '../tools/window.js'
 
 // ******************************** 检查器加载 ********************************
 

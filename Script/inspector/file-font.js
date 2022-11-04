@@ -1,7 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { File } from '../file-system/file.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 字体页面 ********************************
 
@@ -49,11 +48,11 @@ import { File } from '../file-system/file.js'
       const elSize = $('#fileFont-size')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = File.parseFileSize(size)
+      elSize.textContent = Yami.File.parseFileSize(size)
 
       // 加载字体
       const previews = this.previews
-      const path = File.route(file.path)
+      const path = Yami.File.route(file.path)
       const url = CSS.encodeURL(path)
       const font = new FontFace('preview', url)
       for (const preview of previews) {
@@ -82,7 +81,7 @@ import { File } from '../file-system/file.js'
       if (this.font instanceof FontFace) {
         document.fonts.delete(this.font)
       }
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.symbol = null
@@ -108,5 +107,5 @@ import { File } from '../file-system/file.js'
     }
   }
 
-  Inspector.fileFont = FileFont
+  Yami.Inspector.fileFont = FileFont
 }

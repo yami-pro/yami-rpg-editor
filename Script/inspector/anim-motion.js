@@ -1,6 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 动画 - 动作页面 ********************************
 
@@ -24,8 +24,8 @@ import { Inspector } from './inspector.js'
     // 设置所有者代理
     this.owner = {
       setTarget: motion => {
-        Animation.setMotion(motion)
-        Inspector.open('animMotion', motion)
+        Yami.Animation.setMotion(motion)
+        Yami.Inspector.open('animMotion', motion)
       }
     }
 
@@ -35,8 +35,8 @@ import { Inspector } from './inspector.js'
     // 侦听事件
     const elements = $('#animMotion-loop, #animMotion-loopStart')
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, Animation))
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, Animation))
   }
 
   // 创建动作
@@ -44,10 +44,10 @@ import { Inspector } from './inspector.js'
     return {
       class: 'motion',
       id: motionId,
-      direction: Animation.mode === '1-dir' ? 'fixed' : 'right',
+      direction: Yami.Animation.mode === '1-dir' ? 'fixed' : 'right',
       loop: false,
       loopStart: 0,
-      layers: [Inspector.animSpriteLayer.create()],
+      layers: [Yami.Inspector.animSpriteLayer.create()],
     }
   }
 
@@ -57,7 +57,7 @@ import { Inspector } from './inspector.js'
       this.target = motion
 
       // 写入数据
-      const write = getElementWriter('animMotion', motion)
+      const write = Yami.getElementWriter('animMotion', motion)
       write('loop')
       write('loopStart')
     }
@@ -67,26 +67,26 @@ import { Inspector } from './inspector.js'
   AnimMotion.close = function () {
     if (this.target) {
       // 此处不能unselect并update
-      // Animation.list.unselect(this.target)
-      // Animation.updateTarget()
+      // Yami.Animation.list.unselect(this.target)
+      // Yami.Animation.updateTarget()
       this.target = null
     }
   }
 
   // 更新数据
   AnimMotion.update = function (motion, key, value) {
-    Animation.planToSave()
+    Yami.Animation.planToSave()
     switch (key) {
       case 'loop':
         if (motion.loop !== value) {
           motion.loop = value
-          Animation.list.updateLoopIcon(motion)
+          Yami.Animation.list.updateLoopIcon(motion)
         }
         break
       case 'loopStart':
         if (motion.loopStart !== value) {
           motion.loopStart = value
-          Animation.player.computeLength()
+          Yami.Animation.player.computeLength()
         }
         break
     }
@@ -96,10 +96,10 @@ import { Inspector } from './inspector.js'
   AnimMotion.paramInput = function (event) {
     AnimMotion.update(
       AnimMotion.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.animMotion = AnimMotion
+  Yami.Inspector.animMotion = AnimMotion
 }

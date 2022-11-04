@@ -1,6 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 动画 - 粒子帧页面 ********************************
 
@@ -27,8 +27,8 @@ import { Inspector } from './inspector.js'
       #animParticleFrame-scaleX, #animParticleFrame-scaleY, #animParticleFrame-opacity,
       #animParticleFrame-scale, #animParticleFrame-speed`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(
       this, Animation, data => {
         data.type = 'inspector-frame-change'
         data.motion = this.motion
@@ -57,11 +57,11 @@ import { Inspector } from './inspector.js'
   AnimParticleFrame.open = function (frame) {
     if (this.target !== frame) {
       this.target = frame
-      this.motion = Animation.motion
-      Curve.load(frame)
+      this.motion = Yami.Animation.motion
+      Yami.Curve.load(frame)
 
       // 写入数据
-      const write = getElementWriter('animParticleFrame', frame)
+      const write = Yami.getElementWriter('animParticleFrame', frame)
       write('x')
       write('y')
       write('rotation')
@@ -76,8 +76,8 @@ import { Inspector } from './inspector.js'
   // 关闭数据
   AnimParticleFrame.close = function () {
     if (this.target) {
-      Animation.unselectMarquee(this.target)
-      Curve.load(null)
+      Yami.Animation.unselectMarquee(this.target)
+      Yami.Curve.load(null)
       this.target = null
       this.motion = null
     }
@@ -104,7 +104,7 @@ import { Inspector } from './inspector.js'
 
   // 更新数据
   AnimParticleFrame.update = function (frame, key, value) {
-    Animation.planToSave()
+    Yami.Animation.planToSave()
     switch (key) {
       case 'x':
       case 'y':
@@ -114,7 +114,7 @@ import { Inspector } from './inspector.js'
       case 'opacity':
         if (frame[key] !== value) {
           frame[key] = value
-          Animation.updateFrameContexts()
+          Yami.Animation.updateFrameContexts()
         }
         break
       case 'scale':
@@ -124,17 +124,17 @@ import { Inspector } from './inspector.js'
         }
         break
     }
-    Animation.requestRendering()
+    Yami.Animation.requestRendering()
   }
 
   // 参数 - 输入事件
   AnimParticleFrame.paramInput = function (event) {
     AnimParticleFrame.update(
       AnimParticleFrame.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.animParticleFrame = AnimParticleFrame
+  Yami.Inspector.animParticleFrame = AnimParticleFrame
 }

@@ -1,9 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { Timer } from '../util/timer.js'
-import { AudioManager } from '../audio/audio-manager.js'
-import { File } from '../file-system/file.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 音频页面 ********************************
 
@@ -54,7 +51,7 @@ import { File } from '../file-system/file.js'
     this.context = this.canvas.getContext('2d', {desynchronized: true})
 
     // 设置音频分析器
-    const analyser = AudioManager.analyser
+    const analyser = Yami.AudioManager.analyser
     analyser.fftSize = 512
     analyser.smoothingTimeConstant = 0
 
@@ -96,26 +93,26 @@ import { File } from '../file-system/file.js'
       const elBitrate = $('#fileAudio-bitrate')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = File.parseFileSize(size)
+      elSize.textContent = Yami.File.parseFileSize(size)
       elDuration.textContent = ''
       elBitrate.textContent = ''
 
       // 加载混合器参数
-      this.writeParams(AudioManager.player.getParams())
+      this.writeParams(Yami.AudioManager.player.getParams())
 
       // 加载音频
-      const audio = AudioManager.player.audio
+      const audio = Yami.AudioManager.player.audio
       const path = file.path
       if (audio.path !== path) {
         audio.path = path
-        audio.src = File.route(path)
+        audio.src = Yami.File.route(path)
 
         // 加载波形图
         this.progress.removeClass('visible')
         // 保留对返回的原始promise的引用
         // 以便可以取消解码音频数据的操作
         const promise = this.promise =
-        AudioManager.getWaveform(meta.guid)
+        Yami.AudioManager.getWaveform(meta.guid)
         promise.then(url => {
           if (this.promise === promise) {
             this.promise = null
@@ -158,7 +155,7 @@ import { File } from '../file-system/file.js'
         this.promise.canceled = true
         this.promise = null
       }
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.stopAnimation()
       this.target = null
       this.meta = null
@@ -169,7 +166,7 @@ import { File } from '../file-system/file.js'
   // 播放音频
   FileAudio.play = function () {
     if (this.target !== null) {
-      const {audio} = AudioManager.player
+      const {audio} = Yami.AudioManager.player
       if (audio.paused) {
         audio.play()
       } else {
@@ -189,9 +186,9 @@ import { File } from '../file-system/file.js'
 
   // 更新参数
   FileAudio.updateParams = function (params) {
-    AudioManager.player.setVolume(params.volume)
-    AudioManager.player.setPan(params.pan)
-    AudioManager.player.setReverb(params.dry, params.wet)
+    Yami.AudioManager.player.setVolume(params.volume)
+    Yami.AudioManager.player.setPan(params.pan)
+    Yami.AudioManager.player.setReverb(params.dry, params.wet)
   }
 
   // 更新参数信息
@@ -204,7 +201,7 @@ import { File } from '../file-system/file.js'
 
   // 更新画布
   FileAudio.updateCanvas = function () {
-    const manager = Inspector.manager
+    const manager = Yami.Inspector.manager
     const canvas = this.canvas
     const scrollTop = manager.scrollTop
     if (canvas.hasClass('hidden')) {
@@ -249,17 +246,17 @@ import { File } from '../file-system/file.js'
   // 请求动画
   FileAudio.requestAnimation = function () {
     if (this.target !== null) {
-      Timer.appendUpdater('sharedAnimation', this.updateAnimation)
+      Yami.Timer.appendUpdater('sharedAnimation', this.updateAnimation)
     }
   }
 
   // 更新动画帧
   FileAudio.updateAnimation = function (deltaTime) {
     // 更新播放进度
-    const audio = AudioManager.player.audio
+    const audio = Yami.AudioManager.player.audio
     const currentTime = audio.currentTime
     const duration = audio.duration || Infinity
-    const cw = Inspector.manager.clientWidth
+    const cw = Yami.Inspector.manager.clientWidth
     const pw = Math.round(cw * currentTime / duration)
     const pp = Math.roundTo(pw / cw * 100, 6)
     const {progress, progressFiller} = FileAudio
@@ -284,7 +281,7 @@ import { File } from '../file-system/file.js'
     }
     // 计算当前帧的强度以及平均值
     // 单独提前计算可以减少延时
-    const analyser = AudioManager.analyser
+    const analyser = Yami.AudioManager.analyser
     const array = FileAudio.dataArray
     const aLength = array.length
     const start = Math.floor(aLength * 0.1)
@@ -388,7 +385,7 @@ import { File } from '../file-system/file.js'
 
   // 停止更新动画
   FileAudio.stopAnimation = function () {
-    Timer.removeUpdater('sharedAnimation', this.updateAnimation)
+    Yami.Timer.removeUpdater('sharedAnimation', this.updateAnimation)
   }
 
   // 主题改变事件
@@ -413,7 +410,7 @@ import { File } from '../file-system/file.js'
 
   // 参数 - 输入事件
   FileAudio.paramInput = function (event) {
-    const read = getElementReader('fileAudio')
+    const read = Yami.getElementReader('fileAudio')
     const params = {
       volume: read('volume'),
       pan: read('pan'),
@@ -428,7 +425,7 @@ import { File } from '../file-system/file.js'
   FileAudio.progressPointerdown = function (event) {
     switch (event.button) {
       case 0: {
-        const {audio} = AudioManager.player
+        const {audio} = Yami.AudioManager.player
         const {time} = FileAudio.pointer
         if (time !== -1) {
           audio.currentTime = time
@@ -441,7 +438,7 @@ import { File } from '../file-system/file.js'
   // 进度条 - 指针移动事件
   FileAudio.progressPointermove = function (event) {
     const {pointer, pointerTimeInfo} = FileAudio
-    const {duration} = AudioManager.player.audio
+    const {duration} = Yami.AudioManager.player.audio
     if (!isNaN(duration)) {
       const pointerX = event.offsetX
       const boxWidth = this.clientWidth
@@ -468,5 +465,5 @@ import { File } from '../file-system/file.js'
     }
   }
 
-  Inspector.fileAudio = FileAudio
+  Yami.Inspector.fileAudio = FileAudio
 }

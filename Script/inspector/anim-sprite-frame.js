@@ -1,7 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { Sprite } from '../sprite/sprite.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 动画 - 精灵帧页面 ********************************
 
@@ -37,18 +36,18 @@ import { Sprite } from '../sprite/sprite.js'
       #animSpriteFrame-tint-0-slider, #animSpriteFrame-tint-1-slider,
       #animSpriteFrame-tint-2-slider, #animSpriteFrame-tint-3-slider`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(
       this, Animation, data => {
         data.type = 'inspector-frame-change'
         data.motion = this.motion
       },
     ))
-    sliders.on('focus', Inspector.sliderFocus)
-    sliders.on('blur', Inspector.sliderBlur)
+    sliders.on('focus', Yami.Inspector.sliderFocus)
+    sliders.on('blur', Yami.Inspector.sliderBlur)
 
     // 初始化精灵窗口
-    Sprite.initialize()
+    Yami.Sprite.initialize()
   }
 
   // 创建关键帧
@@ -73,12 +72,12 @@ import { Sprite } from '../sprite/sprite.js'
   AnimSpriteFrame.open = function (frame) {
     if (this.target !== frame) {
       this.target = frame
-      this.motion = Animation.motion
-      Sprite.open(frame)
-      Curve.load(frame)
+      this.motion = Yami.Animation.motion
+      Yami.Sprite.open(frame)
+      Yami.Curve.load(frame)
 
       // 写入数据
-      const write = getElementWriter('animSpriteFrame', frame)
+      const write = Yami.getElementWriter('animSpriteFrame', frame)
       write('x')
       write('y')
       write('rotation')
@@ -95,9 +94,9 @@ import { Sprite } from '../sprite/sprite.js'
   // 关闭数据
   AnimSpriteFrame.close = function () {
     if (this.target) {
-      Animation.unselectMarquee(this.target)
-      Sprite.close()
-      Curve.load(null)
+      Yami.Animation.unselectMarquee(this.target)
+      Yami.Sprite.close()
+      Yami.Curve.load(null)
       this.target = null
       this.motion = null
     }
@@ -124,7 +123,7 @@ import { Sprite } from '../sprite/sprite.js'
 
   // 更新数据
   AnimSpriteFrame.update = function (frame, key, value) {
-    Animation.planToSave()
+    Yami.Animation.planToSave()
     switch (key) {
       case 'x':
       case 'y':
@@ -134,7 +133,7 @@ import { Sprite } from '../sprite/sprite.js'
       case 'opacity':
         if (frame[key] !== value) {
           frame[key] = value
-          Animation.updateFrameContexts()
+          Yami.Animation.updateFrameContexts()
         }
         break
       case 'tint-0':
@@ -144,22 +143,22 @@ import { Sprite } from '../sprite/sprite.js'
         const index = key.slice(-1)
         if (frame.tint[index] !== value) {
           frame.tint[index] = value
-          Animation.updateFrameContexts()
+          Yami.Animation.updateFrameContexts()
         }
         break
       }
     }
-    Animation.requestRendering()
+    Yami.Animation.requestRendering()
   }
 
   // 参数 - 输入事件
   AnimSpriteFrame.paramInput = function (event) {
     AnimSpriteFrame.update(
       AnimSpriteFrame.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.animSpriteFrame = AnimSpriteFrame
+  Yami.Inspector.animSpriteFrame = AnimSpriteFrame
 }

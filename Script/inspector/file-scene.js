@@ -1,10 +1,12 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { Scene } from '../scene/scene.js'
-import { EventListInterface } from '../tools/event-list-interface.js'
-import { ScriptListInterface } from '../tools/script-list-interface.js'
-import { GL } from '../webgl/gl.js'
+import * as Yami from '../yami.js'
+
+// import { Inspector } from './inspector.js'
+// import { Scene } from '../scene/scene.js'
+// import { EventListInterface } from '../tools/event-list-interface.js'
+// import { ScriptListInterface } from '../tools/script-list-interface.js'
+// import { GL } from '../webgl/gl.js'
 
 // ******************************** 文件 - 场景页面 ********************************
 

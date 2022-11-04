@@ -1,8 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { ParamHistory } from '../history/param-history.js'
-import { Window } from '../tools/window.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 动画页面 ********************************
 
@@ -29,14 +27,14 @@ import { Window } from '../tools/window.js'
     this.owner = {
       setTarget: target => {
         if (this.target !== target) {
-          Inspector.open('fileAnimation', target)
+          Yami.Inspector.open('fileAnimation', target)
         }
       },
       planToSave: () => {
-        Animation.planToSave()
+        Yami.Animation.planToSave()
       },
       get history() {
-        return Animation.history
+        return Yami.Animation.history
       },
     }
 
@@ -57,9 +55,9 @@ import { Window } from '../tools/window.js'
     // 侦听事件
     const elements = $('#fileAnimation-mode')
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, this.owner))
-    $('#fileAnimation-sprites').on('change', Animation.listChange)
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, this.owner))
+    $('#fileAnimation-sprites').on('change', Yami.Animation.listChange)
   }
 
   // 创建动画
@@ -80,7 +78,7 @@ import { Window } from '../tools/window.js'
       this.button.addClass('selected')
 
       // 写入数据
-      const write = getElementWriter('fileAnimation', animation)
+      const write = Yami.getElementWriter('fileAnimation', animation)
       write('mode')
       write('sprites')
     }
@@ -98,12 +96,12 @@ import { Window } from '../tools/window.js'
 
   // 更新数据
   FileAnimation.update = function (animation, key, value) {
-    Animation.planToSave()
+    Yami.Animation.planToSave()
     switch (key) {
       case 'mode':
         if (animation.mode !== value) {
           animation.mode = value
-          Animation.list.updateDirections(true)
+          Yami.Animation.list.updateDirections(true)
           break
         }
     }
@@ -113,7 +111,7 @@ import { Window } from '../tools/window.js'
   FileAnimation.paramInput = function (event) {
     FileAnimation.update(
       FileAnimation.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
@@ -129,7 +127,7 @@ import { Window } from '../tools/window.js'
       this.list = list
 
       // 创建参数历史操作
-      this.history = new Inspector.ParamHistory(
+      this.history = new Yami.Inspector.ParamHistory(
         FileAnimation,
         FileAnimation.owner,
         list,
@@ -139,18 +137,18 @@ import { Window } from '../tools/window.js'
       list.on('change', event => {
         if (Animation.sprites) {
           if (Animation.sprites.listItems) {
-            Animation.sprites.listItems = undefined
+            Yami.Animation.sprites.listItems = undefined
           }
-          Animation.loadTextures()
+          Yami.Animation.loadTextures()
         }
       })
     },
     parse: function ({name, image, hframes, vframes}) {
-      return [name, `${Command.parseFileName(image)} [${hframes}x${vframes}]`]
+      return [name, `${Yami.Command.parseFileName(image)} [${hframes}x${vframes}]`]
     },
     createSpriteId: function (exclusions = Object.empty) {
       let id
-      do {id = GUID.generate64bit()}
+      do {id = Yami.GUID.generate64bit()}
       while (this.list.data.find(a => a.id === id) && exclusions[id])
       return id
     },
@@ -161,8 +159,8 @@ import { Window } from '../tools/window.js'
       hframes = 1,
       vframes = 1,
     } = {}) {
-      Window.open('fileAnimation-sprite')
-      const write = getElementWriter('fileAnimation-sprite')
+      Yami.Window.open('fileAnimation-sprite')
+      const write = Yami.getElementWriter('fileAnimation-sprite')
       write('name', name)
       write('image', image)
       write('hframes', hframes)
@@ -175,7 +173,7 @@ import { Window } from '../tools/window.js'
       }
     },
     save: function () {
-      const read = getElementReader('fileAnimation-sprite')
+      const read = Yami.getElementReader('fileAnimation-sprite')
       const name = read('name').trim()
       if (!name) {
         return $('#fileAnimation-sprite-name').getFocus()
@@ -184,7 +182,7 @@ import { Window } from '../tools/window.js'
       const hframes = read('hframes')
       const vframes = read('vframes')
       const id = this.spriteId
-      Window.close('fileAnimation-sprite')
+      Yami.Window.close('fileAnimation-sprite')
       return {name, id, image, hframes, vframes}
     },
     onPaste: function (list, copies) {
@@ -197,5 +195,5 @@ import { Window } from '../tools/window.js'
     },
   }
 
-  Inspector.fileAnimation = FileAnimation
+  Yami.Inspector.fileAnimation = FileAnimation
 }

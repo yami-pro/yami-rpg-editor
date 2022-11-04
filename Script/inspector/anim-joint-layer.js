@@ -1,6 +1,6 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 动画 - 关节层页面 ********************************
 
@@ -18,10 +18,10 @@ import { Inspector } from './inspector.js'
       expanded: true,
       hidden: false,
       locked: false,
-      frames: [Inspector.animJointFrame.create()],
+      frames: [Yami.Inspector.animJointFrame.create()],
       children: [],
     }
   }
 
-  Inspector.animJointLayer = AnimJointLayer
+  Yami.Inspector.animJointLayer = AnimJointLayer
 }

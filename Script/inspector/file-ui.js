@@ -1,8 +1,10 @@
 'use strict'
 
-import { Inspector } from './inspector.js'
-import { UI } from '../ui/ui.js'
-import { Data } from '../data/data.js'
+import * as Yami from '../yami.js'
+
+// import { Inspector } from './inspector.js'
+// import { UI } from '../ui/ui.js'
+// import { Data } from '../data/data.js'
 
 // ******************************** 文件 - 界面页面 ********************************
 
