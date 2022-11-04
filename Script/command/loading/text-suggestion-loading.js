@@ -56,7 +56,7 @@ TextSuggestion.close = function () {
 TextSuggestion.select = function (item) {
   this.inserting = true
   let {target} = this
-  if (target instanceof StringVar) {
+  if (target instanceof Yami.StringVar) {
     target = target.strBox
   }
   target.input.select()

@@ -1,6 +1,7 @@
 'use strict'
 
-import { Window } from '../tools/window.js'
+import { CommonList } from './common-list.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 选择列表 ********************************
 
@@ -347,7 +348,7 @@ class SelectList extends HTMLElement {
     this.style.top = `${top}px`
     this.style.width = `calc(${rw}px - var(--2dpx))`
     this.style.height = `${lines * 20}px`
-    this.style.zIndex = Window.frames.length + 1
+    this.style.zIndex = Yami.Window.frames.length + 1
   }
 
   // 窗口 - 失去焦点事件

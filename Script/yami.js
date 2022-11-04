@@ -2,6 +2,7 @@
 
 export {
   ctrl,
+  CSS,
   Timer,
   StageColor,
   measureText,

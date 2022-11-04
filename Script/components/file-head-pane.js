@@ -2,7 +2,7 @@
 
 import { TextBox } from './text-box.js'
 import { SliderBox } from './slider-box.js'
-import { FolderItem } from '../file-system/folder-item.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件头部面板 ********************************
 
@@ -60,7 +60,7 @@ class FileHeadPane extends HTMLElement {
             elFolder.textContent = folder.name
             nodes.push(elFolder)
             const {parent} = folder
-            if (parent instanceof FolderItem) {
+            if (parent instanceof Yami.FolderItem) {
               const elArrow = document.createElement('file-head-address-arrow')
               elArrow.folders = parent.subfolders
               elArrow.target = folder
@@ -157,7 +157,7 @@ class FileHeadPane extends HTMLElement {
                     })
                   }
                   element.addClass('active')
-                  Menu.popup({
+                  Yami.Menu.popup({
                     x: rect.left,
                     y: rect.bottom,
                     close: () => {

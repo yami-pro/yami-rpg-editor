@@ -1,5 +1,7 @@
 'use strict'
 
+import { Select } from './select-list.js'
+
 // ******************************** 选择框 ********************************
 
 class SelectBox extends HTMLElement {

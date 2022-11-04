@@ -2,8 +2,7 @@
 
 import { TextBox } from './text-box.js'
 import { CommonList } from './common-list.js'
-
-import { Timer } from '../util/timer.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 节点列表 ********************************
 
@@ -34,7 +33,7 @@ class NodeList extends HTMLElement {
     super()
 
     // 创建重命名计时器
-    const timer = new Timer({
+    const timer = new Yami.Timer({
       duration: 500,
       callback: timer => {
         const item = this.read()

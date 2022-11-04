@@ -1,27 +1,6 @@
 'use strict'
 
-import { Command } from '../command/command.js'
-import { Local } from '../tools/local.js'
-// import { Attribute } from '../attribute/attribute.js'
-import { Enum } from '../enum/enum.js'
-import { Selector } from '../browser/selector.js'
-import { ImageClip } from '../tools/image-clip.js'
-import { VariableGetter } from '../command/variable-getter.js'
-// import { Variable } from '../variable/variable.js'
-import { ActorGetter } from '../command/actor-getter.js'
-import { SkillGetter } from '../command/skill-getter.js'
-import { StateGetter } from '../command/state-getter.js'
-import { EquipmentGetter } from '../command/equipment-getter.js'
-import { ItemGetter } from '../command/item-getter.js'
-import { PositionGetter } from '../command/position-getter.js'
-import { AngleGetter } from '../command/angle-getter.js'
-import { TriggerGetter } from '../command/trigger-getter.js'
-import { LightGetter } from '../command/light-getter.js'
-import { ElementGetter } from '../command/element-getter.js'
-import { AncestorGetter } from '../command/ancestor-getter.js'
-import { PresetObject } from '../tools/preset-object.js'
-import { PresetElement } from '../tools/preset-element.js'
-import { ArrayList } from '../tools/array-list.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 自定义框 ********************************
 
@@ -147,9 +126,9 @@ class CustomBox extends HTMLElement {
 
   // 更新文件信息
   updateFile(guid) {
-    Command.invalid = false
-    this.info.textContent = Command.parseFileName(guid)
-    if (Command.invalid) this.info.addClass('invalid')
+    Yami.Command.invalid = false
+    this.info.textContent = Yami.Command.parseFileName(guid)
+    if (Yami.Command.invalid) this.info.addClass('invalid')
   }
 
   // 更新图像剪辑信息
@@ -160,93 +139,93 @@ class CustomBox extends HTMLElement {
   // 更新变量信息
   updateVariable(variable) {
     this.info.textContent = variable.key
-    ? Command.parseVariable(variable)
-    : Local.get('common.none')
+    ? Yami.Command.parseVariable(variable)
+    : Yami.Local.get('common.none')
   }
 
   // 更新全局变量信息
   updateGlobalVariable(id) {
-    this.info.textContent = Command.parseGlobalVariable(id)
+    this.info.textContent = Yami.Command.parseGlobalVariable(id)
   }
 
   // 更新角色信息
   updateActor(actor) {
-    this.info.textContent = Command.parseActor(actor)
+    this.info.textContent = Yami.Command.parseActor(actor)
   }
 
   // 更新技能信息
   updateSkill(skill) {
-    this.info.textContent = Command.parseSkill(skill)
+    this.info.textContent = Yami.Command.parseSkill(skill)
   }
 
   // 更新状态信息
   updateState(state) {
-    this.info.textContent = Command.parseState(state)
+    this.info.textContent = Yami.Command.parseState(state)
   }
 
   // 更新装备信息
   updateEquipment(equipment) {
-    this.info.textContent = Command.parseEquipment(equipment)
+    this.info.textContent = Yami.Command.parseEquipment(equipment)
   }
 
   // 更新物品信息
   updateItem(item) {
-    this.info.textContent = Command.parseItem(item)
+    this.info.textContent = Yami.Command.parseItem(item)
   }
 
   // 更新位置信息
   updatePosition(point) {
-    this.info.textContent = Command.parsePosition(point)
+    this.info.textContent = Yami.Command.parsePosition(point)
   }
 
   // 更新角度信息
   updateAngle(angle) {
-    this.info.textContent = Command.parseAngle(angle)
+    this.info.textContent = Yami.Command.parseAngle(angle)
   }
 
   // 更新触发器信息
   updateTrigger(trigger) {
-    this.info.textContent = Command.parseTrigger(trigger)
+    this.info.textContent = Yami.Command.parseTrigger(trigger)
   }
 
   // 更新光源信息
   updateLight(light) {
-    this.info.textContent = Command.parseLight(light)
+    this.info.textContent = Yami.Command.parseLight(light)
   }
 
   // 更新元素信息
   updateElement(element) {
-    this.info.textContent = Command.parseElement(element)
+    this.info.textContent = Yami.Command.parseElement(element)
   }
 
   // 更新预设对象信息
   updatePresetObject(preset) {
-    this.info.textContent = Command.parsePresetObject(preset)
+    this.info.textContent = Yami.Command.parsePresetObject(preset)
   }
 
   // 更新预设元素信息
   updatePresetElement(preset) {
-    this.info.textContent = Command.parsePresetElement(preset)
+    this.info.textContent = Yami.Command.parsePresetElement(preset)
   }
 
   // 更新数组信息
   updateArray(array) {
     this.info.textContent = array.length !== 0
-    ? Command.parseMultiLineString(array.join(', '))
-    : Local.get('common.empty')
+    ? Yami.Command.parseMultiLineString(array.join(', '))
+    : Yami.Local.get('common.empty')
   }
 
   // 更新属性群组信息
   updateAttributeGroup(groupId) {
     if (groupId === '') {
-      this.info.textContent = Local.get('common.none')
+      this.info.textContent = Yami.Local.get('common.none')
       return
     }
-    const group = Attribute.getGroup(groupId)
+    const group = Yami.Attribute.getGroup(groupId)
     if (group) {
       this.info.textContent = group.groupName
     } else {
-      this.info.textContent = Command.parseUnlinkedId(groupId)
+      this.info.textContent = Yami.Command.parseUnlinkedId(groupId)
       this.info.addClass('invalid')
     }
   }
@@ -254,14 +233,14 @@ class CustomBox extends HTMLElement {
   // 更新属性信息
   updateAttribute(attrId) {
     if (attrId === '') {
-      this.info.textContent = Local.get('common.none')
+      this.info.textContent = Yami.Local.get('common.none')
       return
     }
-    const attribute = Attribute.getAttribute(attrId)
+    const attribute = Yami.Attribute.getAttribute(attrId)
     if (attribute) {
       this.info.textContent = attribute.name
     } else {
-      this.info.textContent = Command.parseUnlinkedId(attrId)
+      this.info.textContent = Yami.Command.parseUnlinkedId(attrId)
       this.info.addClass('invalid')
     }
   }
@@ -269,14 +248,14 @@ class CustomBox extends HTMLElement {
   // 更新枚举群组信息
   updateEnumGroup(groupId) {
     if (groupId === '') {
-      this.info.textContent = Local.get('common.none')
+      this.info.textContent = Yami.Local.get('common.none')
       return
     }
-    const group = Enum.getEnumGroup(groupId)
+    const group = Yami.Enum.getEnumGroup(groupId)
     if (group) {
       this.info.textContent = group.groupName
     } else {
-      this.info.textContent = Command.parseUnlinkedId(groupId)
+      this.info.textContent = Yami.Command.parseUnlinkedId(groupId)
       this.info.addClass('invalid')
     }
   }
@@ -284,14 +263,14 @@ class CustomBox extends HTMLElement {
   // 更新枚举字符串信息
   updateEnumString(stringId) {
     if (stringId === '') {
-      this.info.textContent = Local.get('common.none')
+      this.info.textContent = Yami.Local.get('common.none')
       return
     }
-    const string = Enum.getString(stringId)
+    const string = Yami.Enum.getString(stringId)
     if (string) {
       this.info.textContent = string.name
     } else {
-      this.info.textContent = Command.parseUnlinkedId(stringId)
+      this.info.textContent = Yami.Command.parseUnlinkedId(stringId)
       this.info.addClass('invalid')
     }
   }
@@ -342,49 +321,49 @@ class CustomBox extends HTMLElement {
   click(event) {
     switch (this.type) {
       case 'file':
-        return Selector.open(this)
+        return Yami.Selector.open(this)
       case 'clip':
-        return ImageClip.open(this)
+        return Yami.ImageClip.open(this)
       case 'variable':
-        return VariableGetter.open(this)
+        return Yami.VariableGetter.open(this)
       case 'global-variable':
-        return Variable.open(this)
+        return Yami.Variable.open(this)
       case 'actor':
-        return ActorGetter.open(this)
+        return Yami.ActorGetter.open(this)
       case 'skill':
-        return SkillGetter.open(this)
+        return Yami.SkillGetter.open(this)
       case 'state':
-        return StateGetter.open(this)
+        return Yami.StateGetter.open(this)
       case 'equipment':
-        return EquipmentGetter.open(this)
+        return Yami.EquipmentGetter.open(this)
       case 'item':
-        return ItemGetter.open(this)
+        return Yami.ItemGetter.open(this)
       case 'position':
-        return PositionGetter.open(this)
+        return Yami.PositionGetter.open(this)
       case 'angle':
-        return AngleGetter.open(this)
+        return Yami.AngleGetter.open(this)
       case 'trigger':
-        return TriggerGetter.open(this)
+        return Yami.TriggerGetter.open(this)
       case 'light':
-        return LightGetter.open(this)
+        return Yami.LightGetter.open(this)
       case 'element':
-        return ElementGetter.open(this)
+        return Yami.ElementGetter.open(this)
       case 'ancestor-element':
-        return AncestorGetter.open(this)
+        return Yami.AncestorGetter.open(this)
       case 'preset-object':
-        return PresetObject.open(this)
+        return Yami.PresetObject.open(this)
       case 'preset-element':
-        return PresetElement.open(this)
+        return Yami.PresetElement.open(this)
       case 'array':
-        return ArrayList.open(this)
+        return Yami.ArrayList.open(this)
       case 'attribute':
-        return Attribute.open(this, 'attribute')
+        return Yami.Attribute.open(this, 'attribute')
       case 'attribute-group':
-        return Attribute.open(this, 'group')
+        return Yami.Attribute.open(this, 'group')
       case 'enum-group':
-        return Enum.open(this, 'group')
+        return Yami.Enum.open(this, 'group')
       case 'enum-string':
-        return Enum.open(this, 'string')
+        return Yami.Enum.open(this, 'string')
     }
   }
 }

@@ -21,6 +21,7 @@ import './undo-redo.js'
 import './util.js'
 
 export { ctrl } from './ctrl.js'
+export { CSS } from './css.js'
 export { Timer } from './timer.js'
 export { StageColor } from './stage-color.js'
 export {

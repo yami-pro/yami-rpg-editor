@@ -2,8 +2,7 @@
 
 import { CommonList } from './common-list.js'
 import { DetailBox } from './detail-box.js'
-
-import { ParamHistory } from '../history/param-history.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 参数列表 ********************************
 
@@ -88,7 +87,7 @@ class ParamList extends HTMLElement {
     object.initialize = Function.empty
     this.object = object
     this.type = `yami.${object.type ?? this.id}`
-    this.history = object.history ?? new ParamHistory(this)
+    this.history = object.history ?? new Yami.ParamHistory(this)
     return this
   }
 
@@ -495,7 +494,7 @@ class ParamList extends HTMLElement {
       const end = this.end + 1
       const copies = data.slice(start, end)
       if (copies.length > 0) {
-        Clipboard.write(this.type, copies)
+        Yami.Clipboard.write(this.type, copies)
       }
     }
   }
@@ -503,7 +502,7 @@ class ParamList extends HTMLElement {
   // 粘贴项目
   paste() {
     if (this.start !== null) {
-      const copies = Clipboard.read(this.type)
+      const copies = Yami.Clipboard.read(this.type)
       if (copies) {
         const data = this.data
         const start = this.start
@@ -807,11 +806,11 @@ class ParamList extends HTMLElement {
           const element = elements[this.start]
           const valid = !!element.dataItem
           const editable = this.start === this.end
-          const pastable = Clipboard.has(this.type)
+          const pastable = Yami.Clipboard.has(this.type)
           const allSelectable = this.data.length > 0
           const undoable = this.history.canUndo()
           const redoable = this.history.canRedo()
-          const get = Local.createGetter('menuParamList')
+          const get = Yami.Local.createGetter('menuParamList')
           const menuItems = [{
             label: get('edit'),
             accelerator: 'Enter',
@@ -829,7 +828,7 @@ class ParamList extends HTMLElement {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: ctrl('X'),
+            accelerator: Yami.ctrl('X'),
             enabled: valid,
             click: () => {
               this.copy()
@@ -837,14 +836,14 @@ class ParamList extends HTMLElement {
             },
           }, {
             label: get('copy'),
-            accelerator: ctrl('C'),
+            accelerator: Yami.ctrl('C'),
             enabled: valid,
             click: () => {
               this.copy()
             },
           }, {
             label: get('paste'),
-            accelerator: ctrl('V'),
+            accelerator: Yami.ctrl('V'),
             enabled: pastable,
             click: () => {
               this.paste()
@@ -858,21 +857,21 @@ class ParamList extends HTMLElement {
             },
           }, {
             label: get('selectAll'),
-            accelerator: ctrl('A'),
+            accelerator: Yami.ctrl('A'),
             enabled: allSelectable,
             click: () => {
               this.select(0, Infinity)
             },
           }, {
             label: get('undo'),
-            accelerator: ctrl('Z'),
+            accelerator: Yami.ctrl('Z'),
             enabled: undoable,
             click: () => {
               this.undo()
             },
           }, {
             label: get('redo'),
-            accelerator: ctrl('Y'),
+            accelerator: Yami.ctrl('Y'),
             enabled: redoable,
             click: () => {
               this.redo()
@@ -887,7 +886,7 @@ class ParamList extends HTMLElement {
               },
             })
           }
-          Menu.popup({
+          Yami.Menu.popup({
             x: event.clientX,
             y: event.clientY,
           }, menuItems)

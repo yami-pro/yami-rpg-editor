@@ -1,6 +1,6 @@
 'use strict'
 
-import { Timer } from '../util/timer.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 滚动侦听器 ********************************
 
@@ -14,7 +14,7 @@ namespace: {
 
   // 计算滚动距离
   const computeScrollDelta = speed => {
-    let delta = speed * Timer.deltaTime
+    let delta = speed * Yami.Timer.deltaTime
     const dpr = window.devicePixelRatio
     const tolerance = 0.0001
     // 修正数值让正反方向每帧的滚动距离相等
@@ -28,7 +28,7 @@ namespace: {
   }
 
   // 滚动检测计时器
-  const timer = new Timer({
+  const timer = new Yami.Timer({
     duration: Infinity,
     update: timer => {
       const {speedX, speedY} = timer

@@ -2,12 +2,7 @@
 
 import { TextBox } from './text-box.js'
 import { CommonList } from './common-list.js'
-
-import { Timer } from '../util/timer.js'
-import { FS, FSP } from '../file-system/file-system.js'
-import { File } from '../file-system/file.js'
-import { Path } from '../file-system/path.js'
-import { Directory } from '../file-system/directory.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件导航面板 ********************************
 
@@ -119,7 +114,7 @@ class FileNavPane extends HTMLElement {
   createItems(dir, indent) {
     if (dir.sorted === undefined) {
       dir.sorted = true
-      Directory.sortFiles(dir)
+      Yami.Directory.sortFiles(dir)
     }
     const elements = this.elements
     const length = dir.length
@@ -340,7 +335,7 @@ class FileNavPane extends HTMLElement {
   rename(file) {
     const {textBox} = FileNavPane
     if (document.activeElement === this &&
-      file !== Directory.assets &&
+      file !== Yami.Directory.assets &&
       !textBox.parentNode) {
       const context = file.getContext(this)
       const element = context.element
@@ -542,7 +537,7 @@ class FileNavPane extends HTMLElement {
                 }
                 this.pressing = pointerup
                 window.on('pointerup', pointerup, {once: true})
-              } else if (Menu.state === 'closed' &&
+              } else if (Yami.Menu.state === 'closed' &&
                 document.activeElement === this &&
                 event.clientX > element.fileIcon.rect().right) {
                 this.timer.target = event.target
@@ -608,7 +603,7 @@ class FileNavPane extends HTMLElement {
     for (const folder of this.getSelections()) {
       const {ino} = folder.stats
       const {path} = inoMap[ino] || folder
-      folders.append(Directory.getFolder(path))
+      folders.append(Yami.Directory.getFolder(path))
     }
     const {browser} = this.links
     switch (browser.display) {
@@ -674,14 +669,14 @@ class FileNavPane extends HTMLElement {
       const name = this.read().trim()
       this.remove()
       if (name && name !== file.name) {
-        const dir = Path.dirname(file.path)
-        const path = File.route(`${dir}/${name}`)
-        if (!FS.existsSync(path)) {
-          return FSP.rename(
-            File.route(file.path),
+        const dir = Yami.Path.dirname(file.path)
+        const path = Yami.File.route(`${dir}/${name}`)
+        if (!Yami.FS.existsSync(path)) {
+          return Yami.FSP.rename(
+            Yami.File.route(file.path),
             path,
           ).then(() => {
-            return Directory.update()
+            return Yami.Directory.update()
           }).then(changed => {
             if (!changed) {
               throw new Error()

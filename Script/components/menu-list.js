@@ -1,7 +1,6 @@
 'use strict'
 
-import { Timer } from '../util/timer.js'
-import { Window } from '../tools/window.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 菜单列表 ********************************
 
@@ -68,7 +67,7 @@ class MenuList extends HTMLElement {
     const y = options.y ?? 0
     this.style.left = `${Math.min(x + dpx, right)}px`
     this.style.top = `${Math.min(y + dpx, bottom)}px`
-    this.style.zIndex = Window.frames.length + 1
+    this.style.zIndex = Yami.Window.frames.length + 1
 
     // 侦听事件
     window.event?.stopPropagation()
@@ -252,7 +251,7 @@ class MenuList extends HTMLElement {
       const node = element.dataValue
       if (node.submenu) {
         if (!this.popupTimer) {
-          this.popupTimer = new Timer({
+          this.popupTimer = new Yami.Timer({
             duration: delay,
             callback: () => {
               this.popupTimer = null
@@ -291,7 +290,7 @@ class MenuList extends HTMLElement {
     const {submenu, selection} = this
     if (submenu?.parentMenuItem === selection) {
       if (!this.closeTimer) {
-        this.closeTimer = new Timer({
+        this.closeTimer = new Yami.Timer({
           duration: delay,
           callback: () => {
             this.closeTimer = null

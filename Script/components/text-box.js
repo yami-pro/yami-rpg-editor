@@ -1,6 +1,6 @@
 'use strict'
 
-import { TextHistory } from '../history/text-history.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文本框 ********************************
 
@@ -16,7 +16,7 @@ class TextBox extends HTMLElement {
     const input = document.createElement('input')
     input.addClass('text-box-input')
     input.type = 'text'
-    input.history = new TextHistory(input)
+    input.history = new Yami.TextHistory(input)
     this.appendChild(input)
 
     // 设置属性

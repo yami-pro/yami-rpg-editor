@@ -1,7 +1,6 @@
 'use strict'
 
-import { Timer } from '../util/timer.js'
-import { TextHistory } from '../history/text-history.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文本区域 ********************************
 
@@ -15,7 +14,7 @@ class TextArea extends HTMLElement {
 
     // 创建输入框
     const input = document.createElement('textarea')
-    input.history = new TextHistory(input)
+    input.history = new Yami.TextHistory(input)
     input.on('keydown', this.inputKeydown)
     input.on('input', this.inputInput)
     input.listenDraggingScrollbarEvent()
@@ -124,7 +123,7 @@ class TextArea extends HTMLElement {
   static target = null
 
   // 静态 - 文本区域计时器
-  static timer = new Timer({
+  static timer = new Yami.Timer({
     duration: 0,
     callback: timer => {
       TextArea.target.removeClass('inputting')

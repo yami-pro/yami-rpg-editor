@@ -1,7 +1,6 @@
 'use strict'
 
-import { NumberHistory } from '../history/number-history.js'
-import { measureText } from '../util/util.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 数字框 ********************************
 
@@ -31,7 +30,7 @@ class NumberBox extends HTMLElement {
     input.max = max
     input.step = step
     input.title = ''
-    input.history = new NumberHistory(input)
+    input.history = new Yami.NumberHistory(input)
     input.on('keydown', this.inputKeydown)
     input.on('change', this.inputChange)
     this.appendChild(input)
@@ -40,7 +39,7 @@ class NumberBox extends HTMLElement {
     if (this.childNodes.length > 1) {
       const label = this.childNodes[0].textContent
       const font = 'var(--font-family-mono)'
-      const padding = measureText(label, font).width + 8
+      const padding = Yami.measureText(label, font).width + 8
       input.style.paddingLeft = `${padding}px`
     }
 
@@ -48,7 +47,7 @@ class NumberBox extends HTMLElement {
     if (unit !== null) {
       const unitText = document.createElement('text')
       const font = 'var(--font-family-mono)'
-      const padding = measureText(unit, font).width + 8
+      const padding = Yami.measureText(unit, font).width + 8
       unitText.addClass('unit')
       unitText.textContent = unit
       this.insertBefore(unitText, input)

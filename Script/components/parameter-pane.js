@@ -2,12 +2,9 @@
 
 import { NumberBox } from './number-box.js'
 import { ParamList } from './param-list.js'
+import { Select } from './select-list.js'
 import { DetailSummary } from './detail-summary.js'
-
-import { File } from '../file-system/file.js'
-import { Data } from '../data/data.js'
-import { NodeList } from '../components/node-list.js'
-import { PluginManager } from '../plugin/plugin.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 脚本参数面板 ********************************
 
@@ -85,7 +82,7 @@ class ParameterPane extends HTMLElement {
           this.scriptList?.dispatchChangeEvent()
           // 更新参数可见性
           if (input.branched) {
-            PluginManager.reconstruct(script)
+            Yami.PluginManager.reconstruct(script)
             this.updateParamDisplay(wrap.box)
             this.onResize?.()
           }
@@ -101,12 +98,12 @@ class ParameterPane extends HTMLElement {
     this.appendHeadPad()
     let changed = false
     const scripts = this.getData()
-    const map = Data.manifest.guidMap
+    const map = Yami.Data.manifest.guidMap
     for (const script of scripts) {
       const meta = map[script.id]
       if (!meta) continue
       this.metas.push(meta)
-      if (PluginManager.reconstruct(script)) {
+      if (Yami.PluginManager.reconstruct(script)) {
         changed = true
       }
       const paramList = meta.parameters
@@ -122,7 +119,7 @@ class ParameterPane extends HTMLElement {
       if (summary instanceof DetailSummary) {
         summary.textContent =
         langMap.get(meta.overview.plugin) ||
-        File.parseMetaName(meta)
+        Yami.File.parseMetaName(meta)
       }
       for (const parameter of paramList) {
         const inputWrap = this.createParamInput(parameter)
@@ -569,7 +566,7 @@ class ParameterPane extends HTMLElement {
     if (element.branched) {
       const grid = element.parentNode
       const detail = grid.parentNode
-      PluginManager.reconstruct(detail.data)
+      Yami.PluginManager.reconstruct(detail.data)
       this.updateParamDisplay(detail)
       this.onResize?.()
     }

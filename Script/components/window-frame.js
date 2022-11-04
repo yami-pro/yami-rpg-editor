@@ -1,8 +1,7 @@
 'use strict'
 
 import { TitleBar } from './title-bar.js'
-
-import { Window } from '../tools/window.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 窗口框架 ********************************
 
@@ -36,11 +35,11 @@ class WindowFrame extends HTMLElement {
 
   // 打开窗口
   open() {
-    if (Window.frames.append(this)) {
-      Window.ambient.update()
+    if (Yami.Window.frames.append(this)) {
+      Yami.Window.ambient.update()
       this.addClass('open')
       this.computePosition()
-      this.style.zIndex = Window.frames.length
+      this.style.zIndex = Yami.Window.frames.length
       if (this.openEventEnabled) {
         this.dispatchEvent(new Event('open'))
       }
@@ -61,8 +60,8 @@ class WindowFrame extends HTMLElement {
       }))) {
       return false
     }
-    if (Window.frames.remove(this)) {
-      Window.ambient.update()
+    if (Yami.Window.frames.remove(this)) {
+      Yami.Window.ambient.update()
       this.removeClass('open')
       if (this.closedEventEnabled) {
         this.dispatchEvent(new Event('closed'))
@@ -148,17 +147,17 @@ class WindowFrame extends HTMLElement {
   // 计算位置
   computePosition() {
     const mode = this.getAttribute('mode')
-    switch (mode ?? Window.positionMode) {
+    switch (mode ?? Yami.Window.positionMode) {
       case 'center':
         this.center()
         break
       case 'absolute': {
-        const pos = Window.absolutePos
+        const pos = Yami.Window.absolutePos
         this.absolute(pos.x, pos.y)
         break
       }
       case 'overlap': {
-        const frames = Window.frames
+        const frames = Yami.Window.frames
         const parent = frames[frames.length - 2]
         this.overlap(parent)
         break
@@ -169,16 +168,16 @@ class WindowFrame extends HTMLElement {
   // 居中位置
   center() {
     const rect = this.rect()
-    const x = CSS.rasterize((window.innerWidth - rect.width) / 2)
-    const y = CSS.rasterize((window.innerHeight - rect.height) / 2)
+    const x = Yami.CSS.rasterize((window.innerWidth - rect.width) / 2)
+    const y = Yami.CSS.rasterize((window.innerHeight - rect.height) / 2)
     this.setPosition(x, y, rect)
   }
 
   // 绝对位置
   absolute(left, top) {
     const rect = this.rect()
-    const x = CSS.rasterize(left)
-    const y = CSS.rasterize(top)
+    const x = Yami.CSS.rasterize(left)
+    const y = Yami.CSS.rasterize(top)
     this.setPosition(x, y, rect)
   }
 
@@ -186,8 +185,8 @@ class WindowFrame extends HTMLElement {
   overlap(parent) {
     const rect = this.rect()
     const {left, top} = parent.style
-    const x = CSS.rasterize(parseFloat(left) + 24)
-    const y = CSS.rasterize(parseFloat(top) + 24)
+    const x = Yami.CSS.rasterize(parseFloat(left) + 24)
+    const y = Yami.CSS.rasterize(parseFloat(top) + 24)
     this.setPosition(x, y, rect)
   }
 

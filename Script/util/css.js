@@ -43,3 +43,5 @@ CSS.getDevicePixelContentBoxSize = function (element) {
   const height = bottom - top
   return {width, height}
 }
+
+export { CSS }

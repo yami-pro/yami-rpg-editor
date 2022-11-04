@@ -1,6 +1,6 @@
 'use strict'
 
-import { Timer } from '../util/timer.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 滚动条 ********************************
 
@@ -128,7 +128,7 @@ class ScrollBar extends HTMLElement {
     const {target} = this
     let {timer} = this
     if (!timer) {
-      timer = this.timer = new Timer({
+      timer = this.timer = new Yami.Timer({
         duration: 0,
         update: timer => {
           switch (timer.state) {

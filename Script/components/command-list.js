@@ -1,5 +1,7 @@
 'use strict'
 
+import * as Yami from '../yami.js'
+
 // ******************************** 指令列表 ********************************
 
 class CommandList extends HTMLElement {
@@ -99,9 +101,9 @@ class CommandList extends HTMLElement {
     elements.count = 0
 
     // 创建列表项
-    Command.format = true
+    Yami.Command.format = true
     this.createItems(this.data, 0)
-    Command.format = false
+    Yami.Command.format = false
 
     // 写入索引
     const {count} = elements
@@ -194,7 +196,7 @@ class CommandList extends HTMLElement {
       buffer.push(li)
 
       // 创建内容
-      const contents = Command.parse(command)
+      const contents = Yami.Command.parse(command)
       const length = contents.length
       for (let i = 0; i < length; i++) {
         const content = contents[i]
@@ -207,7 +209,7 @@ class CommandList extends HTMLElement {
 
         // 改变颜色
         if (content.color !== undefined) {
-          color = Command.invalid ? 'invalid' : content.color
+          color = Yami.Command.invalid ? 'invalid' : content.color
           continue
         }
 
@@ -306,7 +308,7 @@ class CommandList extends HTMLElement {
       // 创建文本
       if (content.text !== undefined) {
         const text = document.createElement('command-text')
-        const updater = Command.FormatUpdater.create(content.text, text)
+        const updater = Yami.Command.FormatUpdater.create(content.text, text)
         if (updater) {
           // 如果文本中存在全局变量格式
           // 则创建更新器用来即时更新变量名
@@ -388,7 +390,7 @@ class CommandList extends HTMLElement {
 
   // 计算文本缩进
   computeTextIndent(indent) {
-    switch (Local.language) {
+    switch (Yami.Local.language) {
       case 'en-US':
         return indent * 2 + 'ch'
       default:
@@ -837,7 +839,7 @@ class CommandList extends HTMLElement {
         return
       }
       this.inserting = true
-      Command.insert(this, id)
+      Yami.Command.insert(this, id)
     }
   }
 
@@ -852,12 +854,12 @@ class CommandList extends HTMLElement {
       this.inserting = element.dataItem === null
       switch (this.inserting) {
         case true:
-          Command.insert(this, '')
+          Yami.Command.insert(this, '')
           break
         case false: {
           const command = element.dataItem
           if (command.buffer.enabled) {
-            Command.edit(this, command)
+            Yami.Command.edit(this, command)
           }
           break
         }
@@ -946,7 +948,7 @@ class CommandList extends HTMLElement {
       const end = eElement.dataIndex + 1
       const copies = list.slice(start, end)
       if (copies.length > 0) {
-        Clipboard.write('yami.commands', copies)
+        Yami.Clipboard.write('yami.commands', copies)
       }
     }
   }
@@ -959,7 +961,7 @@ class CommandList extends HTMLElement {
       if (!this.isParentEnabled(element)) {
         return
       }
-      const copies = Clipboard.read('yami.commands')
+      const copies = Yami.Clipboard.read('yami.commands')
       if (copies) {
         const list = element.dataList
         const start = element.dataIndex
@@ -1351,12 +1353,12 @@ class CommandList extends HTMLElement {
           const pEnabled = this.isParentEnabled(sElement)
           const sEnabled = valid ? sData.buffer.enabled : pEnabled
           const editable = sEnabled && sData === eData
-          const pastable = pEnabled && Clipboard.has('yami.commands')
+          const pastable = pEnabled && Yami.Clipboard.has('yami.commands')
           const allSelectable = this.data.length > 0
           const undoable = this.history.canUndo()
           const redoable = this.history.canRedo()
-          const get = Local.createGetter('menuCommandList')
-          Menu.popup({
+          const get = Yami.Local.createGetter('menuCommandList')
+          Yami.Menu.popup({
             x: event.clientX,
             y: event.clientY,
           }, [{
