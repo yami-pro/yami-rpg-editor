@@ -2,8 +2,7 @@
 
 import { AudioManager } from '../audio-manager.js'
 import { SinglePlayer } from '../single-player.js'
-
-import { File } from '../../file-system/file.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 音频管理器加载 ********************************
 
@@ -30,7 +29,7 @@ AudioManager.getWaveform = function (guid) {
     case 'object':
       return waveform
   }
-  const promise = waveforms[guid] = File.get({
+  const promise = waveforms[guid] = Yami.File.get({
     guid: guid,
     type: 'arraybuffer',
   }).then(

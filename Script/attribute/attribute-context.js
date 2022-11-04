@@ -1,5 +1,7 @@
 'use strict'
 
+import * as Yami from '../yami.js'
+
 // ******************************** 属性上下文类 ********************************
 
 class AttributeContext {
@@ -110,13 +112,13 @@ class AttributeContext {
       }
       if (allowNone) {
         items.unshift({
-          name: Local.get('common.none'),
+          name: Yami.Local.get('common.none'),
           value: '',
         })
       }
       if (items.length === 0) {
         items.push({
-          name: Local.get('common.none'),
+          name: Yami.Local.get('common.none'),
           value: '',
         })
       }

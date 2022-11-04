@@ -1,17 +1,7 @@
 'use strict'
 
 import { Browser } from '../browser.js'
-
-import { Inspector } from '../../inspector/inspector.js'
-import { EventEditor } from '../../command/event-editor.js'
-import { FS, FSP } from '../../file-system/file-system.js'
-import { File } from '../../file-system/file.js'
-import { FolderItem } from '../../file-system/folder-item.js'
-import { FileItem } from '../../file-system/file-item.js'
-import { Path } from '../../file-system/path.js'
-import { Data } from '../../data/data.js'
-import { Directory } from '../../file-system/directory.js'
-import { Layout } from '../../layout/layout.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 项目浏览器加载 ********************************
 
@@ -44,7 +34,7 @@ Browser.updateHead = function () {
   const {page, head} = this
   if (page.hasClass('visible')) {
     // 调整左边位置
-    const {nav} = Layout.getGroupOfElement(head)
+    const {nav} = Yami.Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -63,14 +53,14 @@ Browser.updateHead = function () {
 
 // 打开脚本文件
 Browser.openScript = function (filePath) {
-  const {mode, path} = Editor.config.scriptEditor
+  const {mode, path} = Yami.Editor.config.scriptEditor
   switch (mode) {
     case 'by-file-extension':
-      File.openPath(File.route(filePath))
+      Yami.File.openPath(Yami.File.route(filePath))
       break
     case 'specified-application':
       if (path) {
-        const args = [File.route(filePath)]
+        const args = [Yami.File.route(filePath)]
         require('child_process').spawn(path, args)
       }
       break
@@ -80,25 +70,25 @@ Browser.openScript = function (filePath) {
 // 创建文件
 Browser.createFile = function (filename, data) {
   let guid
-  do {guid = GUID.generate64bit()}
-  while (Data.manifest.guidMap[guid])
+  do {guid = Yami.GUID.generate64bit()}
+  while (Yami.Data.manifest.guidMap[guid])
   const {body} = this
   const [basename, extname] = filename.split('.')
   const fullname = `${basename}.${guid}.${extname}`
   const dirname = body.getDirName()
   const path = `${dirname}/${fullname}`
-  const route = File.route(path)
+  const route = Yami.File.route(path)
   const json = data instanceof Object ? JSON.stringify(data, null, 2) : data
-  Editor.protectPromise(
-    FSP.writeFile(route, json).then(() => {
-      return Directory.update()
+  Yami.Editor.protectPromise(
+    Yami.FSP.writeFile(route, json).then(() => {
+      return Yami.Directory.update()
     }).then(changed => {
       if (changed) {
-        const folder = Directory.getFolder(dirname)
+        const folder = Yami.Directory.getFolder(dirname)
         if (folder.path === dirname) {
           this.nav.load(folder)
         }
-        const file = Directory.getFile(path)
+        const file = Yami.Directory.getFile(path)
         if (file?.path === path) {
           body.select(file)
           body.rename(file)
@@ -142,12 +132,12 @@ Browser.loadFromProject = function (project) {
   const {view, folders} = project.browser
   const selections = []
   for (const path of folders) {
-    selections.append(Directory.getFolder(path))
+    selections.append(Yami.Directory.getFolder(path))
   }
   if (selections.length === 0) {
-    selections.append(Directory.assets)
+    selections.append(Yami.Directory.assets)
   }
-  this.directory = [Directory.assets]
+  this.directory = [Yami.Directory.assets]
   this.body.setViewIndex(view)
   this.nav.load(...selections)
 }
@@ -170,18 +160,18 @@ Browser.bodyOpen = function (event) {
     case 'ui':
     case 'animation':
     case 'particle':
-      Title.openTab(file)
+      Yami.Title.openTab(file)
       break
     case 'event': {
       const item = file.data
       if (item === undefined) return
-      EventEditor.open('global', item, () => {
-        File.planToSave(file.meta)
-        const event = EventEditor.save()
+      Yami.EventEditor.open('global', item, () => {
+        Yami.File.planToSave(file.meta)
+        const event = Yami.EventEditor.save()
         if (item.type !== event.type) {
           item.type = event.type
-          if (Inspector.fileEvent.target === item) {
-            Inspector.fileEvent.write({type: item.type})
+          if (Yami.Inspector.fileEvent.target === item) {
+            Yami.Inspector.fileEvent.write({type: item.type})
           }
         }
         item.commands = event.commands
@@ -189,16 +179,16 @@ Browser.bodyOpen = function (event) {
       break
     }
     case 'audio':
-      Inspector.fileAudio.play()
+      Yami.Inspector.fileAudio.play()
       break
     case 'video':
-      Inspector.fileVideo.play()
+      Yami.Inspector.fileVideo.play()
       break
     case 'script':
       Browser.openScript(file.path)
       break
     case 'other':
-      File.openPath(File.route(file.path))
+      Yami.File.openPath(Yami.File.route(file.path))
       break
   }
 }
@@ -222,43 +212,43 @@ Browser.bodySelect = function (event) {
       case 'particle':
         break
       case 'tileset':
-        Inspector.open('fileTileset', file.data, meta)
+        Yami.Inspector.open('fileTileset', file.data, meta)
         break
       case 'actor':
-        Inspector.open('fileActor', file.data, meta)
+        Yami.Inspector.open('fileActor', file.data, meta)
         break
       case 'skill':
-        Inspector.open('fileSkill', file.data, meta)
+        Yami.Inspector.open('fileSkill', file.data, meta)
         break
       case 'trigger':
-        Inspector.open('fileTrigger', file.data, meta)
+        Yami.Inspector.open('fileTrigger', file.data, meta)
         break
       case 'item':
-        Inspector.open('fileItem', file.data, meta)
+        Yami.Inspector.open('fileItem', file.data, meta)
         break
       case 'equipment':
-        Inspector.open('fileEquipment', file.data, meta)
+        Yami.Inspector.open('fileEquipment', file.data, meta)
         break
       case 'state':
-        Inspector.open('fileState', file.data, meta)
+        Yami.Inspector.open('fileState', file.data, meta)
         break
       case 'event':
-        Inspector.open('fileEvent', file.data, meta)
+        Yami.Inspector.open('fileEvent', file.data, meta)
         break
       case 'image':
-        Inspector.open('fileImage', file, meta)
+        Yami.Inspector.open('fileImage', file, meta)
         break
       case 'audio':
-        Inspector.open('fileAudio', file, meta)
+        Yami.Inspector.open('fileAudio', file, meta)
         break
       case 'video':
-        Inspector.open('fileVideo', file, meta)
+        Yami.Inspector.open('fileVideo', file, meta)
         break
       case 'font':
-        Inspector.open('fileFont', file, meta)
+        Yami.Inspector.open('fileFont', file, meta)
         break
       case 'script':
-        Inspector.open('fileScript', file, meta)
+        Yami.Inspector.open('fileScript', file, meta)
         break
     }
   }
@@ -266,13 +256,13 @@ Browser.bodySelect = function (event) {
 
 // 身体 - 取消选择事件
 Browser.bodyUnselect = function (event) {
-  if (Inspector.meta !== null) {
-    const meta = Inspector.meta
+  if (Yami.Inspector.meta !== null) {
+    const meta = Yami.Inspector.meta
     const files = event.value
     // meta有可能从映射表中删除，因此对比路径
     if (files.length === 1 &&
       files[0].path === meta.path) {
-      Inspector.close()
+      Yami.Inspector.close()
     }
   }
 }
@@ -281,7 +271,7 @@ Browser.bodyUnselect = function (event) {
 Browser.bodyPopup = function (event) {
   const items = []
   const {target} = event.raw
-  const get = Local.createGetter('menuFileBrowser')
+  const get = Yami.Local.createGetter('menuFileBrowser')
   let creatable = false
   if (target.seek('file-body-pane') === this) {
     const {browser, nav} = this.links
@@ -291,8 +281,8 @@ Browser.bodyPopup = function (event) {
       items.push({
         label: get('showInExplorer'),
         click: () => {
-          File.openPath(
-            File.route(folders[0].path)
+          Yami.File.openPath(
+            Yami.File.route(folders[0].path)
           )
         },
       }, {
@@ -327,14 +317,14 @@ Browser.bodyPopup = function (event) {
       }, {
         label: get('delete'),
         accelerator: 'Delete',
-        enabled: !selections.includes(Directory.assets),
+        enabled: !selections.includes(Yami.Directory.assets),
         click: () => {
           this.deleteFiles()
         },
       }, {
         label: get('rename'),
         accelerator: 'F2',
-        enabled: single && file !== Directory.assets,
+        enabled: single && file !== Yami.Directory.assets,
         click: () => {
           this.rename(file)
         },
@@ -352,14 +342,14 @@ Browser.bodyPopup = function (event) {
               const {data} = file
               data.enabled = !data.enabled
               this.updateIcon(file)
-              File.planToSave(file.meta)
+              Yami.File.planToSave(file.meta)
             },
           })
           break
         case 'script': {
-          const {scriptEditor} = Editor.config
+          const {scriptEditor} = Yami.Editor.config
           let {mode, path} = scriptEditor
-          if (path) path = Path.normalize(path)
+          if (path) path = Yami.Path.normalize(path)
           items.push({
             label: get('settings'),
             submenu: [{
@@ -375,7 +365,7 @@ Browser.bodyPopup = function (event) {
               label: path ? path : get('specifyTheScriptEditor'),
               checked: mode === 'specified-application',
               click: () => {
-                File.showOpenDialog({
+                Yami.File.showOpenDialog({
                   title: 'Browse for application',
                   defaultPath: path ? path : undefined,
                   filters: [{
@@ -385,7 +375,7 @@ Browser.bodyPopup = function (event) {
                 }).then(({filePaths}) => {
                   if (filePaths.length === 1) {
                     scriptEditor.mode = 'specified-application'
-                    scriptEditor.path = Path.slash(filePaths[0])
+                    scriptEditor.path = Yami.Path.slash(filePaths[0])
                   }
                 })
               },
@@ -408,78 +398,78 @@ Browser.bodyPopup = function (event) {
         }, {
           label: get('create.actor'),
           click: () => {
-            Browser.createFile('Actor.actor', Inspector.fileActor.create())
+            Browser.createFile('Actor.actor', Yami.Inspector.fileActor.create())
           },
         }, {
           label: get('create.skill'),
           click: () => {
-            Browser.createFile('Skill.skill', Inspector.fileSkill.create())
+            Browser.createFile('Skill.skill', Yami.Inspector.fileSkill.create())
           },
         }, {
           label: get('create.trigger'),
           click: () => {
-            Browser.createFile('Trigger.trigger', Inspector.fileTrigger.create())
+            Browser.createFile('Trigger.trigger', Yami.Inspector.fileTrigger.create())
           },
         }, {
           label: get('create.item'),
           click: () => {
-            Browser.createFile('Item.item', Inspector.fileItem.create())
+            Browser.createFile('Item.item', Yami.Inspector.fileItem.create())
           },
         }, {
           label: get('create.equipment'),
           click: () => {
-            Browser.createFile('Equipment.equip', Inspector.fileEquipment.create())
+            Browser.createFile('Equipment.equip', Yami.Inspector.fileEquipment.create())
           },
         }, {
           label: get('create.state'),
           click: () => {
-            Browser.createFile('State.state', Inspector.fileState.create())
+            Browser.createFile('State.state', Yami.Inspector.fileState.create())
           },
         }, {
           label: get('create.event'),
           click: () => {
-            Browser.createFile('Event.event', Inspector.fileEvent.create('global'))
+            Browser.createFile('Event.event', Yami.Inspector.fileEvent.create('global'))
           },
         }, {
           label: get('create.script'),
           click: () => {
-            const extname = Data.config.script.language === 'javascript' ? 'js' : 'ts'
-            Browser.createFile('Script.' + extname, Inspector.fileScript.create())
+            const extname = Yami.Data.config.script.language === 'javascript' ? 'js' : 'ts'
+            Browser.createFile('Script.' + extname, Yami.Inspector.fileScript.create())
           },
         }, {
           label: get('create.scene'),
           click: () => {
-            Browser.createFile('Scene.scene', Inspector.fileScene.create())
+            Browser.createFile('Scene.scene', Yami.Inspector.fileScene.create())
           },
         }, {
           label: get('create.ui'),
           click: () => {
-            Browser.createFile('UI.ui', Inspector.fileUI.create())
+            Browser.createFile('UI.ui', Yami.Inspector.fileUI.create())
           },
         }, {
           label: get('create.animation'),
           click: () => {
-            Browser.createFile('Animation.anim', Inspector.fileAnimation.create())
+            Browser.createFile('Animation.anim', Yami.Inspector.fileAnimation.create())
           },
         }, {
           label: get('create.particle'),
           click: () => {
-            Browser.createFile('Particle.particle', Inspector.fileParticle.create())
+            Browser.createFile('Particle.particle', Yami.Inspector.fileParticle.create())
           },
         }, {
           label: get('create.normalTileset'),
           click: () => {
-            Browser.createFile('Tileset.tile', Inspector.fileTileset.create('normal'))
+            Browser.createFile('Tileset.tile', Yami.Inspector.fileTileset.create('normal'))
           },
         }, {
           label: get('create.autoTileset'),
           click: () => {
-            Browser.createFile('Tileset.tile', Inspector.fileTileset.create('auto'))
+            Browser.createFile('Tileset.tile', Yami.Inspector.fileTileset.create('auto'))
           },
         }],
       })
     }
-    Menu.popup({
+    Yami.Menu.popup({
       x: event.clientX,
       y: event.clientY,
     }, items)

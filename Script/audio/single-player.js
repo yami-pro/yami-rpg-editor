@@ -1,7 +1,7 @@
 'use strict'
 
 import { AudioManager } from './audio-manager.js'
-import { File } from '../file-system/file.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 单源播放器类 ********************************
 
@@ -31,7 +31,7 @@ class SinglePlayer {
       if (audio.path !== path ||
         audio.readyState !== 4 ||
         audio.ended === true) {
-        audio.src = File.route(path)
+        audio.src = Yami.File.route(path)
         audio.path = path
         audio.play()
       }

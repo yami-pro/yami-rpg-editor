@@ -1,12 +1,7 @@
 'use strict'
 
 import { Selector } from '../selector.js'
-
-import { File } from '../../file-system/file.js'
-import { FolderItem } from '../../file-system/folder-item.js'
-import { Window } from '../../tools/window.js'
-import { Data } from '../../data/data.js'
-import { Directory } from '../../file-system/directory.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 资源选择器加载 ********************************
 
@@ -25,20 +20,20 @@ Selector.initialize = function () {
 Selector.open = function (target, allowNone = true) {
   this.target = target
   this.allowNone = allowNone
-  Window.open('selector')
+  Yami.Window.open('selector')
 
   const {nav, head, body} = this
   const guid = target.read()
-  const meta = Data.manifest.guidMap[guid]
+  const meta = Yami.Data.manifest.guidMap[guid]
   const filter = target.filter
   this.filters = filter ? filter.split('|') : null
   body.computeGridProperties()
   if (meta !== undefined) {
     const path = meta.path
-    nav.load(Directory.getFolder(path))
+    nav.load(Yami.Directory.getFolder(path))
     body.selectByPath(path)
   } else {
-    nav.load(Directory.assets)
+    nav.load(Yami.Directory.assets)
   }
   head.searcher.getFocus()
 }
@@ -53,7 +48,7 @@ Selector.saveToProject = function (project) {
 // 从项目文件中加载状态
 Selector.loadFromProject = function (project) {
   const {view} = project.selector
-  this.directory = [Directory.assets]
+  this.directory = [Yami.Directory.assets]
   this.body.setViewIndex(view)
 }
 
@@ -115,7 +110,7 @@ Selector.bodyOpen = function (event) {
 Selector.bodyPopup = function (event) {
   const items = []
   const {target} = event.raw
-  const get = Local.createGetter('menuFileBrowser')
+  const get = Yami.Local.createGetter('menuFileBrowser')
   if (target.seek('file-body-pane') === this) {
     const {browser, nav} = this.links
     const folders = nav.selections
@@ -125,8 +120,8 @@ Selector.bodyPopup = function (event) {
     items.push({
       label: get('showInExplorer'),
       click: () => {
-        File.openPath(
-          File.route(folders[0].path)
+        Yami.File.openPath(
+          Yami.File.route(folders[0].path)
         )
       },
     })
@@ -152,7 +147,7 @@ Selector.bodyPopup = function (event) {
       }, {
         label: get('delete'),
         accelerator: 'Delete',
-        enabled: !selections.includes(Directory.assets),
+        enabled: !selections.includes(Yami.Directory.assets),
         click: () => {
           this.deleteFiles()
         },
@@ -172,7 +167,7 @@ Selector.bodyPopup = function (event) {
     }
   }
   if (items.length !== 0) {
-    Menu.popup({
+    Yami.Menu.popup({
       x: event.clientX,
       y: event.clientY,
     }, items)
@@ -192,14 +187,14 @@ Selector.confirm = function (event) {
         const meta = file.meta
         if (meta !== undefined) {
           Selector.target.input(meta.guid)
-          Window.close('selector')
+          Yami.Window.close('selector')
         }
       }
       break
     case 0:
       if (Selector.allowNone) {
         Selector.target.input('')
-        Window.close('selector')
+        Yami.Window.close('selector')
       }
       break
   }
