@@ -1,11 +1,7 @@
 'use strict'
 
-import { Palette } from '../palette.js'
 import { TileNode } from '../tile-node.js'
-
-import { Scene } from '../../scene/scene.js'
-import { Timer } from '../../util/timer.js'
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 图块节点窗口加载 ********************************
 
@@ -29,8 +25,8 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   const MIN_CONTENT_HEIGHT = 100
   const windowFrame = $('#autoTile-selectNode')
   const screen = this.screen
-  const tileWidth = Palette.tileset.tileWidth
-  const tileHeight = Palette.tileset.tileHeight
+  const tileWidth = Yami.Palette.tileset.tileWidth
+  const tileHeight = Yami.Palette.tileset.tileHeight
   const hframes = Math.min(nodes.length, 8)
   const vframes = Math.ceil(nodes.length / 8)
   const dpr = window.devicePixelRatio
@@ -65,7 +61,7 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   windowFrame.style.width = `${contentWidth}px`
   windowFrame.style.height = `${contentHeight + 24}px`
   window.on('keydown', this.keydown)
-  Window.open('autoTile-selectNode')
+  Yami.Window.open('autoTile-selectNode')
 
   // 设置选框
   const screenBox = this.getDevicePixelClientBoxSize(screen)
@@ -79,7 +75,7 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   this.marquee.style.height = `${innerHeight / dpr}px`
   this.marquee.scaleX = tileWidth / dpr
   this.marquee.scaleY = tileHeight / dpr
-  if (Palette.explicit) {
+  if (Yami.Palette.explicit) {
     this.marquee.select()
   } else {
     this.marquee.select(0, 0, 1, 1)
@@ -112,13 +108,13 @@ TileNode.updateTransform = function () {
 }
 
 // 更新背景图像
-TileNode.updateBackground = Palette.updateBackground
+TileNode.updateBackground = Yami.Palette.updateBackground
 
 // 绘制图块节点
 TileNode.drawNodes = function () {
   if (!this.nodes) return
   const context = this.context
-  const tileset = Palette.tileset
+  const tileset = Yami.Palette.tileset
   const image = this.image
   const nodes = this.nodes
   const length = nodes.length
@@ -153,7 +149,7 @@ TileNode.drawNodes = function () {
 // 请求渲染
 TileNode.requestRendering = function () {
   if (this.nodes !== null) {
-    Timer.appendUpdater('sharedRendering', this.renderingFunction)
+    Yami.Timer.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -164,7 +160,7 @@ TileNode.renderingFunction = function () {
 
 // 停止渲染
 TileNode.stopRendering = function () {
-  Timer.removeUpdater('sharedRendering', this.renderingFunction)
+  Yami.Timer.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 滚动到选中位置
@@ -252,9 +248,9 @@ TileNode.keydown = function (event) {
     case 'NumpadEnter': {
       const {x, y} = this.marquee
       const tiles = (
-        Scene.marquee.key === 'tile'
-      ? Scene.marquee.tiles
-      : Scene.marquee.saveData.tile.tiles
+        Yami.Scene.marquee.key === 'tile'
+      ? Yami.Scene.marquee.tiles
+      : Yami.Scene.marquee.saveData.tile.tiles
       )
       const length = tiles.length
       for (let i = 0; i < length; i++) {
@@ -264,9 +260,9 @@ TileNode.keydown = function (event) {
           break
         }
       }
-      Palette.explicit = true
-      Palette.marquee.addClass('explicit')
-      Window.close('autoTile-selectNode')
+      Yami.Palette.explicit = true
+      Yami.Palette.marquee.addClass('explicit')
+      Yami.Window.close('autoTile-selectNode')
       break
     }
     case 'ArrowLeft':
@@ -316,7 +312,7 @@ TileNode.marqueePointerdown = function (event) {
         event.screen = event.target.parentNode
         event.scrollLeft = event.screen.scrollLeft
         event.scrollTop = event.screen.scrollTop
-        Cursor.open('cursor-grab')
+        Yami.Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
         return
@@ -340,7 +336,7 @@ TileNode.marqueePointerdown = function (event) {
       event.screen = event.target.parentNode
       event.scrollLeft = event.screen.scrollLeft
       event.scrollTop = event.screen.scrollTop
-      Cursor.open('cursor-grab')
+      Yami.Cursor.open('cursor-grab')
       window.on('pointerup', this.pointerup)
       window.on('pointermove', this.pointermove)
       break
@@ -360,9 +356,9 @@ TileNode.pointerup = function (event) {
           const y = Math.floor(coords.y / marquee.scaleY)
           if (marquee.x === x && marquee.y === y) {
             const tiles = (
-              Scene.marquee.key === 'tile'
-            ? Scene.marquee.tiles
-            : Scene.marquee.saveData.tile.tiles
+              Yami.Scene.marquee.key === 'tile'
+            ? Yami.Scene.marquee.tiles
+            : Yami.Scene.marquee.saveData.tile.tiles
             )
             const length = tiles.length
             for (let i = 0; i < length; i++) {
@@ -372,17 +368,17 @@ TileNode.pointerup = function (event) {
                 break
               }
             }
-            Palette.explicit = true
-            Palette.marquee.addClass('explicit')
+            Yami.Palette.explicit = true
+            Yami.Palette.marquee.addClass('explicit')
             // 关闭窗口会额外触发一次本事件
             // 换做 mouseup 事件也一样
-            Window.close('autoTile-selectNode')
+            Yami.Window.close('autoTile-selectNode')
           }
         }
         break
       }
       case 'scroll':
-        Cursor.close('cursor-grab')
+        Yami.Cursor.close('cursor-grab')
         break
     }
     this.dragging = null

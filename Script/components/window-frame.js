@@ -130,7 +130,7 @@ class WindowFrame extends HTMLElement {
         !this.hasClass('maximized')) {
         this.addClass('translucent')
       }
-      const selector = Layout.focusableSelector
+      const selector = Yami.Layout.focusableSelector
       const elements = this.querySelectorAll(selector)
       for (const element of elements) {
         element.tabIndex -= 1

@@ -1,8 +1,7 @@
 'use strict'
 
 import { FrameGenerator } from '../frame-generator.js'
-
-import { Window } from '../../tools/window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 图块帧生成器窗口加载 ********************************
 
@@ -21,7 +20,7 @@ FrameGenerator.initialize = function () {
 // 打开窗口
 FrameGenerator.open = function (callback) {
   this.callback = callback
-  Window.open('autoTile-generateFrames')
+  Yami.Window.open('autoTile-generateFrames')
   $('#autoTile-generateFrames-strideX').getFocus('all')
 }
 
@@ -39,5 +38,5 @@ FrameGenerator.confirm = function (event) {
     return $('#autoTile-generateFrames-strideX').getFocus()
   }
   this.callback(strideX, strideY, count)
-  Window.close('autoTile-generateFrames')
+  Yami.Window.close('autoTile-generateFrames')
 }.bind(FrameGenerator)

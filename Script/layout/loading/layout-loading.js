@@ -1,17 +1,7 @@
 'use strict'
 
 import { Layout } from '../layout.js'
-
-import { Scene } from '../../scene/scene.js'
-import { UI } from '../../ui/ui.js'
-import { Animation } from '../../animation/animation.js'
-import { Browser } from '../../browser/browser.js'
-import { Palette } from '../../palette/palette.js'
-import { File } from '../../file-system/file.js'
-import { Inspector } from '../../inspector/inspector.js'
-import { GL } from '../../webgl/gl.js'
-import { Title } from '../../title/title.js'
-import { Home } from '../../title/home.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 布局对象加载 ********************************
 
@@ -41,19 +31,19 @@ Layout.initialize = function () {
 
   // 获取头部元素集合
   this.heads = [
-    Scene.head,
-    Scene.list.head,
-    UI.head,
-    UI.list.head,
-    Animation.head,
-    Animation.list.head,
-    Animation.timeline.head,
-    Browser.head,
-    Palette.head,
+    Yami.Scene.head,
+    Yami.Scene.list.head,
+    Yami.UI.head,
+    Yami.UI.list.head,
+    Yami.Animation.head,
+    Yami.Animation.list.head,
+    Yami.Animation.timeline.head,
+    Yami.Browser.head,
+    Yami.Palette.head,
   ]
 
   // 读取默认布局
-  File.get({
+  Yami.File.get({
     local: 'default.json',
     type: 'json',
   }).then(config => {
@@ -646,20 +636,20 @@ Layout.pageSwitch = function (event) {
   // 保存导航栏状态时可避免resize
   switch (event.last) {
     case 'scene':
-      Scene.save()
-      Scene.close()
+      Yami.Scene.save()
+      Yami.Scene.close()
       break
     case 'ui':
-      UI.save()
-      UI.close()
+      Yami.UI.save()
+      Yami.UI.close()
       break
     case 'animation':
-      Animation.save()
-      Animation.close()
+      Yami.Animation.save()
+      Yami.Animation.close()
       break
     case 'particle':
-      Particle.save()
-      Particle.close()
+      Yami.Particle.save()
+      Yami.Particle.close()
       break
   }
 
@@ -677,59 +667,59 @@ Layout.pageSwitch = function (event) {
   // 插入画布元素到新的页面
   switch (event.value) {
     case 'scene': {
-      const body = Scene.body
+      const body = Yami.Scene.body
       const target = body.firstChild
-      body.insertBefore(GL.canvas, target)
+      body.insertBefore(Yami.GL.canvas, target)
       break
     }
     case 'ui': {
-      const body = UI.body
+      const body = Yami.UI.body
       const target = body.firstChild
-      body.insertBefore(GL.canvas, target)
+      body.insertBefore(Yami.GL.canvas, target)
       break
     }
     case 'animation': {
-      const body = Animation.body
+      const body = Yami.Animation.body
       const target = body.firstChild
-      body.insertBefore(GL.canvas, target)
+      body.insertBefore(Yami.GL.canvas, target)
       break
     }
     case 'particle': {
-      const body = Particle.body
+      const body = Yami.Particle.body
       const target = body.firstChild
-      body.insertBefore(GL.canvas, target)
+      body.insertBefore(Yami.GL.canvas, target)
       break
     }
     default:
-      GL.canvas.remove()
+      Yami.GL.canvas.remove()
       break
   }
 
   // 加载新的页面布局方案
   switch (event.value) {
     case 'home':
-      Title.tabBar.removeClass('visible')
-      Home.parseRecentProjects()
+      Yami.Title.tabBar.removeClass('visible')
+      Yami.Home.parseRecentProjects()
       break
     case 'directory':
-      Title.tabBar.addClass('visible')
-      Title.tabBar.select(Title.tabBar.dirItem)
+      Yami.Title.tabBar.addClass('visible')
+      Yami.Title.tabBar.select(Yami.Title.tabBar.dirItem)
       Layout.loadLayoutScheme('directory')
       break
     case 'scene':
-      Title.tabBar.addClass('visible')
+      Yami.Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('scene')
       break
     case 'ui':
-      Title.tabBar.addClass('visible')
+      Yami.Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('ui')
       break
     case 'animation':
-      Title.tabBar.addClass('visible')
+      Yami.Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('animation')
       break
     case 'particle':
-      Title.tabBar.addClass('visible')
+      Yami.Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('particle')
       break
   }
@@ -750,7 +740,7 @@ Layout.navPointerdown = function (event) {
         element.hasClass('selected')) {
         switch (element.dataValue) {
           case 'inspector':
-            Layout.readyToFocus(Inspector.manager)
+            Layout.readyToFocus(Yami.Inspector.manager)
             break
           default: {
             const page = element.page
@@ -1235,7 +1225,7 @@ Layout.borderPointerdown = function (event) {
               outer.clientWidth
             * group.end
             )
-            Cursor.open('cursor-col-resize')
+            Yami.Cursor.open('cursor-col-resize')
             break
           case 'vertical':
             event.mode = 'row-resize'
@@ -1243,7 +1233,7 @@ Layout.borderPointerdown = function (event) {
               outer.clientHeight
             * group.end
             )
-            Cursor.open('cursor-row-resize')
+            Yami.Cursor.open('cursor-row-resize')
             break
         }
         event.outer = outer
@@ -1277,10 +1267,10 @@ Layout.pointerup = function (event) {
   if (resizing.relate(event)) {
     switch (resizing.mode) {
       case 'col-resize':
-        Cursor.close('cursor-col-resize')
+        Yami.Cursor.close('cursor-col-resize')
         break
       case 'row-resize':
-        Cursor.close('cursor-row-resize')
+        Yami.Cursor.close('cursor-row-resize')
         break
     }
     for (const info of resizing.infos) {

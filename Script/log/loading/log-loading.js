@@ -1,9 +1,7 @@
 'use strict'
 
 import { Log } from '../log.js'
-
-import { Timer } from '../../util/timer.js'
-import { Editor } from '../../editor/editor.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 日志窗口加载 ********************************
 
@@ -83,7 +81,7 @@ Log.update = function () {
 // 显示错误消息
 Log.message = function IIFE() {
   const box = $('#error-message')
-  const timer = new Timer({
+  const timer = new Yami.Timer({
     duration: 6000,
     callback: timer => {
       box.textContent = ''
@@ -116,7 +114,7 @@ Log.windowClosed = function (event) {
 Log.catchError = function IIFE() {
   const regexp = /^Uncaught /
   return function (event) {
-    if (Editor.state === 'open') {
+    if (Yami.Editor.state === 'open') {
       Log.error(event.message.replace(regexp, ''))
     }
   }

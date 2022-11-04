@@ -841,7 +841,7 @@ Attribute.list.delete = function (item) {
 
 // 列表 - 保存滚动状态
 Attribute.list.saveScroll = function () {
-  const {attribute} = Data
+  const {attribute} = Yami.Data
   // 将数据保存在外部可以切换项目后重置
   if (attribute.scrollTop === undefined) {
     Object.defineProperty(attribute, 'scrollTop', {

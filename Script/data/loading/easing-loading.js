@@ -184,7 +184,7 @@ Easing.open = function () {
   Yami.Window.open('easing')
 
   // 创建数据副本
-  this.data = Object.clone(Data.easings)
+  this.data = Object.clone(Yami.Data.easings)
 
   // 创建映射表
   this.curveMap = new Easing.CurveMap()
@@ -1076,7 +1076,7 @@ Easing.confirm = function (event) {
     Yami.NodeList.deleteCaches(easings)
     Yami.Data.easings = easings
     Yami.Data.createGUIDMap(easings)
-    Yami.File.planToSave(Data.manifest.project.easings)
+    Yami.File.planToSave(Yami.Data.manifest.project.easings)
     // 发送数据改变事件
     const datachange = new Event('datachange')
     datachange.key = 'easings'
@@ -1185,7 +1185,7 @@ Easing.EasingMap = function IIFE() {
 
 // 列表 - 保存选项状态
 Easing.list.saveSelection = function () {
-  const {easings} = Data
+  const {easings} = Yami.Data
   // 将数据保存在外部可以切换项目后重置
   if (easings.selection === undefined) {
     Object.defineProperty(easings, 'selection', {

@@ -1,17 +1,7 @@
 'use strict'
 
 import { Palette } from '../palette.js'
-import { AutoTile } from '../auto-tile.js'
-import { FrameGenerator } from '../frame-generator.js'
-import { TileFrame } from '../tile-frame.js'
-import { TileNode } from '../tile-node.js'
-
-import { Timer } from '../../util/timer.js'
-import { Scene } from '../../scene/scene.js'
-import { Inspector } from '../../inspector/inspector.js'
-import { File } from '../../file-system/file.js'
-import { Window } from '../../tools/window.js'
-import { Data } from '../../data/data.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 调色板加载 ********************************
 
@@ -27,7 +17,7 @@ Palette.initialize = function () {
   this.images = {}
 
   // 创建缩放计时器
-  this.zoomTimer = new Timer({
+  this.zoomTimer = new Yami.Timer({
     duration: 80,
     update: timer => {
       if (this.state === 'open') {
@@ -128,10 +118,10 @@ Palette.initialize = function () {
   this.marquee.on('doubleclick', this.marqueeDoubleclick)
 
   // 初始化子对象
-  AutoTile.initialize()
-  FrameGenerator.initialize()
-  TileFrame.initialize()
-  TileNode.initialize()
+  Yami.AutoTile.initialize()
+  Yami.FrameGenerator.initialize()
+  Yami.TileFrame.initialize()
+  Yami.TileNode.initialize()
 }
 
 // 打开图块组
@@ -140,15 +130,15 @@ Palette.open = function (meta) {
     return
   }
   this.close()
-  const data = Data.tilesets[meta.guid]
+  const data = Yami.Data.tilesets[meta.guid]
   if (data) {
     this.state = 'loading'
     this.meta = meta
     this.tileset = data
     this.loadImages()
   } else {
-    Inspector.close('tileset')
-    Window.confirm({
+    Yami.Inspector.close('tileset')
+    Yami.Window.confirm({
       message: `Failed to read file: ${meta.path}`,
     }, [{
       label: 'Confirm',
@@ -297,7 +287,7 @@ Palette.loadImages = async function () {
           images[guid] = last[guid]
         } else {
           const symbol = images[guid] = Symbol()
-          promises.push(File.get({
+          promises.push(Yami.File.get({
             guid: guid,
             type: 'image',
           }).then(image => {
@@ -321,7 +311,7 @@ Palette.loadImages = async function () {
               images[guid] = last[guid]
             } else {
               const symbol = images[guid] = Symbol()
-              promises.push(File.get({
+              promises.push(Yami.File.get({
                 guid: guid,
                 type: 'image',
               }).then(image => {
@@ -359,7 +349,7 @@ Palette.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Layout.getGroupOfElement(head)
+    const {nav} = Yami.Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -491,7 +481,7 @@ Palette.updateTransform = function () {
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
   this.meta.x = Math.roundTo((scrollX - this.paddingLeft) / this.scaledTileWidth, 4)
   this.meta.y = Math.roundTo((scrollY - this.paddingTop) / this.scaledTileHeight, 4)
-  Data.manifest.changed = true
+  Yami.Data.manifest.changed = true
 }
 
 // 更新背景图像
@@ -613,7 +603,7 @@ Palette.drawTiles = function () {
       } else if (image === undefined) {
         const guid = tileset.image
         const symbol = images[guid] = Symbol()
-        File.get({
+        Yami.File.get({
           guid: guid,
           type: 'image',
         }).then(image => {
@@ -626,7 +616,7 @@ Palette.drawTiles = function () {
       break
     }
     case 'auto': {
-      const templates = Data.autotiles.map
+      const templates = Yami.Data.autotiles.map
       const tiles = tileset.tiles
       const tro = tileset.width
       const tw = tileset.tileWidth
@@ -660,7 +650,7 @@ Palette.drawTiles = function () {
             } else if (image === undefined) {
               const guid = tile.image
               const symbol = images[guid] = Symbol()
-              File.get({
+              Yami.File.get({
                 guid: guid,
                 type: 'image',
               }).then(image => {
@@ -793,7 +783,7 @@ Palette.editAutoTile = function (index) {
     if (index < tiles.length) {
       const tile = tiles[index]
       this.openIndex = index
-      AutoTile.open(tile || AutoTile.create())
+      Yami.AutoTile.open(tile || Yami.AutoTile.create())
     }
   }
 }
@@ -805,7 +795,7 @@ Palette.copyAutoTile = function (index) {
     const tiles = tileset.tiles
     const priorities = tileset.priorities
     if (tiles[index]) {
-      Clipboard.write('yami.tile', {
+      Yami.Clipboard.write('yami.tile', {
         tile: tiles[index],
         priority: priorities[index],
       })
@@ -819,12 +809,12 @@ Palette.pasteAutoTile = function (index) {
     const tileset = this.tileset
     const tiles = tileset.tiles
     const priorities = tileset.priorities
-    const copy = Clipboard.read('yami.tile')
+    const copy = Yami.Clipboard.read('yami.tile')
     if (copy && index < tiles.length) {
       tiles[index] = copy.tile
       priorities[index] = copy.priority
       this.requestRendering()
-      File.planToSave(this.meta)
+      Yami.File.planToSave(this.meta)
     }
   }
 }
@@ -839,7 +829,7 @@ Palette.deleteAutoTile = function (index) {
       tiles[index] = 0
       priorities[index] = 0
       this.requestRendering()
-      File.planToSave(this.meta)
+      Yami.File.planToSave(this.meta)
     }
   }
 }
@@ -847,14 +837,14 @@ Palette.deleteAutoTile = function (index) {
 // 选择图块
 Palette.selectTiles = function (x, y, width, height) {
   // 修正笔刷
-  if (Scene.brush === 'eraser') {
-    Scene.switchBrush('pencil')
+  if (Yami.Scene.brush === 'eraser') {
+    Yami.Scene.switchBrush('pencil')
   }
 
   // 设置图块参数
   const tileset = this.tileset
   const sro = tileset.width
-  const dTiles = Scene.createTiles(width, height)
+  const dTiles = Yami.Scene.createTiles(width, height)
   const dro = dTiles.rowOffset
   const bx = x
   const by = y
@@ -891,14 +881,14 @@ Palette.selectTiles = function (x, y, width, height) {
   }
 
   // 设置场景选框的图块组映射表
-  Scene.marquee.tilesetMap = this.tilesetMap
-  Scene.marquee.tilesetMap[1] = this.meta.guid
+  Yami.Scene.marquee.tilesetMap = this.tilesetMap
+  Yami.Scene.marquee.tilesetMap[1] = this.meta.guid
 
   // 更新场景选框
   const marquee = (
-    Scene.marquee.key === 'tile'
-  ? Scene.marquee
-  : Scene.marquee.saveData.tile
+    Yami.Scene.marquee.key === 'tile'
+  ? Yami.Scene.marquee
+  : Yami.Scene.marquee.saveData.tile
   )
   marquee.tiles = dTiles
   marquee.width = width
@@ -912,9 +902,9 @@ Palette.selectTiles = function (x, y, width, height) {
 
 // 从场景中复制图块
 Palette.copyTilesFromScene = function (x, y, width, height) {
-  const sTiles = Scene.tilemap.tiles
+  const sTiles = Yami.Scene.tilemap.tiles
   const sro = sTiles.rowOffset
-  const dTiles = Scene.createTiles(width, height)
+  const dTiles = Yami.Scene.createTiles(width, height)
   const dro = dTiles.rowOffset
   const bx = x
   const by = y
@@ -928,13 +918,13 @@ Palette.copyTilesFromScene = function (x, y, width, height) {
   }
 
   // 设置场景选框的图块组映射表
-  Scene.marquee.tilesetMap = Scene.tilemap.tilesetMap
+  Yami.Scene.marquee.tilesetMap = Yami.Scene.tilemap.tilesetMap
 
   // 更新选框图块
   const marquee = (
-    Scene.marquee.key === 'tile'
-  ? Scene.marquee
-  : Scene.marquee.saveData.tile
+    Yami.Scene.marquee.key === 'tile'
+  ? Yami.Scene.marquee
+  : Yami.Scene.marquee.saveData.tile
   )
   marquee.tiles = dTiles
 
@@ -952,22 +942,22 @@ Palette.copyTilesFromScene = function (x, y, width, height) {
 
 // 翻转选框图块
 Palette.flipTiles = function () {
-  const marquee = Scene.marquee
-  if (Scene.state !== 'open' ||
-    Scene.dragging !== null ||
+  const marquee = Yami.Scene.marquee
+  if (Yami.Scene.state !== 'open' ||
+    Yami.Scene.dragging !== null ||
     marquee.key !== 'tile') {
     return
   }
   if (marquee.visible) {
-    Scene.requestRendering()
+    Yami.Scene.requestRendering()
   }
   const tilesetMap = marquee.tilesetMap
-  const tilesets = Data.tilesets
+  const tilesets = Yami.Data.tilesets
   const sTiles = marquee.tiles
   const width = sTiles.width
   const height = sTiles.height
   const sro = sTiles.rowOffset
-  const dTiles = Scene.createTiles(width, height)
+  const dTiles = Yami.Scene.createTiles(width, height)
   const dro = dTiles.rowOffset
   const rx = width - 1
   for (let y = 0; y < height; y++) {
@@ -1003,13 +993,13 @@ Palette.openSelection = function () {
     const i = x + y * tileset.width
     const tile = tileset.tiles[i]
     if (tile !== 0) {
-      const template = Data.autotiles.map[tile.template]
+      const template = Yami.Data.autotiles.map[tile.template]
       const image = this.images[tile.image]
       if (width === 1 &&
         height === 1 &&
         template !== undefined &&
         image instanceof Image) {
-        TileNode.open(template.nodes, image, tile.x, tile.y)
+        Yami.TileNode.open(template.nodes, image, tile.x, tile.y)
       }
     }
   }
@@ -1070,7 +1060,7 @@ Palette.scrollToSelection = function (shiftKey) {
 // 请求渲染
 Palette.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('sharedRendering', this.renderingFunction)
+    Yami.Timer.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -1081,7 +1071,7 @@ Palette.renderingFunction = function () {
 
 // 停止渲染
 Palette.stopRendering = function () {
-  Timer.removeUpdater('sharedRendering', this.renderingFunction)
+  Yami.Timer.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 跳过滚动事件
@@ -1314,7 +1304,7 @@ Palette.screenKeydown = function (event) {
             marquee.select(mx, my, mw, mh)
             Palette.selectTiles(mx, my, mw, mh)
             Palette.scrollToSelection(true)
-            Scene.requestRendering()
+            Yami.Scene.requestRendering()
           }
           return
         }
@@ -1335,7 +1325,7 @@ Palette.screenKeydown = function (event) {
           marquee.originY += y - my
           Palette.selectTiles(x, y, mw, mh)
           Palette.scrollToSelection(false)
-          Scene.requestRendering()
+          Yami.Scene.requestRendering()
         }
         break
       }
@@ -1358,7 +1348,7 @@ Palette.screenKeydown = function (event) {
 // 屏幕 - 鼠标滚轮事件
 Palette.screenWheel = function IIFE() {
   let timerIsWorking = false
-  const timer = new Timer({
+  const timer = new Yami.Timer({
     duration: 400,
     callback: timer => {
       timerIsWorking = false
@@ -1416,7 +1406,7 @@ Palette.marqueePointerdown = function (event) {
         event.mode = 'scroll'
         event.scrollLeft = this.screen.scrollLeft
         event.scrollTop = this.screen.scrollTop
-        Cursor.open('cursor-grab')
+        Yami.Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
         return
@@ -1508,7 +1498,7 @@ Palette.marqueePointerdown = function (event) {
           this.screen.updateScrollbars()
           this.pointermove(event.latest)
         })
-        Scene.marquee.style.pointerEvents = 'none'
+        Yami.Scene.marquee.style.pointerEvents = 'none'
       }
       break
     }
@@ -1525,7 +1515,7 @@ Palette.marqueePointerdown = function (event) {
         event.mode = 'scroll'
         event.scrollLeft = this.screen.scrollLeft
         event.scrollTop = this.screen.scrollTop
-        Cursor.open('cursor-grab')
+        Yami.Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
       }
@@ -1567,10 +1557,10 @@ Palette.marqueePopup = function (event) {
     const existing = !!tiles[index]
     const editable = true
     const copyable = existing
-    const pastable = Clipboard.has('yami.tile')
+    const pastable = Yami.Clipboard.has('yami.tile')
     const deletable = existing
-    const get = Local.createGetter('menuTileset')
-    Menu.popup({
+    const get = Yami.Local.createGetter('menuTileset')
+    Yami.Menu.popup({
       x: event.clientX,
       y: event.clientY,
       minWidth: 0,
@@ -1622,7 +1612,7 @@ Palette.pointerup = function (event) {
         this.selectTiles(x, y, width, height)
         this.screen.endScrolling()
         this.screen.removeScrollListener()
-        Scene.marquee.style.pointerEvents = 'inherit'
+        Yami.Scene.marquee.style.pointerEvents = 'inherit'
         break
       }
       case 'ready-to-scroll':
@@ -1632,7 +1622,7 @@ Palette.pointerup = function (event) {
         break
       case 'scroll':
         this.screen.endScrolling()
-        Cursor.close('cursor-grab')
+        Yami.Cursor.close('cursor-grab')
         break
       case 'edit':
         if (dragging.active) {
@@ -1648,8 +1638,8 @@ Palette.pointerup = function (event) {
           const step = event.shiftKey ? 9 : 1
           priorities[i] = (priorities[i] + step) % 10
           this.requestRendering()
-          Scene.requestRendering()
-          File.planToSave(this.meta)
+          Yami.Scene.requestRendering()
+          Yami.File.planToSave(this.meta)
         }
         break
       case 'shift':
@@ -1657,9 +1647,9 @@ Palette.pointerup = function (event) {
         this.screen.endScrolling()
         this.screen.removeScrollListener()
         this.requestRendering()
-        Scene.requestRendering()
-        Scene.marquee.style.pointerEvents = 'inherit'
-        File.planToSave(this.meta)
+        Yami.Scene.requestRendering()
+        Yami.Scene.marquee.style.pointerEvents = 'inherit'
+        Yami.File.planToSave(this.meta)
         break
     }
     window.off('pointerup', this.pointerup)
@@ -1697,7 +1687,7 @@ Palette.pointermove = function (event) {
         )
         if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
-          Cursor.open('cursor-grab')
+          Yami.Cursor.open('cursor-grab')
         }
         break
       }
@@ -1752,7 +1742,7 @@ Palette.pointermove = function (event) {
             this.screen.updateScrollbars()
             this.pointermove(dragging.latest)
           })
-          Scene.marquee.style.pointerEvents = 'none'
+          Yami.Scene.marquee.style.pointerEvents = 'none'
         }
         break
       }

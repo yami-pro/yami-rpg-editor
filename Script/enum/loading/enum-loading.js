@@ -765,7 +765,7 @@ Enum.list.delete = function (item) {
 
 // 列表 - 保存滚动状态
 Enum.list.saveScroll = function () {
-  const {enumeration} = Data
+  const {enumeration} = Yami.Data
   // 将数据保存在外部可以切换项目后重置
   if (enumeration.scrollTop === undefined) {
     Object.defineProperty(enumeration, 'scrollTop', {
