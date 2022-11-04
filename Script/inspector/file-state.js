@@ -2,12 +2,6 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { AttributeListInterface } from '../tools/attribute-list-interface.js'
-// import { EventListInterface } from '../tools/event-list-interface.js'
-// import { ScriptListInterface } from '../tools/script-list-interface.js'
-// import { File } from '../file-system/file.js'
-
 // ******************************** 文件 - 状态页面 ********************************
 
 {
@@ -29,13 +23,13 @@ import * as Yami from '../yami.js'
   // 初始化
   FileState.initialize = function () {
     // 绑定属性列表
-    $('#fileState-attributes').bind(new AttributeListInterface())
+    $('#fileState-attributes').bind(new Yami.AttributeListInterface())
 
     // 绑定事件列表
-    $('#fileState-events').bind(new EventListInterface())
+    $('#fileState-events').bind(new Yami.EventListInterface())
 
     // 绑定脚本列表
-    $('#fileState-scripts').bind(new ScriptListInterface())
+    $('#fileState-scripts').bind(new Yami.ScriptListInterface())
 
     // 绑定脚本参数面板
     $('#fileState-parameter-pane').bind($('#fileState-scripts'))
@@ -63,7 +57,7 @@ import * as Yami from '../yami.js'
       this.meta = meta
 
       // 写入数据
-      const write = getElementWriter('fileState', state)
+      const write = Yami.getElementWriter('fileState', state)
       write('icon')
       write('clip')
       write('attributes')
@@ -75,7 +69,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileState.close = function () {
     if (this.target) {
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       $('#fileState-attributes').clear()
@@ -87,13 +81,13 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileState.update = function (state, key, value) {
-    File.planToSave(this.meta)
+    Yami.File.planToSave(this.meta)
     switch (key) {
       case 'icon':
       case 'clip':
         if (state[key] !== value) {
           state[key] = value
-          Browser.body.updateIcon(this.meta.file)
+          Yami.Browser.body.updateIcon(this.meta.file)
         }
         break
     }
@@ -103,15 +97,15 @@ import * as Yami from '../yami.js'
   FileState.paramInput = function (event) {
     FileState.update(
       FileState.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
   // 列表 - 改变事件
   FileState.listChange = function (event) {
-    File.planToSave(FileState.meta)
+    Yami.File.planToSave(FileState.meta)
   }
 
-  Inspector.fileState = FileState
+  Yami.Inspector.fileState = FileState
 }

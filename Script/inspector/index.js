@@ -44,4 +44,4 @@ import './ui-window.js'
 
 export { Inspector } from './inspector.js'
 
-import './inspector-loading.js'
+import './loading/inspector-loading.js'

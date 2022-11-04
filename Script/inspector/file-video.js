@@ -2,10 +2,6 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { AudioManager } from '../audio/audio-manager.js'
-// import { File } from '../file-system/file.js'
-
 // ******************************** 文件 - 视频页面 ********************************
 
 {
@@ -47,7 +43,7 @@ import * as Yami from '../yami.js'
       const elBitrate = $('#fileVideo-bitrate')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = File.parseFileSize(size)
+      elSize.textContent = Yami.File.parseFileSize(size)
       elDuration.textContent = ''
       elResolution.textContent = ''
       elBitrate.textContent = ''
@@ -55,7 +51,7 @@ import * as Yami from '../yami.js'
       // 加载视频
       const video = this.video
       const path = file.path
-      video.src = File.route(path)
+      video.src = Yami.File.route(path)
 
       // 更新视频信息
       const symbol = this.symbol = Symbol()
@@ -70,7 +66,7 @@ import * as Yami from '../yami.js'
           const width = video.videoWidth
           const height = video.videoHeight
           const bitrate = Math.round(size / 128 / duration)
-          const formatTime = Inspector.fileAudio.formatTime
+          const formatTime = Yami.Inspector.fileAudio.formatTime
           elDuration.textContent = formatTime(duration)
           elResolution.textContent = `${width} x ${height}`
           elBitrate.textContent = `${bitrate}Kbps`
@@ -82,7 +78,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileVideo.close = function () {
     if (this.target) {
-      Browser.unselect(this.meta)
+      Yami.Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.symbol = null
@@ -93,7 +89,7 @@ import * as Yami from '../yami.js'
   // 播放视频
   FileVideo.play = function () {
     if (this.target !== null) {
-      AudioManager.player.stop()
+      Yami.AudioManager.player.stop()
       const {video} = this
       if (video.paused) {
         video.play()
@@ -111,5 +107,5 @@ import * as Yami from '../yami.js'
     }
   }
 
-  Inspector.fileVideo = FileVideo
+  Yami.Inspector.fileVideo = FileVideo
 }

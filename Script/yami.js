@@ -172,6 +172,13 @@ export {
   EnumerationContext
 } from './enum/index.js'
 
+export {
+  Particle,
+  ParticleElement,
+  ParticleEmitter,
+  ParticleLayer
+} from './particle/index.js'
+
 export { Inspector } from './inspector/index.js'
 
 export { Layout } from './layout/index.js'
@@ -185,13 +192,6 @@ export {
   TileFrame,
   TileNode
 } from './palette/index.js'
-
-export {
-  Particle,
-  ParticleElement,
-  ParticleEmitter,
-  ParticleLayer
-} from './particle/index.js'
 
 export { Printer } from './printer/printer.js'
 

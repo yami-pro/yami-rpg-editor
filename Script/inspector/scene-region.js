@@ -2,18 +2,12 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { Scene } from '../scene/scene.js'
-// import { ConditionListInterface } from '../tools/condition-list-interface.js'
-// import { EventListInterface } from '../tools/event-list-interface.js'
-// import { ScriptListInterface } from '../tools/script-list-interface.js'
-
 // ******************************** 场景 - 区域页面 ********************************
 
 {
   const SceneRegion = {
     // properties
-    owner: Scene,
+    owner: Yami.Scene,
     target: null,
     nameBox: $('#sceneRegion-name'),
     // methods
@@ -30,13 +24,13 @@ import * as Yami from '../yami.js'
   // 初始化
   SceneRegion.initialize = function () {
     // 绑定条件列表
-    $('#sceneRegion-conditions').bind(new ConditionListInterface(this, Scene))
+    $('#sceneRegion-conditions').bind(new Yami.ConditionListInterface(this, Yami.Scene))
 
     // 绑定事件列表
-    $('#sceneRegion-events').bind(new EventListInterface(this, Scene))
+    $('#sceneRegion-events').bind(new Yami.EventListInterface(this, Yami.Scene))
 
     // 绑定脚本列表
-    $('#sceneRegion-scripts').bind(new ScriptListInterface(this, Scene))
+    $('#sceneRegion-scripts').bind(new Yami.ScriptListInterface(this, Yami.Scene))
 
     // 绑定脚本参数面板
     $('#sceneRegion-parameter-pane').bind($('#sceneRegion-scripts'))
@@ -45,9 +39,9 @@ import * as Yami from '../yami.js'
     const elements = $(`#sceneRegion-name, #sceneRegion-color,
       #sceneRegion-x, #sceneRegion-y, #sceneRegion-width, #sceneRegion-height`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, Scene))
-    $('#sceneRegion-conditions, #sceneRegion-events, #sceneRegion-scripts').on('change', Scene.listChange)
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.Scene))
+    $('#sceneRegion-conditions, #sceneRegion-events, #sceneRegion-scripts').on('change', Yami.Scene.listChange)
   }
 
   // 创建区域
@@ -75,7 +69,7 @@ import * as Yami from '../yami.js'
       this.target = region
 
       // 写入数据
-      const write = getElementWriter('sceneRegion', region)
+      const write = Yami.getElementWriter('sceneRegion', region)
       write('name')
       write('color')
       write('x')
@@ -91,8 +85,8 @@ import * as Yami from '../yami.js'
   // 关闭数据
   SceneRegion.close = function () {
     if (this.target) {
-      Scene.list.unselect(this.target)
-      Scene.updateTarget()
+      Yami.Scene.list.unselect(this.target)
+      Yami.Scene.updateTarget()
       this.target = null
       $('#sceneRegion-conditions').clear()
       $('#sceneRegion-events').clear()
@@ -113,13 +107,13 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   SceneRegion.update = function (region, key, value) {
-    Scene.planToSave()
+    Yami.Scene.planToSave()
     switch (key) {
       case 'name':
         if (region.name !== value) {
           region.name = value
-          Scene.updateTargetInfo()
-          Scene.list.updateItemName(region)
+          Yami.Scene.updateTargetInfo()
+          Yami.Scene.list.updateItemName(region)
         }
         break
       case 'x':
@@ -133,21 +127,21 @@ import * as Yami from '../yami.js'
       case 'color':
         if (region.color !== value) {
           region.color = value
-          Scene.list.updateIcon(region)
+          Yami.Scene.list.updateIcon(region)
         }
         break
     }
-    Scene.requestRendering()
+    Yami.Scene.requestRendering()
   }
 
   // 参数 - 输入事件
   SceneRegion.paramInput = function (event) {
     SceneRegion.update(
       SceneRegion.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.sceneRegion = SceneRegion
+  Yami.Inspector.sceneRegion = SceneRegion
 }

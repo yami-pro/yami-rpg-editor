@@ -2,10 +2,6 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { UI } from '../ui/ui.js'
-// import { Data } from '../data/data.js'
-
 // ******************************** 文件 - 界面页面 ********************************
 
 {
@@ -30,27 +26,27 @@ import * as Yami from '../yami.js'
     this.owner = {
       setTarget: target => {
         if (this.target !== target) {
-          Inspector.open('fileUI', target)
+          Yami.Inspector.open('fileUI', target)
         }
       },
       planToSave: () => {
-        UI.planToSave()
+        Yami.UI.planToSave()
       },
       get history() {
-        return UI.history
+        return Yami.UI.history
       },
     }
 
     // 侦听事件
     const elements = $('#fileUI-width, #fileUI-height')
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, this.owner))
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, this.owner))
   }
 
   // 创建界面
   FileUI.create = function () {
-    const {resolution} = Data.config
+    const {resolution} = Yami.Data.config
     return {
       width: resolution.width,
       height: resolution.height,
@@ -67,7 +63,7 @@ import * as Yami from '../yami.js'
       this.button.addClass('selected')
 
       // 写入数据
-      const write = getElementWriter('fileUI', ui)
+      const write = Yami.getElementWriter('fileUI', ui)
       write('width')
       write('height')
     }
@@ -85,7 +81,7 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileUI.update = function (ui, key, value) {
-    UI.planToSave()
+    Yami.UI.planToSave()
     switch (key) {
       case 'width':
         if (ui.width !== value) {
@@ -104,10 +100,10 @@ import * as Yami from '../yami.js'
   FileUI.paramInput = function (event) {
     FileUI.update(
       FileUI.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.fileUI = FileUI
+  Yami.Inspector.fileUI = FileUI
 }

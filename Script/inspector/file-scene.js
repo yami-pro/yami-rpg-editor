@@ -2,12 +2,6 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { Scene } from '../scene/scene.js'
-// import { EventListInterface } from '../tools/event-list-interface.js'
-// import { ScriptListInterface } from '../tools/script-list-interface.js'
-// import { GL } from '../webgl/gl.js'
-
 // ******************************** 文件 - 场景页面 ********************************
 
 {
@@ -33,14 +27,14 @@ import * as Yami from '../yami.js'
     this.owner = {
       setTarget: target => {
         if (this.target !== target) {
-          Inspector.open('fileScene', target)
+          Yami.Inspector.open('fileScene', target)
         }
       },
       planToSave: () => {
-        Scene.planToSave()
+        Yami.Scene.planToSave()
       },
       get history() {
-        return Scene.history
+        return Yami.Scene.history
       },
     }
 
@@ -51,10 +45,10 @@ import * as Yami from '../yami.js'
     $('#fileScene-ambient-blue-slider').synchronize($('#fileScene-ambient-blue'))
 
     // 绑定事件列表
-    $('#fileScene-events').bind(new EventListInterface(this, this.owner))
+    $('#fileScene-events').bind(new Yami.EventListInterface(this, this.owner))
 
     // 绑定脚本列表
-    $('#fileScene-scripts').bind(new ScriptListInterface(this, this.owner))
+    $('#fileScene-scripts').bind(new Yami.ScriptListInterface(this, this.owner))
 
     // 绑定脚本参数面板
     $('#fileScene-parameter-pane').bind($('#fileScene-scripts'))
@@ -65,19 +59,19 @@ import * as Yami from '../yami.js'
     const sliders = $(`#fileScene-contrast-slider, #fileScene-ambient-red-slider,
       #fileScene-ambient-green-slider, #fileScene-ambient-blue-slider`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, this.owner))
-    sliders.on('focus', Inspector.sliderFocus)
-    sliders.on('blur', Inspector.sliderBlur)
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, this.owner))
+    sliders.on('focus', Yami.Inspector.sliderFocus)
+    sliders.on('blur', Yami.Inspector.sliderBlur)
     $('#fileScene-width, #fileScene-height').on('change', this.paramInput)
-    $('#fileScene-events, #fileScene-scripts').on('change', Scene.listChange)
+    $('#fileScene-events, #fileScene-scripts').on('change', Yami.Scene.listChange)
   }
 
   // 创建场景
   FileScene.create = function () {
     const objects = []
     const filters = {}
-    const folders = Editor.project.scene.defaultFolders
+    const folders = Yami.Editor.project.scene.defaultFolders
     for (const name of Object.values(folders)) {
       if (name && filters[name] === undefined) {
         filters[name] = true
@@ -93,14 +87,14 @@ import * as Yami from '../yami.js'
     }
     const WIDTH = 20
     const HEIGHT = 20
-    return Codec.encodeScene(Object.defineProperties({
+    return Yami.Codec.encodeScene(Object.defineProperties({
       width: WIDTH,
       height: HEIGHT,
       tileWidth: 32,
       tileHeight: 32,
       contrast: 1,
       ambient: {red: 255, green: 255, blue: 255},
-      terrains: Scene.createTerrains(WIDTH, HEIGHT),
+      terrains: Yami.Scene.createTerrains(WIDTH, HEIGHT),
       events: [],
       scripts: [],
       objects: objects,
@@ -125,7 +119,7 @@ import * as Yami from '../yami.js'
       this.button.addClass('selected')
 
       // 写入数据
-      const write = getElementWriter('fileScene', scene)
+      const write = Yami.getElementWriter('fileScene', scene)
       write('width')
       write('height')
       write('tileWidth')
@@ -164,7 +158,7 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileScene.update = function (scene, key, value) {
-    Scene.planToSave()
+    Yami.Scene.planToSave()
     switch (key) {
       case 'width':
         if (scene.width !== value) {
@@ -190,7 +184,7 @@ import * as Yami from '../yami.js'
         if (scene.contrast !== value) {
           scene.contrast = value
           scene.requestRendering()
-          GL.setContrast(value)
+          Yami.GL.setContrast(value)
         }
         break
       case 'ambient-red':
@@ -201,7 +195,7 @@ import * as Yami from '../yami.js'
         if (scene.ambient[color] !== value) {
           scene.ambient[color] = value
           scene.requestRendering()
-          GL.setAmbientLight(scene.ambient)
+          Yami.GL.setAmbientLight(scene.ambient)
         }
         break
       }
@@ -212,10 +206,10 @@ import * as Yami from '../yami.js'
   FileScene.paramInput = function (event) {
     FileScene.update(
       FileScene.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.fileScene = FileScene
+  Yami.Inspector.fileScene = FileScene
 }

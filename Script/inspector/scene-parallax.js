@@ -2,18 +2,12 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { Scene } from '../scene/scene.js'
-// import { ConditionListInterface } from '../tools/condition-list-interface.js'
-// import { EventListInterface } from '../tools/event-list-interface.js'
-// import { ScriptListInterface } from '../tools/script-list-interface.js'
-
 // ******************************** 场景 - 视差图页面 ********************************
 
 {
   const SceneParallax = {
     // properties
-    owner: Scene,
+    owner: Yami.Scene,
     target: null,
     nameBox: $('#sceneParallax-name'),
     // methods
@@ -57,13 +51,13 @@ import * as Yami from '../yami.js'
     $('#sceneParallax-tint-3-slider').synchronize($('#sceneParallax-tint-3'))
 
     // 绑定条件列表
-    $('#sceneParallax-conditions').bind(new ConditionListInterface(this, Scene))
+    $('#sceneParallax-conditions').bind(new Yami.ConditionListInterface(this, Yami.Scene))
 
     // 绑定事件列表
-    $('#sceneParallax-events').bind(new EventListInterface(this, Scene))
+    $('#sceneParallax-events').bind(new Yami.EventListInterface(this, Yami.Scene))
 
     // 绑定脚本列表
-    $('#sceneParallax-scripts').bind(new ScriptListInterface(this, Scene))
+    $('#sceneParallax-scripts').bind(new Yami.ScriptListInterface(this, Yami.Scene))
 
     // 绑定脚本参数面板
     $('#sceneParallax-parameter-pane').bind($('#sceneParallax-scripts'))
@@ -85,11 +79,11 @@ import * as Yami from '../yami.js'
       #sceneParallax-tint-0-slider, #sceneParallax-tint-1-slider,
       #sceneParallax-tint-2-slider, #sceneParallax-tint-3-slider`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, Scene))
-    sliders.on('focus', Inspector.sliderFocus)
-    sliders.on('blur', Inspector.sliderBlur)
-    $('#sceneParallax-conditions, #sceneParallax-events, #sceneParallax-scripts').on('change', Scene.listChange)
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.Scene))
+    sliders.on('focus', Yami.Inspector.sliderFocus)
+    sliders.on('blur', Yami.Inspector.sliderBlur)
+    $('#sceneParallax-conditions, #sceneParallax-events, #sceneParallax-scripts').on('change', Yami.Scene.listChange)
   }
 
   // 创建视差图
@@ -133,7 +127,7 @@ import * as Yami from '../yami.js'
       this.target = parallax
 
       // 写入数据
-      const write = getElementWriter('sceneParallax', parallax)
+      const write = Yami.getElementWriter('sceneParallax', parallax)
       write('name')
       write('image')
       write('layer')
@@ -168,8 +162,8 @@ import * as Yami from '../yami.js'
   // 关闭数据
   SceneParallax.close = function () {
     if (this.target) {
-      Scene.list.unselect(this.target)
-      Scene.updateTarget()
+      Yami.Scene.list.unselect(this.target)
+      Yami.Scene.updateTarget()
       this.target = null
       $('#sceneParallax-conditions').clear()
       $('#sceneParallax-events').clear()
@@ -190,13 +184,13 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   SceneParallax.update = function (parallax, key, value) {
-    Scene.planToSave()
+    Yami.Scene.planToSave()
     switch (key) {
       case 'name':
         if (parallax.name !== value) {
           parallax.name = value
-          Scene.updateTargetInfo()
-          Scene.list.updateItemName(parallax)
+          Yami.Scene.updateTargetInfo()
+          Yami.Scene.list.updateItemName(parallax)
         }
         break
       case 'image':
@@ -204,14 +198,14 @@ import * as Yami from '../yami.js'
           parallax.image = value
           parallax.player.destroy()
           parallax.player.loadTexture()
-          Scene.list.updateIcon(parallax)
+          Yami.Scene.list.updateIcon(parallax)
         }
         break
       case 'layer':
       case 'order':
         if (parallax[key] !== value) {
           parallax[key] = value
-          Scene.loadObjects()
+          Yami.Scene.loadObjects()
         }
         break
       case 'light':
@@ -261,17 +255,17 @@ import * as Yami from '../yami.js'
         break
       }
     }
-    Scene.requestRendering()
+    Yami.Scene.requestRendering()
   }
 
   // 参数 - 输入事件
   SceneParallax.paramInput = function (event) {
     SceneParallax.update(
       SceneParallax.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.sceneParallax = SceneParallax
+  Yami.Inspector.sceneParallax = SceneParallax
 }

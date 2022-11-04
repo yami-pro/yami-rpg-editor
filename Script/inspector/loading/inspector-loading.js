@@ -1,12 +1,7 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-// import { Inspector } from './inspector.js'
-// import { History } from '../history/history.js'
-// import { ParamHistory } from '../history/param-history.js'
-// import { Log } from '../log/log.js'
-// import { Window } from '../tools/window.js'
+import { Inspector } from '../inspector.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 检查器加载 ********************************
 
@@ -23,7 +18,7 @@ Inspector.initialize = function () {
   // this.manager.switch('fileTrigger')
 
   // 设置历史操作处理器
-  History.processors['inspector-change'] = (operation, data) => {
+  Yami.History.processors['inspector-change'] = (operation, data) => {
     const {editor, target, changes} = data
     for (const change of changes) {
       const input = change.input
@@ -36,53 +31,53 @@ Inspector.initialize = function () {
         input.write(value)
         input.dispatchEvent(new Event('input'))
       } else {
-        const key = Inspector.getKey(input)
+        const key = Yami.Inspector.getKey(input)
         editor.update(target, key, value)
       }
     }
     editor.owner?.setTarget(target)
   }
-  History.processors['inspector-layer-change'] = (operation, data) => {
+  Yami.History.processors['inspector-layer-change'] = (operation, data) => {
     const {target, motion} = data
-    History.processors['inspector-change'](operation, data)
-    Animation.setMotion(motion)
-    Animation.openLayer(target)
+    Yami.History.processors['inspector-change'](operation, data)
+    Yami.Animation.setMotion(motion)
+    Yami.Animation.openLayer(target)
   }
-  History.processors['inspector-frame-change'] = (operation, data) => {
+  Yami.History.processors['inspector-frame-change'] = (operation, data) => {
     const {target, motion} = data
-    History.processors['inspector-change'](operation, data)
-    Animation.setMotion(motion)
-    Animation.selectFrame(target)
+    Yami.History.processors['inspector-change'](operation, data)
+    Yami.Animation.setMotion(motion)
+    Yami.Animation.selectFrame(target)
   }
-  History.processors['inspector-param-insert'] = (operation, data) => {
+  Yami.History.processors['inspector-param-insert'] = (operation, data) => {
     const {history, target} = data
     const {owner, list} = history
-    ParamHistory.restore(list, data, 'insert', operation)
+    Yami.ParamHistory.restore(list, data, 'insert', operation)
     owner.setTarget(target)
     owner.planToSave()
   }
-  History.processors['inspector-param-replace'] = (operation, data) => {
+  Yami.History.processors['inspector-param-replace'] = (operation, data) => {
     const {history, target} = data
     const {owner, list} = history
-    ParamHistory.restore(list, data, 'replace', operation)
+    Yami.ParamHistory.restore(list, data, 'replace', operation)
     owner.setTarget(target)
     owner.planToSave()
   }
-  History.processors['inspector-param-delete'] = (operation, data) => {
+  Yami.History.processors['inspector-param-delete'] = (operation, data) => {
     const {history, target} = data
     const {owner, list} = history
-    ParamHistory.restore(list, data, 'delete', operation)
+    Yami.ParamHistory.restore(list, data, 'delete', operation)
     owner.setTarget(target)
     owner.planToSave()
   }
-  History.processors['inspector-param-toggle'] = (operation, data) => {
+  Yami.History.processors['inspector-param-toggle'] = (operation, data) => {
     const {history, target} = data
     const {owner, list} = history
-    ParamHistory.restore(list, data, 'toggle', operation)
+    Yami.ParamHistory.restore(list, data, 'toggle', operation)
     owner.setTarget(target)
     owner.planToSave()
   }
-  History.processors['script-parameter-change'] = (operation, data) => {
+  Yami.History.processors['script-parameter-change'] = (operation, data) => {
     const {editor, target, meta, list, parameters, key, value} = data
     data.value = parameters[key]
     parameters[key] = value
@@ -188,7 +183,7 @@ Inspector.getKey = function (element) {
 Inspector.inspectorResize = function IIFE() {
   const resize = new Event('resize')
   return function (event) {
-    const page = Inspector.manager.active
+    const page = Yami.Inspector.manager.active
     if (page instanceof HTMLElement) {
       page.dispatchEvent(resize)
     }
@@ -264,7 +259,7 @@ Inspector.scrollPointerdown = function (event) {
         event.mode = 'scroll'
         event.scrollLeft = this.scrollLeft
         event.scrollTop = this.scrollTop
-        Cursor.open('cursor-grab')
+        Yami.Cursor.open('cursor-grab')
         window.on('pointerup', this.scrollPointerup)
         window.on('pointermove', this.scrollPointermove)
       }
@@ -274,12 +269,12 @@ Inspector.scrollPointerdown = function (event) {
 
 // 输入框 - 获得焦点事件
 Inspector.inputFocus = function (event) {
-  if (Window.activeElement === null) {
+  if (Yami.Window.activeElement === null) {
     const {manager} = Inspector
     if (manager.focusing !== null) {
       const id1 = manager.focusing.id
       const id2 = this.id
-      return Log.throw(new Error(
+      return Yami.Log.throw(new Error(
         `Inspector focus error: ${id1} -> ${id2}`
       ))
     }
@@ -291,7 +286,7 @@ Inspector.inputFocus = function (event) {
 // 输入框 - 失去焦点事件 - 生成器
 Inspector.inputBlur = function (editor, owner, callback = null) {
   return function (event) {
-    if (Window.activeElement === null) {
+    if (Yami.Window.activeElement === null) {
       // 鼠标点击DevTools后再点击其他地方可能额外触发一次blur事件
       // 因此需要判断manager.focusing
       const {manager} = Inspector

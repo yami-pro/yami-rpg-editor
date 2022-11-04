@@ -2,17 +2,12 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { UI } from '../ui/ui.js'
-// import { EventListInterface } from '../tools/event-list-interface.js'
-// import { ScriptListInterface } from '../tools/script-list-interface.js'
-
 // ******************************** 元素页面 ********************************
 
 {
   const UIElement = {
     // properties
-    owner: UI,
+    owner: Yami.UI,
     target: null,
     nameBox: $('#uiElement-name'),
     generalGroup: $('#uiElement-general-group'),
@@ -36,10 +31,10 @@ import * as Yami from '../yami.js'
   // 初始化
   UIElement.initialize = function () {
     // 绑定事件列表
-    $('#uiElement-events').bind(new EventListInterface(this, UI))
+    $('#uiElement-events').bind(new Yami.EventListInterface(this, Yami.UI))
 
     // 绑定脚本列表
-    $('#uiElement-scripts').bind(new ScriptListInterface(this, UI))
+    $('#uiElement-scripts').bind(new Yami.ScriptListInterface(this, Yami.UI))
 
     // 绑定脚本参数面板
     this.parameterPane.bind($('#uiElement-scripts'))
@@ -51,7 +46,7 @@ import * as Yami from '../yami.js'
     // this.scriptsGroup.remove()
 
     // 侦听事件
-    Inspector.manager.on('switch', this.pageSwitch)
+    Yami.Inspector.manager.on('switch', this.pageSwitch)
     const alignElements = $('.uiElement-transform-align')
     const otherElements = $(`#uiElement-name, #uiElement-transform-anchorX, #uiElement-transform-anchorY,
       #uiElement-transform-x, #uiElement-transform-x2, #uiElement-transform-y, #uiElement-transform-y2,
@@ -60,9 +55,9 @@ import * as Yami from '../yami.js'
       #uiElement-transform-skewX, #uiElement-transform-skewY, #uiElement-transform-opacity`)
     alignElements.on('click', this.alignmentClick)
     otherElements.on('input', this.paramInput)
-    otherElements.on('focus', Inspector.inputFocus)
-    otherElements.on('blur', Inspector.inputBlur(this, UI))
-    $('#uiElement-events, #uiElement-scripts').on('change', UI.listChange)
+    otherElements.on('focus', Yami.Inspector.inputFocus)
+    otherElements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
+    $('#uiElement-events, #uiElement-scripts').on('change', Yami.UI.listChange)
   }
 
   // 创建变换参数
@@ -93,7 +88,7 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = getElementWriter('uiElement', node)
+      const write = Yami.getElementWriter('uiElement', node)
       write('name')
       write('transform-anchorX')
       write('transform-anchorY')
@@ -153,14 +148,14 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   UIElement.update = function (node, key, value) {
-    UI.planToSave()
+    Yami.UI.planToSave()
     const element = node.instance
     const transform = node.transform
     switch (key) {
       case 'name':
         if (node.name !== value) {
           node.name = value
-          UI.list.updateItemName(node)
+          Yami.UI.list.updateItemName(node)
         }
         break
       case 'transform-anchorX':
@@ -188,7 +183,7 @@ import * as Yami from '../yami.js'
         break
       }
     }
-    UI.requestRendering()
+    Yami.UI.requestRendering()
   }
 
   // 页面 - 切换事件
@@ -202,7 +197,7 @@ import * as Yami from '../yami.js'
       case 'uiVideo':
       case 'uiWindow':
       case 'uiContainer': {
-        const page = Inspector.manager.active
+        const page = Yami.Inspector.manager.active
         page.insertBefore(this.transformGroup, page.firstChild)
         page.insertBefore(this.generalGroup, page.firstChild)
         page.appendChild(this.eventsGroup)
@@ -295,9 +290,9 @@ import * as Yami from '../yami.js'
     }
     if (changes.length !== 0) {
       element.resize()
-      UI.planToSave()
-      UI.requestRendering()
-      UI.history.save({
+      Yami.UI.planToSave()
+      Yami.UI.requestRendering()
+      Yami.UI.history.save({
         type: 'inspector-change',
         editor: UIElement,
         target: UIElement.target,
@@ -310,10 +305,10 @@ import * as Yami from '../yami.js'
   UIElement.paramInput = function (event) {
     UIElement.update(
       UIElement.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.uiElement = UIElement
+  Yami.Inspector.uiElement = UIElement
 }

@@ -2,15 +2,12 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { UI } from '../ui/ui.js'
-
 // ******************************** 元素 - 进度条页面 ********************************
 
 {
   const UIProgressBar = {
     // properties
-    owner: UI,
+    owner: Yami.UI,
     target: null,
     // methods
     initialize: null,
@@ -95,15 +92,15 @@ import * as Yami from '../yami.js'
       #uiProgressBar-color-0-slider, #uiProgressBar-color-1-slider,
       #uiProgressBar-color-2-slider, #uiProgressBar-color-3-slider`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, UI))
-    sliders.on('focus', Inspector.sliderFocus)
-    sliders.on('blur', Inspector.sliderBlur)
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
+    sliders.on('focus', Yami.Inspector.sliderFocus)
+    sliders.on('blur', Yami.Inspector.sliderBlur)
   }
 
   // 创建图像
   UIProgressBar.create = function () {
-    const transform = UIElement.createTransform()
+    const transform = Yami.UIElement.createTransform()
     transform.width = 100
     transform.height = 100
     return {
@@ -140,7 +137,7 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = getElementWriter('uiProgressBar', node)
+      const write = Yami.getElementWriter('uiProgressBar', node)
       write('image')
       write('display')
       write('clip')
@@ -157,23 +154,23 @@ import * as Yami from '../yami.js'
       write('color-1')
       write('color-2')
       write('color-3')
-      UIElement.open(node)
+      Yami.UIElement.open(node)
     }
   }
 
   // 关闭数据
   UIProgressBar.close = function () {
     if (this.target) {
-      UI.list.unselect(this.target)
-      UI.updateTarget()
-      UIElement.close()
+      Yami.UI.list.unselect(this.target)
+      Yami.UI.updateTarget()
+      Yami.UIElement.close()
       this.target = null
     }
   }
 
   // 更新数据
   UIProgressBar.update = function (node, key, value) {
-    UI.planToSave()
+    Yami.UI.planToSave()
     const element = node.instance
     switch (key) {
       case 'image':
@@ -206,17 +203,17 @@ import * as Yami from '../yami.js'
         break
       }
     }
-    UI.requestRendering()
+    Yami.UI.requestRendering()
   }
 
   // 参数 - 输入事件
   UIProgressBar.paramInput = function (event) {
     UIProgressBar.update(
       UIProgressBar.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.uiProgressBar = UIProgressBar
+  Yami.Inspector.uiProgressBar = UIProgressBar
 }

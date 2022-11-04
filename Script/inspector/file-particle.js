@@ -1,6 +1,5 @@
 'use strict'
 
-// import { Inspector } from './inspector.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 文件 - 粒子页面 ********************************
@@ -19,5 +18,5 @@ import * as Yami from '../yami.js'
     }
   }
 
-  Inspector.fileParticle = FileParticle
+  Yami.Inspector.fileParticle = FileParticle
 }

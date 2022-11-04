@@ -2,18 +2,12 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { Scene } from '../scene/scene.js'
-// import { ConditionListInterface } from '../tools/condition-list-interface.js'
-// import { EventListInterface } from '../tools/event-list-interface.js'
-// import { ScriptListInterface } from '../tools/script-list-interface.js'
-
 // ******************************** 场景 - 粒子页面 ********************************
 
 {
   const SceneParticle = {
     // properties
-    owner: Scene,
+    owner: Yami.Scene,
     target: null,
     nameBox: $('#sceneParticle-name'),
     // methods
@@ -30,13 +24,13 @@ import * as Yami from '../yami.js'
   // 初始化
   SceneParticle.initialize = function () {
     // 绑定条件列表
-    $('#sceneParticle-conditions').bind(new ConditionListInterface(this, Scene))
+    $('#sceneParticle-conditions').bind(new Yami.ConditionListInterface(this, Yami.Scene))
 
     // 绑定事件列表
-    $('#sceneParticle-events').bind(new EventListInterface(this, Scene))
+    $('#sceneParticle-events').bind(new Yami.EventListInterface(this, Yami.Scene))
 
     // 绑定脚本列表
-    $('#sceneParticle-scripts').bind(new ScriptListInterface(this, Scene))
+    $('#sceneParticle-scripts').bind(new Yami.ScriptListInterface(this, Yami.Scene))
 
     // 绑定脚本参数面板
     $('#sceneParticle-parameter-pane').bind($('#sceneParticle-scripts'))
@@ -46,9 +40,9 @@ import * as Yami from '../yami.js'
       #sceneParticle-particleId, #sceneParticle-x, #sceneParticle-y,
       #sceneParticle-angle, #sceneParticle-scale, #sceneParticle-speed`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, Scene))
-    $('#sceneParticle-conditions, #sceneParticle-events, #sceneParticle-scripts').on('change', Scene.listChange)
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.Scene))
+    $('#sceneParticle-conditions, #sceneParticle-events, #sceneParticle-scripts').on('change', Yami.Scene.listChange)
   }
 
   // 创建粒子
@@ -77,7 +71,7 @@ import * as Yami from '../yami.js'
       this.target = particle
 
       // 写入数据
-      const write = getElementWriter('sceneParticle', particle)
+      const write = Yami.getElementWriter('sceneParticle', particle)
       write('name')
       write('particleId')
       write('x')
@@ -94,8 +88,8 @@ import * as Yami from '../yami.js'
   // 关闭数据
   SceneParticle.close = function () {
     if (this.target) {
-      Scene.list.unselect(this.target)
-      Scene.updateTarget()
+      Yami.Scene.list.unselect(this.target)
+      Yami.Scene.updateTarget()
       this.target = null
       $('#sceneParticle-conditions').clear()
       $('#sceneParticle-events').clear()
@@ -116,20 +110,20 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   SceneParticle.update = function (particle, key, value) {
-    Scene.planToSave()
+    Yami.Scene.planToSave()
     switch (key) {
       case 'name':
         if (particle.name !== value) {
           particle.name = value
-          Scene.updateTargetInfo()
-          Scene.list.updateItemName(particle)
+          Yami.Scene.updateTargetInfo()
+          Yami.Scene.list.updateItemName(particle)
         }
         break
       case 'particleId':
         if (particle.particleId !== value) {
           particle.particleId = value
-          Scene.loadParticleContext(particle)
-          Scene.list.updateIcon(particle)
+          Yami.Scene.loadParticleContext(particle)
+          Yami.Scene.list.updateIcon(particle)
         }
         break
       case 'x':
@@ -168,17 +162,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Scene.requestRendering()
+    Yami.Scene.requestRendering()
   }
 
   // 参数 - 输入事件
   SceneParticle.paramInput = function (event) {
     SceneParticle.update(
       SceneParticle.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.sceneParticle = SceneParticle
+  Yami.Inspector.sceneParticle = SceneParticle
 }

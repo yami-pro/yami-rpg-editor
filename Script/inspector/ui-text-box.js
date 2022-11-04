@@ -2,15 +2,12 @@
 
 import * as Yami from '../yami.js'
 
-// import { Inspector } from './inspector.js'
-// import { UI } from '../ui/ui.js'
-
 // ******************************** 元素 - 文本框页面 ********************************
 
 {
   const UITextBox = {
     // properties
-    owner: UI,
+    owner: Yami.UI,
     target: null,
     // methods
     initialize: null,
@@ -57,13 +54,13 @@ import * as Yami from '../yami.js'
       #uiTextBox-decimals, #uiTextBox-padding, #uiTextBox-size, #uiTextBox-font,
       #uiTextBox-color, #uiTextBox-selectionColor, #uiTextBox-selectionBgColor`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Inspector.inputFocus)
-    elements.on('blur', Inspector.inputBlur(this, UI))
+    elements.on('focus', Yami.Inspector.inputFocus)
+    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
   }
 
   // 创建文本框
   UITextBox.create = function () {
-    const transform = UIElement.createTransform()
+    const transform = Yami.UIElement.createTransform()
     transform.width = 100
     transform.height = 24
     return {
@@ -101,7 +98,7 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = getElementWriter('uiTextBox', node)
+      const write = Yami.getElementWriter('uiTextBox', node)
       const number = $('#uiTextBox-number')
       number.input.min = node.min
       number.input.max = node.max
@@ -120,23 +117,23 @@ import * as Yami from '../yami.js'
       write('color')
       write('selectionColor')
       write('selectionBgColor')
-      UIElement.open(node)
+      Yami.UIElement.open(node)
     }
   }
 
   // 关闭数据
   UITextBox.close = function () {
     if (this.target) {
-      UI.list.unselect(this.target)
-      UI.updateTarget()
-      UIElement.close()
+      Yami.UI.list.unselect(this.target)
+      Yami.UI.updateTarget()
+      Yami.UIElement.close()
       this.target = null
     }
   }
 
   // 更新数据
   UITextBox.update = function (node, key, value) {
-    UI.planToSave()
+    Yami.UI.planToSave()
     const element = node.instance
     switch (key) {
       case 'type':
@@ -176,17 +173,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    UI.requestRendering()
+    Yami.UI.requestRendering()
   }
 
   // 参数 - 输入事件
   UITextBox.paramInput = function (event) {
     UITextBox.update(
       UITextBox.target,
-      Inspector.getKey(this),
+      Yami.Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Inspector.uiTextBox = UITextBox
+  Yami.Inspector.uiTextBox = UITextBox
 }
