@@ -120,7 +120,7 @@ Editor.open = async function (path) {
     Yami.Command.custom.loadCommandList()
     Yami.Animation.Player.updateStep()
   } catch (error) {
-    Log.throw(error)
+    Yami.Log.throw(error)
     const type =
       error instanceof URIError     ? 'Failed to read file'
     : error instanceof SyntaxError  ? 'Syntax error'

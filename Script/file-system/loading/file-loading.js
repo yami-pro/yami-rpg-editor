@@ -1,13 +1,7 @@
 'use strict'
 
 import { File } from '../file.js'
-
-import { UI } from '../../ui/ui.js'
-import { FS, FSP } from '../../file-system/file-system.js'
-import { Path } from '../../file-system/path.js'
-import { Log } from '../../log/log.js'
-import { Data } from '../../data/data.js'
-import { Editor } from '../../editor/editor.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 文件系统加载 ********************************
 
@@ -21,7 +15,7 @@ File.get = function (descriptor) {
   } else if (descriptor.local) {
     path = descriptor.local
   } else {
-    Log.throw(new Error('Invalid parameter'))
+    Yami.Log.throw(new Error('Invalid parameter'))
   }
   const type = descriptor.type
   switch (type) {
@@ -29,7 +23,7 @@ File.get = function (descriptor) {
       // 如果图像存在guid
       // 文件路径添加版本号
       if (descriptor.guid) {
-        const meta = Data.manifest.guidMap[descriptor.guid]
+        const meta = Yami.Data.manifest.guidMap[descriptor.guid]
         if (meta) path += `?ver=${meta.mtimeMs}`
       }
       const promises = this.promises
@@ -71,16 +65,16 @@ File.get = function (descriptor) {
 
 // 获取路径
 File.getPath = function (guid) {
-  return Data.manifest.guidMap[guid]?.path ?? ''
+  return Yami.Data.manifest.guidMap[guid]?.path ?? ''
 }
 
 // 保存项目
 File.save = function (hint = true) {
   // 保存元数据清单文件
-  Data.saveManifest()
+  Yami.Data.saveManifest()
 
   // 保存改变的文件
-  const {guidMap, changes} = Data.manifest
+  const {guidMap, changes} = Yami.Data.manifest
   for (const meta of changes) {
     // 验证元数据有效性
     if (guidMap[meta.guid] === meta) {
@@ -93,30 +87,30 @@ File.save = function (hint = true) {
 
   // 改变指针样式
   if (hint) {
-    Cursor.open('cursor-wait')
+    Yami.Cursor.open('cursor-wait')
     setTimeout(() => {
-      Cursor.close('cursor-wait')
+      Yami.Cursor.close('cursor-wait')
     }, 100)
   }
 
   // 这里没有考虑写入失败的情况
-  return Promise.all(Editor.promises)
+  return Promise.all(Yami.Editor.promises)
 }
 
 // 保存文件
 File.saveFile = function (meta) {
   switch (meta) {
-    case Scene.meta:
-      Scene.save()
+    case Yami.Scene.meta:
+      Yami.Scene.save()
       break
-    case UI.meta:
-      UI.save()
+    case Yami.UI.meta:
+      Yami.UI.save()
       break
-    case Animation.meta:
-      Animation.save()
+    case Yami.Animation.meta:
+      Yami.Animation.save()
       break
-    case Particle.meta:
-      Particle.save()
+    case Yami.Particle.meta:
+      Yami.Particle.save()
       break
   }
   let text
@@ -133,9 +127,9 @@ File.saveFile = function (meta) {
   }
   const path = meta.path
   const route = File.route(path)
-  return Editor.protectPromise(
-    FSP.stat(route).then(
-      stats => FSP.writeFile(route, text)
+  return Yami.Editor.protectPromise(
+    Yami.FSP.stat(route).then(
+      stats => Yami.FSP.writeFile(route, text)
     ).then(() => {
       console.log(`写入文件:${path}`)
     }).catch(error => {
@@ -147,7 +141,7 @@ File.saveFile = function (meta) {
 // 计划保存
 File.planToSave = function (meta) {
   if (meta instanceof Object) {
-    return Data.manifest.changes.append(meta)
+    return Yami.Data.manifest.changes.append(meta)
   } else {
     throw new Error('Invalid file meta')
   }
@@ -155,7 +149,7 @@ File.planToSave = function (meta) {
 
 // 取消保存
 File.cancelSave = function (meta) {
-  return Data.manifest.changes.remove(meta)
+  return Yami.Data.manifest.changes.remove(meta)
 }
 
 // 解析文件大小
@@ -202,11 +196,11 @@ File.getFileName = function IIFE() {
   return function (dir, base, ext = '') {
     let path = `${dir}/${base}${ext}`
     let route = File.route(path)
-    if (FS.existsSync(route)) {
+    if (Yami.FS.existsSync(route)) {
       for (let i = 1; true; i++) {
         path = `${dir}/${base} ${i}${ext}`
         route = File.route(path)
-        if (!FS.existsSync(route)) {
+        if (!Yami.FS.existsSync(route)) {
           break
         }
       }
@@ -288,8 +282,8 @@ File.showSaveDialog = function (options) {
 // 解析元数据对应的文件名称
 File.parseMetaName = function (meta) {
   const alias = File.filterGUID(meta.path)
-  const extname = Path.extname(alias)
-  return Path.basename(alias, extname)
+  const extname = Yami.Path.extname(alias)
+  return Yami.Path.basename(alias, extname)
 }
 
 // 过滤文件名中的GUID

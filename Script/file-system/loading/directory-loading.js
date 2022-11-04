@@ -1,15 +1,7 @@
 'use strict'
 
 import { Directory } from '../directory.js'
-import { FolderItem } from '../folder-item.js'
-import { FileItem } from '../file-item.js'
-import { FS, FSP } from '../file-system.js'
-
-import { Path } from '../../file-system/path.js'
-import { Meta } from '../../data/meta.js'
-import { Log } from '../../log/log.js'
-import { Window } from '../../tools/window.js'
-import { Data } from '../../data/data.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 目录对象加载 ********************************
 
@@ -22,11 +14,11 @@ Directory.initialize = function () {
 // 读取目录
 Directory.read = function () {
   const symbol = this.symbol = Symbol()
-  return FolderItem.create('Assets').then(assets => {
+  return Yami.FolderItem.create('Assets').then(assets => {
     if (this.symbol === symbol) {
       this.symbol = null
       this.assets = assets
-      Meta.meta.versionId++
+      Yami.Meta.meta.versionId++
       return assets.update().then(
         async ({promises}) => {
           this.createInoMap()
@@ -35,11 +27,11 @@ Directory.read = function () {
           }
         },
         error => {
-          Log.throw(error)
-          Window.confirm({
+          Yami.Log.throw(error)
+          Yami.Window.confirm({
             message: 'Failed to read directory',
             close: () => {
-              Editor.close(false)
+              Yami.Editor.close(false)
             },
           }, [{
             label: 'Confirm',
@@ -62,7 +54,7 @@ Directory.update = function () {
   const {assets} = this
   if (assets !== null &&
     this.updating === null) {
-    Meta.meta.versionId++
+    Yami.Meta.meta.versionId++
     this.updating = assets.update().then(
       async ({changed, promises}) => {
         if (this.assets !== assets) {
@@ -70,7 +62,7 @@ Directory.update = function () {
         }
         if (changed) {
           this.createInoMap()
-          Data.manifest.update()
+          Yami.Data.manifest.update()
         }
         if (promises.length) {
           await Promise.all(promises)
@@ -96,7 +88,7 @@ Directory.getFolder = function (path) {
   const length = nodes.length
   let target = this.assets
   outer: for (let i = 1; i < length; i++) {
-    if (target instanceof FolderItem) {
+    if (target instanceof Yami.FolderItem) {
       const path = target.path + '/' + nodes[i]
       for (const item of target.subfolders) {
         if (item.path === path) {
@@ -112,12 +104,12 @@ Directory.getFolder = function (path) {
 
 // 获取文件
 Directory.getFile = function (path) {
-  const dirname = Path.dirname(path)
+  const dirname = Yami.Path.dirname(path)
   const folder = this.getFolder(dirname)
   if (folder.path === dirname) {
     for (const item of folder.children) {
       if (item.path === path &&
-        item instanceof FileItem) {
+        item instanceof Yami.FileItem) {
         return item
       }
     }
@@ -129,7 +121,7 @@ Directory.getFile = function (path) {
 Directory.readdir = function IIFE() {
   const options = {withFileTypes: true}
   const read = (dirPath, dir) => {
-    return FSP.readdir(
+    return Yami.FSP.readdir(
       dirPath,
       options,
     ).then(
@@ -159,13 +151,13 @@ Directory.readdir = function IIFE() {
     const readPromises = []
     const length = paths.length
     for (let i = 0; i < length; i++) {
-      statPromises.push(FSP.stat(paths[i]))
+      statPromises.push(Yami.FSP.stat(paths[i]))
     }
     for (let i = 0; i < length; i++) {
       try {
         const stats = await statPromises[i]
         const path = paths[i]
-        const name = Path.basename(path)
+        const name = Yami.Path.basename(path)
         if (stats.isDirectory()) {
           const children = []
           dir.push({name, path, children})
@@ -197,7 +189,7 @@ Directory.searchFiles = function IIFE() {
       if (keyword.test(item.alias ?? item.name)) {
         list.push(item)
       }
-      if (item instanceof FolderItem) {
+      if (item instanceof Yami.FolderItem) {
         search(filters, keyword, item.children, list)
       }
     }
@@ -213,7 +205,7 @@ Directory.existFiles = function IIFE() {
     const promises = []
     for (const file of dir) {
       const path = `${dirPath}/${file.name}`
-      promises.push(FSP.stat(path))
+      promises.push(Yami.FSP.stat(path))
       if (file.children?.length) {
         promises.push(check(
           path,
@@ -236,14 +228,14 @@ Directory.existFiles = function IIFE() {
 // 过滤文件
 Directory.filterFiles = function IIFE() {
   const sorter = (a, b) => {
-    if (a instanceof FileItem) {
-      if (b instanceof FileItem) {
+    if (a instanceof Yami.FileItem) {
+      if (b instanceof Yami.FileItem) {
         return -a.path.localeCompare(b.path)
       } else {
         return -1
       }
     } else {
-      if (b instanceof FileItem) {
+      if (b instanceof Yami.FileItem) {
         return 1
       } else {
         return -a.path.localeCompare(b.path)
@@ -264,7 +256,7 @@ Directory.filterFiles = function IIFE() {
           continue
         }
       }
-      if (file instanceof FolderItem) {
+      if (file instanceof Yami.FolderItem) {
         folders.push(path)
       }
     }
@@ -278,7 +270,7 @@ Directory.deleteFiles = function IIFE() {
   const trash = async files => {
     const promises = []
     for (const file of files) {
-      const path = File.route(file.path)
+      const path = Yami.File.route(file.path)
       promises.push(invoke('trash-item', path))
     }
     if (promises.length !== 0) {
@@ -298,7 +290,7 @@ Directory.moveFiles = function IIFE() {
       const path = `${dirPath}/${file.name}`
       if (!existings[path]) {
         existings[path] = true
-        promises.push(FSP.rename(file.path, path))
+        promises.push(Yami.FSP.rename(file.path, path))
         // if (file.children?.length) {
         //   promises.push(move(
         //     path,
@@ -326,9 +318,9 @@ Directory.saveFiles = function IIFE() {
   const save = async (files, changes, metaset) => {
     const promises = []
     for (const file of files) {
-      if (file instanceof FolderItem) {
+      if (file instanceof Yami.FolderItem) {
         promises.push(save(file.children, changes))
-      } else if (FileItem.isDataFile(file)) {
+      } else if (Yami.FileItem.isDataFile(file)) {
         const meta = file.meta
         if (changes.includes(meta)) {
           promises.push(File.saveFile(meta))
@@ -342,7 +334,7 @@ Directory.saveFiles = function IIFE() {
   }
   return function (files) {
     const metaset = []
-    const changes = Data.manifest.changes
+    const changes = Yami.Data.manifest.changes
     return save(files, changes, metaset).then(result => {
       for (const meta of metaset) {
         changes.remove(meta)
@@ -357,9 +349,9 @@ Directory.copyFiles = function IIFE() {
   const copy = async (dirPath, dir, suffix, existings) => {
     const promises = []
     for (const file of dir) {
-      const name = File.filterGUID(file.name)
-      const ext = Path.extname(name)
-      const base = Path.basename(name, ext)
+      const name = Yami.File.filterGUID(file.name)
+      const ext = Yami.Path.extname(name)
+      const base = Yami.Path.basename(name, ext)
       // 这里必须加上Copy标记来避免混淆
       // 否则可能会破坏对原始文件的引用
       let path = `${dirPath}/${base}${suffix}${ext}`
@@ -367,7 +359,7 @@ Directory.copyFiles = function IIFE() {
       existings[path] = true
       promises.push((existed
       ? Promise.resolve()
-      : FSP.stat(path)
+      : Yami.FSP.stat(path)
       ).then(
         stats => {
           for (let i = 2;; i++) {
@@ -376,7 +368,7 @@ Directory.copyFiles = function IIFE() {
               continue
             }
             existings[path] = true
-            if (!FS.existsSync(path)) {
+            if (!Yami.FS.existsSync(path)) {
               break
             }
           }
@@ -385,12 +377,12 @@ Directory.copyFiles = function IIFE() {
       ).finally(() => {
         const {children} = file
         if (children) {
-          FS.mkdirSync(path)
+          Yami.FS.mkdirSync(path)
           if (children.length !== 0) {
             return copy(path, children, suffix, existings)
           }
         } else {
-          return FSP.copyFile(file.path, path)
+          return Yami.FSP.copyFile(file.path, path)
         }
       }))
     }
@@ -406,8 +398,8 @@ Directory.copyFiles = function IIFE() {
 // 排序文件列表
 Directory.sortFiles = function IIFE() {
   const sorter = (a, b) => {
-    if (a instanceof FileItem) {
-      if (b instanceof FileItem) {
+    if (a instanceof Yami.FileItem) {
+      if (b instanceof Yami.FileItem) {
         // 优先比较基本名称，相同时再比较扩展名称
         const r1 = a.basename.localeCompare(b.basename)
         if (r1 !== 0) return r1
@@ -423,7 +415,7 @@ Directory.sortFiles = function IIFE() {
         return 1
       }
     } else {
-      if (b instanceof FileItem) {
+      if (b instanceof Yami.FileItem) {
         return -1
       } else {
         return a.name.localeCompare(b.name)
@@ -439,7 +431,7 @@ Directory.sortFiles = function IIFE() {
 Directory.createInoMap = function IIFE() {
   const register = (map, item) => {
     map[item.stats.ino] = item
-    if (item instanceof FolderItem) {
+    if (item instanceof Yami.FolderItem) {
       const children = item.children
       const length = children.length
       for (let i = 0; i < length; i++) {
@@ -449,7 +441,7 @@ Directory.createInoMap = function IIFE() {
   }
   return function () {
     const {assets} = Directory
-    if (assets instanceof FolderItem) {
+    if (assets instanceof Yami.FolderItem) {
       register(Directory.inoMap = {}, assets)
     }
   }

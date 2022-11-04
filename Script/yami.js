@@ -148,11 +148,11 @@ export {} from './config/config-reading.js'
 
 export {
   Directory,
-  FileItem,
   FS,
   FSP,
   File,
   FolderItem,
+  FileItem,
   GUID,
   Path
 } from './file-system/index.js'
@@ -236,3 +236,5 @@ export {
 } from './tools/index.js'
 
 export { Variable } from './variable/index.js'
+
+export { Editor } from './editor/editor.js'

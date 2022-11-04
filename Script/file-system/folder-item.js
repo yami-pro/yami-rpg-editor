@@ -1,11 +1,6 @@
 'use strict'
 
-import { FS, FSP } from './file-system.js'
-import { File } from './file.js'
-import { Path } from './path.js'
-import { FileItem } from './file-item.js'
-import { Directory } from './directory.js'
-import { Meta } from '../data/meta.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文件夹项目 ********************************
 
@@ -46,8 +41,8 @@ class FolderItem {
   // 更新目录
   async update(context = {changed: false, promises: []}) {
     const bigint = FolderItem.bigint
-    const path = File.route(this.path)
-    const pStat = FSP.stat(path, bigint)
+    const path = Yami.File.route(this.path)
+    const pStat = Yami.FSP.stat(path, bigint)
     const pReaddir = this.readdir(context)
     const stats = await pStat
     if (this.stats?.mtimeMs !== stats.mtimeMs) {
@@ -73,8 +68,8 @@ class FolderItem {
 
     // 读取新的文件目录
     const dir = this.path
-    const path = File.route(dir)
-    const files = await FSP.readdir(
+    const path = Yami.File.route(dir)
+    const files = await Yami.FSP.readdir(
       path, {withFileTypes: true},
     )
     const length = files.length
@@ -96,7 +91,7 @@ class FolderItem {
         children[i] = item
         subfolders.push(item)
       } else {
-        promises[i] = FSP.stat(File.route(path), bigint)
+        promises[i] = Yami.FSP.stat(Yami.File.route(path), bigint)
         children[i] = path
       }
     }
@@ -115,9 +110,9 @@ class FolderItem {
       if (item === undefined ||
         item.stats.mtimeMs !== stats.mtimeMs) {
         const name = files[i].name
-        const extname = Path.extname(name)
+        const extname = Yami.Path.extname(name)
         const type = extnameToTypeMap[extname.toLowerCase()] ?? 'other'
-        item = new FileItem(name, extname, path, type, stats)
+        item = new Yami.FileItem(name, extname, path, type, stats)
         if (item.promise instanceof Promise) {
           context.promises.push(item.promise.finally(() => {
             delete item.promise
@@ -127,7 +122,7 @@ class FolderItem {
       }
       const meta = item.meta
       if (meta !== null) {
-        meta.versionId = Meta.meta.versionId
+        meta.versionId = Yami.Meta.meta.versionId
       }
       children[i] = item
     }
@@ -176,13 +171,13 @@ class FolderItem {
     '.woff2': 'font',
   }
 
-  // FSP.stat选项 - 64位整数
+  // Yami.FSP.stat选项 - 64位整数
   // 默认类型的stats因为精度问题可能产生相同的ino
   static bigint = {bigint: true}
 
   // 静态方法 - 创建项目
   static async create(path) {
-    const name = Path.basename(path)
+    const name = Yami.Path.basename(path)
     const item = new FolderItem(name, path, null)
     return item
   }

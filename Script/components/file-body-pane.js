@@ -139,7 +139,7 @@ class FileBodyPane extends HTMLElement {
     const items = []
     for (const folder of folders) {
       for (const item of folder.children) {
-        if (item instanceof FolderItem ||
+        if (item instanceof Yami.FolderItem ||
           filters.includes(item.type)) {
           items.push(item)
         }
@@ -356,11 +356,11 @@ class FileBodyPane extends HTMLElement {
     if (element.changed) {
       element.changed = false
       const {file} = element
-      if (file instanceof FileItem) {
+      if (file instanceof Yami.FileItem) {
         this.updateFileElement(element)
         return
       }
-      if (file instanceof FolderItem) {
+      if (file instanceof Yami.FolderItem) {
         this.updateFolderElement(element)
         return
       }
@@ -374,12 +374,12 @@ class FileBodyPane extends HTMLElement {
     const length = dir.length
     for (let i = 0; i < length; i++) {
       const file = dir[i]
-      if (file instanceof FileItem) {
+      if (file instanceof Yami.FileItem) {
         elements[elements.count++] =
         this.createFileElement(file)
         continue
       }
-      if (file instanceof FolderItem) {
+      if (file instanceof Yami.FolderItem) {
         elements[elements.count++] =
         this.createFolderElement(file)
         continue
@@ -837,7 +837,7 @@ class FileBodyPane extends HTMLElement {
       case 1: {
         const file = files[0]
         dirname = file.path
-        if (file instanceof FileItem) {
+        if (file instanceof Yami.FileItem) {
           dirname = Yami.Path.dirname(dirname)
         }
         break
@@ -890,7 +890,7 @@ class FileBodyPane extends HTMLElement {
 
   // 打开文件
   openFile(file) {
-    if (file instanceof FolderItem) {
+    if (file instanceof Yami.FolderItem) {
       const {nav} = this.links
       nav.load(file)
       nav.scrollToSelection('middle')
@@ -1029,7 +1029,7 @@ class FileBodyPane extends HTMLElement {
     const files = this.selections
     const dialogs = Yami.Editor.config.dialogs
 
-    if (files.length === 1 && files[0] instanceof FileItem) {
+    if (files.length === 1 && files[0] instanceof Yami.FileItem) {
       // 导出单个文件
       const file = files[0]
       Yami.File.showSaveDialog({
@@ -1443,7 +1443,7 @@ class FileBodyPane extends HTMLElement {
       this.remove()
       item.nameBox.show()
       if (!name) return
-      if (file instanceof FileItem) {
+      if (file instanceof Yami.FileItem) {
         const guid = file.meta?.guid
         if (typeof guid === 'string') {
           filename += '.' + guid
@@ -1454,7 +1454,7 @@ class FileBodyPane extends HTMLElement {
         const dir = Yami.Path.dirname(file.path)
         const path = Yami.File.route(`${dir}/${filename}`)
         // 当目标文件不存在或就是自己时重命名
-        Yami.FSP.stat(path, FolderItem.bigint).then(stats => {
+        Yami.FSP.stat(path, Yami.FolderItem.bigint).then(stats => {
           if (stats.ino === file.stats.ino) {
             throw new Error('same file')
           }
