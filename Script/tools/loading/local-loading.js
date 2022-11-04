@@ -1,15 +1,7 @@
 'use strict'
 
 import { Local } from '../local.js'
-
-import { Path } from '../../file-system/path.js'
-import { FS, FSP } from '../../file-system/file-system.js'
-import { Editor } from '../../editor/editor.js'
-import { Log } from '../../log/log.js'
-import { File } from '../../file-system/file.js'
-import { TextBox } from '../../components/text-box.js'
-import { SelectBox } from '../../components/select-box.js'
-import { WindowFrame } from '../../components/window-frame.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 本地化对象加载 ********************************
 
@@ -17,7 +9,7 @@ import { WindowFrame } from '../../components/window-frame.js'
 Local.initialize = function () {
   // 读取语言包后显示菜单栏
   this.readLanguageList().then(() => {
-    return this.setLanguage(Editor.config.language)
+    return this.setLanguage(Yami.Editor.config.language)
   }).then(() => {
     $('#menu').addClass('visible')
   })
@@ -26,19 +18,19 @@ Local.initialize = function () {
 // 读取语言列表
 Local.readLanguageList = function () {
   const languages = this.languages = []
-  const dir = Path.resolve(__dirname, 'locales')
-  return FSP.readdir(dir, {withFileTypes: true}).then(files => {
+  const dir = Yami.Path.resolve(__dirname, 'locales')
+  return Yami.FSP.readdir(dir, {withFileTypes: true}).then(files => {
     const regexp = /\.(.+)$/
     for (const file of files) {
       if (file.isDirectory()) {
         continue
       }
       const name = file.name
-      const extname = Path.extname(name)
+      const extname = Yami.Path.extname(name)
       if (extname !== '.json') {
         continue
       }
-      const basename = Path.basename(name, extname)
+      const basename = Yami.Path.basename(name, extname)
       const match = basename.match(regexp)
       if (match) {
         languages.push({
@@ -56,14 +48,14 @@ Local.readLanguageList = function () {
     }
     return languages
   }).catch(error => {
-    Log.throw(error)
+    Yami.Log.throw(error)
     return languages
   })
 }
 
 // 设置语言
 Local.setLanguage = async function (language) {
-  Editor.config.language = language
+  Yami.Editor.config.language = language
   if (language === '') {
     language = 'en-US'
     let matchedWeight = 0
@@ -89,18 +81,18 @@ Local.setLanguage = async function (language) {
     if (this.active !== filename) {
       try {
         const path = `Locales/${filename}`
-        this.update(await File.get({local: path, type: 'json'}))
+        this.update(await Yami.File.get({local: path, type: 'json'}))
         this.active = filename
         this.language = language
         window.dispatchEvent(new Event('localize'))
       } catch (error) {
-        Log.throw(error)
+        Yami.Log.throw(error)
       }
     }
     return
   }
   // 找不到语言包时切换到自动模式
-  if (Editor.config.language) {
+  if (Yami.Editor.config.language) {
     return this.setLanguage('')
   }
 }
@@ -109,9 +101,9 @@ Local.setLanguage = async function (language) {
 Local.update = function IIFE() {
   // 延时100ms可以输出所有错误并触发系统音效
   const throwError = message => {
-    if (Log.devmode) {
+    if (Yami.Log.devmode) {
       setTimeout(() => {
-        Log.throw(new Error(`Localizing Error: ${message}`))
+        Yami.Log.throw(new Error(`Localizing Error: ${message}`))
       }, 100)
     }
   }
@@ -183,7 +175,7 @@ Local.setProperties = function IIFE() {
 // 设置元素
 Local.setElement = function IIFE() {
   const throwError = (element, message) => {
-    if (Log.devmode) {
+    if (Yami.Log.devmode) {
       let symbol
       if (element.id) {
         symbol = `element[#${element.id}]`
@@ -193,7 +185,7 @@ Local.setElement = function IIFE() {
         symbol = 'element[unknown]'
       }
       setTimeout(() => {
-        Log.throw(new Error(`Localizing Error: ${message.replace('@element', symbol)}`))
+        Yami.Log.throw(new Error(`Localizing Error: ${message.replace('@element', symbol)}`))
       }, 100)
     }
   }
@@ -202,7 +194,7 @@ Local.setElement = function IIFE() {
       element.textContent = item.content
     }
     if (item.title !== undefined) {
-      if (element instanceof WindowFrame) {
+      if (element instanceof Yami.WindowFrame) {
         element.setTitle(item.title)
       } else {
         throwError(element, 'typeof @element is not window-frame')
@@ -220,14 +212,14 @@ Local.setElement = function IIFE() {
       element.setTooltip(item.tip)
     }
     if (item.placeholder !== undefined) {
-      if (element instanceof TextBox) {
+      if (element instanceof Yami.TextBox) {
         element.setPlaceholder(item.placeholder)
       } else {
         throwError(element, 'typeof @element is not text-box')
       }
     }
     if (item.options !== undefined) {
-      if (element instanceof SelectBox) {
+      if (element instanceof Yami.SelectBox) {
         element.setItemNames(item.options)
       } else {
         throwError(element, 'typeof @element is not select-box')

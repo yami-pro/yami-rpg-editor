@@ -1,10 +1,6 @@
 'use strict'
 
-import { Window } from './window.js'
-
-import { Inspector } from '../inspector/inspector.js'
-import { IfCondition } from '../command/if-condition.js'
-import { NodeList } from '../components/node-list.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 条件列表接口类 ********************************
 
@@ -28,7 +24,7 @@ class ConditionListInterface {
     // 创建参数历史操作
     const {editor, owner} = this
     if (editor && owner) {
-      this.history = new Inspector.ParamHistory(editor, owner, list)
+      this.history = new Yami.Inspector.ParamHistory(editor, owner, list)
     }
 
     // 侦听事件
@@ -43,7 +39,7 @@ class ConditionListInterface {
       case 'boolean':
       case 'number':
       case 'string':
-        return Command.parseGlobalVariable(condition.key)
+        return Yami.Command.parseGlobalVariable(condition.key)
     }
   }
 
@@ -52,22 +48,22 @@ class ConditionListInterface {
     const variable = this.parseVariable(condition)
     switch (condition.type) {
       case 'boolean': {
-        const operator = IfCondition.parseBooleanOperation(condition)
+        const operator = Yami.IfCondition.parseBooleanOperation(condition)
         const value = condition.value.toString()
         return `${variable} ${operator} ${value}`
       }
       case 'number': {
-        const operator = IfCondition.parseNumberOperation(condition)
+        const operator = Yami.IfCondition.parseNumberOperation(condition)
         const value = condition.value.toString()
         return `${variable} ${operator} ${value}`
       }
       case 'string': {
-        const operator = IfCondition.parseStringOperation(condition)
-        const value = `"${Command.parseMultiLineString(condition.value)}"`
+        const operator = Yami.IfCondition.parseStringOperation(condition)
+        const value = `"${Yami.Command.parseMultiLineString(condition.value)}"`
         return `${variable} ${operator} ${value}`
       }
       case 'absent':
-        return Local.get('condition.absent')
+        return Yami.Local.get('condition.absent')
     }
   }
 
@@ -78,7 +74,7 @@ class ConditionListInterface {
     if (item?.conditions === list.read()) {
       const element = item.element
       const list = element?.parentNode
-      if (list instanceof NodeList) {
+      if (list instanceof Yami.NodeList) {
         list.updateConditionIcon(item)
       }
     }
@@ -91,9 +87,9 @@ class ConditionListInterface {
     operation: 'equal',
     value: true,
   }) {
-    Window.open('condition')
+    Yami.Window.open('condition')
     ConditionListInterface.target = this.target
-    const write = getElementWriter('condition')
+    const write = Yami.getElementWriter('condition')
     let booleanOperation = 'equal'
     let booleanValue = true
     let numberOperation = 'equal'
@@ -127,7 +123,7 @@ class ConditionListInterface {
 
   // 保存数据
   save() {
-    const read = getElementReader('condition')
+    const read = Yami.getElementReader('condition')
     const type = read('type')
     let condition
     switch (type) {
@@ -165,7 +161,7 @@ class ConditionListInterface {
         condition = {type}
         break
     }
-    Window.close('condition')
+    Yami.Window.close('condition')
     return condition
   }
 

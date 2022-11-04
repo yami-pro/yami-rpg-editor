@@ -5,7 +5,7 @@
 const Log = {
   // properties
   data: [],
-  devmode: false,
+  devmode: true,
   beep: false,
   beepdate: 0,
   // methods

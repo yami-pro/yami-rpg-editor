@@ -1,7 +1,7 @@
 'use strict'
 
 import { ArrayList } from '../array-list.js'
-import { Window } from '../window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 数组窗口加载 ********************************
 
@@ -23,7 +23,7 @@ ArrayList.open = function (target) {
   const label = target.previousSibling
   const alias = label.textContent
   $('#arrayList').setTitle(alias)
-  Window.open('arrayList')
+  Yami.Window.open('arrayList')
 
   // 写入数据
   this.list.write(target.read().slice())
@@ -34,14 +34,14 @@ ArrayList.open = function (target) {
 ArrayList.windowClose = function (event) {
   if (this.changed) {
     event.preventDefault()
-    const get = Local.createGetter('confirmation')
-    Window.confirm({
+    const get = Yami.Local.createGetter('confirmation')
+    Yami.Window.confirm({
       message: get('closeUnsavedData'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Window.close('arrayList')
+        Yami.Window.close('arrayList')
       },
     }, {
       label: get('no'),
@@ -64,14 +64,14 @@ ArrayList.listChange = function (event) {
 ArrayList.confirm = function (event) {
   this.changed = false
   this.target.input(this.list.read())
-  Window.close('arrayList')
+  Yami.Window.close('arrayList')
 }.bind(ArrayList)
 
 // 数组列表接口
 ArrayList.interface = {
   parsers: {
     number: number => number.toString(),
-    string: string => Command.parseMultiLineString(string),
+    string: string => Yami.Command.parseMultiLineString(string),
   },
   defaults: {
     number: 0,
@@ -107,7 +107,7 @@ ArrayList.interface = {
   open: function (value) {
     const {filter} = ArrayList.target
     value = value ?? this.defaults[filter]
-    Window.open(this.windows[filter])
+    Yami.Window.open(this.windows[filter])
     const input = this.inputs[filter]
     input.write(value)
     input.getFocus('all')
@@ -115,7 +115,7 @@ ArrayList.interface = {
   save: function () {
     const {filter} = ArrayList.target
     const value = this.inputs[filter].read()
-    Window.close(this.windows[filter])
+    Yami.Window.close(this.windows[filter])
     return value
   },
 }

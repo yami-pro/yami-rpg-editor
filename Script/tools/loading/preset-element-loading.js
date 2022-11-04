@@ -1,10 +1,7 @@
 'use strict'
 
 import { PresetElement } from '../preset-element.js'
-import { Window } from '../window.js'
-
-import { UI } from '../../ui/ui.js'
-import { Data } from '../../data/data.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 预设元素窗口加载 ********************************
 
@@ -17,7 +14,7 @@ PresetElement.initialize = function () {
   this.list.bind(() => this.nodes)
 
   // 列表 - 重写创建图标方法
-  this.list.createIcon = UI.list.createIcon
+  this.list.createIcon = Yami.UI.list.createIcon
 
   // 侦听事件
   this.ui.on('write', this.uiIdWrite)
@@ -29,12 +26,12 @@ PresetElement.initialize = function () {
 // 打开窗口
 PresetElement.open = function (target) {
   this.target = target
-  Window.open('presetElement')
+  Yami.Window.open('presetElement')
 
   // 写入数据
   const {ui, list} = this
-  const presetId = target.read() || (UI.target?.presetId ?? '')
-  const uiId = Data.uiLinks[presetId] ?? UI.meta?.guid ?? ''
+  const presetId = target.read() || (Yami.UI.target?.presetId ?? '')
+  const uiId = Yami.Data.uiLinks[presetId] ?? Yami.UI.meta?.guid ?? ''
   ui.write(uiId)
   ui.getFocus()
   const item = list.getItemByProperties({presetId})
@@ -69,7 +66,7 @@ PresetElement.buildNodes = function IIFE() {
 
 // 获取默认的预设元素ID
 PresetElement.getDefaultPresetId = function () {
-  return UI.target?.presetId ?? ''
+  return Yami.UI.target?.presetId ?? ''
 }
 
 // 窗口 - 已关闭事件
@@ -81,7 +78,7 @@ PresetElement.windowClosed = function (event) {
 
 // 界面ID - 写入事件
 PresetElement.uiIdWrite = function (event) {
-  const ui = Data.ui[event.value]
+  const ui = Yami.Data.ui[event.value]
   const nodes = ui ? PresetElement.buildNodes(ui.nodes) : Array.empty
   PresetElement.nodes = nodes
   PresetElement.list.update()
@@ -110,5 +107,5 @@ PresetElement.confirm = function (event) {
     return this.list.getFocus()
   }
   this.target.input(presetId)
-  Window.close('presetElement')
+  Yami.Window.close('presetElement')
 }.bind(PresetElement)

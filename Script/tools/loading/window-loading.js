@@ -1,14 +1,7 @@
 'use strict'
 
 import { Window } from '../window.js'
-
-import { measureText } from '../../util/util.js'
-import { Title } from '../../title/title.js'
-import { Menubar } from '../../title/menu-bar.js'
-import { Scene } from '../../scene/scene.js'
-import { Layout } from '../../layout/layout.js'
-import { UI } from '../../ui/ui.js'
-import { Particle } from '../../particle/particle.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 窗口对象加载 ********************************
 
@@ -36,28 +29,28 @@ Window.open = function (id) {
     if (frames.length > 0) {
       frames[frames.length - 1].blur()
     } else {
-      Title.pointermove({target: null})
+      Yami.Title.pointermove({target: null})
       Window.saveActiveElement()
-      Layout.disableFocusableElements()
+      Yami.Layout.disableFocusableElements()
       document.body.style.pointerEvents = 'none'
       document.activeElement.blur()
-      window.off('keydown', Menubar.keydown)
-      window.off('keydown', Scene.keydown)
-      window.off('keydown', UI.keydown)
-      window.off('keydown', Animation.keydown)
-      window.off('keydown', Particle.keydown)
+      window.off('keydown', Yami.Menubar.keydown)
+      window.off('keydown', Yami.Scene.keydown)
+      window.off('keydown', Yami.UI.keydown)
+      window.off('keydown', Yami.Animation.keydown)
+      window.off('keydown', Yami.Particle.keydown)
       window.on('keydown', Window.keydown)
     }
 
     // 解决失去焦点后还能使用键盘滚动的问题
     // 延时获得焦点是为了解决鼠标按下瞬间焦点切换被阻止的问题
-    Title.target.tabIndex = -1
-    Title.target.focus()
+    Yami.Title.target.tabIndex = -1
+    Yami.Title.target.focus()
     setTimeout(() => {
       const active = document.activeElement
       if (active === activeElement &&
         frames[frames.length - 1] === element) {
-        Title.target.focus()
+        Yami.Title.target.focus()
       }
     })
     element.open()
@@ -82,15 +75,15 @@ Window.close = function (id = null) {
     if (frames.length > 0) {
       frames[frames.length - 1].focus()
     } else {
-      Title.pointerenter()
+      Yami.Title.pointerenter()
       Window.restoreActiveElement()
-      Layout.enableFocusableElements()
+      Yami.Layout.enableFocusableElements()
       document.body.style.pointerEvents = 'inherit'
-      window.on('keydown', Menubar.keydown)
-      window.on('keydown', Scene.keydown)
-      window.on('keydown', UI.keydown)
-      window.on('keydown', Animation.keydown)
-      window.on('keydown', Particle.keydown)
+      window.on('keydown', Yami.Menubar.keydown)
+      window.on('keydown', Yami.Scene.keydown)
+      window.on('keydown', Yami.UI.keydown)
+      window.on('keydown', Yami.Animation.keydown)
+      window.on('keydown', Yami.Particle.keydown)
       window.off('keydown', Window.keydown)
     }
     // 关闭堆叠位置模式
@@ -202,7 +195,7 @@ Window.confirm = function IIFE() {
     }, {once: true})
 
     // 计算窗口的大小
-    const measure = measureText(message)
+    const measure = Yami.measureText(message)
     const textWidth = measure.width
     const textHeight = measure.lines * 20
     const buttonWidth = items.length * 98 - 10

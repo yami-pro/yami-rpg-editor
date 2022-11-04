@@ -1,7 +1,7 @@
 'use strict'
 
 import { SetQuantity } from '../set-quantity.js'
-import { Window } from '../window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 设置数量窗口加载 ********************************
 
@@ -15,7 +15,7 @@ SetQuantity.initialize = function () {
 // 打开窗口
 SetQuantity.open = function (quantity, maximum, callback) {
   this.callback = callback
-  Window.open('setQuantity')
+  Yami.Window.open('setQuantity')
   $('#setQuantity-quantity').input.max = maximum
   $('#setQuantity-quantity').write(quantity)
   $('#setQuantity-quantity').getFocus('all')
@@ -29,5 +29,5 @@ SetQuantity.windowClosed = function (event) {
 // 确定按钮 - 鼠标点击事件
 SetQuantity.confirm = function (event) {
   this.callback($('#setQuantity-quantity').read())
-  Window.close('setQuantity')
+  Yami.Window.close('setQuantity')
 }.bind(SetQuantity)

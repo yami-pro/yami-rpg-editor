@@ -1,8 +1,6 @@
 'use strict'
 
-import { Inspector } from '../inspector/inspector.js'
-import { EventEditor } from '../command/event-editor.js'
-import { NodeList } from '../components/node-list.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 事件列表接口类 ********************************
 
@@ -37,7 +35,7 @@ class EventListInterface {
     // 创建参数历史操作
     const {editor, owner} = this
     if (editor && owner) {
-      this.history = new Inspector.ParamHistory(editor, owner, list)
+      this.history = new Yami.Inspector.ParamHistory(editor, owner, list)
       this.history.save = EventListInterface.historySave
     }
 
@@ -51,17 +49,17 @@ class EventListInterface {
   parse(event) {
     const {type} = event
     if (EventListInterface.guidRegExp.test(type)) {
-      Command.invalid = false
+      Yami.Command.invalid = false
       const groupKey = this.filter + '-event'
-      const eventType = Command.parseGroupEnumString(groupKey, type)
-      const eventClass = Command.invalid ? 'invalid' : ''
+      const eventType = Yami.Command.parseGroupEnumString(groupKey, type)
+      const eventClass = Yami.Command.invalid ? 'invalid' : ''
       return {content: eventType, class: eventClass}
     }
     // 暂时
     if (type === 'common') {
       return {content: 'Common', class: 'invalid'}
     }
-    return Local.get('eventTypes.' + type)
+    return Yami.Local.get('eventTypes.' + type)
   }
 
   // 更新
@@ -87,7 +85,7 @@ class EventListInterface {
     if (item?.events === list.read()) {
       const element = item.element
       const list = element?.parentNode
-      if (list instanceof NodeList) {
+      if (list instanceof Yami.NodeList) {
         list.updateEventIcon(item)
       }
     }
@@ -98,16 +96,16 @@ class EventListInterface {
     const filter = this.filter
     let callback = this.editCallback
     if (event === undefined) {
-      event = Inspector.fileEvent.create(filter)
+      event = Yami.Inspector.fileEvent.create(filter)
       callback = this.insertCallback
-      EventEditor.inserting = true
+      Yami.EventEditor.inserting = true
     }
-    return EventEditor.open(filter, event, callback)
+    return Yami.EventEditor.open(filter, event, callback)
   }
 
   // 保存
   save() {
-    return EventEditor.save()
+    return Yami.EventEditor.save()
   }
 
   // 自定义事件类型ID正则表达式
@@ -115,7 +113,7 @@ class EventListInterface {
 
   // 重写历史操作保存数据方法
   static historySave(data) {
-    Inspector.ParamHistory.prototype.save.call(this, data)
+    Yami.Inspector.ParamHistory.prototype.save.call(this, data)
     if (data.type === 'inspector-param-replace') {
       delete data.oldItem.commands.symbol
     }

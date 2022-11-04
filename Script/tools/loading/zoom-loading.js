@@ -1,7 +1,7 @@
 'use strict'
 
 import { Zoom } from '../zoom.js'
-import { Window } from '../window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 缩放窗口加载 ********************************
 
@@ -13,7 +13,7 @@ Zoom.initialize = function () {
 
 // 打开窗口
 Zoom.open = function () {
-  Window.open('zoom')
+  Yami.Window.open('zoom')
   $('#zoom-factor').write(this.getFactor())
   $('#zoom-factor').getFocus('all')
 }
@@ -25,8 +25,8 @@ Zoom.getFactor = function () {
 
 // 确定按钮 - 鼠标点击事件
 Zoom.confirm = function (event) {
-  Window.close('zoom')
+  Yami.Window.close('zoom')
   require('electron').webFrame.setZoomFactor(
-    Editor.config.zoom = $('#zoom-factor').read()
+    Yami.Editor.config.zoom = $('#zoom-factor').read()
   )
 }

@@ -1,7 +1,7 @@
 'use strict'
 
 import { SetKey } from '../set-key.js'
-import { Window } from '../window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 设置键窗口加载 ********************************
 
@@ -15,7 +15,7 @@ SetKey.initialize = function () {
 // 打开窗口
 SetKey.open = function (key, callback) {
   this.callback = callback
-  Window.open('setKey')
+  Yami.Window.open('setKey')
   $('#setKey-key').write(key)
   $('#setKey-key').getFocus('all')
 }
@@ -28,5 +28,5 @@ SetKey.windowClosed = function (event) {
 // 确定按钮 - 鼠标点击事件
 SetKey.confirm = function (event) {
   this.callback($('#setKey-key').read())
-  Window.close('setKey')
+  Yami.Window.close('setKey')
 }.bind(SetKey)

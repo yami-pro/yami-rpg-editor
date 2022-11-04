@@ -1,7 +1,7 @@
 'use strict'
 
 import { Selection } from '../selection.js'
-import { Window } from '../window.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 选取文本加载 ********************************
 
@@ -61,7 +61,7 @@ Selection.match = function () {
     return
   }
 
-  const regexps = Printer.regexps
+  const regexps = Yami.Printer.regexps
   const start = text.lastIndexOf('<', selectionEnd - 1)
   const end = text.indexOf('>', selectionStart) + 1
   let tag
@@ -243,7 +243,7 @@ Selection.inputPointerup = function (event) {
           const pastable = !!clipText
           const undoable = element.history.canUndo()
           const redoable = element.history.canRedo()
-          const get = Local.createGetter('menuTextBox')
+          const get = Yami.Local.createGetter('menuTextBox')
           const wrap = element.parentNode
           const menu = wrap.getAttribute('menu') ?? 'tag'
           const tagItems = []
@@ -298,7 +298,7 @@ Selection.inputPointerup = function (event) {
               }
             })
           }
-          Menu.popup({
+          Yami.Menu.popup({
             x: event.clientX,
             y: event.clientY,
           }, [{
@@ -315,7 +315,7 @@ Selection.inputPointerup = function (event) {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: ctrl('X'),
+            accelerator: Yami.ctrl('X'),
             enabled: selected,
             click: () => {
               element.dispatchEvent(
@@ -327,14 +327,14 @@ Selection.inputPointerup = function (event) {
             },
           }, {
             label: get('copy'),
-            accelerator: ctrl('C'),
+            accelerator: Yami.ctrl('C'),
             enabled: selected,
             click: () => {
               document.execCommand('copy')
             }
           }, {
             label: get('paste'),
-            accelerator: ctrl('V'),
+            accelerator: Yami.ctrl('V'),
             enabled: pastable,
             click: () => {
               element.dispatchEvent(
@@ -359,14 +359,14 @@ Selection.inputPointerup = function (event) {
             }
           }, {
             label: get('undo'),
-            accelerator: ctrl('Z'),
+            accelerator: Yami.ctrl('Z'),
             enabled: undoable,
             click: () => {
               element.history.restore('undo')
             }
           }, {
             label: get('redo'),
-            accelerator: ctrl('Y'),
+            accelerator: Yami.ctrl('Y'),
             enabled: redoable,
             click: () => {
               element.history.restore('redo')
@@ -382,7 +382,7 @@ Selection.inputPointerup = function (event) {
 Selection.color = {
   open: function ({color = '000000ff'} = {}) {
     this.proxy.color = color
-    Color.open(this.proxy, true)
+    Yami.Color.open(this.proxy, true)
   },
   proxy: {
     color: null,
@@ -391,7 +391,7 @@ Selection.color = {
     },
     input: function (color) {
       if (typeof color === 'string') {
-        color = Color.simplifyHexColor(color)
+        color = Yami.Color.simplifyHexColor(color)
       }
       Selection.wrap({
         prefix: `<color:${color}>`,
@@ -404,7 +404,7 @@ Selection.color = {
 // 字体
 Selection.font = {
   open: function ({font = 'sans-serif'} = {}) {
-    Window.open('font')
+    Yami.Window.open('font')
     $('#font-font').write(font)
     $('#font-font').getFocus('all')
   },
@@ -417,7 +417,7 @@ Selection.font = {
       prefix: `<font:${font}>`,
       suffix: '</font>',
     })
-    Window.close('font')
+    Yami.Window.close('font')
   }
 }
 
@@ -444,7 +444,7 @@ Selection.bold = {
 // 字体大小
 Selection.fontSize = {
   open: function ({size = 12} = {}) {
-    Window.open('fontSize')
+    Yami.Window.open('fontSize')
     $('#fontSize-size').write(size)
     $('#fontSize-size').getFocus('all')
   },
@@ -454,7 +454,7 @@ Selection.fontSize = {
       prefix: `<size:${size}>`,
       suffix: '</size>',
     })
-    Window.close('fontSize')
+    Yami.Window.close('fontSize')
   }
 }
 
@@ -473,7 +473,7 @@ Selection.textPosition = {
     ])
   },
   open: function ({axis = 'x', operation = 'set', value = 0} = {}) {
-    Window.open('textPosition')
+    Yami.Window.open('textPosition')
     $('#textPosition-axis').write(axis)
     $('#textPosition-operation').write(operation)
     $('#textPosition-value').write(value)
@@ -495,7 +495,7 @@ Selection.textPosition = {
       prefix: `<${axis}:${string}>`,
       suffix: '',
     })
-    Window.close('textPosition')
+    Yami.Window.close('textPosition')
   }
 }
 
@@ -525,7 +525,7 @@ Selection.textEffect = {
     ])
   },
   open: function ({type = 'shadow', shadowOffsetX = 1, shadowOffsetY = 1, strokeWidth = 1, color = '000000ff'} = {}) {
-    Window.open('textEffect')
+    Yami.Window.open('textEffect')
     $('#textEffect-type').write(type)
     $('#textEffect-shadowOffsetX').write(shadowOffsetX)
     $('#textEffect-shadowOffsetY').write(shadowOffsetY)
@@ -534,7 +534,7 @@ Selection.textEffect = {
   },
   confirm: function (event) {
     const type = $('#textEffect-type').read()
-    const color = Color.simplifyHexColor($('#textEffect-color').read())
+    const color = Yami.Color.simplifyHexColor($('#textEffect-color').read())
     let string
     switch (type) {
       case 'shadow': {
@@ -556,14 +556,14 @@ Selection.textEffect = {
       prefix: `<${type}:${string}>`,
       suffix: `</${type}>`,
     })
-    Window.close('textEffect')
+    Yami.Window.close('textEffect')
   }
 }
 
 // 本地变量
 Selection.localVariable = {
   open: function ({key = ''} = {}) {
-    Window.open('localVariable')
+    Yami.Window.open('localVariable')
     $('#localVariable-key').write(key)
     $('#localVariable-key').getFocus('all')
   },
@@ -576,7 +576,7 @@ Selection.localVariable = {
       prefix: `<local:${key}>`,
       suffix: '',
     })
-    Window.close('localVariable')
+    Yami.Window.close('localVariable')
   }
 }
 
@@ -584,7 +584,7 @@ Selection.localVariable = {
 Selection.globalVariable = {
   open: function ({key = ''} = {}) {
     this.proxy.key = key
-    Variable.open(this.proxy)
+    Yami.Variable.open(this.proxy)
   },
   proxy: {
     key: '',

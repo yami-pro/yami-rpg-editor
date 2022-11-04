@@ -1,11 +1,7 @@
 'use strict'
 
 import { Color } from '../color.js'
-import { Window } from '../window.js'
-
-import { UI } from '../../ui/ui.js'
-import { File } from '../../file-system/file.js'
-import { Data } from '../../data/data.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 拾色器窗口加载 ********************************
 
@@ -33,14 +29,14 @@ Color.initialize = function () {
 Color.open = function (target, indexEnabled = false) {
   this.target = target
   this.indexEnabled = indexEnabled
-  Window.open('color')
+  Yami.Window.open('color')
   let color = target.read()
   switch (typeof color) {
     case 'string':
       break
     case 'number':
       $('#color-index').write(color)
-      color = Data.config.indexedColors[color].code
+      color = Yami.Data.config.indexedColors[color].code
       break
   }
   const rgba = this.getRGBAFromHex(color)
@@ -182,7 +178,7 @@ Color.getCSSColorFromRGBA = function (rgba) {
 
 // 写入颜色分量到输入框
 Color.writeRGBAToInputs = function ([r, g, b, a]) {
-  const write = getElementWriter('color')
+  const write = Yami.getElementWriter('color')
   const hex = this.getHexFromRGBA([r, g, b, a])
   write('hex', this.simplifyHexColor(hex))
   write('r', r)
@@ -193,7 +189,7 @@ Color.writeRGBAToInputs = function ([r, g, b, a]) {
 
 // 读取颜色分量从输入框
 Color.readRGBAFromInputs = function () {
-  const read = getElementReader('color')
+  const read = Yami.getElementReader('color')
   const r = read('r')
   const g = read('g')
   const b = read('b')
@@ -204,7 +200,7 @@ Color.readRGBAFromInputs = function () {
 // 加载索引颜色
 Color.loadIndexedColors = function () {
   const radios = document.getElementsByName('color-index')
-  const colors = Data.config.indexedColors
+  const colors = Yami.Data.config.indexedColors
   const length = colors.length
   for (let i = 0; i < length; i++) {
     const radio = radios[i]
@@ -290,7 +286,7 @@ Color.pillarPointerdown = function (event) {
 // 索引颜色 - 输入事件
 Color.indexedColorInput = function (event) {
   const index = event.value
-  const hex = Data.config.indexedColors[index].code
+  const hex = Yami.Data.config.indexedColors[index].code
   const rgba = this.getRGBAFromHex(hex)
   this.drawPillar(rgba)
   this.setPillarCursor(0)
@@ -307,9 +303,9 @@ Color.indexedColorPointerdown = function (event) {
     case 2: {
       const element = event.target
       const index = element.dataValue
-      const indexedColor = Data.config.indexedColors[index]
-      const get = Local.createGetter('menuIndexedColor')
-      Menu.popup({
+      const indexedColor = Yami.Data.config.indexedColors[index]
+      const get = Yami.Local.createGetter('menuIndexedColor')
+      Yami.Menu.popup({
         x: event.clientX,
         y: event.clientY,
       }, [{
@@ -321,17 +317,17 @@ Color.indexedColorPointerdown = function (event) {
           if (indexedColor.code !== hex) {
             indexedColor.code = hex
             element.style.backgroundColor = csscolor
-            UI.updateIndexedColor(index)
-            File.planToSave(Data.manifest.project.config)
+            Yami.UI.updateIndexedColor(index)
+            Yami.File.planToSave(Yami.Data.manifest.project.config)
           }
         },
       }, {
         label: get('rename'),
         click: () => {
-          Rename.open(indexedColor.name, name => {
+          Yami.Rename.open(indexedColor.name, name => {
             indexedColor.name = name
             element.setTooltip(name)
-            File.planToSave(Data.manifest.project.config)
+            Yami.File.planToSave(Yami.Data.manifest.project.config)
           })
         },
       }])
@@ -377,8 +373,8 @@ Color.hexBeforeinput = function (event) {
 
 // 十六进制 - 输入事件
 Color.hexInput = function (event) {
-  const read = getElementReader('color')
-  const write = getElementWriter('color')
+  const read = Yami.getElementReader('color')
+  const write = Yami.getElementWriter('color')
   const oldHex = read('hex')
   const newHex = oldHex.replace(/[^0-9a-f]/gi, '')
   const [r, g, b, a] = this.getRGBAFromHex(newHex)
@@ -397,8 +393,8 @@ Color.hexInput = function (event) {
 
 // 颜色分量 - 输入事件
 Color.rgbaInput = function (event) {
-  const read = getElementReader('color')
-  const write = getElementWriter('color')
+  const read = Yami.getElementReader('color')
+  const write = Yami.getElementWriter('color')
   const r = read('r')
   const g = read('g')
   const b = read('b')
@@ -421,5 +417,5 @@ Color.confirm = function (event) {
     const hex = this.getHexFromRGBA(rgba)
     this.target.input(hex)
   }
-  Window.close('color')
+  Yami.Window.close('color')
 }.bind(Color)
