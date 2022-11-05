@@ -1,7 +1,6 @@
 'use strict'
 
-import { INTRGBA } from './util.js'
-import { GL } from '../webgl/gl.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 舞台颜色类 ********************************
 
@@ -37,7 +36,7 @@ class StageColor {
 
   // 获取整数颜色
   getINTRGBA() {
-    return INTRGBA(this.hex)
+    return Yami.INTRGBA(this.hex)
   }
 
   // 获取GL颜色
@@ -45,9 +44,9 @@ class StageColor {
     const sa = this.alpha
     const da = 1 - sa
     const rgba = StageColor.rgba
-    rgba[0] = GL.BACKGROUND_RED * da + this.red * sa
-    rgba[1] = GL.BACKGROUND_GREEN * da + this.green * sa
-    rgba[2] = GL.BACKGROUND_BLUE * da + this.blue * sa
+    rgba[0] = Yami.GL.BACKGROUND_RED * da + this.red * sa
+    rgba[1] = Yami.GL.BACKGROUND_GREEN * da + this.green * sa
+    rgba[2] = Yami.GL.BACKGROUND_BLUE * da + this.blue * sa
     return rgba
   }
 

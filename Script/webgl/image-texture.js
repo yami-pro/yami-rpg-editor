@@ -1,8 +1,6 @@
 'use strict'
 
-import { GL } from './gl.js'
-import { Texture } from './texture.js'
-import { BaseTexture } from './base-texture.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 图像纹理类 ********************************
 
@@ -11,10 +9,10 @@ class ImageTexture extends Texture {
     super(options)
 
     // 设置属性
-    const texture = GL.createImageTexture(image, options)
+    const texture = Yami.GL.createImageTexture(image, options)
     this.complete = false
     this.base = texture
-    this.gl = GL
+    this.gl = Yami.GL
     this.x = 0
     this.y = 0
     this.width = 0
@@ -151,9 +149,9 @@ class ImageTexture extends Texture {
 }
 
 // 设置加载回调
-ImageTexture.prototype.on = BaseTexture.prototype.on
+ImageTexture.prototype.on = Yami.BaseTexture.prototype.on
 
 // 执行加载回调
-ImageTexture.prototype.reply = BaseTexture.prototype.reply
+ImageTexture.prototype.reply = Yami.BaseTexture.prototype.reply
 
 export { ImageTexture }

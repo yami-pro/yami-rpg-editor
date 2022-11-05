@@ -1,6 +1,6 @@
 'use strict'
 
-import { GL } from './gl.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 纹理类 ********************************
 
@@ -20,8 +20,8 @@ class Texture {
 
     // 设置属性
     this.complete = true
-    this.base = GL.createNormalTexture(options)
-    this.gl = GL
+    this.base = Yami.GL.createNormalTexture(options)
+    this.gl = Yami.GL
     this.x = 0
     this.y = 0
     this.width = 0

@@ -1,8 +1,6 @@
 'use strict'
 
-import { GL } from './gl.js'
-import { File } from '../file-system/file.js'
-import { ImageTexture } from '../webgl/image-texture.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 纹理管理器类 ********************************
 
@@ -14,7 +12,7 @@ class TextureManager {
   count   //:number
 
   constructor() {
-    this.gl = GL
+    this.gl = Yami.GL
     this.map = {}
     this.images = {}
     this.pointer = 0
@@ -26,7 +24,7 @@ class TextureManager {
   updateImage(guid) {
     const texture = this.images[guid]
     if (texture === undefined) return
-    File.get({
+    Yami.File.get({
       guid: guid,
       type: 'image',
     }).then(image => {
