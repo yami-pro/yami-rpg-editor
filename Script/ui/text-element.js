@@ -290,8 +290,8 @@ class TextElement extends Yami.UI.Element {
   update() {
     let printer = this.printer
     if (printer === null) {
-      const texture = new Texture()
-      printer = new Printer(texture)
+      const texture = new Yami.Texture()
+      printer = new Yami.Printer(texture)
       printer.direction = this.direction
       printer.horizontalAlign = this.horizontalAlign
       printer.verticalAlign = this.verticalAlign

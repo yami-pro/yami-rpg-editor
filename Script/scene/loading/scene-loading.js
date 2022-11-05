@@ -1835,7 +1835,7 @@ Scene.loadLightContext = function (light) {
   Object.defineProperty(
     light, 'instance', {
       configurable: true,
-      value: new Light(light),
+      value: new Yami.Light(light),
     }
   )
 }
@@ -1885,7 +1885,7 @@ Scene.loadParallaxContext = function (parallax) {
   Object.defineProperty(
     parallax, 'player', {
       configurable: true,
-      value: new Parallax(parallax),
+      value: new Yami.Parallax(parallax),
     }
   )
 }
@@ -3842,7 +3842,7 @@ Scene.createStartPositionTexture = function () {
     context.shadowOffsetY = 4
     context.font = '160px Awesome'
     context.fillText('\uf041', 128, y)
-    texture = new Texture()
+    texture = new Yami.Texture()
     texture.fromImage(canvas)
     texture.base.protected = true
     this.startPositionTexture = texture

@@ -23,7 +23,7 @@ class UIElement {
     this.y = 0
     this.width = 0
     this.height = 0
-    this.matrix = new Matrix()
+    this.matrix = new Yami.Matrix()
     this.opacity = 1
     this.transform = data.transform
     this.parent = null

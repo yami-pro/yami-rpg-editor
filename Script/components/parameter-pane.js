@@ -350,7 +350,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'check-box'
     const label = document.createElement('text')
-    const input = new CheckBox(true)
+    const input = new Yami.CheckBox(true)
     input.inputEventEnabled = true
     input.addClass('standard')
     input.addClass('large')
@@ -378,7 +378,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'text-box'
     const label = document.createElement('text')
-    const input = new TextBox()
+    const input = new Yami.TextBox()
     return {tag, label, input}
   }
 
@@ -402,7 +402,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'keyboard-box'
     const label = document.createElement('text')
-    const input = new KeyboardBox()
+    const input = new Yami.KeyboardBox()
     return {tag, label, input}
   }
 
@@ -414,7 +414,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'color-box'
     const label = document.createElement('text')
-    const input = new ColorBox()
+    const input = new Yami.ColorBox()
     return {tag, label, input}
   }
 

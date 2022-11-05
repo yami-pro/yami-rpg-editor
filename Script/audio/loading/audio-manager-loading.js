@@ -16,7 +16,7 @@ AudioManager.initialize = function () {
   this.analyser.connect(this.context.destination)
 
   // 创建音频对象
-  this.player = new SinglePlayer()
+  this.player = new Yami.SinglePlayer()
 }
 
 // 获取波形图

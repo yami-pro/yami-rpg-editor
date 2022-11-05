@@ -188,8 +188,8 @@ class TextBoxElement extends Yami.UI.Element {
     // 打印文本
     let printer = this.printer
     if (printer === null) {
-      const texture = new Texture()
-      printer = new Printer(texture)
+      const texture = new Yami.Texture()
+      printer = new Yami.Printer(texture)
       printer.matchTag = Function.empty
       printer.sizes[0] = this.size
       printer.fonts[0] = this.font || Yami.Printer.font

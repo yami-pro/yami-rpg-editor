@@ -147,7 +147,7 @@ class WindowElement extends Yami.UI.Element {
 
   // 请求调整大小
   requestResizing = (IIFE => {
-    const timer = new Timer({
+    const timer = new Yami.Timer({
       duration: 0,
       callback: () => this.resize(),
     })

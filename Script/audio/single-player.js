@@ -64,7 +64,7 @@ class SinglePlayer {
   setReverb(dry, wet) {
     if (this.reverb === null && !(
       dry === 1 && wet === 0)) {
-      new Reverb(this)
+      new Yami.Reverb(this)
     }
     if (this.reverb !== null) {
       this.reverb.set(dry, wet)
