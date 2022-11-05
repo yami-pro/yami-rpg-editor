@@ -93,7 +93,7 @@ class ProgressBarElement extends Yami.UI.Element {
         Yami.GL.width,
         Yami.GL.height,
       )
-      .multiply(UI.matrix)
+      .multiply(Yami.UI.matrix)
       .multiply(this.matrix)
       .translate(this.x, this.y)
       .scale(scaleX, scaleY)

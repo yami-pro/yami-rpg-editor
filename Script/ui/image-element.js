@@ -77,7 +77,7 @@ class ImageElement extends Yami.UI.Element {
       let dh = this.height
       Yami.GL.alpha = this.opacity
       Yami.GL.blend = this.blend
-      Yami.GL.matrix.set(UI.matrix).multiply(this.matrix)
+      Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
       switch (this.display) {
         case 'stretch':
           texture.clip(this.shiftX, this.shiftY, texture.base.width, texture.base.height)

@@ -34,7 +34,7 @@ class UIElement {
 
   // 绘制线框
   drawWireframe(color) {
-    const gl = GL
+    const gl = Yami.GL
     const vertices = gl.arrays[0].float32
     const colors = gl.arrays[0].uint32
     const matrix = gl.matrix
