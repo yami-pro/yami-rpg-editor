@@ -28,6 +28,8 @@ export {
   DetailBox,
   DetailSummary,
   DragAndDropHint,
+  TextBox,
+  SliderBox,
   FileBrowser,
   FileHeadPane,
   FileNavPane,
@@ -52,44 +54,67 @@ export {
   SelectList,
   Select,
   SelectVar,
-  SliderBox,
   StringVar,
   SwitchItem,
   TabBar,
   TextArea,
-  TextBox,
   TitleBar,
   WindowFrame
 } from './components/index.js'
 
-export { FileItem } from './file-system/index.js'
+export {
+  Directory,
+  FS,
+  FSP,
+  File,
+  FolderItem,
+  FileItem,
+  GUID,
+  Path
+} from './file-system/index.js'
 
-export { Easing } from './data/index.js'
+export {
+  Data,
+  Easing,
+  Manifest,
+  Meta,
+  Project,
+  Team
+} from './data/index.js'
 
 export { PluginManager } from './plugin/index.js'
 
 export {
-  GL,
-  BaseTexture,
-  BatchRenderer,
-  ImageTexture,
   Matrix,
-  TextureManager,
+  Vector,
   Texture,
-  Vector
+  BaseTexture,
+  ImageTexture,
+  TextureManager,
+  BatchRenderer,
+  GL
 } from './webgl/index.js'
 
-export { Scene } from './scene/index.js'
+export {
+  Scene,
+  Light,
+  ObjectFolder,
+  Parallax,
+  Point,
+  SceneShift,
+  Textures,
+  TilemapShortcuts
+} from './scene/index.js'
 
 export {
   UI,
+  RootElement,
+  TextBoxElement,
+  TextElement,
   ContainerElement,
   DialogBoxElement,
   ImageElement,
   ProgressBarElement,
-  RootElement,
-  TextBoxElement,
-  TextElement,
   VideoElement,
   WindowElement
 } from './ui/index.js'
@@ -153,26 +178,6 @@ export {
 export {} from './config/config-reading.js'
 
 export {
-  Directory,
-  FS,
-  FSP,
-  File,
-  FolderItem,
-  // FileItem,
-  GUID,
-  Path
-} from './file-system/index.js'
-
-export {
-  Data,
-  // Easing,
-  Manifest,
-  Meta,
-  Project,
-  Team
-} from './data/index.js'
-
-export {
   Enum,
   EnumerationContext
 } from './enum/index.js'
@@ -202,17 +207,6 @@ export {
 } from './palette/index.js'
 
 export { Printer } from './printer/printer.js'
-
-export {
-  // Scene,
-  Light,
-  ObjectFolder,
-  Parallax,
-  Point,
-  SceneShift,
-  Textures,
-  TilemapShortcuts
-} from './scene/index.js'
 
 export { Sprite } from './sprite/index.js'
 
