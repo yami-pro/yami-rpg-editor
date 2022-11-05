@@ -244,7 +244,7 @@ Inspector.scrollPointerdown = function (event) {
   switch (event.button) {
     case 0:
       if (event.altKey && !(
-        event.target instanceof MarqueeArea)) {
+        event.target instanceof Yami.MarqueeArea)) {
         let element = event.target
         while (element !== this) {
           if (element.scrollPointerup &&

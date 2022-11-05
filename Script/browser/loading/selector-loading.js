@@ -138,7 +138,7 @@ Selector.bodyPopup = function (event) {
           this.showInExplorer()
         },
       }, {
-        label: get(file instanceof FolderItem ? 'open' : 'select'),
+        label: get(file instanceof Yami.FolderItem ? 'open' : 'select'),
         accelerator: 'Enter',
         enabled: single,
         click: () => {

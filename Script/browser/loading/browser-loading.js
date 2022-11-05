@@ -299,7 +299,7 @@ Browser.bodyPopup = function (event) {
       const {selections} = this
       const {file} = element
       const single = selections.length === 1
-      if (single && selections[0] instanceof FolderItem) {
+      if (single && selections[0] instanceof Yami.FolderItem) {
         creatable = true
       }
       items.push({

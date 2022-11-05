@@ -901,9 +901,9 @@ UI.updateElementFont = function () {
     const TextBoxElement = UI.TextBox
     const DialogBoxElement = UI.DialogBox
     const update = element => {
-      if ((element instanceof TextElement ||
-        element instanceof TextBoxElement ||
-        element instanceof DialogBoxElement) &&
+      if ((element instanceof Yami.TextElement ||
+        element instanceof Yami.TextBoxElement ||
+        element instanceof Yami.DialogBoxElement) &&
         element.printer !== null) {
         element.printer.reset()
         if (element._font === '') {
@@ -928,7 +928,7 @@ UI.updateIndexedColor = function (index) {
     const TextElement = UI.Text
     const regexp = new RegExp(`<color:${index}>`, 'i')
     const update = element => {
-      if (element instanceof TextElement &&
+      if (element instanceof Yami.TextElement &&
         regexp.test(element.content)) {
         element.printer.reset()
         this.requestRendering()

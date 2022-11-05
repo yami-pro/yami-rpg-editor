@@ -281,9 +281,9 @@ class FileBrowser extends HTMLElement {
       }
       while (!(
         element instanceof FileBrowser ||
-        element instanceof FileNavPane ||
-        element instanceof FileBodyPane ||
-        element.file instanceof FolderItem)) {
+        element instanceof Yami.FileNavPane ||
+        element instanceof Yami.FileBodyPane ||
+        element.file instanceof Yami.FolderItem)) {
         element = element.parentNode
       }
       if (dropTarget !== element) {
@@ -292,7 +292,7 @@ class FileBrowser extends HTMLElement {
         }
         dragging.allowMove = false
         dragging.dropTarget = element
-        if (element.file instanceof FolderItem) {
+        if (element.file instanceof Yami.FolderItem) {
           element.addClass('drop-target')
           dragging.dropPath = element.file.path
           dragging.promise.then(dir => {
@@ -313,7 +313,7 @@ class FileBrowser extends HTMLElement {
             }
           })
         } else {
-          if (element instanceof FileBodyPane) {
+          if (element instanceof Yami.FileBodyPane) {
             const {selections} = this.nav
             dragging.dropPath =
               selections.length === 1
@@ -436,9 +436,9 @@ class FileBrowser extends HTMLElement {
       let element = event.target
       while (!(
         element instanceof FileBrowser ||
-        element instanceof FileNavPane ||
-        element instanceof FileBodyPane ||
-        element.file instanceof FolderItem)) {
+        element instanceof Yami.FileNavPane ||
+        element instanceof Yami.FileBodyPane ||
+        element.file instanceof Yami.FolderItem)) {
         element = element.parentNode
       }
       if (dropTarget !== element) {
@@ -446,11 +446,11 @@ class FileBrowser extends HTMLElement {
           dropTarget.removeClass('drop-target')
         }
         dragging.dropTarget = element
-        if (element.file instanceof FolderItem) {
+        if (element.file instanceof Yami.FolderItem) {
           element.addClass('drop-target')
           dragging.dropPath = element.file.path
         } else {
-          if (element instanceof FileBodyPane) {
+          if (element instanceof Yami.FileBodyPane) {
             const {selections} = this.nav
             dragging.dropPath =
               selections.length === 1

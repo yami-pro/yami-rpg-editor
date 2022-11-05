@@ -1,5 +1,7 @@
 'use strict'
 
+import * as Yami from '../yami.js'
+
 // ******************************** 细节概要 ********************************
 
 class DetailSummary extends HTMLElement {
@@ -17,7 +19,7 @@ class DetailSummary extends HTMLElement {
   // 开关父元素
   toggle() {
     const parent = this.parentNode
-    if (parent instanceof DetailBox) {
+    if (parent instanceof Yami.DetailBox) {
       parent.toggle()
     }
   }

@@ -638,7 +638,7 @@ class ParamList extends HTMLElement {
     if (this.focusing) {
       let element = this
       while (element = element.parentNode) {
-        if (element instanceof WindowFrame) {
+        if (element instanceof Yami.WindowFrame) {
           if (element.hasClass('blur')) {
             return
           } else {
