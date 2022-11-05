@@ -197,7 +197,7 @@ Browser.bodyOpen = function (event) {
 Browser.bodySelect = function (event) {
   const files = event.value
   if (files.length === 1 &&
-    files[0] instanceof FileItem) {
+    files[0] instanceof Yami.FileItem) {
     const file = files[0]
     const meta = file.meta
     const type = file.type

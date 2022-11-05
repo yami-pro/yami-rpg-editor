@@ -314,7 +314,7 @@ IfCondition.parseBooleanOperand = function ({operand}) {
     case 'constant':
       return operand.value.toString()
     case 'variable':
-      return Command.parseVariable(operand.variable)
+      return Yami.Command.parseVariable(operand.variable)
   }
 }
 
@@ -338,7 +338,7 @@ IfCondition.parseNumberOperand = function ({operand}) {
     case 'constant':
       return operand.value.toString()
     case 'variable':
-      return Command.parseVariable(operand.variable)
+      return Yami.Command.parseVariable(operand.variable)
   }
 }
 
@@ -357,11 +357,11 @@ IfCondition.parseStringOperand = function ({operand}) {
     case 'none':
       return Yami.Local.get('common.none')
     case 'constant':
-      return `"${Command.parseMultiLineString(operand.value)}"`
+      return `"${Yami.Command.parseMultiLineString(operand.value)}"`
     case 'variable':
-      return Command.parseVariable(operand.variable)
+      return Yami.Command.parseVariable(operand.variable)
     case 'enum': {
-      const name = Command.parseEnumString(operand.stringId)
+      const name = Yami.Command.parseEnumString(operand.stringId)
       return `${Yami.Local.get('command.if.string.enum')}(${name})`
     }
   }
@@ -383,23 +383,23 @@ IfCondition.parseObjectOperand = function ({operand}) {
     case 'none':
       return Yami.Local.get('common.none')
     case 'actor':
-      return Command.parseActor(operand.actor)
+      return Yami.Command.parseActor(operand.actor)
     case 'skill':
-      return Command.parseSkill(operand.skill)
+      return Yami.Command.parseSkill(operand.skill)
     case 'state':
-      return Command.parseState(operand.state)
+      return Yami.Command.parseState(operand.state)
     case 'equipment':
-      return Command.parseEquipment(operand.equipment)
+      return Yami.Command.parseEquipment(operand.equipment)
     case 'item':
-      return Command.parseItem(operand.item)
+      return Yami.Command.parseItem(operand.item)
     case 'trigger':
-      return Command.parseTrigger(operand.trigger)
+      return Yami.Command.parseTrigger(operand.trigger)
     case 'light':
-      return Command.parseLight(operand.light)
+      return Yami.Command.parseLight(operand.light)
     case 'element':
-      return Command.parseElement(operand.element)
+      return Yami.Command.parseElement(operand.element)
     case 'variable':
-      return Command.parseVariable(operand.variable)
+      return Yami.Command.parseVariable(operand.variable)
   }
 }
 
@@ -408,15 +408,15 @@ IfCondition.parseActorOperation = function ({operation, itemId, equipmentId, qua
   const op = Yami.Local.get('command.if.actor.' + operation)
   switch (operation) {
     case 'has-items': {
-      const text = `${op} ${Command.parseFileName(itemId)}`
+      const text = `${op} ${Yami.Command.parseFileName(itemId)}`
       return quantity === 1 ? text : `${text} x ${quantity}`
     }
     case 'has-equipments': {
-      const text = `${op} ${Command.parseFileName(equipmentId)}`
+      const text = `${op} ${Yami.Command.parseFileName(equipmentId)}`
       return quantity === 1 ? text : `${text} x ${quantity}`
     }
     case 'equipped':
-      return `${op} ${Command.parseFileName(equipmentId)}`
+      return `${op} ${Yami.Command.parseFileName(equipmentId)}`
     default:
       return op
   }
@@ -456,36 +456,36 @@ IfCondition.parseOther = function ({key}) {
 IfCondition.parse = function (condition) {
   switch (condition.type) {
     case 'boolean': {
-      const variable = Command.parseVariable(condition.variable)
+      const variable = Yami.Command.parseVariable(condition.variable)
       const operator = this.parseBooleanOperation(condition)
       const value = this.parseBooleanOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'number': {
-      const variable = Command.parseVariable(condition.variable)
+      const variable = Yami.Command.parseVariable(condition.variable)
       const operator = this.parseNumberOperation(condition)
       const value = this.parseNumberOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'string': {
-      const variable = Command.parseVariable(condition.variable)
+      const variable = Yami.Command.parseVariable(condition.variable)
       const operator = this.parseStringOperation(condition)
       const value = this.parseStringOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'object': {
-      const variable = Command.parseVariable(condition.variable)
+      const variable = Yami.Command.parseVariable(condition.variable)
       const operator = this.parseObjectOperation(condition)
       const value = this.parseObjectOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'actor': {
-      const actor = Command.parseActor(condition.actor)
+      const actor = Yami.Command.parseActor(condition.actor)
       const operation = this.parseActorOperation(condition)
       return `${actor} ${operation}`
     }
     case 'element': {
-      const element = Command.parseElement(condition.element)
+      const element = Yami.Command.parseElement(condition.element)
       const operation = this.parseElementOperation(condition)
       return `${element} ${operation}`
     }
@@ -502,9 +502,9 @@ IfCondition.parse = function (condition) {
       return `${mouse}[${button}] ${state}`
     }
     case 'list': {
-      const list = Command.parseVariable(condition.list)
+      const list = Yami.Command.parseVariable(condition.list)
       const operation = this.parseListOperation(condition)
-      const target = Command.parseVariable(condition.target)
+      const target = Yami.Command.parseVariable(condition.target)
       return `${list} ${operation} ${target}`
     }
     case 'other':

@@ -52,7 +52,7 @@ class ProgressBarElement extends Yami.UI.Element {
         this.texture = null
       }
       if (value) {
-        this.texture = new ImageTexture(value)
+        this.texture = new Yami.ImageTexture(value)
         this.texture.on('load', () => {
           Yami.UI.requestRendering()
         })
@@ -117,9 +117,9 @@ class ProgressBarElement extends Yami.UI.Element {
           break
         }
       }
-      Yami.GL.bufferData(GL.ARRAY_BUFFER, vertices, Yami.GL.STREAM_DRAW, 0, vertexLength)
-      Yami.GL.bindTexture(GL.TEXTURE_2D, base.glTexture)
-      Yami.GL.drawArrays(GL.TRIANGLE_FAN, 0, drawingLength)
+      Yami.GL.bufferData(Yami.GL.ARRAY_BUFFER, vertices, Yami.GL.STREAM_DRAW, 0, vertexLength)
+      Yami.GL.bindTexture(Yami.GL.TEXTURE_2D, base.glTexture)
+      Yami.GL.drawArrays(Yami.GL.TRIANGLE_FAN, 0, drawingLength)
     }
 
     // 绘制子元素

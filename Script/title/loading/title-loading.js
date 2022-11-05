@@ -163,7 +163,7 @@ Title.reopenClosedTab = function (meta) {
   meta = meta ?? this.getClosedTabMeta()
   if (meta) {
     const file = Yami.Directory.getFile(meta.path)
-    if (file instanceof FileItem) {
+    if (file instanceof Yami.FileItem) {
       this.openTab(file)
     }
   }

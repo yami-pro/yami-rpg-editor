@@ -72,9 +72,9 @@ SwitchCondition.parse = function (condition) {
     case 'number':
       return condition.value.toString()
     case 'string':
-      return `"${Command.parseMultiLineString(condition.value)}"`
+      return `"${Yami.Command.parseMultiLineString(condition.value)}"`
     case 'enum': {
-      const name = Command.parseEnumString(condition.stringId)
+      const name = Yami.Command.parseEnumString(condition.stringId)
       return `${Yami.Local.get('command.switch.enum')}(${name})`
     }
     case 'keyboard': {
@@ -88,7 +88,7 @@ SwitchCondition.parse = function (condition) {
       return `${mouse}[${button}]`
     }
     case 'variable':
-      return Command.parseVariable(condition.variable)
+      return Yami.Command.parseVariable(condition.variable)
   }
 }
 

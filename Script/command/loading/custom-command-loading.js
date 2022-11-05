@@ -290,7 +290,7 @@ CustomCommand.apply = function (event) {
     }
     Yami.Data.commands = commands
     Yami.File.planToSave(Yami.Data.manifest.project.commands)
-    Command.custom.loadCommandList()
+    Yami.Command.custom.loadCommandList()
   }
 }.bind(CustomCommand)
 

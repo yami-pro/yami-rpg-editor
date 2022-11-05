@@ -62,6 +62,10 @@ export {
   WindowFrame
 } from './components/index.js'
 
+export { FileItem } from './file-system/index.js'
+
+export { Easing } from './data/index.js'
+
 export { PluginManager } from './plugin/index.js'
 
 export {
@@ -74,6 +78,8 @@ export {
   Texture,
   Vector
 } from './webgl/index.js'
+
+export { Scene } from './scene/index.js'
 
 export {
   UI,
@@ -153,14 +159,14 @@ export {
   FSP,
   File,
   FolderItem,
-  FileItem,
+  // FileItem,
   GUID,
   Path
 } from './file-system/index.js'
 
 export {
   Data,
-  Easing,
+  // Easing,
   Manifest,
   Meta,
   Project,
@@ -196,7 +202,7 @@ export {
 export { Printer } from './printer/printer.js'
 
 export {
-  Scene,
+  // Scene,
   Light,
   ObjectFolder,
   Parallax,

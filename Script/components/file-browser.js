@@ -150,7 +150,7 @@ class FileBrowser extends HTMLElement {
     const body = this.body
     const files = Array.from(body.selections)
     if (files.length !== 0) {
-      const {inoMap} = Directory
+      const {inoMap} = Yami.Directory
       let modified = false
       let i = files.length
       while (--i >= 0) {
@@ -235,7 +235,7 @@ class FileBrowser extends HTMLElement {
         this.on('dragleave', this.dragleave)
         this.on('dragover', this.dragover)
         this.on('drop', this.drop)
-        if (files.length === 1 && files[0] instanceof FileItem) {
+        if (files.length === 1 && files[0] instanceof Yami.FileItem) {
           event.dataTransfer.setData('DownloadURL',
             `application/octet-stream:${files[0].name}:${aPaths[0]}`
           )

@@ -58,7 +58,7 @@ TextBoxProperty.parse = function ({key, value}) {
     case 'type':
       return `${name}(${get('type.' + value)})`
     case 'text': {
-      let string = Command.parseVariableString(value)
+      let string = Yami.Command.parseVariableString(value)
       if (string.length > 40) {
         string = string.slice(0, 40) + '...'
       }
@@ -67,7 +67,7 @@ TextBoxProperty.parse = function ({key, value}) {
     case 'number':
     case 'min':
     case 'max':
-      return `${name}(${Command.parseVariableNumber(value)})`
+      return `${name}(${Yami.Command.parseVariableNumber(value)})`
     case 'decimals':
       return `${name}(${value})`
     case 'color':

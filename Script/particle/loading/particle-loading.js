@@ -169,7 +169,7 @@ Particle.load = function (context) {
     context.editor = {
       target: null,
       emitter: new Particle.Emitter(context.particle),
-      history: new History(100),
+      history: new Yami.History(100),
       centerX: 0,
       centerY: 0,
       paused: false,
@@ -902,7 +902,7 @@ Particle.requestAnimation = function () {
 Particle.updateAnimation = function (deltaTime) {
   Particle.updateElements(deltaTime)
   Particle.updateParticleInfo()
-  if (Timer.updaters.stageRendering !== Particle.renderingFunction) {
+  if (Yami.Timer.updaters.stageRendering !== Particle.renderingFunction) {
     Particle.renderingFunction()
   }
 }

@@ -51,7 +51,7 @@ CommandSuggestion.initialize = function () {
 
 // 打开
 CommandSuggestion.open = function () {
-  const list = Command.target
+  const list = Yami.Command.target
   list.scrollAndResize()
   const point = list.getSelectionPosition()
   if (point) {
@@ -80,7 +80,7 @@ CommandSuggestion.open = function () {
 // 选择指令
 CommandSuggestion.select = function (item) {
   Yami.Window.close('command-widget')
-  Command.open(item.value)
+  Yami.Command.open(item.value)
 }
 
 // 窗口 - 本地化事件
@@ -304,7 +304,7 @@ CommandSuggestion.list.createCommandTip = function IIFE() {
   const separator = /\s*,\s*/
   return function (item) {
     const element = item.element
-    const words = Command.words.push(item.class)
+    const words = Yami.Command.words.push(item.class)
     if (item.class !== 'custom') {
       words.push(item.value)
     }

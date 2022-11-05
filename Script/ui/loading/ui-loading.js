@@ -355,7 +355,7 @@ UI.load = function (context) {
     context.editor = {
       target: null,
       root: new UI.Root(),
-      history: new History(100),
+      history: new Yami.History(100),
       centerX: context.ui.width / 2,
       centerY: context.ui.height / 2,
       // listScrollTop: 0,

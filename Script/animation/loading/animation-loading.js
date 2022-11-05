@@ -450,7 +450,7 @@ Animation.load = function (context) {
       motion: null,
       target: null,
       player: player,
-      history: new History(100),
+      history: new Yami.History(100),
       centerX: 0,
       centerY: 0,
       selectionX: 0,
@@ -1198,7 +1198,7 @@ Animation.updateControlPoints = function (context) {
     case 'sprite': {
       const key = layer.sprite
       const texture = this.player.textures[key]
-      if (texture instanceof ImageTexture) {
+      if (texture instanceof Yami.ImageTexture) {
         L = texture.offsetX
         T = texture.offsetY
         R = L + texture.width
@@ -2003,7 +2003,7 @@ Animation.loadTextures = function () {
     const imageId = sprite.image
     const texture = last[spriteId]
     const {hframes, vframes} = sprite
-    if (texture instanceof ImageTexture &&
+    if (texture instanceof Yami.ImageTexture &&
       texture.base.guid === imageId) {
       const {base} = texture
       const width = floor(max(base.width / hframes, 1))
@@ -2019,7 +2019,7 @@ Animation.loadTextures = function () {
       continue
     }
     if (imageId) {
-      const texture = new ImageTexture(imageId)
+      const texture = new Yami.ImageTexture(imageId)
       texture.on('load', () => {
         if (player.textures === textures) {
           const {base} = texture
@@ -2043,7 +2043,7 @@ Animation.loadTextures = function () {
   for (const spriteId of Object.keys(last)) {
     const texture = last[spriteId]
     if (texture !== textures[spriteId] &&
-      texture instanceof ImageTexture) {
+      texture instanceof Yami.ImageTexture) {
       texture.destroy()
     }
   }
@@ -2104,7 +2104,7 @@ Animation.drawSpriteLayers = function (contexts = this.player.contexts) {
       frame !== null) {
       const key = layer.sprite
       const texture = player.textures[key]
-      if (texture instanceof ImageTexture) {
+      if (texture instanceof Yami.ImageTexture) {
         if (!ready) {
           ready = true
           const program = gl.spriteProgram.use()
@@ -4144,7 +4144,7 @@ Animation.marqueePointerdown = function (event) {
             .multiply(context.matrix)
             const aax = matrix[6]
             const aay = matrix[7]
-            const {x, y} = event.getRelativeCoords(GL.canvas)
+            const {x, y} = event.getRelativeCoords(Yami.GL.canvas)
             event.mode = 'object-rotate'
             event.absoluteAnchorX = aax
             event.absoluteAnchorY = aay
@@ -4285,7 +4285,7 @@ Animation.pointermove = function (event) {
     switch (dragging.mode) {
       case 'object-rotate':
         if (Animation.target) {
-          const {x, y} = event.getRelativeCoords(GL.canvas)
+          const {x, y} = event.getRelativeCoords(Yami.GL.canvas)
           const distX = x - dragging.absoluteAnchorX
           const distY = y - dragging.absoluteAnchorY
           const currentAngle = Math.atan2(distY, distX)
@@ -5397,7 +5397,7 @@ Animation.list.updateText = function (item) {
     const enumString = Yami.Enum.getString(item.id)
     element.textNode.textContent = enumString
     ? enumString.name
-    : Command.parseUnlinkedId(item.id)
+    : Yami.Command.parseUnlinkedId(item.id)
   }
 }
 

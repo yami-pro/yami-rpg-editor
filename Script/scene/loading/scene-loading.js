@@ -2055,7 +2055,7 @@ Scene.drawScene = function () {
 // 绘制背景
 Scene.drawBackgrounds = function () {
   Yami.GL.clearColor(...this.background.getGLRGBA())
-  Yami.GL.clear(GL.COLOR_BUFFER_BIT)
+  Yami.GL.clear(Yami.GL.COLOR_BUFFER_BIT)
   const activeId = this.activeTilemapId
   const backgrounds = this.backgrounds
   const length = backgrounds.length
@@ -4405,7 +4405,7 @@ Scene.setRectWireframeVertices = function (vertices, dl, dt, dr, db, matrix) {
   const y3 = b * dr + d * db + f
   const x4 = a * dr + c * dt + e
   const y4 = b * dr + d * dt + f
-  const vectors = Vector.instances
+  const vectors = Yami.Vector.instances
   const vector14 = vectors[0].set(x4 - x1, y4 - y1)
   const vector12 = vectors[1].set(x2 - x1, y2 - y1)
   const vector21 = vectors[2].set(x1 - x2, y1 - y2)
@@ -5374,7 +5374,7 @@ Scene.createHistory = function IIFE() {
     }
   }
   return function () {
-    const history = new History(100)
+    const history = new Yami.History(100)
     history.onSave = onSave
     history.onRestore = onRestore
     return history

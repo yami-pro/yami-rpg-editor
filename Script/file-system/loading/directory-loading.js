@@ -182,7 +182,7 @@ Directory.searchFiles = function IIFE() {
     for (let i = 0; i < length; i++) {
       const item = items[i]
       if (filters !== null &&
-        item instanceof FileItem &&
+        item instanceof Yami.FileItem &&
         !filters.includes(item.type)) {
         continue
       }

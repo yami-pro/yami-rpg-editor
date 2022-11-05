@@ -58,7 +58,7 @@ class ParameterPane extends HTMLElement {
         this.update()
       }
     }
-    if (scriptList instanceof NodeList) {
+    if (scriptList instanceof Yami.NodeList) {
       this.getData = () => {
         const item = scriptList.read()
         return item ? [item] : []
@@ -112,7 +112,7 @@ class ParameterPane extends HTMLElement {
       box.data = script
       this.wraps.push(detailWrap)
       // 如果传递了细节概要元素则设置脚本名称
-      if (summary instanceof DetailSummary) {
+      if (summary instanceof Yami.DetailSummary) {
         summary.textContent =
         langMap.get(meta.overview.plugin) ||
         Yami.File.parseMetaName(meta)
@@ -203,12 +203,12 @@ class ParameterPane extends HTMLElement {
       }
       case 'easing': {
         const wrap = this.createSelectBox()
-        wrap.input.loadItems(Data.createEasingItems())
+        wrap.input.loadItems(Yami.Data.createEasingItems())
         return wrap
       }
       case 'team': {
         const wrap = this.createSelectBox()
-        wrap.input.loadItems(Data.createTeamItems())
+        wrap.input.loadItems(Yami.Data.createTeamItems())
         return wrap
       }
       case 'variable': {
@@ -225,7 +225,7 @@ class ParameterPane extends HTMLElement {
           return wrap
         } else {
           const wrap = this.createSelectBox()
-          wrap.input.loadItems(Attribute.getAttributeItems(parameter.filter, '', true))
+          wrap.input.loadItems(Yami.Attribute.getAttributeItems(parameter.filter, '', true))
           return wrap
         }
       case 'attribute-group': {
@@ -426,7 +426,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'custom-box'
     const label = document.createElement('text')
-    const input = new CustomBox()
+    const input = new Yami.CustomBox()
     return {tag, label, input}
   }
 

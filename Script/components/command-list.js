@@ -86,7 +86,7 @@ class CommandList extends HTMLElement {
     if (!data.history) {
       Object.defineProperty(data, 'history', {
         configurable: true,
-        value: new CommandHistory(this),
+        value: new Yami.CommandHistory(this),
       })
     }
     Promise.resolve().then(() => {

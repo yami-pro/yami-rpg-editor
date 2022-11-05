@@ -597,7 +597,7 @@ class FileNavPane extends HTMLElement {
   // 目录改变事件
   dirchange(event) {
     const folders = []
-    const {inoMap} = Directory
+    const {inoMap} = Yami.Directory
     for (const folder of this.getSelections()) {
       const {ino} = folder.stats
       const {path} = inoMap[ino] || folder

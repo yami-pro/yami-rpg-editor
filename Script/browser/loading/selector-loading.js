@@ -90,7 +90,7 @@ Selector.searcherKeydown = function (event) {
           const {elements} = body
           if (elements.count === 1) {
             const {file} = elements[0]
-            if (file instanceof FileItem) {
+            if (file instanceof Yami.FileItem) {
               body.select(file)
               Selector.confirm(event)
             }
@@ -154,7 +154,7 @@ Selector.bodyPopup = function (event) {
       }, {
         label: get('rename'),
         accelerator: 'F2',
-        enabled: single && file !== Directory.assets,
+        enabled: single && file !== Yami.Directory.assets,
         click: () => {
           this.rename(file)
         },
@@ -182,7 +182,7 @@ Selector.confirm = function (event) {
   const files = Selector.body.selections
   switch (files.length) {
     case 1:
-      if (files[0] instanceof FileItem) {
+      if (files[0] instanceof Yami.FileItem) {
         const file = files[0]
         const meta = file.meta
         if (meta !== undefined) {

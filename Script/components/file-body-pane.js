@@ -895,7 +895,7 @@ class FileBodyPane extends HTMLElement {
       nav.load(file)
       nav.scrollToSelection('middle')
     }
-    if (file instanceof FileItem &&
+    if (file instanceof Yami.FileItem &&
       this.openEventEnabled) {
       const open = new Event('open')
       open.value = file
@@ -1298,7 +1298,7 @@ class FileBodyPane extends HTMLElement {
                 }
                 this.pressing = pointerup
                 window.on('pointerup', pointerup, {once: true})
-              } else if (Menu.state === 'closed' &&
+              } else if (Yami.Menu.state === 'closed' &&
                 document.activeElement === this.content && (
                 event.target.tagName === 'FILE-BODY-NAME')) {
                 this.timer.target = event.target

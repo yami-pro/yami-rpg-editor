@@ -290,7 +290,7 @@ NumberOperand.parseMathMethod = function (operand) {
   const label = Yami.Local.get('command.setNumber.math.' + method)
   switch (method) {
     case 'round': {
-      const varName = Command.parseVariable(operand.variable)
+      const varName = Yami.Command.parseVariable(operand.variable)
       const decimals = operand.decimals
       return `${label}(${varName}${decimals ? `, ${decimals}` : ''})`
     }
@@ -301,22 +301,22 @@ NumberOperand.parseMathMethod = function (operand) {
     case 'cos':
     case 'sin':
     case 'tan': {
-      const varName = Command.parseVariable(operand.variable)
+      const varName = Yami.Command.parseVariable(operand.variable)
       return `${label}(${varName})`
     }
     case 'random':
       return `${label}[0,1)`
     case 'random-int': {
-      const min = Command.parseVariableNumber(operand.min)
-      const max = Command.parseVariableNumber(operand.max)
+      const min = Yami.Command.parseVariableNumber(operand.min)
+      const max = Yami.Command.parseVariableNumber(operand.max)
       return `${label}[${min},${max}]`
     }
     case 'distance':
     case 'distance-x':
     case 'distance-y':
     case 'relative-angle': {
-      const start = Command.parsePosition(operand.start)
-      const end = Command.parsePosition(operand.end)
+      const start = Yami.Command.parsePosition(operand.start)
+      const end = Yami.Command.parsePosition(operand.end)
       return `${label}(${start}, ${end})`
     }
   }
@@ -330,13 +330,13 @@ NumberOperand.parseStringMethod = function (operand) {
     case 'length':
     case 'parse': {
       const variable = operand.variable
-      const varName = Command.parseVariable(variable)
+      const varName = Yami.Command.parseVariable(variable)
       return `${methodName}(${varName})`
     }
     case 'search': {
       const {variable, search} = operand
-      const varName = Command.parseVariable(variable)
-      const searchName = Command.parseVariableString(search)
+      const varName = Yami.Command.parseVariable(variable)
+      const searchName = Yami.Command.parseVariableString(search)
       return `${methodName}(${varName}, ${searchName})`
     }
   }
@@ -364,41 +364,41 @@ NumberOperand.parseObjectProperty = function (operand) {
     case 'actor-animation-current-time':
     case 'actor-animation-duration':
     case 'actor-animation-progress':
-      return `${Command.parseActor(operand.actor)} -> ${property}`
+      return `${Yami.Command.parseActor(operand.actor)} -> ${property}`
     case 'actor-bag-item-quantity':
-      return `${Command.parseActor(operand.actor)} -> ${Command.parseFileName(operand.itemId)}.${property}`
+      return `${Yami.Command.parseActor(operand.actor)} -> ${Yami.Command.parseFileName(operand.itemId)}.${property}`
     case 'actor-bag-equipment-quantity':
-      return `${Command.parseActor(operand.actor)} -> ${Command.parseFileName(operand.equipmentId)}.${property}`
+      return `${Yami.Command.parseActor(operand.actor)} -> ${Yami.Command.parseFileName(operand.equipmentId)}.${property}`
     case 'actor-cooldown-time':
     case 'actor-cooldown-duration':
     case 'actor-cooldown-progress': {
-      const key = Command.parseVariableString(operand.key)
-      return `${Command.parseActor(operand.actor)} -> ${property}(${key})`
+      const key = Yami.Command.parseVariableString(operand.key)
+      return `${Yami.Command.parseActor(operand.actor)} -> ${property}(${key})`
     }
     case 'skill-cooldown-time':
     case 'skill-cooldown-duration':
     case 'skill-cooldown-progress':
-      return `${Command.parseSkill(operand.skill)} -> ${property}`
+      return `${Yami.Command.parseSkill(operand.skill)} -> ${property}`
     case 'state-current-time':
     case 'state-duration':
     case 'state-progress':
-      return `${Command.parseState(operand.state)} -> ${property}`
+      return `${Yami.Command.parseState(operand.state)} -> ${property}`
     case 'equipment-index':
-      return `${Command.parseEquipment(operand.equipment)} -> ${property}`
+      return `${Yami.Command.parseEquipment(operand.equipment)} -> ${property}`
     case 'item-index':
     case 'item-quantity':
-      return `${Command.parseItem(operand.item)} -> ${property}`
+      return `${Yami.Command.parseItem(operand.item)} -> ${property}`
     case 'trigger-speed':
     case 'trigger-angle':
-      return `${Command.parseTrigger(operand.trigger)} -> ${property}`
+      return `${Yami.Command.parseTrigger(operand.trigger)} -> ${property}`
     case 'list-length':
-      return `${Command.parseVariable(operand.variable)} -> ${property}`
+      return `${Yami.Command.parseVariable(operand.variable)} -> ${property}`
   }
 }
 
 // 解析元素属性
 NumberOperand.parseElementProperty = function (operand) {
-  const element = Command.parseElement(operand.element)
+  const element = Yami.Command.parseElement(operand.element)
   const property = Yami.Local.get('command.setNumber.element.' + operand.property)
   return `${element} -> ${property}`
 }
@@ -414,7 +414,7 @@ NumberOperand.parseOperand = function (operand) {
     case 'constant':
       return operand.value.toString()
     case 'variable':
-      return Command.parseVariable(operand.variable)
+      return Yami.Command.parseVariable(operand.variable)
     case 'math':
       return this.parseMathMethod(operand)
     case 'string':
@@ -424,9 +424,9 @@ NumberOperand.parseOperand = function (operand) {
     case 'element':
       return this.parseElementProperty(operand)
     case 'list':
-      return Command.parseListItem(operand.variable, operand.index)
+      return Yami.Command.parseListItem(operand.variable, operand.index)
     case 'parameter':
-      return Command.parseParameter(operand.variable, operand.paramName)
+      return Yami.Command.parseParameter(operand.variable, operand.paramName)
     case 'other':
       return this.parseOther(operand)
   }

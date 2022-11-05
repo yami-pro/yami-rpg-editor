@@ -74,20 +74,20 @@ ImageProperty.parse = function ({key, value}) {
   const name = get(key)
   switch (key) {
     case 'image':
-      return `${name}(${Command.parseFileName(value)})`
+      return `${name}(${Yami.Command.parseFileName(value)})`
     case 'display':
       return `${name}(${get('display.' + value)})`
     case 'flip':
       return `${name}(${get('flip.' + value)})`
     case 'blend':
-      return `${name}(${Command.parseBlend(value)})`
+      return `${name}(${Yami.Command.parseBlend(value)})`
     case 'shiftX':
     case 'shiftY':
     case 'clip-0':
     case 'clip-1':
     case 'clip-2':
     case 'clip-3':
-      return `${name}(${Command.parseVariableNumber(value)})`
+      return `${name}(${Yami.Command.parseVariableNumber(value)})`
   }
 }
 

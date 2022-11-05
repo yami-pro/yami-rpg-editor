@@ -85,7 +85,7 @@ TransformProperty.initialize = function () {
 
 // 解析属性
 TransformProperty.parse = function ({key, value}) {
-  return `${Yami.Local.get('command.moveElement.' + key)}(${Command.parseVariableNumber(value)})`
+  return `${Yami.Local.get('command.moveElement.' + key)}(${Yami.Command.parseVariableNumber(value)})`
 }
 
 // 打开数据

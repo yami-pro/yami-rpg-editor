@@ -79,11 +79,11 @@ ProgressBarProperty.parse = function ({key, value}) {
   const name = get(key)
   switch (key) {
     case 'image':
-      return `${name}(${Command.parseFileName(value)})`
+      return `${name}(${Yami.Command.parseFileName(value)})`
     case 'display':
       return `${name}(${get('display.' + value)})`
     case 'blend':
-      return `${name}(${Command.parseBlend(value)})`
+      return `${name}(${Yami.Command.parseBlend(value)})`
     case 'progress':
     case 'clip-0':
     case 'clip-1':
@@ -93,7 +93,7 @@ ProgressBarProperty.parse = function ({key, value}) {
     case 'color-1':
     case 'color-2':
     case 'color-3':
-      return `${name}(${Command.parseVariableNumber(value)})`
+      return `${name}(${Yami.Command.parseVariableNumber(value)})`
   }
 }
 

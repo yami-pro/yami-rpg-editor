@@ -20,7 +20,7 @@ IfBranch.initialize = function () {
 
 // 解析项目
 IfBranch.parse = function (branch) {
-  const words = Command.words
+  const words = Yami.Command.words
   let joint
   switch (branch.mode) {
     case 'all': joint = ' && '; break

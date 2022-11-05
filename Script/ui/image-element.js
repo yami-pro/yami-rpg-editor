@@ -44,7 +44,7 @@ class ImageElement extends Yami.UI.Element {
         this.texture = null
       }
       if (value) {
-        this.texture = new ImageTexture(value)
+        this.texture = new Yami.ImageTexture(value)
         this.texture.on('load', () => {
           Yami.UI.requestRendering()
         })

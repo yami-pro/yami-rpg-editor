@@ -98,7 +98,7 @@ class TextureManager {
     if (this.map[oldTex.index]) {
       this.map[oldTex.index] = newTex
     }
-    if (oldTex instanceof ImageTexture &&
+    if (oldTex instanceof Yami.ImageTexture &&
       oldTex.guid === newTex.guid) {
       if (this.images[oldTex.guid] === oldTex) {
         this.images[oldTex.guid] = newTex

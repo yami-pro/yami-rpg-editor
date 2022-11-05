@@ -82,7 +82,7 @@ LightProperty.parse = function ({key, value}) {
     case 'red':
     case 'green':
     case 'blue': {
-      const number = Command.parseVariableNumber(value)
+      const number = Yami.Command.parseVariableNumber(value)
       return `${Yami.Local.get('command.moveLight.' + key)}(${number})`
     }
   }

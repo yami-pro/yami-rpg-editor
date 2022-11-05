@@ -363,7 +363,7 @@ class AnimationPlayer {
       const sprite = this.sprites[spriteId]
       const imageId = this.images[spriteId]
       if (sprite !== undefined && imageId) {
-        const texture = new ImageTexture(imageId)
+        const texture = new Yami.ImageTexture(imageId)
         textures[spriteId] = null
         texture.on('load', () => {
           if (this.textures === textures) {
@@ -395,7 +395,7 @@ class AnimationPlayer {
   destroy() {
     // 销毁图像纹理
     for (const texture of Object.values(this.textures)) {
-      if (texture instanceof ImageTexture) {
+      if (texture instanceof Yami.ImageTexture) {
         texture.destroy()
       }
     }

@@ -190,7 +190,7 @@ class ParticleLayer {
         gl.flip,
         gl.width,
         gl.height,
-      ).multiply(Particle.Element.stage.matrix)
+      ).multiply(Yami.Particle.Element.stage.matrix)
       gl.bindVertexArray(program.vao)
       gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
       switch (data.color.mode) {
