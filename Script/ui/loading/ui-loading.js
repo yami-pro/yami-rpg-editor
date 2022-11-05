@@ -1537,7 +1537,7 @@ UI.stopRendering = function () {
 
 // 开关设置
 UI.switchSettings = function () {
-  if (!Inspector.fileUI.button.hasClass('selected')) {
+  if (!Yami.Inspector.fileUI.button.hasClass('selected')) {
     Yami.Inspector.open('fileUI', UI)
   } else {
     Yami.Inspector.close()

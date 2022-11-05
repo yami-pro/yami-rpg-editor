@@ -1,14 +1,14 @@
 'use strict'
 
 export { UI } from './ui.js'
-export { UIElement } from './ui-element.js'
+import './ui-element.js'
 export { RootElement } from './root-element.js'
+export { TextBoxElement } from './text-box-element.js'
+export { TextElement } from './text-element.js'
 export { ContainerElement } from './container-element.js'
 export { DialogBoxElement } from './dialog-box-element.js'
 export { ImageElement } from './image-element.js'
 export { ProgressBarElement } from './progress-bar-element.js'
-export { TextBoxElement } from './text-box-element.js'
-export { TextElement } from './text-element.js'
 export { VideoElement } from './video-element.js'
 export { WindowElement } from './window-element.js'
 

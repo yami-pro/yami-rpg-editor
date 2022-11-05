@@ -1,6 +1,7 @@
 'use strict'
 
 export { Inspector } from './inspector.js'
+export { UIElement } from './ui-element.js'
 
 import './anim-joint-frame.js'
 import './anim-joint-layer.js'
@@ -36,7 +37,6 @@ import './scene-region.js'
 import './scene-tilemap.js'
 import './ui-container.js'
 import './ui-dialog-box.js'
-import './ui-element.js'
 import './ui-image.js'
 import './ui-progress-bar.js'
 import './ui-text-box.js'

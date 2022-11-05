@@ -1393,7 +1393,7 @@ class CommandList extends HTMLElement {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: ctrl('X'),
+            accelerator: Yami.ctrl('X'),
             enabled: valid,
             click: () => {
               this.copy()
@@ -1401,14 +1401,14 @@ class CommandList extends HTMLElement {
             },
           }, {
             label: get('copy'),
-            accelerator: ctrl('C'),
+            accelerator: Yami.ctrl('C'),
             enabled: valid,
             click: () => {
               this.copy()
             },
           }, {
             label: get('paste'),
-            accelerator: ctrl('V'),
+            accelerator: Yami.ctrl('V'),
             enabled: pastable,
             click: () => {
               this.paste()
@@ -1422,21 +1422,21 @@ class CommandList extends HTMLElement {
             },
           }, {
             label: get('selectAll'),
-            accelerator: ctrl('A'),
+            accelerator: Yami.ctrl('A'),
             enabled: allSelectable,
             click: () => {
               this.select(0, Infinity)
             },
           }, {
             label: get('undo'),
-            accelerator: ctrl('Z'),
+            accelerator: Yami.ctrl('Z'),
             enabled: undoable,
             click: () => {
               this.undo()
             },
           }, {
             label: get('redo'),
-            accelerator: ctrl('Y'),
+            accelerator: Yami.ctrl('Y'),
             enabled: redoable,
             click: () => {
               this.redo()

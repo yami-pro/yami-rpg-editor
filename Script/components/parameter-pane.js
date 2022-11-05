@@ -241,7 +241,7 @@ class ParameterPane extends HTMLElement {
           return wrap
         } else {
           const wrap = this.createSelectBox()
-          wrap.input.loadItems(Enum.getStringItems(parameter.filter, true))
+          wrap.input.loadItems(Yami.Enum.getStringItems(parameter.filter, true))
           return wrap
         }
       case 'enum-group': {

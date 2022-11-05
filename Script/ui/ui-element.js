@@ -310,5 +310,3 @@ class UIElement {
 }
 
 Yami.UI.Element = UIElement
-
-export { UIElement }

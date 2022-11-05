@@ -274,14 +274,14 @@ Team.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: ctrl('C'),
+    accelerator: Yami.ctrl('C'),
     enabled: selected,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: ctrl('V'),
+    accelerator: Yami.ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)

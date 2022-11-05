@@ -17,7 +17,7 @@ import * as Yami from '../yami.js'
 
   // 创建窗口
   UIContainer.create = function () {
-    const transform = UIElement.createTransform()
+    const transform = Yami.UIElement.createTransform()
     transform.width = 100
     transform.height = 100
     return {
@@ -39,11 +39,11 @@ import * as Yami from '../yami.js'
   UIContainer.open = function (node) {
     if (this.target !== node) {
       this.target = node
-      UIElement.open(node)
+      Yami.UIElement.open(node)
 
       // 写入数据
       const write = Yami.getElementWriter('uiContainer', node)
-      UIElement.open(node)
+      Yami.UIElement.open(node)
     }
   }
 
@@ -52,7 +52,7 @@ import * as Yami from '../yami.js'
     if (this.target) {
       Yami.UI.list.unselect(this.target)
       Yami.UI.updateTarget()
-      UIElement.close()
+      Yami.UIElement.close()
       this.target = null
     }
   }

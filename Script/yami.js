@@ -90,7 +90,6 @@ export {
   RootElement,
   TextBoxElement,
   TextElement,
-  UIElement,
   VideoElement,
   WindowElement
 } from './ui/index.js'
@@ -185,7 +184,10 @@ export {
   ParticleLayer
 } from './particle/index.js'
 
-export { Inspector } from './inspector/index.js'
+export {
+  Inspector,
+  UIElement
+} from './inspector/index.js'
 
 export { Layout } from './layout/index.js'
 
