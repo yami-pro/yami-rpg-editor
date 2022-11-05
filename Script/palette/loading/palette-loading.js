@@ -795,7 +795,7 @@ Palette.copyAutoTile = function (index) {
     const tiles = tileset.tiles
     const priorities = tileset.priorities
     if (tiles[index]) {
-      Yami.Clipboard.write('yami.tile', {
+      Clipboard.write('yami.tile', {
         tile: tiles[index],
         priority: priorities[index],
       })
@@ -809,7 +809,7 @@ Palette.pasteAutoTile = function (index) {
     const tileset = this.tileset
     const tiles = tileset.tiles
     const priorities = tileset.priorities
-    const copy = Yami.Clipboard.read('yami.tile')
+    const copy = Clipboard.read('yami.tile')
     if (copy && index < tiles.length) {
       tiles[index] = copy.tile
       priorities[index] = copy.priority
@@ -1557,7 +1557,7 @@ Palette.marqueePopup = function (event) {
     const existing = !!tiles[index]
     const editable = true
     const copyable = existing
-    const pastable = Yami.Clipboard.has('yami.tile')
+    const pastable = Clipboard.has('yami.tile')
     const deletable = existing
     const get = Yami.Local.createGetter('menuTileset')
     Yami.Menu.popup({

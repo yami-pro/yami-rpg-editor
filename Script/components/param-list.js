@@ -492,7 +492,7 @@ class ParamList extends HTMLElement {
       const end = this.end + 1
       const copies = data.slice(start, end)
       if (copies.length > 0) {
-        Yami.Clipboard.write(this.type, copies)
+        Clipboard.write(this.type, copies)
       }
     }
   }
@@ -500,7 +500,7 @@ class ParamList extends HTMLElement {
   // 粘贴项目
   paste() {
     if (this.start !== null) {
-      const copies = Yami.Clipboard.read(this.type)
+      const copies = Clipboard.read(this.type)
       if (copies) {
         const data = this.data
         const start = this.start
@@ -804,7 +804,7 @@ class ParamList extends HTMLElement {
           const element = elements[this.start]
           const valid = !!element.dataItem
           const editable = this.start === this.end
-          const pastable = Yami.Clipboard.has(this.type)
+          const pastable = Clipboard.has(this.type)
           const allSelectable = this.data.length > 0
           const undoable = this.history.canUndo()
           const redoable = this.history.canRedo()

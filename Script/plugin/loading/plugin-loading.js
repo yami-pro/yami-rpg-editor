@@ -1336,7 +1336,7 @@ PluginManager.listChange = function (event) {
 PluginManager.listPopup = function (event) {
   const item = event.value
   const selected = !!item
-  const pastable = Yami.Clipboard.has('yami.data.plugin')
+  const pastable = Clipboard.has('yami.data.plugin')
   const deletable = selected
   const get = Yami.Local.createGetter('menuPluginList')
   Yami.Menu.popup({
@@ -1491,13 +1491,13 @@ PluginManager.list.toggle = function (item) {
 // 列表 - 复制
 PluginManager.list.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.data.plugin', item)
+    Clipboard.write('yami.data.plugin', item)
   }
 }
 
 // 列表 - 粘贴
 PluginManager.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.data.plugin')
+  const copy = Clipboard.read('yami.data.plugin')
   if (copy) {
     this.addNodeTo(copy, dItem)
   }

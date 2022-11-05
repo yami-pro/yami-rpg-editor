@@ -201,7 +201,7 @@ CustomCommand.listChange = function (event) {
 CustomCommand.listPopup = function (event) {
   const item = event.value
   const selected = !!item
-  const pastable = Yami.Clipboard.has('yami.data.customCommand')
+  const pastable = Clipboard.has('yami.data.customCommand')
   const deletable = selected
   const get = Yami.Local.createGetter('menuCustomCommandList')
   Yami.Menu.popup({
@@ -335,13 +335,13 @@ CustomCommand.list.toggle = function (item) {
 // 列表 - 复制
 CustomCommand.list.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.data.customCommand', item)
+    Clipboard.write('yami.data.customCommand', item)
   }
 }
 
 // 列表 - 粘贴
 CustomCommand.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.data.customCommand')
+  const copy = Clipboard.read('yami.data.customCommand')
   if (copy) {
     this.addNodeTo(copy, dItem)
   }

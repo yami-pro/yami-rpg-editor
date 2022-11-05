@@ -6447,7 +6447,7 @@ Scene.menuPopup = function (event) {
     this.translationKeyup()
     const target = this.target
     const selected = !!target
-    const pastable = Yami.Clipboard.has('yami.scene.object')
+    const pastable = Clipboard.has('yami.scene.object')
     const get = Yami.Local.createGetter('menuScene')
     Yami.Menu.popup({
       x: event.clientX,
@@ -6773,12 +6773,12 @@ Scene.listPopup = function (event) {
         })
         break
     }
-    pastable = Yami.Clipboard.has('yami.scene.object')
+    pastable = Clipboard.has('yami.scene.object')
     deletable = true
     renamable = true
   } else {
     copyable = false
-    pastable = Yami.Clipboard.has('yami.scene.object')
+    pastable = Clipboard.has('yami.scene.object')
     deletable = false
     renamable = false
   }
@@ -7122,13 +7122,13 @@ Scene.list.copy = function (item) {
         Yami.Codec.encodeTilemap(item)
         break
     }
-    Yami.Clipboard.write('yami.scene.object', item)
+    Clipboard.write('yami.scene.object', item)
   }
 }
 
 // 列表 - 粘贴
 Scene.list.paste = function (dItem, callback) {
-  const copy = Yami.Clipboard.read('yami.scene.object')
+  const copy = Clipboard.read('yami.scene.object')
   if (copy && this.data) {
     switch (copy.class) {
       case 'tilemap':

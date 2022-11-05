@@ -130,7 +130,7 @@ Menubar.popupEditMenu = function (target) {
       case 'scene':
         if (Yami.Scene.state === 'open') {
           const selected = Yami.Scene.target instanceof Object
-          const pastable = Yami.Clipboard.has('yami.scene.object')
+          const pastable = Clipboard.has('yami.scene.object')
           items.cut.enabled = selected
           items.copy.enabled = selected
           items.paste.enabled = pastable
@@ -148,7 +148,7 @@ Menubar.popupEditMenu = function (target) {
       case 'ui':
         if (Yami.UI.state === 'open') {
           const selected = Yami.UI.target instanceof Object
-          const pastable = Yami.Clipboard.has('yami.ui.object')
+          const pastable = Clipboard.has('yami.ui.object')
           items.cut.enabled = selected
           items.copy.enabled = selected
           items.paste.enabled = pastable
@@ -166,7 +166,7 @@ Menubar.popupEditMenu = function (target) {
       case 'animation':
         if (Yami.Animation.state === 'open') {
           const selected = Yami.Animation.motion instanceof Object
-          const pastable = Yami.Clipboard.has('yami.animation.object')
+          const pastable = Clipboard.has('yami.animation.object')
           items.cut.enabled = selected
           items.copy.enabled = selected
           items.paste.enabled = pastable

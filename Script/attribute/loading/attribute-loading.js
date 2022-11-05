@@ -550,7 +550,7 @@ Attribute.listPopup = function (event) {
   const item = event.value
   const selected = !!item
   const copyable = selected && item.class !== 'folder'
-  const pastable = Yami.Clipboard.has('yami.data.attribute')
+  const pastable = Clipboard.has('yami.data.attribute')
   const undoable = Attribute.history.canUndo()
   const redoable = Attribute.history.canRedo()
   const get = Yami.Local.createGetter('menuAttributeList')
@@ -799,13 +799,13 @@ Attribute.apply = function (event) {
 // 列表 - 复制
 Attribute.list.copy = function (item) {
   if (item.class !== 'folder') {
-    Yami.Clipboard.write('yami.data.attribute', item)
+    Clipboard.write('yami.data.attribute', item)
   }
 }
 
 // 列表 - 粘贴
 Attribute.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.data.attribute')
+  const copy = Clipboard.read('yami.data.attribute')
   if (copy) {
     copy.id = Attribute.createId()
     copy.name += ' - Copy'

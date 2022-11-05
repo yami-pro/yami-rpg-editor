@@ -1196,7 +1196,7 @@ class NodeList extends HTMLElement {
               this.select(element.item)
             } else if (
               this.renamable &&
-              Menu.state === 'closed' &&
+              Yami.Menu.state === 'closed' &&
               document.activeElement === this &&
               event.clientX >
               (element.nodeIcon?.rect().right ?? 0)) {

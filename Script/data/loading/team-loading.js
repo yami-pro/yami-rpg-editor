@@ -259,7 +259,7 @@ Team.listPopup = function (event) {
   const length = Team.data.length
   const selected = !!item
   const insertable = length < Team.maximum
-  const pastable = insertable && Yami.Clipboard.has('yami.data.team')
+  const pastable = insertable && Clipboard.has('yami.data.team')
   const deletable = selected && length > 1
   const get = Yami.Local.createGetter('menuTeamList')
   Yami.Menu.popup({
@@ -331,13 +331,13 @@ Team.list.insert = function (dItem) {
 // 列表 - 复制
 Team.list.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.data.team', item)
+    Clipboard.write('yami.data.team', item)
   }
 }
 
 // 列表 - 粘贴
 Team.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.data.team')
+  const copy = Clipboard.read('yami.data.team')
   if (copy) {
     const dId = Team.createId()
     const cRelations = copy.relations

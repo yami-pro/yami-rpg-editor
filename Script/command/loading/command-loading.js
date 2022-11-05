@@ -5703,7 +5703,7 @@ Command.cases.changeActorSprite = {
 
     // 侦听事件
     $('#changeActorSprite-animationId').on('write', event => {
-      const items = Animation.getSpriteListItems(event.value)
+      const items = Yami.Animation.getSpriteListItems(event.value)
       const elSpriteId = $('#changeActorSprite-spriteId')
       elSpriteId.loadItems(items)
       elSpriteId.write(elSpriteId.read())

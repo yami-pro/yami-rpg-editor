@@ -156,7 +156,7 @@ EventEditor.initialize = function () {
 
 // 打开数据
 EventEditor.open = function (filter, event, callback) {
-  this.callback = callback ?? Yami.Function.empty
+  this.callback = callback ?? Function.empty
   Yami.Window.open('event')
 
   // 创建类型选项

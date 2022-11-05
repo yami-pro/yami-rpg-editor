@@ -2219,7 +2219,7 @@ UI.menuPopup = function (event) {
   const {x, y} = this.getPointerCoords(event)
   const target = this.target
   const selected = !!target
-  const pastable = Yami.Clipboard.has('yami.ui.object')
+  const pastable = Clipboard.has('yami.ui.object')
   const get = Yami.Local.createGetter('menuUI')
   Yami.Menu.popup({
     x: event.clientX,
@@ -2503,7 +2503,7 @@ UI.listPopup = function (event) {
   if (item) {
     selected = true
     copyable = true
-    pastable = Yami.Clipboard.has('yami.ui.object')
+    pastable = Clipboard.has('yami.ui.object')
     deletable = true
     renamable = true
     menuItems.push({
@@ -2522,7 +2522,7 @@ UI.listPopup = function (event) {
   } else {
     selected = false
     copyable = false
-    pastable = Yami.Clipboard.has('yami.ui.object')
+    pastable = Clipboard.has('yami.ui.object')
     deletable = false
     renamable = false
   }
@@ -2622,13 +2622,13 @@ UI.marquee.resize = function () {
 // 列表 - 复制
 UI.list.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.ui.object', item)
+    Clipboard.write('yami.ui.object', item)
   }
 }
 
 // 列表 - 粘贴
 UI.list.paste = function (dItem, callback) {
-  const copy = Yami.Clipboard.read('yami.ui.object')
+  const copy = Clipboard.read('yami.ui.object')
   if (copy && this.data) {
     callback?.(copy)
     this.addNodeTo(copy, dItem)

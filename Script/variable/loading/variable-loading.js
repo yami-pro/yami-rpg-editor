@@ -476,7 +476,7 @@ Variable.listPopup = function (event) {
   const item = event.value
   const selected = !!item
   const copyable = selected && item.class !== 'folder'
-  const pastable = Yami.Clipboard.has('yami.data.variable')
+  const pastable = Clipboard.has('yami.data.variable')
   const undoable = Variable.history.canUndo()
   const redoable = Variable.history.canRedo()
   const get = Yami.Local.createGetter('menuVariableList')
@@ -734,13 +734,13 @@ Variable.apply = function (event) {
 // 列表 - 复制
 Variable.list.copy = function (item) {
   if (item && item.class !== 'folder') {
-    Yami.Clipboard.write('yami.data.variable', item)
+    Clipboard.write('yami.data.variable', item)
   }
 }
 
 // 列表 - 粘贴
 Variable.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.data.variable')
+  const copy = Clipboard.read('yami.data.variable')
   if (copy) {
     copy.id = Variable.createId()
     copy.name += ' - Copy'

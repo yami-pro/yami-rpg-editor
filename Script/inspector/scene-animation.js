@@ -164,7 +164,7 @@ import * as Yami from '../yami.js'
   // 动画ID - 写入事件
   SceneAnimation.animationIdWrite = function (event) {
     const elMotion = $('#sceneAnimation-motion')
-    const items = Animation.getMotionListItems(event.value)
+    const items = Yami.Animation.getMotionListItems(event.value)
     elMotion.loadItems(items)
     elMotion.write(elMotion.read() ?? items[0].value)
   }

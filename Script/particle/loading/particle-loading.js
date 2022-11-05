@@ -1460,12 +1460,12 @@ Particle.listPopup = function (event) {
   let renamable
   if (item) {
     copyable = true
-    pastable = Yami.Clipboard.has('yami.particle.layer')
+    pastable = Clipboard.has('yami.particle.layer')
     deletable = true
     renamable = true
   } else {
     copyable = false
-    pastable = Yami.Clipboard.has('yami.particle.layer')
+    pastable = Clipboard.has('yami.particle.layer')
     deletable = false
     renamable = false
   }
@@ -1531,13 +1531,13 @@ Particle.list.create = function (dItem) {
 // 列表 - 复制
 Particle.list.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.particle.layer', item)
+    Clipboard.write('yami.particle.layer', item)
   }
 }
 
 // 列表 - 粘贴
 Particle.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.particle.layer')
+  const copy = Clipboard.read('yami.particle.layer')
   if (copy && this.data) {
     this.addNodeTo(copy, dItem)
   }

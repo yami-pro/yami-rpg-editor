@@ -517,7 +517,7 @@ Enum.listPopup = function (event) {
   const item = event.value
   const selected = !!item
   const copyable = selected && item.class !== 'folder'
-  const pastable = Yami.Clipboard.has('yami.data.enumeration')
+  const pastable = Clipboard.has('yami.data.enumeration')
   const undoable = Enum.history.canUndo()
   const redoable = Enum.history.canRedo()
   const get = Yami.Local.createGetter('menuEnumList')
@@ -723,13 +723,13 @@ Enum.apply = function (event) {
 // 列表 - 复制
 Enum.list.copy = function (item) {
   if (item.class !== 'folder') {
-    Yami.Clipboard.write('yami.data.enumeration', item)
+    Clipboard.write('yami.data.enumeration', item)
   }
 }
 
 // 列表 - 粘贴
 Enum.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.data.enumeration')
+  const copy = Clipboard.read('yami.data.enumeration')
   if (copy) {
     copy.id = Enum.createId()
     copy.name += ' - Copy'

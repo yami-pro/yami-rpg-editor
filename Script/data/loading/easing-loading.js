@@ -243,13 +243,13 @@ Easing.insert = function (dItem) {
 // 复制
 Easing.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.data.easing', item)
+    Clipboard.write('yami.data.easing', item)
   }
 }
 
 // 粘贴
 Easing.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.data.easing')
+  const copy = Clipboard.read('yami.data.easing')
   if (copy) {
     copy.name += ' - Copy'
     copy.id = this.createId()
@@ -773,7 +773,7 @@ Easing.listOpen = function (event) {
 Easing.listPopup = function (event) {
   const item = event.value
   const selected = !!item
-  const pastable = Yami.Clipboard.has('yami.data.easing')
+  const pastable = Clipboard.has('yami.data.easing')
   const deletable = selected && Easing.data.length > 1
   const get = Yami.Local.createGetter('menuEasingList')
   Yami.Menu.popup({

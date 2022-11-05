@@ -3167,7 +3167,7 @@ Animation.copyFrame = function (returnData = false) {
     if (returnData) {
       return data
     }
-    Yami.Clipboard.write(`yami.animFrame.${layer.class}`, data)
+    Clipboard.write(`yami.animFrame.${layer.class}`, data)
   }
 }
 
@@ -3175,7 +3175,7 @@ Animation.copyFrame = function (returnData = false) {
 Animation.pasteFrame = function (data, destination) {
   const {layer, x, y, length: sLength} =
   destination ?? this.timelineMarquee
-  if (!data) data = Yami.Clipboard.read(`yami.animFrame.${layer.class}`)
+  if (!data) data = Clipboard.read(`yami.animFrame.${layer.class}`)
   if (!data || y === -1) {
     return
   }
@@ -3259,9 +3259,9 @@ Animation.dragAndDropFrame = function () {
       const layers = [sLayer]
       layers.append(dLayer)
       this.saveFrames(layers, sMarquee, dMarquee)
-      this.updateTimeline = Yami.Function.empty
-      this.openFrame = Yami.Function.empty
-      this.saveFrames = Yami.Function.empty
+      this.updateTimeline = Function.empty
+      this.openFrame = Function.empty
+      this.saveFrames = Function.empty
       this.deleteFrame()
       this.pasteFrame(data, this.timelineMarqueeShift)
       this.updateTimeline = updateTimeline
@@ -3370,9 +3370,9 @@ Animation.shiftSelectedFrames = function (mode) {
       const layers = [sLayer]
       layers.append(dLayer)
       this.saveFrames(layers, sMarquee, dMarquee)
-      this.updateTimeline = Yami.Function.empty
-      this.openFrame = Yami.Function.empty
-      this.saveFrames = Yami.Function.empty
+      this.updateTimeline = Function.empty
+      this.openFrame = Function.empty
+      this.saveFrames = Function.empty
       this.deleteFrame()
       this.pasteFrame(data, destination)
       this.updateTimeline = updateTimeline
@@ -4563,11 +4563,11 @@ Animation.listPopup = function (event) {
   let deletable
   if (item) {
     copyable = true
-    pastable = Yami.Clipboard.has('yami.animation.object')
+    pastable = Clipboard.has('yami.animation.object')
     deletable = true
   } else {
     copyable = false
-    pastable = Yami.Clipboard.has('yami.animation.object')
+    pastable = Clipboard.has('yami.animation.object')
     deletable = false
   }
   let headItems = Array.empty
@@ -4802,12 +4802,12 @@ Animation.layerListPopup = function (event) {
   let renamable
   if (item) {
     copyable = true
-    pastable = Yami.Clipboard.has('yami.animation.layer')
+    pastable = Clipboard.has('yami.animation.layer')
     deletable = true
     renamable = true
   } else {
     copyable = false
-    pastable = Yami.Clipboard.has('yami.animation.layer')
+    pastable = Clipboard.has('yami.animation.layer')
     deletable = false
     renamable = false
   }
@@ -5131,7 +5131,7 @@ Animation.outerTimelineListPointerup = function (event) {
           if (marquee.isPointIn(x, y)) {
             const key = marquee.layer.class
             const selected = marquee.isSelected()
-            const pastable = Yami.Clipboard.has(`yami.animFrame.${key}`)
+            const pastable = Clipboard.has(`yami.animFrame.${key}`)
             const extendable = selected || marquee.isExtendable()
             const shrinkable = selected || marquee.isShrinkable()
             const get = Yami.Local.createGetter('menuAnimationTimeline')
@@ -5329,13 +5329,13 @@ Animation.marquee.resize = function () {
 // 列表 - 复制
 Animation.list.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.animation.object', item)
+    Clipboard.write('yami.animation.object', item)
   }
 }
 
 // 列表 - 粘贴
 Animation.list.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.animation.object')
+  const copy = Clipboard.read('yami.animation.object')
   if (copy && this.data) {
     this.addNodeTo(copy, dItem)
   }
@@ -5523,13 +5523,13 @@ Animation.layerList.create = function (dItem, type) {
 // 图层列表 - 复制
 Animation.layerList.copy = function (item) {
   if (item) {
-    Yami.Clipboard.write('yami.animation.layer', item)
+    Clipboard.write('yami.animation.layer', item)
   }
 }
 
 // 图层列表 - 粘贴
 Animation.layerList.paste = function (dItem) {
-  const copy = Yami.Clipboard.read('yami.animation.layer')
+  const copy = Clipboard.read('yami.animation.layer')
   if (copy && this.data) {
     this.addNodeTo(copy, dItem)
   }
@@ -5546,7 +5546,7 @@ Animation.layerList.delete = function (item) {
 Animation.layerList.restoreMotion = function (motion) {
   if (Animation.motion !== motion) {
     const {update} = this
-    this.update = Yami.Function.empty
+    this.update = Function.empty
     Animation.setMotion(motion)
     this.update = update
   }
@@ -5613,7 +5613,7 @@ Animation.timeline.updateHead = function () {
 // 时间轴列表 - 恢复动作和图层对象
 Animation.outerTimelineList.restoreMotionAndLayer = function (motion, layer) {
   const {updateTimeline} = Animation
-  Animation.updateTimeline = Yami.Function.empty
+  Animation.updateTimeline = Function.empty
   Animation.setMotion(motion)
   Animation.layerList.expandToItem(layer)
   Animation.updateTimeline = updateTimeline

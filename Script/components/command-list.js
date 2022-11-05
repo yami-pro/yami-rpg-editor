@@ -948,7 +948,7 @@ class CommandList extends HTMLElement {
       const end = eElement.dataIndex + 1
       const copies = list.slice(start, end)
       if (copies.length > 0) {
-        Yami.Clipboard.write('yami.commands', copies)
+        Clipboard.write('yami.commands', copies)
       }
     }
   }
@@ -961,7 +961,7 @@ class CommandList extends HTMLElement {
       if (!this.isParentEnabled(element)) {
         return
       }
-      const copies = Yami.Clipboard.read('yami.commands')
+      const copies = Clipboard.read('yami.commands')
       if (copies) {
         const list = element.dataList
         const start = element.dataIndex
@@ -1353,7 +1353,7 @@ class CommandList extends HTMLElement {
           const pEnabled = this.isParentEnabled(sElement)
           const sEnabled = valid ? sData.buffer.enabled : pEnabled
           const editable = sEnabled && sData === eData
-          const pastable = pEnabled && Yami.Clipboard.has('yami.commands')
+          const pastable = pEnabled && Clipboard.has('yami.commands')
           const allSelectable = this.data.length > 0
           const undoable = this.history.canUndo()
           const redoable = this.history.canRedo()
