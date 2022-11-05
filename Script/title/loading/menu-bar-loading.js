@@ -579,7 +579,7 @@ Menubar.keydown = function (event) {
         }
         break
       case 'KeyW':
-        Yami.Title.tabBar.close(Title.tabBar.read())
+        Yami.Title.tabBar.close(Yami.Title.tabBar.read())
         break
       case 'KeyZ':
         Yami.Scene.undo()

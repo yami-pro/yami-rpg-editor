@@ -131,7 +131,7 @@ import * as Yami from '../yami.js'
         if (particle[key] !== value) {
           // const {x, y} = particle
           particle[key] = value
-          // particle.emitter?.shift(Scene.getConvertedCoords({
+          // particle.emitter?.shift(Yami.Scene.getConvertedCoords({
           //   x: particle.x - x,
           //   y: particle.y - y,
           // }))

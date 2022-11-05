@@ -218,7 +218,7 @@ Directory.existFiles = function IIFE() {
     }
   }
   return function (dirPath, dir) {
-    return check(File.route(dirPath), dir).then(
+    return check(Yami.File.route(dirPath), dir).then(
       existed => true,
       error => false,
     )
@@ -323,7 +323,7 @@ Directory.saveFiles = function IIFE() {
       } else if (Yami.FileItem.isDataFile(file)) {
         const meta = file.meta
         if (changes.includes(meta)) {
-          promises.push(File.saveFile(meta))
+          promises.push(Yami.File.saveFile(meta))
           metaset.push(meta)
         }
       }

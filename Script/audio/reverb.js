@@ -104,7 +104,7 @@ class Reverb {
       filter.type = 'lowpass'
       filter.frequency.value = 3000
       convolver.connect(filter)
-      filter.connect(AudioManager.analyser)
+      filter.connect(Yami.AudioManager.analyser)
       Reverb.convolver = convolver
     }
     return Reverb.convolver

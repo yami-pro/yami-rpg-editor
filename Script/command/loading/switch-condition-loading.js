@@ -186,7 +186,7 @@ SwitchCondition.save = function () {
     }
     case 'variable': {
       const variable = read('variable-variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#switch-condition-variable-variable').getFocus()
       }
       condition = {type, variable}

@@ -83,7 +83,7 @@ DialogBoxProperty.parse = function ({key, value}) {
   const name = get(key)
   switch (key) {
     case 'content': {
-      let string = Yami.Command.parseMultiLineString(Command.parseVariableTag(value))
+      let string = Yami.Command.parseMultiLineString(Yami.Command.parseVariableTag(value))
       if (string.length > 40) {
         string = string.slice(0, 40) + '...'
       }

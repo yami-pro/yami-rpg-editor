@@ -665,7 +665,7 @@ IfCondition.save = function () {
   switch (type) {
     case 'boolean': {
       const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('boolean-operation')
@@ -687,7 +687,7 @@ IfCondition.save = function () {
             type: 'variable',
             variable: read('operand-variable'),
           }
-          if (VariableGetter.isNone(operand.variable)) {
+          if (Yami.VariableGetter.isNone(operand.variable)) {
             return $('#if-condition-operand-variable').getFocus()
           }
           break
@@ -697,7 +697,7 @@ IfCondition.save = function () {
     }
     case 'number': {
       const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('number-operation')
@@ -719,7 +719,7 @@ IfCondition.save = function () {
             type: 'variable',
             variable: read('operand-variable'),
           }
-          if (VariableGetter.isNone(operand.variable)) {
+          if (Yami.VariableGetter.isNone(operand.variable)) {
             return $('#if-condition-operand-variable').getFocus()
           }
           break
@@ -729,7 +729,7 @@ IfCondition.save = function () {
     }
     case 'string': {
       const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('string-operation')
@@ -751,7 +751,7 @@ IfCondition.save = function () {
             type: 'variable',
             variable: read('operand-variable'),
           }
-          if (VariableGetter.isNone(operand.variable)) {
+          if (Yami.VariableGetter.isNone(operand.variable)) {
             return $('#if-condition-operand-variable').getFocus()
           }
           break
@@ -770,7 +770,7 @@ IfCondition.save = function () {
     }
     case 'object': {
       const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('object-operation')
@@ -837,7 +837,7 @@ IfCondition.save = function () {
                 type: 'variable',
                 variable: read('operand-variable'),
               }
-              if (VariableGetter.isNone(operand.variable)) {
+              if (Yami.VariableGetter.isNone(operand.variable)) {
                 return $('#if-condition-operand-variable').getFocus()
               }
               break
@@ -910,12 +910,12 @@ IfCondition.save = function () {
     }
     case 'list': {
       const list = read('common-variable')
-      if (VariableGetter.isNone(list)) {
+      if (Yami.VariableGetter.isNone(list)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('list-operation')
       const target = read('operand-variable')
-      if (VariableGetter.isNone(target)) {
+      if (Yami.VariableGetter.isNone(target)) {
         return $('#if-condition-operand-variable').getFocus()
       }
       condition = {type, list, operation, target}

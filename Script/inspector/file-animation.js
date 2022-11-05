@@ -135,8 +135,8 @@ import * as Yami from '../yami.js'
 
       // 重载动画纹理 - 改变事件
       list.on('change', event => {
-        if (Animation.sprites) {
-          if (Animation.sprites.listItems) {
+        if (Yami.Animation.sprites) {
+          if (Yami.Animation.sprites.listItems) {
             Yami.Animation.sprites.listItems = undefined
           }
           Yami.Animation.loadTextures()

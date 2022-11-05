@@ -608,7 +608,7 @@ NumberOperand.save = function () {
     }
     case 'variable': {
       const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#setNumber-operand-common-variable').getFocus()
       }
       operand = {operation, type, variable}
@@ -619,7 +619,7 @@ NumberOperand.save = function () {
       switch (method) {
         case 'round': {
           const variable = read('common-variable')
-          if (VariableGetter.isNone(variable)) {
+          if (Yami.VariableGetter.isNone(variable)) {
             return $('#setNumber-operand-common-variable').getFocus()
           }
           const decimals = read('math-decimals')
@@ -634,7 +634,7 @@ NumberOperand.save = function () {
         case 'sin':
         case 'tan': {
           const variable = read('common-variable')
-          if (VariableGetter.isNone(variable)) {
+          if (Yami.VariableGetter.isNone(variable)) {
             return $('#setNumber-operand-common-variable').getFocus()
           }
           operand = {operation, type, method, variable}
@@ -664,7 +664,7 @@ NumberOperand.save = function () {
     case 'string': {
       const method = read('string-method')
       const variable = read('common-variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#setNumber-operand-common-variable').getFocus()
       }
       switch (method) {
@@ -770,7 +770,7 @@ NumberOperand.save = function () {
         }
         case 'list-length': {
           const variable = read('common-variable')
-          if (VariableGetter.isNone(variable)) {
+          if (Yami.VariableGetter.isNone(variable)) {
             return $('#setNumber-operand-common-variable').getFocus()
           }
           operand = {operation, type, property, variable}
@@ -788,7 +788,7 @@ NumberOperand.save = function () {
     case 'list': {
       const variable = read('common-variable')
       const index = read('list-index')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#setNumber-operand-common-variable').getFocus()
       }
       operand = {operation, type, variable, index}
@@ -797,7 +797,7 @@ NumberOperand.save = function () {
     case 'parameter': {
       const variable = read('common-variable')
       const paramName = read('parameter-paramName')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#setNumber-operand-common-variable').getFocus()
       }
       if (paramName === '') {

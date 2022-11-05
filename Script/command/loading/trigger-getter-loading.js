@@ -57,7 +57,7 @@ TriggerGetter.confirm = function (event) {
       break
     case 'variable': {
       const variable = read('variable')
-      if (VariableGetter.isNone(variable)) {
+      if (Yami.VariableGetter.isNone(variable)) {
         return $('#triggerGetter-variable').getFocus()
       }
       getter = {type, variable}

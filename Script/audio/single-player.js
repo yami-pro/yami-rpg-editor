@@ -21,7 +21,7 @@ class SinglePlayer {
 
     // 连接节点
     this.source.connect(this.panner)
-    this.panner.connect(AudioManager.analyser)
+    this.panner.connect(Yami.AudioManager.analyser)
   }
 
   // 播放

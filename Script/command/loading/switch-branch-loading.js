@@ -16,7 +16,7 @@ SwitchBranch.initialize = function () {
 SwitchBranch.parse = function (branch) {
   const words = Yami.Command.words
   for (const condition of branch.conditions) {
-    words.push(SwitchCondition.parse(condition))
+    words.push(Yami.SwitchCondition.parse(condition))
   }
   return words.join()
 }
