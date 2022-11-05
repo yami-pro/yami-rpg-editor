@@ -106,7 +106,7 @@ Curve.updateHead = function () {
 // 更新过渡选项
 Curve.updateEasingOptions = function () {
   const {list} = this
-  const {easings} = Data
+  const {easings} = Yami.Data
   if (list.data !== easings) {
     list.data = easings
     const head = list.defaultItem

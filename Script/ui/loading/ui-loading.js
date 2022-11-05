@@ -145,7 +145,7 @@ UI.initialize = function () {
   this.padding = 800
 
   // 创建变换矩阵
-  this.matrix = new Matrix()
+  this.matrix = new Yami.Matrix()
 
   // 设置检查器类型映射表
   this.inspectorTypeMap = {
@@ -1180,7 +1180,7 @@ UI.updateTransform = function () {
 // 设置预设对象ID
 UI.setPresetId = function IIFE() {
   const generatePresetId = () => {
-    const {uiLinks} = Data
+    const {uiLinks} = Yami.Data
     let id
     do {id = Yami.GUID.generate64bit()}
     while (id in uiLinks)
@@ -1188,7 +1188,7 @@ UI.setPresetId = function IIFE() {
     return id
   }
   const setPresetId = item => {
-    const {uiLinks} = Data
+    const {uiLinks} = Yami.Data
     const {presetId} = item
     if (presetId === '' || presetId in uiLinks) {
       item.presetId = generatePresetId()

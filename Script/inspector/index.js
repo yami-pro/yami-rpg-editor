@@ -1,5 +1,7 @@
 'use strict'
 
+export { Inspector } from './inspector.js'
+
 import './anim-joint-frame.js'
 import './anim-joint-layer.js'
 import './anim-motion.js'
@@ -41,7 +43,5 @@ import './ui-text-box.js'
 import './ui-text.js'
 import './ui-video.js'
 import './ui-window.js'
-
-export { Inspector } from './inspector.js'
 
 import './loading/inspector-loading.js'

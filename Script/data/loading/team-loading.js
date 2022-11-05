@@ -384,7 +384,7 @@ Team.list.delete = function (item) {
 
 // 列表 - 保存选项状态
 Team.list.saveSelection = function () {
-  const {teams} = Data
+  const {teams} = Yami.Data
   // 将数据保存在外部可以切换项目后重置
   if (teams.selection === undefined) {
     Object.defineProperty(teams, 'selection', {

@@ -164,7 +164,7 @@ Variable.initialize = function () {
 // 打开窗口
 Variable.open = function (target = null) {
   this.target = target
-  this.history = new History(100)
+  this.history = new Yami.History(100)
   this.unpackVariables()
   Yami.Window.open('variable')
 
@@ -776,7 +776,7 @@ Variable.list.delete = function (item) {
 
 // 列表 - 保存滚动状态
 Variable.list.saveScroll = function () {
-  const {variables} = Data
+  const {variables} = Yami.Data
   // 将数据保存在外部可以切换项目后重置
   if (variables.scrollTop === undefined) {
     Object.defineProperty(variables, 'scrollTop', {

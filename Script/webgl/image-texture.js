@@ -4,7 +4,7 @@ import * as Yami from '../yami.js'
 
 // ******************************** 图像纹理类 ********************************
 
-class ImageTexture extends Texture {
+class ImageTexture extends Yami.Texture {
   constructor(image, options = {}) {
     super(options)
 

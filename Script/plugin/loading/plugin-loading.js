@@ -1525,7 +1525,7 @@ PluginManager.list.delete = function (item) {
 
 // 列表 - 保存选项状态
 PluginManager.list.saveSelection = function () {
-  const {plugins} = Data
+  const {plugins} = Yami.Data
   // 将数据保存在外部可以切换项目后重置
   if (plugins.selection === undefined) {
     Object.defineProperty(plugins, 'selection', {
