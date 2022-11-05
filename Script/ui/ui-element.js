@@ -1,8 +1,6 @@
 'use strict'
 
-import { UI } from './ui.js'
-import { Matrix } from '../webgl/matrix.js'
-import { GL } from '../webgl/gl.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 元素基类 ********************************
 
@@ -40,7 +38,7 @@ class UIElement {
     const vertices = gl.arrays[0].float32
     const colors = gl.arrays[0].uint32
     const matrix = gl.matrix
-    .set(UI.matrix)
+    .set(Yami.UI.matrix)
     .multiply(this.matrix)
     const L = this.x
     const T = this.y
@@ -108,10 +106,10 @@ class UIElement {
 
   // 绘制默认图像
   drawDefaultImage() {
-    GL.alpha = this.opacity
-    GL.blend = this.blend
-    GL.matrix.set(UI.matrix).multiply(this.matrix)
-    GL.fillRect(this.x, this.y, this.width, this.height, 0x80ffffff)
+    Yami.GL.alpha = this.opacity
+    Yami.GL.blend = this.blend
+    Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
+    Yami.GL.fillRect(this.x, this.y, this.width, this.height, 0x80ffffff)
   }
 
   // 连接元素
@@ -174,7 +172,7 @@ class UIElement {
   // 加入子对象
   appendChild(element) {
     if (element && this.children.append(element)) {
-      element.parent instanceof UI.Element &&
+      element.parent instanceof Yami.UI.Element &&
       element.parent.children.remove(element)
       element.parent = this
       if (this.connected) {
@@ -187,10 +185,10 @@ class UIElement {
 
   // 加入子对象到指定位置
   appendChildTo(element, index) {
-    if (element instanceof UI.Element) {
-      element.parent instanceof UI.Element &&
+    if (element instanceof Yami.UI.Element) {
+      element.parent instanceof Yami.UI.Element &&
       element.parent.children.remove(element)
-      if (element.parent instanceof UI.Window) {
+      if (element.parent instanceof Yami.UI.Window) {
         element.parent.requestResizing()
       }
       element.parent = this
@@ -205,9 +203,9 @@ class UIElement {
 
   // 从父对象中移除
   remove() {
-    if (this.parent instanceof UI.Element &&
+    if (this.parent instanceof Yami.UI.Element &&
       this.parent.children.remove(this)) {
-      if (this.parent instanceof UI.Window) {
+      if (this.parent instanceof Yami.UI.Window) {
         this.parent.requestResizing()
       }
       this.parent = null
@@ -311,6 +309,6 @@ class UIElement {
   }
 }
 
-UI.Element = UIElement
+Yami.UI.Element = UIElement
 
 export { UIElement }

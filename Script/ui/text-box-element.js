@@ -1,12 +1,10 @@
 'use strict'
 
-import { UI } from './ui.js'
-import { GL } from '../webgl/gl.js'
-import { INTRGBA } from '../util/util.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 文本框元素 ********************************
 
-class TextBoxElement extends UI.Element {
+class TextBoxElement extends Yami.UI.Element {
   focusing              //:boolean
   texture               //:object
   _type                 //:string
@@ -141,7 +139,7 @@ class TextBoxElement extends UI.Element {
       this._font = value
       if (this.printer) {
         this.printer.reset()
-        this.printer.fonts[0] = value || Printer.font
+        this.printer.fonts[0] = value || Yami.Printer.font
       }
     }
   }
@@ -155,7 +153,7 @@ class TextBoxElement extends UI.Element {
   set color(value) {
     if (this._color !== value) {
       this._color = value
-      this._colorInt = INTRGBA(value)
+      this._colorInt = Yami.INTRGBA(value)
     }
   }
 
@@ -168,7 +166,7 @@ class TextBoxElement extends UI.Element {
   set selectionColor(value) {
     if (this._selectionColor !== value) {
       this._selectionColor = value
-      this._selectionColorInt = INTRGBA(value)
+      this._selectionColorInt = Yami.INTRGBA(value)
     }
   }
 
@@ -181,7 +179,7 @@ class TextBoxElement extends UI.Element {
   set selectionBgColor(value) {
     if (this._selectionBgColor !== value) {
       this._selectionBgColor = value
-      this._selectionBgColorInt = INTRGBA(value)
+      this._selectionBgColorInt = Yami.INTRGBA(value)
     }
   }
 
@@ -194,7 +192,7 @@ class TextBoxElement extends UI.Element {
       printer = new Printer(texture)
       printer.matchTag = Function.empty
       printer.sizes[0] = this.size
-      printer.fonts[0] = this.font || Printer.font
+      printer.fonts[0] = this.font || Yami.Printer.font
       printer.colors[0] = 0xffffffff
       printer.effects[0] = {type: 'none'}
       this.texture = texture
@@ -221,33 +219,33 @@ class TextBoxElement extends UI.Element {
     this.update()
 
     // 设置上下文属性
-    GL.alpha = this.opacity
-    GL.blend = 'normal'
-    GL.matrix.set(UI.matrix).multiply(this.matrix)
+    Yami.GL.alpha = this.opacity
+    Yami.GL.blend = 'normal'
+    Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
 
     // 绘制文字纹理
     const texture = this.texture
     if (texture !== null) {
       const base = texture.base
-      if (UI.hover === this.node) {
+      if (Yami.UI.hover === this.node) {
         // 绘制选中背景
         const dx = this.textX
         const dy = this.selectionY
         const dw = this.selectionWidth
         const dh = this.selectionHeight
-        GL.fillRect(dx, dy, dw, dh, this._selectionBgColorInt)
+        Yami.GL.fillRect(dx, dy, dw, dh, this._selectionBgColorInt)
         // 绘制普通文本
         const sy = this.textShiftY
         const sw = Math.min(base.width, this.innerWidth)
         const sh = this.innerHeight
-        GL.drawText(texture.clip(0, sy, sw, sh), this.textX, this.textY, texture.width, texture.height, this._selectionColorInt)
+        Yami.GL.drawText(texture.clip(0, sy, sw, sh), this.textX, this.textY, texture.width, texture.height, this._selectionColorInt)
       } else {
         // 绘制普通文本
         if (this.content) {
           const sy = this.textShiftY
           const sw = Math.min(base.width, this.innerWidth)
           const sh = this.innerHeight
-          GL.drawText(texture.clip(0, sy, sw, sh), this.textX, this.textY, texture.width, texture.height, this._colorInt)
+          Yami.GL.drawText(texture.clip(0, sy, sw, sh), this.textX, this.textY, texture.width, texture.height, this._colorInt)
         }
       }
     }
@@ -258,7 +256,7 @@ class TextBoxElement extends UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof UI.Window) {
+    if (this.parent instanceof Yami.UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -310,6 +308,6 @@ class TextBoxElement extends UI.Element {
   }
 }
 
-UI.TextBox = TextBoxElement
+Yami.UI.TextBox = TextBoxElement
 
 export { TextBoxElement }

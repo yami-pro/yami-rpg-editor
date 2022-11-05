@@ -1,10 +1,10 @@
 'use strict'
 
-import { UI } from './ui.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 容器元素 ********************************
 
-class ContainerElement extends UI.Element {
+class ContainerElement extends Yami.UI.Element {
   // 绘制图像
   draw() {
     this.drawChildren()
@@ -12,7 +12,7 @@ class ContainerElement extends UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof UI.Window) {
+    if (this.parent instanceof Yami.UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -26,6 +26,6 @@ class ContainerElement extends UI.Element {
   }
 }
 
-UI.Container = ContainerElement
+Yami.UI.Container = ContainerElement
 
 export { ContainerElement }

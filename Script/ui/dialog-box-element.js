@@ -1,10 +1,10 @@
 'use strict'
 
-import { UI } from './ui.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 对话框元素 ********************************
 
-class DialogBoxElement extends UI.Text {
+class DialogBoxElement extends Yami.UI.Text {
   constructor(data) {
     super({...data,
       direction: 'horizontal-tb',
@@ -15,6 +15,6 @@ class DialogBoxElement extends UI.Text {
   }
 }
 
-UI.DialogBox = DialogBoxElement
+Yami.UI.DialogBox = DialogBoxElement
 
 export { DialogBoxElement }

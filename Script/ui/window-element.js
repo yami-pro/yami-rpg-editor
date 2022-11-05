@@ -1,12 +1,10 @@
 'use strict'
 
-import { UI } from './ui.js'
-import { Timer } from '../util/timer.js'
-import { GL } from '../webgl/gl.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 窗口元素 ********************************
 
-class WindowElement extends UI.Element {
+class WindowElement extends Yami.UI.Element {
   _layout       //:string
   scrollWidth   //:number
   scrollHeight  //:number
@@ -79,7 +77,7 @@ class WindowElement extends UI.Element {
       this._scrollX = scrollX
       if (this.connected) {
         this.resize()
-        UI.requestRendering()
+        Yami.UI.requestRendering()
       }
     }
   }
@@ -97,7 +95,7 @@ class WindowElement extends UI.Element {
       this._scrollY = scrollY
       if (this.connected) {
         this.resize()
-        UI.requestRendering()
+        Yami.UI.requestRendering()
       }
     }
   }
@@ -109,23 +107,23 @@ class WindowElement extends UI.Element {
         this.drawChildren()
         break
       case 'hidden':
-        GL.alpha = 1
-        GL.blend = 'normal'
-        GL.enable(GL.DEPTH_TEST)
-        GL.depthFunc(GL.ALWAYS)
-        GL.matrix.set(UI.matrix).multiply(this.matrix)
-        GL.fillRect(this.x, this.y, this.width, this.height, 0x00000000)
-        GL.depthFunc(GL.EQUAL)
+        Yami.GL.alpha = 1
+        Yami.GL.blend = 'normal'
+        Yami.GL.enable(Yami.GL.DEPTH_TEST)
+        Yami.GL.depthFunc(Yami.GL.ALWAYS)
+        Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
+        Yami.GL.fillRect(this.x, this.y, this.width, this.height, 0x00000000)
+        Yami.GL.depthFunc(Yami.GL.EQUAL)
         this.drawChildren()
-        GL.clear(GL.DEPTH_BUFFER_BIT)
-        GL.disable(GL.DEPTH_TEST)
+        Yami.GL.clear(Yami.GL.DEPTH_BUFFER_BIT)
+        Yami.GL.disable(Yami.GL.DEPTH_TEST)
         break
     }
   }
 
   // 调整大小
   resize() {
-    if (this.parent instanceof UI.Window) {
+    if (this.parent instanceof Yami.UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -277,6 +275,6 @@ class WindowElement extends UI.Element {
   }
 }
 
-UI.Window = WindowElement
+Yami.UI.Window = WindowElement
 
 export { WindowElement }

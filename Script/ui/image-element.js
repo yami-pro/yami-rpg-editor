@@ -1,12 +1,10 @@
 'use strict'
 
-import { UI } from './ui.js'
-import { GL } from '../webgl/gl.js'
-import { ImageTexture } from '../webgl/image-texture.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 图像元素 ********************************
 
-class ImageElement extends UI.Element {
+class ImageElement extends Yami.UI.Element {
   texture   //:object
   _display  //:string
   _image    //:string
@@ -48,7 +46,7 @@ class ImageElement extends UI.Element {
       if (value) {
         this.texture = new ImageTexture(value)
         this.texture.on('load', () => {
-          UI.requestRendering()
+          Yami.UI.requestRendering()
         })
       }
     }
@@ -77,9 +75,9 @@ class ImageElement extends UI.Element {
       let dy = this.y
       let dw = this.width
       let dh = this.height
-      GL.alpha = this.opacity
-      GL.blend = this.blend
-      GL.matrix.set(UI.matrix).multiply(this.matrix)
+      Yami.GL.alpha = this.opacity
+      Yami.GL.blend = this.blend
+      Yami.GL.matrix.set(UI.matrix).multiply(this.matrix)
       switch (this.display) {
         case 'stretch':
           texture.clip(this.shiftX, this.shiftY, texture.base.width, texture.base.height)
@@ -91,7 +89,7 @@ class ImageElement extends UI.Element {
           texture.clip(...this.clip)
           break
         case 'slice':
-          GL.drawSliceImage(texture, dx, dy, dw, dh, this.clip, this.border, this.tint)
+          Yami.GL.drawSliceImage(texture, dx, dy, dw, dh, this.clip, this.border, this.tint)
           break draw
       }
       switch (this.flip) {
@@ -112,7 +110,7 @@ class ImageElement extends UI.Element {
           dh *= -1
           break
       }
-      GL.drawImage(texture, dx, dy, dw, dh, this.tint)
+      Yami.GL.drawImage(texture, dx, dy, dw, dh, this.tint)
     } else {
       this.drawDefaultImage()
     }
@@ -123,7 +121,7 @@ class ImageElement extends UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof UI.Window) {
+    if (this.parent instanceof Yami.UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -138,6 +136,6 @@ class ImageElement extends UI.Element {
   }
 }
 
-UI.Image = ImageElement
+Yami.UI.Image = ImageElement
 
 export { ImageElement }

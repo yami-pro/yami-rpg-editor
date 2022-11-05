@@ -1,10 +1,10 @@
 'use strict'
 
-import { UI } from './ui.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 视频元素 ********************************
 
-class VideoElement extends UI.Element {
+class VideoElement extends Yami.UI.Element {
   video   //:string
   loop    //:boolean
   flip    //:string
@@ -26,7 +26,7 @@ class VideoElement extends UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof UI.Window) {
+    if (this.parent instanceof Yami.UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -40,6 +40,6 @@ class VideoElement extends UI.Element {
   }
 }
 
-UI.Video = VideoElement
+Yami.UI.Video = VideoElement
 
 export { VideoElement }

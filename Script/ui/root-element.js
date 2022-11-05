@@ -1,11 +1,10 @@
 'use strict'
 
-import { UI } from './ui.js'
-import { GL } from '../webgl/gl.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 根元素 ********************************
 
-class RootElement extends UI.Element {
+class RootElement extends Yami.UI.Element {
   background  //:number
 
   constructor() {
@@ -19,10 +18,10 @@ class RootElement extends UI.Element {
 
   // 绘制图像
   draw() {
-    GL.matrix.set(UI.matrix)
-    GL.alpha = 1
-    GL.blend = 'normal'
-    GL.fillRect(this.x, this.y, this.width, this.height, this.background)
+    Yami.GL.matrix.set(Yami.UI.matrix)
+    Yami.GL.alpha = 1
+    Yami.GL.blend = 'normal'
+    Yami.GL.fillRect(this.x, this.y, this.width, this.height, this.background)
     this.drawChildren()
   }
 
@@ -30,9 +29,9 @@ class RootElement extends UI.Element {
   resize() {
     this.x = 0
     this.y = 0
-    this.width = UI.width
-    this.height = UI.height
-    this.background = UI.foreground.getINTRGBA()
+    this.width = Yami.UI.width
+    this.height = Yami.UI.height
+    this.background = Yami.UI.foreground.getINTRGBA()
     this.resizeChildren()
   }
 
@@ -42,6 +41,6 @@ class RootElement extends UI.Element {
   }
 }
 
-UI.Root = RootElement
+Yami.UI.Root = RootElement
 
 export { RootElement }
