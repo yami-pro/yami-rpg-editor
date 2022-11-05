@@ -17,4 +17,6 @@ class DialogBoxElement extends Yami.UI.Text {
 
 Yami.UI.DialogBox = DialogBoxElement
 
+// ******************************** 对话框元素导出 ********************************
+
 export { DialogBoxElement }

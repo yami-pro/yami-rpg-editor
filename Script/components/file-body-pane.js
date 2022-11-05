@@ -2,7 +2,7 @@
 
 import * as Yami from '../yami.js'
 
-// ******************************** 文件身体面板 ********************************
+// ******************************** 文件主体面板 ********************************
 
 class FileBodyPane extends HTMLElement {
   viewIndex             //:number
@@ -1475,5 +1475,7 @@ class FileBodyPane extends HTMLElement {
 }
 
 customElements.define('file-body-pane', FileBodyPane)
+
+// ******************************** 文件主体面板导出 ********************************
 
 export { FileBodyPane }

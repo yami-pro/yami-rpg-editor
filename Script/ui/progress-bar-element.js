@@ -385,4 +385,6 @@ class ProgressBarElement extends Yami.UI.Element {
 
 Yami.UI.ProgressBar = ProgressBarElement
 
+// ******************************** 进度条元素导出 ********************************
+
 export { ProgressBarElement }

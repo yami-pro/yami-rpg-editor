@@ -146,4 +146,6 @@ class NumberVar extends HTMLElement {
 
 customElements.define('number-var', NumberVar)
 
+// ******************************** 数字变量框导出 ********************************
+
 export { NumberVar }

@@ -150,4 +150,6 @@ class EnumerationContext {
   }
 }
 
+// ******************************** 枚举上下文类导出 ********************************
+
 export { EnumerationContext }

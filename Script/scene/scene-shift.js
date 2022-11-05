@@ -47,4 +47,6 @@ SceneShift.confirm = function (event) {
   Yami.Window.close('scene-shift')
 }
 
+// ******************************** 移动场景导出 ********************************
+
 export { SceneShift }

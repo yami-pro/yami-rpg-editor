@@ -134,4 +134,6 @@ class TextArea extends HTMLElement {
 
 customElements.define('text-area', TextArea)
 
+// ******************************** 文本区域导出 ********************************
+
 export { TextArea }

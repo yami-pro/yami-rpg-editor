@@ -204,4 +204,6 @@ class FileHeadPane extends HTMLElement {
 
 customElements.define('file-head-pane', FileHeadPane)
 
+// ******************************** 文件头部面板导出 ********************************
+
 export { FileHeadPane }

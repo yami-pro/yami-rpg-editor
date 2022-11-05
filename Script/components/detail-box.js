@@ -71,4 +71,6 @@ class DetailBox extends HTMLElement {
 
 customElements.define('detail-box', DetailBox)
 
+// ******************************** 细节框导出 ********************************
+
 export { DetailBox }

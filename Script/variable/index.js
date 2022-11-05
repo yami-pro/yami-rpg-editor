@@ -1,5 +1,5 @@
 'use strict'
 
-export { Variable } from './variable.js'
+// ******************************** 模块导出 ********************************
 
-import './loading/variable-loading.js'
+export { Variable } from './variable.js'

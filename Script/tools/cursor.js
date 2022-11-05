@@ -24,4 +24,6 @@ Cursor.close = function (className) {
   this.region.removeClass(className)
 }
 
+// ******************************** 指针对象导出 ********************************
+
 export { Cursor }

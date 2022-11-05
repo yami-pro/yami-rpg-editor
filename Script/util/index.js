@@ -1,5 +1,7 @@
 'use strict'
 
+// ******************************** 模块导出 ********************************
+
 import './array.js'
 import './canvas-rendering-context2D.js'
 import './clipboard.js'

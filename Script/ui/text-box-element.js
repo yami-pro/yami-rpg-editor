@@ -310,4 +310,6 @@ class TextBoxElement extends Yami.UI.Element {
 
 Yami.UI.TextBox = TextBoxElement
 
+// ******************************** 文本框元素导出 ********************************
+
 export { TextBoxElement }

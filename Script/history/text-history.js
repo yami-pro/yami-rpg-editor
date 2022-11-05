@@ -371,4 +371,6 @@ TextHistory.inputReplace = function IIFE() {
   }
 }()
 
+// ******************************** 文本操作历史导出 ********************************
+
 export { TextHistory }

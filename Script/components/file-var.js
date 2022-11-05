@@ -147,4 +147,6 @@ class FileVar extends HTMLElement {
 
 customElements.define('file-var', FileVar)
 
+// ******************************** 文件变量框导出 ********************************
+
 export { FileVar }

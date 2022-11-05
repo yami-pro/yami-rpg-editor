@@ -153,4 +153,6 @@ class RadioProxy extends HTMLElement {
 
 customElements.define('radio-proxy', RadioProxy)
 
+// ******************************** 单选框代理导出 ********************************
+
 export { RadioProxy }

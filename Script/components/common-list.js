@@ -358,4 +358,6 @@ class CommonList extends HTMLElement {
 
 customElements.define('common-list', CommonList)
 
+// ******************************** 普通列表导出 ********************************
+
 export { CommonList }

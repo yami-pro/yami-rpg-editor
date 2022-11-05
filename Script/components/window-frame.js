@@ -247,4 +247,6 @@ class WindowFrame extends HTMLElement {
 
 customElements.define('window-frame', WindowFrame)
 
+// ******************************** 窗口框架导出 ********************************
+
 export { WindowFrame }

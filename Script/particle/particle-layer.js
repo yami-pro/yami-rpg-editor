@@ -357,4 +357,6 @@ class ParticleLayer {
 
 Yami.Particle.Layer = ParticleLayer
 
+// ******************************** 粒子图层类导出 ********************************
+
 export { ParticleLayer }

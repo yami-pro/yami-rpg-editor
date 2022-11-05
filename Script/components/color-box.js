@@ -108,4 +108,6 @@ class ColorBox extends HTMLElement {
 
 customElements.define('color-box', ColorBox)
 
+// ******************************** 颜色框导出 ********************************
+
 export { ColorBox }

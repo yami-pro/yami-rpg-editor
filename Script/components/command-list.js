@@ -1518,4 +1518,6 @@ class CommandList extends HTMLElement {
 
 customElements.define('command-list', CommandList)
 
+// ******************************** 指令列表导出 ********************************
+
 export { CommandList }

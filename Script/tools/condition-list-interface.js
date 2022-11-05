@@ -245,4 +245,6 @@ class ConditionListInterface {
   }
 }
 
+// ******************************** 条件列表接口类导出 ********************************
+
 export { ConditionListInterface }

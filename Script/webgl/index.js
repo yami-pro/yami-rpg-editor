@@ -1,12 +1,12 @@
 'use strict'
 
-export { GL } from './gl.js'
+// ******************************** 模块导出 ********************************
+
+export { Matrix } from './matrix.js'
+export { Vector } from './vector.js'
 export { Texture } from './texture.js'
 export { BaseTexture } from './base-texture.js'
-export { BatchRenderer } from './batch-renderer.js'
 export { ImageTexture } from './image-texture.js'
-export { Matrix } from './matrix.js'
 export { TextureManager } from './texture-manager.js'
-export { Vector } from './vector.js'
-
-import './loading/gl-loading.js'
+export { BatchRenderer } from './batch-renderer.js'
+export { GL } from './gl.js'

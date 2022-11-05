@@ -173,4 +173,6 @@ class Matrix extends Float32Array {
   static instance = new Matrix()
 }
 
+// ******************************** 平面矩阵类导出 ********************************
+
 export { Matrix }

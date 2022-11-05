@@ -150,4 +150,6 @@ class CheckBox extends HTMLElement {
 
 customElements.define('check-box', CheckBox)
 
+// ******************************** 复选框导出 ********************************
+
 export { CheckBox }

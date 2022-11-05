@@ -43,4 +43,6 @@ class RootElement extends Yami.UI.Element {
 
 Yami.UI.Root = RootElement
 
+// ******************************** 根元素导出 ********************************
+
 export { RootElement }

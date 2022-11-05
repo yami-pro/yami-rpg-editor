@@ -596,4 +596,6 @@ class ParameterPane extends HTMLElement {
 
 customElements.define('parameter-pane', ParameterPane)
 
+// ******************************** 脚本参数面板导出 ********************************
+
 export { ParameterPane }

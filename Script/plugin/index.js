@@ -1,5 +1,5 @@
 'use strict'
 
-export { PluginManager } from './plugin.js'
+// ******************************** 模块导出 ********************************
 
-import './loading/plugin-loading.js'
+export { PluginManager } from './plugin.js'

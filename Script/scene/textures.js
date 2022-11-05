@@ -59,4 +59,6 @@ class Textures {
 
 Yami.Scene.Textures = Textures
 
+// ******************************** 纹理集合类导出 ********************************
+
 export { Textures }

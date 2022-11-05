@@ -393,4 +393,6 @@ class TextElement extends Yami.UI.Element {
 
 Yami.UI.Text = TextElement
 
+// ******************************** 文本元素导出 ********************************
+
 export { TextElement }

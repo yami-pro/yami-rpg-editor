@@ -175,6 +175,8 @@ window.on('resize', function IIFE() {
   }
 }())
 
+// ******************************** 其他导出 ********************************
+
 export {
   measureText,
   getElementReader,

@@ -150,4 +150,6 @@ class SelectVar extends HTMLElement {
 
 customElements.define('select-var', SelectVar)
 
+// ******************************** 选择变量框导出 ********************************
+
 export { SelectVar }

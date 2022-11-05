@@ -277,4 +277,6 @@ class WindowElement extends Yami.UI.Element {
 
 Yami.UI.Window = WindowElement
 
+// ******************************** 窗口元素导出 ********************************
+
 export { WindowElement }

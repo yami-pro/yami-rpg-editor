@@ -468,4 +468,6 @@ class ParticleElement {
 
 Yami.Particle.Element = ParticleElement
 
+// ******************************** 粒子元素类导出 ********************************
+
 export { ParticleElement }

@@ -154,4 +154,6 @@ ImageTexture.prototype.on = Yami.BaseTexture.prototype.on
 // 执行加载回调
 ImageTexture.prototype.reply = Yami.BaseTexture.prototype.reply
 
+// ******************************** 图像纹理类导出 ********************************
+
 export { ImageTexture }

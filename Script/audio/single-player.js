@@ -1,6 +1,5 @@
 'use strict'
 
-import { AudioManager } from './audio-manager.js'
 import * as Yami from '../yami.js'
 
 // ******************************** 单源播放器类 ********************************
@@ -12,7 +11,7 @@ class SinglePlayer {
   reverb  //:object
 
   constructor() {
-    const {context} = AudioManager
+    const {context} = Yami.AudioManager
     this.audio = new Audio()
     this.source = context.createMediaElementSource(this.audio)
     this.panner = context.createStereoPanner()
@@ -81,5 +80,7 @@ class SinglePlayer {
     }
   }
 }
+
+// ******************************** 单源播放器类导出 ********************************
 
 export { SinglePlayer }

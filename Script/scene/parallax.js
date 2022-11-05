@@ -174,4 +174,6 @@ class Parallax {
   static lightSamplingModes = {raw: 0, global: 1, anchor: 2, ambient: 3}
 }
 
+// ******************************** 视差图类导出 ********************************
+
 export { Parallax }

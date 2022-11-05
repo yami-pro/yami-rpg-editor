@@ -42,4 +42,6 @@ class VideoElement extends Yami.UI.Element {
 
 Yami.UI.Video = VideoElement
 
+// ******************************** 视频元素导出 ********************************
+
 export { VideoElement }

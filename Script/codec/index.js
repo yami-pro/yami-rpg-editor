@@ -1,5 +1,5 @@
 'use strict'
 
-export { Codec } from './codec.js'
+// ******************************** 模块导出 ********************************
 
-import './loading/codec-loading.js'
+export { Codec } from './codec.js'

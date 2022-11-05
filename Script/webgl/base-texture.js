@@ -76,4 +76,6 @@ class BaseTexture {
   static CALLBACK = Symbol('LOAD_CALLBACK')
 }
 
+// ******************************** 基础纹理类导出 ********************************
+
 export { BaseTexture }

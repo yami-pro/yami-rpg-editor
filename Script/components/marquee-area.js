@@ -96,4 +96,6 @@ class MarqueeArea extends HTMLElement {
 
 customElements.define('marquee-area', MarqueeArea)
 
+// ******************************** 选框区域导出 ********************************
+
 export { MarqueeArea }

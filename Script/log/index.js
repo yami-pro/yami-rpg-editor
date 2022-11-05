@@ -1,5 +1,5 @@
 'use strict'
 
-export { Log } from './log.js'
+// ******************************** 模块导出 ********************************
 
-import './loading/log-loading.js'
+export { Log } from './log.js'

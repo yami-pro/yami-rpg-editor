@@ -78,4 +78,6 @@ class PageManager extends HTMLElement {
 
 customElements.define('page-manager', PageManager)
 
+// ******************************** 页面管理器导出 ********************************
+
 export { PageManager }

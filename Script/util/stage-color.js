@@ -54,4 +54,6 @@ class StageColor {
   static rgba = new Float64Array(4)
 }
 
+// ******************************** 舞台颜色类导出 ********************************
+
 export { StageColor }

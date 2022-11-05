@@ -138,4 +138,6 @@ class ImageElement extends Yami.UI.Element {
 
 Yami.UI.Image = ImageElement
 
+// ******************************** 图像元素导出 ********************************
+
 export { ImageElement }

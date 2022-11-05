@@ -1,5 +1,5 @@
 'use strict'
 
-export { Sprite } from './sprite.js'
+// ******************************** 模块导出 ********************************
 
-import './loading/sprite-loading.js'
+export { Sprite } from './sprite.js'

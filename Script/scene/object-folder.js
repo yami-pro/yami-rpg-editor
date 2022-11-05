@@ -47,4 +47,6 @@ ObjectFolder.confirm = function (event) {
   Yami.Window.close('object-folder')
 }
 
+// ******************************** 默认对象文件夹导出 ********************************
+
 export { ObjectFolder }

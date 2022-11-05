@@ -1,5 +1,7 @@
 'use strict'
 
+// ******************************** 模块导出 ********************************
+
 export { Inspector } from './inspector.js'
 export { UIElement } from './ui-element.js'
 
@@ -43,5 +45,3 @@ import './ui-text-box.js'
 import './ui-text.js'
 import './ui-video.js'
 import './ui-window.js'
-
-import './loading/inspector-loading.js'

@@ -146,4 +146,6 @@ class StringVar extends HTMLElement {
 
 customElements.define('string-var', StringVar)
 
+// ******************************** 字符串变量框导出 ********************************
+
 export { StringVar }

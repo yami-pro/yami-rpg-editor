@@ -51,4 +51,6 @@ class DetailSummary extends HTMLElement {
 
 customElements.define('detail-summary', DetailSummary)
 
+// ******************************** 细节概要导出 ********************************
+
 export { DetailSummary }

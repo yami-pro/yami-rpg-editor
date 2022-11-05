@@ -20,4 +20,6 @@ Path.slash = function IIFE() {
 //   return path.slice(path.lastIndexOf('.') + 1)
 // }
 
+// ******************************** 路径工具导出 ********************************
+
 export { Path }

@@ -209,4 +209,6 @@ Timer.removeUpdater = function (key, updater) {
   }
 }
 
+// ******************************** 计时器类导出 ********************************
+
 export { Timer }

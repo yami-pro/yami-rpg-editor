@@ -1,6 +1,6 @@
 'use strict'
 
-import { AudioManager } from '../audio/audio-manager.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 混响类 ********************************
 
@@ -15,10 +15,10 @@ class Reverb {
   wet       //:number
 
   constructor(player) {
-    const {context} = AudioManager
+    const {context} = Yami.AudioManager
     this.player = player
     this.input = player.panner
-    this.output = AudioManager.analyser
+    this.output = Yami.AudioManager.analyser
     this.dryGain = context.createGain()
     this.wetGain = context.createGain()
     this.convolver = this.getConvolver()
@@ -79,7 +79,7 @@ class Reverb {
     if (!Reverb.convolver) {
       const PREDELAY = 0.1
       const DECAYTIME = 2
-      const context = AudioManager.context
+      const context = Yami.AudioManager.context
       const duration = PREDELAY + DECAYTIME
       const sampleRate = context.sampleRate
       const sampleCount = Math.round(sampleRate * duration)
@@ -113,5 +113,7 @@ class Reverb {
   // 共享卷机器
   static convolver = null
 }
+
+// ******************************** 混响类导出 ********************************
 
 export { Reverb }

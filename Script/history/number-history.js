@@ -153,4 +153,6 @@ class NumberHistory {
 // 数值操作历史恢复中状态开关
 NumberHistory.restoring = false
 
+// ******************************** 数值操作历史导出 ********************************
+
 export { NumberHistory }

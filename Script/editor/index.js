@@ -2,8 +2,6 @@
 
 import { Editor } from './editor.js'
 
-import './loading/editor-loading.js'
-
 // ******************************** 主函数 ********************************
 
 !async function main () {

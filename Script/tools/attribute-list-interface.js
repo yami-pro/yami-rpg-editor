@@ -211,4 +211,6 @@ class AttributeListInterface {
   }
 }
 
+// ******************************** 属性列表接口导出 ********************************
+
 export { AttributeListInterface }

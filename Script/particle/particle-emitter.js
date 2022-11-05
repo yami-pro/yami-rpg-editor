@@ -136,4 +136,6 @@ class ParticleEmitter {
 
 Yami.Particle.Emitter = ParticleEmitter
 
+// ******************************** 粒子发射器类导出 ********************************
+
 export { ParticleEmitter }
