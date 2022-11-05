@@ -1,6 +1,6 @@
 'use strict'
 
-import { Scene } from './scene.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 坐标点类 ********************************
 
@@ -21,6 +21,6 @@ class Point {
   }
 }
 
-Scene.Point = Point
+Yami.Scene.Point = Point
 
 export { Point }

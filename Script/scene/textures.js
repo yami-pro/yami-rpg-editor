@@ -1,7 +1,6 @@
 'use strict'
 
-import { Scene } from './scene.js'
-import { ImageTexture } from '../webgl/image-texture.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 纹理集合类 ********************************
 
@@ -23,11 +22,11 @@ class Textures {
   // 加载纹理
   load(guid) {
     if (!this[guid]) {
-      const texture = new ImageTexture(guid)
+      const texture = new Yami.ImageTexture(guid)
       if (texture.complete) {
         this[guid] = texture
         return Promise.resolve().then(() => {
-          Scene.requestRendering()
+          Yami.Scene.requestRendering()
           return texture
         })
       }
@@ -36,7 +35,7 @@ class Textures {
           if (this.state === 'open' &&
             this[guid] instanceof Promise) {
             this[guid] = texture
-            Scene.requestRendering()
+            Yami.Scene.requestRendering()
             return resolve(texture)
           }
           texture.destroy()
@@ -51,13 +50,13 @@ class Textures {
   destroy() {
     this.state = 'closed'
     for (const texture of Object.values(this)) {
-      if (texture instanceof ImageTexture) {
+      if (texture instanceof Yami.ImageTexture) {
         texture.destroy()
       }
     }
   }
 }
 
-Scene.Textures = Textures
+Yami.Scene.Textures = Textures
 
 export { Textures }

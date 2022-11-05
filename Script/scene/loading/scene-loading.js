@@ -2,24 +2,7 @@
 
 import { Scene } from '../scene.js'
 import '../point.js'
-import { ObjectFolder } from '../object-folder.js'
-import { SceneShift } from '../scene-shift.js'
-import { TilemapShortcuts } from '../tilemap-shortcuts.js'
-
-import { Timer } from '../../util/timer.js'
-import { File } from '../../file-system/file.js'
-import { ImageTexture } from '../../webgl/image-texture.js'
-import { Palette } from '../../palette/palette.js'
-import { Matrix } from '../../webgl/matrix.js'
-import { GL } from '../../webgl/gl.js'
-import { History } from '../../history/history.js'
-import { Easing } from '../../data/easing.js'
-import { Inspector } from '../../inspector/inspector.js'
-import { StageColor } from '../../util/stage-color.js'
-import { Log } from '../../log/log.js'
-import { Window } from '../../tools/window.js'
-import { Data } from '../../data/data.js'
-import { INTRGBA } from '../../util/util.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 场景窗口加载 ********************************
 
@@ -83,14 +66,14 @@ Scene.initialize = function () {
   this.screen.addScrollbars()
 
   // 创建位移计时器
-  this.translationTimer = new Timer({
+  this.translationTimer = new Yami.Timer({
     duration: Infinity,
     update: timer => {
       if (this.state === 'open' &&
         this.dragging === null) {
         const key = this.translationKey
         const meta = this.meta
-        const step = Timer.deltaTime * 0.04 / this.scale
+        const step = Yami.Timer.deltaTime * 0.04 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -117,7 +100,7 @@ Scene.initialize = function () {
   })
 
   // 创建缩放计时器
-  this.zoomTimer = new Timer({
+  this.zoomTimer = new Yami.Timer({
     duration: 80,
     update: timer => {
       if (this.state === 'open') {
@@ -141,7 +124,7 @@ Scene.initialize = function () {
   this.marquee.height = 1
   this.marquee.offsetX = 0
   this.marquee.offsetY = 0
-  this.marquee.tilesetMap = Palette.tilesetMap
+  this.marquee.tilesetMap = Yami.Palette.tilesetMap
   this.marquee.tiles = this.createTiles(1, 1)
   this.marquee.terrain = 0b10
   this.marquee.save('eraser')
@@ -160,7 +143,7 @@ Scene.initialize = function () {
   this.padding = 800
 
   // 创建变换矩阵
-  this.matrix = new Matrix()
+  this.matrix = new Yami.Matrix()
 
   // 设置检查器类型映射表
   this.inspectorTypeMap = {
@@ -222,24 +205,24 @@ Scene.initialize = function () {
   list.updaters.push(list.updateLockIcon)
 
   // 设置历史操作处理器
-  History.processors['scene-folder-rename'] = (operation, data) => {
+  Yami.History.processors['scene-folder-rename'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
   }
-  History.processors['scene-object-create'] = (operation, data) => {
+  Yami.History.processors['scene-object-create'] = (operation, data) => {
     const {response, parent} = data
     list.restore(operation, response)
     list.updateFolderState(parent, 'hidden')
     list.updateFolderState(parent, 'locked')
   }
-  History.processors['scene-object-delete'] = (operation, data) => {
+  Yami.History.processors['scene-object-delete'] = (operation, data) => {
     const {response} = data
     const parent = response.item.parent
     list.restore(operation, response)
     list.updateFolderState(parent, 'hidden')
     list.updateFolderState(parent, 'locked')
   }
-  History.processors['scene-object-remove'] = (operation, data) => {
+  Yami.History.processors['scene-object-remove'] = (operation, data) => {
     const {response} = data
     const sParent = response.source.parent
     const dParent = response.destination.parent
@@ -251,7 +234,7 @@ Scene.initialize = function () {
       list.updateFolderState(dParent, 'locked')
     }
   }
-  History.processors['scene-object-hidden'] = (operation, data) => {
+  Yami.History.processors['scene-object-hidden'] = (operation, data) => {
     const {item, oldValues, newValue} = data
     if (operation === 'undo') {
       list.restoreRecursiveStates(item, 'hidden', oldValues)
@@ -263,7 +246,7 @@ Scene.initialize = function () {
     Scene.requestRendering()
     Scene.planToSave()
   }
-  History.processors['scene-object-locked'] = (operation, data) => {
+  Yami.History.processors['scene-object-locked'] = (operation, data) => {
     const {item, oldValues, newValue} = data
     if (operation === 'undo') {
       list.restoreRecursiveStates(item, 'locked', oldValues)
@@ -274,7 +257,7 @@ Scene.initialize = function () {
     list.update()
     Scene.planToSave()
   }
-  History.processors['scene-resize'] = (operation, data) => {
+  Yami.History.processors['scene-resize'] = (operation, data) => {
     const {editor, width, height, terrains} = data
     data.width = Scene.width
     data.height = Scene.height
@@ -285,14 +268,14 @@ Scene.initialize = function () {
     if (editor.target === Scene) {
       editor.write({width, height})
     } else {
-      Inspector.open('fileScene', Scene)
+      Yami.Inspector.open('fileScene', Scene)
     }
     Scene.planToSaveTerrains()
     Scene.resize()
     Scene.requestRendering()
     Scene.planToSave()
   }
-  History.processors['scene-tilemap-resize'] = (operation, data) => {
+  Yami.History.processors['scene-tilemap-resize'] = (operation, data) => {
     const {editor, tilemap, width, height, tiles, tilesetMap} = data
     data.width = tilemap.width
     data.height = tilemap.height
@@ -310,7 +293,7 @@ Scene.initialize = function () {
     Scene.requestRendering()
     Scene.planToSave()
   }
-  History.processors['scene-tilemap-shortcut'] = (operation, data) => {
+  Yami.History.processors['scene-tilemap-shortcut'] = (operation, data) => {
     const {tilemap, shortcut} = data
     data.shortcut = tilemap.shortcut
     tilemap.shortcut = shortcut
@@ -318,7 +301,7 @@ Scene.initialize = function () {
     Scene.tilemaps.shortcuts.update()
     Scene.planToSave()
   }
-  History.processors['scene-tilemap-shift'] = (operation, data) => {
+  Yami.History.processors['scene-tilemap-shift'] = (operation, data) => {
     const {tilemap, shiftX, shiftY} = data
     if (operation === 'undo') {
       Scene.shiftTilemap(tilemap, -shiftX, -shiftY)
@@ -329,7 +312,7 @@ Scene.initialize = function () {
     Scene.setTarget(tilemap)
     Scene.planToSave()
   }
-  History.processors['scene-shift'] = (operation, data) => {
+  Yami.History.processors['scene-shift'] = (operation, data) => {
     const {shiftX, shiftY, changes} = data
     if (operation === 'undo') {
       Scene.shiftTerrains(-shiftX, -shiftY)
@@ -340,7 +323,7 @@ Scene.initialize = function () {
     Scene.planToSaveTerrains()
     Scene.planToSave()
   }
-  History.processors['scene-tilemap-change'] = (operation, data) => {
+  Yami.History.processors['scene-tilemap-change'] = (operation, data) => {
     const {tilemap, changes, tilesetMap} = data
     switch (operation) {
       case 'undo':
@@ -355,7 +338,7 @@ Scene.initialize = function () {
     Scene.requestRendering()
     Scene.planToSave()
   }
-  History.processors['scene-terrain-change'] = (operation, data) => {
+  Yami.History.processors['scene-terrain-change'] = (operation, data) => {
     const {terrains, changes} = data
     switch (operation) {
       case 'undo':
@@ -369,7 +352,7 @@ Scene.initialize = function () {
     Scene.requestRendering()
     Scene.planToSave()
   }
-  History.processors['scene-target-shift'] = (operation, data) => {
+  Yami.History.processors['scene-target-shift'] = (operation, data) => {
     const {editor, target, x, y} = data
     data.x = target.x
     data.y = target.y
@@ -383,7 +366,7 @@ Scene.initialize = function () {
     Scene.requestRendering()
     Scene.planToSave()
   }
-  History.processors['scene-target-redirect'] = (operation, data) => {
+  Yami.History.processors['scene-target-redirect'] = (operation, data) => {
     const {editor, target, angle} = data
     data.angle = target.angle
     target.angle = angle
@@ -405,7 +388,7 @@ Scene.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
-  GL.canvas.on('webglcontextrestored', this.webglRestored)
+  Yami.GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#scene-head-start').on('pointerdown', this.switchPointerdown)
   $('#scene-layer').on('pointerdown', this.layerPointerdown)
   $('#scene-brush').on('pointerdown', this.brushPointerdown)
@@ -431,9 +414,9 @@ Scene.initialize = function () {
   list.page.on('resize', this.listPageResize)
 
   // 初始化子对象
-  ObjectFolder.initialize()
-  SceneShift.initialize()
-  TilemapShortcuts.initialize()
+  Yami.ObjectFolder.initialize()
+  Yami.SceneShift.initialize()
+  Yami.TilemapShortcuts.initialize()
 }
 
 // 打开场景
@@ -448,7 +431,7 @@ Scene.open = function (context) {
   this.meta = meta
 
   // 设置粒子元素舞台
-  Particle.Element.stage = this
+  Yami.Particle.Element.stage = this
 
   // 恢复场景状态
   if (context.scene) {
@@ -466,7 +449,7 @@ Scene.open = function (context) {
   // 首次加载场景
   this.state = 'loading'
   const symbol = this.symbol = Symbol()
-  return Data.loadScene(meta.guid).then(
+  return Yami.Data.loadScene(meta.guid).then(
     scene => {
       if (this.symbol === symbol) {
         context.scene = scene
@@ -475,15 +458,15 @@ Scene.open = function (context) {
       }
     },
     error => {
-      Log.throw(error)
+      Yami.Log.throw(error)
       const type =
         error instanceof URIError     ? 'Failed to read file'
       : error instanceof SyntaxError  ? 'Syntax error'
       : error instanceof RangeError   ? 'Decoding error'
       :                                 'Unknown error'
       this.close()
-      Layout.manager.switch('directory')
-      Window.confirm({
+      Yami.Layout.manager.switch('directory')
+      Yami.Window.confirm({
         message: `${type}: ${error.message}`,
       }, [{
         label: 'Confirm',
@@ -498,7 +481,7 @@ Scene.load = function (context) {
   if (firstLoad) {
     // 创建瓦片地图和快捷方式列表
     const tilemaps = []
-    tilemaps.shortcuts = new TilemapShortcuts(tilemaps)
+    tilemaps.shortcuts = new Yami.TilemapShortcuts(tilemaps)
 
     // 创建区域和可见对象列表
     const regions = []
@@ -596,10 +579,10 @@ Scene.load = function (context) {
   }
 
   // 设置对比度
-  GL.setContrast(this.contrast)
+  Yami.GL.setContrast(this.contrast)
 
   // 设置环境光
-  GL.setAmbientLight(this.ambient)
+  Yami.GL.setAmbientLight(this.ambient)
 }
 
 // 保存场景
@@ -643,7 +626,7 @@ Scene.save = function () {
     // 重新编码场景数据
     if (this.context.changed) {
       this.context.changed = false
-      Data.scenes[this.meta.guid] = Codec.encodeScene(scene)
+      Yami.Data.scenes[this.meta.guid] = Yami.Codec.encodeScene(scene)
     }
   }
 }
@@ -655,8 +638,8 @@ Scene.close = function () {
     this.closeTilemap()
     this.setTarget(null)
     // 关闭检查器
-    if (Inspector.type === 'fileScene') {
-      Inspector.close()
+    if (Yami.Inspector.type === 'fileScene') {
+      Yami.Inspector.close()
     }
     this.state = 'closed'
     this.symbol = null
@@ -727,7 +710,7 @@ Scene.shiftTilemap = function (tilemap, offsetX, offsetY) {
   }
   const ox = (offsetX % width + width) % width
   const oy = (offsetY % height + height) % height
-  const sTiles = GL.arrays[0].uint32
+  const sTiles = Yami.GL.arrays[0].uint32
   const dTiles = tilemap.tiles
   const tro = dTiles.rowOffset
   sTiles.set(dTiles)
@@ -752,7 +735,7 @@ Scene.shiftTerrains = function (offsetX, offsetY) {
   }
   const ox = (offsetX % width + width) % width
   const oy = (offsetY % height + height) % height
-  const sTerrains = GL.arrays[0].uint8
+  const sTerrains = Yami.GL.arrays[0].uint8
   const dTerrains = this.terrains
   const pro = dTerrains.rowOffset
   sTerrains.set(dTerrains)
@@ -855,7 +838,7 @@ Scene.paste = function (x, y) {
 
 // 创建对象
 Scene.create = function (kind, x, y) {
-  const folders = Editor.project.scene.defaultFolders
+  const folders = Yami.Editor.project.scene.defaultFolders
   const name = folders[kind]
   const dItem = !name ? null
   : this.list.getItemByProperties({
@@ -864,7 +847,7 @@ Scene.create = function (kind, x, y) {
   })
   const map = this.inspectorTypeMap
   const key = map[kind]
-  const editor = Inspector[key]
+  const editor = Yami.Inspector[key]
   const object = editor.create()
   object.x = x
   object.y = y
@@ -937,7 +920,7 @@ Scene.setSize = function (width, height) {
   this.planToSaveTerrains()
   this.history.save({
     type: 'scene-resize',
-    editor: Inspector.fileScene,
+    editor: Yami.Inspector.fileScene,
     width: this.width,
     height: this.height,
     terrains: this.terrains,
@@ -979,7 +962,7 @@ Scene.setTilemapSize = function (tilemap, width, height) {
   }
   this.history.save({
     type: 'scene-tilemap-resize',
-    editor: Inspector.sceneTilemap,
+    editor: Yami.Inspector.sceneTilemap,
     tilemap: tilemap,
     width: tilemap.width,
     height: tilemap.height,
@@ -1022,9 +1005,9 @@ Scene.setTarget = function (target) {
     if (target) {
       const map = this.inspectorTypeMap
       const key = map[target.class]
-      Inspector.open(key, target)
+      Yami.Inspector.open(key, target)
     } else {
-      Inspector.close()
+      Yami.Inspector.close()
     }
   }
 }
@@ -1037,7 +1020,7 @@ Scene.openTilemap = function (tilemap) {
     this.tilemap = tilemap
     this.tilemap.element?.addClass('highlight')
     if (this.tilemap.shortcut !== 0) {
-      TilemapShortcuts.elements[
+      Yami.TilemapShortcuts.elements[
         this.tilemap.shortcut
       ].addClass('selected')
     }
@@ -1053,7 +1036,7 @@ Scene.closeTilemap = function (back = true) {
   if (this.tilemap !== null) {
     this.tilemap.element?.removeClass('highlight')
     if (this.tilemap.shortcut !== 0) {
-      TilemapShortcuts.elements[
+      Yami.TilemapShortcuts.elements[
         this.tilemap.shortcut
       ].removeClass('selected')
     }
@@ -1086,12 +1069,12 @@ Scene.computeActiveTilemapId = function () {
 
 // 显示目标对象
 Scene.revealTarget = function IIFE() {
-  const timer = new Timer({
+  const timer = new Yami.Timer({
     duration: 200,
     update: timer => {
       const {target} = timer
       if (target === Scene.target) {
-        const easing = Easing.EasingMap.easeInOut
+        const easing = Yami.Easing.EasingMap.easeInOut
         const time = easing.map(timer.elapsed / timer.duration)
         const x = timer.startX * (1 - time) + timer.endX * time
         const y = timer.startY * (1 - time) + timer.endY * time
@@ -1139,7 +1122,7 @@ Scene.shiftTarget = function (x, y) {
   const target = this.target
   const map = this.inspectorTypeMap
   const key = map[target?.class]
-  const editor = Inspector[key]
+  const editor = Yami.Inspector[key]
   if (editor !== undefined && (
     target.x !== x ||
     target.y !== y)) {
@@ -1174,7 +1157,7 @@ Scene.redirectTarget = function (angle) {
   const target = this.target
   const map = this.inspectorTypeMap
   const key = map[target?.class]
-  const editor = Inspector[key]
+  const editor = Yami.Inspector[key]
   if (editor !== undefined &&
     target.angle !== angle) {
     this.planToSave()
@@ -1277,7 +1260,7 @@ Scene.updateTargetEditor = function () {
   const target = this.target
   const map = this.inspectorTypeMap
   const key = map[target?.class]
-  const editor = Inspector[key]
+  const editor = Yami.Inspector[key]
   if (editor !== undefined &&
     editor.target === target) {
     editor.write({
@@ -1289,7 +1272,7 @@ Scene.updateTargetEditor = function () {
 
 // 更新动画播放间隔
 Scene.updateAnimationInterval = function () {
-  const {animationInterval} = Data.config.scene
+  const {animationInterval} = Yami.Data.config.scene
   if (this.animationInterval !== animationInterval) {
     if (animationInterval === 0 &&
       this.animationFrame !== 0) {
@@ -1304,14 +1287,14 @@ Scene.updateAnimationInterval = function () {
 // 更新光照区域扩充
 Scene.updateLightAreaExpansion = function (last) {
   if (this.showLight) {
-    const light = Data.config.lightArea
+    const light = Yami.Data.config.lightArea
     if (last.expansionLeft !== light.expansionLeft ||
       last.expansionTop !== light.expansionTop ||
       last.expansionRight !== light.expansionRight ||
       last.expansionBottom !== light.expansionBottom) {
-      GL.lightmap.innerWidth = 0
-      GL.lightmap.paddingLeft = undefined
-      GL.resizeLightmap()
+      Yami.GL.lightmap.innerWidth = 0
+      Yami.GL.lightmap.paddingLeft = undefined
+      Yami.GL.resizeLightmap()
       this.updateLightTexParameters()
       this.updateTransform()
       this.requestRendering()
@@ -1332,7 +1315,7 @@ Scene.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Layout.getGroupOfElement(head)
+    const {nav} = Yami.Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -1390,8 +1373,8 @@ Scene.resize = function () {
     this.paddingTop = paddingTop
     this.marquee.style.width = `${outerWidth / dpr}px`
     this.marquee.style.height = `${outerHeight / dpr}px`
-    GL.resize(screenWidth, screenHeight)
-    GL.resizeLightmap()
+    Yami.GL.resize(screenWidth, screenHeight)
+    Yami.GL.resizeLightmap()
     this.updateLightTexParameters()
     this.updateCamera()
     this.updateTransform()
@@ -1513,8 +1496,8 @@ Scene.rasterizeScrollPosition = function IIFE() {
 
 // 更新光影纹理参数
 Scene.updateLightTexParameters = function () {
-  const light = Data.config.lightArea
-  const texture = GL.lightmap
+  const light = Yami.Data.config.lightArea
+  const texture = Yami.GL.lightmap
   const scaleX = this.scaleX
   const scaleY = this.scaleY
   if (texture.scaleX !== scaleX ||
@@ -1540,8 +1523,8 @@ Scene.updateLightTexParameters = function () {
     texture.maxExpansionBottom = pb / scaleY
     texture.clipX = pl - el
     texture.clipY = pt - et
-    texture.clipWidth = GL.width + el + er
-    texture.clipHeight = GL.height + et + eb
+    texture.clipWidth = Yami.GL.width + el + er
+    texture.clipHeight = Yami.GL.height + et + eb
   }
 }
 
@@ -1553,10 +1536,10 @@ Scene.updateCamera = function (x = this.meta.x, y = this.meta.y) {
   const scrollY = y * this.scaledTileHeight + this.paddingTop
   const toleranceX = this.scaledTileWidth * 0.0001
   const toleranceY = this.scaledTileHeight * 0.0001
-  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
-  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
-  screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceX) / dpr
-  screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceY) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - Yami.GL.width) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - Yami.GL.height) / dpr
+  screen.scrollLeft = (scrollX - (Yami.GL.width >> 1) + toleranceX) / dpr
+  screen.scrollTop = (scrollY - (Yami.GL.height >> 1) + toleranceY) / dpr
 }
 
 // 更新变换参数
@@ -1565,11 +1548,11 @@ Scene.updateTransform = function () {
   const screen = this.screen
   const left = Math.roundTo(screen.scrollLeft * dpr - this.paddingLeft, 4)
   const top = Math.roundTo(screen.scrollTop * dpr - this.paddingTop, 4)
-  const right = left + GL.width
-  const bottom = top + GL.height
+  const right = left + Yami.GL.width
+  const bottom = top + Yami.GL.height
   const scaleX = this.scaleX
   const scaleY = this.scaleY
-  const lightmap = GL.lightmap
+  const lightmap = Yami.GL.lightmap
   this.scrollLeft = left / scaleX
   this.scrollTop = top / scaleY
   this.scrollRight = right / scaleX
@@ -1587,13 +1570,13 @@ Scene.updateTransform = function () {
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
   this.meta.x = Math.roundTo((scrollX - this.paddingLeft) / this.scaledTileWidth, 4)
   this.meta.y = Math.roundTo((scrollY - this.paddingTop) / this.scaledTileHeight, 4)
-  Data.manifest.changed = true
+  Yami.Data.manifest.changed = true
 }
 
 // 设置预设对象ID
 Scene.setPresetId = function (item) {
   let id
-  do {id = GUID.generate64bit()}
+  do {id = Yami.GUID.generate64bit()}
   while (id in Scene.presets)
   item.presetId = id
   Scene.presets[id] = item
@@ -1723,8 +1706,8 @@ Scene.loadTextures = async function () {
   if (this.state === 'closed') return
   const promises = []
   const textures = this.textures
-  const tilesets = Data.tilesets
-  const templates = Data.autotiles.map
+  const tilesets = Yami.Data.tilesets
+  const templates = Yami.Data.autotiles.map
   for (const tilemap of this.tilemaps) {
     const {tiles, tilesetMap} = tilemap
     const length = tiles.length
@@ -1771,7 +1754,7 @@ Scene.loadTextures = async function () {
     this.resize()
     this.requestAnimation()
     this.requestRendering()
-    if (Window.frames.length === 0 &&
+    if (Yami.Window.frames.length === 0 &&
       document.activeElement === document.body) {
       this.screen.focus()
     }
@@ -1804,7 +1787,7 @@ Scene.loadActorContext = function (actor) {
     delete actor.player
   }
   const actorId = actor.actorId
-  const data = Data.actors[actorId]
+  const data = Yami.Data.actors[actorId]
   if (data !== undefined) {
     Object.defineProperty(
       actor, 'data', {
@@ -1813,9 +1796,9 @@ Scene.loadActorContext = function (actor) {
       }
     )
     const {animationId} = data
-    const animation = Data.animations[animationId]
+    const animation = Yami.Data.animations[animationId]
     if (animation !== undefined) {
-      const player = new Animation.Player(animation)
+      const player = new Yami.Animation.Player(animation)
       const params = player.getDirParamsByAngle(actor.angle)
       // 加载精灵哈希表
       const images = {}
@@ -1864,7 +1847,7 @@ Scene.loadAnimationContext = function (animation) {
     delete animation.player
   }
   const animationId = animation.animationId
-  const data = Data.animations[animationId]
+  const data = Yami.Data.animations[animationId]
   if (data !== undefined) {
     Object.defineProperty(
       animation, 'data', {
@@ -1872,7 +1855,7 @@ Scene.loadAnimationContext = function (animation) {
         value: data,
       }
     )
-    const player = new Animation.Player(data)
+    const player = new Yami.Animation.Player(data)
     player.switch(animation.motion)
     player.mirror = animation.mirror
     Object.defineProperty(
@@ -1913,9 +1896,9 @@ Scene.loadParticleContext = function (particle) {
     particle.emitter.destroy()
     delete particle.emitter
   }
-  const data = Data.particles[particle.particleId]
+  const data = Yami.Data.particles[particle.particleId]
   if (data !== undefined) {
-    const emitter = new Particle.Emitter(data)
+    const emitter = new Yami.Particle.Emitter(data)
     emitter.scale = particle.scale
     emitter.speed = particle.speed
     Object.defineProperty(
@@ -2021,7 +2004,7 @@ Scene.updateParallaxes = function (deltaTime) {
 
 // 绘制场景
 Scene.drawScene = function () {
-  if (GL.width * GL.height === 0) {
+  if (Yami.GL.width * Yami.GL.height === 0) {
     return
   }
   switch (this.layer) {
@@ -2049,10 +2032,10 @@ Scene.drawScene = function () {
       this.drawBackgrounds()
       this.drawObjectLayer()
       this.drawForegrounds()
-      GL.alpha = 0.25
+      Yami.GL.alpha = 0.25
       this.drawParticles()
       this.drawTilePreview()
-      GL.alpha = 1
+      Yami.GL.alpha = 1
       this.drawGridLayer()
       this.drawTileMarquee()
       break
@@ -2071,8 +2054,8 @@ Scene.drawScene = function () {
 
 // 绘制背景
 Scene.drawBackgrounds = function () {
-  GL.clearColor(...this.background.getGLRGBA())
-  GL.clear(GL.COLOR_BUFFER_BIT)
+  Yami.GL.clearColor(...this.background.getGLRGBA())
+  Yami.GL.clear(GL.COLOR_BUFFER_BIT)
   const activeId = this.activeTilemapId
   const backgrounds = this.backgrounds
   const length = backgrounds.length
@@ -2090,7 +2073,7 @@ Scene.drawBackgrounds = function () {
         continue
     }
   }
-  GL.alpha = 1
+  Yami.GL.alpha = 1
 }
 
 // 绘制前景
@@ -2113,13 +2096,13 @@ Scene.drawForegrounds = function () {
         continue
     }
   }
-  GL.alpha = 1
+  Yami.GL.alpha = 1
 }
 
 // 更新动画
 Scene.updateAnimations = function (deltaTime) {
-  const lightmap = GL.lightmap
-  const area = Data.config.animationArea
+  const lightmap = Yami.GL.lightmap
+  const area = Yami.Data.config.animationArea
   const sl = this.scrollLeft - area.expansionLeft
   const st = this.scrollTop - area.expansionTop
   const sr = this.scrollRight + area.expansionRight
@@ -2248,7 +2231,7 @@ Scene.drawTilePreview = function () {
       oy += context.offsetY
     }
     this.drawTileLayer('upper', 'global', 'normal', 0.6, mm, mt, ox, oy)
-    GL.alpha = 1
+    Yami.GL.alpha = 1
   }
 }
 
@@ -2256,7 +2239,7 @@ Scene.drawTilePreview = function () {
 Scene.drawTileLayer = function (
   layer, light, blend, opacity, tilesetMap, tiles, ox, oy,
 ) {
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const push = gl.batchRenderer.push
   const response = gl.batchRenderer.response
@@ -2266,14 +2249,14 @@ Scene.drawTileLayer = function (
   const tro = tiles.rowOffset
   const tw = this.tileWidth
   const th = this.tileHeight
-  const tilesets = Data.tilesets
-  const templates = Data.autotiles.map
+  const tilesets = Yami.Data.tilesets
+  const templates = Yami.Data.autotiles.map
   const scroll = this.rasterizeScrollPosition(-ox, -oy)
   const sl = scroll.left
   const st = scroll.top
   const sr = scroll.right
   const sb = scroll.bottom
-  const area = Data.config.tileArea
+  const area = Yami.Data.config.tileArea
   const tl = sl - area.expansionLeft
   const tt = st - area.expansionTop
   const tr = sr + area.expansionRight
@@ -2295,7 +2278,7 @@ Scene.drawTileLayer = function (
           switch (tileset.type) {
             case 'normal': {
               const texture = textures[tileset.image]
-              if (texture instanceof ImageTexture) {
+              if (texture instanceof Yami.ImageTexture) {
                 push(texture.base.index)
                 const sw = tileset.tileWidth
                 const sh = tileset.tileHeight
@@ -2338,9 +2321,9 @@ Scene.drawTileLayer = function (
                 vertices[vi + 19] = si
               } else if (texture === undefined) {
                 const guid = tileset.image
-                const image = Palette.images[guid]
+                const image = Yami.Palette.images[guid]
                 if (image instanceof Image) {
-                  textures.append(new ImageTexture(image))
+                  textures.append(new Yami.ImageTexture(image))
                   x--
                 } else {
                   textures.load(guid)
@@ -2366,7 +2349,7 @@ Scene.drawTileLayer = function (
                 continue
               }
               const texture = textures[autoTile.image]
-              if (texture instanceof ImageTexture) {
+              if (texture instanceof Yami.ImageTexture) {
                 push(texture.base.index)
                 const index = this.animationFrame
                             % node.frames.length
@@ -2405,9 +2388,9 @@ Scene.drawTileLayer = function (
                 vertices[vi + 15] = st
               } else if (texture === undefined) {
                 const guid = autoTile.image
-                const image = Palette.images[guid]
+                const image = Yami.Palette.images[guid]
                 if (image instanceof Image) {
-                  textures.append(new ImageTexture(image))
+                  textures.append(new Yami.ImageTexture(image))
                   x--
                 } else {
                   textures.load(guid)
@@ -2452,7 +2435,7 @@ Scene.drawTileLayer = function (
 // 绘制网格层
 Scene.drawGridLayer = function () {
   if (this.showGrid && this.width * this.height) {
-    const gl = GL
+    const gl = Yami.GL
     const vertices = gl.arrays[0].float32
     const context = this.getGridContext()
     const width = context.width
@@ -2511,7 +2494,7 @@ Scene.drawGridLayer = function () {
 
 // 绘制区域层
 Scene.drawRegionLayer = function () {
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const colors = gl.arrays[0].uint32
   const tw = this.tileWidth
@@ -2590,7 +2573,7 @@ Scene.drawRegionLayer = function () {
 
 // 绘制区域边框
 Scene.drawRegionBorders = function () {
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const tw = this.tileWidth
   const th = this.tileHeight
@@ -2632,7 +2615,7 @@ Scene.drawRegionBorders = function () {
     vi += 16
   }
   // 绘制开始位置边框
-  const {startPosition} = Data.config
+  const {startPosition} = Yami.Data.config
   if (startPosition.sceneId === this.meta.guid) {
     const dl = startPosition.x - 0.5 + ox
     const dt = startPosition.y - 0.5 + oy
@@ -2681,16 +2664,16 @@ Scene.drawObjectLayer = function () {
   const animAlpha = translucent ? 0.25 : 1
 
   // 获取图块对象
-  const gl = GL
+  const gl = Yami.GL
   const lightModeMap = this.showLight
-  ? Animation.Player.lightSamplingModes
+  ? Yami.Animation.Player.lightSamplingModes
   : this.defaultLightSamplingModes
   const blendModeMap = this.blendModeMap
   const textures = this.textures
-  const tilesets = Data.tilesets
-  const templates = Data.autotiles.map
-  const area = Data.config.tileArea
-  const lightmap = GL.lightmap
+  const tilesets = Yami.Data.tilesets
+  const templates = Yami.Data.autotiles.map
+  const area = Yami.Data.config.tileArea
+  const lightmap = Yami.GL.lightmap
   const tw = this.tileWidth
   const th = this.tileHeight
   const sl = this.scrollLeft
@@ -2757,7 +2740,7 @@ Scene.drawObjectLayer = function () {
             switch (tileset.type) {
               case 'normal': {
                 const texture = textures[tileset.image]
-                if (texture instanceof ImageTexture) {
+                if (texture instanceof Yami.ImageTexture) {
                   const tx = tile >> 8 & 0xff
                   const ty = tile >> 16 & 0xff
                   const id = tx + ty * tileset.width
@@ -2811,9 +2794,9 @@ Scene.drawObjectLayer = function () {
                   di += 13
                 } else if (texture === undefined) {
                   const guid = tileset.image
-                  const image = Palette.images[guid]
+                  const image = Yami.Palette.images[guid]
                   if (image instanceof Image) {
-                    textures.append(new ImageTexture(image))
+                    textures.append(new Yami.ImageTexture(image))
                     x--
                   } else {
                     textures.load(guid)
@@ -2839,7 +2822,7 @@ Scene.drawObjectLayer = function () {
                   continue
                 }
                 const texture = textures[autoTile.image]
-                if (texture instanceof ImageTexture) {
+                if (texture instanceof Yami.ImageTexture) {
                   const index = this.animationFrame
                               % node.frames.length
                   const frame = node.frames[index]
@@ -2888,9 +2871,9 @@ Scene.drawObjectLayer = function () {
                   di += 13
                 } else if (texture === undefined) {
                   const guid = autoTile.image
-                  const image = Palette.images[guid]
+                  const image = Yami.Palette.images[guid]
                   if (image instanceof Image) {
-                    textures.append(new ImageTexture(image))
+                    textures.append(new Yami.ImageTexture(image))
                     x--
                   } else {
                     textures.load(guid)
@@ -3030,12 +3013,12 @@ Scene.drawObjectLayer = function () {
 // 绘制名字层
 Scene.drawNameLayer = function () {
   if (this.target?.name) {
-    const gl = GL
+    const gl = Yami.GL
     const sl = this.scrollLeft * this.scaleX
     const st = this.scrollTop * this.scaleY
     const stw = this.scaledTileWidth
     const sth = this.scaledTileHeight
-    const size = GL.context2d.size
+    const size = Yami.GL.context2d.size
     const color = 0xffffffff
     const shadow = 0x80000000
     const target = this.target
@@ -3047,7 +3030,7 @@ Scene.drawNameLayer = function () {
 
 // 绘制地形层
 Scene.drawTerrainLayer = function () {
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const terrains = this.terrains
   const tro = terrains.rowOffset
@@ -3288,7 +3271,7 @@ Scene.drawTerrainLayer = function () {
 // 绘制灯光层
 Scene.drawLightLayer = function () {
   if (this.showLight) {
-    const gl = GL
+    const gl = Yami.GL
     const ambient = this.ambient
     const ambientRed = ambient.red / 255
     const ambientGreen = ambient.green / 255
@@ -3372,7 +3355,7 @@ Scene.drawLightLayer = function () {
     }
     const count = qi0 + qi1 + qi2 + qi3
     if (count !== 0) {
-      const projMatrix = Matrix.instance.project(
+      const projMatrix = Yami.Matrix.instance.project(
         gl.flip,
         sr - sl,
         sb - st,
@@ -3403,7 +3386,7 @@ Scene.drawLightLayer = function () {
 Scene.drawTileMarquee = function () {
   const marquee = this.marquee
   if (marquee.visible) {
-    const gl = GL
+    const gl = Yami.GL
     const vertices = gl.arrays[0].float32
     const grid = this.getGridContext()
     const sx = grid.offsetX
@@ -3560,7 +3543,7 @@ Scene.drawTileMarquee = function () {
 Scene.drawTerrainMarquee = function () {
   const marquee = this.marquee
   if (marquee.visible) {
-    const gl = GL
+    const gl = Yami.GL
     const vertices = gl.arrays[0].float32
     const tw = this.tileWidth
     const th = this.tileHeight
@@ -3680,8 +3663,8 @@ Scene.drawAnimationWireframe = function () {
 Scene.drawAnimationAnchor = function () {
   switch (this.target?.class) {
     case 'actor': {
-      const team = Data.teams.map[this.target.teamId]
-      const color = INTRGBA(team?.color ?? 'ffffffff')
+      const team = Yami.Data.teams.map[this.target.teamId]
+      const color = Yami.INTRGBA(team?.color ?? 'ffffffff')
       this.drawTargetAnchor(this.target, 0, color)
       break
     }
@@ -3869,7 +3852,7 @@ Scene.createStartPositionTexture = function () {
 
 // 绘制初始位置
 Scene.drawStartPosition = function () {
-  const {startPosition} = Data.config
+  const {startPosition} = Yami.Data.config
   if (startPosition.sceneId === this.meta.guid) {
     const tw = this.tileWidth
     const th = this.tileHeight
@@ -3882,7 +3865,7 @@ Scene.drawStartPosition = function () {
     const dr = dl + tw
     const db = dt + th
     if (dl < sr && dt < sb && dr > sl && db > st) {
-      const gl = GL
+      const gl = Yami.GL
       const vertices = gl.arrays[0].float32
       vertices[0] = dl
       vertices[1] = dt
@@ -4247,7 +4230,7 @@ Scene.selectSortedLayer = function (x, y) {
 
 // 绘制椭圆线框
 Scene.drawOvalWireframe = function (ox, oy, hr, vr, color) {
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const scale = this.scale
   const sl = this.scrollLeft
@@ -4293,7 +4276,7 @@ Scene.drawOvalWireframe = function (ox, oy, hr, vr, color) {
 // 绘制目标锚点
 Scene.drawTargetAnchor = function (target, angle, color = 0xff00ff00) {
   const {x, y} = this.getConvertedCoords(target)
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const scale = this.scale
   const sl = this.scrollLeft
@@ -4349,7 +4332,7 @@ Scene.drawTargetAnchor = function (target, angle, color = 0xff00ff00) {
 
 // 绘制矩形线框
 Scene.drawRectWireframe = function (dl, dt, dr, db, ax, ay, angle) {
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const sl = this.scrollLeft
   const st = this.scrollTop
@@ -4375,7 +4358,7 @@ Scene.drawRectWireframe = function (dl, dt, dr, db, ax, ay, angle) {
 
 // 绘制瓦片地图上的矩形线框
 Scene.drawRectWireframeOnTilemap = function (rl, rt, rw, rh, ax, ay, angle) {
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const tw = this.tileWidth
   const th = this.tileHeight
@@ -4496,7 +4479,7 @@ Scene.editInPencilMode = function (x, y, width, height) {
   const pox = this.patternOriginX
   const poy = this.patternOriginY
   const layer = this.layer
-  const shiftKey = this.shiftKey || Palette.explicit
+  const shiftKey = this.shiftKey || Yami.Palette.explicit
   const sTiles = this.marquee.getTiles(true)
 
   // 设置图块
@@ -4536,7 +4519,7 @@ Scene.editInRectMode = function (x, y, width, height) {
   const pox = this.patternOriginX
   const poy = this.patternOriginY
   const layer = this.layer
-  const shiftKey = this.shiftKey || Palette.explicit
+  const shiftKey = this.shiftKey || Yami.Palette.explicit
   const sTiles = this.marquee.getTiles(shiftKey)
 
   // 撤销上一次的改动
@@ -4585,7 +4568,7 @@ Scene.editInOvalMode = function (x, y, width, height) {
   const pox = this.patternOriginX
   const poy = this.patternOriginY
   const layer = this.layer
-  const shiftKey = this.shiftKey || Palette.explicit
+  const shiftKey = this.shiftKey || Yami.Palette.explicit
   const sTiles = this.marquee.getTiles(shiftKey)
 
   // 撤销上一次的改动
@@ -4687,7 +4670,7 @@ Scene.editInFillMode = function (x, y) {
       mapWidth = tilemap.width
       mapHeight = tilemap.height
       bitShift = 6
-      shiftKey = this.shiftKey || Palette.explicit
+      shiftKey = this.shiftKey || Yami.Palette.explicit
       sTiles = this.marquee.getTiles(shiftKey)
       break
     }
@@ -4710,7 +4693,7 @@ Scene.editInFillMode = function (x, y) {
 
   // 初始堆栈和标记 - openset: 当前被填充图块坐标栈, closedset: 下一轮...
   const {min, max} = Math
-  const buffer = GL.arrays[1].uint16.buffer
+  const buffer = Yami.GL.arrays[1].uint16.buffer
   const sLength = min(mapWidth, mapHeight) * 4
   let openset = new Uint16Array(buffer, 0, sLength)
   let closedset = new Uint16Array(buffer, sLength * 2, sLength)
@@ -4916,8 +4899,8 @@ Scene.setTileFrame = function (x, y) {
     return
   }
   const tilesetMap = tilemap.tilesetMap
-  const tilesets = Data.tilesets
-  const templates = Data.autotiles.map
+  const tilesets = Yami.Data.tilesets
+  const templates = Yami.Data.autotiles.map
   const guid = tilesetMap[tile >> 24]
   const tileset = tilesets[guid]
   if (tileset !== undefined &&
@@ -5020,7 +5003,7 @@ Scene.getNewTilesetIndex = function (tilesetMap) {
 // 请求更新动画
 Scene.requestAnimation = function () {
   if (this.state === 'open' && this.showAnimation) {
-    Timer.appendUpdater('stageAnimation', this.updateAnimation)
+    Yami.Timer.appendUpdater('stageAnimation', this.updateAnimation)
   }
 }
 
@@ -5037,20 +5020,20 @@ Scene.updateAnimation = function (deltaTime) {
   Scene.updateParallaxes(deltaTime)
   Scene.updateAnimations(deltaTime)
   Scene.updateParticles(deltaTime)
-  if (Timer.updaters.stageRendering !== Scene.renderingFunction) {
+  if (Yami.Timer.updaters.stageRendering !== Scene.renderingFunction) {
     Scene.drawScene()
   }
 }
 
 // 停止更新动画
 Scene.stopAnimation = function () {
-  Timer.removeUpdater('stageAnimation', this.updateAnimation)
+  Yami.Timer.removeUpdater('stageAnimation', this.updateAnimation)
 }
 
 // 请求渲染
 Scene.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('stageRendering', this.renderingFunction)
+    Yami.Timer.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
@@ -5062,7 +5045,7 @@ Scene.renderingFunction = function () {
 
 // 停止渲染
 Scene.stopRendering = function () {
-  Timer.removeUpdater('stageRendering', this.renderingFunction)
+  Yami.Timer.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 切换图层
@@ -5199,10 +5182,10 @@ Scene.switchAnimation = function IIFE() {
 
 // 开关设置
 Scene.switchSettings = function () {
-  if (!Inspector.fileScene.button.hasClass('selected')) {
-    Inspector.open('fileScene', Scene)
+  if (!Yami.Inspector.fileScene.button.hasClass('selected')) {
+    Yami.Inspector.open('fileScene', Scene)
   } else {
-    Inspector.close()
+    Yami.Inspector.close()
   }
 }
 
@@ -5241,7 +5224,7 @@ Scene.resetAnimations = function () {
 
 // 更新字体
 Scene.updateFont = function () {
-  const context = GL.context2d
+  const context = Yami.GL.context2d
   const size = window.devicePixelRatio * 12
   if (context.mode !== 'scene' ||
     context.size !== size) {
@@ -5249,14 +5232,14 @@ Scene.updateFont = function () {
     context.font = `${size}px ${document.body.css().fontFamily}`
     context.paddingItalic = 0
     context.size = size
-    const program = GL.textProgram.use()
-    GL.uniform1f(program.u_Threshold, 0)
+    const program = Yami.GL.textProgram.use()
+    Yami.GL.uniform1f(program.u_Threshold, 0)
   }
 }
 
 // 计划保存场景
 Scene.planToSave = function () {
-  File.planToSave(this.meta)
+  Yami.File.planToSave(this.meta)
   this.context.changed = true
 }
 
@@ -5406,7 +5389,7 @@ Scene.createDefaultAnimation = function IIFE() {
   let data = null
 
   // 创建默认图像纹理
-  File.get({
+  Yami.File.get({
     local: 'images/default_actor.png',
     type: 'image',
   }).then(image => {
@@ -5414,7 +5397,7 @@ Scene.createDefaultAnimation = function IIFE() {
     const width = image.naturalWidth
     const height = image.naturalHeight / 2
     image.guid = 'scene:default_actor'
-    texture = new ImageTexture(image)
+    texture = new Yami.ImageTexture(image)
     texture.width = width
     texture.height = height
     texture.offsetX = -width / 2
@@ -5426,7 +5409,7 @@ Scene.createDefaultAnimation = function IIFE() {
   return function (target) {
     // 初始化默认动画播放器类
     if (DefaultPlayer === null) {
-      motion = Inspector.animMotion.create()
+      motion = Yami.Inspector.animMotion.create()
       data = {mode: '1-dir', sprites: [], motions: [motion]}
       const frames = motion.layers[0].frames
       frames[0].y = -8
@@ -5436,7 +5419,7 @@ Scene.createDefaultAnimation = function IIFE() {
       frames[1].start = 1
       frames[1].end = 2
       frames[1].spriteY = 1
-      DefaultPlayer = class DefaultPlayer extends Animation.Player {
+      DefaultPlayer = class DefaultPlayer extends Yami.Animation.Player {
         constructor(target) {
           super(data)
           this.target = target
@@ -5467,7 +5450,7 @@ Scene.saveToConfig = function (config) {
 
 // 从配置文件中加载状态
 Scene.loadFromConfig = function (config) {
-  this.background = new StageColor(
+  this.background = new Yami.StageColor(
     config.colors.sceneBackground,
     () => this.requestRendering(),
   )
@@ -5955,7 +5938,7 @@ Scene.marqueePointerdown = function (event) {
         event.scrollLeft = this.screen.scrollLeft
         event.scrollTop = this.screen.scrollTop
         this.marquee.clear()
-        Cursor.open('cursor-grab')
+        Yami.Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
         return
@@ -6100,7 +6083,7 @@ Scene.marqueePointerdown = function (event) {
     case 3:
       switch (this.layer) {
         case 'tilemap':
-          Palette.flipTiles()
+          Yami.Palette.flipTiles()
           break
       }
       break
@@ -6110,7 +6093,7 @@ Scene.marqueePointerdown = function (event) {
       event.scrollLeft = this.screen.scrollLeft
       event.scrollTop = this.screen.scrollTop
       this.marquee.clear()
-      Cursor.open('cursor-grab')
+      Yami.Cursor.open('cursor-grab')
       window.on('pointerup', this.pointerup)
       window.on('pointermove', this.pointermove)
       break
@@ -6249,7 +6232,7 @@ Scene.pointerup = function (event) {
         } else {
           marquee.clear()
         }
-        Palette.copyTilesFromScene(marquee.x, marquee.y, marquee.width, marquee.height)
+        Yami.Palette.copyTilesFromScene(marquee.x, marquee.y, marquee.width, marquee.height)
         break
       }
       case 'object-move':
@@ -6266,7 +6249,7 @@ Scene.pointerup = function (event) {
         break
       case 'scroll':
         this.screen.endScrolling()
-        Cursor.close('cursor-grab')
+        Yami.Cursor.close('cursor-grab')
         break
     }
     this.dragging = null
@@ -6435,7 +6418,7 @@ Scene.pointermove = function (event) {
         )
         if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
-          Cursor.open('cursor-grab')
+          Yami.Cursor.open('cursor-grab')
         }
         break
       }
@@ -6464,9 +6447,9 @@ Scene.menuPopup = function (event) {
     this.translationKeyup()
     const target = this.target
     const selected = !!target
-    const pastable = Clipboard.has('yami.scene.object')
-    const get = Local.createGetter('menuScene')
-    Menu.popup({
+    const pastable = Yami.Clipboard.has('yami.scene.object')
+    const get = Yami.Local.createGetter('menuScene')
+    Yami.Menu.popup({
       x: event.clientX,
       y: event.clientY,
     }, [{
@@ -6512,7 +6495,7 @@ Scene.menuPopup = function (event) {
       type: 'separator',
     }, {
       label: get('cut'),
-      accelerator: ctrl('X'),
+      accelerator: Yami.ctrl('X'),
       enabled: selected,
       click: () => {
         this.copy()
@@ -6520,14 +6503,14 @@ Scene.menuPopup = function (event) {
       },
     }, {
       label: get('copy'),
-      accelerator: ctrl('C'),
+      accelerator: Yami.ctrl('C'),
       enabled: selected,
       click: () => {
         this.copy()
       },
     }, {
       label: get('paste'),
-      accelerator: ctrl('V'),
+      accelerator: Yami.ctrl('V'),
       enabled: pastable,
       click: () => {
         this.paste(x, y)
@@ -6544,12 +6527,12 @@ Scene.menuPopup = function (event) {
     }, {
       label: get('setStartPosition'),
       click: () => {
-        const {startPosition} = Data.config
+        const {startPosition} = Yami.Data.config
         startPosition.sceneId = this.meta.guid
         startPosition.x = x + 0.5
         startPosition.y = y + 0.5
         this.requestRendering()
-        File.planToSave(Data.manifest.project.config)
+        Yami.File.planToSave(Yami.Data.manifest.project.config)
       },
     }])
   }
@@ -6665,7 +6648,7 @@ Scene.listSelect = function (event) {
       // 正在编辑图块时直接打开瓦片地图
       // 图块组关闭时打开瓦片地图检查器
       if (Scene.tilemap) {
-        if (Palette.state === 'closed') {
+        if (Yami.Palette.state === 'closed') {
           Scene.setTarget(item)
         }
         Scene.openTilemap(item)
@@ -6732,7 +6715,7 @@ Scene.listRecord = function (event) {
 Scene.listPopup = function (event) {
   const item = event.value
   const menuItems = []
-  const get = Local.createGetter('menuSceneList')
+  const get = Yami.Local.createGetter('menuSceneList')
   let copyable
   let pastable
   let deletable
@@ -6754,7 +6737,7 @@ Scene.listPopup = function (event) {
           label: get('shift'),
           enabled: item.tiles.length !== 0,
           click: () => {
-            SceneShift.open((x, y) => {
+            Yami.SceneShift.open((x, y) => {
               Scene.history.save({
                 type: 'scene-tilemap-shift',
                 tilemap: item,
@@ -6790,12 +6773,12 @@ Scene.listPopup = function (event) {
         })
         break
     }
-    pastable = Clipboard.has('yami.scene.object')
+    pastable = Yami.Clipboard.has('yami.scene.object')
     deletable = true
     renamable = true
   } else {
     copyable = false
-    pastable = Clipboard.has('yami.scene.object')
+    pastable = Yami.Clipboard.has('yami.scene.object')
     deletable = false
     renamable = false
   }
@@ -6809,46 +6792,46 @@ Scene.listPopup = function (event) {
     }, {
       label: get('create.actor'),
       click: () => {
-        this.addNodeTo(Inspector.sceneActor.create(), item)
+        this.addNodeTo(Yami.Inspector.sceneActor.create(), item)
       },
     }, {
       label: get('create.region'),
       click: () => {
-        this.addNodeTo(Inspector.sceneRegion.create(), item)
+        this.addNodeTo(Yami.Inspector.sceneRegion.create(), item)
       },
     }, {
       label: get('create.light'),
       click: () => {
-        this.addNodeTo(Inspector.sceneLight.create(), item)
+        this.addNodeTo(Yami.Inspector.sceneLight.create(), item)
       },
     }, {
       label: get('create.animation'),
       click: () => {
-        this.addNodeTo(Inspector.sceneAnimation.create(), item)
+        this.addNodeTo(Yami.Inspector.sceneAnimation.create(), item)
       },
     }, {
       label: get('create.particleEmitter'),
       click: () => {
-        this.addNodeTo(Inspector.sceneParticle.create(), item)
+        this.addNodeTo(Yami.Inspector.sceneParticle.create(), item)
       },
     }, {
       label: get('create.parallax'),
       click: () => {
-        this.addNodeTo(Inspector.sceneParallax.create(), item)
+        this.addNodeTo(Yami.Inspector.sceneParallax.create(), item)
       },
     }, {
       label: get('create.tilemap'),
       click: () => {
         // 关闭图块组检查器
-        Inspector.fileTileset.close()
-        this.addNodeTo(Inspector.sceneTilemap.create(Scene.width, Scene.height), item)
+        Yami.Inspector.fileTileset.close()
+        this.addNodeTo(Yami.Inspector.sceneTilemap.create(Scene.width, Scene.height), item)
       },
     }],
   }, {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: ctrl('X'),
+    accelerator: Yami.ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -6856,14 +6839,14 @@ Scene.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: ctrl('C'),
+    accelerator: Yami.ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: ctrl('V'),
+    accelerator: Yami.ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -6889,7 +6872,7 @@ Scene.listPopup = function (event) {
     }, {
       label: get('shiftAll'),
       click: () => {
-        SceneShift.open((x, y) => {
+        Yami.SceneShift.open((x, y) => {
           const changes = Scene.computeObjectShifting(x, y)
           Scene.history.save({
             type: 'scene-shift',
@@ -6904,11 +6887,11 @@ Scene.listPopup = function (event) {
     }, {
       label: get('settings'),
       click: () => {
-        ObjectFolder.open()
+        Yami.ObjectFolder.open()
       },
     })
   }
-  Menu.popup({
+  Yami.Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, menuItems)
@@ -6945,7 +6928,7 @@ Scene.listRename = function (response) {
     default: {
       const map = Scene.inspectorTypeMap
       const key = map[target.class]
-      const editor = Inspector[key]
+      const editor = Yami.Inspector[key]
       const input = editor.nameBox
       const {oldValue, newValue} = response
       input.write(newValue)
@@ -7112,7 +7095,7 @@ Scene.marquee.getTiles = function (raw) {
   if (dTiles === undefined) {
     dTiles = sTiles
     const tilesetMap = this.tilesetMap
-    const tilesets = Data.tilesets
+    const tilesets = Yami.Data.tilesets
     const length = sTiles.length
     for (let i = 0; i < length; i++) {
       let tile = sTiles[i]
@@ -7136,25 +7119,25 @@ Scene.list.copy = function (item) {
   if (item) {
     switch (item.class) {
       case 'tilemap':
-        Codec.encodeTilemap(item)
+        Yami.Codec.encodeTilemap(item)
         break
     }
-    Clipboard.write('yami.scene.object', item)
+    Yami.Clipboard.write('yami.scene.object', item)
   }
 }
 
 // 列表 - 粘贴
 Scene.list.paste = function (dItem, callback) {
-  const copy = Clipboard.read('yami.scene.object')
+  const copy = Yami.Clipboard.read('yami.scene.object')
   if (copy && this.data) {
     switch (copy.class) {
       case 'tilemap':
-        Codec.decodeTilemap(copy)
+        Yami.Codec.decodeTilemap(copy)
         copy.shortcut = 0
         break
     }
     if (dItem === 'auto') {
-      const folders = Editor.project.scene.defaultFolders
+      const folders = Yami.Editor.project.scene.defaultFolders
       const name = folders[copy.class]
       dItem = !name ? null
       : this.getItemByProperties({
@@ -7220,7 +7203,7 @@ Scene.list.createTilemapShortcutItems = function (tilemap) {
     }
     if (i === 0) {
       menuItems.push({
-        label: Local.get('menuSceneList.shortcut.none'),
+        label: Yami.Local.get('menuSceneList.shortcut.none'),
         checked: checked,
         click: click,
       })
@@ -7355,7 +7338,7 @@ Scene.list.createIcon = function IIFE() {
       return icon
     },
     actor: actor => {
-      const teams = Data.teams.map
+      const teams = Yami.Data.teams.map
       const team = teams[actor.teamId]
       const hex = team ? team.color : 'ffffffff'
       const r = parseInt(hex.slice(0, 2), 16)
@@ -7399,10 +7382,10 @@ Scene.list.createIcon = function IIFE() {
     },
     parallax: parallax => {
       const icon = document.createElement('node-icon')
-      const path = File.getPath(parallax.image)
+      const path = Yami.File.getPath(parallax.image)
       if (path) {
         icon.addClass('icon-scene-parallax')
-        icon.style.backgroundImage = CSS.encodeURL(File.route(path))
+        icon.style.backgroundImage = CSS.encodeURL(Yami.File.route(path))
       } else {
         icon.textContent = '\uf1c5'
       }
@@ -7434,7 +7417,7 @@ Scene.list.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Layout.getGroupOfElement(head)
+    const {nav} = Yami.Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left

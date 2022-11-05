@@ -1,6 +1,6 @@
 'use strict'
 
-import { Window } from '../tools/window.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 移动场景 ********************************
 
@@ -25,7 +25,7 @@ SceneShift.initialize = function () {
 // 打开窗口
 SceneShift.open = function (callback) {
   this.callback = callback
-  Window.open('scene-shift')
+  Yami.Window.open('scene-shift')
   $('#scene-shift-x').write(0)
   $('#scene-shift-y').write(0)
   $('#scene-shift-x').getFocus('all')
@@ -44,7 +44,7 @@ SceneShift.confirm = function (event) {
     return $('#scene-shift-x').getFocus()
   }
   SceneShift.callback(x, y)
-  Window.close('scene-shift')
+  Yami.Window.close('scene-shift')
 }
 
 export { SceneShift }

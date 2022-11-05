@@ -1,6 +1,6 @@
 'use strict'
 
-import { Window } from '../tools/window.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 默认对象文件夹 ********************************
 
@@ -20,9 +20,9 @@ ObjectFolder.initialize = function () {
 
 // 打开窗口
 ObjectFolder.open = function () {
-  Window.open('object-folder')
-  const data = Editor.project.scene.defaultFolders
-  const write = getElementWriter('object-folder', data)
+  Yami.Window.open('object-folder')
+  const data = Yami.Editor.project.scene.defaultFolders
+  const write = Yami.getElementWriter('object-folder', data)
   write('tilemap')
   write('actor')
   write('region')
@@ -34,8 +34,8 @@ ObjectFolder.open = function () {
 
 // 确定按钮 - 鼠标点击事件
 ObjectFolder.confirm = function (event) {
-  const read = getElementReader('object-folder')
-  Editor.project.scene.defaultFolders = {
+  const read = Yami.getElementReader('object-folder')
+  Yami.Editor.project.scene.defaultFolders = {
     tilemap: read('tilemap'),
     actor: read('actor'),
     region: read('region'),
@@ -44,7 +44,7 @@ ObjectFolder.confirm = function (event) {
     particle: read('particle'),
     parallax: read('parallax'),
   }
-  Window.close('object-folder')
+  Yami.Window.close('object-folder')
 }
 
 export { ObjectFolder }
