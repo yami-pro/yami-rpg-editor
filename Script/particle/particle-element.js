@@ -1,7 +1,6 @@
 'use strict'
 
-import { Particle } from './particle.js'
-import { GL } from '../webgl/gl.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 粒子元素类 ********************************
 
@@ -131,9 +130,9 @@ class ParticleElement {
     const sh = layer.unitHeight
     const tw = layer.textureWidth
     const th = layer.textureHeight
-    const vertices = GL.arrays[0].float32
-    const colors = GL.arrays[0].uint32
-    const matrix = GL.matrix.reset()
+    const vertices = Yami.GL.arrays[0].float32
+    const colors = Yami.GL.arrays[0].uint32
+    const matrix = Yami.GL.matrix.reset()
     .translate(this.x, this.y)
     .rotate(this.rotationAngle)
     .scale(this.scaleFactor, this.scaleFactor)
@@ -369,7 +368,7 @@ class ParticleElement {
     const layer = this.layer
     const sw = layer.unitWidth
     const sh = layer.unitHeight
-    const matrix = GL.matrix.reset()
+    const matrix = Yami.GL.matrix.reset()
     .translate(this.x, this.y)
     .rotate(this.rotationAngle)
     .scale(this.scaleFactor, this.scaleFactor)
@@ -467,6 +466,6 @@ class ParticleElement {
   static sharedClampedArray = new Uint8ClampedArray(4)
 }
 
-Particle.Element = ParticleElement
+Yami.Particle.Element = ParticleElement
 
 export { ParticleElement }

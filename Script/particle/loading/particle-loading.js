@@ -1,18 +1,7 @@
 'use strict'
 
 import { Particle } from '../particle.js'
-
-import { Scene } from '../../scene/scene.js'
-import { Timer } from '../../util/timer.js'
-import { Matrix } from '../../webgl/matrix.js'
-import { GL } from '../../webgl/gl.js'
-import { History } from '../../history/history.js'
-import { Inspector } from '../../inspector/inspector.js'
-import { StageColor } from '../../util/stage-color.js'
-import { File } from '../../file-system/file.js'
-import { Window } from '../../tools/window.js'
-import { ImageTexture } from '../../webgl/image-texture.js'
-import { Data } from '../../data/data.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 粒子窗口加载 ********************************
 
@@ -22,9 +11,9 @@ Particle.list.copy = null
 Particle.list.paste = null
 Particle.list.delete = null
 Particle.list.createIcon = null
-Particle.list.updateIcon = Scene.list.updateIcon
+Particle.list.updateIcon = Yami.Scene.list.updateIcon
 Particle.list.createVisibilityIcon = null
-Particle.list.updateVisibilityIcon = Scene.list.updateVisibilityIcon
+Particle.list.updateVisibilityIcon = Yami.Scene.list.updateVisibilityIcon
 Particle.list.onCreate = null
 Particle.list.onRemove = null
 Particle.list.onDelete = null
@@ -36,13 +25,13 @@ Particle.initialize = function () {
   this.screen.addSetScrollMethod()
 
   // 创建位移计时器
-  this.translationTimer = new Timer({
+  this.translationTimer = new Yami.Timer({
     duration: Infinity,
     update: timer => {
       if (this.state === 'open' &&
         this.dragging === null) {
         const key = this.translationKey
-        const step = Timer.deltaTime * 1.5 / this.scale
+        const step = Yami.Timer.deltaTime * 1.5 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -67,7 +56,7 @@ Particle.initialize = function () {
   })
 
   // 创建缩放计时器
-  this.zoomTimer = new Timer({
+  this.zoomTimer = new Yami.Timer({
     duration: 80,
     update: timer => {
       if (this.state === 'open') {
@@ -87,7 +76,7 @@ Particle.initialize = function () {
   this.padding = 800
 
   // 创建变换矩阵
-  this.matrix = new Matrix()
+  this.matrix = new Yami.Matrix()
 
   // 绑定图层目录列表
   const {list} = this
@@ -98,12 +87,12 @@ Particle.initialize = function () {
   list.updaters.push(list.updateVisibilityIcon)
 
   // 设置历史操作处理器
-  History.processors['particle-layer-create'] =
-  History.processors['particle-layer-delete'] =
-  History.processors['particle-layer-remove'] = (operation, data) => {
+  Yami.History.processors['particle-layer-create'] =
+  Yami.History.processors['particle-layer-delete'] =
+  Yami.History.processors['particle-layer-remove'] = (operation, data) => {
     list.restore(operation, data.response)
   }
-  History.processors['particle-layer-hidden'] = (operation, data) => {
+  Yami.History.processors['particle-layer-hidden'] = (operation, data) => {
     const {item, oldValue, newValue} = data
     item.hidden = operation === 'undo' ? oldValue : newValue
     list.update()
@@ -117,7 +106,7 @@ Particle.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
-  GL.canvas.on('webglcontextrestored', this.webglRestored)
+  Yami.GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#particle-head-start').on('pointerdown', this.viewPointerdown)
   $('#particle-control').on('pointerdown', this.controlPointerdown)
   $('#particle-speed').on('input', this.speedInput)
@@ -153,7 +142,7 @@ Particle.open = function (context) {
   // 首次加载粒子动画
   const {meta} = context
   if (!context.particle) {
-    context.particle = Data.particles[meta.guid]
+    context.particle = Yami.Data.particles[meta.guid]
   }
   if (context.particle) {
     this.state = 'open'
@@ -165,8 +154,8 @@ Particle.open = function (context) {
     this.requestAnimation()
     this.requestRendering()
   } else {
-    Layout.manager.switch('directory')
-    Window.confirm({
+    Yami.Layout.manager.switch('directory')
+    Yami.Window.confirm({
       message: `Failed to read file: ${meta.path}`,
     }, [{
       label: 'Confirm',
@@ -325,9 +314,9 @@ Particle.setTarget = function (target) {
     this.updateTargetItem()
     this.requestRendering()
     if (target) {
-      Inspector.open('particleLayer', target)
+      Yami.Inspector.open('particleLayer', target)
     } else {
-      Inspector.close()
+      Yami.Inspector.close()
     }
   }
 }
@@ -357,7 +346,7 @@ Particle.updateTargetItem = function () {
 // 更新粒子信息
 Particle.updateParticleInfo = function () {
   const {emitter, info} = this
-  const words = Command.words
+  const words = Yami.Command.words
   for (const layer of emitter.layers) {
     const {name} = layer.data
     const {count} = layer.elements
@@ -374,7 +363,7 @@ Particle.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Layout.getGroupOfElement(head)
+    const {nav} = Yami.Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -422,7 +411,7 @@ Particle.resize = function () {
     this.scaleY = innerHeight / stageHeight
     this.marquee.style.width = `${outerWidth / dpr}px`
     this.marquee.style.height = `${outerHeight / dpr}px`
-    GL.resize(screenWidth, screenHeight)
+    Yami.GL.resize(screenWidth, screenHeight)
     this.updateCamera()
     this.updateTransform()
   }
@@ -447,10 +436,10 @@ Particle.updateCamera = function (x = this.centerX, y = this.centerY) {
   const scrollX = x * this.scaleX + this.outerWidth / 2
   const scrollY = y * this.scaleY + this.outerHeight / 2
   const toleranceForDPR = 0.0001
-  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
-  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
-  screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceForDPR) / dpr
-  screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceForDPR) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - Yami.GL.width) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - Yami.GL.height) / dpr
+  screen.scrollLeft = (scrollX - (Yami.GL.width >> 1) + toleranceForDPR) / dpr
+  screen.scrollTop = (scrollY - (Yami.GL.height >> 1) + toleranceForDPR) / dpr
 }
 
 // 更新变换参数
@@ -459,8 +448,8 @@ Particle.updateTransform = function () {
   const dpr = window.devicePixelRatio
   const left = Math.roundTo(screen.scrollLeft * dpr - (this.outerWidth >> 1), 4)
   const top = Math.roundTo(screen.scrollTop * dpr - (this.outerHeight >> 1), 4)
-  const right = left + GL.width
-  const bottom = top + GL.height
+  const right = left + Yami.GL.width
+  const bottom = top + Yami.GL.height
   this.scrollLeft = left / this.scaleX
   this.scrollTop = top / this.scaleY
   this.scrollRight = right / this.scaleX
@@ -488,7 +477,7 @@ Particle.drawElements = function () {
 
 // 绘制背景
 Particle.drawBackground = function () {
-  const gl = GL
+  const gl = Yami.GL
   gl.clearColor(...this.background.getGLRGBA())
   gl.clear(gl.COLOR_BUFFER_BIT)
 }
@@ -496,7 +485,7 @@ Particle.drawBackground = function () {
 // 绘制坐标轴
 Particle.drawCoordinateAxes = function () {
   if (this.showAxes) {
-    const gl = GL
+    const gl = Yami.GL
     const vertices = gl.arrays[0].float32
     const matrix = gl.matrix
     .set(Particle.matrix)
@@ -554,7 +543,7 @@ Particle.drawEmitterWireframe = function () {
   if (emitter.active) color = 0xffffffff
   if (emitter.selected) color = 0xffc0ff00
   if (color === undefined) return
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const colors = gl.arrays[0].uint32
   const ox = 0.5 / this.scaleX
@@ -591,7 +580,7 @@ Particle.drawEmitterWireframe = function () {
 Particle.drawEmitterAnchor = function () {
   const emitter = this.emitter
   if (!emitter.selected) return
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const matrix = this.matrix
   const X = emitter.startX
@@ -631,7 +620,7 @@ Particle.drawEmitterAnchor = function () {
 Particle.drawAreaWireframe = function () {
   if (!this.showWireframe || !this.target) return
   let vi = 0
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const {area} = this.target
   switch (area.type) {
@@ -688,13 +677,13 @@ Particle.drawAreaWireframe = function () {
 // 绘制元素线框
 Particle.drawElementWireframes = function () {
   if (!this.showWireframe) return
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const matrix = gl.matrix
   let vi = 0
   for (const layer of this.emitter.layers) {
     const {texture} = layer
-    if (texture instanceof ImageTexture) {
+    if (texture instanceof Yami.ImageTexture) {
       const elements = layer.elements
       const count = elements.count
       const sw = layer.unitWidth
@@ -781,7 +770,7 @@ Particle.drawElementWireframes = function () {
 // 绘制元素锚点
 Particle.drawElementAnchors = function () {
   if (!this.showAnchor) return
-  const gl = GL
+  const gl = Yami.GL
   const vertices = gl.arrays[0].float32
   const lines = gl.arrays[1].float32
   const matrix = gl.matrix
@@ -905,7 +894,7 @@ Particle.selectEmitter = function (x, y) {
 // 请求更新动画
 Particle.requestAnimation = function () {
   if (this.state === 'open' && !this.paused) {
-    Timer.appendUpdater('stageAnimation', this.updateAnimation)
+    Yami.Timer.appendUpdater('stageAnimation', this.updateAnimation)
   }
 }
 
@@ -920,19 +909,19 @@ Particle.updateAnimation = function (deltaTime) {
 
 // 停止更新动画
 Particle.stopAnimation = function () {
-  Timer.removeUpdater('stageAnimation', this.updateAnimation)
+  Yami.Timer.removeUpdater('stageAnimation', this.updateAnimation)
 }
 
 // 请求渲染
 Particle.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('stageRendering', this.renderingFunction)
+    Yami.Timer.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
 // 渲染函数
 Particle.renderingFunction = function () {
-  if (GL.width * GL.height !== 0) {
+  if (Yami.GL.width * Yami.GL.height !== 0) {
     Particle.drawBackground()
     Particle.drawElements()
     Particle.drawCoordinateAxes()
@@ -946,7 +935,7 @@ Particle.renderingFunction = function () {
 
 // 停止渲染
 Particle.stopRendering = function () {
-  Timer.removeUpdater('stageRendering', this.renderingFunction)
+  Yami.Timer.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 开关线框
@@ -994,7 +983,7 @@ Particle.switchPause = function IIFE() {
 
 // 计划保存
 Particle.planToSave = function () {
-  File.planToSave(this.meta)
+  Yami.File.planToSave(this.meta)
 }
 
 // 保存状态到配置文件
@@ -1004,7 +993,7 @@ Particle.saveToConfig = function (config) {
 
 // 从配置文件中加载状态
 Particle.loadFromConfig = function (config) {
-  this.background = new StageColor(
+  this.background = new Yami.StageColor(
     config.colors.particleBackground,
     () => this.requestRendering(),
   )
@@ -1258,7 +1247,7 @@ Particle.marqueePointerdown = function (event) {
       event.mode = 'scroll'
       event.scrollLeft = this.screen.scrollLeft
       event.scrollTop = this.screen.scrollTop
-      Cursor.open('cursor-grab')
+      Yami.Cursor.open('cursor-grab')
       window.on('pointerup', this.pointerup)
       window.on('pointermove', this.pointermove)
       break
@@ -1304,7 +1293,7 @@ Particle.pointerup = function (event) {
       case 'object-move':
         break
       case 'scroll':
-        Cursor.close('cursor-grab')
+        Yami.Cursor.close('cursor-grab')
         break
     }
     Particle.dragging = null
@@ -1422,7 +1411,7 @@ Particle.listRecord = function (event) {
   const response = event.value
   switch (response.type) {
     case 'rename': {
-      const editor = Inspector.particleLayer
+      const editor = Yami.Inspector.particleLayer
       const input = editor.nameBox
       const {item, oldValue, newValue} = response
       input.write(newValue)
@@ -1464,23 +1453,23 @@ Particle.listRecord = function (event) {
 // 列表 - 弹出事件
 Particle.listPopup = function (event) {
   const item = event.value
-  const get = Local.createGetter('menuParticleList')
+  const get = Yami.Local.createGetter('menuParticleList')
   let copyable
   let pastable
   let deletable
   let renamable
   if (item) {
     copyable = true
-    pastable = Clipboard.has('yami.particle.layer')
+    pastable = Yami.Clipboard.has('yami.particle.layer')
     deletable = true
     renamable = true
   } else {
     copyable = false
-    pastable = Clipboard.has('yami.particle.layer')
+    pastable = Yami.Clipboard.has('yami.particle.layer')
     deletable = false
     renamable = false
   }
-  Menu.popup({
+  Yami.Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -1492,7 +1481,7 @@ Particle.listPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: ctrl('X'),
+    accelerator: Yami.ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -1500,14 +1489,14 @@ Particle.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: ctrl('C'),
+    accelerator: Yami.ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: ctrl('V'),
+    accelerator: Yami.ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -1536,19 +1525,19 @@ Particle.listChange = function (event) {
 
 // 列表 - 创建
 Particle.list.create = function (dItem) {
-  this.addNodeTo(Inspector.particleLayer.create(), dItem)
+  this.addNodeTo(Yami.Inspector.particleLayer.create(), dItem)
 }
 
 // 列表 - 复制
 Particle.list.copy = function (item) {
   if (item) {
-    Clipboard.write('yami.particle.layer', item)
+    Yami.Clipboard.write('yami.particle.layer', item)
   }
 }
 
 // 列表 - 粘贴
 Particle.list.paste = function (dItem) {
-  const copy = Clipboard.read('yami.particle.layer')
+  const copy = Yami.Clipboard.read('yami.particle.layer')
   if (copy && this.data) {
     this.addNodeTo(copy, dItem)
   }
@@ -1564,10 +1553,10 @@ Particle.list.delete = function (item) {
 // 列表 - 重写创建图标方法
 Particle.list.createIcon = function (item) {
   const icon = document.createElement('node-icon')
-  const path = File.getPath(item.image)
+  const path = Yami.File.getPath(item.image)
   if (path) {
     icon.addClass('icon-particle-image')
-    FileBodyPane.prototype.setIconClip(icon, path, 0, 0, -item.hframes, -item.vframes)
+    Yami.FileBodyPane.prototype.setIconClip(icon, path, 0, 0, -item.hframes, -item.vframes)
   } else {
     icon.textContent = '\uf2dc'
   }

@@ -1,10 +1,7 @@
 'use strict'
 
 import { Sprite } from '../sprite.js'
-
-import { Palette } from '../../palette/palette.js'
-import { Timer } from '../../util/timer.js'
-import { Inspector } from '../../inspector/inspector.js'
+import * as Yami from '../../yami.js'
 
 // ******************************** 精灵窗口加载 ********************************
 
@@ -17,7 +14,7 @@ Sprite.initialize = function () {
   this.context = this.canvas.getContext('2d', {desynchronized: true})
 
   // 创建缩放计时器
-  this.zoomTimer = new Timer({
+  this.zoomTimer = new Yami.Timer({
     duration: 80,
     update: timer => {
       if (this.state === 'open') {
@@ -50,7 +47,7 @@ Sprite.initialize = function () {
 Sprite.open = function (target) {
   if (this.target !== target) {
     this.close()
-    if (Animation.timelineMarquee.layer.sprite) {
+    if (Yami.Animation.timelineMarquee.layer.sprite) {
       this.state = 'loading'
       this.target = target
       this.loadImage()
@@ -125,8 +122,8 @@ Sprite.setZoom = function IIFE() {
 // 加载精灵图像
 Sprite.loadImage = async function () {
   const symbol = this.symbol = Symbol()
-  const name = Animation.timelineMarquee.layer.sprite
-  let texture = Animation.player.textures[name]
+  const name = Yami.Animation.timelineMarquee.layer.sprite
+  let texture = Yami.Animation.player.textures[name]
   if (texture instanceof Promise) {
     texture = await texture
   }
@@ -284,7 +281,7 @@ Sprite.updateTransform = function () {
 }
 
 // 更新背景图像
-Sprite.updateBackground = Palette.updateBackground
+Sprite.updateBackground = Yami.Palette.updateBackground
 
 // 绘制精灵
 Sprite.drawSprite = function () {
@@ -356,10 +353,10 @@ Sprite.selectSprite = function (hindex, vindex) {
   const target = this.target
   if (target !== null) {
     this.marquee.select(hindex, vindex, 1, 1)
-    Animation.planToSave()
-    const x = Animation.timelineMarquee.x
-    const editor = Inspector.animSpriteFrame
-    const history = Animation.history
+    Yami.Animation.planToSave()
+    const x = Yami.Animation.timelineMarquee.x
+    const editor = Yami.Inspector.animSpriteFrame
+    const history = Yami.Animation.history
     const index = history.index
     const length = history.length
     const record = history[index]
@@ -371,7 +368,7 @@ Sprite.selectSprite = function (hindex, vindex) {
       history.save({
         type: type,
         editor: editor,
-        motion: Animation.motion,
+        motion: Yami.Animation.motion,
         target: target,
         hindex: target.spriteX,
         vindex: target.spriteY,
@@ -380,8 +377,8 @@ Sprite.selectSprite = function (hindex, vindex) {
     target.spriteX = hindex
     target.spriteY = vindex
     this.updateTargetInfo()
-    Animation.loadFrames(x)
-    Animation.requestRendering()
+    Yami.Animation.loadFrames(x)
+    Yami.Animation.requestRendering()
   }
 }
 
@@ -417,7 +414,7 @@ Sprite.scrollToSelection = function () {
 // 请求渲染
 Sprite.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('sharedRendering', this.renderingFunction)
+    Yami.Timer.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -428,7 +425,7 @@ Sprite.renderingFunction = function () {
 
 // 停止渲染
 Sprite.stopRendering = function () {
-  Timer.removeUpdater('sharedRendering', this.renderingFunction)
+  Yami.Timer.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 保存状态到项目文件
@@ -552,7 +549,7 @@ Sprite.screenUserscroll = function (event) {
 // 选框 - 指针按下事件
 Sprite.marqueePointerdown = function (event) {
   // 优先触发检查器输入框的blur事件
-  if (Inspector.manager.focusing) {
+  if (Yami.Inspector.manager.focusing) {
     document.activeElement.blur()
   }
   if (this.dragging) {
@@ -565,7 +562,7 @@ Sprite.marqueePointerdown = function (event) {
         event.mode = 'scroll'
         event.scrollLeft = this.screen.scrollLeft
         event.scrollTop = this.screen.scrollTop
-        Cursor.open('cursor-grab')
+        Yami.Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
         return
@@ -584,7 +581,7 @@ Sprite.marqueePointerdown = function (event) {
       event.mode = 'scroll'
       event.scrollLeft = this.screen.scrollLeft
       event.scrollTop = this.screen.scrollTop
-      Cursor.open('cursor-grab')
+      Yami.Cursor.open('cursor-grab')
       window.on('pointerup', this.pointerup)
       window.on('pointermove', this.pointermove)
       break
@@ -598,7 +595,7 @@ Sprite.pointerup = function (event) {
     switch (dragging.mode) {
       case 'scroll':
         this.screen.endScrolling()
-        Cursor.close('cursor-grab')
+        Yami.Cursor.close('cursor-grab')
         break
     }
     this.dragging = null

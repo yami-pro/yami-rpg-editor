@@ -1,10 +1,6 @@
 'use strict'
 
-import { UI } from '../ui/ui.js'
-import { GL } from '../webgl/gl.js'
-import { File } from '../file-system/file.js'
-import { Data } from '../data/data.js'
-import { INTRGBA } from '../util/util.js'
+import * as Yami from '../yami.js'
 
 // ******************************** 打印机类 ********************************
 
@@ -48,7 +44,7 @@ class Printer {
     texture.base.printer = this
     texture.base.onRestore = Printer.restoreTexture
     this.texture = texture
-    this.context = GL.context2d
+    this.context = Yami.GL.context2d
     this.content = ''
     this.buffer = ''
     this.x = 0
@@ -391,7 +387,7 @@ class Printer {
   // 执行绘制指令
   executeCommands() {
     // 绑定纹理到帧缓冲区
-    const gl = GL
+    const gl = Yami.GL
     const texture = this.texture
     const base = texture.base
     gl.bindFBO(gl.frameBuffer)
@@ -568,8 +564,8 @@ class Printer {
     let match
     if (match = string.match(regexps.colorIndex)) {
       const index = parseInt(match[1])
-      const hex = Data.config.indexedColors[index].code
-      const color = INTRGBA(hex)
+      const hex = Yami.Data.config.indexedColors[index].code
+      const color = Yami.INTRGBA(hex)
       this.drawBuffer()
       this.colors.unshift(color)
       this.index += match[0].length
@@ -789,8 +785,8 @@ class Printer {
   static initialize() {
     // 设置字符宽度数组
     this.charWidths = new Float64Array(
-      GL.arrays[1].uint32.buffer, 0,
-      GL.arrays[1].uint32.length / 2,
+      Yami.GL.arrays[1].uint32.buffer, 0,
+      Yami.GL.arrays[1].uint32.length / 2,
     )
 
     // 创建打印机指令列表
@@ -813,10 +809,10 @@ class Printer {
   // 加载默认设置
   static loadDefault() {
     // 设置默认上下文属性
-    const {font} = Data.config
+    const {font} = Yami.Data.config
     this.font = font.default || 'sans-serif'
     this.size = 16
-    this.color = INTRGBA('ffffffff')
+    this.color = Yami.INTRGBA('ffffffff')
     this.effect = {type: 'none'}
 
     // 导入字体
@@ -832,14 +828,14 @@ class Printer {
     const regexp = /([^/]+)\.\S+\.\S+$/
     const promises = []
     for (const guid of imports) {
-      const path = File.getPath(guid)
+      const path = Yami.File.getPath(guid)
       const name = path.match(regexp)?.[1]
       if (!name || imported.includes(name)) {
         continue
       }
       imported.push(name)
       importing.push(name)
-      promises.push(File.get({
+      promises.push(Yami.File.get({
         path: path,
         type: 'arraybuffer',
       }).then(
@@ -862,7 +858,7 @@ class Printer {
       ))
     }
     return Promise.all(promises).then(() => {
-      UI.updateElementFont()
+      Yami.UI.updateElementFont()
     })
   }
 
@@ -882,7 +878,7 @@ class Printer {
   static parseEffect(effect) {
     const copy = Object.clone(effect)
     if (copy.color !== undefined) {
-      copy.color = INTRGBA(copy.color)
+      copy.color = Yami.INTRGBA(copy.color)
     }
     return copy
   }
@@ -941,7 +937,7 @@ class Printer {
   static drawText(command, text) {
     const {x, y, font, size, color} = command
     const {paddingItalic, paddingVertical, horizontalWidth} = command
-    const gl = GL
+    const gl = Yami.GL
     const context = gl.context2d
     const padding = paddingVertical
     const left = Math.floor(x)
@@ -970,7 +966,7 @@ class Printer {
     const shadowOffsetX = effect.shadowOffsetX
     const shadowOffsetY = effect.shadowOffsetY
     const shadowColor = effect.color
-    const gl = GL
+    const gl = Yami.GL
     const context = gl.context2d
     const padding = paddingVertical
     const left = Math.floor(x)
@@ -1001,7 +997,7 @@ class Printer {
     const strokeColor = effect.color
     const strokeWidth = effect.strokeWidth
     const halfWidth = Math.ceil(strokeWidth / 2)
-    const gl = GL
+    const gl = Yami.GL
     const context = gl.context2d
     const padding = paddingVertical + halfWidth
     const left = Math.floor(x - halfWidth)
@@ -1032,7 +1028,7 @@ class Printer {
     const {x, y, font, size, color, effect} = command
     const {paddingItalic, paddingVertical, horizontalWidth} = command
     const outlineColor = effect.color
-    const gl = GL
+    const gl = Yami.GL
     const context = gl.context2d
     const padding = paddingVertical
     const left = Math.floor(x)
@@ -1063,7 +1059,7 @@ class Printer {
   static datachange(event) {
     if (event.key === 'config') {
       // 设置默认上下文属性
-      const font = Data.config.font.default || 'sans-serif'
+      const font = Yami.Data.config.font.default || 'sans-serif'
       if (Printer.font !== font) {
         Printer.font = font
         for (const context of Title.tabBar.data) {
@@ -1071,11 +1067,11 @@ class Printer {
             context.fontChanged = true
           }
         }
-        UI.updateElementFont()
+        Yami.UI.updateElementFont()
       }
 
       // 加载字体
-      const {imports} = Data.config.font
+      const {imports} = Yami.Data.config.font
       const signature = imports.join()
       if (Printer.imported.signature !== signature) {
         Printer.imported.signature = signature
