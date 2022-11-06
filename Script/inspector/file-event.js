@@ -2,6 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Browser,
+  Enum,
+  EventEditor,
+  File,
+  getElementWriter,
+  Inspector
+} = Yami
+
 // ******************************** 文件 - 事件页面 ********************************
 
 {
@@ -23,8 +32,8 @@ import * as Yami from '../yami.js'
   // 初始化
   FileEvent.initialize = function () {
     // 创建类型选项
-    $('#fileEvent-type').loadItems(Yami.EventEditor.types.global)
-    Yami.EventEditor.types.relatedElements.push($('#fileEvent-type'))
+    $('#fileEvent-type').loadItems(EventEditor.types.global)
+    EventEditor.types.relatedElements.push($('#fileEvent-type'))
 
     // 侦听事件
     $('#fileEvent-type').on('input', this.paramInput)
@@ -32,7 +41,7 @@ import * as Yami from '../yami.js'
 
   // 创建事件
   FileEvent.create = function (filter) {
-    const type = Yami.EventEditor.types[filter][0].value
+    const type = EventEditor.types[filter][0].value
     switch (filter) {
       case 'global':
         return {
@@ -55,13 +64,13 @@ import * as Yami from '../yami.js'
       this.meta = meta
 
       $('#fileEvent-type').loadItems(
-        Yami.Enum.getMergedItems(
-          Yami.EventEditor.types.global,
+        Enum.getMergedItems(
+          EventEditor.types.global,
           'global-event',
       ))
 
       // 写入数据
-      const write = Yami.getElementWriter('fileEvent')
+      const write = getElementWriter('fileEvent')
       write('type', event.type)
     }
   }
@@ -69,7 +78,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileEvent.close = function () {
     if (this.target) {
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
     }
@@ -84,7 +93,7 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileEvent.update = function (event, key, value) {
-    Yami.File.planToSave(this.meta)
+    File.planToSave(this.meta)
     switch (key) {
       case 'type':
         if (event.type !== value) {
@@ -98,10 +107,10 @@ import * as Yami from '../yami.js'
   FileEvent.paramInput = function (event) {
     FileEvent.update(
       FileEvent.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.fileEvent = FileEvent
+  Inspector.fileEvent = FileEvent
 }

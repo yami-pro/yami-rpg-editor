@@ -2,6 +2,18 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  ctrl,
+  Data,
+  File,
+  GUID,
+  History,
+  Local,
+  Menu,
+  Window
+} = Yami
+
 // ******************************** 变量窗口 ********************************
 
 const Variable = {
@@ -101,7 +113,7 @@ Variable.initialize = function () {
   this.searcher.addCloseButton()
 
   // 设置历史操作处理器
-  Yami.History.processors['variable-list-operation'] = (operation, data) => {
+  History.processors['variable-list-operation'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
     if (list.read() === null &&
@@ -110,7 +122,7 @@ Variable.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['variable-name-change'] = (operation, data) => {
+  History.processors['variable-name-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.name
     item.name = value
@@ -124,7 +136,7 @@ Variable.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['variable-sort-change'] = (operation, data) => {
+  History.processors['variable-sort-change'] = (operation, data) => {
     const {item, value: {sort, value}} = data
     data.value.sort = item.sort
     data.value.value = item.value
@@ -145,7 +157,7 @@ Variable.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['variable-type-change'] = (operation, data) => {
+  History.processors['variable-type-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.value
     item.value = value
@@ -162,7 +174,7 @@ Variable.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['variable-value-change'] = (operation, data) => {
+  History.processors['variable-value-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.value
     item.value = value
@@ -176,7 +188,7 @@ Variable.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['variable-note-change'] = (operation, data) => {
+  History.processors['variable-note-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.note
     item.note = value
@@ -221,9 +233,9 @@ Variable.initialize = function () {
 // 打开窗口
 Variable.open = function (target = null) {
   this.target = target
-  this.history = new Yami.History(100)
+  this.history = new History(100)
   this.unpackVariables()
-  Yami.Window.open('variable')
+  Window.open('variable')
 
   // 查询变量并更新列表
   const list = this.list
@@ -269,7 +281,7 @@ Variable.redo = function () {
 // 创建ID
 Variable.createId = function () {
   let id
-  do {id = Yami.GUID.generate64bit()}
+  do {id = GUID.generate64bit()}
   while (this.idList.includes(id))
   this.idList.push(id)
   return id
@@ -346,7 +358,7 @@ Variable.unpackVariables = function IIFE() {
     // 写入展开状态
     set expanded(value) {
       this.data.expanded = value
-      Yami.File.planToSave(Yami.Data.manifest.project.variables)
+      File.planToSave(Data.manifest.project.variables)
     }
   }
   const clone = items => {
@@ -363,8 +375,8 @@ Variable.unpackVariables = function IIFE() {
     return copies
   }
   return function () {
-    this.idList = Object.keys(Yami.Data.variables.map)
-    this.data = clone(Yami.Data.variables)
+    this.idList = Object.keys(Data.variables.map)
+    this.data = clone(Data.variables)
   }
 }()
 
@@ -389,8 +401,8 @@ Variable.packVariables = function IIFE() {
     return copies
   }
   return function () {
-    Yami.Data.variables = clone(this.data)
-    Yami.Data.createVariableMap()
+    Data.variables = clone(this.data)
+    Data.createVariableMap()
   }
 }()
 
@@ -418,14 +430,14 @@ Variable.windowClose = function (event) {
   this.list.saveScroll()
   if (this.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedVariables'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Yami.Window.close('variable')
+        Window.close('variable')
       },
     }, {
       label: get('no'),
@@ -536,7 +548,7 @@ Variable.listPopup = function (event) {
   const pastable = Clipboard.has('yami.data.variable')
   const undoable = Variable.history.canUndo()
   const redoable = Variable.history.canRedo()
-  const get = Yami.Local.createGetter('menuVariableList')
+  const get = Local.createGetter('menuVariableList')
   let items = Array.empty
   if (copyable) {
     items = [{
@@ -547,7 +559,7 @@ Variable.listPopup = function (event) {
       },
     }]
   }
-  Yami.Menu.popup({
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [...items, {
@@ -566,14 +578,14 @@ Variable.listPopup = function (event) {
     }],
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -594,14 +606,14 @@ Variable.listPopup = function (event) {
     },
   }, {
     label: get('undo'),
-    accelerator: Yami.ctrl('Z'),
+    accelerator: ctrl('Z'),
     enabled: undoable,
     click: () => {
       Variable.undo()
     },
   }, {
     label: get('redo'),
-    accelerator: Yami.ctrl('Y'),
+    accelerator: ctrl('Y'),
     enabled: redoable,
     click: () => {
       Variable.redo()
@@ -772,7 +784,7 @@ Variable.confirm = function (event) {
   } else {
     this.apply()
   }
-  Yami.Window.close('variable')
+  Window.close('variable')
 }.bind(Variable)
 
 // 应用按钮 - 鼠标点击事件
@@ -782,7 +794,7 @@ Variable.apply = function (event) {
 
     // 保存变量数据
     this.packVariables()
-    Yami.File.planToSave(Yami.Data.manifest.project.variables)
+    File.planToSave(Data.manifest.project.variables)
 
     // 发送变量改变事件
     window.dispatchEvent(new Event('variablechange'))
@@ -809,8 +821,8 @@ Variable.list.paste = function (dItem) {
 // 列表 - 删除
 Variable.list.delete = function (item) {
   if (item) {
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('deleteSingleFile').replace('<filename>', item.name),
     }, [{
       label: get('yes'),
@@ -834,7 +846,7 @@ Variable.list.delete = function (item) {
 
 // 列表 - 保存滚动状态
 Variable.list.saveScroll = function () {
-  const {variables} = Yami.Data
+  const {variables} = Data
   // 将数据保存在外部可以切换项目后重置
   if (variables.scrollTop === undefined) {
     Object.defineProperty(variables, 'scrollTop', {
@@ -847,7 +859,7 @@ Variable.list.saveScroll = function () {
 
 // 列表 - 恢复滚动状态
 Variable.list.restoreScroll = function () {
-  this.scrollTop = Yami.Data.variables.scrollTop ?? 0
+  this.scrollTop = Data.variables.scrollTop ?? 0
 }
 
 // 列表 - 取消搜索
@@ -962,7 +974,7 @@ Variable.list.updateInitText = function (item) {
           element.initText.textContent = ` = ${value}`
           break
         case 'string':
-          value = `"${Yami.Command.parseMultiLineString(value)}"`
+          value = `"${Command.parseMultiLineString(value)}"`
           element.initText.textContent = ` = ${value}`
           break
         case 'object':

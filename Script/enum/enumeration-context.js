@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Local } = Yami
+
 // ******************************** 枚举上下文类 ********************************
 
 class EnumerationContext {
@@ -109,13 +111,13 @@ class EnumerationContext {
       }
       if (allowNone) {
         items.unshift({
-          name: Yami.Local.get('common.none'),
+          name: Local.get('common.none'),
           value: '',
         })
       }
       if (items.length === 0) {
         items.push({
-          name: Yami.Local.get('common.none'),
+          name: Local.get('common.none'),
           value: '',
         })
       }

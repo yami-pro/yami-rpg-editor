@@ -2,6 +2,18 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  AttributeContext,
+  Codec,
+  Editor,
+  EnumerationContext,
+  File,
+  FSP,
+  Log,
+  Manifest,
+  PluginManager
+} = Yami
+
 // ******************************** 数据对象 ********************************
 
 const Data = {
@@ -89,7 +101,7 @@ Data.loadAll = function () {
 // 加载元数据
 Data.loadMeta = function () {
   const path = 'manifest.json'
-  return Yami.File.get({
+  return File.get({
     path: path,
     type: 'json',
   }).then(
@@ -110,7 +122,7 @@ Data.loadMeta = function () {
 // 加载文件
 Data.loadFile = function (filename) {
   const path = `data/${filename}.json`
-  return Yami.File.get({
+  return File.get({
     path: path,
     type: 'json',
   }).then(
@@ -135,7 +147,7 @@ Data.loadScene = function (guid) {
   const {scenes} = this
   if (scenes[guid]) {
     return new Promise(resolve => {
-      resolve(Yami.Codec.decodeScene(scenes[guid]))
+      resolve(Codec.decodeScene(scenes[guid]))
     })
   }
 
@@ -146,13 +158,13 @@ Data.loadScene = function (guid) {
     })
   }
   const path = meta.path
-  return Yami.File.get({
+  return File.get({
     path: path,
     type: 'text',
   }).then(
     code => {
       try {
-        return Yami.Codec.decodeScene(
+        return Codec.decodeScene(
           scenes[guid] = code
         )
       } catch (error) {
@@ -298,7 +310,7 @@ Data.createVariableMap = function IIFE() {
 Data.createAttributeContext = function () {
   Object.defineProperty(this.attribute, 'context', {
     configurable: true,
-    value: new Yami.AttributeContext(this.attribute),
+    value: new AttributeContext(this.attribute),
   })
 }
 
@@ -306,7 +318,7 @@ Data.createAttributeContext = function () {
 Data.createEnumerationContext = function () {
   Object.defineProperty(this.enumeration, 'context', {
     configurable: true,
-    value: new Yami.EnumerationContext(this.enumeration),
+    value: new EnumerationContext(this.enumeration),
   })
 }
 
@@ -361,7 +373,7 @@ Data.removeUILinks = function IIFE() {
 
 // 创建元数据清单
 Data.createManifest = function () {
-  this.manifest = new Yami.Manifest()
+  this.manifest = new Manifest()
 }
 
 // 保存元数据清单
@@ -372,16 +384,16 @@ Data.saveManifest = function () {
     const json = JSON.stringify(manifest, null, 2)
     const last = manifest.code
     if (json !== last) {
-      const path = Yami.File.route('manifest.json')
-      return Yami.Editor.protectPromise(
-        Yami.FSP.writeFile(path, json)
+      const path = File.route('manifest.json')
+      return Editor.protectPromise(
+        FSP.writeFile(path, json)
         .then(() => {
           manifest.code = json
         }).catch(error => {
           const cache = `${path}.cache`
-          Yami.FSP.writeFile(cache, json)
-          Yami.FSP.writeFile(path, last)
-          Yami.Log.throw(error)
+          FSP.writeFile(cache, json)
+          FSP.writeFile(path, last)
+          Log.throw(error)
         })
       )
     }
@@ -430,11 +442,11 @@ Data.loadScript = async function (file) {
     const {scripts} = this
     const {guid} = meta
     await file.promise
-    scripts[guid] = Yami.File.get({
+    scripts[guid] = File.get({
       path: file.path,
       type: 'text',
     }).then(code => {
-      Yami.PluginManager.parseMeta(meta, code)
+      PluginManager.parseMeta(meta, code)
       return scripts[guid] = meta
     }).catch(error => {
       delete scripts[guid]

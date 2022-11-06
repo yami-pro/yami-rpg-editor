@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  CustomBox,
+  TextBox
+} = Yami
+
 // ******************************** 字符串变量框 ********************************
 
 class StringVar extends HTMLElement {
@@ -14,8 +19,8 @@ class StringVar extends HTMLElement {
 
     // 设置属性
     this.mode = null
-    this.strBox = new Yami.TextBox()
-    this.varBox = new Yami.CustomBox()
+    this.strBox = new TextBox()
+    this.varBox = new CustomBox()
     this.varBox.setAttribute('type', 'variable')
     this.varBox.setAttribute('filter', 'string')
 

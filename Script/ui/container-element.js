@@ -2,9 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const { UI } = Yami
+
 // ******************************** 容器元素 ********************************
 
-class ContainerElement extends Yami.UI.Element {
+class ContainerElement extends UI.Element {
   // 绘制图像
   draw() {
     this.drawChildren()
@@ -12,7 +14,7 @@ class ContainerElement extends Yami.UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof Yami.UI.Window) {
+    if (this.parent instanceof UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -26,7 +28,7 @@ class ContainerElement extends Yami.UI.Element {
   }
 }
 
-Yami.UI.Container = ContainerElement
+UI.Container = ContainerElement
 
 // ******************************** 容器元素导出 ********************************
 

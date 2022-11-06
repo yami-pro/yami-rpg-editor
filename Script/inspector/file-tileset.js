@@ -2,6 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Browser,
+  File,
+  getElementWriter,
+  Inspector,
+  Palette,
+  Scene
+} = Yami
+
 // ******************************** 文件 - 图块组页面 ********************************
 
 {
@@ -28,7 +37,7 @@ import * as Yami from '../yami.js'
     $('#fileTileset-width, #fileTileset-height').on('change', this.paramInput)
 
     // 初始化调色板
-    Yami.Palette.initialize()
+    Palette.initialize()
   }
 
   // 创建图块组
@@ -68,10 +77,10 @@ import * as Yami from '../yami.js'
     if (this.meta !== meta) {
       this.target = tileset
       this.meta = meta
-      Yami.Palette.open(meta)
+      Palette.open(meta)
 
       // 允许页面内容溢出
-      Yami.Inspector.manager.addClass('overflow-visible')
+      Inspector.manager.addClass('overflow-visible')
 
       // 显示或隐藏图像输入框
       switch (tileset.type) {
@@ -84,7 +93,7 @@ import * as Yami from '../yami.js'
       }
 
       // 写入数据
-      const write = Yami.getElementWriter('fileTileset', tileset)
+      const write = getElementWriter('fileTileset', tileset)
       write('image', tileset.image ?? '')
       write('width')
       write('height')
@@ -99,9 +108,9 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileTileset.close = function () {
     if (this.target) {
-      Yami.Inspector.manager.removeClass('overflow-visible')
-      Yami.Browser.unselect(this.meta)
-      Yami.Palette.close()
+      Inspector.manager.removeClass('overflow-visible')
+      Browser.unselect(this.meta)
+      Palette.close()
       this.target = null
       this.meta = null
     }
@@ -109,31 +118,31 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileTileset.update = function (tileset, key, value) {
-    Yami.File.planToSave(this.meta)
+    File.planToSave(this.meta)
     switch (key) {
       case 'image':
         if (tileset.image !== value) {
-          Yami.Palette.setImage(value)
+          Palette.setImage(value)
         }
         break
       case 'width':
         if (tileset.width !== value) {
-          Yami.Palette.setSize(value, tileset.height)
+          Palette.setSize(value, tileset.height)
         }
         break
       case 'height':
         if (tileset.height !== value) {
-          Yami.Palette.setSize(tileset.width, value)
+          Palette.setSize(tileset.width, value)
         }
         break
       case 'tileWidth':
         if (tileset.tileWidth !== value) {
-          Yami.Palette.setTileSize(value, tileset.tileHeight)
+          Palette.setTileSize(value, tileset.tileHeight)
         }
         break
       case 'tileHeight':
         if (tileset.tileHeight !== value) {
-          Yami.Palette.setTileSize(tileset.tileWidth, value)
+          Palette.setTileSize(tileset.tileWidth, value)
         }
         break
       case 'globalOffsetX':
@@ -144,17 +153,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Yami.Scene.requestRendering()
+    Scene.requestRendering()
   }
 
   // 参数 - 输入事件
   FileTileset.paramInput = function (event) {
     FileTileset.update(
       FileTileset.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.fileTileset = FileTileset
+  Inspector.fileTileset = FileTileset
 }

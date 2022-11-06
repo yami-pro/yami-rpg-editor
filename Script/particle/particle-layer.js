@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+let {
+  Easing,
+  GL,
+  ImageTexture,
+  Particle
+} = Yami
+
 // ******************************** 粒子图层类 ********************************
 
 class ParticleLayer {
@@ -75,7 +82,7 @@ class ParticleLayer {
         }
         // 创建新的粒子
         for (let i = this.capacity; i < maximum; i++) {
-          elements[eCount++] = new Yami.Particle.Element(this)
+          elements[eCount++] = new Particle.Element(this)
           this.capacity = i + 1
           if (--count * --stocks === 0) {
             break spawn
@@ -124,7 +131,7 @@ class ParticleLayer {
 
   // 绘制粒子
   draw() {
-    const gl = Yami.GL
+    const gl = GL
     const data = this.data
     const texture = this.texture
     const elements = this.elements
@@ -190,7 +197,7 @@ class ParticleLayer {
         gl.flip,
         gl.width,
         gl.height,
-      ).multiply(Yami.Particle.Element.stage.matrix)
+      ).multiply(Particle.Element.stage.matrix)
       gl.bindVertexArray(program.vao)
       gl.uniformMatrix3fv(program.u_Matrix, false, matrix)
       switch (data.color.mode) {
@@ -236,7 +243,7 @@ class ParticleLayer {
   loadTexture() {
     const guid = this.data.image
     const texture = this.texture
-    if (texture instanceof Yami.ImageTexture) {
+    if (texture instanceof ImageTexture) {
       if (texture.complete &&
         texture.base.guid === guid) {
         this.calculateElementSize()
@@ -248,11 +255,11 @@ class ParticleLayer {
       this.unitHeight = 0
     }
     if (guid) {
-      const texture = new Yami.ImageTexture(guid)
+      const texture = new ImageTexture(guid)
       if (texture.complete) {
         this.texture = texture
         this.calculateElementSize()
-        Yami.Particle.Element.stage.requestRendering()
+        Particle.Element.stage.requestRendering()
         return
       }
       this.texture = texture
@@ -260,7 +267,7 @@ class ParticleLayer {
         if (this.texture === texture) {
           this.texture = texture
           this.calculateElementSize()
-          Yami.Particle.Element.stage.requestRendering()
+          Particle.Element.stage.requestRendering()
           delete this.draw
         } else {
           texture.destroy()
@@ -307,7 +314,7 @@ class ParticleLayer {
   updateEasing() {
     const {color} = this.data
     if (color.mode === 'easing') {
-      this.easing = Yami.Easing.get(color.easingId)
+      this.easing = Easing.get(color.easingId)
     }
   }
 
@@ -338,7 +345,7 @@ class ParticleLayer {
 
   // 销毁资源
   destroy() {
-    if (this.texture instanceof Yami.ImageTexture) {
+    if (this.texture instanceof ImageTexture) {
       this.texture.destroy()
       this.texture = null
     }
@@ -351,11 +358,11 @@ class ParticleLayer {
   static zeros = new Uint32Array(0x40000)
 
   // 静态 - 共享数组
-  static sharedUint32A = new Uint32Array(Yami.GL.arrays[0].uint32.buffer, 512 * 512 * 88, 512 * 512)
-  static sharedUint32B = new Uint32Array(Yami.GL.arrays[0].uint32.buffer, 512 * 512 * 92, 512 * 512)
+  static sharedUint32A = new Uint32Array(GL.arrays[0].uint32.buffer, 512 * 512 * 88, 512 * 512)
+  static sharedUint32B = new Uint32Array(GL.arrays[0].uint32.buffer, 512 * 512 * 92, 512 * 512)
 }
 
-Yami.Particle.Layer = ParticleLayer
+Particle.Layer = ParticleLayer
 
 // ******************************** 粒子图层类导出 ********************************
 

@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Scene,
+  Window
+} = Yami
+
 // ******************************** 场景预设对象窗口 ********************************
 
 const PresetObject = {
@@ -34,7 +39,7 @@ PresetObject.initialize = function () {
   this.list.bind(() => this.nodes)
 
   // 列表 - 重写创建图标方法
-  this.list.createIcon = Yami.Scene.list.createIcon
+  this.list.createIcon = Scene.list.createIcon
 
   // 设置列表搜索框按钮
   this.searcher.addCloseButton()
@@ -51,12 +56,12 @@ PresetObject.initialize = function () {
 // 打开窗口
 PresetObject.open = function (target) {
   this.target = target
-  Yami.Window.open('presetObject')
+  Window.open('presetObject')
 
   // 写入数据
   const {searcher, list} = this
-  const objects = Yami.Scene.objects
-  const presetId = target.read() || (Yami.Scene.target?.presetId ?? '')
+  const objects = Scene.objects
+  const presetId = target.read() || (Scene.target?.presetId ?? '')
   const nodes = objects ? PresetObject.buildNodes(objects, target.filter) : Array.empty
   this.nodes = nodes
   this.list.update()
@@ -109,7 +114,7 @@ PresetObject.buildNodes = function IIFE() {
 
 // 获取默认的场景预设对象ID
 PresetObject.getDefaultPresetId = function (className) {
-  return Yami.Scene.target?.class === className ? Yami.Scene.target.presetId : ''
+  return Scene.target?.class === className ? Scene.target.presetId : ''
 }
 
 // 窗口 - 已关闭事件
@@ -170,7 +175,7 @@ PresetObject.confirm = function (event) {
     return this.list.getFocus()
   }
   this.target.input(presetId)
-  Yami.Window.close('presetObject')
+  Window.close('presetObject')
 }.bind(PresetObject)
 
 // ******************************** 场景预设对象窗口导出 ********************************

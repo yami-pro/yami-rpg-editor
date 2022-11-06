@@ -2,6 +2,14 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Enum,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 事件编辑器 ********************************
 
 const EventEditor = {
@@ -188,11 +196,11 @@ EventEditor.initialize = function () {
 // 打开数据
 EventEditor.open = function (filter, event, callback) {
   this.callback = callback ?? Function.empty
-  Yami.Window.open('event')
+  Window.open('event')
 
   // 创建类型选项
   $('#event-type').loadItems(
-    Yami.Enum.getMergedItems(
+    Enum.getMergedItems(
       this.types[filter],
       filter + '-event',
   ))
@@ -222,7 +230,7 @@ EventEditor.open = function (filter, event, callback) {
   }
 
   // 写入数据
-  const write = Yami.getElementWriter('event')
+  const write = getElementWriter('event')
   write('commands', commandsClone)
   write('type', event.type)
   // 当第一行是大块指令时focus效果不佳
@@ -231,7 +239,7 @@ EventEditor.open = function (filter, event, callback) {
 
 // 保存数据
 EventEditor.save = function () {
-  const read = Yami.getElementReader('event')
+  const read = getElementReader('event')
   const commands = read('commands')
   const commandsClone = Object.clone(commands)
   Object.defineProperty(commandsClone, 'symbol', {
@@ -331,7 +339,7 @@ EventEditor.clearCommandBuffers = function () {
 EventEditor.windowLocalize = function (event) {
   // 更新事件类型选项名称
   const types = EventEditor.types
-  const get = Yami.Local.createGetter('eventTypes')
+  const get = Local.createGetter('eventTypes')
   for (const item of types.all) {
     const key = item.value
     const name = get(key)
@@ -349,8 +357,8 @@ EventEditor.windowLocalize = function (event) {
 EventEditor.windowClose = function (event) {
   if (this.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedEvent'),
     }, [{
       label: get('yes'),
@@ -365,7 +373,7 @@ EventEditor.windowClose = function (event) {
           this.caches.remove(commands)
         }
         this.changed = false
-        Yami.Window.close('event')
+        Window.close('event')
       },
     }, {
       label: get('no'),
@@ -436,7 +444,7 @@ EventEditor.listScroll = function (event) {
 // 确定按钮 - 鼠标点击事件
 EventEditor.confirm = function (event) {
   this.apply()
-  Yami.Window.close('event')
+  Window.close('event')
 }.bind(EventEditor)
 
 // 应用按钮 - 鼠标点击事件

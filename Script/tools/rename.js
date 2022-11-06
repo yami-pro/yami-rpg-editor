@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Window } = Yami
+
 // ******************************** 重命名窗口 ********************************
 
 const Rename = {
@@ -27,7 +29,7 @@ Rename.initialize = function () {
 // 打开窗口
 Rename.open = function (name, callback) {
   this.callback = callback
-  Yami.Window.open('rename')
+  Window.open('rename')
   $('#rename-name').write(name)
   $('#rename-name').getFocus('all')
 }
@@ -40,7 +42,7 @@ Rename.windowClosed = function (event) {
 // 确定按钮 - 鼠标点击事件
 Rename.confirm = function (event) {
   this.callback($('#rename-name').read())
-  Yami.Window.close('rename')
+  Window.close('rename')
 }.bind(Rename)
 
 // ******************************** 重命名窗口导出 ********************************

@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  File,
+  Meta,
+  Title
+} = Yami
+
 // ******************************** 元数据清单类 ********************************
 
 class Manifest {
@@ -41,7 +48,7 @@ class Manifest {
     const {metaList} = this
     const {guidMap} = this
     const {pathMap} = this
-    const {versionId} = Yami.Meta.meta
+    const {versionId} = Meta.meta
     let i = metaList.length
     while (--i >= 0) {
       const meta = metaList[i]
@@ -59,20 +66,20 @@ class Manifest {
         const {dataMap} = meta
         if (dataMap) {
           // 从待保存列表中移除
-          Yami.File.cancelSave(meta)
+          File.cancelSave(meta)
           // 关闭已打开的标签
           switch (dataMap) {
-            case Yami.Data.scenes:
-            case Yami.Data.ui:
-            case Yami.Data.animations:
-            case Yami.Data.particles:
-              Yami.Title.tabBar.closeByProperty('meta', meta)
+            case Data.scenes:
+            case Data.ui:
+            case Data.animations:
+            case Data.particles:
+              Title.tabBar.closeByProperty('meta', meta)
               break
           }
           // 移除UI预设元素的链接
           switch (dataMap) {
-            case Yami.Data.ui:
-              Yami.Data.removeUILinks(guid)
+            case Data.ui:
+              Data.removeUILinks(guid)
               break
           }
           delete dataMap[guid]

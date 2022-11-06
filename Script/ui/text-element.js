@@ -2,9 +2,17 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  INTRGBA,
+  Printer,
+  Texture,
+  UI
+} = Yami
+
 // ******************************** 文本元素 ********************************
 
-class TextElement extends Yami.UI.Element {
+class TextElement extends UI.Element {
   texture           //:object
   printer           //:object
   _direction        //:string
@@ -179,7 +187,7 @@ class TextElement extends Yami.UI.Element {
       this._color = value
       if (this.printer) {
         this.printer.reset()
-        this.printer.colors[0] = Yami.INTRGBA(value)
+        this.printer.colors[0] = INTRGBA(value)
       }
     }
   }
@@ -195,7 +203,7 @@ class TextElement extends Yami.UI.Element {
       this._font = value
       if (this.printer) {
         this.printer.reset()
-        this.printer.fonts[0] = value || Yami.Printer.font
+        this.printer.fonts[0] = value || Printer.font
       }
     }
   }
@@ -247,7 +255,7 @@ class TextElement extends Yami.UI.Element {
     this._effect = value
     if (this.printer) {
       this.printer.reset()
-      this.printer.effects[0] = Yami.Printer.parseEffect(value)
+      this.printer.effects[0] = Printer.parseEffect(value)
     }
   }
 
@@ -290,19 +298,19 @@ class TextElement extends Yami.UI.Element {
   update() {
     let printer = this.printer
     if (printer === null) {
-      const texture = new Yami.Texture()
-      printer = new Yami.Printer(texture)
+      const texture = new Texture()
+      printer = new Printer(texture)
       printer.direction = this.direction
       printer.horizontalAlign = this.horizontalAlign
       printer.verticalAlign = this.verticalAlign
       printer.sizes[0] = this.size
       printer.lineSpacing = this.lineSpacing
       printer.letterSpacing = this.letterSpacing
-      printer.colors[0] = Yami.INTRGBA(this.color)
-      printer.fonts[0] = this.font || Yami.Printer.font
+      printer.colors[0] = INTRGBA(this.color)
+      printer.fonts[0] = this.font || Printer.font
       printer.styles[0] = this.style
       printer.weights[0] = this.weight
-      printer.effects[0] = Yami.Printer.parseEffect(this.effect)
+      printer.effects[0] = Printer.parseEffect(this.effect)
       printer.wordWrap = this.wordWrap
       printer.truncate = this.truncate
       this.texture = texture
@@ -336,10 +344,10 @@ class TextElement extends Yami.UI.Element {
 
     // 绘制文本
     if (this.content) {
-      Yami.GL.alpha = this.opacity
-      Yami.GL.blend = this.blend
-      Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
-      Yami.GL.drawImage(this.texture, this.textOuterX, this.textOuterY, this.textOuterWidth, this.textOuterHeight)
+      GL.alpha = this.opacity
+      GL.blend = this.blend
+      GL.matrix.set(UI.matrix).multiply(this.matrix)
+      GL.drawImage(this.texture, this.textOuterX, this.textOuterY, this.textOuterWidth, this.textOuterHeight)
     }
 
     // 绘制子元素
@@ -348,7 +356,7 @@ class TextElement extends Yami.UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof Yami.UI.Window) {
+    if (this.parent instanceof UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -391,7 +399,7 @@ class TextElement extends Yami.UI.Element {
   }
 }
 
-Yami.UI.Text = TextElement
+UI.Text = TextElement
 
 // ******************************** 文本元素导出 ********************************
 

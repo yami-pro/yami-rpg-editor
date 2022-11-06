@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  Window
+} = Yami
+
 // ******************************** 角度访问器窗口 ********************************
 
 const AngleGetter = {
@@ -44,7 +49,7 @@ AngleGetter.initialize = function () {
 // 打开窗口
 AngleGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('angleGetter')
+  Window.open('angleGetter')
 
   let positionPosition = {type: 'actor', actor: {type: 'trigger'}}
   let commonDegrees = 0
@@ -69,7 +74,7 @@ AngleGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 AngleGetter.confirm = function (event) {
-  const read = Yami.getElementReader('angleGetter')
+  const read = getElementReader('angleGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -90,7 +95,7 @@ AngleGetter.confirm = function (event) {
       break
   }
   this.target.input(getter)
-  Yami.Window.close('angleGetter')
+  Window.close('angleGetter')
 }.bind(AngleGetter)
 
 // ******************************** 角度访问器窗口导出 ********************************

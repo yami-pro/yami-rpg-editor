@@ -2,6 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  getElementReader,
+  getElementWriter,
+  Local,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 条件分支 - 条件窗口 ********************************
 
 const IfCondition = {
@@ -339,11 +348,11 @@ IfCondition.parseBooleanOperation = function ({operation}) {
 IfCondition.parseBooleanOperand = function ({operand}) {
   switch (operand.type) {
     case 'none':
-      return Yami.Local.get('common.none')
+      return Local.get('common.none')
     case 'constant':
       return operand.value.toString()
     case 'variable':
-      return Yami.Command.parseVariable(operand.variable)
+      return Command.parseVariable(operand.variable)
   }
 }
 
@@ -363,11 +372,11 @@ IfCondition.parseNumberOperation = function ({operation}) {
 IfCondition.parseNumberOperand = function ({operand}) {
   switch (operand.type) {
     case 'none':
-      return Yami.Local.get('common.none')
+      return Local.get('common.none')
     case 'constant':
       return operand.value.toString()
     case 'variable':
-      return Yami.Command.parseVariable(operand.variable)
+      return Command.parseVariable(operand.variable)
   }
 }
 
@@ -376,7 +385,7 @@ IfCondition.parseStringOperation = function ({operation}) {
   switch (operation) {
     case 'equal': return '=='
     case 'unequal': return '!='
-    default: return Yami.Local.get('command.if.string.' + operation)
+    default: return Local.get('command.if.string.' + operation)
   }
 }
 
@@ -384,14 +393,14 @@ IfCondition.parseStringOperation = function ({operation}) {
 IfCondition.parseStringOperand = function ({operand}) {
   switch (operand.type) {
     case 'none':
-      return Yami.Local.get('common.none')
+      return Local.get('common.none')
     case 'constant':
-      return `"${Yami.Command.parseMultiLineString(operand.value)}"`
+      return `"${Command.parseMultiLineString(operand.value)}"`
     case 'variable':
-      return Yami.Command.parseVariable(operand.variable)
+      return Command.parseVariable(operand.variable)
     case 'enum': {
-      const name = Yami.Command.parseEnumString(operand.stringId)
-      return `${Yami.Local.get('command.if.string.enum')}(${name})`
+      const name = Command.parseEnumString(operand.stringId)
+      return `${Local.get('command.if.string.enum')}(${name})`
     }
   }
 }
@@ -401,7 +410,7 @@ IfCondition.parseObjectOperation = function ({operation}) {
   switch (operation) {
     case 'equal': return '=='
     case 'unequal': return '!='
-    default: return Yami.Local.get('command.if.object.' + operation)
+    default: return Local.get('command.if.object.' + operation)
   }
 }
 
@@ -410,42 +419,42 @@ IfCondition.parseObjectOperand = function ({operand}) {
   if (!operand) return ''
   switch (operand.type) {
     case 'none':
-      return Yami.Local.get('common.none')
+      return Local.get('common.none')
     case 'actor':
-      return Yami.Command.parseActor(operand.actor)
+      return Command.parseActor(operand.actor)
     case 'skill':
-      return Yami.Command.parseSkill(operand.skill)
+      return Command.parseSkill(operand.skill)
     case 'state':
-      return Yami.Command.parseState(operand.state)
+      return Command.parseState(operand.state)
     case 'equipment':
-      return Yami.Command.parseEquipment(operand.equipment)
+      return Command.parseEquipment(operand.equipment)
     case 'item':
-      return Yami.Command.parseItem(operand.item)
+      return Command.parseItem(operand.item)
     case 'trigger':
-      return Yami.Command.parseTrigger(operand.trigger)
+      return Command.parseTrigger(operand.trigger)
     case 'light':
-      return Yami.Command.parseLight(operand.light)
+      return Command.parseLight(operand.light)
     case 'element':
-      return Yami.Command.parseElement(operand.element)
+      return Command.parseElement(operand.element)
     case 'variable':
-      return Yami.Command.parseVariable(operand.variable)
+      return Command.parseVariable(operand.variable)
   }
 }
 
 // 解析角色操作
 IfCondition.parseActorOperation = function ({operation, itemId, equipmentId, quantity}) {
-  const op = Yami.Local.get('command.if.actor.' + operation)
+  const op = Local.get('command.if.actor.' + operation)
   switch (operation) {
     case 'has-items': {
-      const text = `${op} ${Yami.Command.parseFileName(itemId)}`
+      const text = `${op} ${Command.parseFileName(itemId)}`
       return quantity === 1 ? text : `${text} x ${quantity}`
     }
     case 'has-equipments': {
-      const text = `${op} ${Yami.Command.parseFileName(equipmentId)}`
+      const text = `${op} ${Command.parseFileName(equipmentId)}`
       return quantity === 1 ? text : `${text} x ${quantity}`
     }
     case 'equipped':
-      return `${op} ${Yami.Command.parseFileName(equipmentId)}`
+      return `${op} ${Command.parseFileName(equipmentId)}`
     default:
       return op
   }
@@ -453,87 +462,87 @@ IfCondition.parseActorOperation = function ({operation, itemId, equipmentId, qua
 
 // 解析元素操作
 IfCondition.parseElementOperation = function ({operation}) {
-  return Yami.Local.get('command.if.element.' + operation)
+  return Local.get('command.if.element.' + operation)
 }
 
 // 解析键盘按键状态
 IfCondition.parseKeyboardState = function (state) {
-  return Yami.Local.get('command.if.keyboard.' + state)
+  return Local.get('command.if.keyboard.' + state)
 }
 
 // 解析鼠标按键
 IfCondition.parseMouseButton = function (button) {
-  return Yami.Local.get('command.if.mouse.button.' + button)
+  return Local.get('command.if.mouse.button.' + button)
 }
 
 // 解析鼠标按键状态
 IfCondition.parseMouseState = function (state) {
-  return Yami.Local.get('command.if.mouse.' + state)
+  return Local.get('command.if.mouse.' + state)
 }
 
 // 解析列表操作
 IfCondition.parseListOperation = function ({operation}) {
-  return Yami.Local.get('command.if.list.' + operation)
+  return Local.get('command.if.list.' + operation)
 }
 
 // 解析其他
 IfCondition.parseOther = function ({key}) {
-  return Yami.Local.get('command.if.other.' + key)
+  return Local.get('command.if.other.' + key)
 }
 
 // 解析条件
 IfCondition.parse = function (condition) {
   switch (condition.type) {
     case 'boolean': {
-      const variable = Yami.Command.parseVariable(condition.variable)
+      const variable = Command.parseVariable(condition.variable)
       const operator = this.parseBooleanOperation(condition)
       const value = this.parseBooleanOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'number': {
-      const variable = Yami.Command.parseVariable(condition.variable)
+      const variable = Command.parseVariable(condition.variable)
       const operator = this.parseNumberOperation(condition)
       const value = this.parseNumberOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'string': {
-      const variable = Yami.Command.parseVariable(condition.variable)
+      const variable = Command.parseVariable(condition.variable)
       const operator = this.parseStringOperation(condition)
       const value = this.parseStringOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'object': {
-      const variable = Yami.Command.parseVariable(condition.variable)
+      const variable = Command.parseVariable(condition.variable)
       const operator = this.parseObjectOperation(condition)
       const value = this.parseObjectOperand(condition)
       return `${variable} ${operator} ${value}`
     }
     case 'actor': {
-      const actor = Yami.Command.parseActor(condition.actor)
+      const actor = Command.parseActor(condition.actor)
       const operation = this.parseActorOperation(condition)
       return `${actor} ${operation}`
     }
     case 'element': {
-      const element = Yami.Command.parseElement(condition.element)
+      const element = Command.parseElement(condition.element)
       const operation = this.parseElementOperation(condition)
       return `${element} ${operation}`
     }
     case 'keyboard': {
       const key = condition.keycode
-      const keyboard = Yami.Local.get('command.if.keyboard')
+      const keyboard = Local.get('command.if.keyboard')
       const state = this.parseKeyboardState(condition.state)
       return `${keyboard}["${key}"] ${state}`
     }
     case 'mouse': {
       const button = this.parseMouseButton(condition.button)
-      const mouse = Yami.Local.get('command.if.mouse')
+      const mouse = Local.get('command.if.mouse')
       const state = this.parseMouseState(condition.state)
       return `${mouse}[${button}] ${state}`
     }
     case 'list': {
-      const list = Yami.Command.parseVariable(condition.list)
+      const list = Command.parseVariable(condition.list)
       const operation = this.parseListOperation(condition)
-      const target = Yami.Command.parseVariable(condition.target)
+      const target = Command.parseVariable(condition.target)
       return `${list} ${operation} ${target}`
     }
     case 'other':
@@ -548,8 +557,8 @@ IfCondition.open = function (condition = {
   operation: 'equal',
   operand: {type: 'constant', value: 0},
 }) {
-  Yami.Window.open('if-condition')
-  const write = Yami.getElementWriter('if-condition')
+  Window.open('if-condition')
+  const write = getElementWriter('if-condition')
   const defaultVariable = {type: 'local', key: ''}
   let commonVariable = defaultVariable
   let booleanOperation = 'equal'
@@ -688,13 +697,13 @@ IfCondition.open = function (condition = {
 
 // 保存数据
 IfCondition.save = function () {
-  const read = Yami.getElementReader('if-condition')
+  const read = getElementReader('if-condition')
   const type = read('type')
   let condition
   switch (type) {
     case 'boolean': {
       const variable = read('common-variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('boolean-operation')
@@ -716,7 +725,7 @@ IfCondition.save = function () {
             type: 'variable',
             variable: read('operand-variable'),
           }
-          if (Yami.VariableGetter.isNone(operand.variable)) {
+          if (VariableGetter.isNone(operand.variable)) {
             return $('#if-condition-operand-variable').getFocus()
           }
           break
@@ -726,7 +735,7 @@ IfCondition.save = function () {
     }
     case 'number': {
       const variable = read('common-variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('number-operation')
@@ -748,7 +757,7 @@ IfCondition.save = function () {
             type: 'variable',
             variable: read('operand-variable'),
           }
-          if (Yami.VariableGetter.isNone(operand.variable)) {
+          if (VariableGetter.isNone(operand.variable)) {
             return $('#if-condition-operand-variable').getFocus()
           }
           break
@@ -758,7 +767,7 @@ IfCondition.save = function () {
     }
     case 'string': {
       const variable = read('common-variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('string-operation')
@@ -780,7 +789,7 @@ IfCondition.save = function () {
             type: 'variable',
             variable: read('operand-variable'),
           }
-          if (Yami.VariableGetter.isNone(operand.variable)) {
+          if (VariableGetter.isNone(operand.variable)) {
             return $('#if-condition-operand-variable').getFocus()
           }
           break
@@ -799,7 +808,7 @@ IfCondition.save = function () {
     }
     case 'object': {
       const variable = read('common-variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('object-operation')
@@ -866,7 +875,7 @@ IfCondition.save = function () {
                 type: 'variable',
                 variable: read('operand-variable'),
               }
-              if (Yami.VariableGetter.isNone(operand.variable)) {
+              if (VariableGetter.isNone(operand.variable)) {
                 return $('#if-condition-operand-variable').getFocus()
               }
               break
@@ -939,12 +948,12 @@ IfCondition.save = function () {
     }
     case 'list': {
       const list = read('common-variable')
-      if (Yami.VariableGetter.isNone(list)) {
+      if (VariableGetter.isNone(list)) {
         return $('#if-condition-common-variable').getFocus()
       }
       const operation = read('list-operation')
       const target = read('operand-variable')
-      if (Yami.VariableGetter.isNone(target)) {
+      if (VariableGetter.isNone(target)) {
         return $('#if-condition-operand-variable').getFocus()
       }
       condition = {type, list, operation, target}
@@ -956,7 +965,7 @@ IfCondition.save = function () {
       break
     }
   }
-  Yami.Window.close('if-condition')
+  Window.close('if-condition')
   return condition
 }
 

@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  getElementWriter,
+  Inspector,
+  UI
+} = Yami
+
 // ******************************** 文件 - 界面页面 ********************************
 
 {
@@ -26,27 +33,27 @@ import * as Yami from '../yami.js'
     this.owner = {
       setTarget: target => {
         if (this.target !== target) {
-          Yami.Inspector.open('fileUI', target)
+          Inspector.open('fileUI', target)
         }
       },
       planToSave: () => {
-        Yami.UI.planToSave()
+        UI.planToSave()
       },
       get history() {
-        return Yami.UI.history
+        return UI.history
       },
     }
 
     // 侦听事件
     const elements = $('#fileUI-width, #fileUI-height')
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, this.owner))
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, this.owner))
   }
 
   // 创建界面
   FileUI.create = function () {
-    const {resolution} = Yami.Data.config
+    const {resolution} = Data.config
     return {
       width: resolution.width,
       height: resolution.height,
@@ -63,7 +70,7 @@ import * as Yami from '../yami.js'
       this.button.addClass('selected')
 
       // 写入数据
-      const write = Yami.getElementWriter('fileUI', ui)
+      const write = getElementWriter('fileUI', ui)
       write('width')
       write('height')
     }
@@ -81,7 +88,7 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileUI.update = function (ui, key, value) {
-    Yami.UI.planToSave()
+    UI.planToSave()
     switch (key) {
       case 'width':
         if (ui.width !== value) {
@@ -100,10 +107,10 @@ import * as Yami from '../yami.js'
   FileUI.paramInput = function (event) {
     FileUI.update(
       FileUI.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.fileUI = FileUI
+  Inspector.fileUI = FileUI
 }

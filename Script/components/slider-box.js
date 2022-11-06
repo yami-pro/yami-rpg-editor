@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { NumberBox } = Yami
+
 // ******************************** 滑动框 ********************************
 
 class SliderBox extends HTMLElement {
@@ -103,7 +105,7 @@ class SliderBox extends HTMLElement {
     }
 
     // 设置新的同步关系
-    if (number instanceof Yami.NumberBox) {
+    if (number instanceof NumberBox) {
       const writeSlider = slider.write
       const writeNumber = number.write
 

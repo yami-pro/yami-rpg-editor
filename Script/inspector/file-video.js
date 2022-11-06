@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  AudioManager,
+  Browser,
+  File,
+  Inspector
+} = Yami
+
 // ******************************** 文件 - 视频页面 ********************************
 
 {
@@ -43,7 +50,7 @@ import * as Yami from '../yami.js'
       const elBitrate = $('#fileVideo-bitrate')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = Yami.File.parseFileSize(size)
+      elSize.textContent = File.parseFileSize(size)
       elDuration.textContent = ''
       elResolution.textContent = ''
       elBitrate.textContent = ''
@@ -51,7 +58,7 @@ import * as Yami from '../yami.js'
       // 加载视频
       const video = this.video
       const path = file.path
-      video.src = Yami.File.route(path)
+      video.src = File.route(path)
 
       // 更新视频信息
       const symbol = this.symbol = Symbol()
@@ -66,7 +73,7 @@ import * as Yami from '../yami.js'
           const width = video.videoWidth
           const height = video.videoHeight
           const bitrate = Math.round(size / 128 / duration)
-          const formatTime = Yami.Inspector.fileAudio.formatTime
+          const formatTime = Inspector.fileAudio.formatTime
           elDuration.textContent = formatTime(duration)
           elResolution.textContent = `${width} x ${height}`
           elBitrate.textContent = `${bitrate}Kbps`
@@ -78,7 +85,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileVideo.close = function () {
     if (this.target) {
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.symbol = null
@@ -89,7 +96,7 @@ import * as Yami from '../yami.js'
   // 播放视频
   FileVideo.play = function () {
     if (this.target !== null) {
-      Yami.AudioManager.player.stop()
+      AudioManager.player.stop()
       const {video} = this
       if (video.paused) {
         video.play()
@@ -107,5 +114,5 @@ import * as Yami from '../yami.js'
     }
   }
 
-  Yami.Inspector.fileVideo = FileVideo
+  Inspector.fileVideo = FileVideo
 }

@@ -2,9 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const { Timer } = Yami
+
 // ******************************** 历史操作计时器 ********************************
 
-const HistoryTimer = new Yami.Timer({
+const HistoryTimer = new Timer({
   duration: 2000,
   callback: timer => {
     timer.complete = true

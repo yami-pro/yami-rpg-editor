@@ -2,36 +2,38 @@
 
 import * as Yami from '../yami.js'
 
+const { GL } = Yami
+
 // ******************************** 基础纹理类 ********************************
 
 class BaseTexture {
   constructor() {
-    this.glTexture = Yami.GL.createTexture()
+    this.glTexture = GL.createTexture()
     this.width = 0
     this.height = 0
   }
 
   // 恢复普通纹理
   restoreNormalTexture() {
-    this.glTexture = Yami.GL.createTexture()
+    this.glTexture = GL.createTexture()
     const {format, width, height} = this
-    Yami.GL.bindTexture(Yami.GL.TEXTURE_2D, this.glTexture)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_MAG_FILTER, this.magFilter)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_MIN_FILTER, this.minFilter)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_WRAP_S, Yami.GL.CLAMP_TO_EDGE)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_WRAP_T, Yami.GL.CLAMP_TO_EDGE)
-    Yami.GL.texImage2D(Yami.GL.TEXTURE_2D, 0, format, width, height, 0, format, Yami.GL.UNSIGNED_BYTE, null)
+    GL.bindTexture(GL.TEXTURE_2D, this.glTexture)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MAG_FILTER, this.magFilter)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, this.minFilter)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_S, GL.CLAMP_TO_EDGE)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.CLAMP_TO_EDGE)
+    GL.texImage2D(GL.TEXTURE_2D, 0, format, width, height, 0, format, GL.UNSIGNED_BYTE, null)
   }
 
   // 恢复图像纹理
   restoreImageTexture() {
-    this.glTexture = Yami.GL.createTexture()
-    Yami.GL.bindTexture(Yami.GL.TEXTURE_2D, this.glTexture)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_MAG_FILTER, this.magFilter)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_MIN_FILTER, this.minFilter)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_WRAP_S, Yami.GL.CLAMP_TO_EDGE)
-    Yami.GL.texParameteri(Yami.GL.TEXTURE_2D, Yami.GL.TEXTURE_WRAP_T, Yami.GL.CLAMP_TO_EDGE)
-    Yami.GL.texImage2D(Yami.GL.TEXTURE_2D, 0, Yami.GL.RGBA, Yami.GL.RGBA, Yami.GL.UNSIGNED_BYTE, this.image)
+    this.glTexture = GL.createTexture()
+    GL.bindTexture(GL.TEXTURE_2D, this.glTexture)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MAG_FILTER, this.magFilter)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_MIN_FILTER, this.minFilter)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_S, GL.CLAMP_TO_EDGE)
+    GL.texParameteri(GL.TEXTURE_2D, GL.TEXTURE_WRAP_T, GL.CLAMP_TO_EDGE)
+    GL.texImage2D(GL.TEXTURE_2D, 0, GL.RGBA, GL.RGBA, GL.UNSIGNED_BYTE, this.image)
   }
 
   /**

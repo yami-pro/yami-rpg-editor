@@ -2,6 +2,20 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Editor,
+  File,
+  FS,
+  FSP,
+  getElementWriter,
+  GUID,
+  Layout,
+  Log,
+  Path,
+  Timer,
+  Window
+} = Yami
+
 // ******************************** 新建项目窗口 ********************************
 
 const NewProject = {
@@ -38,10 +52,10 @@ NewProject.initialize = function () {
 
 // 打开窗口
 NewProject.open = function () {
-  Yami.Window.open('newProject')
-  const write = Yami.getElementWriter('newProject')
-  const dialogs = Yami.Editor.config.dialogs
-  const location = Yami.Path.normalize(dialogs.new)
+  Window.open('newProject')
+  const write = getElementWriter('newProject')
+  const dialogs = Editor.config.dialogs
+  const location = Path.normalize(dialogs.new)
   const folder = this.getNewFolder(location)
   write('folder', folder)
   write('location', location)
@@ -59,7 +73,7 @@ NewProject.check = function () {
       $('#newProject-warning').textContent = '名称为空'
       $('#newProject-confirm').disable()
     }
-  } else if (Yami.FS.existsSync(Yami.Path.resolve(location, folder))) {
+  } else if (FS.existsSync(Path.resolve(location, folder))) {
     if (this.state !== 'existing') {
       this.state = 'existing'
       $('#newProject-warning').textContent = '项目已存在'
@@ -78,7 +92,7 @@ NewProject.check = function () {
 NewProject.readFileList = function IIFE() {
   const options = {withFileTypes: true}
   const read = (path, list) => {
-    return Yami.FSP.readdir(
+    return FSP.readdir(
       `Templates/project/${path}`,
       options,
     ).then(
@@ -117,7 +131,7 @@ NewProject.readFileList = function IIFE() {
 
 // 复制文件到指定目录
 NewProject.copyFilesTo = function (dirPath) {
-  Yami.Window.open('copyProgress')
+  Window.open('copyProgress')
   const progressBar = $('#copyProgress-bar')
   const progressInfo = $('#copyProgress-info')
   progressBar.style.width = '0'
@@ -136,11 +150,11 @@ NewProject.copyFilesTo = function (dirPath) {
       switch (item.folder) {
         case true:
           // 创建文件夹(同步)
-          Yami.FS.mkdirSync(dPath + path)
+          FS.mkdirSync(dPath + path)
           continue
         default:
           // 复制文件
-          promises.push(Yami.FSP.copyFile(
+          promises.push(FSP.copyFile(
             sPath + path,
             dPath + path,
           ).then(() => {
@@ -151,7 +165,7 @@ NewProject.copyFilesTo = function (dirPath) {
           continue
       }
     }
-    this.timer = new Yami.Timer({
+    this.timer = new Timer({
       duration: Infinity,
       update: timer => {
         const percent = Math.round(count / total * 100)
@@ -166,11 +180,11 @@ NewProject.copyFilesTo = function (dirPath) {
 // 写入数据
 NewProject.writeData = function (dirPath) {
   const path = `${dirPath}/data/config.json`
-  return Yami.FSP.readFile(path, 'utf8').then(data => {
+  return FSP.readFile(path, 'utf8').then(data => {
     const config = JSON.parse(data)
-    config.gameId = Yami.GUID.generate64bit()
+    config.gameId = GUID.generate64bit()
     const json = JSON.stringify(config, null, 2)
-    return Yami.FSP.writeFile(path, json)
+    return FSP.writeFile(path, json)
   })
 }
 
@@ -178,7 +192,7 @@ NewProject.writeData = function (dirPath) {
 NewProject.getNewFolder = function (location) {
   for (let i = 1; true; i++) {
     const folder = `Project${i}`
-    if (!Yami.FS.existsSync(Yami.Path.resolve(location, folder))) {
+    if (!FS.existsSync(Path.resolve(location, folder))) {
       return folder
     }
   }
@@ -215,7 +229,7 @@ NewProject.locationInput = function (event) {
 // 选择按钮 - 鼠标点击事件
 NewProject.chooseClick = function (event) {
   const input = $('#newProject-location')
-  Yami.File.showOpenDialog({
+  File.showOpenDialog({
     defaultPath: input.read(),
     properties: ['openDirectory'],
   }).then(({filePaths}) => {
@@ -230,30 +244,30 @@ NewProject.chooseClick = function (event) {
 NewProject.confirm = function (event) {
   const location = $('#newProject-location').read()
   const folder = $('#newProject-folder').read()
-  const path = Yami.Path.resolve(location, folder)
-  Yami.Window.close('newProject')
-  Yami.Editor.close().then(() => {
-    return Yami.FSP.mkdir(path, {recursive: true})
+  const path = Path.resolve(location, folder)
+  Window.close('newProject')
+  Editor.close().then(() => {
+    return FSP.mkdir(path, {recursive: true})
   }).then(done => {
     return NewProject.copyFilesTo(path)
   }).then(done => {
     return NewProject.writeData(path)
   }).finally(() => {
-    Yami.Window.close('copyProgress')
+    Window.close('copyProgress')
     if (NewProject.timer) {
       NewProject.timer.remove()
       NewProject.timer = null
     }
   }).then(() => {
-    Yami.Editor.open(`${path}/game.yamirpg`)
-    Yami.Editor.config.dialogs.new =
-    Yami.Path.slash(Yami.Path.resolve(location))
+    Editor.open(`${path}/game.yamirpg`)
+    Editor.config.dialogs.new =
+    Path.slash(Path.resolve(location))
   }).catch(error => {
-    Yami.Log.throw(error)
-    Yami.Window.confirm({
+    Log.throw(error)
+    Window.confirm({
       message: 'Failed to create project',
       close: () => {
-        Yami.Layout.manager.switch('home')
+        Layout.manager.switch('home')
       },
     }, [{
       label: 'Confirm',

@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  Easing,
+  GL,
+  ImageTexture,
+  Matrix,
+  Particle,
+  Scene
+} = Yami
+
 // ******************************** 动画播放器类 ********************************
 
 class AnimationPlayer {
@@ -116,7 +126,7 @@ class AnimationPlayer {
           const easingId = frame.easingId
           if (easingId !== '' && i < last) {
             const next = frames[i + 1]
-            const time = Yami.Easing.get(easingId).map(
+            const time = Easing.get(easingId).map(
               (index - start) / (next.start - start)
             )
             context.update(frame, time, next)
@@ -259,7 +269,7 @@ class AnimationPlayer {
     const {emitters} = this
     const {length} = emitters
     if (length !== 0) {
-      Yami.GL.batchRenderer.draw()
+      GL.batchRenderer.draw()
       for (let i = 0; i < length; i++) {
         emitters[i].draw()
       }
@@ -268,7 +278,7 @@ class AnimationPlayer {
 
   // 绘制精灵
   drawSprite(context, texture, light) {
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     const attributes = gl.arrays[0].uint32
     const renderer = gl.batchRenderer
@@ -309,7 +319,7 @@ class AnimationPlayer {
     renderer.setBlendMode(layer.blend)
     renderer.push(base.index)
     if (light === undefined) {
-      light = Yami.Scene.showLight ? layer.light : 'raw'
+      light = Scene.showLight ? layer.light : 'raw'
     }
     const vi = response[0] * 8
     const mode = AnimationPlayer.lightSamplingModes[light]
@@ -363,7 +373,7 @@ class AnimationPlayer {
       const sprite = this.sprites[spriteId]
       const imageId = this.images[spriteId]
       if (sprite !== undefined && imageId) {
-        const texture = new Yami.ImageTexture(imageId)
+        const texture = new ImageTexture(imageId)
         textures[spriteId] = null
         texture.on('load', () => {
           if (this.textures === textures) {
@@ -377,7 +387,7 @@ class AnimationPlayer {
             texture.offsetX = -width / 2
             texture.offsetY = -height / 2
             textures[spriteId] = texture
-            Yami.Scene.requestRendering()
+            Scene.requestRendering()
           } else {
             texture.destroy()
           }
@@ -395,7 +405,7 @@ class AnimationPlayer {
   destroy() {
     // 销毁图像纹理
     for (const texture of Object.values(this.textures)) {
-      if (texture instanceof Yami.ImageTexture) {
+      if (texture instanceof ImageTexture) {
         texture.destroy()
       }
     }
@@ -467,7 +477,7 @@ class AnimationPlayer {
 
   // 静态 - 动画属性
   static step = 0
-  static matrix = new Yami.Matrix()
+  static matrix = new Matrix()
   static lightSamplingModes = {raw: 0, global: 1, anchor: 2}
   static stage
 
@@ -531,7 +541,7 @@ class AnimationPlayer {
 
   // 静态 - 更新动画步长
   static updateStep() {
-    this.step = 1000 / Yami.Data.config.animation.frameRate
+    this.step = 1000 / Data.config.animation.frameRate
   }
 
   // 静态 - 加载动画图层上下文列表
@@ -554,7 +564,7 @@ class AnimationPlayer {
           parent: null,
           layer: null,
           frame: null,
-          matrix: new Yami.Matrix(),
+          matrix: new Matrix(),
           opacity: 0,
           update: null,
           reset: AnimationPlayer.contextReset,
@@ -661,9 +671,9 @@ class AnimationPlayer {
     let emitter = this.emitter
     if (emitter === undefined) {
       const guid = this.layer.particleId
-      const data = Yami.Data.particles[guid]
+      const data = Data.particles[guid]
       if (!data) return
-      emitter = new Yami.Particle.Emitter(data)
+      emitter = new Particle.Emitter(data)
       emitter.matrix = this.matrix
       this.emitter = emitter
       this.animation.emitters.push(emitter)

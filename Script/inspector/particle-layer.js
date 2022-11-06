@@ -2,12 +2,20 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  getElementReader,
+  getElementWriter,
+  Inspector,
+  Particle
+} = Yami
+
 // ******************************** 粒子 - 图层页面 ********************************
 
 {
   const ParticleLayer = {
     // properties
-    owner: Yami.Particle,
+    owner: Particle,
     target: null,
     nameBox: $('#particleLayer-name'),
     // methods
@@ -135,10 +143,10 @@ import * as Yami from '../yami.js'
       #particleLayer-color-tint-0-slider, #particleLayer-color-tint-1-slider,
       #particleLayer-color-tint-2-slider, #particleLayer-color-tint-3-slider`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.Particle))
-    sliders.on('focus', Yami.Inspector.sliderFocus)
-    sliders.on('blur', Yami.Inspector.sliderBlur)
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, Particle))
+    sliders.on('focus', Inspector.sliderFocus)
+    sliders.on('blur', Inspector.sliderBlur)
   }
 
   // 创建粒子图层
@@ -196,11 +204,11 @@ import * as Yami from '../yami.js'
 
       // 创建过渡方式选项
       $('#particleLayer-color-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
 
       // 写入数据
-      const write = Yami.getElementWriter('particleLayer', layer)
+      const write = getElementWriter('particleLayer', layer)
       const {area, color} = layer
       const {rgba, min, max, easingId, startMin, startMax, endMin, endMax, tint} = color
       write('name')
@@ -257,7 +265,7 @@ import * as Yami from '../yami.js'
       write('color-max-1', max?.[1] ?? 255)
       write('color-max-2', max?.[2] ?? 255)
       write('color-max-3', max?.[3] ?? 255)
-      write('color-easingId', easingId ?? Yami.Data.easings[0].id)
+      write('color-easingId', easingId ?? Data.easings[0].id)
       write('color-startMin-0', startMin?.[0] ?? 0)
       write('color-startMin-1', startMin?.[1] ?? 0)
       write('color-startMin-2', startMin?.[2] ?? 0)
@@ -284,22 +292,22 @@ import * as Yami from '../yami.js'
   // 关闭数据
   ParticleLayer.close = function () {
     if (this.target) {
-      Yami.Particle.list.unselect(this.target)
-      Yami.Particle.updateTarget()
+      Particle.list.unselect(this.target)
+      Particle.updateTarget()
       this.target = null
     }
   }
 
   // 更新数据
   ParticleLayer.update = function (layer, key, value) {
-    const layerInstance = Yami.Particle.emitter.getLayer(layer)
-    Yami.Particle.planToSave()
+    const layerInstance = Particle.emitter.getLayer(layer)
+    Particle.planToSave()
     switch (key) {
       case 'name':
         if (layer.name !== value) {
           layer.name = value
-          Yami.Particle.updateParticleInfo()
-          Yami.Particle.list.updateItemName(layer)
+          Particle.updateParticleInfo()
+          Particle.list.updateItemName(layer)
         }
         break
       case 'area-type': {
@@ -309,7 +317,7 @@ import * as Yami from '../yami.js'
           delete area.width
           delete area.height
           delete area.radius
-          const read = Yami.getElementReader('particleLayer-area')
+          const read = getElementReader('particleLayer-area')
           switch (value) {
             case 'point':
             case 'edge':
@@ -323,7 +331,7 @@ import * as Yami from '../yami.js'
               break
           }
           layerInstance.updateElementMethods()
-          Yami.Particle.computeOuterRect()
+          Particle.computeOuterRect()
         }
         break
       }
@@ -335,7 +343,7 @@ import * as Yami from '../yami.js'
         const property = key.slice(index)
         if (area[property] !== value) {
           area[property] = value
-          Yami.Particle.computeOuterRect()
+          Particle.computeOuterRect()
         }
         break
       }
@@ -385,7 +393,7 @@ import * as Yami from '../yami.js'
         if (layer.image !== value) {
           layer.image = value
           layerInstance.loadTexture()
-          Yami.Particle.list.updateIcon(layer)
+          Particle.list.updateIcon(layer)
         }
         break
       case 'blend':
@@ -400,7 +408,7 @@ import * as Yami from '../yami.js'
           layer[key] = value
           layerInstance.calculateElementSize()
           layerInstance.resizeElementIndices()
-          Yami.Particle.list.updateIcon(layer)
+          Particle.list.updateIcon(layer)
         }
         break
       case 'color-mode': {
@@ -416,7 +424,7 @@ import * as Yami from '../yami.js'
           delete color.endMin
           delete color.endMax
           delete color.tint
-          const read = Yami.getElementReader('particleLayer-color')
+          const read = getElementReader('particleLayer-color')
           switch (value) {
             case 'fixed':
               color.rgba = [read('rgba-0'), read('rgba-1'), read('rgba-2'), read('rgba-3')]
@@ -518,17 +526,17 @@ import * as Yami from '../yami.js'
         break
       }
     }
-    Yami.Particle.requestRendering()
+    Particle.requestRendering()
   }
 
   // 参数 - 输入事件
   ParticleLayer.paramInput = function (event) {
     ParticleLayer.update(
       ParticleLayer.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.particleLayer = ParticleLayer
+  Inspector.particleLayer = ParticleLayer
 }

@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Browser,
+  File,
+  Inspector
+} = Yami
+
 // ******************************** 文件 - 图像页面 ********************************
 
 {
@@ -42,12 +48,12 @@ import * as Yami from '../yami.js'
       const elResolution = $('#fileImage-resolution')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = Yami.File.parseFileSize(size)
+      elSize.textContent = File.parseFileSize(size)
       elResolution.textContent = ''
 
       // 加载图像
       const image = this.image.hide()
-      const path = Yami.File.route(file.path)
+      const path = File.route(file.path)
       image.src = path
 
       // 更新图像信息
@@ -77,7 +83,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileImage.close = function () {
     if (this.target) {
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.symbol = null
@@ -129,5 +135,5 @@ import * as Yami from '../yami.js'
     }
   }
 
-  Yami.Inspector.fileImage = FileImage
+  Inspector.fileImage = FileImage
 }

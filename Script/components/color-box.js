@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Color } = Yami
+
 // ******************************** 颜色框 ********************************
 
 class ColorBox extends HTMLElement {
@@ -102,7 +104,7 @@ class ColorBox extends HTMLElement {
 
   // 鼠标点击事件
   mouseclick(event) {
-    Yami.Color.open(this)
+    Color.open(this)
   }
 }
 

@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { RadioProxy } = Yami
+
 // ******************************** 单选框 ********************************
 
 class RadioBox extends HTMLElement {
@@ -12,13 +14,13 @@ class RadioBox extends HTMLElement {
     super()
 
     // 获取集合节点
-    let proxy = Yami.RadioProxy.map[this.name]
+    let proxy = RadioProxy.map[this.name]
     if (proxy === undefined) {
       proxy = document.createElement('radio-proxy')
       proxy.id = this.name
       proxy.style.display = 'none'
       this.appendChild(proxy)
-      Yami.RadioProxy.map[proxy.id] = proxy
+      RadioProxy.map[proxy.id] = proxy
     }
 
     const string = this.getAttribute('value')

@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { TextHistory } = Yami
+
 // ******************************** 文本框 ********************************
 
 class TextBox extends HTMLElement {
@@ -16,7 +18,7 @@ class TextBox extends HTMLElement {
     const input = document.createElement('input')
     input.addClass('text-box-input')
     input.type = 'text'
-    input.history = new Yami.TextHistory(input)
+    input.history = new TextHistory(input)
     this.appendChild(input)
 
     // 设置属性

@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  AutoTile,
+  Cursor,
+  Palette,
+  Window
+} = Yami
+
 // ******************************** 图块帧索引窗口 ********************************
 
 const TileFrame = {
@@ -51,19 +58,19 @@ TileFrame.open = function () {
   const MAX_CONTENT_HEIGHT = 696
   const MIN_CONTENT_WIDTH = 100
   const MIN_CONTENT_HEIGHT = 100
-  const sprite = Yami.AutoTile.image
+  const sprite = AutoTile.image
   const windowFrame = this.window
   const screen = this.screen
   const clip = this.clip
   const mask = this.mask
   const image = this.image
   const marquee = this.marquee
-  const tileWidth = Yami.Palette.tileset.tileWidth
-  const tileHeight = Yami.Palette.tileset.tileHeight
-  const frames = Yami.AutoTile.frames
-  const offsetX = Yami.AutoTile.offsetX
-  const offsetY = Yami.AutoTile.offsetY
-  const index = frames[Yami.AutoTile.frameIndex]
+  const tileWidth = Palette.tileset.tileWidth
+  const tileHeight = Palette.tileset.tileHeight
+  const frames = AutoTile.frames
+  const offsetX = AutoTile.offsetX
+  const offsetY = AutoTile.offsetY
+  const index = frames[AutoTile.frameIndex]
   const hindex = offsetX + (index & 0xff)
   const vindex = offsetY + (index >> 8)
   const hframes = Math.floor(sprite.naturalWidth / tileWidth)
@@ -96,7 +103,7 @@ TileFrame.open = function () {
   windowFrame.style.width = `${contentWidth}px`
   windowFrame.style.height = `${contentHeight + 24}px`
   window.on('keydown', this.keydown)
-  Yami.Window.open('autoTile-frameIndex')
+  Window.open('autoTile-frameIndex')
 
   // 设置图像剪辑
   const screenBox = this.getDevicePixelClientBoxSize(screen)
@@ -139,14 +146,14 @@ TileFrame.open = function () {
 // 选择动画帧
 TileFrame.selectTileFrame = function () {
   let {x, y} = this.marquee
-  x -= Yami.AutoTile.offsetX
-  y -= Yami.AutoTile.offsetY
+  x -= AutoTile.offsetX
+  y -= AutoTile.offsetY
   if (x >= 0 && y >= 0) {
     const {frames, frameIndex} = AutoTile
     frames[frameIndex] = Math.min(x | y << 8, 0xffff)
-    Yami.AutoTile.changed = true
-    Yami.AutoTile.updateFrameItem()
-    Yami.Window.close('autoTile-frameIndex')
+    AutoTile.changed = true
+    AutoTile.updateFrameItem()
+    Window.close('autoTile-frameIndex')
   }
 }
 
@@ -270,7 +277,7 @@ TileFrame.marqueePointerdown = function (event) {
         event.screen = event.target.parentNode
         event.scrollLeft = event.screen.scrollLeft
         event.scrollTop = event.screen.scrollTop
-        Yami.Cursor.open('cursor-grab')
+        Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
         return
@@ -291,7 +298,7 @@ TileFrame.marqueePointerdown = function (event) {
       event.screen = event.target.parentNode
       event.scrollLeft = event.screen.scrollLeft
       event.scrollTop = event.screen.scrollTop
-      Yami.Cursor.open('cursor-grab')
+      Cursor.open('cursor-grab')
       window.on('pointerup', this.pointerup)
       window.on('pointermove', this.pointermove)
       break
@@ -338,7 +345,7 @@ TileFrame.pointerup = function (event) {
         break
       }
       case 'scroll':
-        Yami.Cursor.close('cursor-grab')
+        Cursor.close('cursor-grab')
         break
     }
     this.dragging = null

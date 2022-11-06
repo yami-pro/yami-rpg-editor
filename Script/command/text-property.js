@@ -2,6 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Color,
+  Command,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 设置文本 - 属性窗口 ********************************
 
 const TextProperty = {
@@ -88,11 +97,11 @@ TextProperty.initialize = function () {
 
 // 解析属性
 TextProperty.parse = function ({key, value}) {
-  const get = Yami.Local.createGetter('command.setText')
+  const get = Local.createGetter('command.setText')
   const name = get(key)
   switch (key) {
     case 'content': {
-      let string = Yami.Command.parseMultiLineString(Yami.Command.parseVariableTag(value))
+      let string = Command.parseMultiLineString(Command.parseVariableTag(value))
       if (string.length > 40) {
         string = string.slice(0, 40) + '...'
       }
@@ -103,7 +112,7 @@ TextProperty.parse = function ({key, value}) {
     case 'letterSpacing':
       return `${name}(${value})`
     case 'color':
-      return `${name}(#${Yami.Color.simplifyHexColor(value)})`
+      return `${name}(#${Color.simplifyHexColor(value)})`
     case 'font':
       return `${name}(${value || get('font.default')})`
     case 'effect':
@@ -113,28 +122,28 @@ TextProperty.parse = function ({key, value}) {
         case 'shadow': {
           const x = value.shadowOffsetX
           const y = value.shadowOffsetY
-          const color = Yami.Color.simplifyHexColor(value.color)
+          const color = Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.shadow')}, ${x}, ${y}, #${color})`
         }
         case 'stroke': {
           const width = value.strokeWidth
-          const color = Yami.Color.simplifyHexColor(value.color)
+          const color = Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.stroke')}, ${width}, #${color})`
         }
         case 'outline': {
-          const color = Yami.Color.simplifyHexColor(value.color)
+          const color = Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.outline')}, #${color})`
         }
       }
     case 'blend':
-      return `${name}(${Yami.Command.parseBlend(value)})`
+      return `${name}(${Command.parseBlend(value)})`
   }
 }
 
 // 打开数据
 TextProperty.open = function ({key = 'content', value = ''} = {}) {
-  Yami.Window.open('setText-property')
-  const write = Yami.getElementWriter('setText-property')
+  Window.open('setText-property')
+  const write = getElementWriter('setText-property')
   let content = ''
   let size = 16
   let lineSpacing = 0
@@ -195,7 +204,7 @@ TextProperty.open = function ({key = 'content', value = ''} = {}) {
 
 // 保存数据
 TextProperty.save = function () {
-  const read = Yami.getElementReader('setText-property')
+  const read = getElementReader('setText-property')
   const key = read('key')
   let value
   switch (key) {
@@ -251,7 +260,7 @@ TextProperty.save = function () {
       value = read('blend')
       break
   }
-  Yami.Window.close('setText-property')
+  Window.close('setText-property')
   return {key, value}
 }
 

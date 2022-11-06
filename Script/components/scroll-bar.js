@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Timer } = Yami
+
 // ******************************** 滚动条 ********************************
 
 class ScrollBar extends HTMLElement {
@@ -128,7 +130,7 @@ class ScrollBar extends HTMLElement {
     const {target} = this
     let {timer} = this
     if (!timer) {
-      timer = this.timer = new Yami.Timer({
+      timer = this.timer = new Timer({
         duration: 0,
         update: timer => {
           switch (timer.state) {

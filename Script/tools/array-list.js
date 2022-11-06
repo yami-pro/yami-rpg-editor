@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 数组窗口 ********************************
 
 const ArrayList = {
@@ -40,7 +46,7 @@ ArrayList.open = function (target) {
   const label = target.previousSibling
   const alias = label.textContent
   $('#arrayList').setTitle(alias)
-  Yami.Window.open('arrayList')
+  Window.open('arrayList')
 
   // 写入数据
   this.list.write(target.read().slice())
@@ -51,14 +57,14 @@ ArrayList.open = function (target) {
 ArrayList.windowClose = function (event) {
   if (this.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedData'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Yami.Window.close('arrayList')
+        Window.close('arrayList')
       },
     }, {
       label: get('no'),
@@ -81,14 +87,14 @@ ArrayList.listChange = function (event) {
 ArrayList.confirm = function (event) {
   this.changed = false
   this.target.input(this.list.read())
-  Yami.Window.close('arrayList')
+  Window.close('arrayList')
 }.bind(ArrayList)
 
 // 数组列表接口
 ArrayList.interface = {
   parsers: {
     number: number => number.toString(),
-    string: string => Yami.Command.parseMultiLineString(string),
+    string: string => Command.parseMultiLineString(string),
   },
   defaults: {
     number: 0,
@@ -124,7 +130,7 @@ ArrayList.interface = {
   open: function (value) {
     const {filter} = ArrayList.target
     value = value ?? this.defaults[filter]
-    Yami.Window.open(this.windows[filter])
+    Window.open(this.windows[filter])
     const input = this.inputs[filter]
     input.write(value)
     input.getFocus('all')
@@ -132,7 +138,7 @@ ArrayList.interface = {
   save: function () {
     const {filter} = ArrayList.target
     const value = this.inputs[filter].read()
-    Yami.Window.close(this.windows[filter])
+    Window.close(this.windows[filter])
     return value
   },
 }

@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Window } = Yami
+
 // ******************************** 设置数量窗口 ********************************
 
 const SetQuantity = {
@@ -27,7 +29,7 @@ SetQuantity.initialize = function () {
 // 打开窗口
 SetQuantity.open = function (quantity, maximum, callback) {
   this.callback = callback
-  Yami.Window.open('setQuantity')
+  Window.open('setQuantity')
   $('#setQuantity-quantity').input.max = maximum
   $('#setQuantity-quantity').write(quantity)
   $('#setQuantity-quantity').getFocus('all')
@@ -41,7 +43,7 @@ SetQuantity.windowClosed = function (event) {
 // 确定按钮 - 鼠标点击事件
 SetQuantity.confirm = function (event) {
   this.callback($('#setQuantity-quantity').read())
-  Yami.Window.close('setQuantity')
+  Window.close('setQuantity')
 }.bind(SetQuantity)
 
 // ******************************** 设置数量窗口导出 ********************************

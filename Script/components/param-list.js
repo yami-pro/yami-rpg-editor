@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  CommonList,
+  ctrl,
+  DetailBox,
+  Local,
+  Menu,
+  ParamHistory,
+  WindowFrame
+} = Yami
+
 // ******************************** 参数列表 ********************************
 
 class ParamList extends HTMLElement {
@@ -85,7 +95,7 @@ class ParamList extends HTMLElement {
     object.initialize = Function.empty
     this.object = object
     this.type = `yami.${object.type ?? this.id}`
-    this.history = object.history ?? new Yami.ParamHistory(this)
+    this.history = object.history ?? new ParamHistory(this)
     return this
   }
 
@@ -212,7 +222,7 @@ class ParamList extends HTMLElement {
 
   // 重新调整
   resize() {
-    return Yami.CommonList.resize(this)
+    return CommonList.resize(this)
   }
 
   // 更新弹性高度
@@ -228,7 +238,7 @@ class ParamList extends HTMLElement {
       if (this.autoSwitch) {
         this.autoSwitch = false
         const detailBox = this.parentNode
-        if (detailBox instanceof Yami.DetailBox) {
+        if (detailBox instanceof DetailBox) {
           if (count !== 1) {
             detailBox.open()
           } else {
@@ -241,7 +251,7 @@ class ParamList extends HTMLElement {
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return Yami.CommonList.updateHeadAndFoot(this)
+    return CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -601,7 +611,7 @@ class ParamList extends HTMLElement {
 
   // 清除元素
   clearElements(start) {
-    return Yami.CommonList.clearElements(this, start)
+    return CommonList.clearElements(this, start)
   }
 
   // 清除列表
@@ -638,7 +648,7 @@ class ParamList extends HTMLElement {
     if (this.focusing) {
       let element = this
       while (element = element.parentNode) {
-        if (element instanceof Yami.WindowFrame) {
+        if (element instanceof WindowFrame) {
           if (element.hasClass('blur')) {
             return
           } else {
@@ -808,7 +818,7 @@ class ParamList extends HTMLElement {
           const allSelectable = this.data.length > 0
           const undoable = this.history.canUndo()
           const redoable = this.history.canRedo()
-          const get = Yami.Local.createGetter('menuParamList')
+          const get = Local.createGetter('menuParamList')
           const menuItems = [{
             label: get('edit'),
             accelerator: 'Enter',
@@ -826,7 +836,7 @@ class ParamList extends HTMLElement {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: Yami.ctrl('X'),
+            accelerator: ctrl('X'),
             enabled: valid,
             click: () => {
               this.copy()
@@ -834,14 +844,14 @@ class ParamList extends HTMLElement {
             },
           }, {
             label: get('copy'),
-            accelerator: Yami.ctrl('C'),
+            accelerator: ctrl('C'),
             enabled: valid,
             click: () => {
               this.copy()
             },
           }, {
             label: get('paste'),
-            accelerator: Yami.ctrl('V'),
+            accelerator: ctrl('V'),
             enabled: pastable,
             click: () => {
               this.paste()
@@ -855,21 +865,21 @@ class ParamList extends HTMLElement {
             },
           }, {
             label: get('selectAll'),
-            accelerator: Yami.ctrl('A'),
+            accelerator: ctrl('A'),
             enabled: allSelectable,
             click: () => {
               this.select(0, Infinity)
             },
           }, {
             label: get('undo'),
-            accelerator: Yami.ctrl('Z'),
+            accelerator: ctrl('Z'),
             enabled: undoable,
             click: () => {
               this.undo()
             },
           }, {
             label: get('redo'),
-            accelerator: Yami.ctrl('Y'),
+            accelerator: ctrl('Y'),
             enabled: redoable,
             click: () => {
               this.redo()
@@ -884,7 +894,7 @@ class ParamList extends HTMLElement {
               },
             })
           }
-          Yami.Menu.popup({
+          Menu.popup({
             x: event.clientX,
             y: event.clientY,
           }, menuItems)

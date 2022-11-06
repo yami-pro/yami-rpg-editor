@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  AttributeListInterface,
+  Browser,
+  EventListInterface,
+  File,
+  getElementWriter,
+  Inspector,
+  ScriptListInterface
+} = Yami
+
 // ******************************** 文件 - 技能页面 ********************************
 
 {
@@ -23,13 +33,13 @@ import * as Yami from '../yami.js'
   // 初始化
   FileSkill.initialize = function () {
     // 绑定属性列表
-    $('#fileSkill-attributes').bind(new Yami.AttributeListInterface())
+    $('#fileSkill-attributes').bind(new AttributeListInterface())
 
     // 绑定事件列表
-    $('#fileSkill-events').bind(new Yami.EventListInterface())
+    $('#fileSkill-events').bind(new EventListInterface())
 
     // 绑定脚本列表
-    $('#fileSkill-scripts').bind(new Yami.ScriptListInterface())
+    $('#fileSkill-scripts').bind(new ScriptListInterface())
 
     // 绑定脚本参数面板
     $('#fileSkill-parameter-pane').bind($('#fileSkill-scripts'))
@@ -57,7 +67,7 @@ import * as Yami from '../yami.js'
       this.meta = meta
 
       // 写入数据
-      const write = Yami.getElementWriter('fileSkill', skill)
+      const write = getElementWriter('fileSkill', skill)
       write('icon')
       write('clip')
       write('attributes')
@@ -69,7 +79,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileSkill.close = function () {
     if (this.target) {
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       $('#fileSkill-attributes').clear()
@@ -81,13 +91,13 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileSkill.update = function (skill, key, value) {
-    Yami.File.planToSave(this.meta)
+    File.planToSave(this.meta)
     switch (key) {
       case 'icon':
       case 'clip':
         if (skill[key] !== value) {
           skill[key] = value
-          Yami.Browser.body.updateIcon(this.meta.file)
+          Browser.body.updateIcon(this.meta.file)
         }
         break
     }
@@ -97,15 +107,15 @@ import * as Yami from '../yami.js'
   FileSkill.paramInput = function (event) {
     FileSkill.update(
       FileSkill.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
   // 列表 - 改变事件
   FileSkill.listChange = function (event) {
-    Yami.File.planToSave(FileSkill.meta)
+    File.planToSave(FileSkill.meta)
   }
 
-  Yami.Inspector.fileSkill = FileSkill
+  Inspector.fileSkill = FileSkill
 }

@@ -2,6 +2,17 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ctrl,
+  Data,
+  File,
+  GUID,
+  History,
+  Local,
+  Menu,
+  Window
+} = Yami
+
 // ******************************** 枚举窗口 ********************************
 
 const Enum = {
@@ -102,7 +113,7 @@ Enum.initialize = function () {
   this.searcher.addCloseButton()
 
   // 设置历史操作处理器
-  Yami.History.processors['enum-list-operation'] = (operation, data) => {
+  History.processors['enum-list-operation'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
     if (list.read() === null &&
@@ -111,14 +122,14 @@ Enum.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['enum-settings-change'] = (operation, data) => {
+  History.processors['enum-settings-change'] = (operation, data) => {
     const {settings} = data
     data.settings = this.settings
     this.settings = settings
     list.update()
     this.changed = true
   }
-  Yami.History.processors['enum-name-change'] = (operation, data) => {
+  History.processors['enum-name-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.name
     item.name = value
@@ -132,7 +143,7 @@ Enum.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['enum-value-change'] = (operation, data) => {
+  History.processors['enum-value-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.value
     item.value = value
@@ -146,7 +157,7 @@ Enum.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['enum-note-change'] = (operation, data) => {
+  History.processors['enum-note-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.note
     item.note = value
@@ -186,9 +197,9 @@ Enum.initialize = function () {
 Enum.open = function (target = null, mode = 'normal') {
   this.mode = mode
   this.target = target
-  this.history = new Yami.History(100)
+  this.history = new History(100)
   this.unpackEnumeration()
-  Yami.Window.open('enum')
+  Window.open('enum')
 
   // 查询项目并更新列表
   const list = this.list
@@ -234,7 +245,7 @@ Enum.redo = function () {
 // 创建ID
 Enum.createId = function () {
   let id
-  do {id = Yami.GUID.generate64bit()}
+  do {id = GUID.generate64bit()}
   while (this.idList.includes(id))
   this.idList.push(id)
   return id
@@ -281,32 +292,32 @@ Enum.setFolderGroup = function (folder, newGroup) {
 
 // 获取枚举群组
 Enum.getEnumGroup = function (groupKey) {
-  return Yami.Data.enumeration.context.getEnumGroup(groupKey)
+  return Data.enumeration.context.getEnumGroup(groupKey)
 }
 
 // 获取字符串
 Enum.getString = function (stringId) {
-  return Yami.Data.enumeration.context.getString(stringId)
+  return Data.enumeration.context.getString(stringId)
 }
 
 // 获取群组字符串
 Enum.getGroupString = function (groupKey, stringId) {
-  return Yami.Data.enumeration.context.getGroupString(groupKey, stringId)
+  return Data.enumeration.context.getGroupString(groupKey, stringId)
 }
 
 // 获取默认字符串ID
 Enum.getDefStringId = function (groupKey) {
-  return Yami.Data.enumeration.context.getDefStringId(groupKey)
+  return Data.enumeration.context.getDefStringId(groupKey)
 }
 
 // 获取枚举字符串选项列表
 Enum.getStringItems = function (groupKey, allowNone) {
-  return Yami.Data.enumeration.context.getStringItems(groupKey, allowNone)
+  return Data.enumeration.context.getStringItems(groupKey, allowNone)
 }
 
 // 获取合并的选项列表
 Enum.getMergedItems = function (headItems, groupKey, mergedKey) {
-  return Yami.Data.enumeration.context.getMergedItems(headItems, groupKey, mergedKey)
+  return Data.enumeration.context.getMergedItems(headItems, groupKey, mergedKey)
 }
 
 // 打开字符串面板
@@ -351,7 +362,7 @@ Enum.unpackEnumeration = function IIFE() {
     // 写入展开状态
     set expanded(value) {
       this.data.expanded = value
-      Yami.File.planToSave(Yami.Data.manifest.project.enumeration)
+      File.planToSave(Data.manifest.project.enumeration)
     }
   }
   const clone = items => {
@@ -370,8 +381,8 @@ Enum.unpackEnumeration = function IIFE() {
   }
   return function () {
     this.idList = []
-    this.data = clone(Yami.Data.enumeration.strings)
-    this.settings = Object.clone(Yami.Data.enumeration.settings)
+    this.data = clone(Data.enumeration.strings)
+    this.settings = Object.clone(Data.enumeration.settings)
     // 创建特殊分组的键列表
     if (!this.settingKeys) {
       this.settingKeys = Object.keys(this.settings)
@@ -401,9 +412,9 @@ Enum.packEnumeration = function IIFE() {
     return copies
   }
   return function () {
-    Yami.Data.enumeration.strings = clone(this.data)
-    Yami.Data.enumeration.settings = Object.clone(this.settings)
-    Yami.Data.createEnumerationContext()
+    Data.enumeration.strings = clone(this.data)
+    Data.enumeration.settings = Object.clone(this.settings)
+    Data.createEnumerationContext()
   }
 }()
 
@@ -431,14 +442,14 @@ Enum.windowClose = function (event) {
   this.list.saveScroll()
   if (this.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedEnumeration'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Yami.Window.close('enum')
+        Window.close('enum')
       },
     }, {
       label: get('no'),
@@ -580,7 +591,7 @@ Enum.listPopup = function (event) {
   const pastable = Clipboard.has('yami.data.enumeration')
   const undoable = Enum.history.canUndo()
   const redoable = Enum.history.canRedo()
-  const get = Yami.Local.createGetter('menuEnumList')
+  const get = Local.createGetter('menuEnumList')
   let headItems = Array.empty
   let footItems = Array.empty
   if (selected) {
@@ -615,7 +626,7 @@ Enum.listPopup = function (event) {
       submenu: submenu,
     }]
   }
-  Yami.Menu.popup({
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [...headItems, {
@@ -634,14 +645,14 @@ Enum.listPopup = function (event) {
     }],
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -662,14 +673,14 @@ Enum.listPopup = function (event) {
     },
   }, {
     label: get('undo'),
-    accelerator: Yami.ctrl('Z'),
+    accelerator: ctrl('Z'),
     enabled: undoable,
     click: () => {
       Enum.undo()
     },
   }, {
     label: get('redo'),
-    accelerator: Yami.ctrl('Y'),
+    accelerator: ctrl('Y'),
     enabled: redoable,
     click: () => {
       Enum.redo()
@@ -763,7 +774,7 @@ Enum.confirm = function (event) {
       break
     }
   }
-  Yami.Window.close('enum')
+  Window.close('enum')
 }.bind(Enum)
 
 // 应用按钮 - 鼠标点击事件
@@ -773,7 +784,7 @@ Enum.apply = function (event) {
 
     // 保存枚举数据
     this.packEnumeration()
-    Yami.File.planToSave(Yami.Data.manifest.project.enumeration)
+    File.planToSave(Data.manifest.project.enumeration)
 
     // 发送枚举改变事件
     window.dispatchEvent(new Event('enumchange'))
@@ -800,8 +811,8 @@ Enum.list.paste = function (dItem) {
 // 列表 - 删除
 Enum.list.delete = function (item) {
   if (item) {
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('deleteSingleFile').replace('<filename>', item.name),
     }, [{
       label: get('yes'),
@@ -825,7 +836,7 @@ Enum.list.delete = function (item) {
 
 // 列表 - 保存滚动状态
 Enum.list.saveScroll = function () {
-  const {enumeration} = Yami.Data
+  const {enumeration} = Data
   // 将数据保存在外部可以切换项目后重置
   if (enumeration.scrollTop === undefined) {
     Object.defineProperty(enumeration, 'scrollTop', {
@@ -838,7 +849,7 @@ Enum.list.saveScroll = function () {
 
 // 列表 - 恢复滚动状态
 Enum.list.restoreScroll = function () {
-  this.scrollTop = Yami.Data.enumeration.scrollTop ?? 0
+  this.scrollTop = Data.enumeration.scrollTop ?? 0
 }
 
 // 列表 - 取消搜索

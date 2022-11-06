@@ -2,6 +2,18 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  CommonList,
+  Directory,
+  File,
+  FS,
+  FSP,
+  Menu,
+  Path,
+  TextBox,
+  Timer
+} = Yami
+
 // ******************************** 文件导航面板 ********************************
 
 class FileNavPane extends HTMLElement {
@@ -16,7 +28,7 @@ class FileNavPane extends HTMLElement {
     super()
 
     // 创建重命名计时器
-    const timer = new Yami.Timer({
+    const timer = new Timer({
       duration: 500,
       callback: timer => {
         const files = this.selections
@@ -92,12 +104,12 @@ class FileNavPane extends HTMLElement {
 
   // 重新调整
   resize() {
-    return Yami.CommonList.resize(this)
+    return CommonList.resize(this)
   }
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return Yami.CommonList.updateHeadAndFoot(this)
+    return CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -112,7 +124,7 @@ class FileNavPane extends HTMLElement {
   createItems(dir, indent) {
     if (dir.sorted === undefined) {
       dir.sorted = true
-      Yami.Directory.sortFiles(dir)
+      Directory.sortFiles(dir)
     }
     const elements = this.elements
     const length = dir.length
@@ -333,7 +345,7 @@ class FileNavPane extends HTMLElement {
   rename(file) {
     const {textBox} = FileNavPane
     if (document.activeElement === this &&
-      file !== Yami.Directory.assets &&
+      file !== Directory.assets &&
       !textBox.parentNode) {
       const context = file.getContext(this)
       const element = context.element
@@ -535,7 +547,7 @@ class FileNavPane extends HTMLElement {
                 }
                 this.pressing = pointerup
                 window.on('pointerup', pointerup, {once: true})
-              } else if (Yami.Menu.state === 'closed' &&
+              } else if (Menu.state === 'closed' &&
                 document.activeElement === this &&
                 event.clientX > element.fileIcon.rect().right) {
                 this.timer.target = event.target
@@ -597,11 +609,11 @@ class FileNavPane extends HTMLElement {
   // 目录改变事件
   dirchange(event) {
     const folders = []
-    const {inoMap} = Yami.Directory
+    const {inoMap} = Directory
     for (const folder of this.getSelections()) {
       const {ino} = folder.stats
       const {path} = inoMap[ino] || folder
-      folders.append(Yami.Directory.getFolder(path))
+      folders.append(Directory.getFolder(path))
     }
     const {browser} = this.links
     switch (browser.display) {
@@ -617,7 +629,7 @@ class FileNavPane extends HTMLElement {
 
   // 静态 - 创建文本输入框
   static textBox = function IIFE() {
-    const textBox = new Yami.TextBox()
+    const textBox = new TextBox()
     textBox.setMaxLength(64)
     textBox.addClass('file-nav-text-box')
     textBox.input.addClass('file-nav-text-box-input')
@@ -667,14 +679,14 @@ class FileNavPane extends HTMLElement {
       const name = this.read().trim()
       this.remove()
       if (name && name !== file.name) {
-        const dir = Yami.Path.dirname(file.path)
-        const path = Yami.File.route(`${dir}/${name}`)
-        if (!Yami.FS.existsSync(path)) {
-          return Yami.FSP.rename(
-            Yami.File.route(file.path),
+        const dir = Path.dirname(file.path)
+        const path = File.route(`${dir}/${name}`)
+        if (!FS.existsSync(path)) {
+          return FSP.rename(
+            File.route(file.path),
             path,
           ).then(() => {
-            return Yami.Directory.update()
+            return Directory.update()
           }).then(changed => {
             if (!changed) {
               throw new Error()

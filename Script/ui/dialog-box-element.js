@@ -2,9 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const { UI } = Yami
+
 // ******************************** 对话框元素 ********************************
 
-class DialogBoxElement extends Yami.UI.Text {
+class DialogBoxElement extends UI.Text {
   constructor(data) {
     super({...data,
       direction: 'horizontal-tb',
@@ -15,7 +17,7 @@ class DialogBoxElement extends Yami.UI.Text {
   }
 }
 
-Yami.UI.DialogBox = DialogBoxElement
+UI.DialogBox = DialogBoxElement
 
 // ******************************** 对话框元素导出 ********************************
 

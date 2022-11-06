@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Editor,
+  Window
+} = Yami
+
 // ******************************** 缩放窗口 ********************************
 
 const Zoom = {
@@ -23,7 +28,7 @@ Zoom.initialize = function () {
 
 // 打开窗口
 Zoom.open = function () {
-  Yami.Window.open('zoom')
+  Window.open('zoom')
   $('#zoom-factor').write(this.getFactor())
   $('#zoom-factor').getFocus('all')
 }
@@ -35,9 +40,9 @@ Zoom.getFactor = function () {
 
 // 确定按钮 - 鼠标点击事件
 Zoom.confirm = function (event) {
-  Yami.Window.close('zoom')
+  Window.close('zoom')
   require('electron').webFrame.setZoomFactor(
-    Yami.Editor.config.zoom = $('#zoom-factor').read()
+    Editor.config.zoom = $('#zoom-factor').read()
   )
 }
 

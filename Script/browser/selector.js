@@ -2,6 +2,17 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  Directory,
+  File,
+  FileItem,
+  FolderItem,
+  Local,
+  Menu,
+  Window
+} = Yami
+
 // ******************************** 资源选择器 ********************************
 
 const Selector = $('#selector-browser')
@@ -38,20 +49,20 @@ Selector.initialize = function () {
 Selector.open = function (target, allowNone = true) {
   this.target = target
   this.allowNone = allowNone
-  Yami.Window.open('selector')
+  Window.open('selector')
 
   const {nav, head, body} = this
   const guid = target.read()
-  const meta = Yami.Data.manifest.guidMap[guid]
+  const meta = Data.manifest.guidMap[guid]
   const filter = target.filter
   this.filters = filter ? filter.split('|') : null
   body.computeGridProperties()
   if (meta !== undefined) {
     const path = meta.path
-    nav.load(Yami.Directory.getFolder(path))
+    nav.load(Directory.getFolder(path))
     body.selectByPath(path)
   } else {
-    nav.load(Yami.Directory.assets)
+    nav.load(Directory.assets)
   }
   head.searcher.getFocus()
 }
@@ -66,7 +77,7 @@ Selector.saveToProject = function (project) {
 // 从项目文件中加载状态
 Selector.loadFromProject = function (project) {
   const {view} = project.selector
-  this.directory = [Yami.Directory.assets]
+  this.directory = [Directory.assets]
   this.body.setViewIndex(view)
 }
 
@@ -108,7 +119,7 @@ Selector.searcherKeydown = function (event) {
           const {elements} = body
           if (elements.count === 1) {
             const {file} = elements[0]
-            if (file instanceof Yami.FileItem) {
+            if (file instanceof FileItem) {
               body.select(file)
               Selector.confirm(event)
             }
@@ -128,7 +139,7 @@ Selector.bodyOpen = function (event) {
 Selector.bodyPopup = function (event) {
   const items = []
   const {target} = event.raw
-  const get = Yami.Local.createGetter('menuFileBrowser')
+  const get = Local.createGetter('menuFileBrowser')
   if (target.seek('file-body-pane') === this) {
     const {browser, nav} = this.links
     const folders = nav.selections
@@ -138,8 +149,8 @@ Selector.bodyPopup = function (event) {
     items.push({
       label: get('showInExplorer'),
       click: () => {
-        Yami.File.openPath(
-          Yami.File.route(folders[0].path)
+        File.openPath(
+          File.route(folders[0].path)
         )
       },
     })
@@ -156,7 +167,7 @@ Selector.bodyPopup = function (event) {
           this.showInExplorer()
         },
       }, {
-        label: get(file instanceof Yami.FolderItem ? 'open' : 'select'),
+        label: get(file instanceof FolderItem ? 'open' : 'select'),
         accelerator: 'Enter',
         enabled: single,
         click: () => {
@@ -165,14 +176,14 @@ Selector.bodyPopup = function (event) {
       }, {
         label: get('delete'),
         accelerator: 'Delete',
-        enabled: !selections.includes(Yami.Directory.assets),
+        enabled: !selections.includes(Directory.assets),
         click: () => {
           this.deleteFiles()
         },
       }, {
         label: get('rename'),
         accelerator: 'F2',
-        enabled: single && file !== Yami.Directory.assets,
+        enabled: single && file !== Directory.assets,
         click: () => {
           this.rename(file)
         },
@@ -185,7 +196,7 @@ Selector.bodyPopup = function (event) {
     }
   }
   if (items.length !== 0) {
-    Yami.Menu.popup({
+    Menu.popup({
       x: event.clientX,
       y: event.clientY,
     }, items)
@@ -200,19 +211,19 @@ Selector.confirm = function (event) {
   const files = Selector.body.selections
   switch (files.length) {
     case 1:
-      if (files[0] instanceof Yami.FileItem) {
+      if (files[0] instanceof FileItem) {
         const file = files[0]
         const meta = file.meta
         if (meta !== undefined) {
           Selector.target.input(meta.guid)
-          Yami.Window.close('selector')
+          Window.close('selector')
         }
       }
       break
     case 0:
       if (Selector.allowNone) {
         Selector.target.input('')
-        Yami.Window.close('selector')
+        Window.close('selector')
       }
       break
   }

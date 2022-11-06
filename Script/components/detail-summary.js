@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { DetailBox } = Yami
+
 // ******************************** 细节概要 ********************************
 
 class DetailSummary extends HTMLElement {
@@ -19,7 +21,7 @@ class DetailSummary extends HTMLElement {
   // 开关父元素
   toggle() {
     const parent = this.parentNode
-    if (parent instanceof Yami.DetailBox) {
+    if (parent instanceof DetailBox) {
       parent.toggle()
     }
   }

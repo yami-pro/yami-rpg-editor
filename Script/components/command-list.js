@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  CommandHistory,
+  CommonList,
+  ctrl,
+  Local,
+  Menu,
+  WindowFrame
+} = Yami
+
 // ******************************** 指令列表 ********************************
 
 class CommandList extends HTMLElement {
@@ -86,7 +96,7 @@ class CommandList extends HTMLElement {
     if (!data.history) {
       Object.defineProperty(data, 'history', {
         configurable: true,
-        value: new Yami.CommandHistory(this),
+        value: new CommandHistory(this),
       })
     }
     Promise.resolve().then(() => {
@@ -101,9 +111,9 @@ class CommandList extends HTMLElement {
     elements.count = 0
 
     // 创建列表项
-    Yami.Command.format = true
+    Command.format = true
     this.createItems(this.data, 0)
-    Yami.Command.format = false
+    Command.format = false
 
     // 写入索引
     const {count} = elements
@@ -123,12 +133,12 @@ class CommandList extends HTMLElement {
 
   // 重新调整
   resize() {
-    return Yami.CommonList.resize(this)
+    return CommonList.resize(this)
   }
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return Yami.CommonList.updateHeadAndFoot(this)
+    return CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -196,7 +206,7 @@ class CommandList extends HTMLElement {
       buffer.push(li)
 
       // 创建内容
-      const contents = Yami.Command.parse(command)
+      const contents = Command.parse(command)
       const length = contents.length
       for (let i = 0; i < length; i++) {
         const content = contents[i]
@@ -209,7 +219,7 @@ class CommandList extends HTMLElement {
 
         // 改变颜色
         if (content.color !== undefined) {
-          color = Yami.Command.invalid ? 'invalid' : content.color
+          color = Command.invalid ? 'invalid' : content.color
           continue
         }
 
@@ -308,7 +318,7 @@ class CommandList extends HTMLElement {
       // 创建文本
       if (content.text !== undefined) {
         const text = document.createElement('command-text')
-        const updater = Yami.Command.FormatUpdater.create(content.text, text)
+        const updater = Command.FormatUpdater.create(content.text, text)
         if (updater) {
           // 如果文本中存在全局变量格式
           // 则创建更新器用来即时更新变量名
@@ -390,7 +400,7 @@ class CommandList extends HTMLElement {
 
   // 计算文本缩进
   computeTextIndent(indent) {
-    switch (Yami.Local.language) {
+    switch (Local.language) {
       case 'en-US':
         return indent * 2 + 'ch'
       default:
@@ -839,7 +849,7 @@ class CommandList extends HTMLElement {
         return
       }
       this.inserting = true
-      Yami.Command.insert(this, id)
+      Command.insert(this, id)
     }
   }
 
@@ -854,12 +864,12 @@ class CommandList extends HTMLElement {
       this.inserting = element.dataItem === null
       switch (this.inserting) {
         case true:
-          Yami.Command.insert(this, '')
+          Command.insert(this, '')
           break
         case false: {
           const command = element.dataItem
           if (command.buffer.enabled) {
-            Yami.Command.edit(this, command)
+            Command.edit(this, command)
           }
           break
         }
@@ -1085,7 +1095,7 @@ class CommandList extends HTMLElement {
 
   // 清除元素
   clearElements(start) {
-    return Yami.CommonList.clearElements(this, start)
+    return CommonList.clearElements(this, start)
   }
 
   // 清除列表
@@ -1124,7 +1134,7 @@ class CommandList extends HTMLElement {
     if (this.focusing) {
       let element = this
       while (element = element.parentNode) {
-        if (element instanceof Yami.WindowFrame) {
+        if (element instanceof WindowFrame) {
           if (element.hasClass('blur')) {
             return
           } else {
@@ -1357,8 +1367,8 @@ class CommandList extends HTMLElement {
           const allSelectable = this.data.length > 0
           const undoable = this.history.canUndo()
           const redoable = this.history.canRedo()
-          const get = Yami.Local.createGetter('menuCommandList')
-          Yami.Menu.popup({
+          const get = Local.createGetter('menuCommandList')
+          Menu.popup({
             x: event.clientX,
             y: event.clientY,
           }, [{
@@ -1393,7 +1403,7 @@ class CommandList extends HTMLElement {
             type: 'separator',
           }, {
             label: get('cut'),
-            accelerator: Yami.ctrl('X'),
+            accelerator: ctrl('X'),
             enabled: valid,
             click: () => {
               this.copy()
@@ -1401,14 +1411,14 @@ class CommandList extends HTMLElement {
             },
           }, {
             label: get('copy'),
-            accelerator: Yami.ctrl('C'),
+            accelerator: ctrl('C'),
             enabled: valid,
             click: () => {
               this.copy()
             },
           }, {
             label: get('paste'),
-            accelerator: Yami.ctrl('V'),
+            accelerator: ctrl('V'),
             enabled: pastable,
             click: () => {
               this.paste()
@@ -1422,21 +1432,21 @@ class CommandList extends HTMLElement {
             },
           }, {
             label: get('selectAll'),
-            accelerator: Yami.ctrl('A'),
+            accelerator: ctrl('A'),
             enabled: allSelectable,
             click: () => {
               this.select(0, Infinity)
             },
           }, {
             label: get('undo'),
-            accelerator: Yami.ctrl('Z'),
+            accelerator: ctrl('Z'),
             enabled: undoable,
             click: () => {
               this.undo()
             },
           }, {
             label: get('redo'),
-            accelerator: Yami.ctrl('Y'),
+            accelerator: ctrl('Y'),
             enabled: redoable,
             click: () => {
               this.redo()

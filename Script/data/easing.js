@@ -2,6 +2,22 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ctrl,
+  Data,
+  File,
+  getElementReader,
+  getElementWriter,
+  GUID,
+  Inspector,
+  Local,
+  Menu,
+  NodeList,
+  SetKey,
+  Timer,
+  Window
+} = Yami
+
 // ******************************** 过渡窗口 ********************************
 
 const Easing = {
@@ -149,7 +165,7 @@ Easing.initialize = function () {
   $('#easing-preview-delay').write(this.delay)
 
   // 创建计时器
-  this.timer = new Yami.Timer({
+  this.timer = new Timer({
     duration: this.duration,
     update: timer => {
       switch (timer.state) {
@@ -232,7 +248,7 @@ const get = id => {
   }
 
   // 创建新的映射表
-  const easing = Yami.Data.easings.map[id]
+  const easing = Data.easings.map[id]
   if (easing) {
     const {points} = easing
     const {startPoint, endPoint} = Easing
@@ -259,10 +275,10 @@ Easing.clear = clear
 
 // 打开窗口
 Easing.open = function () {
-  Yami.Window.open('easing')
+  Window.open('easing')
 
   // 创建数据副本
-  this.data = Object.clone(Yami.Data.easings)
+  this.data = Object.clone(Data.easings)
 
   // 创建映射表
   this.curveMap = new Easing.CurveMap()
@@ -296,7 +312,7 @@ Easing.load = function (easing) {
   this.points = points
 
   // 写入数据
-  const write = Yami.getElementWriter('easing', easing)
+  const write = getElementWriter('easing', easing)
   const length = points.length
   write('mode', length)
   for (let i = 0; i < length; i++) {
@@ -339,8 +355,8 @@ Easing.paste = function (dItem) {
 Easing.delete = function (item) {
   const items = this.data
   if (items.length > 1) {
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('deleteSingleFile').replace('<filename>', item.name),
     }, [{
       label: get('yes'),
@@ -359,7 +375,7 @@ Easing.delete = function (item) {
 // 创建ID
 Easing.createId = function () {
   let id
-  do {id = Yami.GUID.generate64bit()}
+  do {id = GUID.generate64bit()}
   while (this.getItemById(id))
   return id
 }
@@ -376,7 +392,7 @@ Easing.createData = function () {
 
 // 设置过渡曲线的键
 Easing.setEasingKey = function (item) {
-  Yami.SetKey.open(item.key, key => {
+  SetKey.open(item.key, key => {
     item.key = key
     this.changed = true
     this.list.updateKeyTextNode(item)
@@ -638,7 +654,7 @@ Easing.drawPreview = function () {
 
 // 更新控制点
 Easing.updatePoints = function () {
-  const read = Yami.getElementReader('easing')
+  const read = getElementReader('easing')
   const count = read('mode')
   const points = this.points
   const length = points.length
@@ -692,7 +708,7 @@ Easing.selectPointByCoords = function (mouseX, mouseY) {
 // 创建控制点图像
 Easing.createPointImage = function () {
   if (!this.pointImage) {
-    Yami.File.get({
+    File.get({
       local: 'images/curve_mark.png',
       type: 'image',
     }).then(image => {
@@ -725,7 +741,7 @@ Easing.createPreviewImage = function () {
 // 请求渲染
 Easing.requestRendering = function () {
   if (this.data !== null) {
-    Yami.Timer.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -736,21 +752,21 @@ Easing.renderingFunction = function () {
 
 // 停止渲染
 Easing.stopRendering = function () {
-  Yami.Timer.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 窗口 - 关闭事件
 Easing.windowClose = function (event) {
   if (Easing.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedEasings'),
     }, [{
       label: get('yes'),
       click: () => {
         Easing.changed = false
-        Yami.Window.close('easing')
+        Window.close('easing')
       },
     }, {
       label: get('no'),
@@ -853,8 +869,8 @@ Easing.listPopup = function (event) {
   const selected = !!item
   const pastable = Clipboard.has('yami.data.easing')
   const deletable = selected && Easing.data.length > 1
-  const get = Yami.Local.createGetter('menuEasingList')
-  Yami.Menu.popup({
+  const get = Local.createGetter('menuEasingList')
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -865,14 +881,14 @@ Easing.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       Easing.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       Easing.paste(item)
@@ -905,8 +921,8 @@ Easing.modeSelect = function (event) {
   this.updatePoints()
   const points = this.points
   const easingMap = this.easingMap
-  const write = Yami.getElementWriter('easing')
-  const read = Yami.getElementReader('easing')
+  const write = getElementWriter('easing')
+  const read = getElementReader('easing')
   if (points.length === 5 &&
     points[2].x === 0 && points[2].y === 0 &&
     points[3].x === 0 && points[3].y === 0 &&
@@ -959,7 +975,7 @@ Easing.modeSelect = function (event) {
 
 // 控制点输入框 - 输入事件
 Easing.pointInput = function (event) {
-  const key = Yami.Inspector.getKey(this)
+  const key = Inspector.getKey(this)
   const value = this.read()
   const keys = key.split('-')
   const end = keys.length - 1
@@ -1151,16 +1167,16 @@ Easing.confirm = function (event) {
     this.clear()
     // 删除数据绑定的元素对象
     const easings = this.data
-    Yami.NodeList.deleteCaches(easings)
-    Yami.Data.easings = easings
-    Yami.Data.createGUIDMap(easings)
-    Yami.File.planToSave(Yami.Data.manifest.project.easings)
+    NodeList.deleteCaches(easings)
+    Data.easings = easings
+    Data.createGUIDMap(easings)
+    File.planToSave(Data.manifest.project.easings)
     // 发送数据改变事件
     const datachange = new Event('datachange')
     datachange.key = 'easings'
     window.dispatchEvent(datachange)
   }
-  Yami.Window.close('easing')
+  Window.close('easing')
 }.bind(Easing)
 
 // 三次方曲线映射表类 - 必须使用Float64
@@ -1263,7 +1279,7 @@ Easing.EasingMap = function IIFE() {
 
 // 列表 - 保存选项状态
 Easing.list.saveSelection = function () {
-  const {easings} = Yami.Data
+  const {easings} = Data
   // 将数据保存在外部可以切换项目后重置
   if (easings.selection === undefined) {
     Object.defineProperty(easings, 'selection', {
@@ -1279,7 +1295,7 @@ Easing.list.saveSelection = function () {
 
 // 列表 - 恢复选项状态
 Easing.list.restoreSelection = function () {
-  const id = Yami.Data.easings.selection
+  const id = Data.easings.selection
   const item = Easing.getItemById(id) ?? this.data[0]
   this.select(item)
   this.update()

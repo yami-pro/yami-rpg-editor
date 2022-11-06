@@ -2,12 +2,20 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  getElementWriter,
+  Inspector,
+  UI,
+  UIElement
+} = Yami
+
 // ******************************** 元素 - 文本页面 ********************************
 
  {
   const UIText = {
     // properties
-    owner: Yami.UI,
+    owner: UI,
     target: null,
     // methods
     initialize: null,
@@ -87,15 +95,15 @@ import * as Yami from '../yami.js'
       #uiText-effect-strokeWidth, #uiText-effect-color, #uiText-overflow, #uiText-blend`)
     const sliders = $('#uiText-size-slider, #uiText-lineSpacing-slider, #uiText-letterSpacing-slider')
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
-    sliders.on('focus', Yami.Inspector.sliderFocus)
-    sliders.on('blur', Yami.Inspector.sliderBlur)
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, UI))
+    sliders.on('focus', Inspector.sliderFocus)
+    sliders.on('blur', Inspector.sliderBlur)
   }
 
   // 创建文本
   UIText.create = function () {
-    const transform = Yami.UIElement.createTransform()
+    const transform = UIElement.createTransform()
     transform.width = 100
     transform.height = 24
     return {
@@ -132,7 +140,7 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = Yami.getElementWriter('uiText', node)
+      const write = getElementWriter('uiText', node)
       write('direction')
       write('horizontalAlign')
       write('verticalAlign')
@@ -150,23 +158,23 @@ import * as Yami from '../yami.js'
       write('effect-color', node.effect.color || '000000ff')
       write('overflow')
       write('blend')
-      Yami.UIElement.open(node)
+      UIElement.open(node)
     }
   }
 
   // 关闭数据
   UIText.close = function () {
     if (this.target) {
-      Yami.UI.list.unselect(this.target)
-      Yami.UI.updateTarget()
-      Yami.UIElement.close()
+      UI.list.unselect(this.target)
+      UI.updateTarget()
+      UIElement.close()
       this.target = null
     }
   }
 
   // 更新数据
   UIText.update = function (node, key, value) {
-    Yami.UI.planToSave()
+    UI.planToSave()
     const element = node.instance
     switch (key) {
       case 'horizontalAlign':
@@ -175,7 +183,7 @@ import * as Yami from '../yami.js'
           if (event &&
             event.type === 'input' &&
             event.value !== undefined) {
-            Yami.UI.history.save({
+            UI.history.save({
               type: 'inspector-change',
               editor: this,
               target: this.target,
@@ -196,7 +204,7 @@ import * as Yami from '../yami.js'
           if (event &&
             event.type === 'input' &&
             event.value !== undefined) {
-            Yami.UI.history.save({
+            UI.history.save({
               type: 'inspector-change',
               editor: this,
               target: this.target,
@@ -235,7 +243,7 @@ import * as Yami from '../yami.js'
       }
       case 'effect-type':
         if (node.effect.type !== value) {
-          const read = Yami.getElementReader('uiText-effect')
+          const read = getElementReader('uiText-effect')
           const effect = {type: value}
           switch (value) {
             case 'none':
@@ -270,17 +278,17 @@ import * as Yami from '../yami.js'
         break
       }
     }
-    Yami.UI.requestRendering()
+    UI.requestRendering()
   }
 
   // 参数 - 输入事件
   UIText.paramInput = function (event) {
     UIText.update(
       UIText.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.uiText = UIText
+  Inspector.uiText = UIText
 }

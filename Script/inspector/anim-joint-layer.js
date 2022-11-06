@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Inspector } = Yami
+
 // ******************************** 动画 - 关节层页面 ********************************
 
 {
@@ -18,10 +20,10 @@ import * as Yami from '../yami.js'
       expanded: true,
       hidden: false,
       locked: false,
-      frames: [Yami.Inspector.animJointFrame.create()],
+      frames: [Inspector.animJointFrame.create()],
       children: [],
     }
   }
 
-  Yami.Inspector.animJointLayer = AnimJointLayer
+  Inspector.animJointLayer = AnimJointLayer
 }

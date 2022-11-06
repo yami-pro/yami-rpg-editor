@@ -2,12 +2,21 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ConditionListInterface,
+  EventListInterface,
+  getElementWriter,
+  Inspector,
+  Scene,
+  ScriptListInterface
+} = Yami
+
 // ******************************** 场景 - 光源页面 ********************************
 
 {
   const SceneLight = {
     // properties
-    owner: Yami.Scene,
+    owner: Scene,
     target: null,
     nameBox: $('#sceneLight-name'),
     // methods
@@ -54,13 +63,13 @@ import * as Yami from '../yami.js'
     ])
 
     // 绑定条件列表
-    $('#sceneLight-conditions').bind(new Yami.ConditionListInterface(this, Yami.Scene))
+    $('#sceneLight-conditions').bind(new ConditionListInterface(this, Scene))
 
     // 绑定事件列表
-    $('#sceneLight-events').bind(new Yami.EventListInterface(this, Yami.Scene))
+    $('#sceneLight-events').bind(new EventListInterface(this, Scene))
 
     // 绑定脚本列表
-    $('#sceneLight-scripts').bind(new Yami.ScriptListInterface(this, Yami.Scene))
+    $('#sceneLight-scripts').bind(new ScriptListInterface(this, Scene))
 
     // 绑定脚本参数面板
     $('#sceneLight-parameter-pane').bind($('#sceneLight-scripts'))
@@ -91,11 +100,11 @@ import * as Yami from '../yami.js'
       #sceneLight-width-slider, #sceneLight-height-slider, #sceneLight-angle-slider,
       #sceneLight-red-slider, #sceneLight-green-slider, #sceneLight-blue-slider`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.Scene))
-    sliders.on('focus', Yami.Inspector.sliderFocus)
-    sliders.on('blur', Yami.Inspector.sliderBlur)
-    $('#sceneLight-conditions, #sceneLight-events, #sceneLight-scripts').on('change', Yami.Scene.listChange)
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, Scene))
+    sliders.on('focus', Inspector.sliderFocus)
+    sliders.on('blur', Inspector.sliderBlur)
+    $('#sceneLight-conditions, #sceneLight-events, #sceneLight-scripts').on('change', Scene.listChange)
   }
 
   // 创建光源
@@ -133,7 +142,7 @@ import * as Yami from '../yami.js'
       this.target = light
 
       // 写入数据
-      const write = Yami.getElementWriter('sceneLight', light)
+      const write = getElementWriter('sceneLight', light)
       write('name')
       write('type')
       write('blend')
@@ -159,8 +168,8 @@ import * as Yami from '../yami.js'
   // 关闭数据
   SceneLight.close = function () {
     if (this.target) {
-      Yami.Scene.list.unselect(this.target)
-      Yami.Scene.updateTarget()
+      Scene.list.unselect(this.target)
+      Scene.updateTarget()
       this.target = null
       $('#sceneLight-conditions').clear()
       $('#sceneLight-events').clear()
@@ -181,13 +190,13 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   SceneLight.update = function (light, key, value) {
-    Yami.Scene.planToSave()
+    Scene.planToSave()
     switch (key) {
       case 'name':
         if (light.name !== value) {
           light.name = value
-          Yami.Scene.updateTargetInfo()
-          Yami.Scene.list.updateItemName(light)
+          Scene.updateTargetInfo()
+          Scene.list.updateItemName(light)
         }
         break
       case 'type':
@@ -221,21 +230,21 @@ import * as Yami from '../yami.js'
       case 'blue':
         if (light[key] !== value) {
           light[key] = value
-          Yami.Scene.list.updateIcon(light)
+          Scene.list.updateIcon(light)
         }
         break
     }
-    Yami.Scene.requestRendering()
+    Scene.requestRendering()
   }
 
   // 基本参数 - 输入事件
   SceneLight.paramInput = function (event) {
     SceneLight.update(
       SceneLight.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.sceneLight = SceneLight
+  Inspector.sceneLight = SceneLight
 }

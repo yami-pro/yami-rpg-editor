@@ -2,6 +2,34 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  Attribute,
+  Color,
+  ctrl,
+  CustomCommand,
+  Data,
+  Easing,
+  Editor,
+  Enum,
+  File,
+  GL,
+  Layout,
+  Local,
+  Menu,
+  Particle,
+  Path,
+  PluginManager,
+  Project,
+  Scene,
+  Team,
+  Title,
+  UI,
+  Variable,
+  Window,
+  Zoom
+} = Yami
+
 // ******************************** 菜单栏对象 ********************************
 
 const Menubar = {
@@ -46,9 +74,9 @@ Menubar.popupFileMenu = function (target) {
   if (!target.hasClass('selected')) {
     target.addClass('selected')
     const rect = target.rect()
-    const open = Yami.Editor.state === 'open'
-    const get = Yami.Local.createGetter('menuFile')
-    Yami.Menu.popup({
+    const open = Editor.state === 'open'
+    const get = Local.createGetter('menuFile')
+    Menu.popup({
       x: rect.left,
       y: rect.bottom,
       close: () => {
@@ -56,15 +84,15 @@ Menubar.popupFileMenu = function (target) {
       },
     }, [{
       label: get('newProject'),
-      accelerator: Yami.ctrl('N'),
+      accelerator: ctrl('N'),
       click: () => {
-        Yami.Title.newProject()
+        Title.newProject()
       },
     }, {
       label: get('openProject'),
-      accelerator: Yami.ctrl('O'),
+      accelerator: ctrl('O'),
       click: () => {
-        Yami.Title.openProject()
+        Title.openProject()
       },
     }, {
       label: get('openRecent'),
@@ -72,29 +100,29 @@ Menubar.popupFileMenu = function (target) {
       submenu: this.createRecentItems(),
     }, {
       label: get('saveProject'),
-      accelerator: Yami.ctrl('S'),
+      accelerator: ctrl('S'),
       enabled: open,
       click: () => {
-        Yami.File.save()
+        File.save()
       },
     }, {
       label: get('closeProject'),
       enabled: open,
       click: () => {
-        Yami.Title.closeProject()
+        Title.closeProject()
       },
     }, {
       label: get('deployment'),
       enabled: open,
       click: () => {
-        Yami.Title.deployment()
+        Title.deployment()
       },
     }, {
       type: 'separator',
     }, {
       label: get('exit'),
       click: () => {
-        Yami.Title.closeClick()
+        Title.closeClick()
       },
     }])
   }
@@ -105,23 +133,23 @@ Menubar.popupEditMenu = function (target) {
   if (!target.hasClass('selected')) {
     target.addClass('selected')
     const rect = target.rect()
-    const get = Yami.Local.createGetter('menuEdit')
+    const get = Local.createGetter('menuEdit')
     const items = {
       cut: {
         label: get('cut'),
-        accelerator: Yami.ctrl('X'),
+        accelerator: ctrl('X'),
         enabled: false,
         click: null,
       },
       copy: {
         label: get('copy'),
-        accelerator: Yami.ctrl('C'),
+        accelerator: ctrl('C'),
         enabled: false,
         click: null,
       },
       paste: {
         label: get('paste'),
-        accelerator: Yami.ctrl('V'),
+        accelerator: ctrl('V'),
         enabled: false,
         click: null,
       },
@@ -133,84 +161,84 @@ Menubar.popupEditMenu = function (target) {
       },
       undo: {
         label: get('undo'),
-        accelerator: Yami.ctrl('Z'),
+        accelerator: ctrl('Z'),
         enabled: false,
         click: null,
       },
       redo: {
         label: get('redo'),
-        accelerator: Yami.ctrl('Y'),
+        accelerator: ctrl('Y'),
         enabled: false,
         click: null,
       },
     }
     // 提前触发检查器输入框的blur事件
     document.activeElement.blur()
-    switch (Yami.Layout.manager.index) {
+    switch (Layout.manager.index) {
       case 'scene':
-        if (Yami.Scene.state === 'open') {
-          const selected = Yami.Scene.target instanceof Object
+        if (Scene.state === 'open') {
+          const selected = Scene.target instanceof Object
           const pastable = Clipboard.has('yami.scene.object')
           items.cut.enabled = selected
           items.copy.enabled = selected
           items.paste.enabled = pastable
           items.delete.enabled = selected
-          items.undo.enabled = Yami.Scene.history.canUndo()
-          items.redo.enabled = Yami.Scene.history.canRedo()
-          items.cut.click = () => {Yami.Scene.copy(); Yami.Scene.delete()}
-          items.copy.click = () => {Yami.Scene.copy()}
-          items.paste.click = () => {Yami.Scene.paste()}
-          items.delete.click = () => {Yami.Scene.delete()}
-          items.undo.click = () => {Yami.Scene.undo()}
-          items.redo.click = () => {Yami.Scene.redo()}
+          items.undo.enabled = Scene.history.canUndo()
+          items.redo.enabled = Scene.history.canRedo()
+          items.cut.click = () => {Scene.copy(); Scene.delete()}
+          items.copy.click = () => {Scene.copy()}
+          items.paste.click = () => {Scene.paste()}
+          items.delete.click = () => {Scene.delete()}
+          items.undo.click = () => {Scene.undo()}
+          items.redo.click = () => {Scene.redo()}
         }
         break
       case 'ui':
-        if (Yami.UI.state === 'open') {
-          const selected = Yami.UI.target instanceof Object
+        if (UI.state === 'open') {
+          const selected = UI.target instanceof Object
           const pastable = Clipboard.has('yami.ui.object')
           items.cut.enabled = selected
           items.copy.enabled = selected
           items.paste.enabled = pastable
           items.delete.enabled = selected
-          items.undo.enabled = Yami.UI.history.canUndo()
-          items.redo.enabled = Yami.UI.history.canRedo()
-          items.cut.click = () => {Yami.UI.copy(); Yami.UI.delete()}
-          items.copy.click = () => {Yami.UI.copy()}
-          items.paste.click = () => {Yami.UI.paste()}
-          items.delete.click = () => {Yami.UI.delete()}
-          items.undo.click = () => {Yami.UI.undo()}
-          items.redo.click = () => {Yami.UI.redo()}
+          items.undo.enabled = UI.history.canUndo()
+          items.redo.enabled = UI.history.canRedo()
+          items.cut.click = () => {UI.copy(); UI.delete()}
+          items.copy.click = () => {UI.copy()}
+          items.paste.click = () => {UI.paste()}
+          items.delete.click = () => {UI.delete()}
+          items.undo.click = () => {UI.undo()}
+          items.redo.click = () => {UI.redo()}
         }
         break
       case 'animation':
-        if (Yami.Animation.state === 'open') {
-          const selected = Yami.Animation.motion instanceof Object
+        if (Animation.state === 'open') {
+          const selected = Animation.motion instanceof Object
           const pastable = Clipboard.has('yami.animation.object')
           items.cut.enabled = selected
           items.copy.enabled = selected
           items.paste.enabled = pastable
           items.delete.enabled = selected
-          items.undo.enabled = Yami.Animation.history.canUndo()
-          items.redo.enabled = Yami.Animation.history.canRedo()
-          items.cut.click = () => {Yami.Animation.copy(); Yami.Animation.delete()}
-          items.copy.click = () => {Yami.Animation.copy()}
-          items.paste.click = () => {Yami.Animation.paste()}
-          items.delete.click = () => {Yami.Animation.delete()}
-          items.undo.click = () => {Yami.Animation.undo()}
-          items.redo.click = () => {Yami.Animation.redo()}
+          items.undo.enabled = Animation.history.canUndo()
+          items.redo.enabled = Animation.history.canRedo()
+          items.cut.click = () => {Animation.copy(); Animation.delete()}
+          items.copy.click = () => {Animation.copy()}
+          items.paste.click = () => {Animation.paste()}
+          items.delete.click = () => {Animation.delete()}
+          items.undo.click = () => {Animation.undo()}
+          items.redo.click = () => {Animation.redo()}
         }
         break
       case 'particle':
-        if (Yami.Particle.state === 'open') {
-          items.undo.enabled = Yami.Particle.history.canUndo()
-          items.redo.enabled = Yami.Particle.history.canRedo()
-          items.undo.click = () => {Yami.Particle.undo()}
-          items.redo.click = () => {Yami.Particle.redo()}
+        if (Particle.state === 'open') {
+          items.undo.enabled = Particle.history.canUndo()
+          items.redo.enabled = Particle.history.canRedo()
+          items.undo.click = () => {Particle.undo()}
+          items.redo.click = () => {Particle.redo()}
         }
         break
     }
-    Yami.Menu.popup({
+    Menu.popup({
       x: rect.left,
       y: rect.bottom,
       close: () => {
@@ -232,15 +260,15 @@ Menubar.popupViewMenu = function (target) {
   if (!target.hasClass('selected')) {
     target.addClass('selected')
     const rect = target.rect()
-    const open = Yami.Editor.state === 'open'
-    const isFullScreen = Yami.Title.fullscreen
-    const isGridOpen = Yami.Scene.showGrid
-    const isLightOpen = Yami.Scene.showLight
-    const isAnimationOpen = Yami.Scene.showAnimation
+    const open = Editor.state === 'open'
+    const isFullScreen = Title.fullscreen
+    const isGridOpen = Scene.showGrid
+    const isLightOpen = Scene.showLight
+    const isAnimationOpen = Scene.showAnimation
     const isDarkTheme = document.documentElement.hasClass('dark')
     const isLightTheme = !isDarkTheme
-    const get = Yami.Local.createGetter('menuView')
-    Yami.Menu.popup({
+    const get = Local.createGetter('menuView')
+    Menu.popup({
       x: rect.left,
       y: rect.bottom,
       close: () => {
@@ -260,25 +288,25 @@ Menubar.popupViewMenu = function (target) {
         label: get('scene.grid'),
         checked: isGridOpen,
         click: () => {
-          Yami.Scene.switchGrid()
+          Scene.switchGrid()
         },
       }, {
         label: get('scene.light'),
         checked: isLightOpen,
         click: () => {
-          Yami.Scene.switchLight()
+          Scene.switchLight()
         },
       }, {
         label: get('scene.animation'),
         checked: isAnimationOpen,
         click: () => {
-          Yami.Scene.switchAnimation()
+          Scene.switchAnimation()
         },
       }, {
         label: get('scene.background'),
-        icon: this.createColorIcon(Yami.Scene.background.hex),
+        icon: this.createColorIcon(Scene.background.hex),
         click: () => {
-          Yami.Color.open(Yami.Scene.background)
+          Color.open(Scene.background)
         },
       }],
     }, {
@@ -286,15 +314,15 @@ Menubar.popupViewMenu = function (target) {
       enabled: open,
       submenu: [{
         label: get('ui.background'),
-        icon: this.createColorIcon(Yami.UI.background.hex),
+        icon: this.createColorIcon(UI.background.hex),
         click: () => {
-          Yami.Color.open(Yami.UI.background)
+          Color.open(UI.background)
         },
       }, {
         label: get('ui.foreground'),
-        icon: this.createColorIcon(Yami.UI.foreground.hex),
+        icon: this.createColorIcon(UI.foreground.hex),
         click: () => {
-          Yami.Color.open(Yami.UI.foreground)
+          Color.open(UI.foreground)
         },
       }],
     }, {
@@ -302,9 +330,9 @@ Menubar.popupViewMenu = function (target) {
       enabled: open,
       submenu: [{
         label: get('animation.background'),
-        icon: this.createColorIcon(Yami.Animation.background.hex),
+        icon: this.createColorIcon(Animation.background.hex),
         click: () => {
-          Yami.Color.open(Yami.Animation.background)
+          Color.open(Animation.background)
         },
       }],
     }, {
@@ -312,9 +340,9 @@ Menubar.popupViewMenu = function (target) {
       enabled: open,
       submenu: [{
         label: get('particle.background'),
-        icon: this.createColorIcon(Yami.Particle.background.hex),
+        icon: this.createColorIcon(Particle.background.hex),
         click: () => {
-          Yami.Color.open(Yami.Particle.background)
+          Color.open(Particle.background)
         },
       }],
     }, {
@@ -323,12 +351,12 @@ Menubar.popupViewMenu = function (target) {
       submenu: [{
         label: get('layout.default'),
         click: () => {
-          Yami.Layout.switchLayout(Yami.Layout.default)
+          Layout.switchLayout(Layout.default)
         },
       }, {
-        label: `${get('layout.zoom')}: ${Yami.Zoom.getFactor()}`,
+        label: `${get('layout.zoom')}: ${Zoom.getFactor()}`,
         click: () => {
-          Yami.Zoom.open()
+          Zoom.open()
         },
       }],
     }, {
@@ -337,13 +365,13 @@ Menubar.popupViewMenu = function (target) {
         label: get('theme.light'),
         checked: isLightTheme,
         click: () => {
-          Yami.Title.switchTheme('light')
+          Title.switchTheme('light')
         },
       }, {
         label: get('theme.dark'),
         checked: isDarkTheme,
         click: () => {
-          Yami.Title.switchTheme('dark')
+          Title.switchTheme('dark')
         },
       }],
     }, {
@@ -358,9 +386,9 @@ Menubar.popupWindowMenu = function (target) {
   if (!target.hasClass('selected')) {
     target.addClass('selected')
     const rect = target.rect()
-    const open = Yami.Editor.state === 'open'
-    const get = Yami.Local.createGetter('menuWindow')
-    Yami.Menu.popup({
+    const open = Editor.state === 'open'
+    const get = Local.createGetter('menuWindow')
+    Menu.popup({
       x: rect.left,
       y: rect.bottom,
       close: () => {
@@ -371,68 +399,68 @@ Menubar.popupWindowMenu = function (target) {
       accelerator: 'F1',
       enabled: open,
       click: () => {
-        Yami.Project.open()
+        Project.open()
       },
     }, {
       label: get('variable'),
       accelerator: 'F3',
       enabled: open,
       click: () => {
-        Yami.Variable.open()
+        Variable.open()
       },
     }, {
       label: get('attribute'),
       accelerator: 'F6',
       enabled: open,
       click: () => {
-        Yami.Attribute.open()
+        Attribute.open()
       },
     }, {
       label: get('enum'),
       accelerator: 'F7',
       enabled: open,
       click: () => {
-        Yami.Enum.open()
+        Enum.open()
       },
     }, {
       label: get('easing'),
       accelerator: 'F8',
       enabled: open,
       click: () => {
-        Yami.Easing.open()
+        Easing.open()
       },
     }, {
       label: get('team'),
       enabled: open,
       click: () => {
-        Yami.Team.open()
+        Team.open()
       },
     }, {
       label: get('plugin'),
       accelerator: 'F9',
       enabled: open,
       click: () => {
-        Yami.PluginManager.open()
+        PluginManager.open()
       },
     }, {
       label: get('command'),
       accelerator: 'F10',
       enabled: open,
       click: () => {
-        Yami.CustomCommand.open()
+        CustomCommand.open()
       },
     }, {
       label: get('run'),
       accelerator: 'F4',
       enabled: open,
       click: () => {
-        Yami.Title.playGame()
+        Title.playGame()
       },
     }, {
       label: get('log'),
       enabled: open,
       click: () => {
-        Yami.Window.open('log')
+        Window.open('log')
       },
     }])
   }
@@ -443,8 +471,8 @@ Menubar.popupHelpMenu = function (target) {
   if (!target.hasClass('selected')) {
     target.addClass('selected')
     const rect = target.rect()
-    const get = Yami.Local.createGetter('menuHelp')
-    Yami.Menu.popup({
+    const get = Local.createGetter('menuHelp')
+    Menu.popup({
       x: rect.left,
       y: rect.bottom,
       close: () => {
@@ -462,7 +490,7 @@ Menubar.popupHelpMenu = function (target) {
         if (os) osversion += os
         if (os && bits) osversion += ' ' + bits
         if (!osversion) osversion = 'unknown'
-        Yami.Window.open('about')
+        Window.open('about')
         $('#editor-version').textContent = '1.0.0'
         $('#electron-version').textContent = process.versions.electron
         $('#chrome-version').textContent = process.versions.chrome
@@ -476,32 +504,32 @@ Menubar.popupHelpMenu = function (target) {
 
 // 创建最近的文件项目
 Menubar.createRecentItems = function () {
-  if (Yami.Editor.state === 'closed') {
+  if (Editor.state === 'closed') {
     return []
   }
-  const {recentTabs} = Yami.Editor.project
+  const {recentTabs} = Editor.project
   const items = []
-  const get = Yami.Local.createGetter('menuFile')
+  const get = Local.createGetter('menuFile')
   items.push({
     label: get('openRecent.reopenClosedFile'),
-    enabled: !!Yami.Title.getClosedTabMeta(),
-    accelerator: Yami.ctrl('Shift+T'),
+    enabled: !!Title.getClosedTabMeta(),
+    accelerator: ctrl('Shift+T'),
     click: () => {
-      Yami.Title.reopenClosedTab()
+      Title.reopenClosedTab()
     },
   })
   // 添加最近的标签选项
   if (recentTabs.length !== 0) {
     const click = function () {
-      Yami.Title.reopenClosedTab(this.meta)
+      Title.reopenClosedTab(this.meta)
     }
     items.push({type: 'separator'})
-    const map = Yami.Data.manifest.guidMap
+    const map = Data.manifest.guidMap
     for (const guid of recentTabs) {
       const meta = map[guid]
       if (meta !== undefined) {
         items.push({
-          label: Yami.File.filterGUID(meta.path),
+          label: File.filterGUID(meta.path),
           meta: meta,
           click: click,
         })
@@ -521,20 +549,20 @@ Menubar.createRecentItems = function () {
 
 // 创建语言项目
 Menubar.createLanguageItems = function () {
-  const get = Yami.Local.createGetter('menuView.language')
-  const autoChecked = Yami.Editor.config.language === ''
+  const get = Local.createGetter('menuView.language')
+  const autoChecked = Editor.config.language === ''
   const autoLabel = get('auto')
   const items = [{
     label: autoLabel,
     checked: autoChecked,
     click: () => {
       if (!autoChecked) {
-        Yami.Local.setLanguage('')
+        Local.setLanguage('')
       }
     },
   }]
-  Yami.Local.readLanguageList().then(languages => {
-    const active = Yami.Local.active
+  Local.readLanguageList().then(languages => {
+    const active = Local.active
     if (languages.length !== 0) {
       items.push({type: 'separator'})
     }
@@ -549,7 +577,7 @@ Menubar.createLanguageItems = function () {
         checked: checked,
         click: () => {
           if (!checked) {
-            Yami.Local.setLanguage(key)
+            Local.setLanguage(key)
           }
         },
       })
@@ -558,7 +586,7 @@ Menubar.createLanguageItems = function () {
     items.push({
       label: get('showInExplorer'),
       click: () => {
-        Yami.File.openPath(Yami.Path.resolve(__dirname, 'locales'))
+        File.openPath(Path.resolve(__dirname, 'locales'))
       },
     })
   })
@@ -585,33 +613,33 @@ Menubar.keydown = function (event) {
   if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyN':
-        Yami.Title.newProject()
+        Title.newProject()
         break
       case 'KeyO':
-        Yami.Title.openProject()
+        Title.openProject()
         break
       case 'KeyS':
-        Yami.File.save()
+        File.save()
         break
       case 'KeyT':
         if (event.shiftKey) {
-          Yami.Title.reopenClosedTab()
+          Title.reopenClosedTab()
         }
         break
       case 'KeyW':
-        Yami.Title.tabBar.close(Yami.Title.tabBar.read())
+        Title.tabBar.close(Title.tabBar.read())
         break
       case 'KeyZ':
-        Yami.Scene.undo()
-        Yami.UI.undo()
-        Yami.Animation.undo()
-        Yami.Particle.undo()
+        Scene.undo()
+        UI.undo()
+        Animation.undo()
+        Particle.undo()
         break
       case 'KeyY':
-        Yami.Scene.redo()
-        Yami.UI.redo()
-        Yami.Animation.redo()
-        Yami.Particle.redo()
+        Scene.redo()
+        UI.redo()
+        Animation.redo()
+        Particle.redo()
         break
     }
   } else if (event.altKey) {
@@ -625,10 +653,10 @@ Menubar.keydown = function (event) {
       case 'Digit7':
       case 'Digit8':
       case 'Digit9': {
-        const elements = Yami.Title.tabBar.childNodes
+        const elements = Title.tabBar.childNodes
         const index = parseInt(event.code.slice(-1)) - 1
         if (index < elements.length) {
-          Yami.Title.tabBar.select(elements[index].item)
+          Title.tabBar.select(elements[index].item)
         }
         break
       }
@@ -636,34 +664,34 @@ Menubar.keydown = function (event) {
   } else {
     switch (event.code) {
       case 'F1':
-        Yami.Project.open()
+        Project.open()
         break
       case 'F3':
-        Yami.Variable.open()
+        Variable.open()
         break
       case 'F6':
-        Yami.Attribute.open()
+        Attribute.open()
         break
       case 'F7':
-        Yami.Enum.open()
+        Enum.open()
         break
       case 'F8':
-        Yami.Easing.open()
+        Easing.open()
         break
       case 'F9':
-        Yami.PluginManager.open()
+        PluginManager.open()
         break
       case 'F4':
-        Yami.Title.playGame()
+        Title.playGame()
         break
       case 'F10':
-        Yami.CustomCommand.open()
+        CustomCommand.open()
         break
       case 'KeyF':
         Palette.flipTiles()
         break
       case 'Pause':
-        Yami.GL.WEBGL_lose_context.loseContext()
+        GL.WEBGL_lose_context.loseContext()
         break
     }
   }

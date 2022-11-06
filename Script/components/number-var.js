@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  CustomBox,
+  NumberBox
+} = Yami
+
 // ******************************** 数字变量框 ********************************
 
 class NumberVar extends HTMLElement {
@@ -14,8 +19,8 @@ class NumberVar extends HTMLElement {
 
     // 设置属性
     this.mode = null
-    this.numBox = new Yami.NumberBox(this)
-    this.varBox = new Yami.CustomBox()
+    this.numBox = new NumberBox(this)
+    this.varBox = new CustomBox()
     this.varBox.setAttribute('type', 'variable')
     this.varBox.setAttribute('filter', 'number')
 

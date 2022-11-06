@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  PresetObject,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 光源访问器窗口 ********************************
 
 const LightGetter = {
@@ -43,9 +50,9 @@ LightGetter.initialize = function () {
 // 打开窗口
 LightGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('lightGetter')
+  Window.open('lightGetter')
 
-  let presetId = Yami.PresetObject.getDefaultPresetId('light')
+  let presetId = PresetObject.getDefaultPresetId('light')
   let variable = {type: 'local', key: ''}
   const light = target.dataValue
   switch (light.type) {
@@ -68,7 +75,7 @@ LightGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 LightGetter.confirm = function (event) {
-  const read = Yami.getElementReader('lightGetter')
+  const read = getElementReader('lightGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -86,7 +93,7 @@ LightGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#lightGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -94,7 +101,7 @@ LightGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('lightGetter')
+  Window.close('lightGetter')
 }.bind(LightGetter)
 
 // ******************************** 光源访问器窗口导出 ********************************

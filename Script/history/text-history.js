@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { HistoryTimer } = Yami
+
 // ******************************** 文本操作历史 ********************************
 
 class TextHistory {
@@ -147,7 +149,7 @@ class TextHistory {
           break
       }
       TextHistory.restoring = false
-      Yami.HistoryTimer.finish()
+      HistoryTimer.finish()
       input.dispatchEvent(
         new InputEvent('input', {
           inputType: inputType,
@@ -261,41 +263,41 @@ class TextHistory {
           case ' ':
           case '<':
             if (history.lastInsert !== event.data) {
-              Yami.HistoryTimer.finish()
+              HistoryTimer.finish()
             }
             break
         }
       case 'deleteContentForward':
       case 'deleteContentBackward':
         if (history.inputType !== '' && (
-          Yami.HistoryTimer.complete ||
-          Yami.HistoryTimer.type !== event.inputType ||
+          HistoryTimer.complete ||
+          HistoryTimer.type !== event.inputType ||
           history.selectionStart !== this.selectionStart ||
           history.selectionEnd !== this.selectionEnd)) {
           history.save()
         }
-        Yami.HistoryTimer.start(event.inputType)
+        HistoryTimer.start(event.inputType)
         switch (event.data) {
           case ':':
           case '>':
             if (history.lastInsert !== event.data) {
-              Yami.HistoryTimer.finish()
+              HistoryTimer.finish()
             }
             break
         }
         break
       case 'replaceText':
         if (history.inputType !== null && (
-          Yami.HistoryTimer.complete ||
-          Yami.HistoryTimer.type !== event.inputType)) {
+          HistoryTimer.complete ||
+          HistoryTimer.type !== event.inputType)) {
           history.save()
         }
-        Yami.HistoryTimer.start(event.inputType)
+        HistoryTimer.start(event.inputType)
         break
       case 'inputCompositionText':
       default:
         history.save()
-        Yami.HistoryTimer.finish()
+        HistoryTimer.finish()
         break
     }
     history.updateStates(event)
@@ -318,7 +320,7 @@ class TextHistory {
 
   // 输入框 - 失去焦点事件
   inputBlur(event) {
-    Yami.HistoryTimer.finish()
+    HistoryTimer.finish()
   }
 
   // 输入框 - 文本合成开始事件

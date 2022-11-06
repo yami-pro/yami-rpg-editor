@@ -2,6 +2,25 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Attribute,
+  CheckBox,
+  ColorBox,
+  CustomBox,
+  Data,
+  DetailSummary,
+  Enum,
+  File,
+  KeyboardBox,
+  NodeList,
+  NumberBox,
+  ParamList,
+  PluginManager,
+  Select,
+  SelectBox,
+  TextBox
+} = Yami
+
 // ******************************** 脚本参数面板 ********************************
 
 class ParameterPane extends HTMLElement {
@@ -49,7 +68,7 @@ class ParameterPane extends HTMLElement {
   // 绑定数据
   bind(scriptList) {
     this.scriptList = scriptList
-    if (scriptList instanceof Yami.ParamList) {
+    if (scriptList instanceof ParamList) {
       const {object} = scriptList
       const {update} = object
       this.getData = () => scriptList.data
@@ -58,7 +77,7 @@ class ParameterPane extends HTMLElement {
         this.update()
       }
     }
-    if (scriptList instanceof Yami.NodeList) {
+    if (scriptList instanceof NodeList) {
       this.getData = () => {
         const item = scriptList.read()
         return item ? [item] : []
@@ -78,7 +97,7 @@ class ParameterPane extends HTMLElement {
           this.scriptList?.dispatchChangeEvent()
           // 更新参数可见性
           if (input.branched) {
-            Yami.PluginManager.reconstruct(script)
+            PluginManager.reconstruct(script)
             this.updateParamDisplay(wrap.box)
             this.onResize?.()
           }
@@ -94,12 +113,12 @@ class ParameterPane extends HTMLElement {
     this.appendHeadPad()
     let changed = false
     const scripts = this.getData()
-    const map = Yami.Data.manifest.guidMap
+    const map = Data.manifest.guidMap
     for (const script of scripts) {
       const meta = map[script.id]
       if (!meta) continue
       this.metas.push(meta)
-      if (Yami.PluginManager.reconstruct(script)) {
+      if (PluginManager.reconstruct(script)) {
         changed = true
       }
       const paramList = meta.parameters
@@ -112,10 +131,10 @@ class ParameterPane extends HTMLElement {
       box.data = script
       this.wraps.push(detailWrap)
       // 如果传递了细节概要元素则设置脚本名称
-      if (summary instanceof Yami.DetailSummary) {
+      if (summary instanceof DetailSummary) {
         summary.textContent =
         langMap.get(meta.overview.plugin) ||
-        Yami.File.parseMetaName(meta)
+        File.parseMetaName(meta)
       }
       for (const parameter of paramList) {
         const inputWrap = this.createParamInput(parameter)
@@ -203,12 +222,12 @@ class ParameterPane extends HTMLElement {
       }
       case 'easing': {
         const wrap = this.createSelectBox()
-        wrap.input.loadItems(Yami.Data.createEasingItems())
+        wrap.input.loadItems(Data.createEasingItems())
         return wrap
       }
       case 'team': {
         const wrap = this.createSelectBox()
-        wrap.input.loadItems(Yami.Data.createTeamItems())
+        wrap.input.loadItems(Data.createTeamItems())
         return wrap
       }
       case 'variable': {
@@ -225,7 +244,7 @@ class ParameterPane extends HTMLElement {
           return wrap
         } else {
           const wrap = this.createSelectBox()
-          wrap.input.loadItems(Yami.Attribute.getAttributeItems(parameter.filter, '', true))
+          wrap.input.loadItems(Attribute.getAttributeItems(parameter.filter, '', true))
           return wrap
         }
       case 'attribute-group': {
@@ -241,7 +260,7 @@ class ParameterPane extends HTMLElement {
           return wrap
         } else {
           const wrap = this.createSelectBox()
-          wrap.input.loadItems(Yami.Enum.getStringItems(parameter.filter, true))
+          wrap.input.loadItems(Enum.getStringItems(parameter.filter, true))
           return wrap
         }
       case 'enum-group': {
@@ -350,7 +369,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'check-box'
     const label = document.createElement('text')
-    const input = new Yami.CheckBox(true)
+    const input = new CheckBox(true)
     input.inputEventEnabled = true
     input.addClass('standard')
     input.addClass('large')
@@ -365,7 +384,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'number-box'
     const label = document.createElement('text')
-    const input = new Yami.NumberBox()
+    const input = new NumberBox()
     input.decimals = 10
     return {tag, label, input}
   }
@@ -378,7 +397,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'text-box'
     const label = document.createElement('text')
-    const input = new Yami.TextBox()
+    const input = new TextBox()
     return {tag, label, input}
   }
 
@@ -390,7 +409,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'select-box'
     const label = document.createElement('text')
-    const input = new Yami.SelectBox()
+    const input = new SelectBox()
     return {tag, label, input}
   }
 
@@ -402,7 +421,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'keyboard-box'
     const label = document.createElement('text')
-    const input = new Yami.KeyboardBox()
+    const input = new KeyboardBox()
     return {tag, label, input}
   }
 
@@ -414,7 +433,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'color-box'
     const label = document.createElement('text')
-    const input = new Yami.ColorBox()
+    const input = new ColorBox()
     return {tag, label, input}
   }
 
@@ -426,7 +445,7 @@ class ParameterPane extends HTMLElement {
     }
     const tag = 'custom-box'
     const label = document.createElement('text')
-    const input = new Yami.CustomBox()
+    const input = new CustomBox()
     return {tag, label, input}
   }
 
@@ -540,7 +559,7 @@ class ParameterPane extends HTMLElement {
     }
     const {parameters, key} = element
     const {scriptList} = this
-    if (scriptList instanceof Yami.ParamList) {
+    if (scriptList instanceof ParamList) {
       const {history} = scriptList
       const {editor} = history
       if (editor) {
@@ -562,7 +581,7 @@ class ParameterPane extends HTMLElement {
     if (element.branched) {
       const grid = element.parentNode
       const detail = grid.parentNode
-      Yami.PluginManager.reconstruct(detail.data)
+      PluginManager.reconstruct(detail.data)
       this.updateParamDisplay(detail)
       this.onResize?.()
     }
@@ -584,8 +603,8 @@ class ParameterPane extends HTMLElement {
   static scriptChange(event) {
     for (const meta of this.metas) {
       if (meta === event.changedMeta) {
-        if (this.contains(Yami.Select.target)) {
-          Yami.Select.close()
+        if (this.contains(Select.target)) {
+          Select.close()
         }
         this.update()
         return

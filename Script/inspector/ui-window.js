@@ -2,12 +2,19 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementWriter,
+  Inspector,
+  UI,
+  UIElement
+} = Yami
+
 // ******************************** 元素 - 窗口页面 ********************************
 
 {
   const UIWindow = {
     // properties
-    owner: Yami.UI,
+    owner: UI,
     target: null,
     // methods
     initialize: null,
@@ -58,13 +65,13 @@ import * as Yami from '../yami.js'
       #uiWindow-gridHeight, #uiWindow-gridGapX, #uiWindow-gridGapY,
       #uiWindow-paddingX, #uiWindow-paddingY, #uiWindow-overflow`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, UI))
   }
 
   // 创建窗口
   UIWindow.create = function () {
-    const transform = Yami.UIElement.createTransform()
+    const transform = UIElement.createTransform()
     transform.width = 100
     transform.height = 100
     return {
@@ -98,7 +105,7 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = Yami.getElementWriter('uiWindow', node)
+      const write = getElementWriter('uiWindow', node)
       write('layout')
       write('scrollX')
       write('scrollY')
@@ -109,23 +116,23 @@ import * as Yami from '../yami.js'
       write('paddingX')
       write('paddingY')
       write('overflow')
-      Yami.UIElement.open(node)
+      UIElement.open(node)
     }
   }
 
   // 关闭数据
   UIWindow.close = function () {
     if (this.target) {
-      Yami.UI.list.unselect(this.target)
-      Yami.UI.updateTarget()
-      Yami.UIElement.close()
+      UI.list.unselect(this.target)
+      UI.updateTarget()
+      UIElement.close()
       this.target = null
     }
   }
 
   // 更新数据
   UIWindow.update = function (node, key, value) {
-    Yami.UI.planToSave()
+    UI.planToSave()
     const element = node.instance
     switch (key) {
       case 'layout':
@@ -150,17 +157,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Yami.UI.requestRendering()
+    UI.requestRendering()
   }
 
   // 参数 - 输入事件
   UIWindow.paramInput = function (event) {
     UIWindow.update(
       UIWindow.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.uiWindow = UIWindow
+  Inspector.uiWindow = UIWindow
 }

@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  AudioManager,
+  File,
+  Reverb
+} = Yami
+
 // ******************************** 单源播放器类 ********************************
 
 class SinglePlayer {
@@ -11,7 +17,7 @@ class SinglePlayer {
   reverb  //:object
 
   constructor() {
-    const {context} = Yami.AudioManager
+    const {context} = AudioManager
     this.audio = new Audio()
     this.source = context.createMediaElementSource(this.audio)
     this.panner = context.createStereoPanner()
@@ -20,7 +26,7 @@ class SinglePlayer {
 
     // 连接节点
     this.source.connect(this.panner)
-    this.panner.connect(Yami.AudioManager.analyser)
+    this.panner.connect(AudioManager.analyser)
   }
 
   // 播放
@@ -30,7 +36,7 @@ class SinglePlayer {
       if (audio.path !== path ||
         audio.readyState !== 4 ||
         audio.ended === true) {
-        audio.src = Yami.File.route(path)
+        audio.src = File.route(path)
         audio.path = path
         audio.play()
       }
@@ -63,7 +69,7 @@ class SinglePlayer {
   setReverb(dry, wet) {
     if (this.reverb === null && !(
       dry === 1 && wet === 0)) {
-      new Yami.Reverb(this)
+      new Reverb(this)
     }
     if (this.reverb !== null) {
       this.reverb.set(dry, wet)

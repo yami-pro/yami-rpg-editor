@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 状态访问器窗口 ********************************
 
 const StateGetter = {
@@ -39,7 +45,7 @@ StateGetter.initialize = function () {
 // 打开窗口
 StateGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('stateGetter')
+  Window.open('stateGetter')
 
   let variable = {type: 'local', key: ''}
   const state = target.dataValue
@@ -58,7 +64,7 @@ StateGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 StateGetter.confirm = function (event) {
-  const read = Yami.getElementReader('stateGetter')
+  const read = getElementReader('stateGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -68,7 +74,7 @@ StateGetter.confirm = function (event) {
       break
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#stateGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -76,7 +82,7 @@ StateGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('stateGetter')
+  Window.close('stateGetter')
 }.bind(StateGetter)
 
 // ******************************** 状态访问器窗口导出 ********************************

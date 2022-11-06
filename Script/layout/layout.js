@@ -2,6 +2,21 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  Browser,
+  Cursor,
+  File,
+  GL,
+  Home,
+  Inspector,
+  Palette,
+  Particle,
+  Scene,
+  Title,
+  UI
+} = Yami
+
 // ******************************** 布局对象 ********************************
 
 const Layout = {
@@ -87,19 +102,19 @@ Layout.initialize = function () {
 
   // 获取头部元素集合
   this.heads = [
-    Yami.Scene.head,
-    Yami.Scene.list.head,
-    Yami.UI.head,
-    Yami.UI.list.head,
-    Yami.Animation.head,
-    Yami.Animation.list.head,
-    Yami.Animation.timeline.head,
-    Yami.Browser.head,
-    Yami.Palette.head,
+    Scene.head,
+    Scene.list.head,
+    UI.head,
+    UI.list.head,
+    Animation.head,
+    Animation.list.head,
+    Animation.timeline.head,
+    Browser.head,
+    Palette.head,
   ]
 
   // 读取默认布局
-  Yami.File.get({
+  File.get({
     local: 'default.json',
     type: 'json',
   }).then(config => {
@@ -692,20 +707,20 @@ Layout.pageSwitch = function (event) {
   // 保存导航栏状态时可避免resize
   switch (event.last) {
     case 'scene':
-      Yami.Scene.save()
-      Yami.Scene.close()
+      Scene.save()
+      Scene.close()
       break
     case 'ui':
-      Yami.UI.save()
-      Yami.UI.close()
+      UI.save()
+      UI.close()
       break
     case 'animation':
-      Yami.Animation.save()
-      Yami.Animation.close()
+      Animation.save()
+      Animation.close()
       break
     case 'particle':
-      Yami.Particle.save()
-      Yami.Particle.close()
+      Particle.save()
+      Particle.close()
       break
   }
 
@@ -723,59 +738,59 @@ Layout.pageSwitch = function (event) {
   // 插入画布元素到新的页面
   switch (event.value) {
     case 'scene': {
-      const body = Yami.Scene.body
+      const body = Scene.body
       const target = body.firstChild
-      body.insertBefore(Yami.GL.canvas, target)
+      body.insertBefore(GL.canvas, target)
       break
     }
     case 'ui': {
-      const body = Yami.UI.body
+      const body = UI.body
       const target = body.firstChild
-      body.insertBefore(Yami.GL.canvas, target)
+      body.insertBefore(GL.canvas, target)
       break
     }
     case 'animation': {
-      const body = Yami.Animation.body
+      const body = Animation.body
       const target = body.firstChild
-      body.insertBefore(Yami.GL.canvas, target)
+      body.insertBefore(GL.canvas, target)
       break
     }
     case 'particle': {
-      const body = Yami.Particle.body
+      const body = Particle.body
       const target = body.firstChild
-      body.insertBefore(Yami.GL.canvas, target)
+      body.insertBefore(GL.canvas, target)
       break
     }
     default:
-      Yami.GL.canvas.remove()
+      GL.canvas.remove()
       break
   }
 
   // 加载新的页面布局方案
   switch (event.value) {
     case 'home':
-      Yami.Title.tabBar.removeClass('visible')
-      Yami.Home.parseRecentProjects()
+      Title.tabBar.removeClass('visible')
+      Home.parseRecentProjects()
       break
     case 'directory':
-      Yami.Title.tabBar.addClass('visible')
-      Yami.Title.tabBar.select(Yami.Title.tabBar.dirItem)
+      Title.tabBar.addClass('visible')
+      Title.tabBar.select(Title.tabBar.dirItem)
       Layout.loadLayoutScheme('directory')
       break
     case 'scene':
-      Yami.Title.tabBar.addClass('visible')
+      Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('scene')
       break
     case 'ui':
-      Yami.Title.tabBar.addClass('visible')
+      Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('ui')
       break
     case 'animation':
-      Yami.Title.tabBar.addClass('visible')
+      Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('animation')
       break
     case 'particle':
-      Yami.Title.tabBar.addClass('visible')
+      Title.tabBar.addClass('visible')
       Layout.loadLayoutScheme('particle')
       break
   }
@@ -796,7 +811,7 @@ Layout.navPointerdown = function (event) {
         element.hasClass('selected')) {
         switch (element.dataValue) {
           case 'inspector':
-            Layout.readyToFocus(Yami.Inspector.manager)
+            Layout.readyToFocus(Inspector.manager)
             break
           default: {
             const page = element.page
@@ -1281,7 +1296,7 @@ Layout.borderPointerdown = function (event) {
               outer.clientWidth
             * group.end
             )
-            Yami.Cursor.open('cursor-col-resize')
+            Cursor.open('cursor-col-resize')
             break
           case 'vertical':
             event.mode = 'row-resize'
@@ -1289,7 +1304,7 @@ Layout.borderPointerdown = function (event) {
               outer.clientHeight
             * group.end
             )
-            Yami.Cursor.open('cursor-row-resize')
+            Cursor.open('cursor-row-resize')
             break
         }
         event.outer = outer
@@ -1323,10 +1338,10 @@ Layout.pointerup = function (event) {
   if (resizing.relate(event)) {
     switch (resizing.mode) {
       case 'col-resize':
-        Yami.Cursor.close('cursor-col-resize')
+        Cursor.close('cursor-col-resize')
         break
       case 'row-resize':
-        Yami.Cursor.close('cursor-row-resize')
+        Cursor.close('cursor-row-resize')
         break
     }
     for (const info of resizing.infos) {

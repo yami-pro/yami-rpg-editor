@@ -2,12 +2,20 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  getElementWriter,
+  Inspector,
+  UI,
+  UIElement
+} = Yami
+
 // ******************************** 元素 - 对话框页面 ********************************
 
 {
   const UIDialogBox = {
     // properties
-    owner: Yami.UI,
+    owner: UI,
     target: null,
     // methods
     initialize: null,
@@ -72,15 +80,15 @@ import * as Yami from '../yami.js'
       #uiDialogBox-effect-strokeWidth, #uiDialogBox-effect-color, #uiDialogBox-blend`)
     const sliders = $('#uiDialogBox-size-slider, #uiDialogBox-lineSpacing-slider, #uiDialogBox-letterSpacing-slider')
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
-    sliders.on('focus', Yami.Inspector.sliderFocus)
-    sliders.on('blur', Yami.Inspector.sliderBlur)
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, UI))
+    sliders.on('focus', Inspector.sliderFocus)
+    sliders.on('blur', Inspector.sliderBlur)
   }
 
   // 创建文本
   UIDialogBox.create = function () {
-    const transform = Yami.UIElement.createTransform()
+    const transform = UIElement.createTransform()
     transform.width = 100
     transform.height = 24
     return {
@@ -114,7 +122,7 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = Yami.getElementWriter('uiDialogBox', node)
+      const write = getElementWriter('uiDialogBox', node)
       write('content')
       write('interval')
       write('size')
@@ -129,23 +137,23 @@ import * as Yami from '../yami.js'
       write('effect-strokeWidth', node.effect.strokeWidth || 1)
       write('effect-color', node.effect.color || '000000ff')
       write('blend')
-      Yami.UIElement.open(node)
+      UIElement.open(node)
     }
   }
 
   // 关闭数据
   UIDialogBox.close = function () {
     if (this.target) {
-      Yami.UI.list.unselect(this.target)
-      Yami.UI.updateTarget()
-      Yami.UIElement.close()
+      UI.list.unselect(this.target)
+      UI.updateTarget()
+      UIElement.close()
       this.target = null
     }
   }
 
   // 更新数据
   UIDialogBox.update = function (node, key, value) {
-    Yami.UI.planToSave()
+    UI.planToSave()
     const element = node.instance
     switch (key) {
       case 'content':
@@ -171,7 +179,7 @@ import * as Yami from '../yami.js'
       }
       case 'effect-type':
         if (node.effect.type !== value) {
-          const read = Yami.getElementReader('uiDialogBox-effect')
+          const read = getElementReader('uiDialogBox-effect')
           const effect = {type: value}
           switch (value) {
             case 'none':
@@ -206,17 +214,17 @@ import * as Yami from '../yami.js'
         break
       }
     }
-    Yami.UI.requestRendering()
+    UI.requestRendering()
   }
 
   // 参数 - 输入事件
   UIDialogBox.paramInput = function (event) {
     UIDialogBox.update(
       UIDialogBox.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.uiDialogBox = UIDialogBox
+  Inspector.uiDialogBox = UIDialogBox
 }

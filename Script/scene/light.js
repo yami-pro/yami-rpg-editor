@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  Scene
+} = Yami
+
 // ******************************** 光源类 ********************************
 
 class Light {
@@ -31,7 +36,7 @@ class Light {
 
   // 绘制点光
   drawPointLight(projMatrix) {
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     const light = this.data
     const r = light.range / 2
@@ -74,7 +79,7 @@ class Light {
   // 绘制区域光
   drawAreaLight(projMatrix) {
     const light = this.data
-    const textures = Yami.Scene.textures
+    const textures = Scene.textures
     const texture = textures[light.mask]
     if (texture === undefined) {
       return textures.load(light.mask)
@@ -82,7 +87,7 @@ class Light {
     if (texture instanceof Promise) {
       return
     }
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     const ox = light.x
     const oy = light.y

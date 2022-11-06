@@ -2,9 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  ImageTexture,
+  UI
+} = Yami
+
 // ******************************** 进度条元素 ********************************
 
-class ProgressBarElement extends Yami.UI.Element {
+class ProgressBarElement extends UI.Element {
   texture       //:object
   _image        //:string
   display       //:string
@@ -52,9 +58,9 @@ class ProgressBarElement extends Yami.UI.Element {
         this.texture = null
       }
       if (value) {
-        this.texture = new Yami.ImageTexture(value)
+        this.texture = new ImageTexture(value)
         this.texture.on('load', () => {
-          Yami.UI.requestRendering()
+          UI.requestRendering()
         })
       }
     }
@@ -86,25 +92,25 @@ class ProgressBarElement extends Yami.UI.Element {
       this.calculateProgressVertices()
 
       // 绘制图像
-      Yami.GL.alpha = this.opacity
-      Yami.GL.blend = this.blend
-      Yami.GL.matrix.project(
-        Yami.GL.flip,
-        Yami.GL.width,
-        Yami.GL.height,
+      GL.alpha = this.opacity
+      GL.blend = this.blend
+      GL.matrix.project(
+        GL.flip,
+        GL.width,
+        GL.height,
       )
-      .multiply(Yami.UI.matrix)
+      .multiply(UI.matrix)
       .multiply(this.matrix)
       .translate(this.x, this.y)
       .scale(scaleX, scaleY)
-      const program = Yami.GL.imageProgram.use()
-      Yami.GL.bindVertexArray(program.vao)
-      Yami.GL.uniformMatrix3fv(program.u_Matrix, false, Yami.GL.matrix)
-      Yami.GL.uniform1i(program.u_LightMode, 0)
+      const program = GL.imageProgram.use()
+      GL.bindVertexArray(program.vao)
+      GL.uniformMatrix3fv(program.u_Matrix, false, GL.matrix)
+      GL.uniform1i(program.u_LightMode, 0)
       switch (this.colorMode) {
         case 'texture':
-          Yami.GL.uniform1i(program.u_ColorMode, 0)
-          Yami.GL.uniform4f(program.u_Tint, 0, 0, 0, 0)
+          GL.uniform1i(program.u_ColorMode, 0)
+          GL.uniform4f(program.u_Tint, 0, 0, 0, 0)
           break
         case 'fixed': {
           const color = this.color
@@ -112,14 +118,14 @@ class ProgressBarElement extends Yami.UI.Element {
           const green = color[1] / 255
           const blue = color[2] / 255
           const alpha = color[3] / 255
-          Yami.GL.uniform1i(program.u_ColorMode, 1)
-          Yami.GL.uniform4f(program.u_Color, red, green, blue, alpha)
+          GL.uniform1i(program.u_ColorMode, 1)
+          GL.uniform4f(program.u_Color, red, green, blue, alpha)
           break
         }
       }
-      Yami.GL.bufferData(Yami.GL.ARRAY_BUFFER, vertices, Yami.GL.STREAM_DRAW, 0, vertexLength)
-      Yami.GL.bindTexture(Yami.GL.TEXTURE_2D, base.glTexture)
-      Yami.GL.drawArrays(Yami.GL.TRIANGLE_FAN, 0, drawingLength)
+      GL.bufferData(GL.ARRAY_BUFFER, vertices, GL.STREAM_DRAW, 0, vertexLength)
+      GL.bindTexture(GL.TEXTURE_2D, base.glTexture)
+      GL.drawArrays(GL.TRIANGLE_FAN, 0, drawingLength)
     }
 
     // 绘制子元素
@@ -137,7 +143,7 @@ class ProgressBarElement extends Yami.UI.Element {
     const h = texture.height
     const tw = texture.base.width
     const th = texture.base.height
-    const response = Yami.UI.ProgressBar.response
+    const response = UI.ProgressBar.response
     const vertices = response.vertices
     const step = this.step
     switch (type) {
@@ -359,7 +365,7 @@ class ProgressBarElement extends Yami.UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof Yami.UI.Window) {
+    if (this.parent instanceof UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -383,7 +389,7 @@ class ProgressBarElement extends Yami.UI.Element {
   }
 }
 
-Yami.UI.ProgressBar = ProgressBarElement
+UI.ProgressBar = ProgressBarElement
 
 // ******************************** 进度条元素导出 ********************************
 

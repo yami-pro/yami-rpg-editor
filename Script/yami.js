@@ -120,30 +120,6 @@ export {
 } from './ui/index.js'
 
 export {
-  AnimationPlayer,
-  Animation,
-  Curve
-} from './animation/index.js'
-
-export {
-  AttributeContext,
-  Attribute
-} from './attribute/index.js'
-
-export {
-  AudioManager,
-  Reverb,
-  SinglePlayer
-} from './audio/index.js'
-
-export {
-  Browser,
-  Selector
-} from './browser/index.js'
-
-export { Codec } from './codec/index.js'
-
-export {
   ActorGetter,
   AncestorGetter,
   AngleGetter,
@@ -175,12 +151,30 @@ export {
   VariableGetter
 } from './command/index.js'
 
-export {} from './config/config-reading.js'
+export {
+  ArrayList,
+  AttributeListInterface,
+  Color,
+  ConditionListInterface,
+  Cursor,
+  EventListInterface,
+  ImageClip,
+  Local,
+  PresetElement,
+  PresetObject,
+  Rename,
+  ScriptListInterface,
+  Selection,
+  SetKey,
+  SetQuantity,
+  Window,
+  Zoom
+} from './tools/index.js'
 
 export {
-  Enum,
-  EnumerationContext
-} from './enum/index.js'
+  Inspector,
+  UIElement
+} from './inspector/index.js'
 
 export {
   Particle,
@@ -190,9 +184,35 @@ export {
 } from './particle/index.js'
 
 export {
-  Inspector,
-  UIElement
-} from './inspector/index.js'
+  AnimationPlayer,
+  Animation,
+  Curve
+} from './animation/index.js'
+
+export {
+  AttributeContext,
+  Attribute
+} from './attribute/index.js'
+
+export {
+  AudioManager,
+  Reverb,
+  SinglePlayer
+} from './audio/index.js'
+
+export {
+  Browser,
+  Selector
+} from './browser/index.js'
+
+export { Codec } from './codec/index.js'
+
+export {} from './config/config-reading.js'
+
+export {
+  Enum,
+  EnumerationContext
+} from './enum/index.js'
 
 export { Layout } from './layout/index.js'
 
@@ -217,26 +237,6 @@ export {
   NewProject,
   Title
 } from './title/index.js'
-
-export {
-  ArrayList,
-  AttributeListInterface,
-  Color,
-  ConditionListInterface,
-  Cursor,
-  EventListInterface,
-  ImageClip,
-  Local,
-  PresetElement,
-  PresetObject,
-  Rename,
-  ScriptListInterface,
-  Selection,
-  SetKey,
-  SetQuantity,
-  Window,
-  Zoom
-} from './tools/index.js'
 
 export { Variable } from './variable/index.js'
 

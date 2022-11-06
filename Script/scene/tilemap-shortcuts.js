@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Scene } = Yami
+
 // ******************************** 瓦片地图快捷方式列表类 ********************************
 
 class TilemapShortcuts {
@@ -30,7 +32,7 @@ class TilemapShortcuts {
       }
     }
     const {elements} = TilemapShortcuts
-    const opening = Yami.Scene.tilemap
+    const opening = Scene.tilemap
     for (let i = 1; i <= 6; i++) {
       const element = elements[i]
       const tilemap = this[i]
@@ -43,8 +45,8 @@ class TilemapShortcuts {
         element.hide()
       }
     }
-    Yami.Scene.head.width = 0
-    Yami.Scene.updateHead()
+    Scene.head.width = 0
+    Scene.updateHead()
   }
 
   // 静态 - 选项元素
@@ -62,7 +64,7 @@ class TilemapShortcuts {
     const {elements} = this
     for (let i = 1; i <= 6; i++) {
       elements[i].setTooltip(() => {
-        const tilemap = Yami.Scene.tilemaps?.shortcuts[i]
+        const tilemap = Scene.tilemaps?.shortcuts[i]
         return tilemap ? tilemap.name : ''
       })
     }

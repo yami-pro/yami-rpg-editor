@@ -2,6 +2,14 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 设置进度条 - 属性窗口 ********************************
 
 const ProgressBarProperty = {
@@ -88,15 +96,15 @@ ProgressBarProperty.initialize = function () {
 
 // 解析属性
 ProgressBarProperty.parse = function ({key, value}) {
-  const get = Yami.Local.createGetter('command.setProgressBar')
+  const get = Local.createGetter('command.setProgressBar')
   const name = get(key)
   switch (key) {
     case 'image':
-      return `${name}(${Yami.Command.parseFileName(value)})`
+      return `${name}(${Command.parseFileName(value)})`
     case 'display':
       return `${name}(${get('display.' + value)})`
     case 'blend':
-      return `${name}(${Yami.Command.parseBlend(value)})`
+      return `${name}(${Command.parseBlend(value)})`
     case 'progress':
     case 'clip-0':
     case 'clip-1':
@@ -106,14 +114,14 @@ ProgressBarProperty.parse = function ({key, value}) {
     case 'color-1':
     case 'color-2':
     case 'color-3':
-      return `${name}(${Yami.Command.parseVariableNumber(value)})`
+      return `${name}(${Command.parseVariableNumber(value)})`
   }
 }
 
 // 打开数据
 ProgressBarProperty.open = function ({key = 'image', value = ''} = {}) {
-  Yami.Window.open('setProgressBar-property')
-  const write = Yami.getElementWriter('setProgressBar-property')
+  Window.open('setProgressBar-property')
+  const write = getElementWriter('setProgressBar-property')
   let image = ''
   let display = 'stretch'
   let blend = 'normal'
@@ -182,7 +190,7 @@ ProgressBarProperty.open = function ({key = 'image', value = ''} = {}) {
 
 // 保存数据
 ProgressBarProperty.save = function () {
-  const read = Yami.getElementReader('setProgressBar-property')
+  const read = getElementReader('setProgressBar-property')
   const key = read('key')
   let value
   switch (key) {
@@ -223,7 +231,7 @@ ProgressBarProperty.save = function () {
       value = read('color-3')
       break
   }
-  Yami.Window.close('setProgressBar-property')
+  Window.close('setProgressBar-property')
   return {key, value}
 }
 

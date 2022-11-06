@@ -2,12 +2,22 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  ConditionListInterface,
+  EventListInterface,
+  getElementWriter,
+  Inspector,
+  Scene,
+  ScriptListInterface
+} = Yami
+
 // ******************************** 场景 - 动画页面 ********************************
 
 {
   const SceneAnimation = {
     // properties
-    owner: Yami.Scene,
+    owner: Scene,
     target: null,
     nameBox: $('#sceneAnimation-name'),
     motions: null,
@@ -34,13 +44,13 @@ import * as Yami from '../yami.js'
     ])
 
     // 绑定条件列表
-    $('#sceneAnimation-conditions').bind(new Yami.ConditionListInterface(this, Yami.Scene))
+    $('#sceneAnimation-conditions').bind(new ConditionListInterface(this, Scene))
 
     // 绑定事件列表
-    $('#sceneAnimation-events').bind(new Yami.EventListInterface(this, Yami.Scene))
+    $('#sceneAnimation-events').bind(new EventListInterface(this, Scene))
 
     // 绑定脚本列表
-    $('#sceneAnimation-scripts').bind(new Yami.ScriptListInterface(this, Yami.Scene))
+    $('#sceneAnimation-scripts').bind(new ScriptListInterface(this, Scene))
 
     // 绑定脚本参数面板
     $('#sceneAnimation-parameter-pane').bind($('#sceneAnimation-scripts'))
@@ -51,9 +61,9 @@ import * as Yami from '../yami.js'
       #sceneAnimation-animationId, #sceneAnimation-motion,
       #sceneAnimation-mirror, #sceneAnimation-x, #sceneAnimation-y`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.Scene))
-    $('#sceneAnimation-conditions, #sceneAnimation-events, #sceneAnimation-scripts').on('change', Yami.Scene.listChange)
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, Scene))
+    $('#sceneAnimation-conditions, #sceneAnimation-events, #sceneAnimation-scripts').on('change', Scene.listChange)
   }
 
   // 创建动画
@@ -81,7 +91,7 @@ import * as Yami from '../yami.js'
       this.target = animation
 
       // 写入数据
-      const write = Yami.getElementWriter('sceneAnimation', animation)
+      const write = getElementWriter('sceneAnimation', animation)
       write('name')
       write('animationId')
       write('motion')
@@ -97,8 +107,8 @@ import * as Yami from '../yami.js'
   // 关闭数据
   SceneAnimation.close = function () {
     if (this.target) {
-      Yami.Scene.list.unselect(this.target)
-      Yami.Scene.updateTarget()
+      Scene.list.unselect(this.target)
+      Scene.updateTarget()
       this.target = null
       this.motions = null
       $('#sceneAnimation-conditions').clear()
@@ -120,21 +130,21 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   SceneAnimation.update = function (animation, key, value) {
-    Yami.Scene.planToSave()
+    Scene.planToSave()
     switch (key) {
       case 'name':
         if (animation.name !== value) {
           animation.name = value
-          Yami.Scene.updateTargetInfo()
-          Yami.Scene.list.updateItemName(animation)
+          Scene.updateTargetInfo()
+          Scene.list.updateItemName(animation)
         }
         break
       case 'animationId':
         if (animation.animationId !== value) {
           animation.animationId = value
           SceneAnimation.motions = null
-          Yami.Scene.destroyObjectContext(animation)
-          Yami.Scene.loadAnimationContext(animation)
+          Scene.destroyObjectContext(animation)
+          Scene.loadAnimationContext(animation)
         }
         break
       case 'motion':
@@ -158,13 +168,13 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Yami.Scene.requestRendering()
+    Scene.requestRendering()
   }
 
   // 动画ID - 写入事件
   SceneAnimation.animationIdWrite = function (event) {
     const elMotion = $('#sceneAnimation-motion')
-    const items = Yami.Animation.getMotionListItems(event.value)
+    const items = Animation.getMotionListItems(event.value)
     elMotion.loadItems(items)
     elMotion.write(elMotion.read() ?? items[0].value)
   }
@@ -173,10 +183,10 @@ import * as Yami from '../yami.js'
   SceneAnimation.paramInput = function (event) {
     SceneAnimation.update(
       SceneAnimation.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.sceneAnimation = SceneAnimation
+  Inspector.sceneAnimation = SceneAnimation
 }

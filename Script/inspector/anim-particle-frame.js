@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  Curve,
+  getElementWriter,
+  Inspector
+} = Yami
+
 // ******************************** 动画 - 粒子帧页面 ********************************
 
 {
@@ -27,8 +34,8 @@ import * as Yami from '../yami.js'
       #animParticleFrame-scaleX, #animParticleFrame-scaleY, #animParticleFrame-opacity,
       #animParticleFrame-scale, #animParticleFrame-speed`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(
       this, Animation, data => {
         data.type = 'inspector-frame-change'
         data.motion = this.motion
@@ -57,11 +64,11 @@ import * as Yami from '../yami.js'
   AnimParticleFrame.open = function (frame) {
     if (this.target !== frame) {
       this.target = frame
-      this.motion = Yami.Animation.motion
-      Yami.Curve.load(frame)
+      this.motion = Animation.motion
+      Curve.load(frame)
 
       // 写入数据
-      const write = Yami.getElementWriter('animParticleFrame', frame)
+      const write = getElementWriter('animParticleFrame', frame)
       write('x')
       write('y')
       write('rotation')
@@ -76,8 +83,8 @@ import * as Yami from '../yami.js'
   // 关闭数据
   AnimParticleFrame.close = function () {
     if (this.target) {
-      Yami.Animation.unselectMarquee(this.target)
-      Yami.Curve.load(null)
+      Animation.unselectMarquee(this.target)
+      Curve.load(null)
       this.target = null
       this.motion = null
     }
@@ -104,7 +111,7 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   AnimParticleFrame.update = function (frame, key, value) {
-    Yami.Animation.planToSave()
+    Animation.planToSave()
     switch (key) {
       case 'x':
       case 'y':
@@ -114,7 +121,7 @@ import * as Yami from '../yami.js'
       case 'opacity':
         if (frame[key] !== value) {
           frame[key] = value
-          Yami.Animation.updateFrameContexts()
+          Animation.updateFrameContexts()
         }
         break
       case 'scale':
@@ -124,17 +131,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Yami.Animation.requestRendering()
+    Animation.requestRendering()
   }
 
   // 参数 - 输入事件
   AnimParticleFrame.paramInput = function (event) {
     AnimParticleFrame.update(
       AnimParticleFrame.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.animParticleFrame = AnimParticleFrame
+  Inspector.animParticleFrame = AnimParticleFrame
 }

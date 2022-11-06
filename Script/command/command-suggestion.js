@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  FSP,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 指令提示框 ********************************
 
 const CommandSuggestion = {
@@ -56,7 +63,7 @@ CommandSuggestion.initialize = function () {
 
   // 加载指令数据
   const path = 'commands.json'
-  this.data = Yami.FSP.readFile(path, 'utf8').then(
+  this.data = FSP.readFile(path, 'utf8').then(
     data => this.data = JSON.parse(data)
   )
 
@@ -74,11 +81,11 @@ CommandSuggestion.initialize = function () {
 
 // 打开
 CommandSuggestion.open = function () {
-  const list = Yami.Command.target
+  const list = Command.target
   list.scrollAndResize()
   const point = list.getSelectionPosition()
   if (point) {
-    Yami.Window.open('command-widget')
+    Window.open('command-widget')
     const {widget, list, searcher} = this
     const x = point.x - 5
     const y = point.y
@@ -102,8 +109,8 @@ CommandSuggestion.open = function () {
 
 // 选择指令
 CommandSuggestion.select = function (item) {
-  Yami.Window.close('command-widget')
-  Yami.Command.open(item.value)
+  Window.close('command-widget')
+  Command.open(item.value)
 }
 
 // 窗口 - 本地化事件
@@ -132,7 +139,7 @@ CommandSuggestion.pointerdown = function (event) {
   if (!widget.contains(event.target) &&
     !list.contains(event.target)) {
     event.preventDefault()
-    Yami.Window.close('command-widget')
+    Window.close('command-widget')
   }
 }
 
@@ -236,7 +243,7 @@ CommandSuggestion.listUpdate = function (event) {
     this.style.left = `${x}px`
     this.style.top = `${top}px`
     this.style.height = `${lines * 20}px`
-    this.style.zIndex = Yami.Window.frames.length - 1
+    this.style.zIndex = Window.frames.length - 1
     this.show()
   } else {
     this.hide()
@@ -318,7 +325,7 @@ CommandSuggestion.list.updateCommandNames = function IIFE() {
     }
   }
   return function () {
-    update(this.data, Yami.Local.createGetter('command'))
+    update(this.data, Local.createGetter('command'))
   }
 }()
 
@@ -327,7 +334,7 @@ CommandSuggestion.list.createCommandTip = function IIFE() {
   const separator = /\s*,\s*/
   return function (item) {
     const element = item.element
-    const words = Yami.Command.words.push(item.class)
+    const words = Command.words.push(item.class)
     if (item.class !== 'custom') {
       words.push(item.value)
     }

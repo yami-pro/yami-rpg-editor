@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  getElementReader,
+  getElementWriter,
+  IfCondition,
+  Local,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 匹配 - 条件窗口 ********************************
 
 const SwitchCondition = {
@@ -80,34 +90,34 @@ SwitchCondition.initialize = function () {
 SwitchCondition.parse = function (condition) {
   switch (condition.type) {
     case 'none':
-      return Yami.Local.get('common.none')
+      return Local.get('common.none')
     case 'boolean':
     case 'number':
       return condition.value.toString()
     case 'string':
-      return `"${Yami.Command.parseMultiLineString(condition.value)}"`
+      return `"${Command.parseMultiLineString(condition.value)}"`
     case 'enum': {
-      const name = Yami.Command.parseEnumString(condition.stringId)
-      return `${Yami.Local.get('command.switch.enum')}(${name})`
+      const name = Command.parseEnumString(condition.stringId)
+      return `${Local.get('command.switch.enum')}(${name})`
     }
     case 'keyboard': {
       const key = condition.keycode
-      const keyboard = Yami.Local.get('command.switch.keyboard')
+      const keyboard = Local.get('command.switch.keyboard')
       return `${keyboard}["${key}"]`
     }
     case 'mouse': {
-      const button = Yami.IfCondition.parseMouseButton(condition.button)
-      const mouse = Yami.Local.get('command.switch.mouse')
+      const button = IfCondition.parseMouseButton(condition.button)
+      const mouse = Local.get('command.switch.mouse')
       return `${mouse}[${button}]`
     }
     case 'variable':
-      return Yami.Command.parseVariable(condition.variable)
+      return Command.parseVariable(condition.variable)
   }
 }
 
 // 打开数据
 SwitchCondition.open = function (condition = {type: 'number', value: 0}) {
-  Yami.Window.open('switch-condition')
+  Window.open('switch-condition')
   let booleanValue = false
   let numberValue = 0
   let stringValue = ''
@@ -115,7 +125,7 @@ SwitchCondition.open = function (condition = {type: 'number', value: 0}) {
   let keyboardKeycode = ''
   let mouseButton = 0
   let variableVariable = {type: 'local', key: ''}
-  const write = Yami.getElementWriter('switch-condition')
+  const write = getElementWriter('switch-condition')
   switch (condition.type) {
     case 'none':
       break
@@ -154,7 +164,7 @@ SwitchCondition.open = function (condition = {type: 'number', value: 0}) {
 
 // 保存数据
 SwitchCondition.save = function () {
-  const read = Yami.getElementReader('switch-condition')
+  const read = getElementReader('switch-condition')
   const type = read('type')
   let condition
   switch (type) {
@@ -199,14 +209,14 @@ SwitchCondition.save = function () {
     }
     case 'variable': {
       const variable = read('variable-variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#switch-condition-variable-variable').getFocus()
       }
       condition = {type, variable}
       break
     }
   }
-  Yami.Window.close('switch-condition')
+  Window.close('switch-condition')
   return condition
 }
 

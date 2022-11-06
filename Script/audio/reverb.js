@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { AudioManager } = Yami
+
 // ******************************** 混响类 ********************************
 
 class Reverb {
@@ -15,10 +17,10 @@ class Reverb {
   wet       //:number
 
   constructor(player) {
-    const {context} = Yami.AudioManager
+    const {context} = AudioManager
     this.player = player
     this.input = player.panner
-    this.output = Yami.AudioManager.analyser
+    this.output = AudioManager.analyser
     this.dryGain = context.createGain()
     this.wetGain = context.createGain()
     this.convolver = this.getConvolver()
@@ -79,7 +81,7 @@ class Reverb {
     if (!Reverb.convolver) {
       const PREDELAY = 0.1
       const DECAYTIME = 2
-      const context = Yami.AudioManager.context
+      const context = AudioManager.context
       const duration = PREDELAY + DECAYTIME
       const sampleRate = context.sampleRate
       const sampleCount = Math.round(sampleRate * duration)
@@ -104,7 +106,7 @@ class Reverb {
       filter.type = 'lowpass'
       filter.frequency.value = 3000
       convolver.connect(filter)
-      filter.connect(Yami.AudioManager.analyser)
+      filter.connect(AudioManager.analyser)
       Reverb.convolver = convolver
     }
     return Reverb.convolver

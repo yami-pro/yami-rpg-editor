@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  Particle
+} = Yami
+
 // ******************************** 粒子元素类 ********************************
 
 class ParticleElement {
@@ -130,9 +135,9 @@ class ParticleElement {
     const sh = layer.unitHeight
     const tw = layer.textureWidth
     const th = layer.textureHeight
-    const vertices = Yami.GL.arrays[0].float32
-    const colors = Yami.GL.arrays[0].uint32
-    const matrix = Yami.GL.matrix.reset()
+    const vertices = GL.arrays[0].float32
+    const colors = GL.arrays[0].uint32
+    const matrix = GL.matrix.reset()
     .translate(this.x, this.y)
     .rotate(this.rotationAngle)
     .scale(this.scaleFactor, this.scaleFactor)
@@ -368,7 +373,7 @@ class ParticleElement {
     const layer = this.layer
     const sw = layer.unitWidth
     const sh = layer.unitHeight
-    const matrix = Yami.GL.matrix.reset()
+    const matrix = GL.matrix.reset()
     .translate(this.x, this.y)
     .rotate(this.rotationAngle)
     .scale(this.scaleFactor, this.scaleFactor)
@@ -466,7 +471,7 @@ class ParticleElement {
   static sharedClampedArray = new Uint8ClampedArray(4)
 }
 
-Yami.Particle.Element = ParticleElement
+Particle.Element = ParticleElement
 
 // ******************************** 粒子元素类导出 ********************************
 

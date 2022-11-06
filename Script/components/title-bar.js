@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Window } = Yami
+
 // ******************************** 标题栏 ********************************
 
 class TitleBar extends HTMLElement {
@@ -83,7 +85,7 @@ class TitleBar extends HTMLElement {
       }
       case 'CLOSE': {
         const windowFrame = this.parentNode
-        Yami.Window.close(windowFrame.id)
+        Window.close(windowFrame.id)
         break
       }
     }

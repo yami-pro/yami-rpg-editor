@@ -2,12 +2,19 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementWriter,
+  Inspector,
+  UI,
+  UIElement
+} = Yami
+
 // ******************************** 元素 - 视频页面 ********************************
 
 {
   const UIVideo = {
     // properties
-    owner: Yami.UI,
+    owner: UI,
     target: null,
     // methods
     initialize: null,
@@ -45,13 +52,13 @@ import * as Yami from '../yami.js'
     // 侦听事件
     const elements = $('#uiVideo-video, #uiVideo-loop, #uiVideo-flip, #uiVideo-blend')
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, UI))
   }
 
   // 创建文本框
   UIVideo.create = function () {
-    const transform = Yami.UIElement.createTransform()
+    const transform = UIElement.createTransform()
     transform.width = 100
     transform.height = 100
     return {
@@ -79,28 +86,28 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = Yami.getElementWriter('uiVideo', node)
+      const write = getElementWriter('uiVideo', node)
       write('video')
       write('loop')
       write('flip')
       write('blend')
-      Yami.UIElement.open(node)
+      UIElement.open(node)
     }
   }
 
   // 关闭数据
   UIVideo.close = function () {
     if (this.target) {
-      Yami.UI.list.unselect(this.target)
-      Yami.UI.updateTarget()
-      Yami.UIElement.close()
+      UI.list.unselect(this.target)
+      UI.updateTarget()
+      UIElement.close()
       this.target = null
     }
   }
 
   // 更新数据
   UIVideo.update = function (node, key, value) {
-    Yami.UI.planToSave()
+    UI.planToSave()
     switch (key) {
       case 'video':
       case 'loop':
@@ -111,17 +118,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Yami.UI.requestRendering()
+    UI.requestRendering()
   }
 
   // 参数 - 输入事件
   UIVideo.paramInput = function (event) {
     UIVideo.update(
       UIVideo.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.uiVideo = UIVideo
+  Inspector.uiVideo = UIVideo
 }

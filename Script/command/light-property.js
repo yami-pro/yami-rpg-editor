@@ -2,6 +2,14 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 移动光源 - 属性窗口 ********************************
 
 const LightProperty = {
@@ -95,16 +103,16 @@ LightProperty.parse = function ({key, value}) {
     case 'red':
     case 'green':
     case 'blue': {
-      const number = Yami.Command.parseVariableNumber(value)
-      return `${Yami.Local.get('command.moveLight.' + key)}(${number})`
+      const number = Command.parseVariableNumber(value)
+      return `${Local.get('command.moveLight.' + key)}(${number})`
     }
   }
 }
 
 // 打开数据
 LightProperty.open = function ({key = 'x', value = 0} = {}) {
-  Yami.Window.open('moveLight-property')
-  const write = Yami.getElementWriter('moveLight-property')
+  Window.open('moveLight-property')
+  const write = getElementWriter('moveLight-property')
   let x = 0
   let y = 0
   let range = 1
@@ -173,7 +181,7 @@ LightProperty.open = function ({key = 'x', value = 0} = {}) {
 
 // 保存数据
 LightProperty.save = function () {
-  const read = Yami.getElementReader('moveLight-property')
+  const read = getElementReader('moveLight-property')
   const key = read('key')
   let value
   switch (key) {
@@ -214,7 +222,7 @@ LightProperty.save = function () {
       value = read('blue')
       break
   }
-  Yami.Window.close('moveLight-property')
+  Window.close('moveLight-property')
   return {key, value}
 }
 

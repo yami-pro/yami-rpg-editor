@@ -2,6 +2,19 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  Editor,
+  File,
+  FS,
+  FSP,
+  getElementWriter,
+  Log,
+  Path,
+  Timer,
+  Window
+} = Yami
+
 // ******************************** 部署项目窗口 ********************************
 
 const Deployment = {
@@ -44,10 +57,10 @@ Deployment.initialize = function () {
 
 // 打开窗口
 Deployment.open = function () {
-  Yami.Window.open('deployment')
-  const write = Yami.getElementWriter('deployment')
-  const dialogs = Yami.Editor.config.dialogs
-  const location = Yami.Path.normalize(dialogs.deploy)
+  Window.open('deployment')
+  const write = getElementWriter('deployment')
+  const dialogs = Editor.config.dialogs
+  const location = Path.normalize(dialogs.deploy)
   write('platform', 'windows-electron')
   write('folder', 'Output')
   write('location', location)
@@ -65,7 +78,7 @@ Deployment.check = function () {
       $('#deployment-warning').textContent = '名称为空'
       $('#deployment-confirm').disable()
     }
-  } else if (Yami.FS.existsSync(Yami.Path.resolve(location, folder))) {
+  } else if (FS.existsSync(Path.resolve(location, folder))) {
     if (this.state !== 'existing') {
       this.state = 'existing'
       $('#deployment-warning').textContent = '项目已存在'
@@ -85,7 +98,7 @@ Deployment.readShellList = function IIFE() {
   let root
   const options = {withFileTypes: true}
   const read = (path, list) => {
-    return Yami.FSP.readdir(
+    return FSP.readdir(
       `${root}${path}`,
       options,
     ).then(
@@ -135,7 +148,7 @@ Deployment.readFileList = async function (platform) {
       fileList = await this.readShellList('Templates/electron-win/')
       break
     case 'windows-nwjs': {
-      const {window} = Yami.Data.config
+      const {window} = Data.config
       fileList = await this.readShellList('Templates/nwjs-win/')
       fileList.push({
         path: 'package.json',
@@ -175,17 +188,17 @@ Deployment.readFileList = async function (platform) {
   // 打包初始化加载的数据
   const manifest = {
     deployed: true,
-    actors: Yami.Data.actors,
+    actors: Data.actors,
     skills: {},
     items: {},
     equipments: {},
-    triggers: Yami.Data.triggers,
-    states: Yami.Data.states,
-    events: Yami.Data.events,
-    tilesets: Yami.Data.tilesets,
-    ui: Yami.Data.ui,
-    animations: Yami.Data.animations,
-    particles: Yami.Data.particles,
+    triggers: Data.triggers,
+    states: Data.states,
+    events: Data.events,
+    tilesets: Data.tilesets,
+    ui: Data.ui,
+    animations: Data.animations,
+    particles: Data.particles,
     scenes: [],
     images: [],
     audio: [],
@@ -197,13 +210,13 @@ Deployment.readFileList = async function (platform) {
   // 获取技能|物品|装备的文件名(用来游戏中排序)
   const guidAndExt = /\.[0-9a-f]{16}\.\S+$/
   for (const key of ['skills', 'items', 'equipments']) {
-    const dataGroup = Yami.Data[key]
+    const dataGroup = Data[key]
     const manifestGroup = manifest[key]
-    for (const {guid, path} of Yami.Data.manifest[key]) {
+    for (const {guid, path} of Data.manifest[key]) {
       const data = dataGroup[guid]
       if (data !== undefined) {
         manifestGroup[guid] = {...data,
-          filename: Yami.Path.basename(path).replace(guidAndExt, ''),
+          filename: Path.basename(path).replace(guidAndExt, ''),
         }
       }
     }
@@ -213,31 +226,31 @@ Deployment.readFileList = async function (platform) {
     data: manifest,
     path: 'manifest.json',
   }, {
-    data: Yami.Data.config,
+    data: Data.config,
     path: 'Data/config.json',
   }, {
-    data: Yami.Data.easings,
+    data: Data.easings,
     path: 'Data/easings.json',
   }, {
-    data: Yami.Data.teams,
+    data: Data.teams,
     path: 'Data/teams.json',
   }, {
-    data: Yami.Data.autotiles,
+    data: Data.autotiles,
     path: 'Data/autotiles.json',
   }, {
-    data: Yami.Data.variables,
+    data: Data.variables,
     path: 'Data/variables.json',
   }, {
-    data: Yami.Data.attribute,
+    data: Data.attribute,
     path: 'Data/attribute.json',
   }, {
-    data: Yami.Data.enumeration,
+    data: Data.enumeration,
     path: 'Data/enumeration.json',
   }, {
-    data: Yami.Data.plugins,
+    data: Data.plugins,
     path: 'Data/plugins.json',
   }, {
-    data: Yami.Data.commands,
+    data: Data.commands,
     path: 'Data/commands.json',
   })
   // 添加基础文件列表
@@ -267,20 +280,20 @@ Deployment.readFileList = async function (platform) {
     {path: 'Script/main.js'},
   )
   // 重定向场景文件列表
-  for (const {guid, path} of Yami.Data.manifest.scenes) {
+  for (const {guid, path} of Data.manifest.scenes) {
     const newPath = `Assets/${guid}.json`
     manifest.scenes.push({
       path: newPath,
     })
     fileList.push({
-      srcPath: Yami.File.route(path),
+      srcPath: File.route(path),
       newPath: newPath,
     })
   }
   // 重定向脚本文件列表
   const tsExtname = /\.ts$/
-  const tsOutDir = Yami.Data.config.script.outDir.replace(/\/$/, '')
-  for (let {guid, path, parameters} of Yami.Data.manifest.script) {
+  const tsOutDir = Data.config.script.outDir.replace(/\/$/, '')
+  for (let {guid, path, parameters} of Data.manifest.script) {
     // 重新映射TS脚本到输出目录的JS脚本
     if (tsExtname.test(path)) {
       path = path
@@ -293,7 +306,7 @@ Deployment.readFileList = async function (platform) {
       parameters: parameters,
     })
     fileList.push({
-      srcPath: Yami.File.route(path),
+      srcPath: File.route(path),
       newPath: newPath,
     })
   }
@@ -305,16 +318,16 @@ Deployment.readFileList = async function (platform) {
     'fonts',
     'others',
   ]) {
-    const sMetaList = Yami.Data.manifest[key]
+    const sMetaList = Data.manifest[key]
     const dMetaList = manifest[key]
     for (const {guid, path} of sMetaList) {
-      const extname = Yami.Path.extname(path)
+      const extname = Path.extname(path)
       const newPath = `Assets/${guid}${extname}`
       dMetaList.push({
         path: newPath,
       })
       fileList.push({
-        srcPath: Yami.File.route(path),
+        srcPath: File.route(path),
         newPath: newPath,
       })
     }
@@ -324,7 +337,7 @@ Deployment.readFileList = async function (platform) {
 
 // 复制文件到指定目录
 Deployment.copyFilesTo = function (dirPath) {
-  Yami.Window.open('copyProgress')
+  Window.open('copyProgress')
   const platform = $('#deployment-platform').read()
   const progressBar = $('#copyProgress-bar')
   const progressInfo = $('#copyProgress-info')
@@ -339,19 +352,19 @@ Deployment.copyFilesTo = function (dirPath) {
     const length = list.length
     for (let i = 0; i < length; i++) {
       const item = list[i]
-      const srcPath = item.srcPath ?? Yami.File.route(item.path)
+      const srcPath = item.srcPath ?? File.route(item.path)
       const newPath = item.newPath ?? item.path
       const dstPath = dPath + newPath
       switch (item.folder) {
         case true:
           // 创建文件夹(同步)
-          Yami.FS.mkdirSync(dstPath)
+          FS.mkdirSync(dstPath)
           continue
         default:
           if (item.data) {
             // 写入数据到文件
             const json = JSON.stringify(item.data)
-            promises.push(Yami.FSP.writeFile(
+            promises.push(FSP.writeFile(
               dstPath,
               json,
             ).then(() => {
@@ -360,7 +373,7 @@ Deployment.copyFilesTo = function (dirPath) {
             }))
           } else {
             // 复制文件
-            promises.push(Yami.FSP.copyFile(
+            promises.push(FSP.copyFile(
               srcPath,
               dstPath,
             ).then(() => {
@@ -372,7 +385,7 @@ Deployment.copyFilesTo = function (dirPath) {
           continue
       }
     }
-    this.timer = new Yami.Timer({
+    this.timer = new Timer({
       duration: Infinity,
       update: timer => {
         const percent = Math.round(count / total * 100)
@@ -415,7 +428,7 @@ Deployment.locationInput = function (event) {
 // 选择按钮 - 鼠标点击事件
 Deployment.chooseClick = function (event) {
   const input = $('#deployment-location')
-  Yami.File.showOpenDialog({
+  File.showOpenDialog({
     defaultPath: input.read(),
     properties: ['openDirectory'],
   }).then(({filePaths}) => {
@@ -430,22 +443,22 @@ Deployment.chooseClick = function (event) {
 Deployment.confirm = function (event) {
   const location = $('#deployment-location').read()
   const folder = $('#deployment-folder').read()
-  const path = Yami.Path.resolve(location, folder)
-  Yami.Window.close('deployment')
-  return Yami.FSP.mkdir(path, {recursive: true}).then(done => {
+  const path = Path.resolve(location, folder)
+  Window.close('deployment')
+  return FSP.mkdir(path, {recursive: true}).then(done => {
     return Deployment.copyFilesTo(path)
   }).finally(() => {
-    Yami.Window.close('copyProgress')
+    Window.close('copyProgress')
     if (Deployment.timer) {
       Deployment.timer.remove()
       Deployment.timer = null
     }
   }).then(() => {
-    Yami.Editor.config.dialogs.deploy =
-    Yami.Path.slash(Yami.Path.resolve(location))
+    Editor.config.dialogs.deploy =
+    Path.slash(Path.resolve(location))
   }).catch(error => {
-    Yami.Log.throw(error)
-    Yami.Window.confirm({
+    Log.throw(error)
+    Window.confirm({
       message: 'Failed to deploy project:\n' + error.message,
     }, [{
       label: 'Confirm',

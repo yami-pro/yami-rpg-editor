@@ -2,6 +2,34 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  AnimationPlayer,
+  Command,
+  ctrl,
+  Cursor,
+  Curve,
+  Data,
+  Easing,
+  Enum,
+  File,
+  GL,
+  History,
+  ImageTexture,
+  Inspector,
+  Layout,
+  Local,
+  Matrix,
+  Menu,
+  NodeList,
+  Particle,
+  Scene,
+  Sprite,
+  StageColor,
+  Timer,
+  UI,
+  Window
+} = Yami
+
 // ******************************** 动画窗口 ********************************
 
 const Animation = {
@@ -286,13 +314,13 @@ Animation.layerList.copy = null
 Animation.layerList.paste = null
 Animation.layerList.delete = null
 Animation.layerList.restoreMotion = null
-Animation.layerList.restoreRecursiveStates = Yami.Scene.list.restoreRecursiveStates
-Animation.layerList.setRecursiveStates = Yami.Scene.list.setRecursiveStates
+Animation.layerList.restoreRecursiveStates = Scene.list.restoreRecursiveStates
+Animation.layerList.setRecursiveStates = Scene.list.setRecursiveStates
 Animation.layerList.createIcon = null
-Animation.layerList.createVisibilityIcon = Yami.Scene.list.createVisibilityIcon
-Animation.layerList.updateVisibilityIcon = Yami.Scene.list.updateVisibilityIcon
-Animation.layerList.createLockIcon = Yami.Scene.list.createLockIcon
-Animation.layerList.updateLockIcon = Yami.Scene.list.updateLockIcon
+Animation.layerList.createVisibilityIcon = Scene.list.createVisibilityIcon
+Animation.layerList.updateVisibilityIcon = Scene.list.updateVisibilityIcon
+Animation.layerList.createLockIcon = Scene.list.createLockIcon
+Animation.layerList.updateLockIcon = Scene.list.updateLockIcon
 Animation.layerList.onDelete = null
 
 // timeline properties
@@ -369,7 +397,7 @@ Animation.initialize = function () {
   this.controlPoints = points
 
   // 创建位移计时器
-  this.translationTimer = new Yami.Timer({
+  this.translationTimer = new Timer({
     duration: Infinity,
     update: timer => {
       if (this.state === 'open' &&
@@ -401,7 +429,7 @@ Animation.initialize = function () {
   })
 
   // 创建缩放计时器
-  this.zoomTimer = new Yami.Timer({
+  this.zoomTimer = new Timer({
     duration: 80,
     update: timer => {
       if (this.state === 'open') {
@@ -421,7 +449,7 @@ Animation.initialize = function () {
   this.padding = 800
 
   // 创建变换矩阵
-  this.matrix = new Yami.Matrix()
+  this.matrix = new Matrix()
 
   // 设置检查器类型映射表
   this.inspectorTypeMap = {
@@ -455,19 +483,19 @@ Animation.initialize = function () {
   layerList.updaters.push(layerList.updateLockIcon)
 
   // 设置历史操作处理器
-  Yami.History.processors['animation-object-create'] = (operation, data) => {
+  History.processors['animation-object-create'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
   }
-  Yami.History.processors['animation-object-delete'] = (operation, data) => {
+  History.processors['animation-object-delete'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
   }
-  Yami.History.processors['animation-object-remove'] = (operation, data) => {
+  History.processors['animation-object-remove'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
   }
-  Yami.History.processors['animation-motion-id-change'] = (operation, data) => {
+  History.processors['animation-motion-id-change'] = (operation, data) => {
     const {motion, id} = data
     data.id = motion.id
     motion.id = id
@@ -476,20 +504,20 @@ Animation.initialize = function () {
     list.scrollToSelection()
     Animation.planToSave()
   }
-  Yami.History.processors['animation-layer-rename'] = (operation, data) => {
+  History.processors['animation-layer-rename'] = (operation, data) => {
     const {motion, response} = data
     layerList.restoreMotion(motion)
     layerList.restore(operation, response)
   }
-  Yami.History.processors['animation-layer-create'] =
-  Yami.History.processors['animation-layer-delete'] =
-  Yami.History.processors['animation-layer-remove'] = (operation, data) => {
+  History.processors['animation-layer-create'] =
+  History.processors['animation-layer-delete'] =
+  History.processors['animation-layer-remove'] = (operation, data) => {
     const {motion, response} = data
     Animation.contextLoaded = false
     layerList.restoreMotion(motion)
     layerList.restore(operation, response)
   }
-  Yami.History.processors['animation-layer-hidden'] = (operation, data) => {
+  History.processors['animation-layer-hidden'] = (operation, data) => {
     const {motion, item, oldValues, newValue} = data
     layerList.restoreMotion(motion)
     if (operation === 'undo') {
@@ -501,7 +529,7 @@ Animation.initialize = function () {
     Animation.requestRendering()
     Animation.planToSave()
   }
-  Yami.History.processors['animation-layer-locked'] = (operation, data) => {
+  History.processors['animation-layer-locked'] = (operation, data) => {
     const {motion, item, oldValues, newValue} = data
     layerList.restoreMotion(motion)
     if (operation === 'undo') {
@@ -512,7 +540,7 @@ Animation.initialize = function () {
     layerList.update()
     Animation.planToSave()
   }
-  Yami.History.processors['animation-frames-change'] = (operation, data) => {
+  History.processors['animation-frames-change'] = (operation, data) => {
     const {motion, changes, sMarquee, dMarquee} = data
     for (const change of changes) {
       const {layer, frames} = change
@@ -530,21 +558,21 @@ Animation.initialize = function () {
     Animation.scrollToMarquee(false)
     Animation.planToSave()
   }
-  Yami.History.processors['animation-easing-change'] = (operation, data) => {
+  History.processors['animation-easing-change'] = (operation, data) => {
     const {motion, target, easingId} = data
     data.easingId = target.easingId
     target.easingId = easingId
-    if (Yami.Curve.target === target) {
-      Yami.Curve.list.write(easingId)
+    if (Curve.target === target) {
+      Curve.list.write(easingId)
     }
-    Yami.Curve.updateTimeline(target)
+    Curve.updateTimeline(target)
     Animation.setMotion(motion)
     Animation.selectFrame(target)
     Animation.updateFrameContexts()
     Animation.requestRendering()
     Animation.planToSave()
   }
-  Yami.History.processors['animation-target-shift'] = (operation, data) => {
+  History.processors['animation-target-shift'] = (operation, data) => {
     const {editor, motion, target, x, y} = data
     data.x = target.x
     data.y = target.y
@@ -559,7 +587,7 @@ Animation.initialize = function () {
     Animation.requestRendering()
     Animation.planToSave()
   }
-  Yami.History.processors['animation-target-resize'] = (operation, data) => {
+  History.processors['animation-target-resize'] = (operation, data) => {
     const {editor, motion, target, scaleX, scaleY} = data
     data.scaleX = target.scaleX
     data.scaleY = target.scaleY
@@ -574,7 +602,7 @@ Animation.initialize = function () {
     Animation.requestRendering()
     Animation.planToSave()
   }
-  Yami.History.processors['animation-target-rotate'] = (operation, data) => {
+  History.processors['animation-target-rotate'] = (operation, data) => {
     const {editor, motion, target, rotation} = data
     data.rotation = target.rotation
     target.rotation = rotation
@@ -587,7 +615,7 @@ Animation.initialize = function () {
     Animation.requestRendering()
     Animation.planToSave()
   }
-  Yami.History.processors['animation-target-index'] = (operation, data) => {
+  History.processors['animation-target-index'] = (operation, data) => {
     const {editor, motion, target, hindex, vindex} = data
     data.hindex = target.spriteX
     data.vindex = target.spriteY
@@ -596,9 +624,9 @@ Animation.initialize = function () {
     Animation.setMotion(motion)
     Animation.selectFrame(target)
     Animation.requestRendering()
-    if (Yami.Sprite.state !== 'closed') {
-      Yami.Sprite.marquee.select(hindex, vindex, 1, 1)
-      Yami.Sprite.updateTargetInfo()
+    if (Sprite.state !== 'closed') {
+      Sprite.marquee.select(hindex, vindex, 1, 1)
+      Sprite.updateTargetInfo()
     }
     Animation.planToSave()
   }
@@ -610,7 +638,7 @@ Animation.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
-  Yami.GL.canvas.on('webglcontextrestored', this.webglRestored)
+  GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#animation-head-start').on('pointerdown', this.switchPointerdown)
   $('#animation-speed').on('input', this.speedInput)
   $('#animation-zoom').on('focus', this.zoomFocus)
@@ -654,7 +682,7 @@ Animation.initialize = function () {
   this.innerTimelineList.on('dblclick', this.innerTimelineListDblclick)
 
   // 初始化子对象
-  Yami.Curve.initialize()
+  Curve.initialize()
 }
 
 // 打开精灵
@@ -666,12 +694,12 @@ Animation.open = function (context) {
   this.close()
 
   // 设置粒子元素舞台
-  Yami.Particle.Element.stage = this
+  Particle.Element.stage = this
 
   // 首次加载动画
   const {meta} = context
   if (!context.animation) {
-    context.animation = Yami.Data.animations[meta.guid]
+    context.animation = Data.animations[meta.guid]
   }
   if (context.animation) {
     this.state = 'open'
@@ -682,8 +710,8 @@ Animation.open = function (context) {
     this.resize()
     this.requestRendering()
   } else {
-    Yami.Layout.manager.switch('directory')
-    Yami.Window.confirm({
+    Layout.manager.switch('directory')
+    Window.confirm({
       message: `Failed to read file: ${meta.path}`,
     }, [{
       label: 'Confirm',
@@ -702,7 +730,7 @@ Animation.load = function (context) {
       motion: null,
       target: null,
       player: player,
-      history: new Yami.History(100),
+      history: new History(100),
       centerX: 0,
       centerY: 0,
       selectionX: 0,
@@ -778,8 +806,8 @@ Animation.close = function () {
     this.screen.blur()
     this.setMotion(null)
     // 关闭检查器
-    if (Yami.Inspector.type === 'fileAnimation') {
-      Yami.Inspector.close()
+    if (Inspector.type === 'fileAnimation') {
+      Inspector.close()
     }
     this.state = 'closed'
     this.context = null
@@ -889,13 +917,13 @@ Animation.openLayer = function (layer) {
   this.layerList.selectWithNoEvent(layer)
   switch (layer.class) {
     case 'joint':
-      Yami.Inspector.close()
+      Inspector.close()
       break
     case 'sprite':
-      Yami.Inspector.open('animSpriteLayer', layer)
+      Inspector.open('animSpriteLayer', layer)
       break
     case 'particle':
-      Yami.Inspector.open('animParticleLayer', layer)
+      Inspector.open('animParticleLayer', layer)
       break
   }
 }
@@ -1090,8 +1118,8 @@ Animation.setMotion = function (motion) {
       this.timeline.show()
       this.timeline.updateHead()
       this.layerList.update()
-      Yami.Inspector.open('animMotion', motion)
-      Yami.Curve.open()
+      Inspector.open('animMotion', motion)
+      Curve.open()
       // 标记动作对象为已加载状态 - 以便销毁元素
       if (motion.loaded === undefined) {
         Object.defineProperty(motion, 'loaded', {
@@ -1105,8 +1133,8 @@ Animation.setMotion = function (motion) {
       this.layerList.clear()
       this.innerTimelineList.clear()
       this.unselectMarquee()
-      Yami.Inspector.close()
-      Yami.Curve.close()
+      Inspector.close()
+      Curve.close()
     }
   }
 }
@@ -1129,7 +1157,7 @@ Animation.editMotion = function (motion) {
       }
     },
   }
-  Yami.Enum.open(proxy, 'string')
+  Enum.open(proxy, 'string')
 }
 
 // 获取新的动作ID
@@ -1138,17 +1166,17 @@ Animation.getNewMotionId = function (callback) {
     read() {return ''},
     input(id) {callback(id)},
   }
-  Yami.Enum.open(proxy, 'string')
+  Enum.open(proxy, 'string')
 }
 
 // 显示目标对象
 Animation.revealTarget = function IIFE() {
-  const timer = new Yami.Timer({
+  const timer = new Timer({
     duration: 200,
     update: timer => {
       const {target} = timer
-      if (target === Yami.Animation.target) {
-        const easing = Yami.Easing.EasingMap.easeInOut
+      if (target === Animation.target) {
+        const easing = Easing.EasingMap.easeInOut
         const time = easing.map(timer.elapsed / timer.duration)
         const x = timer.startX * (1 - time) + timer.endX * time
         const y = timer.startY * (1 - time) + timer.endY * time
@@ -1174,7 +1202,7 @@ Animation.revealTarget = function IIFE() {
   return function () {
     const target = this.target
     if (target && !timer.target) {
-      const matrix = Yami.GL.matrix
+      const matrix = GL.matrix
         .reset()
         .multiply(this.targetContext.matrix)
       const x = matrix[6]
@@ -1205,7 +1233,7 @@ Animation.shiftTarget = function (x, y) {
     this.planToSave()
     const map = this.inspectorTypeMap
     const key = map[context.layer.class]
-    const editor = Yami.Inspector[key]
+    const editor = Inspector[key]
     const history = this.history
     const index = history.index
     const length = history.length
@@ -1244,7 +1272,7 @@ Animation.resizeTarget = function (scaleX, scaleY) {
     this.planToSave()
     const map = this.inspectorTypeMap
     const key = map[context.layer.class]
-    const editor = Yami.Inspector[key]
+    const editor = Inspector[key]
     const history = this.history
     const index = history.index
     const length = history.length
@@ -1287,7 +1315,7 @@ Animation.rotateTarget = function (rotation) {
     this.planToSave()
     const map = this.inspectorTypeMap
     const key = map[context.layer.class]
-    const editor = Yami.Inspector[key]
+    const editor = Inspector[key]
     const history = this.history
     const index = history.index
     const length = history.length
@@ -1450,7 +1478,7 @@ Animation.updateControlPoints = function (context) {
     case 'sprite': {
       const key = layer.sprite
       const texture = this.player.textures[key]
-      if (texture instanceof Yami.ImageTexture) {
+      if (texture instanceof ImageTexture) {
         L = texture.offsetX
         T = texture.offsetY
         R = L + texture.width
@@ -1577,7 +1605,7 @@ Animation.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Yami.Layout.getGroupOfElement(head)
+    const {nav} = Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -1625,7 +1653,7 @@ Animation.resize = function () {
     this.scaleY = innerHeight / stageHeight
     this.marquee.style.width = `${outerWidth / dpr}px`
     this.marquee.style.height = `${outerHeight / dpr}px`
-    Yami.GL.resize(screenWidth, screenHeight)
+    GL.resize(screenWidth, screenHeight)
     this.updateCamera()
     this.updateTransform()
     this.marquee.resize()
@@ -1701,9 +1729,9 @@ Animation.getLayerIndex = function (layer) {
 
 // 获取动作列表选项
 Animation.getMotionListItems = function (animationId) {
-  const motions = Yami.Data.animations[animationId]?.motions
+  const motions = Data.animations[animationId]?.motions
   if (!motions) return [{
-    name: Yami.Local.get('common.none'),
+    name: Local.get('common.none'),
     value: '',
   }]
 
@@ -1714,7 +1742,7 @@ Animation.getMotionListItems = function (animationId) {
       value: undefined,
     })
   }
-  const version = Yami.Data.enumeration.context.version
+  const version = Data.enumeration.context.version
   let items = motions.listItems
   // 枚举数据版本变化时重新生成选项列表
   if (items && items.version !== version) {
@@ -1725,7 +1753,7 @@ Animation.getMotionListItems = function (animationId) {
     items = new Array(length)
     for (let i = 0; i < length; i++) {
       const enumId = motions[i].id
-      const name = Yami.Enum.getString(enumId)?.name ?? Yami.Command.parseUnlinkedId(enumId)
+      const name = Enum.getString(enumId)?.name ?? Command.parseUnlinkedId(enumId)
       items[i] = {
         name: name,
         value: enumId,
@@ -1733,7 +1761,7 @@ Animation.getMotionListItems = function (animationId) {
     }
     if (length === 0) {
       items.push({
-        name: Yami.Local.get('common.none'),
+        name: Local.get('common.none'),
         value: '',
       })
     }
@@ -1745,7 +1773,7 @@ Animation.getMotionListItems = function (animationId) {
 
 // 获取精灵图列表选项
 Animation.getSpriteListItems = function (animationId) {
-  const sprites = Yami.Data.animations[animationId]?.sprites
+  const sprites = Data.animations[animationId]?.sprites
   if (!sprites) return [{name: 'No Image', value: ''}]
 
   // 设置选项缓存
@@ -1781,10 +1809,10 @@ Animation.updateCamera = function (x = this.centerX, y = this.centerY) {
   const scrollX = x * this.scaleX + this.outerWidth / 2
   const scrollY = y * this.scaleY + this.outerHeight / 2
   const toleranceForDPR = 0.0001
-  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - Yami.GL.width) / dpr
-  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - Yami.GL.height) / dpr
-  screen.scrollLeft = (scrollX - (Yami.GL.width >> 1) + toleranceForDPR) / dpr
-  screen.scrollTop = (scrollY - (Yami.GL.height >> 1) + toleranceForDPR) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
+  screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceForDPR) / dpr
+  screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceForDPR) / dpr
 }
 
 // 更新变换参数
@@ -1793,8 +1821,8 @@ Animation.updateTransform = function () {
   const dpr = window.devicePixelRatio
   const left = Math.roundTo(screen.scrollLeft * dpr - (this.outerWidth >> 1), 4)
   const top = Math.roundTo(screen.scrollTop * dpr - (this.outerHeight >> 1), 4)
-  const right = left + Yami.GL.width
-  const bottom = top + Yami.GL.height
+  const right = left + GL.width
+  const bottom = top + GL.height
   this.scrollLeft = left / this.scaleX
   this.scrollTop = top / this.scaleY
   this.scrollRight = right / this.scaleX
@@ -1935,7 +1963,7 @@ Animation.selectFrame = function (frame, fStart, fLength) {
     return
   }
   this.layerList.expandToItem(layer)
-  if (Yami.Inspector.animSpriteFrame.target !== frame) {
+  if (Inspector.animSpriteFrame.target !== frame) {
     const list = this.innerTimelineList
     const timelines = list.childNodes
     const length = timelines.length
@@ -1995,7 +2023,7 @@ Animation.unselectMarquee = function (frame) {
       this.target = null
       this.updateTargetContext()
       this.requestRendering()
-      Yami.Inspector.close()
+      Inspector.close()
     }
     marquee.x = -1
     marquee.length = -1
@@ -2231,7 +2259,7 @@ Animation.openFrame = function () {
       this.requestRendering()
       const map = this.inspectorTypeMap
       const key = map[layer.class]
-      Yami.Inspector.open(key, frame)
+      Inspector.open(key, frame)
     }
     return
   }
@@ -2239,7 +2267,7 @@ Animation.openFrame = function () {
     this.target = null
     this.updateTargetContext()
     this.requestRendering()
-    Yami.Inspector.close()
+    Inspector.close()
   }
 }
 
@@ -2255,7 +2283,7 @@ Animation.loadTextures = function () {
     const imageId = sprite.image
     const texture = last[spriteId]
     const {hframes, vframes} = sprite
-    if (texture instanceof Yami.ImageTexture &&
+    if (texture instanceof ImageTexture &&
       texture.base.guid === imageId) {
       const {base} = texture
       const width = floor(max(base.width / hframes, 1))
@@ -2271,7 +2299,7 @@ Animation.loadTextures = function () {
       continue
     }
     if (imageId) {
-      const texture = new Yami.ImageTexture(imageId)
+      const texture = new ImageTexture(imageId)
       texture.on('load', () => {
         if (player.textures === textures) {
           const {base} = texture
@@ -2295,7 +2323,7 @@ Animation.loadTextures = function () {
   for (const spriteId of Object.keys(last)) {
     const texture = last[spriteId]
     if (texture !== textures[spriteId] &&
-      texture instanceof Yami.ImageTexture) {
+      texture instanceof ImageTexture) {
       texture.destroy()
     }
   }
@@ -2325,7 +2353,7 @@ Animation.loadFrames = function (index, forceReload = false) {
 
 // 绘制背景
 Animation.drawBackground = function () {
-  const gl = Yami.GL
+  const gl = GL
   gl.clearColor(...this.background.getGLRGBA())
   gl.clear(gl.COLOR_BUFFER_BIT)
 }
@@ -2333,12 +2361,12 @@ Animation.drawBackground = function () {
 // 绘制描图纸
 Animation.drawOnionskins = function () {
   if (this.showOnionskin) {
-    Yami.GL.alpha = 0.25
+    GL.alpha = 0.25
     const {prev, next} =
     this.player.onionskin
     this.drawSpriteLayers(prev)
     this.drawSpriteLayers(next)
-    Yami.GL.alpha = 1
+    GL.alpha = 1
   }
 }
 
@@ -2346,7 +2374,7 @@ Animation.drawOnionskins = function () {
 Animation.drawSpriteLayers = function (contexts = this.player.contexts) {
   const {player} = this
   const {count} = contexts
-  const gl = Yami.GL
+  const gl = GL
   let ready = false
   for (let i = 0; i < count; i++) {
     const context = contexts[i]
@@ -2356,7 +2384,7 @@ Animation.drawSpriteLayers = function (contexts = this.player.contexts) {
       frame !== null) {
       const key = layer.sprite
       const texture = player.textures[key]
-      if (texture instanceof Yami.ImageTexture) {
+      if (texture instanceof ImageTexture) {
         if (!ready) {
           ready = true
           const program = gl.spriteProgram.use()
@@ -2380,7 +2408,7 @@ Animation.drawSpriteLayers = function (contexts = this.player.contexts) {
 // 绘制粒子发射器
 Animation.drawEmitters = function () {
   if (!this.showMark) return
-  const gl = Yami.GL
+  const gl = GL
   const vertices = gl.arrays[0].float32
   const matrix = gl.matrix
   const {contexts} = this.player
@@ -2500,7 +2528,7 @@ Animation.drawParticles = function () {
 
 // 绘制坐标轴
 Animation.drawCoordinateAxes = function () {
-  const gl = Yami.GL
+  const gl = GL
   const vertices = gl.arrays[0].float32
   const matrix = gl.matrix.set(Animation.matrix)
   // 避免缩放时虚线抖动
@@ -2552,7 +2580,7 @@ Animation.drawCoordinateAxes = function () {
 // 绘制关节节点
 Animation.drawJointNodes = function () {
   if (!this.showMark) return
-  const gl = Yami.GL
+  const gl = GL
   const vertices = gl.arrays[0].float32
   const matrix = gl.matrix
   const {contexts} = this.player
@@ -2614,7 +2642,7 @@ Animation.drawJointNodes = function () {
 // 绘制关节箭头
 Animation.drawJointArrows = function () {
   if (!this.showMark) return
-  const gl = Yami.GL
+  const gl = GL
   const vertices = gl.arrays[0].float32
   const matrix = gl.matrix
   const {contexts} = this.player
@@ -2696,7 +2724,7 @@ Animation.drawJointSpinner = function () {
     context !== null &&
     context.layer.class === 'joint' &&
     !context.layer.hidden) {
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     const matrix = gl.matrix
     .set(Animation.matrix)
@@ -2810,7 +2838,7 @@ Animation.drawSpriteWireframe = function (context, color) {
   const key = context.layer.sprite
   const texture = this.player.textures[key]
   if (!texture) return
-  const gl = Yami.GL
+  const gl = GL
   const vertices = gl.arrays[0].float32
   const colors = gl.arrays[0].uint32
   const matrix = gl.matrix
@@ -2884,7 +2912,7 @@ Animation.drawSpriteWireframe = function (context, color) {
 Animation.drawEmitterWireframe = function (context, color) {
   const emitter = context.emitter
   if (!emitter) return
-  const gl = Yami.GL
+  const gl = GL
   const vertices = gl.arrays[0].float32
   const colors = gl.arrays[0].uint32
   const matrix = gl.matrix
@@ -2987,7 +3015,7 @@ Animation.drawEmitterWireframe = function (context, color) {
 Animation.drawTargetAnchor = function () {
   const context = this.targetContext
   if (context !== null && this.target !== null) {
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     const colors = gl.arrays[0].uint32
     const matrix = gl.matrix
@@ -3027,11 +3055,11 @@ Animation.drawTargetAnchor = function () {
 Animation.drawSpriteControlPoints = function () {
   const context = this.targetContext
   const target = this.target
-  const texture = Yami.UI.controlPointTexture
+  const texture = UI.controlPointTexture
   if (!context || !target || !texture) return
   if (this.updateControlPoints(context)) {
     const POINT_RADIUS = 4 / this.scale
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     let vi = 0
     const {rectList} = this.controlPoints
@@ -3272,7 +3300,7 @@ Animation.insertFrame = function () {
   } else {
     const map = this.inspectorTypeMap
     const key = map[layer.class]
-    insert = Yami.Inspector[key].create()
+    insert = Inspector[key].create()
   }
   if (last && last.end !== x) {
     this.cloneFrame(frames, fLength - 1).end = x
@@ -3820,7 +3848,7 @@ Animation.isPointInFrame = function (context, x, y) {
   const key = context.layer.sprite
   const texture = this.player.textures[key]
   if (!texture) return false
-  const matrix = Yami.GL.matrix
+  const matrix = GL.matrix
   .set(context.matrix)
   const L = texture.offsetX
   const T = texture.offsetY
@@ -3888,7 +3916,7 @@ Animation.requestRefreshingList = function () {
 // 请求更新动画
 Animation.requestAnimation = function () {
   if (this.state === 'open') {
-    Yami.Timer.appendUpdater('stageAnimation', this.updateAnimation)
+    Timer.appendUpdater('stageAnimation', this.updateAnimation)
   }
 }
 
@@ -3928,19 +3956,19 @@ Animation.updateAnimation = function (deltaTime) {
 
 // 停止更新动画
 Animation.stopAnimation = function () {
-  Yami.Timer.removeUpdater('stageAnimation', this.updateAnimation)
+  Timer.removeUpdater('stageAnimation', this.updateAnimation)
 }
 
 // 请求渲染
 Animation.requestRendering = function () {
   if (this.state === 'open') {
-    Yami.Timer.appendUpdater('stageRendering', this.renderingFunction)
+    Timer.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
 // 渲染函数
 Animation.renderingFunction = function () {
-  if (Yami.GL.width * Yami.GL.height !== 0) {
+  if (GL.width * GL.height !== 0) {
     Animation.drawBackground()
     if (Animation.layers !== null) {
       Animation.drawOnionskins()
@@ -3961,7 +3989,7 @@ Animation.renderingFunction = function () {
 
 // 停止渲染
 Animation.stopRendering = function () {
-  Yami.Timer.removeUpdater('stageRendering', this.renderingFunction)
+  Timer.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 开关标记
@@ -4019,10 +4047,10 @@ Animation.switchMirror = function IIFE() {
 
 // 开关设置
 Animation.switchSettings = function () {
-  if (!Yami.Inspector.fileAnimation.button.hasClass('selected')) {
-    Yami.Inspector.open('fileAnimation', Animation)
+  if (!Inspector.fileAnimation.button.hasClass('selected')) {
+    Inspector.open('fileAnimation', Animation)
   } else {
-    Yami.Inspector.close()
+    Inspector.close()
   }
 }
 
@@ -4047,7 +4075,7 @@ Animation.switchLoop = function IIFE() {
 
 // 计划保存
 Animation.planToSave = function () {
-  Yami.File.planToSave(this.meta)
+  File.planToSave(this.meta)
 }
 
 // 保存状态到配置文件
@@ -4057,7 +4085,7 @@ Animation.saveToConfig = function (config) {
 
 // 从配置文件中加载状态
 Animation.loadFromConfig = function (config) {
-  this.background = new Yami.StageColor(
+  this.background = new StageColor(
     config.colors.animationBackground,
     () => this.requestRendering(),
   )
@@ -4374,7 +4402,7 @@ Animation.marqueePointerdown = function (event) {
         event.mode = 'scroll'
         event.scrollLeft = this.screen.scrollLeft
         event.scrollTop = this.screen.scrollTop
-        Yami.Cursor.open('cursor-grab')
+        Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
         return
@@ -4391,12 +4419,12 @@ Animation.marqueePointerdown = function (event) {
           case points.rectRotate.BL:
           case points.rectRotate.BR: {
             const rotation = target.rotation
-            const matrix = Yami.GL.matrix
+            const matrix = GL.matrix
             .set(Animation.matrix)
             .multiply(context.matrix)
             const aax = matrix[6]
             const aay = matrix[7]
-            const {x, y} = event.getRelativeCoords(Yami.GL.canvas)
+            const {x, y} = event.getRelativeCoords(GL.canvas)
             event.mode = 'object-rotate'
             event.absoluteAnchorX = aax
             event.absoluteAnchorY = aay
@@ -4521,7 +4549,7 @@ Animation.pointerup = function (event) {
       case 'ready-to-scroll':
         break
       case 'scroll':
-        Yami.Cursor.close('cursor-grab')
+        Cursor.close('cursor-grab')
         break
     }
     Animation.dragging = null
@@ -4537,7 +4565,7 @@ Animation.pointermove = function (event) {
     switch (dragging.mode) {
       case 'object-rotate':
         if (Animation.target) {
-          const {x, y} = event.getRelativeCoords(Yami.GL.canvas)
+          const {x, y} = event.getRelativeCoords(GL.canvas)
           const distX = x - dragging.absoluteAnchorX
           const distY = y - dragging.absoluteAnchorY
           const currentAngle = Math.atan2(distY, distX)
@@ -4696,7 +4724,7 @@ Animation.pointermove = function (event) {
         )
         if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
-          Yami.Cursor.open('cursor-grab')
+          Cursor.open('cursor-grab')
         }
         break
       }
@@ -4765,7 +4793,7 @@ Animation.listPointerdown = function (event) {
       const element = event.target
       if (element.tagName === 'NODE-ITEM' &&
         element.hasClass('selected')) {
-        Yami.Inspector.open('animMotion', element.item)
+        Inspector.open('animMotion', element.item)
       }
       break
     }
@@ -4809,7 +4837,7 @@ Animation.listOpen = function (event) {
 // 列表 - 菜单弹出事件
 Animation.listPopup = function (event) {
   const item = event.value
-  const get = Yami.Local.createGetter('menuAnimationList')
+  const get = Local.createGetter('menuAnimationList')
   let copyable
   let pastable
   let deletable
@@ -4832,21 +4860,21 @@ Animation.listPopup = function (event) {
       },
     }]
   }
-  Yami.Menu.popup({
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [...headItems, {
     label: get('insert'),
     click: () => {
       Animation.getNewMotionId(motionId => {
-        this.addNodeTo(Yami.Inspector.animMotion.create(motionId), item)
+        this.addNodeTo(Inspector.animMotion.create(motionId), item)
       })
     },
   }, {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: Yami.ctrl('X'),
+    accelerator: ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -4854,14 +4882,14 @@ Animation.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -5047,7 +5075,7 @@ Animation.layerListRecord = function (event) {
 // 图层列表 - 菜单弹出事件
 Animation.layerListPopup = function (event) {
   const item = event.value
-  const get = Yami.Local.createGetter('menuAnimationLayerList')
+  const get = Local.createGetter('menuAnimationLayerList')
   let copyable
   let pastable
   let deletable
@@ -5063,7 +5091,7 @@ Animation.layerListPopup = function (event) {
     deletable = false
     renamable = false
   }
-  Yami.Menu.popup({
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -5088,7 +5116,7 @@ Animation.layerListPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: Yami.ctrl('X'),
+    accelerator: ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -5096,14 +5124,14 @@ Animation.layerListPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -5280,12 +5308,12 @@ Animation.outerTimelineListPointerdown = function (event) {
         event.mode = 'scroll'
         event.scrollLeft = this.scrollLeft
         event.scrollTop = this.scrollTop
-        Yami.Cursor.open('cursor-grab')
+        Cursor.open('cursor-grab')
         window.on('pointerup', Animation.outerTimelineListPointerup)
         window.on('pointermove', Animation.outerTimelineListPointermove)
         return
       }
-      if (event.target === Yami.Animation.innerTimelineList) {
+      if (event.target === Animation.innerTimelineList) {
         const marquee = Animation.timelineMarquee
         let {x, y} = Animation.getFrameCoords(event)
         let length = 1
@@ -5372,7 +5400,7 @@ Animation.outerTimelineListPointerup = function (event) {
         break
       }
       case 'ready-to-scroll':
-        if (event.target === Yami.Animation.innerTimelineList) {
+        if (event.target === Animation.innerTimelineList) {
           const {x, y} = Animation.getFrameCoords(event)
           const marquee = Animation.timelineMarquee
           if (!marquee.isPointIn(x, y)) {
@@ -5386,8 +5414,8 @@ Animation.outerTimelineListPointerup = function (event) {
             const pastable = Clipboard.has(`yami.animFrame.${key}`)
             const extendable = selected || marquee.isExtendable()
             const shrinkable = selected || marquee.isShrinkable()
-            const get = Yami.Local.createGetter('menuAnimationTimeline')
-            Yami.Menu.popup({
+            const get = Local.createGetter('menuAnimationTimeline')
+            Menu.popup({
               x: event.clientX,
               y: event.clientY,
             }, [{
@@ -5405,7 +5433,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('cut'),
-              accelerator: Yami.ctrl('X'),
+              accelerator: ctrl('X'),
               enabled: selected,
               click: () => {
                 Animation.copyFrame()
@@ -5413,7 +5441,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('copy'),
-              accelerator: Yami.ctrl('C'),
+              accelerator: ctrl('C'),
               enabled: selected,
               click: () => {
                 Animation.copyFrame()
@@ -5421,7 +5449,7 @@ Animation.outerTimelineListPointerup = function (event) {
             }, {
               label: get('paste'),
               enabled: pastable,
-              accelerator: Yami.ctrl('V'),
+              accelerator: ctrl('V'),
               click: () => {
                 Animation.pasteFrame()
               },
@@ -5441,7 +5469,7 @@ Animation.outerTimelineListPointerup = function (event) {
               },
             }, {
               label: get('selectAll'),
-              accelerator: Yami.ctrl('A'),
+              accelerator: ctrl('A'),
               enabled: marquee.layer.frames.length !== 0,
               click: () => {
                 Animation.selectAllFrames()
@@ -5451,7 +5479,7 @@ Animation.outerTimelineListPointerup = function (event) {
         }
         break
       case 'scroll':
-        Yami.Cursor.close('cursor-grab')
+        Cursor.close('cursor-grab')
         break
     }
     Animation.innerTimelineList.pointerevent = dragging
@@ -5514,7 +5542,7 @@ Animation.outerTimelineListPointermove = function (event) {
         )
         if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
-          Yami.Cursor.open('cursor-grab')
+          Cursor.open('cursor-grab')
         }
         break
       }
@@ -5616,7 +5644,7 @@ Animation.list.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Yami.Layout.getGroupOfElement(head)
+    const {nav} = Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -5646,10 +5674,10 @@ Animation.list.updateText = function (item) {
   const {element} = item
   if (element.enumId !== item.id) {
     element.enumId = item.id
-    const enumString = Yami.Enum.getString(item.id)
+    const enumString = Enum.getString(item.id)
     element.textNode.textContent = enumString
     ? enumString.name
-    : Yami.Command.parseUnlinkedId(item.id)
+    : Command.parseUnlinkedId(item.id)
   }
 }
 
@@ -5738,7 +5766,7 @@ Animation.list.onDelete = function () {
 
 // 图层列表 - 重写更新方法
 Animation.layerList.update = function () {
-  Yami.NodeList.prototype.update.call(this)
+  NodeList.prototype.update.call(this)
   if (!Animation.contextLoaded) {
     Animation.contextLoaded = true
     const {player} = Animation
@@ -5760,13 +5788,13 @@ Animation.layerList.create = function (dItem, type) {
   let data
   switch (type) {
     case 'joint':
-      data = Yami.Inspector.animJointLayer.create()
+      data = Inspector.animJointLayer.create()
       break
     case 'sprite':
-      data = Yami.Inspector.animSpriteLayer.create()
+      data = Inspector.animSpriteLayer.create()
       break
     case 'particle':
-      data = Yami.Inspector.animParticleLayer.create()
+      data = Inspector.animParticleLayer.create()
       break
   }
   this.addNodeTo(data, dItem)
@@ -5831,9 +5859,9 @@ Animation.layerList.createIcon = function IIFE() {
 
 // 图层列表 - 在删除数据时回调
 Animation.layerList.onDelete = function (item) {
-  const editor = Yami.Inspector[Yami.Inspector.type]
+  const editor = Inspector[Inspector.type]
   if (editor?.target === item) {
-    Yami.Inspector.close()
+    Inspector.close()
   }
 }
 
@@ -5842,7 +5870,7 @@ Animation.timeline.updateHead = function () {
   const {head} = this
   if (this.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Yami.Layout.getGroupOfElement(head)
+    const {nav} = Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -5907,7 +5935,7 @@ Animation.timelineMarquee.isShrinkable = function () {
   return frame ? this.x < frame.end : false
 }
 
-Animation.Player = Yami.AnimationPlayer
+Animation.Player = AnimationPlayer
 
 // ******************************** 动画窗口导出 ********************************
 

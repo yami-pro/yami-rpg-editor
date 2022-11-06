@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Window } = Yami
+
 // ******************************** 图块帧生成器窗口 ********************************
 
 const FrameGenerator = {
@@ -32,7 +34,7 @@ FrameGenerator.initialize = function () {
 // 打开窗口
 FrameGenerator.open = function (callback) {
   this.callback = callback
-  Yami.Window.open('autoTile-generateFrames')
+  Window.open('autoTile-generateFrames')
   $('#autoTile-generateFrames-strideX').getFocus('all')
 }
 
@@ -50,7 +52,7 @@ FrameGenerator.confirm = function (event) {
     return $('#autoTile-generateFrames-strideX').getFocus()
   }
   this.callback(strideX, strideY, count)
-  Yami.Window.close('autoTile-generateFrames')
+  Window.close('autoTile-generateFrames')
 }.bind(FrameGenerator)
 
 // ******************************** 图块帧生成器窗口导出 ********************************

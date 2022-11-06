@@ -2,12 +2,23 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Codec,
+  ConditionListInterface,
+  EventListInterface,
+  getElementWriter,
+  Inspector,
+  Scene,
+  ScriptListInterface,
+  SelectBox
+} = Yami
+
 // ******************************** 场景 - 瓦片地图页面 ********************************
 
 {
   const SceneTilemap = {
     // properties
-    owner: Yami.Scene,
+    owner: Scene,
     target: null,
     nameBox: $('#sceneTilemap-name'),
     lightBox: $('#sceneTilemap-light'),
@@ -50,7 +61,7 @@ import * as Yami from '../yami.js'
     this.lightBox.setItemNames = function (options) {
       const backup = this.dataItems
       this.dataItems = this.lightItems.all
-      Yami.SelectBox.prototype.setItemNames.call(this, options)
+      SelectBox.prototype.setItemNames.call(this, options)
       this.dataItems = backup
       if (this.dataValue !== null) {
         this.update()
@@ -65,13 +76,13 @@ import * as Yami from '../yami.js'
     ])
 
     // 绑定条件列表
-    $('#sceneTilemap-conditions').bind(new Yami.ConditionListInterface(this, Yami.Scene))
+    $('#sceneTilemap-conditions').bind(new ConditionListInterface(this, Scene))
 
     // 绑定事件列表
-    $('#sceneTilemap-events').bind(new Yami.EventListInterface(this, Yami.Scene))
+    $('#sceneTilemap-events').bind(new EventListInterface(this, Scene))
 
     // 绑定脚本列表
-    $('#sceneTilemap-scripts').bind(new Yami.ScriptListInterface(this, Yami.Scene))
+    $('#sceneTilemap-scripts').bind(new ScriptListInterface(this, Scene))
 
     // 绑定脚本参数面板
     $('#sceneTilemap-parameter-pane').bind($('#sceneTilemap-scripts'))
@@ -82,18 +93,18 @@ import * as Yami from '../yami.js'
       #sceneTilemap-anchorX, #sceneTilemap-anchorY, #sceneTilemap-offsetX, #sceneTilemap-offsetY,
       #sceneTilemap-parallaxFactorX, #sceneTilemap-parallaxFactorY, #sceneTilemap-opacity`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.Scene))
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, Scene))
     $('#sceneTilemap-layer').on('write', this.layerWrite)
     $('#sceneTilemap-layer').on('input', this.layerInput)
     $('#sceneTilemap-width, #sceneTilemap-height').on('change', this.paramInput)
-    $('#sceneTilemap-conditions, #sceneTilemap-events, #sceneTilemap-scripts').on('change', Yami.Scene.listChange)
+    $('#sceneTilemap-conditions, #sceneTilemap-events, #sceneTilemap-scripts').on('change', Scene.listChange)
   }
 
   // 创建瓦片地图
   SceneTilemap.create = function (width = 4, height = 4) {
-    const tiles = Yami.Scene.createTiles(width, height)
-    return Yami.Codec.decodeTilemap({
+    const tiles = Scene.createTiles(width, height)
+    return Codec.decodeTilemap({
       class: 'tilemap',
       name: 'Tilemap',
       hidden: false,
@@ -116,7 +127,7 @@ import * as Yami from '../yami.js'
       parallaxFactorX: 1,
       parallaxFactorY: 1,
       opacity: 1,
-      code: Yami.Codec.encodeTiles(tiles),
+      code: Codec.encodeTiles(tiles),
       conditions: [],
       events: [],
       scripts: [],
@@ -129,7 +140,7 @@ import * as Yami from '../yami.js'
       this.target = tilemap
 
       // 写入数据
-      const write = Yami.getElementWriter('sceneTilemap', tilemap)
+      const write = getElementWriter('sceneTilemap', tilemap)
       write('name')
       write('layer')
       write('order')
@@ -155,8 +166,8 @@ import * as Yami from '../yami.js'
   // 关闭数据
   SceneTilemap.close = function () {
     if (this.target) {
-      Yami.Scene.list.unselect(this.target)
-      Yami.Scene.updateTarget()
+      Scene.list.unselect(this.target)
+      Scene.updateTarget()
       this.target = null
       $('#sceneTilemap-conditions').clear()
       $('#sceneTilemap-events').clear()
@@ -183,20 +194,20 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   SceneTilemap.update = function (tilemap, key, value) {
-    Yami.Scene.planToSave()
+    Scene.planToSave()
     switch (key) {
       case 'name':
         if (tilemap.name !== value) {
           tilemap.name = value
-          Yami.Scene.updateTargetInfo()
-          Yami.Scene.list.updateItemName(tilemap)
+          Scene.updateTargetInfo()
+          Scene.list.updateItemName(tilemap)
         }
         break
       case 'layer':
       case 'order':
         if (tilemap[key] !== value) {
           tilemap[key] = value
-          Yami.Scene.loadObjects()
+          Scene.loadObjects()
         }
         break
       case 'light':
@@ -216,16 +227,16 @@ import * as Yami from '../yami.js'
         break
       case 'width':
         if (tilemap.width !== value) {
-          Yami.Scene.setTilemapSize(tilemap, value, tilemap.height)
+          Scene.setTilemapSize(tilemap, value, tilemap.height)
         }
         break
       case 'height':
         if (tilemap.height !== value) {
-          Yami.Scene.setTilemapSize(tilemap, tilemap.width, value)
+          Scene.setTilemapSize(tilemap, tilemap.width, value)
         }
         break
     }
-    Yami.Scene.requestRendering()
+    Scene.requestRendering()
   }
 
   // 图层 - 写入事件
@@ -240,7 +251,7 @@ import * as Yami from '../yami.js'
 
   // 图层 - 输入事件
   SceneTilemap.layerInput = function (event) {
-    if (Yami.Inspector.manager.focusing === this) {
+    if (Inspector.manager.focusing === this) {
       const lightBox = SceneTilemap.lightBox
       const value = lightBox.read()
       for (const item of lightBox.dataItems) {
@@ -261,10 +272,10 @@ import * as Yami from '../yami.js'
   SceneTilemap.paramInput = function (event) {
     SceneTilemap.update(
       SceneTilemap.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.sceneTilemap = SceneTilemap
+  Inspector.sceneTilemap = SceneTilemap
 }

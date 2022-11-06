@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Select } = Yami
+
 // ******************************** 选择框 ********************************
 
 class SelectBox extends HTMLElement {
@@ -294,7 +296,7 @@ class SelectBox extends HTMLElement {
       case 'NumpadEnter':
         if (!event.cmdOrCtrlKey) {
           event.stopPropagation()
-          Yami.Select.open(this)
+          Select.open(this)
         }
         break
       case 'ArrowUp':
@@ -314,7 +316,7 @@ class SelectBox extends HTMLElement {
   pointerdown(event) {
     switch (event.button) {
       case 0:
-        Yami.Select.open(this)
+        Select.open(this)
         break
     }
   }

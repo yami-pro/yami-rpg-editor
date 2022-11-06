@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  CommonList,
+  Menu,
+  TextBox,
+  Timer
+} = Yami
+
 // ******************************** 节点列表 ********************************
 
 class NodeList extends HTMLElement {
@@ -31,7 +38,7 @@ class NodeList extends HTMLElement {
     super()
 
     // 创建重命名计时器
-    const timer = new Yami.Timer({
+    const timer = new Timer({
       duration: 500,
       callback: timer => {
         const item = this.read()
@@ -162,12 +169,12 @@ class NodeList extends HTMLElement {
 
   // 重新调整
   resize() {
-    return Yami.CommonList.resize(this)
+    return CommonList.resize(this)
   }
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return Yami.CommonList.updateHeadAndFoot(this)
+    return CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -1066,7 +1073,7 @@ class NodeList extends HTMLElement {
 
   // 清除元素
   clearElements(start) {
-    return Yami.CommonList.clearElements(this, start)
+    return CommonList.clearElements(this, start)
   }
 
   // 清除列表
@@ -1196,7 +1203,7 @@ class NodeList extends HTMLElement {
               this.select(element.item)
             } else if (
               this.renamable &&
-              Yami.Menu.state === 'closed' &&
+              Menu.state === 'closed' &&
               document.activeElement === this &&
               event.clientX >
               (element.nodeIcon?.rect().right ?? 0)) {
@@ -1509,7 +1516,7 @@ class NodeList extends HTMLElement {
 
   // 静态 - 文本输入框
   static textBox = function IIFE() {
-    const textBox = new Yami.TextBox()
+    const textBox = new TextBox()
     textBox.addClass('node-list-text-box')
     textBox.input.addClass('node-list-text-box-input')
 

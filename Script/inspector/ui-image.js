@@ -2,12 +2,19 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementWriter,
+  Inspector,
+  UI,
+  UIElement
+} = Yami
+
 // ******************************** 元素 - 图像页面 ********************************
 
 {
   const UIImage = {
     // properties
-    owner: Yami.UI,
+    owner: UI,
     target: null,
     // methods
     initialize: null,
@@ -76,15 +83,15 @@ import * as Yami from '../yami.js'
       #uiImage-tint-0-slider, #uiImage-tint-1-slider,
       #uiImage-tint-2-slider, #uiImage-tint-3-slider`)
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
-    sliders.on('focus', Yami.Inspector.sliderFocus)
-    sliders.on('blur', Yami.Inspector.sliderBlur)
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(this, UI))
+    sliders.on('focus', Inspector.sliderFocus)
+    sliders.on('blur', Inspector.sliderBlur)
   }
 
   // 创建图像
   UIImage.create = function () {
-    const transform = Yami.UIElement.createTransform()
+    const transform = UIElement.createTransform()
     transform.width = 100
     transform.height = 100
     return {
@@ -117,7 +124,7 @@ import * as Yami from '../yami.js'
       this.target = node
 
       // 写入数据
-      const write = Yami.getElementWriter('uiImage', node)
+      const write = getElementWriter('uiImage', node)
       write('image')
       write('display')
       write('flip')
@@ -130,23 +137,23 @@ import * as Yami from '../yami.js'
       write('tint-1')
       write('tint-2')
       write('tint-3')
-      Yami.UIElement.open(node)
+      UIElement.open(node)
     }
   }
 
   // 关闭数据
   UIImage.close = function () {
     if (this.target) {
-      Yami.UI.list.unselect(this.target)
-      Yami.UI.updateTarget()
-      Yami.UIElement.close()
+      UI.list.unselect(this.target)
+      UI.updateTarget()
+      UIElement.close()
       this.target = null
     }
   }
 
   // 更新数据
   UIImage.update = function (node, key, value) {
-    Yami.UI.planToSave()
+    UI.planToSave()
     const element = node.instance
     switch (key) {
       case 'image':
@@ -175,17 +182,17 @@ import * as Yami from '../yami.js'
         break
       }
     }
-    Yami.UI.requestRendering()
+    UI.requestRendering()
   }
 
   // 参数 - 输入事件
   UIImage.paramInput = function (event) {
     UIImage.update(
       UIImage.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.uiImage = UIImage
+  Inspector.uiImage = UIImage
 }

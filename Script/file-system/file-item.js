@@ -2,6 +2,18 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  Directory,
+  File,
+  FSP,
+  GL,
+  GUID,
+  Log,
+  Meta,
+  Path
+} = Yami
+
 // ******************************** 文件项目 ********************************
 
 class FileItem {
@@ -16,7 +28,7 @@ class FileItem {
   contexts  //:object
 
   constructor(name, extname, path, type, stats) {
-    let basename = Yami.Path.basename(name, extname)
+    let basename = Path.basename(name, extname)
     const match = basename.match(FileItem.guidRegExp)
     if (match) basename = basename.slice(0, match.index - 1)
     this.meta = null
@@ -35,10 +47,10 @@ class FileItem {
     // 加载脚本
     switch (type) {
       case 'image':
-        Yami.GL.textureManager.updateImage(this.meta.guid)
+        GL.textureManager.updateImage(this.meta.guid)
         break
       case 'script':
-        Yami.Data.loadScript(this)
+        Data.loadScript(this)
         break
     }
   }
@@ -47,7 +59,7 @@ class FileItem {
   get data() {
     const {meta} = this
     const {guid} = meta
-    const {guidMap} = Yami.Data.manifest
+    const {guidMap} = Data.manifest
     if (guidMap[guid] === meta) {
       return meta.dataMap?.[guid]
     }
@@ -57,7 +69,7 @@ class FileItem {
   // 创建元数据
   createMeta(guid) {
     const stats = this.stats
-    const file = Yami.Directory.inoMap[stats.ino]
+    const file = Directory.inoMap[stats.ino]
     // 使关联的元数据重定向到这个文件
     if (file instanceof FileItem) {
       const meta = file.meta
@@ -73,15 +85,15 @@ class FileItem {
     // 如果GUID不存在或冲突则新建GUID
     // 如果GUID重复则不要修改避免丢失
     if (guid === undefined) {
-      do {guid = Yami.GUID.generate64bit()}
-      while (Yami.Data.manifest.guidMap[guid])
+      do {guid = GUID.generate64bit()}
+      while (Data.manifest.guidMap[guid])
       this.updateFileName(guid)
     } else {
-      if (Yami.Log.devmode && Yami.Data.manifest.guidMap[guid]) {
+      if (Log.devmode && Data.manifest.guidMap[guid]) {
         throw new Error(`GUID already exists: ${guid}`)
       }
     }
-    this.meta = new Yami.Meta.meta(this, guid)
+    this.meta = new Meta.meta(this, guid)
     this.meta.mtimeMs = stats.mtimeMs
   }
 
@@ -98,13 +110,13 @@ class FileItem {
     }
     const name = `${basename}.${guid}${extname}`
     if (this.name !== name) {
-      const dir = Yami.Path.dirname(this.path)
+      const dir = Path.dirname(this.path)
       const path = `${dir}/${name}`
-      const sPath = Yami.File.route(this.path)
-      const dPath = Yami.File.route(path)
+      const sPath = File.route(this.path)
+      const dPath = File.route(path)
       const promise = this.promise ?? Promise.resolve()
       this.promise = promise.then(() => {
-        return Yami.FSP.rename(sPath, dPath).then(() => {
+        return FSP.rename(sPath, dPath).then(() => {
           // console.log(this.name, this.path)
           this.name = name
           this.path = path

@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Browser,
+  Command,
+  File,
+  Inspector,
+  NodeList,
+  PluginManager,
+  Selector
+} = Yami
+
 // ******************************** 脚本列表接口 ********************************
 
 class ScriptListInterface {
@@ -28,7 +38,7 @@ class ScriptListInterface {
     // 创建参数历史操作
     const {editor, owner} = this
     if (editor && owner) {
-      this.history = new Yami.Inspector.ParamHistory(editor, owner, list)
+      this.history = new Inspector.ParamHistory(editor, owner, list)
     }
 
     // 侦听事件
@@ -40,9 +50,9 @@ class ScriptListInterface {
     const box = document.createElement('box')
     box.textContent = '\uf044'
     box.addClass('script-edit-button')
-    Yami.Command.invalid = false
-    const scriptName = Yami.Command.parseFileName(script.id)
-    const scriptClass = Yami.Command.invalid ? 'invalid' : script.enabled ? '' : 'weak'
+    Command.invalid = false
+    const scriptName = Command.parseFileName(script.id)
+    const scriptClass = Command.invalid ? 'invalid' : script.enabled ? '' : 'weak'
     return [{content: scriptName, class: scriptClass}, box]
   }
 
@@ -53,16 +63,16 @@ class ScriptListInterface {
     if (item?.scripts === list.read()) {
       const element = item.element
       const list = element?.parentNode
-      if (list instanceof Yami.NodeList) {
+      if (list instanceof NodeList) {
         list.updateScriptIcon(item)
       }
     }
   }
 
   // 打开
-  open(script = Yami.PluginManager.createData()) {
+  open(script = PluginManager.createData()) {
     this.script = script
-    Yami.Selector.open(this, false)
+    Selector.open(this, false)
   }
 
   // 保存
@@ -91,8 +101,8 @@ class ScriptListInterface {
         // 临时兼容ParamList和NodeList
         // 应该统一这个属性的命名
         const item = el.dataItem ?? el.item
-        const path = Yami.File.getPath(item.id)
-        if (path) Yami.Browser.openScript(path)
+        const path = File.getPath(item.id)
+        if (path) Browser.openScript(path)
       }
       element = null
     }

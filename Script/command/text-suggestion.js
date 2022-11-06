@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  StringVar,
+  Window
+} = Yami
+
 // ******************************** 文本提示框 ********************************
 
 const TextSuggestion = {
@@ -81,7 +86,7 @@ TextSuggestion.close = function () {
 TextSuggestion.select = function (item) {
   this.inserting = true
   let {target} = this
-  if (target instanceof Yami.StringVar) {
+  if (target instanceof StringVar) {
     target = target.strBox
   }
   target.input.select()
@@ -227,7 +232,7 @@ TextSuggestion.listUpdate = function (event) {
     this.style.top = `${top}px`
     this.style.width = `calc(${rw}px - var(--2dpx))`
     this.style.height = `${lines * 20}px`
-    this.style.zIndex = Yami.Window.frames.length + 1
+    this.style.zIndex = Window.frames.length + 1
     this.show()
   } else {
     this.hide()

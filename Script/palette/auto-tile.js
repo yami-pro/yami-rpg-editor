@@ -2,6 +2,26 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ctrl,
+  Data,
+  Easing,
+  File,
+  FrameGenerator,
+  getElementReader,
+  getElementWriter,
+  GUID,
+  Local,
+  Menu,
+  NodeList,
+  Palette,
+  Scene,
+  SceneShift,
+  SetQuantity,
+  TileFrame,
+  Window
+} = Yami
+
 // ******************************** 自动图块 ********************************
 
 const AutoTile = {
@@ -84,10 +104,10 @@ const AutoTile = {
 // ******************************** 自动图块加载 ********************************
 
 // list methods
-AutoTile.templateList.updateNodeElement = Yami.Easing.list.updateNodeElement
-AutoTile.templateList.updateItemName = Yami.Easing.list.updateItemName
-AutoTile.templateList.addElementClass = Yami.Easing.list.addElementClass
-AutoTile.templateList.updateTextNode = Yami.Easing.list.updateTextNode
+AutoTile.templateList.updateNodeElement = Easing.list.updateNodeElement
+AutoTile.templateList.updateItemName = Easing.list.updateItemName
+AutoTile.templateList.addElementClass = Easing.list.addElementClass
+AutoTile.templateList.updateTextNode = Easing.list.updateTextNode
 
 // 初始化
 AutoTile.initialize = function () {
@@ -128,11 +148,11 @@ AutoTile.initialize = function () {
 
 // 打开窗口
 AutoTile.open = function ({template, image, x, y}) {
-  Yami.Window.open('autoTile')
+  Window.open('autoTile')
   $('#autoTile-image').write(image)
   $('#autoTile-x').write(x)
   $('#autoTile-y').write(y)
-  this.templates = Object.clone(Yami.Data.autotiles)
+  this.templates = Object.clone(Data.autotiles)
   this.nodeIndex = 0
   this.frameIndex = 0
   this.imageId = image
@@ -151,7 +171,7 @@ AutoTile.open = function ({template, image, x, y}) {
 // 创建自动图块
 AutoTile.create = function () {
   return {
-    template: Yami.Data.autotiles[0].id,
+    template: Data.autotiles[0].id,
     image: '',
     x: 0,
     y: 0,
@@ -184,8 +204,8 @@ AutoTile.pasteTemplate = function (dItem) {
 AutoTile.deleteTemplate = function (item) {
   const items = this.templates
   if (items.length > 1) {
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('deleteSingleFile').replace('<filename>', item.name),
     }, [{
       label: get('yes'),
@@ -208,8 +228,8 @@ AutoTile.shiftTemplateFrames = function (template, offsetX, offsetY) {
   if (!(sprite instanceof Image)) {
     return
   }
-  const tileWidth = Yami.Palette.tileset.tileWidth
-  const tileHeight = Yami.Palette.tileset.tileHeight
+  const tileWidth = Palette.tileset.tileWidth
+  const tileHeight = Palette.tileset.tileHeight
   const hframes = Math.floor(sprite.naturalWidth / tileWidth)
   const vframes = Math.floor(sprite.naturalHeight / tileHeight)
   const ox = (offsetX % hframes + hframes) % hframes
@@ -233,7 +253,7 @@ AutoTile.shiftTemplateFrames = function (template, offsetX, offsetY) {
 // 创建模板ID
 AutoTile.createTemplateId = function () {
   let id
-  do {id = Yami.GUID.generate64bit()}
+  do {id = GUID.generate64bit()}
   while (this.getTemplateById(id))
   return id
 }
@@ -362,7 +382,7 @@ AutoTile.createNodeItems = function (id = this.nodeIndex) {
 // 编辑帧
 AutoTile.editFrame = function () {
   if (this.image !== null) {
-    Yami.TileFrame.open()
+    TileFrame.open()
   }
 }
 
@@ -434,8 +454,8 @@ AutoTile.generateFrames = function (id, strideX, strideY, count) {
   if (!(sprite instanceof Image)) {
     return
   }
-  const tileWidth = Yami.Palette.tileset.tileWidth
-  const tileHeight = Yami.Palette.tileset.tileHeight
+  const tileWidth = Palette.tileset.tileWidth
+  const tileHeight = Palette.tileset.tileHeight
   const hframes = Math.floor(sprite.naturalWidth / tileWidth)
   const vframes = Math.floor(sprite.naturalHeight / tileHeight)
   const ox = (strideX % hframes + hframes) % hframes
@@ -523,7 +543,7 @@ AutoTile.drawFrame = function () {
       return
     }
     const symbol = this.image = Symbol()
-    return Yami.File.get({
+    return File.get({
       guid: guid,
       type: 'image',
     }).then(image => {
@@ -542,8 +562,8 @@ AutoTile.drawFrame = function () {
   const image = this.image
   const frames = this.frames
   const frame = frames[this.frameIndex]
-  const tileWidth = Yami.Palette.tileset.tileWidth
-  const tileHeight = Yami.Palette.tileset.tileHeight
+  const tileWidth = Palette.tileset.tileWidth
+  const tileHeight = Palette.tileset.tileHeight
   const x = (this.offsetX + (frame & 0xff)) * tileWidth
   const y = (this.offsetY + (frame >> 8)) * tileHeight
 
@@ -555,14 +575,14 @@ AutoTile.drawFrame = function () {
 AutoTile.windowClose = function (event) {
   if (this.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedTiles'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Yami.Window.close('autoTile')
+        Window.close('autoTile')
       },
     }, {
       label: get('no'),
@@ -639,8 +659,8 @@ AutoTile.templatesPopup = function (event) {
   const selected = !!item
   const pastable = Clipboard.has('yami.ruletile.template')
   const deletable = selected && AutoTile.templates.length > 1
-  const get = Yami.Local.createGetter('menuAutoTileTemplateList')
-  Yami.Menu.popup({
+  const get = Local.createGetter('menuAutoTileTemplateList')
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -651,14 +671,14 @@ AutoTile.templatesPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       AutoTile.copyTemplate(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       AutoTile.pasteTemplate(item)
@@ -683,7 +703,7 @@ AutoTile.templatesPopup = function (event) {
     label: get('shift'),
     enabled: selected,
     click: () => {
-      Yami.SceneShift.open((x, y) => {
+      SceneShift.open((x, y) => {
         AutoTile.shiftTemplateFrames(item, x, y)
       })
     },
@@ -696,7 +716,7 @@ AutoTile.nodesWrite = function (event) {
   this.nodeIndex = nodeIndex
   this.node = this.nodes[nodeIndex]
   this.frames = this.node.frames
-  const write = Yami.getElementWriter('autoTile')
+  const write = getElementWriter('autoTile')
   const rule = this.node.rule
   write('rule-0', rule       & 0b11)
   write('rule-1', rule >> 2  & 0b11)
@@ -722,8 +742,8 @@ AutoTile.nodesPopup = function (event) {
   const pastable = insertable && Clipboard.has('yami.ruletile.node')
   const deletable = selected && nodes.length > 1
   const coverable = selected && id !== cover
-  const get = Yami.Local.createGetter('menuAutoTileNodeList')
-  Yami.Menu.popup({
+  const get = Local.createGetter('menuAutoTileNodeList')
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -735,21 +755,21 @@ AutoTile.nodesPopup = function (event) {
     },
   }, {
     label: get('cut'),
-    accelerator: Yami.ctrl('X'),
+    accelerator: ctrl('X'),
     enabled: deletable,
     click: () => {
       this.cutNode(id)
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copyNode(id)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.pasteNode(id ?? nodes.length)
@@ -764,7 +784,7 @@ AutoTile.nodesPopup = function (event) {
   }, {
     label: get('setQuantity'),
     click: () => {
-      Yami.SetQuantity.open(
+      SetQuantity.open(
         nodes.length,
         this.nodeMaximum,
         this.setNodeQuantity.bind(this),
@@ -813,7 +833,7 @@ AutoTile.nodesKeydown = function (event) {
 
 // 规则相邻关系 - 输入事件
 AutoTile.ruleNeighborInput = function (event) {
-  const read = Yami.getElementReader('autoTile-rule')
+  const read = getElementReader('autoTile-rule')
   const rule = (
     read('0')
   | read('1') << 2
@@ -844,8 +864,8 @@ AutoTile.framesPopup = function (event) {
   const copyable = selected
   const pastable = insertable && Clipboard.has('yami.ruletile.frame')
   const deletable = selected && frames.length > 1
-  const get = Yami.Local.createGetter('menuAutoTileFrameList')
-  Yami.Menu.popup({
+  const get = Local.createGetter('menuAutoTileFrameList')
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -864,21 +884,21 @@ AutoTile.framesPopup = function (event) {
     },
   }, {
     label: get('cut'),
-    accelerator: Yami.ctrl('X'),
+    accelerator: ctrl('X'),
     enabled: deletable,
     click: () => {
       this.cutFrame(id)
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copyFrame(id)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.pasteFrame(id ?? frames.length)
@@ -893,7 +913,7 @@ AutoTile.framesPopup = function (event) {
   }, {
     label: get('setQuantity'),
     click: () => {
-      Yami.SetQuantity.open(
+      SetQuantity.open(
         frames.length,
         this.frameMaximum,
         this.setFrameQuantity.bind(this),
@@ -905,7 +925,7 @@ AutoTile.framesPopup = function (event) {
     label: get('generate'),
     enabled: editable && insertable,
     click: () => {
-      Yami.FrameGenerator.open((x, y, count) => {
+      FrameGenerator.open((x, y, count) => {
         this.generateFrames(id, x, y, count)
       })
     },
@@ -990,13 +1010,13 @@ AutoTile.confirm = function (event) {
     this.changed = false
     // 删除数据绑定的元素对象
     const templates = this.templates
-    Yami.NodeList.deleteCaches(templates)
-    Yami.Data.autotiles = templates
-    Yami.Data.createGUIDMap(templates)
-    Yami.File.planToSave(Yami.Data.manifest.project.autotiles)
+    NodeList.deleteCaches(templates)
+    Data.autotiles = templates
+    Data.createGUIDMap(templates)
+    File.planToSave(Data.manifest.project.autotiles)
   }
-  const tiles = Yami.Palette.tileset.tiles
-  const index = Yami.Palette.openIndex
+  const tiles = Palette.tileset.tiles
+  const index = Palette.openIndex
   const isNew = !tiles[index]
   tiles[index] = {
     template: this.template.id,
@@ -1009,13 +1029,13 @@ AutoTile.confirm = function (event) {
     const {marquee} = Palette
     if (marquee.visible) {
       const {x, y, width, height} = marquee
-      Yami.Palette.selectTiles(x, y, width, height)
+      Palette.selectTiles(x, y, width, height)
     }
   }
-  Yami.File.planToSave(Yami.Palette.meta)
-  Yami.Palette.requestRendering()
-  Yami.Scene.requestRendering()
-  Yami.Window.close('autoTile')
+  File.planToSave(Palette.meta)
+  Palette.requestRendering()
+  Scene.requestRendering()
+  Window.close('autoTile')
   // console.log(JSON.stringify(tiles[index], null, 2))
 }.bind(AutoTile)
 

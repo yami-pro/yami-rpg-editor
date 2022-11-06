@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Editor,
+  Timer
+} = Yami
+
 // ******************************** 日志窗口 ********************************
 
 const Log = {
@@ -100,7 +105,7 @@ Log.update = function () {
 // 显示错误消息
 Log.message = function IIFE() {
   const box = $('#error-message')
-  const timer = new Yami.Timer({
+  const timer = new Timer({
     duration: 6000,
     callback: timer => {
       box.textContent = ''
@@ -133,7 +138,7 @@ Log.windowClosed = function (event) {
 Log.catchError = function IIFE() {
   const regexp = /^Uncaught /
   return function (event) {
-    if (Yami.Editor.state === 'open') {
+    if (Editor.state === 'open') {
       Log.error(event.message.replace(regexp, ''))
     }
   }

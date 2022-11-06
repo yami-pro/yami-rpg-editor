@@ -2,6 +2,17 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  Browser,
+  EventListInterface,
+  File,
+  getElementReader,
+  getElementWriter,
+  Inspector,
+  ScriptListInterface
+} = Yami
+
 // ******************************** 文件 - 触发器页面 ********************************
 
 {
@@ -95,10 +106,10 @@ import * as Yami from '../yami.js'
     ])
 
     // 绑定事件列表
-    $('#fileTrigger-events').bind(new Yami.EventListInterface())
+    $('#fileTrigger-events').bind(new EventListInterface())
 
     // 绑定脚本列表
-    $('#fileTrigger-scripts').bind(new Yami.ScriptListInterface())
+    $('#fileTrigger-scripts').bind(new ScriptListInterface())
 
     // 绑定脚本参数面板
     $('#fileTrigger-parameter-pane').bind($('#fileTrigger-scripts'))
@@ -150,7 +161,7 @@ import * as Yami from '../yami.js'
       this.meta = meta
 
       // 写入数据
-      const write = Yami.getElementWriter('fileTrigger', trigger)
+      const write = getElementWriter('fileTrigger', trigger)
       const shape = trigger.shape
       write('selector')
       write('onHitWalls')
@@ -180,7 +191,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileTrigger.close = function () {
     if (this.target) {
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.motions = null
@@ -192,7 +203,7 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileTrigger.update = function (trigger, key, value) {
-    Yami.File.planToSave(this.meta)
+    File.planToSave(this.meta)
     switch (key) {
       case 'selector':
       case 'onHitWalls':
@@ -209,7 +220,7 @@ import * as Yami from '../yami.js'
         break
       case 'shape-type':
         if (trigger.shape.type !== value) {
-          const read = Yami.getElementReader('fileTrigger-shape')
+          const read = getElementReader('fileTrigger-shape')
           switch (value) {
             case 'rectangle':
               trigger.shape = {
@@ -266,7 +277,7 @@ import * as Yami from '../yami.js'
   // 动画ID - 写入事件
   FileTrigger.animationIdWrite = function (event) {
     const elMotion = $('#fileTrigger-motion')
-    elMotion.loadItems(Yami.Animation.getMotionListItems(event.value))
+    elMotion.loadItems(Animation.getMotionListItems(event.value))
     elMotion.write2(elMotion.read())
   }
 
@@ -274,15 +285,15 @@ import * as Yami from '../yami.js'
   FileTrigger.paramInput = function (event) {
     FileTrigger.update(
       FileTrigger.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
   // 列表 - 改变事件
   FileTrigger.listChange = function (event) {
-    Yami.File.planToSave(FileTrigger.meta)
+    File.planToSave(FileTrigger.meta)
   }
 
-  Yami.Inspector.fileTrigger = FileTrigger
+  Inspector.fileTrigger = FileTrigger
 }

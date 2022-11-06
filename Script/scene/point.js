@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Scene } = Yami
+
 // ******************************** 坐标点类 ********************************
 
 class Point {
@@ -21,7 +23,7 @@ class Point {
   }
 }
 
-Yami.Scene.Point = Point
+Scene.Point = Point
 
 // ******************************** 坐标点类导出 ********************************
 

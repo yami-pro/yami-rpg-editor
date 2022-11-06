@@ -2,6 +2,27 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  AudioManager,
+  ctrl,
+  Data,
+  Deployment,
+  Directory,
+  Editor,
+  File,
+  FileItem,
+  Layout,
+  Local,
+  Menu,
+  NewProject,
+  Particle,
+  Path,
+  Scene,
+  UI,
+  Window
+} = Yami
+
 // ******************************** 标题栏对象 ********************************
 
 const Title = {
@@ -97,7 +118,7 @@ Title.initialize = function () {
 
   // 标签栏扩展方法 - 解析名称
   this.tabBar.parseName = function (meta) {
-    return Yami.File.parseMetaName(meta)
+    return File.parseMetaName(meta)
   }
 
   // 侦听事件
@@ -122,23 +143,23 @@ Title.initialize = function () {
   ipcRenderer.on('leave-full-screen', this.windowLeaveFullScreen)
 
   // 初始化子对象
-  Yami.NewProject.initialize()
-  Yami.Deployment.initialize()
+  NewProject.initialize()
+  Deployment.initialize()
 }
 
 // 新建项目
 Title.newProject = function () {
   this.askWhetherToSave(() => {
-    Yami.NewProject.open()
+    NewProject.open()
   })
 }
 
 // 打开项目
 Title.openProject = function () {
   this.askWhetherToSave(() => {
-    const dialogs = Yami.Editor.config.dialogs
-    const location = Yami.Path.normalize(dialogs.open)
-    Yami.File.showOpenDialog({
+    const dialogs = Editor.config.dialogs
+    const location = Path.normalize(dialogs.open)
+    File.showOpenDialog({
       defaultPath: location,
       filters: [{
         name: 'Project',
@@ -146,7 +167,7 @@ Title.openProject = function () {
       }],
     }).then(({filePaths}) => {
       if (filePaths.length === 1) {
-        Yami.Editor.open(filePaths[0])
+        Editor.open(filePaths[0])
       }
     })
   })
@@ -155,8 +176,8 @@ Title.openProject = function () {
 // 关闭项目
 Title.closeProject = function () {
   this.askWhetherToSave(() => {
-    Yami.Editor.close().then(() => {
-      Yami.Layout.manager.switch('home')
+    Editor.close().then(() => {
+      Layout.manager.switch('home')
     })
   })
 }
@@ -164,13 +185,13 @@ Title.closeProject = function () {
 // 部署项目
 Title.deployment = function () {
   this.askWhetherToSave(() => {
-    Yami.Deployment.open()
+    Deployment.open()
   })
 }
 
 // 添加最近的标签
 Title.addRecentTab = function (guid) {
-  const tabs = Yami.Editor.project.recentTabs
+  const tabs = Editor.project.recentTabs
   if (tabs.remove(guid)) {
     tabs.unshift(guid)
   } else {
@@ -183,14 +204,14 @@ Title.addRecentTab = function (guid) {
 
 // 获取关闭的标签元数据
 Title.getClosedTabMeta = function () {
-  const {recentTabs} = Yami.Editor.project
+  const {recentTabs} = Editor.project
   outer: for (const guid of recentTabs) {
     for (const item of this.tabBar.data) {
       if (item.meta.guid === guid) {
         continue outer
       }
     }
-    return Yami.Data.manifest.guidMap[guid]
+    return Data.manifest.guidMap[guid]
   }
   return undefined
 }
@@ -212,8 +233,8 @@ Title.openTab = function (file) {
 Title.reopenClosedTab = function (meta) {
   meta = meta ?? this.getClosedTabMeta()
   if (meta) {
-    const file = Yami.Directory.getFile(meta.path)
-    if (file instanceof Yami.FileItem) {
+    const file = Directory.getFile(meta.path)
+    if (file instanceof FileItem) {
       this.openTab(file)
     }
   }
@@ -221,14 +242,14 @@ Title.reopenClosedTab = function (meta) {
 
 // 询问是否保存
 Title.askWhetherToSave = function (callback) {
-  if (Yami.Data.manifest?.changes.length > 0) {
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+  if (Data.manifest?.changes.length > 0) {
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedProject'),
     }, [{
       label: get('yes'),
       click: () => {
-        Yami.File.save()
+        File.save()
         callback()
       },
     }, {
@@ -249,8 +270,8 @@ Title.updateTitleName = function IIFE() {
   const title = $('title')[0]
   return function () {
     let text = 'Yami RPG Editor'
-    if (Yami.Editor.state === 'open') {
-      text = Yami.Data.config.window.title + ' - ' + text
+    if (Editor.state === 'open') {
+      text = Data.config.window.title + ' - ' + text
     }
     title.textContent = text
   }
@@ -316,14 +337,14 @@ Title.playGame = async function () {
     activeElement.focus()
 
     // 停止播放声音
-    Yami.AudioManager.player.stop()
+    AudioManager.player.stop()
 
     // 保存数据文件
-    await Yami.File.save(false)
+    await File.save(false)
 
     // 创建播放器窗口
     const {ipcRenderer} = require('electron')
-    ipcRenderer.send('create-player-window', Yami.File.root)
+    ipcRenderer.send('create-player-window', File.root)
 
     // 窗口关闭事件
     ipcRenderer.once('player-window-closed', event => {
@@ -374,19 +395,19 @@ Title.loadFromProject = function (project) {
   // 加载标签页
   const dirItem = {
     icon: '\uf07c',
-    name: Yami.Local.get('common.directory'),
+    name: Local.get('common.directory'),
     meta: {guid: ''},
     type: 'directory',
   }
   const items = [dirItem]
   const tabBar = this.tabBar
   tabBar.dirItem = dirItem
-  const map = Yami.Data.manifest.guidMap
+  const map = Data.manifest.guidMap
   for (const guid of openTabs) {
     const meta = map[guid]
     if (!meta) continue
     let type
-    switch (Yami.Path.extname(meta.path)) {
+    switch (Path.extname(meta.path)) {
       case '.scene':
         type = 'scene'
         break
@@ -423,14 +444,14 @@ Title.loadFromProject = function (project) {
       return tabBar.select(context)
     }
   }
-  Yami.Layout.manager.switch('directory')
+  Layout.manager.switch('directory')
 }
 
 // 窗口 - 关闭事件
 Title.windowClose = function (event) {
-  if (Yami.Window.frames.length === 0) {
+  if (Window.frames.length === 0) {
     Title.askWhetherToSave(() => {
-      Yami.Editor.quit()
+      Editor.quit()
     })
   }
 }
@@ -461,12 +482,12 @@ Title.windowLeaveFullScreen = function (event) {
 
 // 窗口 - 拖拽释放事件
 Title.windowDrop = function (event) {
-  if (Yami.Window.frames.length === 0) {
+  if (Window.frames.length === 0) {
     const {files} = event.dataTransfer
     for (const file of files) {
       if (/\.yamirpg$/i.test(file.name)) {
         this.askWhetherToSave(() => {
-          Yami.Editor.open(file.path)
+          Editor.open(file.path)
         })
       }
     }
@@ -492,7 +513,7 @@ Title.windowDirchange = function (event) {
 Title.windowLocalize = function (event) {
   const text = Title.tabBar.dirItem?.tab?.text
   if (text instanceof HTMLElement) {
-    text.textContent = Yami.Local.get('common.directory')
+    text.textContent = Local.get('common.directory')
   }
 }
 
@@ -532,48 +553,48 @@ Title.pointermove = function (event) {
 Title.tabBarPointerdown = function (event) {
   switch (this.read()?.type) {
     case 'scene':
-      Yami.Layout.readyToFocus(Yami.Scene.screen)
+      Layout.readyToFocus(Scene.screen)
       break
     case 'ui':
-      Yami.Layout.readyToFocus(Yami.UI.screen)
+      Layout.readyToFocus(UI.screen)
       break
     case 'animation':
-      Yami.Layout.readyToFocus(Yami.Animation.screen)
+      Layout.readyToFocus(Animation.screen)
       break
     case 'particle':
-      Yami.Layout.readyToFocus(Yami.Particle.screen)
+      Layout.readyToFocus(Particle.screen)
   }
 }
 
 // 标签栏 - 选择事件
 Title.tabBarSelect = function (event) {
-  if (Yami.Layout.resizing) {
-    Yami.Layout.pointerup()
+  if (Layout.resizing) {
+    Layout.pointerup()
   }
   const context = event.value
   switch (context.type) {
     case 'directory':
-      Yami.Layout.manager.switch('directory')
+      Layout.manager.switch('directory')
       break
     case 'scene':
-      Yami.Layout.manager.switch('scene')
-      Yami.Scene.open(context)
-      Yami.Scene.screen.focus()
+      Layout.manager.switch('scene')
+      Scene.open(context)
+      Scene.screen.focus()
       break
     case 'ui':
-      Yami.Layout.manager.switch('ui')
-      Yami.UI.open(context)
-      Yami.UI.screen.focus()
+      Layout.manager.switch('ui')
+      UI.open(context)
+      UI.screen.focus()
       break
     case 'animation':
-      Yami.Layout.manager.switch('animation')
-      Yami.Animation.open(context)
-      Yami.Animation.screen.focus()
+      Layout.manager.switch('animation')
+      Animation.open(context)
+      Animation.screen.focus()
       break
     case 'particle':
-      Yami.Layout.manager.switch('particle')
-      Yami.Particle.open(context)
-      Yami.Particle.screen.focus()
+      Layout.manager.switch('particle')
+      Particle.open(context)
+      Particle.screen.focus()
       break
   }
 }
@@ -584,16 +605,16 @@ Title.tabBarClosed = function (event) {
   for (const context of closedItems) {
     switch (context.type) {
       case 'scene':
-        Yami.Scene.destroy(context)
+        Scene.destroy(context)
         break
       case 'ui':
-        Yami.UI.destroy(context)
+        UI.destroy(context)
         break
       case 'animation':
-        Yami.Animation.destroy(context)
+        Animation.destroy(context)
         break
       case 'particle':
-        Yami.Particle.destroy(context)
+        Particle.destroy(context)
         break
     }
     if (context.meta.guid) {
@@ -607,7 +628,7 @@ Title.tabBarClosed = function (event) {
     if (item instanceof Object) {
       this.select(item)
     } else {
-      Yami.Layout.manager.switch('directory')
+      Layout.manager.switch('directory')
     }
   }
 }
@@ -618,13 +639,13 @@ Title.tabBarPopup = function (event) {
   if (!item) return
   const items = this.data
   const last = items[items.length - 1]
-  const get = Yami.Local.createGetter('menuTab')
-  Yami.Menu.popup({
+  const get = Local.createGetter('menuTab')
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
     label: get('close'),
-    accelerator: Yami.ctrl('W'),
+    accelerator: ctrl('W'),
     enabled: item.type !== 'directory',
     click: () => {
       this.close(item)

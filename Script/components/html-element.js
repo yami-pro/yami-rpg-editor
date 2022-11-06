@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Cursor,
+  Timer
+} = Yami
+
 // ******************************** 元素方法 ********************************
 
 // 元素方法 - 读取数据
@@ -130,7 +135,7 @@ HTMLElement.prototype.getFocus = function (mode = null) {
 HTMLElement.prototype.setTooltip = function IIFE() {
   const tooltip = $('#tooltip')
   const capture = {capture: true}
-  const timer = new Yami.Timer({
+  const timer = new Timer({
     duration: 0,
     callback: () => {
       if (state === 'waiting') {
@@ -428,7 +433,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
           event.mode = 'scroll'
           event.scrollLeft = this.scrollLeft
           event.scrollTop = this.scrollTop
-          Yami.Cursor.open('cursor-grab')
+          Cursor.open('cursor-grab')
           window.on('pointerup', this.scrollPointerup)
           window.on('pointermove', this.scrollPointermove)
         }
@@ -442,7 +447,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
     if (dragging.relate(event)) {
       switch (dragging.mode) {
         case 'scroll':
-          Yami.Cursor.close('cursor-grab')
+          Cursor.close('cursor-grab')
           break
       }
       this.dragging = null

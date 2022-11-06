@@ -2,9 +2,14 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  UI
+} = Yami
+
 // ******************************** 根元素 ********************************
 
-class RootElement extends Yami.UI.Element {
+class RootElement extends UI.Element {
   background  //:number
 
   constructor() {
@@ -18,10 +23,10 @@ class RootElement extends Yami.UI.Element {
 
   // 绘制图像
   draw() {
-    Yami.GL.matrix.set(Yami.UI.matrix)
-    Yami.GL.alpha = 1
-    Yami.GL.blend = 'normal'
-    Yami.GL.fillRect(this.x, this.y, this.width, this.height, this.background)
+    GL.matrix.set(UI.matrix)
+    GL.alpha = 1
+    GL.blend = 'normal'
+    GL.fillRect(this.x, this.y, this.width, this.height, this.background)
     this.drawChildren()
   }
 
@@ -29,9 +34,9 @@ class RootElement extends Yami.UI.Element {
   resize() {
     this.x = 0
     this.y = 0
-    this.width = Yami.UI.width
-    this.height = Yami.UI.height
-    this.background = Yami.UI.foreground.getINTRGBA()
+    this.width = UI.width
+    this.height = UI.height
+    this.background = UI.foreground.getINTRGBA()
     this.resizeChildren()
   }
 
@@ -41,7 +46,7 @@ class RootElement extends Yami.UI.Element {
   }
 }
 
-Yami.UI.Root = RootElement
+UI.Root = RootElement
 
 // ******************************** 根元素导出 ********************************
 

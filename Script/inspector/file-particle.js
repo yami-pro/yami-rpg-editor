@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Inspector } = Yami
+
 // ******************************** 文件 - 粒子页面 ********************************
 
 {
@@ -18,5 +20,5 @@ import * as Yami from '../yami.js'
     }
   }
 
-  Yami.Inspector.fileParticle = FileParticle
+  Inspector.fileParticle = FileParticle
 }

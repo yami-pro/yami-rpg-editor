@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  Scene
+} = Yami
+
 // ******************************** 编解码器 ********************************
 // undefined按位运算等价于0，因此不会产生NaN
 
@@ -118,7 +123,7 @@ Codec.encodeTiles = function (tiles) {
   const {encodeClone} = this
   const TILES = tiles
   const TILES_LENGTH = TILES.length
-  const BYTES = Yami.GL.arrays[0].uint8
+  const BYTES = GL.arrays[0].uint8
   let Bi = 0
   let Ti = 0
   while (Ti < TILES_LENGTH) {
@@ -169,7 +174,7 @@ Codec.decodeTiles = function (code, width, height) {
   const {decodeClone} = this
   const BYTES = this.textEncoder.encode(code)
   const BYTES_LENGTH = BYTES.length
-  const TILES = Yami.Scene.createTiles(width, height)
+  const TILES = Scene.createTiles(width, height)
   const TILES_LENGTH = TILES.length
   let Bi = 0
   let Ti = 0
@@ -227,7 +232,7 @@ Codec.encodeTerrains = function (terrains) {
   const {encodeClone} = this
   const TERRAINS = terrains
   const LENGTH = TERRAINS.length
-  const BYTES = Yami.GL.arrays[0].uint8
+  const BYTES = GL.arrays[0].uint8
   let Bi = 0
   let Ti = 0
   while (Ti < LENGTH) {
@@ -279,7 +284,7 @@ Codec.decodeTerrains = function (code, width, height) {
   const {decodeClone} = this
   const BYTES = this.textEncoder.encode(code)
   const BYTES_LENGTH = BYTES.length
-  const TERRAINS = Yami.Scene.createTerrains(width, height)
+  const TERRAINS = Scene.createTerrains(width, height)
   const TERRAINS_LENGTH = TERRAINS.length
   let Bi = 0
   let Ti = 0
@@ -331,7 +336,7 @@ Codec.decodeTerrains = function (code, width, height) {
 Codec.encodeRelations = function (relations) {
   const RELATIONS = relations
   const LENGTH = RELATIONS.length
-  const BYTES = Yami.GL.arrays[0].uint8
+  const BYTES = GL.arrays[0].uint8
   let Bi = 0
   let Ri = 0
   while (Ri < LENGTH) {

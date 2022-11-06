@@ -2,6 +2,22 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Data,
+  Directory,
+  Editor,
+  File,
+  FileItem,
+  FolderItem,
+  FSP,
+  Local,
+  Menu,
+  Path,
+  TextBox,
+  Timer,
+  Window
+} = Yami
+
 // ******************************** 文件主体面板 ********************************
 
 class FileBodyPane extends HTMLElement {
@@ -22,7 +38,7 @@ class FileBodyPane extends HTMLElement {
     super()
 
     // 创建重命名计时器
-    const timer = new Yami.Timer({
+    const timer = new Timer({
       duration: 500,
       callback: timer => {
         const files = this.selections
@@ -139,7 +155,7 @@ class FileBodyPane extends HTMLElement {
     const items = []
     for (const folder of folders) {
       for (const item of folder.children) {
-        if (item instanceof Yami.FolderItem ||
+        if (item instanceof FolderItem ||
           filters.includes(item.type)) {
           items.push(item)
         }
@@ -356,11 +372,11 @@ class FileBodyPane extends HTMLElement {
     if (element.changed) {
       element.changed = false
       const {file} = element
-      if (file instanceof Yami.FileItem) {
+      if (file instanceof FileItem) {
         this.updateFileElement(element)
         return
       }
-      if (file instanceof Yami.FolderItem) {
+      if (file instanceof FolderItem) {
         this.updateFolderElement(element)
         return
       }
@@ -369,17 +385,17 @@ class FileBodyPane extends HTMLElement {
 
   // 创建扁平排列的项目
   createFlatItems(dir) {
-    Yami.Directory.sortFiles(dir)
+    Directory.sortFiles(dir)
     const elements = this.elements
     const length = dir.length
     for (let i = 0; i < length; i++) {
       const file = dir[i]
-      if (file instanceof Yami.FileItem) {
+      if (file instanceof FileItem) {
         elements[elements.count++] =
         this.createFileElement(file)
         continue
       }
-      if (file instanceof Yami.FolderItem) {
+      if (file instanceof FolderItem) {
         elements[elements.count++] =
         this.createFolderElement(file)
         continue
@@ -485,16 +501,16 @@ class FileBodyPane extends HTMLElement {
           icon.addClass('icon-file-actor')
           break
         }
-        const guidMap = Yami.Data.manifest.guidMap
+        const guidMap = Data.manifest.guidMap
         const meta = guidMap[data.portrait]
         if (!meta) {
           break
         }
         const version = meta.mtimeMs
-        const path = `${Yami.File.getPath(data.portrait)}?ver=${version}`
-        icon.style.backgroundImage = CSS.encodeURL(Yami.File.route(path))
+        const path = `${File.getPath(data.portrait)}?ver=${version}`
+        icon.style.backgroundImage = CSS.encodeURL(File.route(path))
         icon.isImageChanged = () => version !== meta.mtimeMs
-        Yami.File.getImageResolution(path).then(({width, height}) => {
+        File.getImageResolution(path).then(({width, height}) => {
           if (width <= 128 && height <= 128) {
             icon.style.imageRendering = 'pixelated'
           }
@@ -510,11 +526,11 @@ class FileBodyPane extends HTMLElement {
           icon.addClass('icon-file-cube')
           break
         }
-        const meta = Yami.Data.manifest.guidMap[data.icon]
+        const meta = Data.manifest.guidMap[data.icon]
         const [cx, cy, cw, ch] = data.clip
         if (!meta || cw * ch === 0) break
         const version = meta.mtimeMs
-        const path = `${Yami.File.getPath(data.icon)}?ver=${version}`
+        const path = `${File.getPath(data.icon)}?ver=${version}`
         icon.isImageChanged = () => version !== meta.mtimeMs
         this.setIconClip(icon, path, cx, cy, cw, ch)
         break
@@ -547,8 +563,8 @@ class FileBodyPane extends HTMLElement {
       case 'image': {
         const version = file.stats.mtimeMs
         const path = `${file.path}?ver=${version}`
-        icon.style.backgroundImage = CSS.encodeURL(Yami.File.route(path))
-        Yami.File.getImageResolution(path).then(({width, height}) => {
+        icon.style.backgroundImage = CSS.encodeURL(File.route(path))
+        File.getImageResolution(path).then(({width, height}) => {
           if (width <= 128 && height <= 128) {
             icon.style.imageRendering = 'pixelated'
           }
@@ -600,7 +616,7 @@ class FileBodyPane extends HTMLElement {
 
   // 设置图标剪辑
   setIconClip(icon, path, cx, cy, cw, ch) {
-    Yami.File.getImageResolution(path).then(({width, height}) => {
+    File.getImageResolution(path).then(({width, height}) => {
       // 当cw和ch为负数时为划分模式
       if (cw < 0) {
         cw = Math.floor(width / -cw)
@@ -629,7 +645,7 @@ class FileBodyPane extends HTMLElement {
       const sy = height / size
       const px = sx !== 1 ? cx / size / (sx - 1) : 0
       const py = sy !== 1 ? cy / size / (sy - 1) : 0
-      icon.style.backgroundImage = CSS.encodeURL(Yami.File.route(path))
+      icon.style.backgroundImage = CSS.encodeURL(File.route(path))
       icon.style.backgroundPosition = `${px * 100}% ${py * 100}%`
       icon.style.backgroundSize = `${sx * 100}% ${sy * 100}%`
       if (size <= 128) {
@@ -840,8 +856,8 @@ class FileBodyPane extends HTMLElement {
       case 1: {
         const file = files[0]
         dirname = file.path
-        if (file instanceof Yami.FileItem) {
-          dirname = Yami.Path.dirname(dirname)
+        if (file instanceof FileItem) {
+          dirname = Path.dirname(dirname)
         }
         break
       }
@@ -853,17 +869,17 @@ class FileBodyPane extends HTMLElement {
   createFolder() {
     const dirname = this.getDirName()
     if (dirname) {
-      const {path, route} = Yami.File.getFileName(
+      const {path, route} = File.getFileName(
         dirname, 'New Folder',
       )
-      Yami.FSP.mkdir(
+      FSP.mkdir(
         route,
         {recursive: true},
       ).then(() => {
-        return Yami.Directory.update()
+        return Directory.update()
       }).then(changed => {
         if (changed) {
-          const folder = Yami.Directory.getFolder(path)
+          const folder = Directory.getFolder(path)
           if (folder.path === path) {
             this.links.nav.load(folder.parent)
             this.select(folder)
@@ -881,8 +897,8 @@ class FileBodyPane extends HTMLElement {
     for (const file of this.selections) {
       const {element} = file.getContext(this)
       if (elements.includes(element)) {
-        Yami.File.showInExplorer(
-          Yami.File.route(file.path)
+        File.showInExplorer(
+          File.route(file.path)
         )
         if (++length === 10) {
           break
@@ -893,12 +909,12 @@ class FileBodyPane extends HTMLElement {
 
   // 打开文件
   openFile(file) {
-    if (file instanceof Yami.FolderItem) {
+    if (file instanceof FolderItem) {
       const {nav} = this.links
       nav.load(file)
       nav.scrollToSelection('middle')
     }
-    if (file instanceof Yami.FileItem &&
+    if (file instanceof FileItem &&
       this.openEventEnabled) {
       const open = new Event('open')
       open.value = file
@@ -910,7 +926,7 @@ class FileBodyPane extends HTMLElement {
   deleteFiles() {
     const files = []
     const {selections} = this
-    if (!selections.includes(Yami.Directory.assets)) {
+    if (!selections.includes(Directory.assets)) {
       const elements = this.elements
       for (const file of selections) {
         const {element} = file.getContext(this)
@@ -923,16 +939,16 @@ class FileBodyPane extends HTMLElement {
     if (length === 0) {
       return
     }
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: length === 1
       ? get('deleteSingleFile').replace('<filename>', files[0].alias ?? files[0].name)
       : get('deleteMultipleFiles').replace('<number>', length),
     }, [{
       label: get('yes'),
       click: () => {
-        Yami.Directory.deleteFiles(files).then(() => {
-          return Yami.Directory.update()
+        Directory.deleteFiles(files).then(() => {
+          return Directory.update()
         })
       },
     }, {
@@ -944,7 +960,7 @@ class FileBodyPane extends HTMLElement {
   rename(file) {
     const {textBox} = FileBodyPane
     if (document.activeElement === this.content &&
-      file !== Yami.Directory.assets &&
+      file !== Directory.assets &&
       !textBox.parentNode) {
       const context = file.getContext(this)
       const element = context.element
@@ -985,13 +1001,13 @@ class FileBodyPane extends HTMLElement {
       return
     }
     const folder = folders[0]
-    const dialogs = Yami.Editor.config.dialogs
-    const location = Yami.Path.normalize(dialogs.import)
+    const dialogs = Editor.config.dialogs
+    const location = Path.normalize(dialogs.import)
     const images = ['png', 'jpg', 'jpeg', 'cur', 'webp']
     const audio = ['mp3', 'm4a', 'ogg', 'wav', 'flac']
     const videos = ['mp4', 'mkv', 'webm']
     const fonts = ['ttf', 'otf', 'woff', 'woff2']
-    Yami.File.showOpenDialog({
+    File.showOpenDialog({
       defaultPath: location,
       filters: [
         {name: 'Resources', extensions: [...images, ...audio, ...videos, ...fonts]},
@@ -1007,21 +1023,21 @@ class FileBodyPane extends HTMLElement {
         const promises = []
         const length = filePaths.length
         for (let i = 0; i < length; i++) {
-          const src = Yami.Path.slash(filePaths[i])
-          const ext = Yami.Path.extname(src)
-          const base = Yami.Path.basename(src, ext)
-          const dst = Yami.File.getFileName(dir, base, ext).route
-          promises.push(Yami.FSP.copyFile(src, dst))
+          const src = Path.slash(filePaths[i])
+          const ext = Path.extname(src)
+          const base = Path.basename(src, ext)
+          const dst = File.getFileName(dir, base, ext).route
+          promises.push(FSP.copyFile(src, dst))
         }
         Promise.all(promises).then(() => {
-          return Yami.Directory.update()
+          return Directory.update()
         })/* .then(changed => {
           if (changed) {
             browser.dirchange()
           }
         }) */
-        dialogs.import = Yami.Path.slash(
-          Yami.Path.dirname(filePaths[0]),
+        dialogs.import = Path.slash(
+          Path.dirname(filePaths[0]),
         )
       }
     })
@@ -1030,43 +1046,43 @@ class FileBodyPane extends HTMLElement {
   // 导出文件
   exportFile() {
     const files = this.selections
-    const dialogs = Yami.Editor.config.dialogs
+    const dialogs = Editor.config.dialogs
 
-    if (files.length === 1 && files[0] instanceof Yami.FileItem) {
+    if (files.length === 1 && files[0] instanceof FileItem) {
       // 导出单个文件
       const file = files[0]
-      Yami.File.showSaveDialog({
-        defaultPath: Yami.Path.resolve(dialogs.export, file.name),
+      File.showSaveDialog({
+        defaultPath: Path.resolve(dialogs.export, file.name),
       }).then(({filePath}) => {
         if (filePath) {
-          dialogs.export = Yami.Path.slash(
-            Yami.Path.dirname(filePath),
+          dialogs.export = Path.slash(
+            Path.dirname(filePath),
           )
-          return Yami.FSP.copyFile(
-            Yami.File.route(file.path),
+          return FSP.copyFile(
+            File.route(file.path),
             filePath,
           )
         }
       }).finally(() => {
-        Yami.Directory.update()
+        Directory.update()
       })
     } else {
       // 导出文件夹或多个文件
-      Yami.File.showOpenDialog({
-        defaultPath: Yami.Path.normalize(dialogs.export),
+      File.showOpenDialog({
+        defaultPath: Path.normalize(dialogs.export),
         properties: ['openDirectory'],
       }).then(({filePaths}) => {
         if (filePaths.length === 1) {
           const dirPath = filePaths[0]
-          dialogs.export = Yami.Path.slash(dirPath)
-          return Yami.Directory.readdir(files.map(
+          dialogs.export = Path.slash(dirPath)
+          return Directory.readdir(files.map(
             file => File.route(file.path)
           )).then(dir => {
-            return Yami.Directory.copyFiles(dirPath, dir)
+            return Directory.copyFiles(dirPath, dir)
           })
         }
       }).finally(() => {
-        Yami.Directory.update()
+        Directory.update()
       })
     }
   }
@@ -1301,7 +1317,7 @@ class FileBodyPane extends HTMLElement {
                 }
                 this.pressing = pointerup
                 window.on('pointerup', pointerup, {once: true})
-              } else if (Yami.Menu.state === 'closed' &&
+              } else if (Menu.state === 'closed' &&
                 document.activeElement === this.content && (
                 event.target.tagName === 'FILE-BODY-NAME')) {
                 this.timer.target = event.target
@@ -1392,7 +1408,7 @@ class FileBodyPane extends HTMLElement {
 
   // 静态 - 创建文本输入框
   static textBox = function IIFE() {
-    const textBox = new Yami.TextBox()
+    const textBox = new TextBox()
     textBox.setMaxLength(64)
     textBox.addClass('file-body-text-box')
     textBox.input.addClass('file-body-text-box-input')
@@ -1446,7 +1462,7 @@ class FileBodyPane extends HTMLElement {
       this.remove()
       item.nameBox.show()
       if (!name) return
-      if (file instanceof Yami.FileItem) {
+      if (file instanceof FileItem) {
         const guid = file.meta?.guid
         if (typeof guid === 'string') {
           filename += '.' + guid
@@ -1454,20 +1470,20 @@ class FileBodyPane extends HTMLElement {
         filename += file.extname
       }
       if (filename !== file.name) {
-        const dir = Yami.Path.dirname(file.path)
-        const path = Yami.File.route(`${dir}/${filename}`)
+        const dir = Path.dirname(file.path)
+        const path = File.route(`${dir}/${filename}`)
         // 当目标文件不存在或就是自己时重命名
-        Yami.FSP.stat(path, Yami.FolderItem.bigint).then(stats => {
+        FSP.stat(path, FolderItem.bigint).then(stats => {
           if (stats.ino === file.stats.ino) {
             throw new Error('same file')
           }
         }).catch(error => {
-          return Yami.FSP.rename(
-            Yami.File.route(file.path),
+          return FSP.rename(
+            File.route(file.path),
             path,
           ).then(() => {
             item.nameBox.textContent = name
-            return Yami.Directory.update()
+            return Directory.update()
           })
         })
       }

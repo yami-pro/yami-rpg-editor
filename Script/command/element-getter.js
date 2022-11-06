@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  PresetElement,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 元素访问器窗口 ********************************
 
 const ElementGetter = {
@@ -48,9 +55,9 @@ ElementGetter.initialize = function () {
 // 打开窗口
 ElementGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('elementGetter')
+  Window.open('elementGetter')
 
-  let presetId = Yami.PresetElement.getDefaultPresetId()
+  let presetId = PresetElement.getDefaultPresetId()
   let ancestor = {type: 'trigger'}
   let variable = {type: 'local', key: ''}
   const element = target.dataValue
@@ -79,7 +86,7 @@ ElementGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 ElementGetter.confirm = function (event) {
-  const read = Yami.getElementReader('elementGetter')
+  const read = getElementReader('elementGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -106,7 +113,7 @@ ElementGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#elementGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -114,7 +121,7 @@ ElementGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('elementGetter')
+  Window.close('elementGetter')
 }.bind(ElementGetter)
 
 // ******************************** 元素访问器窗口导出 ********************************

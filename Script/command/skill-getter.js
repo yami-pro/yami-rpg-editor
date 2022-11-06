@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Enum,
+  getElementReader,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 技能访问器窗口 ********************************
 
 const SkillGetter = {
@@ -44,15 +51,15 @@ SkillGetter.initialize = function () {
 // 打开窗口
 SkillGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('skillGetter')
+  Window.open('skillGetter')
 
   // 加载快捷键选项
   $('#skillGetter-key').loadItems(
-    Yami.Enum.getStringItems('shortcut-key')
+    Enum.getStringItems('shortcut-key')
   )
 
   let actor = {type: 'trigger'}
-  let key = Yami.Enum.getDefStringId('shortcut-key')
+  let key = Enum.getDefStringId('shortcut-key')
   let variable = {type: 'local', key: ''}
   const skill = target.dataValue
   switch (skill.type) {
@@ -76,7 +83,7 @@ SkillGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 SkillGetter.confirm = function (event) {
-  const read = Yami.getElementReader('skillGetter')
+  const read = getElementReader('skillGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -95,7 +102,7 @@ SkillGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#skillGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -103,7 +110,7 @@ SkillGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('skillGetter')
+  Window.close('skillGetter')
 }.bind(SkillGetter)
 
 // ******************************** 技能访问器窗口导出 ********************************

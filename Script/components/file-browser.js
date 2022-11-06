@@ -2,6 +2,18 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Directory,
+  File,
+  FileBodyPane,
+  FileItem,
+  FileNavPane,
+  FolderItem,
+  Local,
+  Menu,
+  Path
+} = Yami
+
 // ******************************** 文件浏览器 ********************************
 
 class FileBrowser extends HTMLElement {
@@ -80,7 +92,7 @@ class FileBrowser extends HTMLElement {
         keyword = keyword.replace(/[(){}\\^$*+?.|[\]]/g, '\\$&')
         keyword = new RegExp(keyword, 'i')
       }
-      Yami.Directory.searchFiles(
+      Directory.searchFiles(
         this.filters,
         this.keyword = keyword,
         this.directory,
@@ -122,7 +134,7 @@ class FileBrowser extends HTMLElement {
           const path = folders[0].path
           const index = path.lastIndexOf('/')
           if (index !== -1) {
-            nav.load(Yami.Directory.getFolder(
+            nav.load(Directory.getFolder(
               path.slice(0, index)
             ))
           }
@@ -150,7 +162,7 @@ class FileBrowser extends HTMLElement {
     const body = this.body
     const files = Array.from(body.selections)
     if (files.length !== 0) {
-      const {inoMap} = Yami.Directory
+      const {inoMap} = Directory
       let modified = false
       let i = files.length
       while (--i >= 0) {
@@ -208,10 +220,10 @@ class FileBrowser extends HTMLElement {
         page.pressing = null
       }
       const files = page.selections
-      if (!files.includes(Yami.Directory.assets) &&
+      if (!files.includes(Directory.assets) &&
         !page.textBox.parentNode) {
         const rPaths = files.map(file => file.path)
-        const aPaths = rPaths.map(path => Yami.File.route(path))
+        const aPaths = rPaths.map(path => File.route(path))
         this.dragging = event
         event.mode = 'drag'
         event.preventDefault = Function.empty
@@ -222,7 +234,7 @@ class FileBrowser extends HTMLElement {
         event.dropMode = null
         event.files = files
         event.filePaths = rPaths
-        event.promise = Yami.Directory.readdir(aPaths)
+        event.promise = Directory.readdir(aPaths)
         event.promise.then(dir => {
           // 若文件已删除则结束拖拽
           if (dir.length === 0) {
@@ -235,7 +247,7 @@ class FileBrowser extends HTMLElement {
         this.on('dragleave', this.dragleave)
         this.on('dragover', this.dragover)
         this.on('drop', this.drop)
-        if (files.length === 1 && files[0] instanceof Yami.FileItem) {
+        if (files.length === 1 && files[0] instanceof FileItem) {
           event.dataTransfer.setData('DownloadURL',
             `application/octet-stream:${files[0].name}:${aPaths[0]}`
           )
@@ -281,9 +293,9 @@ class FileBrowser extends HTMLElement {
       }
       while (!(
         element instanceof FileBrowser ||
-        element instanceof Yami.FileNavPane ||
-        element instanceof Yami.FileBodyPane ||
-        element.file instanceof Yami.FolderItem)) {
+        element instanceof FileNavPane ||
+        element instanceof FileBodyPane ||
+        element.file instanceof FolderItem)) {
         element = element.parentNode
       }
       if (dropTarget !== element) {
@@ -292,7 +304,7 @@ class FileBrowser extends HTMLElement {
         }
         dragging.allowMove = false
         dragging.dropTarget = element
-        if (element.file instanceof Yami.FolderItem) {
+        if (element.file instanceof FolderItem) {
           element.addClass('drop-target')
           dragging.dropPath = element.file.path
           dragging.promise.then(dir => {
@@ -305,7 +317,7 @@ class FileBrowser extends HTMLElement {
                 return true
               }
             }
-            return Yami.Directory.existFiles(path, dir)
+            return Directory.existFiles(path, dir)
           }).then(existed => {
             if (!existed &&
               dragging.dropTarget === element) {
@@ -313,7 +325,7 @@ class FileBrowser extends HTMLElement {
             }
           })
         } else {
-          if (element instanceof Yami.FileBodyPane) {
+          if (element instanceof FileBodyPane) {
             const {selections} = this.nav
             dragging.dropPath =
               selections.length === 1
@@ -349,9 +361,9 @@ class FileBrowser extends HTMLElement {
     if (dragging) {
       event.stopPropagation()
       if (!dragging.dropPath) return
-      const dropPath = Yami.File.route(dragging.dropPath)
-      const dropName = Yami.Path.basename(dropPath)
-      const get = Yami.Local.createGetter('menuFileOnDrop')
+      const dropPath = File.route(dragging.dropPath)
+      const dropName = Path.basename(dropPath)
+      const get = Local.createGetter('menuFileOnDrop')
 
       // 创建菜单选项
       const menuItems = []
@@ -361,9 +373,9 @@ class FileBrowser extends HTMLElement {
             label: get('moveTo').replace('<dirName>', dropName),
             click: () => {
               dragging.promise.then(
-                dir => Yami.Directory.moveFiles(dropPath, dir)
+                dir => Directory.moveFiles(dropPath, dir)
               ).finally(() => {
-                Yami.Directory.update()
+                Directory.update()
               })
             }
           })
@@ -373,10 +385,10 @@ class FileBrowser extends HTMLElement {
             label: get('copyTo').replace('<dirName>', dropName),
             click: () => {
               dragging.promise.then(
-                dir => Yami.Directory.saveFiles(dragging.files).then(
-                  () => Yami.Directory.copyFiles(dropPath, dir))
+                dir => Directory.saveFiles(dragging.files).then(
+                  () => Directory.copyFiles(dropPath, dir))
               ).finally(() => {
-                Yami.Directory.update()
+                Directory.update()
               })
             }
           })
@@ -384,7 +396,7 @@ class FileBrowser extends HTMLElement {
       }
 
       // 弹出菜单
-      Yami.Menu.popup({
+      Menu.popup({
         x: event.clientX,
         y: event.clientY,
       }, menuItems)
@@ -436,9 +448,9 @@ class FileBrowser extends HTMLElement {
       let element = event.target
       while (!(
         element instanceof FileBrowser ||
-        element instanceof Yami.FileNavPane ||
-        element instanceof Yami.FileBodyPane ||
-        element.file instanceof Yami.FolderItem)) {
+        element instanceof FileNavPane ||
+        element instanceof FileBodyPane ||
+        element.file instanceof FolderItem)) {
         element = element.parentNode
       }
       if (dropTarget !== element) {
@@ -446,11 +458,11 @@ class FileBrowser extends HTMLElement {
           dropTarget.removeClass('drop-target')
         }
         dragging.dropTarget = element
-        if (element.file instanceof Yami.FolderItem) {
+        if (element.file instanceof FolderItem) {
           element.addClass('drop-target')
           dragging.dropPath = element.file.path
         } else {
-          if (element instanceof Yami.FileBodyPane) {
+          if (element instanceof FileBodyPane) {
             const {selections} = this.nav
             dragging.dropPath =
               selections.length === 1
@@ -478,13 +490,13 @@ class FileBrowser extends HTMLElement {
     if (dragging) {
       let {dropPath} = dragging
       if (!dropPath) return
-      dropPath = Yami.File.route(dropPath)
+      dropPath = File.route(dropPath)
       const map = Array.prototype.map
       const paths = map.call(files, file => file.path)
-      Yami.Directory.readdir(paths).then(dir => {
-        return Yami.Directory.copyFiles(dropPath, dir, '')
+      Directory.readdir(paths).then(dir => {
+        return Directory.copyFiles(dropPath, dir, '')
       }).finally(() => {
-        Yami.Directory.update()
+        Directory.update()
       })
     }
   }

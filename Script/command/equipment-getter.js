@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Enum,
+  getElementReader,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 装备访问器窗口 ********************************
 
 const EquipmentGetter = {
@@ -44,14 +51,14 @@ EquipmentGetter.initialize = function () {
 // 打开窗口
 EquipmentGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('equipmentGetter')
+  Window.open('equipmentGetter')
   // 加载快捷键选项
   $('#equipmentGetter-slot').loadItems(
-    Yami.Enum.getStringItems('equipment-slot')
+    Enum.getStringItems('equipment-slot')
   )
 
   let actor = {type: 'trigger'}
-  let slot = Yami.Enum.getDefStringId('equipment-slot')
+  let slot = Enum.getDefStringId('equipment-slot')
   let variable = {type: 'local', slot: ''}
   const equipment = target.dataValue
   switch (equipment.type) {
@@ -75,7 +82,7 @@ EquipmentGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 EquipmentGetter.confirm = function (event) {
-  const read = Yami.getElementReader('equipmentGetter')
+  const read = getElementReader('equipmentGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -94,7 +101,7 @@ EquipmentGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#equipmentGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -102,7 +109,7 @@ EquipmentGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('equipmentGetter')
+  Window.close('equipmentGetter')
 }.bind(EquipmentGetter)
 
 // ******************************** 装备访问器窗口导出 ********************************

@@ -2,6 +2,22 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Attribute,
+  Command,
+  ctrl,
+  Data,
+  Easing,
+  Enum,
+  File,
+  Local,
+  Menu,
+  NodeList,
+  ScriptListInterface,
+  Selector,
+  Window
+} = Yami
+
 // ******************************** 插件窗口 ********************************
 
 const PluginManager = {
@@ -57,7 +73,7 @@ PluginManager.list.paste = null
 PluginManager.list.delete = null
 PluginManager.list.saveSelection = null
 PluginManager.list.restoreSelection = null
-PluginManager.list.updateNodeElement = Yami.Easing.list.updateNodeElement
+PluginManager.list.updateNodeElement = Easing.list.updateNodeElement
 PluginManager.list.addElementClass = null
 PluginManager.list.updateTextNode = null
 PluginManager.list.updateToggleStyle = null
@@ -90,7 +106,7 @@ PluginManager.initialize = function () {
   list.on('change', this.listChange)
   list.on('popup', this.listPopup)
   list.on('open', this.listOpen)
-  list.on('pointerdown', Yami.ScriptListInterface.listPointerdown)
+  list.on('pointerdown', ScriptListInterface.listPointerdown)
   this.overview.on('pointerdown', this.overviewPointerdown)
   this.parameterPane.on('update', this.parameterPaneUpdate)
   $('#plugin-confirm').on('click', this.confirm)
@@ -99,10 +115,10 @@ PluginManager.initialize = function () {
 
 // 打开窗口
 PluginManager.open = function () {
-  Yami.Window.open('plugin')
+  Window.open('plugin')
 
   // 创建数据副本
-  this.data = Object.clone(Yami.Data.plugins)
+  this.data = Object.clone(Data.plugins)
 
   // 更新列表项目
   this.list.restoreSelection()
@@ -119,7 +135,7 @@ PluginManager.open = function () {
 // 加载插件
 PluginManager.load = async function (item) {
   const symbol = this.symbol = Symbol()
-  const meta = await Yami.Data.scripts[item.id]
+  const meta = await Data.scripts[item.id]
   if (this.symbol === symbol) {
     this.symbol = null
     this.meta = meta
@@ -153,7 +169,7 @@ PluginManager.loadOverview = function () {
 // 创建概述内容
 PluginManager.createOverview = function (meta, detailed) {
   const elements = []
-  const get = Yami.Local.createGetter('plugin')
+  const get = Local.createGetter('plugin')
   const langMap = meta.langMap.update()
   const {plugin, author, link, version, desc} = meta.overview
   if (plugin) {
@@ -184,7 +200,7 @@ PluginManager.createOverview = function (meta, detailed) {
     text.addClass('plugin-type')
     if (link) {
       text.addClass('plugin-link')
-      text.onclick = () => Yami.File.openURL(link)
+      text.onclick = () => File.openURL(link)
     }
     elements.push(text)
   }
@@ -324,7 +340,7 @@ PluginManager.createData = function (id) {
 }
 
 // 获取ID匹配的数据
-PluginManager.getItemById = Yami.Easing.getItemById
+PluginManager.getItemById = Easing.getItemById
 
 // 切换概述模式
 PluginManager.switchOverviewMode = function () {
@@ -883,12 +899,12 @@ PluginManager.parseMeta = function IIFE() {
 
     // 更新语言
     update() {
-      if (this.language !== Yami.Local.language) {
-        this.language = Yami.Local.language
+      if (this.language !== Local.language) {
+        this.language = Local.language
         const packs = this.packs
         let active = packs[0]
         let matchedWeight = 0
-        const sKeys = Yami.Local.language.split('-')
+        const sKeys = Local.language.split('-')
         for (const pack of packs) {
           const dKeys = pack.name.split('-')
           if (sKeys[0] === dKeys[0]) {
@@ -1036,7 +1052,7 @@ PluginManager.parseMeta = function IIFE() {
     // 设置元数据
     const updating = !!meta.overview
     meta.parameters = parameters
-    Yami.Data.manifest.changed = true
+    Data.manifest.changed = true
     Object.defineProperties(meta, {
       overview: {
         configurable: true,
@@ -1091,25 +1107,25 @@ PluginManager.reconstruct = function IIFE() {
       case 'option':
         return parameter.options.includes(value)
       case 'easing':
-        return !!Yami.Data.easings.map[value]
+        return !!Data.easings.map[value]
       case 'team':
-        return !!Yami.Data.teams.map[value]
+        return !!Data.teams.map[value]
       case 'variable':
-        return value === '' || !!Yami.Data.variables.map[value]
+        return value === '' || !!Data.variables.map[value]
       case 'attribute':
       case 'attribute-key':
         if (value === '') return true
-        if (parameter.filter === 'any') return !!Yami.Attribute.getAttribute(value)
-        return !!Yami.Attribute.getGroupAttribute(parameter.filter, value)
+        if (parameter.filter === 'any') return !!Attribute.getAttribute(value)
+        return !!Attribute.getGroupAttribute(parameter.filter, value)
       case 'attribute-group':
-        return !!Yami.Attribute.getGroup(value)
+        return !!Attribute.getGroup(value)
       case 'enum':
       case 'enum-value':
         if (value === '') return true
-        if (parameter.filter === 'any') return !!Yami.Enum.getString(value)
-        return !!Yami.Enum.getGroupString(parameter.filter, value)
+        if (parameter.filter === 'any') return !!Enum.getString(value)
+        return !!Enum.getGroupString(parameter.filter, value)
       case 'enum-group':
-        return !!Yami.Enum.getEnumGroup(value)
+        return !!Enum.getEnumGroup(value)
       case 'actor':
       case 'region':
       case 'light':
@@ -1157,35 +1173,35 @@ PluginManager.reconstruct = function IIFE() {
         if (parameter.options.includes(value)) return value
         return parameter.value
       case 'easing':
-        if (Yami.Data.easings.map[value]) return value
-        return Yami.Data.easings[0].id
+        if (Data.easings.map[value]) return value
+        return Data.easings[0].id
       case 'team':
-        if (Yami.Data.teams.map[value]) return value
-        return Yami.Data.teams.list[0].id
+        if (Data.teams.map[value]) return value
+        return Data.teams.list[0].id
       case 'variable':
-        if (Yami.Data.variables.map[value]) return value
+        if (Data.variables.map[value]) return value
         return ''
       case 'attribute':
       case 'attribute-key':
         if (parameter.filter === 'any') {
-          if (Yami.Attribute.getAttribute(value)) return value
+          if (Attribute.getAttribute(value)) return value
         } else {
-          if (Yami.Attribute.getGroupAttribute(parameter.filter, value)) return value
+          if (Attribute.getGroupAttribute(parameter.filter, value)) return value
         }
         return ''
       case 'attribute-group':
-        if (Yami.Attribute.getGroup(value)) return value
+        if (Attribute.getGroup(value)) return value
         return ''
       case 'enum':
       case 'enum-value':
         if (parameter.filter === 'any') {
-          if (Yami.Enum.getString(value)) return value
+          if (Enum.getString(value)) return value
         } else {
-          if (Yami.Enum.getGroupString(parameter.filter, value)) return value
+          if (Enum.getGroupString(parameter.filter, value)) return value
         }
         return ''
       case 'enum-group':
-        if (Yami.Enum.getEnumGroup(value)) return value
+        if (Enum.getEnumGroup(value)) return value
         return ''
       case 'actor':
       case 'region':
@@ -1226,7 +1242,7 @@ PluginManager.reconstruct = function IIFE() {
   return function (script) {
     const {id, parameters} = script
     const oEntries = Object.entries(parameters)
-    const meta = Yami.Data.manifest.guidMap[id]
+    const meta = Data.manifest.guidMap[id]
     const mParameters = meta?.parameters
     // 未找到元数据参数时保留脚本参数
     if (mParameters === undefined) {
@@ -1281,14 +1297,14 @@ PluginManager.loadFromProject = function (project) {
 PluginManager.windowClose = function (event) {
   if (this.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedPlugins'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Yami.Window.close('plugin')
+        Window.close('plugin')
       },
     }, {
       label: get('no'),
@@ -1384,8 +1400,8 @@ PluginManager.listPopup = function (event) {
   const selected = !!item
   const pastable = Clipboard.has('yami.data.plugin')
   const deletable = selected
-  const get = Yami.Local.createGetter('menuPluginList')
-  Yami.Menu.popup({
+  const get = Local.createGetter('menuPluginList')
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -1410,14 +1426,14 @@ PluginManager.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -1442,12 +1458,12 @@ PluginManager.overviewPointerdown = function IIFE() {
   const once = {once: true}
   const pointerup = event => {
     if (PluginManager.overview.contains(event.target)) {
-      Yami.Menu.popup({
+      Menu.popup({
         x: event.clientX,
         y: event.clientY,
       }, [{
-        label: Yami.Local.get('menuPluginOverview.detail'),
-        accelerator: Yami.ctrl('D'),
+        label: Local.get('menuPluginOverview.detail'),
+        accelerator: ctrl('D'),
         checked: PluginManager.detailed,
         click: () => {
           PluginManager.switchOverviewMode()
@@ -1476,7 +1492,7 @@ PluginManager.parameterPaneUpdate = function (event) {
 // 确定按钮 - 鼠标点击事件
 PluginManager.confirm = function (event) {
   this.apply()
-  Yami.Window.close('plugin')
+  Window.close('plugin')
 }.bind(PluginManager)
 
 // 应用按钮 - 鼠标点击事件
@@ -1489,16 +1505,16 @@ PluginManager.apply = function (event) {
     if (event instanceof Event) {
       plugins = Object.clone(plugins)
     } else {
-      Yami.NodeList.deleteCaches(plugins)
+      NodeList.deleteCaches(plugins)
     }
-    Yami.Data.plugins = plugins
-    Yami.File.planToSave(Yami.Data.manifest.project.plugins)
+    Data.plugins = plugins
+    File.planToSave(Data.manifest.project.plugins)
   }
 }.bind(PluginManager)
 
 // 列表 - 编辑
 PluginManager.list.edit = function (item) {
-  Yami.Selector.open({
+  Selector.open({
     filter: 'script',
     read: () => item.id,
     input: id => {
@@ -1516,7 +1532,7 @@ PluginManager.list.edit = function (item) {
 
 // 列表 - 插入
 PluginManager.list.insert = function (dItem) {
-  Yami.Selector.open({
+  Selector.open({
     filter: 'script',
     read: () => '',
     input: id => {
@@ -1551,9 +1567,9 @@ PluginManager.list.paste = function (dItem) {
 
 // 列表 - 删除
 PluginManager.list.delete = function (item) {
-  const get = Yami.Local.createGetter('confirmation')
-  const name = Yami.Command.parseFileName(item.id)
-  Yami.Window.confirm({
+  const get = Local.createGetter('confirmation')
+  const name = Command.parseFileName(item.id)
+  Window.confirm({
     message: get('deleteSingleFile').replace('<filename>', name),
   }, [{
     label: get('yes'),
@@ -1571,7 +1587,7 @@ PluginManager.list.delete = function (item) {
 
 // 列表 - 保存选项状态
 PluginManager.list.saveSelection = function () {
-  const {plugins} = Yami.Data
+  const {plugins} = Data
   // 将数据保存在外部可以切换项目后重置
   if (plugins.selection === undefined) {
     Object.defineProperty(plugins, 'selection', {
@@ -1587,7 +1603,7 @@ PluginManager.list.saveSelection = function () {
 
 // 列表 - 恢复选项状态
 PluginManager.list.restoreSelection = function () {
-  const id = Yami.Data.plugins.selection
+  const id = Data.plugins.selection
   const item = PluginManager.getItemById(id) ?? this.data[0]
   this.select(item)
   this.update()
@@ -1602,7 +1618,7 @@ PluginManager.list.addElementClass = function (item) {
 // 列表 - 更新文本节点
 PluginManager.list.updateTextNode = function (item) {
   const textNode = item.element.textNode
-  const text = Yami.Command.parseFileName(item.id)
+  const text = Command.parseFileName(item.id)
   if (textNode.nodeValue !== text) {
     textNode.nodeValue = text
   }

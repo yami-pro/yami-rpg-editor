@@ -2,11 +2,19 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  EventListInterface,
+  getElementWriter,
+  Inspector,
+  ScriptListInterface,
+  UI
+} = Yami
+
 // ******************************** 元素页面 ********************************
 
 const UIElement = {
   // properties
-  owner: Yami.UI,
+  owner: UI,
   target: null,
   nameBox: $('#uiElement-name'),
   generalGroup: $('#uiElement-general-group'),
@@ -30,10 +38,10 @@ const UIElement = {
 // 初始化
 UIElement.initialize = function () {
   // 绑定事件列表
-  $('#uiElement-events').bind(new Yami.EventListInterface(this, Yami.UI))
+  $('#uiElement-events').bind(new EventListInterface(this, UI))
 
   // 绑定脚本列表
-  $('#uiElement-scripts').bind(new Yami.ScriptListInterface(this, Yami.UI))
+  $('#uiElement-scripts').bind(new ScriptListInterface(this, UI))
 
   // 绑定脚本参数面板
   this.parameterPane.bind($('#uiElement-scripts'))
@@ -45,7 +53,7 @@ UIElement.initialize = function () {
   // this.scriptsGroup.remove()
 
   // 侦听事件
-  Yami.Inspector.manager.on('switch', this.pageSwitch)
+  Inspector.manager.on('switch', this.pageSwitch)
   const alignElements = $('.uiElement-transform-align')
   const otherElements = $(`#uiElement-name, #uiElement-transform-anchorX, #uiElement-transform-anchorY,
     #uiElement-transform-x, #uiElement-transform-x2, #uiElement-transform-y, #uiElement-transform-y2,
@@ -54,9 +62,9 @@ UIElement.initialize = function () {
     #uiElement-transform-skewX, #uiElement-transform-skewY, #uiElement-transform-opacity`)
   alignElements.on('click', this.alignmentClick)
   otherElements.on('input', this.paramInput)
-  otherElements.on('focus', Yami.Inspector.inputFocus)
-  otherElements.on('blur', Yami.Inspector.inputBlur(this, Yami.UI))
-  $('#uiElement-events, #uiElement-scripts').on('change', Yami.UI.listChange)
+  otherElements.on('focus', Inspector.inputFocus)
+  otherElements.on('blur', Inspector.inputBlur(this, UI))
+  $('#uiElement-events, #uiElement-scripts').on('change', UI.listChange)
 }
 
 // 创建变换参数
@@ -87,7 +95,7 @@ UIElement.open = function (node) {
     this.target = node
 
     // 写入数据
-    const write = Yami.getElementWriter('uiElement', node)
+    const write = getElementWriter('uiElement', node)
     write('name')
     write('transform-anchorX')
     write('transform-anchorY')
@@ -147,14 +155,14 @@ UIElement.write = function (options) {
 
 // 更新数据
 UIElement.update = function (node, key, value) {
-  Yami.UI.planToSave()
+  UI.planToSave()
   const element = node.instance
   const transform = node.transform
   switch (key) {
     case 'name':
       if (node.name !== value) {
         node.name = value
-        Yami.UI.list.updateItemName(node)
+        UI.list.updateItemName(node)
       }
       break
     case 'transform-anchorX':
@@ -182,7 +190,7 @@ UIElement.update = function (node, key, value) {
       break
     }
   }
-  Yami.UI.requestRendering()
+  UI.requestRendering()
 }
 
 // 页面 - 切换事件
@@ -196,7 +204,7 @@ UIElement.pageSwitch = function (event) {
     case 'uiVideo':
     case 'uiWindow':
     case 'uiContainer': {
-      const page = Yami.Inspector.manager.active
+      const page = Inspector.manager.active
       page.insertBefore(this.transformGroup, page.firstChild)
       page.insertBefore(this.generalGroup, page.firstChild)
       page.appendChild(this.eventsGroup)
@@ -289,9 +297,9 @@ UIElement.alignmentClick = function (event) {
   }
   if (changes.length !== 0) {
     element.resize()
-    Yami.UI.planToSave()
-    Yami.UI.requestRendering()
-    Yami.UI.history.save({
+    UI.planToSave()
+    UI.requestRendering()
+    UI.history.save({
       type: 'inspector-change',
       editor: UIElement,
       target: UIElement.target,
@@ -304,12 +312,12 @@ UIElement.alignmentClick = function (event) {
 UIElement.paramInput = function (event) {
   UIElement.update(
     UIElement.target,
-    Yami.Inspector.getKey(this),
+    Inspector.getKey(this),
     this.read(),
   )
 }
 
-Yami.Inspector.uiElement = UIElement
+Inspector.uiElement = UIElement
 
 // ******************************** 元素页面导出 ********************************
 

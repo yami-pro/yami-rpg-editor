@@ -2,6 +2,50 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ActorGetter,
+  AncestorGetter,
+  AngleGetter,
+  Animation,
+  Attribute,
+  CommandSuggestion,
+  Data,
+  DialogBoxProperty,
+  ElementGetter,
+  Enum,
+  EquipmentGetter,
+  EventEditor,
+  File,
+  getElementReader,
+  IfBranch,
+  IfCondition,
+  ImageProperty,
+  ItemGetter,
+  Layout,
+  LightGetter,
+  LightProperty,
+  Local,
+  measureText,
+  NodeList,
+  NumberOperand,
+  PluginManager,
+  PositionGetter,
+  PresetElement,
+  ProgressBarProperty,
+  Scene,
+  SkillGetter,
+  StateGetter,
+  SwitchBranch,
+  SwitchCondition,
+  TextBoxProperty,
+  TextProperty,
+  TextSuggestion,
+  TransformProperty,
+  TriggerGetter,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 指令对象 ********************************
 
 const Command = {
@@ -71,20 +115,20 @@ Command.initialize = function () {
   this.words = new Command.WordList()
 
   // 初始化相关对象
-  Yami.CommandSuggestion.initialize()
-  Yami.TextSuggestion.initialize()
-  Yami.VariableGetter.initialize()
-  Yami.ActorGetter.initialize()
-  Yami.SkillGetter.initialize()
-  Yami.StateGetter.initialize()
-  Yami.EquipmentGetter.initialize()
-  Yami.ItemGetter.initialize()
-  Yami.PositionGetter.initialize()
-  Yami.AngleGetter.initialize()
-  Yami.TriggerGetter.initialize()
-  Yami.LightGetter.initialize()
-  Yami.ElementGetter.initialize()
-  Yami.AncestorGetter.initialize()
+  CommandSuggestion.initialize()
+  TextSuggestion.initialize()
+  VariableGetter.initialize()
+  ActorGetter.initialize()
+  SkillGetter.initialize()
+  StateGetter.initialize()
+  EquipmentGetter.initialize()
+  ItemGetter.initialize()
+  PositionGetter.initialize()
+  AngleGetter.initialize()
+  TriggerGetter.initialize()
+  LightGetter.initialize()
+  ElementGetter.initialize()
+  AncestorGetter.initialize()
   Command.custom.initialize()
 
   // 初始化指令模块
@@ -102,7 +146,7 @@ Command.insert = function (target, id) {
     target.scrollAndResize()
     return this.open(id)
   }
-  Yami.CommandSuggestion.open()
+  CommandSuggestion.open()
 }
 
 // 编辑指令
@@ -115,16 +159,16 @@ Command.edit = function (target, command) {
     target.scrollAndResize()
     const point = target.getSelectionPosition()
     if (point) {
-      Yami.Window.setPositionMode('absolute')
-      Yami.Window.absolutePos.x = point.x + 100
-      Yami.Window.absolutePos.y = point.y
-      Yami.Window.open(id)
-      Yami.Window.setPositionMode('overlap')
+      Window.setPositionMode('absolute')
+      Window.absolutePos.x = point.x + 100
+      Window.absolutePos.y = point.y
+      Window.open(id)
+      Window.setPositionMode('overlap')
       handler.load(params)
     }
   }
   if (handler) return
-  const meta = Yami.Data.scripts[id]
+  const meta = Data.scripts[id]
   if (meta?.parameters.length > 0 &&
     this.custom.commandNameMap[id]) {
     this.target = target
@@ -132,11 +176,11 @@ Command.edit = function (target, command) {
     target.scrollAndResize()
     const point = target.getSelectionPosition()
     if (point) {
-      Yami.Window.setPositionMode('absolute')
-      Yami.Window.absolutePos.x = point.x + 100
-      Yami.Window.absolutePos.y = point.y
-      Yami.Window.open('scriptCommand')
-      Yami.Window.setPositionMode('overlap')
+      Window.setPositionMode('absolute')
+      Window.absolutePos.x = point.x + 100
+      Window.absolutePos.y = point.y
+      Window.open('scriptCommand')
+      Window.setPositionMode('overlap')
       this.custom.load(id, params)
     }
   }
@@ -150,11 +194,11 @@ Command.open = function (id) {
     if (handler.load) {
       const point = this.target.getSelectionPosition()
       if (point) {
-        Yami.Window.setPositionMode('absolute')
-        Yami.Window.absolutePos.x = point.x + 100
-        Yami.Window.absolutePos.y = point.y
-        Yami.Window.open(id)
-        Yami.Window.setPositionMode('overlap')
+        Window.setPositionMode('absolute')
+        Window.absolutePos.x = point.x + 100
+        Window.absolutePos.y = point.y
+        Window.open(id)
+        Window.setPositionMode('overlap')
         handler.load({})
       }
     } else {
@@ -162,18 +206,18 @@ Command.open = function (id) {
     }
     return
   }
-  const meta = Yami.Data.scripts[id]
+  const meta = Data.scripts[id]
   if (meta !== undefined &&
     this.custom.commandNameMap[id]) {
     this.id = id
     if (meta.parameters.length !== 0) {
       const point = this.target.getSelectionPosition()
       if (point) {
-        Yami.Window.setPositionMode('absolute')
-        Yami.Window.absolutePos.x = point.x + 100
-        Yami.Window.absolutePos.y = point.y
-        Yami.Window.open('scriptCommand')
-        Yami.Window.setPositionMode('overlap')
+        Window.setPositionMode('absolute')
+        Window.absolutePos.x = point.x + 100
+        Window.absolutePos.y = point.y
+        Window.open('scriptCommand')
+        Window.setPositionMode('overlap')
         this.custom.load(id, {})
       }
     } else {
@@ -189,9 +233,9 @@ Command.save = function (params) {
   const handler = this.cases[id]
   if (handler !== undefined) {
     handler.load &&
-    Yami.Window.close(id)
+    Window.close(id)
   } else {
-    Yami.Window.close('scriptCommand')
+    Window.close('scriptCommand')
   }
 }
 
@@ -211,7 +255,7 @@ Command.parse = function (command) {
 
 // 解析混合模式
 Command.parseBlend = function (blend) {
-  return Yami.Local.get('blend.' + blend)
+  return Local.get('blend.' + blend)
 }
 
 // 解析变量
@@ -224,9 +268,9 @@ Command.parseVariable = function (variable) {
   : variable.key
   switch (variable.type.replace('[]', '')) {
     case 'local':
-      return isConstantKey ? key : `${Yami.Local.get('variable.local')}[${key}]`
+      return isConstantKey ? key : `${Local.get('variable.local')}[${key}]`
     case 'global':
-      return isConstantKey ? `@${key}` : `${Yami.Local.get('variable.global')}[${key}]`
+      return isConstantKey ? `@${key}` : `${Local.get('variable.global')}[${key}]`
     case 'actor': {
       const actor = Command.parseActor(variable.actor)
       const attrName = Command.parseAttributeKey('actor', key)
@@ -262,14 +306,14 @@ Command.parseVariable = function (variable) {
 
 // 解析全局变量
 Command.parseGlobalVariable = function (id) {
-  if (id === '') return Yami.Local.get('common.none')
-  const variable = Yami.Data.variables.map[id]
+  if (id === '') return Local.get('common.none')
+  const variable = Data.variables.map[id]
   return variable ? variable.name : `#${id}`
 }
 
 // 解析属性键
 Command.parseAttributeKey = function (group, id) {
-  const attr = Yami.Attribute.getGroupAttribute(group, id)
+  const attr = Attribute.getGroupAttribute(group, id)
   if (attr) return attr.name
   this.invalid = true
   return `#${id}`
@@ -279,7 +323,7 @@ Command.parseAttributeKey = function (group, id) {
 Command.parseVariableTag = function IIFE() {
   const regexp = /(?<=<global:)[0-9a-f]{16}(?=>)/g
   const replacer = varKey => {
-    const varName = Yami.Data.variables.map[varKey]?.name
+    const varName = Data.variables.map[varKey]?.name
     return varName ? '@' + varName : varKey
   }
   return string => string.replace(regexp, replacer)
@@ -339,8 +383,8 @@ Command.parseMultiLineString = function IIFE() {
 
 // 解析精灵图名称
 Command.parseSpriteName = function (animationId, spriteId) {
-  if (spriteId === '') return Yami.Local.get('common.none')
-  const animation = Yami.Data.animations[animationId]
+  if (spriteId === '') return Local.get('common.none')
+  const animation = Data.animations[animationId]
   const sprite = animation?.sprites.find(a => a.id === spriteId)
   if (sprite) return sprite.name
   this.invalid = true
@@ -349,14 +393,14 @@ Command.parseSpriteName = function (animationId, spriteId) {
 
 // 解析事件类型
 Command.parseEventType = function (groupKey, eventType) {
-  return Yami.Local.get('eventTypes.' + eventType) ||
+  return Local.get('eventTypes.' + eventType) ||
   Command.parseGroupEnumString(groupKey, eventType)
 }
 
 // 解析枚举字符串
 Command.parseEnumString = function (stringId) {
-  if (stringId === '') return Yami.Local.get('common.none')
-  const string = Yami.Enum.getString(stringId)
+  if (stringId === '') return Local.get('common.none')
+  const string = Enum.getString(stringId)
   if (string) return string.name
   this.invalid = true
   return Command.parseUnlinkedId(stringId)
@@ -364,8 +408,8 @@ Command.parseEnumString = function (stringId) {
 
 // 解析群组枚举字符串
 Command.parseGroupEnumString = function (groupKey, stringId) {
-  if (stringId === '') return Yami.Local.get('common.none')
-  const string = Yami.Enum.getGroupString(groupKey, stringId)
+  if (stringId === '') return Local.get('common.none')
+  const string = Enum.getGroupString(groupKey, stringId)
   if (string) return string.name
   this.invalid = true
   return Command.parseUnlinkedId(stringId)
@@ -380,7 +424,7 @@ Command.parseListItem = function (variable, index) {
 
 // 解析参数
 Command.parseParameter = function (key) {
-  const label = Yami.Local.get('parameter.param')
+  const label = Local.get('parameter.param')
   const paramKey = Command.parseVariableString(key)
   return `${label}(${paramKey})`
 }
@@ -389,28 +433,28 @@ Command.parseParameter = function (key) {
 Command.parseActor = function (actor) {
   switch (actor.type) {
     case 'trigger':
-      return Yami.Local.get('actor.trigger')
+      return Local.get('actor.trigger')
     case 'caster':
-      return Yami.Local.get('actor.caster')
+      return Local.get('actor.caster')
     case 'latest':
-      return Yami.Local.get('actor.latest')
+      return Local.get('actor.latest')
     case 'target':
-      return Yami.Local.get('actor.target')
+      return Local.get('actor.target')
     case 'player':
-      return Yami.Local.get('actor.player')
+      return Local.get('actor.player')
     case 'member':
-      return `${Yami.Local.get('actor.member')}.${actor.memberId + 1}`
+      return `${Local.get('actor.member')}.${actor.memberId + 1}`
     case 'global':
       return Command.parseFileName(actor.actorId)
     case 'by-id': {
-      const label = Yami.Local.get('actor.common')
-      const prop = Yami.Local.get('actor.by-id')
+      const label = Local.get('actor.common')
+      const prop = Local.get('actor.by-id')
       const preset = Command.parsePresetObject(actor.presetId)
       return `${label}(${prop}:${preset})`
     }
     case 'variable': {
-      const label = Yami.Local.get('actor.common')
-      const prop = Yami.Local.get('actor.variable')
+      const label = Local.get('actor.common')
+      const prop = Local.get('actor.variable')
       const variable = Command.parseVariable(actor.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -421,19 +465,19 @@ Command.parseActor = function (actor) {
 Command.parseSkill = function (skill) {
   switch (skill.type) {
     case 'trigger':
-      return Yami.Local.get('skill.trigger')
+      return Local.get('skill.trigger')
     case 'latest':
-      return Yami.Local.get('skill.latest')
+      return Local.get('skill.latest')
     case 'by-key': {
       const actor = Command.parseActor(skill.actor)
-      const label = Yami.Local.get('skill.common')
-      const prop = Yami.Local.get('skill.by-key')
+      const label = Local.get('skill.common')
+      const prop = Local.get('skill.by-key')
       const key = Command.parseGroupEnumString('shortcut-key', skill.key)
       return `${actor} -> ${label}(${prop}:${key})`
     }
     case 'variable': {
-      const label = Yami.Local.get('skill.common')
-      const prop = Yami.Local.get('skill.variable')
+      const label = Local.get('skill.common')
+      const prop = Local.get('skill.variable')
       const variable = Command.parseVariable(skill.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -444,12 +488,12 @@ Command.parseSkill = function (skill) {
 Command.parseState = function (state) {
   switch (state.type) {
     case 'trigger':
-      return Yami.Local.get('state.trigger')
+      return Local.get('state.trigger')
     case 'latest':
-      return Yami.Local.get('state.latest')
+      return Local.get('state.latest')
     case 'variable': {
-      const label = Yami.Local.get('state.common')
-      const prop = Yami.Local.get('state.variable')
+      const label = Local.get('state.common')
+      const prop = Local.get('state.variable')
       const variable = Command.parseVariable(state.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -460,19 +504,19 @@ Command.parseState = function (state) {
 Command.parseEquipment = function (equipment) {
   switch (equipment.type) {
     case 'trigger':
-      return Yami.Local.get('equipment.trigger')
+      return Local.get('equipment.trigger')
     case 'latest':
-      return Yami.Local.get('equipment.latest')
+      return Local.get('equipment.latest')
     case 'by-slot': {
       const actor = Command.parseActor(equipment.actor)
-      const label = Yami.Local.get('equipment.common')
-      const prop = Yami.Local.get('equipment.by-slot')
+      const label = Local.get('equipment.common')
+      const prop = Local.get('equipment.by-slot')
       const slot = Command.parseGroupEnumString('equipment-slot', equipment.slot)
       return `${actor} -> ${label}(${prop}:${slot})`
     }
     case 'variable': {
-      const label = Yami.Local.get('equipment.common')
-      const prop = Yami.Local.get('equipment.variable')
+      const label = Local.get('equipment.common')
+      const prop = Local.get('equipment.variable')
       const variable = Command.parseVariable(equipment.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -483,19 +527,19 @@ Command.parseEquipment = function (equipment) {
 Command.parseItem = function (item) {
   switch (item.type) {
     case 'trigger':
-      return Yami.Local.get('item.trigger')
+      return Local.get('item.trigger')
     case 'latest':
-      return Yami.Local.get('item.latest')
+      return Local.get('item.latest')
     case 'by-key': {
       const actor = Command.parseActor(item.actor)
-      const label = Yami.Local.get('item.common')
-      const prop = Yami.Local.get('item.by-key')
+      const label = Local.get('item.common')
+      const prop = Local.get('item.by-key')
       const key = Command.parseGroupEnumString('shortcut-key', item.key)
       return `${actor} -> ${label}(${prop}:${key})`
     }
     case 'variable': {
-      const label = Yami.Local.get('item.common')
-      const prop = Yami.Local.get('item.variable')
+      const label = Local.get('item.common')
+      const prop = Local.get('item.variable')
       const variable = Command.parseVariable(item.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -513,28 +557,28 @@ Command.parsePosition = function (position) {
     case 'absolute': {
       const x = this.parseVariableNumber(position.x)
       const y = this.parseVariableNumber(position.y)
-      return `${Yami.Local.get('position.common')}(${x}, ${y})`
+      return `${Local.get('position.common')}(${x}, ${y})`
     }
     case 'relative': {
       const x = this.parseVariableNumber(position.x)
       const y = this.parseVariableNumber(position.y)
-      return `${Yami.Local.get('position.relative')}(${x}, ${y})`
+      return `${Local.get('position.relative')}(${x}, ${y})`
     }
     case 'actor':
-      return `${Yami.Local.get('position.common')}(${this.parseActor(position.actor)})`
+      return `${Local.get('position.common')}(${this.parseActor(position.actor)})`
     case 'trigger':
-      return `${Yami.Local.get('position.common')}(${this.parseTrigger(position.trigger)})`
+      return `${Local.get('position.common')}(${this.parseTrigger(position.trigger)})`
     case 'light':
-      return `${Yami.Local.get('position.common')}(${this.parseLight(position.light)})`
+      return `${Local.get('position.common')}(${this.parseLight(position.light)})`
     case 'region':
-      return `${Yami.Local.get('position.common')}(${this.parseRegion(position.regionId)})`
+      return `${Local.get('position.common')}(${this.parseRegion(position.regionId)})`
   }
 }
 
 // 解析角度
 Command.parseAngle = function (angle) {
   const type = angle.type
-  const desc = Yami.Local.get('angle.' + type)
+  const desc = Local.get('angle.' + type)
   switch (type) {
     case 'position':
       return `${desc} ${this.parsePosition(angle.position)}`
@@ -558,12 +602,12 @@ Command.parseDegrees = function (degrees) {
 Command.parseTrigger = function (trigger) {
   switch (trigger.type) {
     case 'trigger':
-      return Yami.Local.get('trigger.trigger')
+      return Local.get('trigger.trigger')
     case 'latest':
-      return Yami.Local.get('trigger.latest')
+      return Local.get('trigger.latest')
     case 'variable': {
-      const label = Yami.Local.get('trigger.common')
-      const prop = Yami.Local.get('trigger.variable')
+      const label = Local.get('trigger.common')
+      const prop = Local.get('trigger.variable')
       const variable = Command.parseVariable(trigger.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -574,18 +618,18 @@ Command.parseTrigger = function (trigger) {
 Command.parseLight = function (light) {
   switch (light.type) {
     case 'trigger':
-      return Yami.Local.get('light.trigger')
+      return Local.get('light.trigger')
     case 'latest':
-      return Yami.Local.get('light.latest')
+      return Local.get('light.latest')
     case 'by-id': {
-      const label = Yami.Local.get('light.common')
-      const prop = Yami.Local.get('light.by-id')
+      const label = Local.get('light.common')
+      const prop = Local.get('light.by-id')
       const preset = Command.parsePresetObject(light.presetId)
       return `${label}(${prop}:${preset})`
     }
     case 'variable': {
-      const label = Yami.Local.get('light.common')
-      const prop = Yami.Local.get('light.variable')
+      const label = Local.get('light.common')
+      const prop = Local.get('light.variable')
       const variable = Command.parseVariable(light.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -596,26 +640,26 @@ Command.parseLight = function (light) {
 Command.parseElement = function (element) {
   switch (element.type) {
     case 'trigger':
-      return Yami.Local.get('element.trigger')
+      return Local.get('element.trigger')
     case 'latest':
-      return Yami.Local.get('element.latest')
+      return Local.get('element.latest')
     case 'by-id': {
-      const label = Yami.Local.get('element.common')
-      const prop = Yami.Local.get('element.by-id')
+      const label = Local.get('element.common')
+      const prop = Local.get('element.by-id')
       const preset = Command.parsePresetElement(element.presetId, false)
       return `${label}(${prop}:${preset})`
     }
     case 'by-ancestor-and-id': {
       const ancestor = Command.parseElement(element.ancestor)
-      const label = Yami.Local.get('element.common')
-      const prop = Yami.Local.get('element.by-id')
+      const label = Local.get('element.common')
+      const prop = Local.get('element.by-id')
       const preset = Command.parsePresetElement(element.presetId, false)
       const descendant = `${label}(${prop}:${preset})`
       return `${ancestor} -> ${descendant}`
     }
     case 'variable': {
-      const label = Yami.Local.get('element.common')
-      const prop = Yami.Local.get('element.variable')
+      const label = Local.get('element.common')
+      const prop = Local.get('element.variable')
       const variable = Command.parseVariable(element.variable)
       return `${label}(${prop}:${variable})`
     }
@@ -624,8 +668,8 @@ Command.parseElement = function (element) {
 
 // 解析预设对象
 Command.parsePresetObject = function (presetId) {
-  if (presetId === '') return Yami.Local.get('common.none')
-  const name = Yami.Scene.presets?.[presetId]?.name
+  if (presetId === '') return Local.get('common.none')
+  const name = Scene.presets?.[presetId]?.name
   return name ?? Command.parseUnlinkedId(presetId)
 }
 
@@ -646,12 +690,12 @@ Command.parsePresetElement = function IIFE() {
   }
   return function (presetId, detailed = true) {
     if (presetId === '') {
-      return Yami.Local.get('common.none')
+      return Local.get('common.none')
     }
-    const uiId = Yami.Data.uiLinks[presetId] ?? ''
+    const uiId = Data.uiLinks[presetId] ?? ''
     const uiName = Command.parseFileName(uiId)
     let presetName
-    const ui = Yami.Data.ui[uiId]
+    const ui = Data.ui[uiId]
     if (ui !== undefined) {
       const node = find(ui.nodes, presetId)
       if (node) presetName = node.name
@@ -670,7 +714,7 @@ Command.parsePresetElement = function IIFE() {
 
 // 解析队伍
 Command.parseTeam = function (id) {
-  const team = Yami.Data.teams.map[id]
+  const team = Data.teams.map[id]
   return team ? team.name : `#${id}`
 }
 
@@ -683,15 +727,15 @@ Command.parseActorSelector = function (selector) {
     case 'team-except-self':
     case 'any-except-self':
     case 'any':
-      return Yami.Local.get('actorFilter.' + selector)
+      return Local.get('actorFilter.' + selector)
   }
 }
 
 // 解析文件名称
 Command.parseFileName = function (id) {
-  if (id === '') return Yami.Local.get('common.none')
-  const meta = Yami.Data.manifest.guidMap[id]
-  if (meta) return Yami.File.parseMetaName(meta)
+  if (id === '') return Local.get('common.none')
+  const meta = Data.manifest.guidMap[id]
+  if (meta) return File.parseMetaName(meta)
   this.invalid = true
   return `#${id}`
 }
@@ -716,17 +760,17 @@ Command.parseAudioType = function (type) {
 Command.parseWait = function (wait) {
   switch (wait) {
     case false: return ''
-    case true:  return Yami.Local.get('transition.wait')
+    case true:  return Local.get('transition.wait')
   }
 }
 
 // 解析过渡方式
 Command.parseEasing = function (easingId, duration, wait) {
   if (duration === 0) return ''
-  const easing = Yami.Data.easings.map[easingId]
+  const easing = Data.easings.map[easingId]
   const time = Command.parseVariableNumber(duration, 'ms')
   const info = `${easing?.name ?? `#${easingId}`}, ${time}`
-  return wait ? `${info}, ${Yami.Local.get('transition.wait')}` : info
+  return wait ? `${info}, ${Local.get('transition.wait')}` : info
 }
 
 // 解析失去连接的ID
@@ -800,7 +844,7 @@ Command.FormatUpdater = class FormatUpdater {
       const {key, id} = item
       switch (key) {
         case 'variable': {
-          const name = Yami.Data.variables.map[id]?.name
+          const name = Data.variables.map[id]?.name
           if (item.name !== name) {
             item.name = name
             item.text = Command.parseGlobalVariable(id)
@@ -839,7 +883,7 @@ Command.cases.showText = {
     $('#showText-confirm').on('click', this.save)
   },
   parse: function ({target, parameters, content}) {
-    const alias = Yami.Local.get('command.showText.alias')
+    const alias = Local.get('command.showText.alias')
     const words = Command.words
     .push(Command.parseActor(target))
     .push(parameters)
@@ -881,8 +925,8 @@ Command.cases.showText = {
       const latinChars = '          '
       const otherChars = '　　　　　　　　　　'
       const font = 'var(--font-family-mono)'
-      this.latinCharWidth = Yami.measureText(latinChars, font).width / 10
-      this.otherCharWidth = Yami.measureText(otherChars, font).width / 10
+      this.latinCharWidth = measureText(latinChars, font).width / 10
+      this.otherCharWidth = measureText(otherChars, font).width / 10
     }
   },
   appendTextLines: function IIFE() {
@@ -969,7 +1013,7 @@ Command.cases.showChoices = {
   parse: function ({choices, parameters}) {
     const contents = [
       {color: 'flow'},
-      {text: Yami.Local.get('command.showChoices') + ': '},
+      {text: Local.get('command.showChoices') + ': '},
       {color: 'text'},
     ]
     // 添加选项内容
@@ -991,7 +1035,7 @@ Command.cases.showChoices = {
     // 换行
     contents.push({break: true})
     // 添加选项分支内容
-    const when = Yami.Local.get('command.showChoices.when')
+    const when = Local.get('command.showChoices.when')
     for (const choice of choices) {
       contents.push(
         {color: 'flow'},
@@ -1001,16 +1045,16 @@ Command.cases.showChoices = {
         {children: choice.commands},
       )
     }
-    contents.push({text: Yami.Local.get('command.showChoices.end')})
+    contents.push({text: Local.get('command.showChoices.end')})
     return contents
   },
   createDefaultChoices: function () {
     return [{
-      content: Yami.Local.get('showChoices.yes'),
+      content: Local.get('showChoices.yes'),
       commands: [],
     },
     {
-      content: Yami.Local.get('showChoices.no'),
+      content: Local.get('showChoices.no'),
       commands: [],
     }]
   },
@@ -1018,7 +1062,7 @@ Command.cases.showChoices = {
     choices     = this.createDefaultChoices(),
     parameters  = '',
   }) {
-    const write = Yami.getElementWriter('showChoices')
+    const write = getElementWriter('showChoices')
     write('choices-0', choices[0]?.content ?? '')
     write('choices-1', choices[1]?.content ?? '')
     write('choices-2', choices[2]?.content ?? '')
@@ -1028,7 +1072,7 @@ Command.cases.showChoices = {
     $('#showChoices-choices-0').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('showChoices')
+    const read = getElementReader('showChoices')
     const choices = []
     for (let i = 0; i < 4; i++) {
       const content = read('choices-' + i)
@@ -1156,7 +1200,7 @@ Command.cases.setBoolean = {
     const value = this.parseOperand(operand)
     return [
       {color: 'variable'},
-      {text: Yami.Local.get('command.setBoolean.alias') + ': '},
+      {text: Local.get('command.setBoolean.alias') + ': '},
       {text: `${varDesc} ${operator} ${value}`},
     ]
   },
@@ -1165,7 +1209,7 @@ Command.cases.setBoolean = {
     operation = 'set',
     operand   = {type: 'constant', value: false},
   }) {
-    const write = Yami.getElementWriter('setBoolean')
+    const write = getElementWriter('setBoolean')
     let constantValue = false
     let commonVariable = {type: 'local', key: ''}
     let listIndex = 0
@@ -1196,9 +1240,9 @@ Command.cases.setBoolean = {
     $('#setBoolean-variable').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setBoolean')
+    const read = getElementReader('setBoolean')
     const variable = read('variable')
-    if (Yami.VariableGetter.isNone(variable)) {
+    if (VariableGetter.isNone(variable)) {
       return $('#setBoolean-variable').getFocus()
     }
     const operation = read('operation')
@@ -1212,7 +1256,7 @@ Command.cases.setBoolean = {
       }
       case 'variable': {
         const variable = read('common-variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setBoolean-common-variable').getFocus()
         }
         operand = {type, variable}
@@ -1220,7 +1264,7 @@ Command.cases.setBoolean = {
       }
       case 'list': {
         const variable = read('common-variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setBoolean-common-variable').getFocus()
         }
         const index = read('list-index')
@@ -1246,7 +1290,7 @@ Command.cases.setNumber = {
     $('#setNumber-confirm').on('click', this.save)
 
     // 绑定操作数列表
-    $('#setNumber-operands').bind(Yami.NumberOperand)
+    $('#setNumber-operands').bind(NumberOperand)
 
     // 清理内存 - 窗口已关闭事件
     $('#setNumber').on('closed', event => {
@@ -1270,7 +1314,7 @@ Command.cases.setNumber = {
     const length = operands.length
     for (let i = 0; i < length; i++) {
       const operand = operands[i]
-      let operandName = Yami.NumberOperand.parseOperand(operand)
+      let operandName = NumberOperand.parseOperand(operand)
       if (i !== 0) switch (operand.operation.replace('()', '')) {
         case 'add': expression += ' + '; break
         case 'sub': expression += ' - '; break
@@ -1296,7 +1340,7 @@ Command.cases.setNumber = {
     const expression = this.parseOperands(operands)
     return [
       {color: 'variable'},
-      {text: Yami.Local.get('command.setNumber.alias') + ': '},
+      {text: Local.get('command.setNumber.alias') + ': '},
       {text: `${varDesc} ${operator} ${expression}`},
     ]
   },
@@ -1305,16 +1349,16 @@ Command.cases.setNumber = {
     operation = 'set',
     operands  = [{operation: 'add', type: 'constant', value: 0}],
   }) {
-    const write = Yami.getElementWriter('setNumber')
+    const write = getElementWriter('setNumber')
     write('variable', variable)
     write('operation', operation)
     write('operands', operands.slice())
     $('#setNumber-variable').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setNumber')
+    const read = getElementReader('setNumber')
     const variable = read('variable')
-    if (Yami.VariableGetter.isNone(variable)) {
+    if (VariableGetter.isNone(variable)) {
       return $('#setNumber-variable').getFocus()
     }
     const operation = read('operation')
@@ -1492,7 +1536,7 @@ Command.cases.setString = {
     const expression = this.parseOperand(operand)
     return [
       {color: 'variable'},
-      {text: Yami.Local.get('command.setString.alias') + ': '},
+      {text: Local.get('command.setString.alias') + ': '},
       {text: `${varDesc} ${operator} ${expression}`},
     ]
   },
@@ -1580,7 +1624,7 @@ Command.cases.setString = {
         screenshotHeight = operand.height ?? screenshotHeight
         break
     }
-    const write = Yami.getElementWriter('setString')
+    const write = getElementWriter('setString')
     write('variable', variable)
     write('operation', operation)
     write('operand-type', operand.type)
@@ -1616,9 +1660,9 @@ Command.cases.setString = {
 
   // 保存数据
   save: function () {
-    const read = Yami.getElementReader('setString')
+    const read = getElementReader('setString')
     const variable = read('variable')
-    if (Yami.VariableGetter.isNone(variable)) {
+    if (VariableGetter.isNone(variable)) {
       return $('#setString-variable').getFocus()
     }
     const operation = read('operation')
@@ -1632,7 +1676,7 @@ Command.cases.setString = {
       }
       case 'variable': {
         const variable = read('operand-common-variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setString-operand-common-variable').getFocus()
         }
         operand = {type, variable}
@@ -1641,7 +1685,7 @@ Command.cases.setString = {
       case 'string': {
         const method = read('operand-string-method')
         const variable = read('operand-common-variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setString-operand-common-variable').getFocus()
         }
         switch (method) {
@@ -1729,7 +1773,7 @@ Command.cases.setString = {
       case 'list': {
         const variable = read('operand-common-variable')
         const index = read('operand-list-index')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setString-operand-common-variable').getFocus()
         }
         operand = {type, variable, index}
@@ -1749,7 +1793,7 @@ Command.cases.setString = {
           case 'parse-timestamp': {
             const variable = read('operand-parse-timestamp-variable')
             const format = read('operand-parse-timestamp-format')
-            if (Yami.VariableGetter.isNone(variable)) {
+            if (VariableGetter.isNone(variable)) {
               return $('#setString-operand-parse-timestamp-variable').getFocus()
             }
             operand = {type, data, variable, format}
@@ -1783,7 +1827,7 @@ Command.cases.setString = {
   parseStringMethod: function (operand) {
     const method = operand.method
     const variable = operand.variable
-    const methodName = Yami.Local.get('command.setString.string.' + method)
+    const methodName = Local.get('command.setString.string.' + method)
     const varName = Command.parseVariable(variable)
     switch (method) {
       case 'char': {
@@ -1812,12 +1856,12 @@ Command.cases.setString = {
   // 解析枚举字符串
   parseEnumString: function (operand) {
     const name = Command.parseEnumString(operand.stringId)
-    return `${Yami.Local.get('command.setString.enum')}(${name})`
+    return `${Local.get('command.setString.enum')}(${name})`
   },
 
   // 解析对象属性
   parseObjectProperty: function (operand) {
-    const property = Yami.Local.get('command.setString.object.' + operand.property)
+    const property = Local.get('command.setString.object.' + operand.property)
     switch (operand.property) {
       case 'actor-file-id':
 
@@ -1842,13 +1886,13 @@ Command.cases.setString = {
   // 解析元素属性
   parseElementProperty: function (operand) {
     const element = Command.parseElement(operand.element)
-    const property = Yami.Local.get('command.setString.element.' + operand.property)
+    const property = Local.get('command.setString.element.' + operand.property)
     return `${element} -> ${property}`
   },
 
   // 解析其他数据
   parseOther: function (operand) {
-    const label = Yami.Local.get('command.setString.other.' + operand.data)
+    const label = Local.get('command.setString.other.' + operand.data)
     switch (operand.data) {
       case 'trigger-key':
       case 'showText-content':
@@ -1950,7 +1994,7 @@ Command.cases.setObject = {
   parseOperand: function (operand) {
     switch (operand.type) {
       case 'none':
-        return Yami.Local.get('common.none')
+        return Local.get('common.none')
       case 'actor':
         return Command.parseActor(operand.actor)
       case 'skill':
@@ -1978,7 +2022,7 @@ Command.cases.setObject = {
     const object = this.parseOperand(operand)
     return [
       {color: 'variable'},
-      {text: Yami.Local.get('command.setObject.alias') + ': '},
+      {text: Local.get('command.setObject.alias') + ': '},
       {text: `${varDesc} = ${object}`},
     ]
   },
@@ -1986,7 +2030,7 @@ Command.cases.setObject = {
     variable  = {type: 'local', key: ''},
     operand   = {type: 'none'},
   }) {
-    const write = Yami.getElementWriter('setObject')
+    const write = getElementWriter('setObject')
     let operandActor = {type: 'trigger'}
     let operandSkill = {type: 'trigger'}
     let operandState = {type: 'trigger'}
@@ -2045,9 +2089,9 @@ Command.cases.setObject = {
     $('#setObject-variable').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setObject')
+    const read = getElementReader('setObject')
     const variable = read('variable')
-    if (Yami.VariableGetter.isNone(variable)) {
+    if (VariableGetter.isNone(variable)) {
       return $('#setObject-variable').getFocus()
     }
     const type = read('operand-type')
@@ -2098,7 +2142,7 @@ Command.cases.setObject = {
       }
       case 'variable': {
         const variable = read('operand-variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setObject-operand-variable').getFocus()
         }
         operand = {type, variable}
@@ -2106,7 +2150,7 @@ Command.cases.setObject = {
       }
       case 'list': {
         const variable = read('operand-variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setObject-operand-variable').getFocus()
         }
         const index = read('operand-list-index')
@@ -2213,7 +2257,7 @@ Command.cases.setList = {
         info = `${varName} -= ${Command.parseVariable(operand)}`
         break
       case 'split': {
-        const label = Yami.Local.get('command.setList.split')
+        const label = Local.get('command.setList.split')
         const text1 = Command.parseVariable(operand)
         const text2 = Command.parseVariableString(separator)
         info = `${varName} = ${label}(${text1}, ${text2})`
@@ -2222,7 +2266,7 @@ Command.cases.setList = {
     }
     return [
       {color: 'variable'},
-      {text: Yami.Local.get('command.setList.alias') + ': '},
+      {text: Local.get('command.setList.alias') + ': '},
       {text: info},
     ]
   },
@@ -2257,7 +2301,7 @@ Command.cases.setList = {
         string = constant
         break
     }
-    const write = Yami.getElementWriter('setList')
+    const write = getElementWriter('setList')
     write('variable', variable)
     write('operation', operation)
     write('numbers', numbers)
@@ -2271,9 +2315,9 @@ Command.cases.setList = {
     $('#setList-variable').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setList')
+    const read = getElementReader('setList')
     const variable = read('variable')
-    if (Yami.VariableGetter.isNone(variable)) {
+    if (VariableGetter.isNone(variable)) {
       return $('#setList-variable').getFocus()
     }
     const operation = read('operation')
@@ -2318,7 +2362,7 @@ Command.cases.setList = {
       case 'set-variable': {
         const index = read('index')
         const operand = read('operand')
-        if (Yami.VariableGetter.isNone(operand)) {
+        if (VariableGetter.isNone(operand)) {
           return $('#setList-operand').getFocus()
         }
         Command.save({variable, operation, index, operand})
@@ -2327,7 +2371,7 @@ Command.cases.setList = {
       case 'push':
       case 'remove': {
         const operand = read('operand')
-        if (Yami.VariableGetter.isNone(operand)) {
+        if (VariableGetter.isNone(operand)) {
           return $('#setList-operand').getFocus()
         }
         Command.save({variable, operation, operand})
@@ -2335,7 +2379,7 @@ Command.cases.setList = {
       }
       case 'split': {
         const operand = read('operand')
-        if (Yami.VariableGetter.isNone(operand)) {
+        if (VariableGetter.isNone(operand)) {
           return $('#setList-operand').getFocus()
         }
         const separator = read('separator')
@@ -2354,7 +2398,7 @@ Command.cases.deleteVariable = {
   parse: function ({variable}) {
     return [
       {color: 'variable'},
-      {text: Yami.Local.get('command.deleteVariable') + ': '},
+      {text: Local.get('command.deleteVariable') + ': '},
       {text: Command.parseVariable(variable)},
     ]
   },
@@ -2367,7 +2411,7 @@ Command.cases.deleteVariable = {
   save: function () {
     const elVariable = $('#deleteVariable-variable')
     const variable = elVariable.read()
-    if (Yami.VariableGetter.isNone(variable)) {
+    if (VariableGetter.isNone(variable)) {
       return elVariable.getFocus()
     }
     Command.save({variable})
@@ -2381,10 +2425,10 @@ Command.cases.if = {
     $('#if-confirm').on('click', this.save)
 
     // 绑定分支列表
-    $('#if-branches').bind(Yami.IfBranch)
+    $('#if-branches').bind(IfBranch)
 
     // 绑定条件列表
-    $('#if-branch-conditions').bind(Yami.IfCondition)
+    $('#if-branch-conditions').bind(IfCondition)
 
     // 清理内存 - 窗口已关闭事件
     $('#if').on('closed', event => {
@@ -2396,34 +2440,34 @@ Command.cases.if = {
     const contents = [
       {color: 'flow'},
     ]
-    const textIf = Yami.Local.get('command.if.alias')
+    const textIf = Local.get('command.if.alias')
     for (const branch of branches) {
       contents.push(
-        {text: `${textIf} ${Yami.IfBranch.parse(branch)}`},
+        {text: `${textIf} ${IfBranch.parse(branch)}`},
         {children: branch.commands},
       )
     }
     if (elseCommands) {
       contents.push(
-        {text: Yami.Local.get('command.if.else')},
+        {text: Local.get('command.if.else')},
         {children: elseCommands},
       )
     }
-    contents.push({text: Yami.Local.get('command.if.end')})
+    contents.push({text: Local.get('command.if.end')})
     return contents
   },
   load: function ({
     branches      = [],
     elseCommands  = null,
   }) {
-    const write = Yami.getElementWriter('if')
+    const write = getElementWriter('if')
     write('branches', branches.slice())
     write('else', !!elseCommands)
     Command.cases.if.elseCommands = elseCommands
     $('#if-branches').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('if')
+    const read = getElementReader('if')
     const branches = read('branches')
     if (branches.length === 0) {
       return $('#if-branches').getFocus()
@@ -2448,10 +2492,10 @@ Command.cases.switch = {
     $('#switch-confirm').on('click', this.save)
 
     // 绑定分支列表
-    $('#switch-branches').bind(Yami.SwitchBranch)
+    $('#switch-branches').bind(SwitchBranch)
 
     // 绑定条件列表
-    $('#switch-branch-conditions').bind(Yami.SwitchCondition)
+    $('#switch-branch-conditions').bind(SwitchCondition)
 
     // 清理内存 - 窗口已关闭事件
     $('#switch').on('closed', event => {
@@ -2462,24 +2506,24 @@ Command.cases.switch = {
   parse: function ({variable, branches, defaultCommands}) {
     const contents = [
       {color: 'flow'},
-      {text: Yami.Local.get('command.switch') + ' '},
+      {text: Local.get('command.switch') + ' '},
       {text: Command.parseVariable(variable)},
       {break: true},
     ]
-    const textCase = Yami.Local.get('command.switch.case')
+    const textCase = Local.get('command.switch.case')
     for (const branch of branches) {
       contents.push(
-        {text: `${textCase} ${Yami.SwitchBranch.parse(branch)}`},
+        {text: `${textCase} ${SwitchBranch.parse(branch)}`},
         {children: branch.commands},
       )
     }
     if (defaultCommands) {
       contents.push(
-        {text: Yami.Local.get('command.switch.default')},
+        {text: Local.get('command.switch.default')},
         {children: defaultCommands},
       )
     }
-    contents.push({text: Yami.Local.get('command.switch.end')})
+    contents.push({text: Local.get('command.switch.end')})
     return contents
   },
   load: function ({
@@ -2487,7 +2531,7 @@ Command.cases.switch = {
     branches        = [],
     defaultCommands = null,
   }) {
-    const write = Yami.getElementWriter('switch')
+    const write = getElementWriter('switch')
     write('variable', variable)
     write('branches', branches.slice())
     write('default', !!defaultCommands)
@@ -2495,9 +2539,9 @@ Command.cases.switch = {
     $('#switch-variable').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('switch')
+    const read = getElementReader('switch')
     const variable = read('variable')
-    if (Yami.VariableGetter.isNone(variable)) {
+    if (VariableGetter.isNone(variable)) {
       return $('#switch-variable').getFocus()
     }
     const branches = read('branches')
@@ -2524,7 +2568,7 @@ Command.cases.loop = {
     $('#loop-confirm').on('click', this.save)
 
     // 绑定条件列表
-    $('#loop-conditions').bind(Yami.IfCondition)
+    $('#loop-conditions').bind(IfCondition)
 
     // 创建模式选项
     $('#loop-mode').loadItems([
@@ -2541,16 +2585,16 @@ Command.cases.loop = {
   parse: function ({mode, conditions, commands}) {
     let info
     if (conditions.length !== 0) {
-      const condition = Yami.IfBranch.parse({mode, conditions})
-      info = `${Yami.Local.get('command.loop.while')} ${condition}`
+      const condition = IfBranch.parse({mode, conditions})
+      info = `${Local.get('command.loop.while')} ${condition}`
     } else {
-      info = Yami.Local.get('command.loop')
+      info = Local.get('command.loop')
     }
     return [
       {color: 'flow'},
       {text: info},
       {children: commands},
-      {text: Yami.Local.get('command.loop.end')},
+      {text: Local.get('command.loop.end')},
     ]
   },
   load: function ({
@@ -2558,14 +2602,14 @@ Command.cases.loop = {
     conditions  = [],
     commands    = [],
   }) {
-    const write = Yami.getElementWriter('loop')
+    const write = getElementWriter('loop')
     write('mode', mode)
     write('conditions', conditions.slice())
     Command.cases.loop.commands = commands
     $('#loop-conditions').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('loop')
+    const read = getElementReader('loop')
     const mode = read('mode')
     const conditions = read('conditions')
     const commands = Command.cases.loop.commands
@@ -2615,7 +2659,7 @@ Command.cases.forEach = {
     })
   },
   parse: function ({data, list, actor, element, variable, filename, commands}) {
-    const dataInfo = Yami.Local.get('command.forEach.' + data)
+    const dataInfo = Local.get('command.forEach.' + data)
     const words = Command.words
     switch (data) {
       case 'list': {
@@ -2645,10 +2689,10 @@ Command.cases.forEach = {
     }
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.forEach') + ': '},
+      {text: Local.get('command.forEach') + ': '},
       {text: words.join()},
       {children: commands},
-      {text: Yami.Local.get('command.forEach.end')},
+      {text: Local.get('command.forEach.end')},
     ]
   },
   load: function ({
@@ -2660,7 +2704,7 @@ Command.cases.forEach = {
     filename  = {type: 'local', key: ''},
     commands  = [],
   }) {
-    const write = Yami.getElementWriter('forEach')
+    const write = getElementWriter('forEach')
     write('data', data)
     write('list', list)
     write('actor', actor)
@@ -2671,17 +2715,17 @@ Command.cases.forEach = {
     $('#forEach-data').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('forEach')
+    const read = getElementReader('forEach')
     const data = read('data')
     const commands = Command.cases.forEach.commands
     switch (data) {
       case 'list': {
         const list = read('list')
         const variable = read('variable')
-        if (Yami.VariableGetter.isNone(list)) {
+        if (VariableGetter.isNone(list)) {
           return $('#forEach-list').getFocus()
         }
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#forEach-variable').getFocus()
         }
         Command.save({data, list, variable, commands})
@@ -2693,7 +2737,7 @@ Command.cases.forEach = {
       case 'bag': {
         const actor = read('actor')
         const variable = read('variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#forEach-variable').getFocus()
         }
         Command.save({data, actor, variable, commands})
@@ -2702,7 +2746,7 @@ Command.cases.forEach = {
       case 'element': {
         const element = read('element')
         const variable = read('variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#forEach-variable').getFocus()
         }
         Command.save({data, element, variable, commands})
@@ -2710,7 +2754,7 @@ Command.cases.forEach = {
       }
       case 'save': {
         const filename = read('filename')
-        if (Yami.VariableGetter.isNone(filename)) {
+        if (VariableGetter.isNone(filename)) {
           return $('#forEach-filename').getFocus()
         }
         Command.save({data, filename, commands})
@@ -2725,7 +2769,7 @@ Command.cases.break = {
   parse: function () {
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.break')},
+      {text: Local.get('command.break')},
     ]
   },
   save: function () {
@@ -2738,7 +2782,7 @@ Command.cases.continue = {
   parse: function () {
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.continue')},
+      {text: Local.get('command.continue')},
     ]
   },
   save: function () {
@@ -2751,9 +2795,9 @@ Command.cases.independent = {
   parse: function ({commands}) {
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.independent')},
+      {text: Local.get('command.independent')},
       {children: commands},
-      {text: Yami.Local.get('command.independent.end')},
+      {text: Local.get('command.independent.end')},
     ]
   },
   save: function () {
@@ -2821,7 +2865,7 @@ Command.cases.callEvent = {
     $('#callEvent-type').on('write', event => {
       const type = event.value
       const elEventType = $('#callEvent-eventType')
-      const eventTypes = Yami.Enum.getMergedItems(Yami.EventEditor.types[type], type + '-event')
+      const eventTypes = Enum.getMergedItems(EventEditor.types[type], type + '-event')
       // 加载事件类型选项(创建了全局事件类型但是没用到)
       elEventType.loadItems(eventTypes)
       elEventType.write(eventTypes[0].value)
@@ -2834,7 +2878,7 @@ Command.cases.callEvent = {
         words.push(Command.parseFileName(eventId))
         break
       case 'scene':
-        words.push(Yami.Local.get('command.callEvent.scene'))
+        words.push(Local.get('command.callEvent.scene'))
         break
       case 'actor':
         words.push(Command.parseActor(actor))
@@ -2863,7 +2907,7 @@ Command.cases.callEvent = {
     }
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.callEvent.alias') + ': '},
+      {text: Local.get('command.callEvent.alias') + ': '},
       {text: words.join()},
     ]
   },
@@ -2879,7 +2923,7 @@ Command.cases.callEvent = {
     eventId   = '',
     eventType = '',
   }) {
-    const write = Yami.getElementWriter('callEvent')
+    const write = getElementWriter('callEvent')
     write('type', type)
     write('actor', actor)
     write('skill', skill)
@@ -2893,7 +2937,7 @@ Command.cases.callEvent = {
     $('#callEvent-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('callEvent')
+    const read = getElementReader('callEvent')
     const type = read('type')
     switch (type) {
       case 'global': {
@@ -2970,7 +3014,7 @@ Command.cases.setEvent = {
   },
   parse: function ({operation, variable, eventId, choiceIndex}) {
     const words = Command.words
-    .push(Yami.Local.get('command.setEvent.' + operation))
+    .push(Local.get('command.setEvent.' + operation))
     switch (operation) {
       case 'pause':
       case 'continue':
@@ -2987,7 +3031,7 @@ Command.cases.setEvent = {
     }
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.setEvent.alias') + ': '},
+      {text: Local.get('command.setEvent.alias') + ': '},
       {text: words.join()},
     ]
   },
@@ -2997,7 +3041,7 @@ Command.cases.setEvent = {
     eventId     = '',
     choiceIndex = 0,
   }) {
-    const write = Yami.getElementWriter('setEvent')
+    const write = getElementWriter('setEvent')
     write('operation', operation)
     write('variable', variable)
     write('eventId', eventId)
@@ -3005,7 +3049,7 @@ Command.cases.setEvent = {
     $('#setEvent-operation').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setEvent')
+    const read = getElementReader('setEvent')
     const operation = read('operation')
     switch (operation) {
       case 'stop':
@@ -3017,7 +3061,7 @@ Command.cases.setEvent = {
       case 'pause':
       case 'continue': {
         const variable = read('variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#setEvent-variable').getFocus()
         }
         Command.save({operation, variable})
@@ -3050,7 +3094,7 @@ Command.cases.label = {
   parse: function ({name}) {
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.label') + ': '},
+      {text: Local.get('command.label') + ': '},
       {text: name},
     ]
   },
@@ -3093,15 +3137,15 @@ Command.cases.jumpTo = {
         words.push(label)
         break
       case 'save-jump':
-        words.push(label).push(Yami.Local.get('command.jumpTo.save'))
+        words.push(label).push(Local.get('command.jumpTo.save'))
         break
       case 'return':
-        words.push(Yami.Local.get('command.jumpTo.savedLocation'))
+        words.push(Local.get('command.jumpTo.savedLocation'))
         break
     }
     return [
       {color: 'flow'},
-      {text: Yami.Local.get('command.jumpTo.alias') + ': '},
+      {text: Local.get('command.jumpTo.alias') + ': '},
       {text: words.join()},
     ]
   },
@@ -3140,7 +3184,7 @@ Command.cases.wait = {
   parse: function ({duration}) {
     return [
       {color: 'wait'},
-      {text: Yami.Local.get('command.wait') + ': '},
+      {text: Local.get('command.wait') + ': '},
       {text: Command.parseVariableNumber(duration, 'ms')},
     ]
   },
@@ -3187,7 +3231,7 @@ Command.cases.createElement = {
   },
   parseUIAndNodeNames: function (uiId) {
     const uiName = Command.parseFileName(uiId)
-    const data = Yami.Data.ui[uiId]
+    const data = Data.ui[uiId]
     if (data !== undefined) {
       const words = Command.words
       const nodes = data.nodes
@@ -3224,7 +3268,7 @@ Command.cases.createElement = {
     }
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.createElement') + ': '},
+      {text: Local.get('command.createElement') + ': '},
       {text: info},
     ]
   },
@@ -3232,9 +3276,9 @@ Command.cases.createElement = {
     operation = 'append-all-to-root',
     parent    = {type: 'trigger'},
     uiId      = '',
-    presetId  = Yami.PresetElement.getDefaultPresetId(),
+    presetId  = PresetElement.getDefaultPresetId(),
   }) {
-    const write = Yami.getElementWriter('createElement')
+    const write = getElementWriter('createElement')
     write('operation', operation)
     write('parent', parent)
     write('uiId', uiId)
@@ -3242,7 +3286,7 @@ Command.cases.createElement = {
     $('#createElement-operation').getFocus('all')
   },
   save: function () {
-    const read = Yami.getElementReader('createElement')
+    const read = getElementReader('createElement')
     const operation = read('operation')
     switch (operation) {
       case 'append-all-to-root': {
@@ -3289,7 +3333,7 @@ Command.cases.setImage = {
     $('#setImage-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setImage-properties').bind(Yami.ImageProperty)
+    $('#setImage-properties').bind(ImageProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setImage').on('closed', event => {
@@ -3300,11 +3344,11 @@ Command.cases.setImage = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(Yami.ImageProperty.parse(property))
+      words.push(ImageProperty.parse(property))
     }
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.setImage') + ': '},
+      {text: Local.get('command.setImage') + ': '},
       {text: words.join()},
     ]
   },
@@ -3312,13 +3356,13 @@ Command.cases.setImage = {
     element     = {type: 'trigger'},
     properties  = [],
   }) {
-    const write = Yami.getElementWriter('setImage')
+    const write = getElementWriter('setImage')
     write('element', element)
     write('properties', properties.slice())
     $('#setImage-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setImage')
+    const read = getElementReader('setImage')
     const element = read('element')
     const properties = read('properties')
     if (properties.length === 0) {
@@ -3368,7 +3412,7 @@ Command.cases.loadImage = {
   parse: function ({element, type, actor, skill, state, equipment, item, variable}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    const label = Yami.Local.get('command.loadImage.' + type)
+    const label = Local.get('command.loadImage.' + type)
     let object
     switch (type) {
       case 'actor-portrait':
@@ -3393,7 +3437,7 @@ Command.cases.loadImage = {
     words.push(`${label}(${object})`)
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.loadImage') + ': '},
+      {text: Local.get('command.loadImage') + ': '},
       {text: words.join()},
     ]
   },
@@ -3407,7 +3451,7 @@ Command.cases.loadImage = {
     item      = {type: 'trigger'},
     variable  = {type: 'local', key: ''},
   }) {
-    const write = Yami.getElementWriter('loadImage')
+    const write = getElementWriter('loadImage')
     write('element', element)
     write('type', type)
     write('actor', actor)
@@ -3419,7 +3463,7 @@ Command.cases.loadImage = {
     $('#loadImage-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('loadImage')
+    const read = getElementReader('loadImage')
     const element = read('element')
     const type = read('type')
     switch (type) {
@@ -3450,7 +3494,7 @@ Command.cases.loadImage = {
       }
       case 'base64': {
         const variable = read('variable')
-        if (Yami.VariableGetter.isNone(variable)) {
+        if (VariableGetter.isNone(variable)) {
           return $('#loadImage-variable').getFocus()
         }
         Command.save({element, type, variable})
@@ -3499,7 +3543,7 @@ Command.cases.tintImage = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#tintImage').on('open', function (event) {
       $('#tintImage-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -3513,7 +3557,7 @@ Command.cases.tintImage = {
     $('#tintImage-mode, #tintImage-tint-0, #tintImage-tint-1, #tintImage-tint-2, #tintImage-tint-3')
     .on('input', function (event) {
       const tint = [0, 0, 0, 0]
-      const read = Yami.getElementReader('tintImage')
+      const read = getElementReader('tintImage')
       switch (read('mode')) {
         case 'full':
           tint[0] = read('tint-0')
@@ -3534,7 +3578,7 @@ Command.cases.tintImage = {
     })
   },
   parseTint: function (mode, [red, green, blue, gray]) {
-    const tint = Yami.Local.get('command.tintImage.tint')
+    const tint = Local.get('command.tintImage.tint')
     switch (mode) {
       case 'full':
         return `${tint}(${red}, ${green}, ${blue}, ${gray})`
@@ -3551,7 +3595,7 @@ Command.cases.tintImage = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.tintImage') + ': '},
+      {text: Local.get('command.tintImage') + ': '},
       {text: words.join()},
     ]
   },
@@ -3559,11 +3603,11 @@ Command.cases.tintImage = {
     element   = {type: 'trigger'},
     mode      = 'full',
     tint      = [0, 0, 0, 0],
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = true,
   }) {
-    const write = Yami.getElementWriter('tintImage')
+    const write = getElementWriter('tintImage')
     write('element', element)
     write('mode', mode)
     write('tint-0', tint[0])
@@ -3577,7 +3621,7 @@ Command.cases.tintImage = {
     $('#tintImage-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('tintImage')
+    const read = getElementReader('tintImage')
     const element = read('element')
     const mode = read('mode')
     let red = read('tint-0')
@@ -3610,7 +3654,7 @@ Command.cases.setText = {
     $('#setText-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setText-properties').bind(Yami.TextProperty)
+    $('#setText-properties').bind(TextProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setText').on('closed', event => {
@@ -3621,11 +3665,11 @@ Command.cases.setText = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(Yami.TextProperty.parse(property))
+      words.push(TextProperty.parse(property))
     }
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.setText') + ': '},
+      {text: Local.get('command.setText') + ': '},
       {text: words.join()},
     ]
   },
@@ -3633,13 +3677,13 @@ Command.cases.setText = {
     element     = {type: 'trigger'},
     properties  = [],
   }) {
-    const write = Yami.getElementWriter('setText')
+    const write = getElementWriter('setText')
     write('element', element)
     write('properties', properties.slice())
     $('#setText-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setText')
+    const read = getElementReader('setText')
     const element = read('element')
     const properties = read('properties')
     if (properties.length === 0) {
@@ -3655,7 +3699,7 @@ Command.cases.setTextBox = {
     $('#setTextBox-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setTextBox-properties').bind(Yami.TextBoxProperty)
+    $('#setTextBox-properties').bind(TextBoxProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setTextBox').on('closed', event => {
@@ -3666,11 +3710,11 @@ Command.cases.setTextBox = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(Yami.TextBoxProperty.parse(property))
+      words.push(TextBoxProperty.parse(property))
     }
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.setTextBox') + ': '},
+      {text: Local.get('command.setTextBox') + ': '},
       {text: words.join()},
     ]
   },
@@ -3678,13 +3722,13 @@ Command.cases.setTextBox = {
     element     = {type: 'trigger'},
     properties  = [],
   }) {
-    const write = Yami.getElementWriter('setTextBox')
+    const write = getElementWriter('setTextBox')
     write('element', element)
     write('properties', properties.slice())
     $('#setTextBox-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setTextBox')
+    const read = getElementReader('setTextBox')
     const element = read('element')
     const properties = read('properties')
     if (properties.length === 0) {
@@ -3700,7 +3744,7 @@ Command.cases.setDialogBox = {
     $('#setDialogBox-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setDialogBox-properties').bind(Yami.DialogBoxProperty)
+    $('#setDialogBox-properties').bind(DialogBoxProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setDialogBox').on('closed', event => {
@@ -3711,11 +3755,11 @@ Command.cases.setDialogBox = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(Yami.DialogBoxProperty.parse(property))
+      words.push(DialogBoxProperty.parse(property))
     }
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.setDialogBox') + ': '},
+      {text: Local.get('command.setDialogBox') + ': '},
       {text: words.join()},
     ]
   },
@@ -3723,13 +3767,13 @@ Command.cases.setDialogBox = {
     element     = {type: 'trigger'},
     properties  = [],
   }) {
-    const write = Yami.getElementWriter('setDialogBox')
+    const write = getElementWriter('setDialogBox')
     write('element', element)
     write('properties', properties.slice())
     $('#setDialogBox-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setDialogBox')
+    const read = getElementReader('setDialogBox')
     const element = read('element')
     const properties = read('properties')
     if (properties.length === 0) {
@@ -3755,10 +3799,10 @@ Command.cases.controlDialog = {
   parse: function ({element, operation}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    .push(Yami.Local.get('command.controlDialog.' + operation))
+    .push(Local.get('command.controlDialog.' + operation))
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.controlDialog') + ': '},
+      {text: Local.get('command.controlDialog') + ': '},
       {text: words.join()},
     ]
   },
@@ -3766,13 +3810,13 @@ Command.cases.controlDialog = {
     element   = {type: 'trigger'},
     operation = 'pause',
   }) {
-    const write = Yami.getElementWriter('controlDialog')
+    const write = getElementWriter('controlDialog')
     write('element', element)
     write('operation', operation)
     $('#controlDialog-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('controlDialog')
+    const read = getElementReader('controlDialog')
     const element = read('element')
     const operation = read('operation')
     Command.save({element, operation})
@@ -3785,7 +3829,7 @@ Command.cases.setProgressBar = {
     $('#setProgressBar-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#setProgressBar-properties').bind(Yami.ProgressBarProperty)
+    $('#setProgressBar-properties').bind(ProgressBarProperty)
 
     // 清理内存 - 窗口已关闭事件
     $('#setProgressBar').on('closed', event => {
@@ -3796,11 +3840,11 @@ Command.cases.setProgressBar = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(Yami.ProgressBarProperty.parse(property))
+      words.push(ProgressBarProperty.parse(property))
     }
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.setProgressBar') + ': '},
+      {text: Local.get('command.setProgressBar') + ': '},
       {text: words.join()},
     ]
   },
@@ -3808,13 +3852,13 @@ Command.cases.setProgressBar = {
     element     = {type: 'trigger'},
     properties  = [],
   }) {
-    const write = Yami.getElementWriter('setProgressBar')
+    const write = getElementWriter('setProgressBar')
     write('element', element)
     write('properties', properties.slice())
     $('#setProgressBar-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setProgressBar')
+    const read = getElementReader('setProgressBar')
     const element = read('element')
     const properties = read('properties')
     if (properties.length === 0) {
@@ -3832,7 +3876,7 @@ Command.cases.waitForVideo = {
   parse: function ({element}) {
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.waitForVideo') + ': '},
+      {text: Local.get('command.waitForVideo') + ': '},
       {text: Command.parseElement(element)},
     ]
   },
@@ -3865,10 +3909,10 @@ Command.cases.setElement = {
   parse: function ({element, operation}) {
     const words = Command.words
     .push(Command.parseElement(element))
-    .push(Yami.Local.get('command.setElement.' + operation))
+    .push(Local.get('command.setElement.' + operation))
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.setElement.alias') + ': '},
+      {text: Local.get('command.setElement.alias') + ': '},
       {text: words.join()},
     ]
   },
@@ -3876,13 +3920,13 @@ Command.cases.setElement = {
     element   = {type: 'trigger'},
     operation = 'hide',
   }) {
-    const write = Yami.getElementWriter('setElement')
+    const write = getElementWriter('setElement')
     write('element', element)
     write('operation', operation)
     $('#setElement-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setElement')
+    const read = getElementReader('setElement')
     const element = read('element')
     const operation = read('operation')
     Command.save({element, operation})
@@ -3899,7 +3943,7 @@ Command.cases.nestElement = {
     const cElement = Command.parseElement(child)
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.nestElement') + ': '},
+      {text: Local.get('command.nestElement') + ': '},
       {text: `${pElement} -> ${cElement}`},
     ]
   },
@@ -3924,7 +3968,7 @@ Command.cases.moveElement = {
     $('#moveElement-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#moveElement-properties').bind(Yami.TransformProperty)
+    $('#moveElement-properties').bind(TransformProperty)
 
     // 创建等待结束选项
     $('#moveElement-wait').loadItems([
@@ -3935,7 +3979,7 @@ Command.cases.moveElement = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#moveElement').on('open', function (event) {
       $('#moveElement-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -3949,23 +3993,23 @@ Command.cases.moveElement = {
     const words = Command.words
     .push(Command.parseElement(element))
     for (const property of properties) {
-      words.push(Yami.TransformProperty.parse(property))
+      words.push(TransformProperty.parse(property))
     }
     words.push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.moveElement') + ': '},
+      {text: Local.get('command.moveElement') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     element     = {type: 'trigger'},
     properties  = [],
-    easingId    = Yami.Data.easings[0].id,
+    easingId    = Data.easings[0].id,
     duration    = 0,
     wait        = true,
   }) {
-    const write = Yami.getElementWriter('moveElement')
+    const write = getElementWriter('moveElement')
     write('element', element)
     write('properties', properties.slice())
     write('easingId', easingId)
@@ -3974,7 +4018,7 @@ Command.cases.moveElement = {
     $('#moveElement-element').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('moveElement')
+    const read = getElementReader('moveElement')
     const element = read('element')
     const properties = read('properties')
     if (properties.length === 0) {
@@ -4013,15 +4057,15 @@ Command.cases.deleteElement = {
         info = Command.parseElement(element)
         break
       case 'delete-children':
-        info = `${Command.parseElement(element)} -> ${Yami.Local.get('command.deleteElement.children')}`
+        info = `${Command.parseElement(element)} -> ${Local.get('command.deleteElement.children')}`
         break
       case 'delete-all':
-        info = Yami.Local.get('command.deleteElement.all-elements')
+        info = Local.get('command.deleteElement.all-elements')
         break
     }
     return [
       {color: 'element'},
-      {text: Yami.Local.get('command.deleteElement') + ': '},
+      {text: Local.get('command.deleteElement') + ': '},
       {text: info},
     ]
   },
@@ -4060,7 +4104,7 @@ Command.cases.createLight = {
     .push(Command.parsePosition(position))
     return [
       {color: 'object'},
-      {text: Yami.Local.get('command.createLight') + ': '},
+      {text: Local.get('command.createLight') + ': '},
       {text: words.join()},
     ]
   },
@@ -4068,13 +4112,13 @@ Command.cases.createLight = {
     presetId  = '',
     position  = {type: 'actor', actor: {type: 'trigger'}},
   }) {
-    const write = Yami.getElementWriter('createLight')
+    const write = getElementWriter('createLight')
     write('presetId', presetId)
     write('position', position)
     $('#createLight-presetId').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('createLight')
+    const read = getElementReader('createLight')
     const presetId = read('presetId')
     if (presetId === '') {
       return $('#createLight-presetId').getFocus()
@@ -4090,7 +4134,7 @@ Command.cases.moveLight = {
     $('#moveLight-confirm').on('click', this.save)
 
     // 绑定属性列表
-    $('#moveLight-properties').bind(Yami.LightProperty)
+    $('#moveLight-properties').bind(LightProperty)
 
     // 创建等待选项
     $('#moveLight-wait').loadItems([
@@ -4101,7 +4145,7 @@ Command.cases.moveLight = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#moveLight').on('open', function (event) {
       $('#moveLight-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -4115,23 +4159,23 @@ Command.cases.moveLight = {
     const words = Command.words
     .push(Command.parseLight(light))
     for (const property of properties) {
-      words.push(Yami.LightProperty.parse(property))
+      words.push(LightProperty.parse(property))
     }
     words.push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'object'},
-      {text: Yami.Local.get('command.moveLight') + ': '},
+      {text: Local.get('command.moveLight') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     light       = {type: 'trigger'},
     properties  = [],
-    easingId    = Yami.Data.easings[0].id,
+    easingId    = Data.easings[0].id,
     duration    = 0,
     wait        = true,
   }) {
-    const write = Yami.getElementWriter('moveLight')
+    const write = getElementWriter('moveLight')
     write('light', light)
     write('properties', properties.slice())
     write('easingId', easingId)
@@ -4140,7 +4184,7 @@ Command.cases.moveLight = {
     $('#moveLight-light').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('moveLight')
+    const read = getElementReader('moveLight')
     const light = read('light')
     const properties = read('properties')
     if (properties.length === 0) {
@@ -4161,7 +4205,7 @@ Command.cases.deleteLight = {
   parse: function ({light}) {
     return [
       {color: 'object'},
-      {text: Yami.Local.get('command.deleteLight') + ': '},
+      {text: Local.get('command.deleteLight') + ': '},
       {text: Command.parseLight(light)},
     ]
   },
@@ -4188,7 +4232,7 @@ Command.cases.setState = {
     ])
   },
   parseOperation: function (operation) {
-    return Yami.Local.get('command.setState.' + operation)
+    return Local.get('command.setState.' + operation)
   },
   parse: function ({state, operation, time}) {
     const words = Command.words
@@ -4197,7 +4241,7 @@ Command.cases.setState = {
     .push(Command.parseVariableNumber(time, 'ms'))
     return [
       {color: 'object'},
-      {text: Yami.Local.get('command.setState') + ': '},
+      {text: Local.get('command.setState') + ': '},
       {text: words.join()},
     ]
   },
@@ -4206,14 +4250,14 @@ Command.cases.setState = {
     operation = 'set-time',
     time      = 0,
   }) {
-    const write = Yami.getElementWriter('setState')
+    const write = getElementWriter('setState')
     write('state', state)
     write('operation', operation)
     write('time', time)
     $('#setState-state').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setState')
+    const read = getElementReader('setState')
     const state = read('state')
     const operation = read('operation')
     const time = read('time')
@@ -4257,7 +4301,7 @@ Command.cases.playAnimation = {
     // 动画ID - 写入事件
     $('#playAnimation-animationId').on('write', event => {
       const elMotion = $('#playAnimation-motion')
-      elMotion.loadItems(Yami.Animation.getMotionListItems(event.value))
+      elMotion.loadItems(Animation.getMotionListItems(event.value))
       elMotion.write2(elMotion.read())
     })
   },
@@ -4266,7 +4310,7 @@ Command.cases.playAnimation = {
     return priority > 0 ? `+${priority}` : priority.toString()
   },
   parseDirectionMapping: function (mappable) {
-    return mappable ? Yami.Local.get('command.playAnimation.mappable') : ''
+    return mappable ? Local.get('command.playAnimation.mappable') : ''
   },
   parse: function ({mode, position, actor, animationId, motion, priority, offsetY, rotation, mappable, wait}) {
     const words = Command.words
@@ -4275,7 +4319,7 @@ Command.cases.playAnimation = {
         words.push(Command.parsePosition(position))
         break
       case 'actor': {
-        const bind = Yami.Local.get('command.playAnimation.bind')
+        const bind = Local.get('command.playAnimation.bind')
         words.push(`${bind}(${Command.parseActor(actor)})`)
         break
       }
@@ -4290,7 +4334,7 @@ Command.cases.playAnimation = {
     .push(Command.parseWait(wait))
     return [
       {color: 'object'},
-      {text: Yami.Local.get('command.playAnimation') + ': '},
+      {text: Local.get('command.playAnimation') + ': '},
       {text: words.join()},
     ]
   },
@@ -4306,7 +4350,7 @@ Command.cases.playAnimation = {
     mappable    = false,
     wait        = false,
   }) {
-    const write = Yami.getElementWriter('playAnimation')
+    const write = getElementWriter('playAnimation')
     write('mode', mode)
     write('position', position)
     write('actor', actor)
@@ -4320,7 +4364,7 @@ Command.cases.playAnimation = {
     $('#playAnimation-mode').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('playAnimation')
+    const read = getElementReader('playAnimation')
     const mode = read('mode')
     const animationId = read('animationId')
     const motion = read('motion')
@@ -4370,7 +4414,7 @@ Command.cases.playAudio = {
     .push(volume)
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.playAudio') + ': '},
+      {text: Local.get('command.playAudio') + ': '},
       {text: words.join()},
     ]
   },
@@ -4379,14 +4423,14 @@ Command.cases.playAudio = {
     audio   = '',
     volume  = 1,
   }) {
-    const write = Yami.getElementWriter('playAudio')
+    const write = getElementWriter('playAudio')
     write('type', type)
     write('audio', audio)
     write('volume', volume)
     $('#playAudio-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('playAudio')
+    const read = getElementReader('playAudio')
     const type = read('type')
     const audio = read('audio')
     const volume = read('volume')
@@ -4413,17 +4457,17 @@ Command.cases.stopAudio = {
     .push(Command.parseAudioType(type))
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.stopAudio') + ': '},
+      {text: Local.get('command.stopAudio') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({type = 'bgm'}) {
-    const write = Yami.getElementWriter('stopAudio')
+    const write = getElementWriter('stopAudio')
     write('type', type)
     $('#stopAudio-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('stopAudio')
+    const read = getElementReader('stopAudio')
     const type = read('type')
     Command.save({type})
   },
@@ -4451,7 +4495,7 @@ Command.cases.setVolume = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#setVolume').on('open', function (event) {
       $('#setVolume-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -4467,18 +4511,18 @@ Command.cases.setVolume = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.setVolume') + ': '},
+      {text: Local.get('command.setVolume') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     type      = 'bgm',
     volume    = 1,
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = false,
   }) {
-    const write = Yami.getElementWriter('setVolume')
+    const write = getElementWriter('setVolume')
     write('type', type)
     write('volume', volume)
     write('easingId', easingId)
@@ -4487,7 +4531,7 @@ Command.cases.setVolume = {
     $('#setVolume-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setVolume')
+    const read = getElementReader('setVolume')
     const type = read('type')
     const volume = read('volume')
     const easingId = read('easingId')
@@ -4519,7 +4563,7 @@ Command.cases.setPan = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#setPan').on('open', function (event) {
       $('#setPan-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -4535,18 +4579,18 @@ Command.cases.setPan = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.setPan') + ': '},
+      {text: Local.get('command.setPan') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     type      = 'bgm',
     pan       = 0,
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = false,
   }) {
-    const write = Yami.getElementWriter('setPan')
+    const write = getElementWriter('setPan')
     write('type', type)
     write('pan', pan)
     write('easingId', easingId)
@@ -4555,7 +4599,7 @@ Command.cases.setPan = {
     $('#setPan-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setPan')
+    const read = getElementReader('setPan')
     const type = read('type')
     const pan = read('pan')
     const easingId = read('easingId')
@@ -4587,7 +4631,7 @@ Command.cases.setReverb = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#setReverb').on('open', function (event) {
       $('#setReverb-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -4604,7 +4648,7 @@ Command.cases.setReverb = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.setReverb') + ': '},
+      {text: Local.get('command.setReverb') + ': '},
       {text: words.join()},
     ]
   },
@@ -4612,11 +4656,11 @@ Command.cases.setReverb = {
     type      = 'bgm',
     dry       = 1,
     wet       = 0,
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = false,
   }) {
-    const write = Yami.getElementWriter('setReverb')
+    const write = getElementWriter('setReverb')
     write('type', type)
     write('dry', dry)
     write('wet', wet)
@@ -4626,7 +4670,7 @@ Command.cases.setReverb = {
     $('#setReverb-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setReverb')
+    const read = getElementReader('setReverb')
     const type = read('type')
     const dry = read('dry')
     const wet = read('wet')
@@ -4657,8 +4701,8 @@ Command.cases.setLoop = {
   },
   parseLoop: function (loop) {
     switch (loop) {
-      case false: return Yami.Local.get('command.setLoop.once')
-      case true:  return Yami.Local.get('command.setLoop.loop')
+      case false: return Local.get('command.setLoop.once')
+      case true:  return Local.get('command.setLoop.loop')
     }
   },
   parse: function ({type, loop}) {
@@ -4667,18 +4711,18 @@ Command.cases.setLoop = {
     .push(this.parseLoop(loop))
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.setLoop') + ': '},
+      {text: Local.get('command.setLoop') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({type = 'bgm', loop = false}) {
-    const write = Yami.getElementWriter('setLoop')
+    const write = getElementWriter('setLoop')
     write('type', type)
     write('loop', loop)
     $('#setLoop-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setLoop')
+    const read = getElementReader('setLoop')
     const type = read('type')
     const loop = read('loop')
     Command.save({type, loop})
@@ -4700,17 +4744,17 @@ Command.cases.saveAudio = {
   parse: function ({type}) {
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.saveAudio') + ': '},
+      {text: Local.get('command.saveAudio') + ': '},
       {text: Command.parseAudioType(type)},
     ]
   },
   load: function ({type = 'bgm'}) {
-    const write = Yami.getElementWriter('saveAudio')
+    const write = getElementWriter('saveAudio')
     write('type', type)
     $('#saveAudio-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('saveAudio')
+    const read = getElementReader('saveAudio')
     const type = read('type')
     Command.save({type})
   },
@@ -4731,17 +4775,17 @@ Command.cases.restoreAudio = {
   parse: function ({type}) {
     return [
       {color: 'audio'},
-      {text: Yami.Local.get('command.restoreAudio') + ': '},
+      {text: Local.get('command.restoreAudio') + ': '},
       {text: Command.parseAudioType(type)},
     ]
   },
   load: function ({type = 'bgm'}) {
-    const write = Yami.getElementWriter('restoreAudio')
+    const write = getElementWriter('restoreAudio')
     write('type', type)
     $('#restoreAudio-type').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('restoreAudio')
+    const read = getElementReader('restoreAudio')
     const type = read('type')
     Command.save({type})
   },
@@ -4755,7 +4799,7 @@ Command.cases.createActor = {
     // 创建队伍选项 - 窗口打开事件
     $('#createActor').on('open', function (event) {
       $('#createActor-teamId').loadItems(
-        Yami.Data.createTeamItems()
+        Data.createTeamItems()
       )
     })
 
@@ -4772,17 +4816,17 @@ Command.cases.createActor = {
     .push(Command.parseDegrees(Command.parseVariableNumber(angle)))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.createActor') + ': '},
+      {text: Local.get('command.createActor') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     actorId   = '',
-    teamId    = Yami.Data.teams.list[0].id,
+    teamId    = Data.teams.list[0].id,
     position  = {type: 'absolute', x: 0, y: 0},
     angle     = 0,
   }) {
-    const write = Yami.getElementWriter('createActor')
+    const write = getElementWriter('createActor')
     write('actorId', actorId)
     write('teamId', teamId)
     write('position', position)
@@ -4790,7 +4834,7 @@ Command.cases.createActor = {
     $('#createActor-actorId').getFocus('all')
   },
   save: function () {
-    const read = Yami.getElementReader('createActor')
+    const read = getElementReader('createActor')
     const actorId = read('actorId')
     const teamId = read('teamId')
     const position = read('position')
@@ -4837,7 +4881,7 @@ Command.cases.moveActor = {
     ])
   },
   parseMode: function (mode) {
-    return Yami.Local.get('command.moveActor.mode.' + mode)
+    return Local.get('command.moveActor.mode.' + mode)
   },
   parse: function ({actor, mode, angle, destination, wait}) {
     const words = Command.words
@@ -4860,7 +4904,7 @@ Command.cases.moveActor = {
     }
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.moveActor') + ': '},
+      {text: Local.get('command.moveActor') + ': '},
       {text: words.join()},
     ]
   },
@@ -4871,7 +4915,7 @@ Command.cases.moveActor = {
     destination = {type: 'absolute', x: 0, y: 0},
     wait        = false,
   }) {
-    const write = Yami.getElementWriter('moveActor')
+    const write = getElementWriter('moveActor')
     write('actor', actor)
     write('mode', mode)
     write('angle', angle)
@@ -4880,7 +4924,7 @@ Command.cases.moveActor = {
     $('#moveActor-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('moveActor')
+    const read = getElementReader('moveActor')
     const actor = read('actor')
     const mode = read('mode')
     switch (mode) {
@@ -4962,7 +5006,7 @@ Command.cases.followActor = {
   parse: function ({actor, target, mode, minDist, maxDist, offset, vertDist, navigate, once, wait}) {
     const words = Command.words
     .push(this.parseActors(actor, target))
-    .push(Yami.Local.get('command.followActor.mode.' + mode))
+    .push(Local.get('command.followActor.mode.' + mode))
     .push(`${minDist} ~ ${maxDist}`)
     switch (mode) {
       case 'circle':
@@ -4973,15 +5017,15 @@ Command.cases.followActor = {
         break
     }
     if (navigate) {
-      words.push(Yami.Local.get('command.followActor.navigate'))
+      words.push(Local.get('command.followActor.navigate'))
     }
     if (once) {
-      words.push(Yami.Local.get('command.followActor.once'))
+      words.push(Local.get('command.followActor.once'))
       words.push(Command.parseWait(wait))
     }
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.followActor') + ': '},
+      {text: Local.get('command.followActor') + ': '},
       {text: words.join()},
     ]
   },
@@ -4997,7 +5041,7 @@ Command.cases.followActor = {
     once      = false,
     wait      = false,
   }) {
-    const write = Yami.getElementWriter('followActor')
+    const write = getElementWriter('followActor')
     write('actor', actor)
     write('target', target)
     write('mode', mode)
@@ -5011,7 +5055,7 @@ Command.cases.followActor = {
     $('#followActor-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('followActor')
+    const read = getElementReader('followActor')
     const actor = read('actor')
     const target = read('target')
     const mode = read('mode')
@@ -5049,7 +5093,7 @@ Command.cases.translateActor = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#translateActor').on('open', function (event) {
       $('#translateActor-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -5066,7 +5110,7 @@ Command.cases.translateActor = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.translateActor') + ': '},
+      {text: Local.get('command.translateActor') + ': '},
       {text: words.join()},
     ]
   },
@@ -5074,11 +5118,11 @@ Command.cases.translateActor = {
     actor     = {type: 'trigger'},
     angle     = {type: 'absolute', degrees: 0},
     distance  = 0,
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = false,
   }) {
-    const write = Yami.getElementWriter('translateActor')
+    const write = getElementWriter('translateActor')
     write('actor', actor)
     write('angle', angle)
     write('distance', distance)
@@ -5088,7 +5132,7 @@ Command.cases.translateActor = {
     $('#translateActor-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('translateActor')
+    const read = getElementReader('translateActor')
     const actor = read('actor')
     const angle = read('angle')
     const distance = read('distance')
@@ -5119,7 +5163,7 @@ Command.cases.changeThreat = {
     return `${sActor} -> ${dActor}`
   },
   parseOperation: function (operation) {
-    return Yami.Local.get('command.changeThreat.' + operation)
+    return Local.get('command.changeThreat.' + operation)
   },
   parse: function ({actor, target, operation, threat}) {
     const words = Command.words
@@ -5128,7 +5172,7 @@ Command.cases.changeThreat = {
     .push(Command.parseVariableNumber(threat))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.changeThreat') + ': '},
+      {text: Local.get('command.changeThreat') + ': '},
       {text: words.join()},
     ]
   },
@@ -5138,7 +5182,7 @@ Command.cases.changeThreat = {
     operation = 'increase',
     threat    = 0,
   }) {
-    const write = Yami.getElementWriter('changeThreat')
+    const write = getElementWriter('changeThreat')
     write('actor', actor)
     write('target', target)
     write('operation', operation)
@@ -5146,7 +5190,7 @@ Command.cases.changeThreat = {
     $('#changeThreat-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('changeThreat')
+    const read = getElementReader('changeThreat')
     const actor = read('actor')
     const target = read('target')
     const operation = read('operation')
@@ -5166,7 +5210,7 @@ Command.cases.setWeight = {
     .push(Command.parseVariableNumber(weight))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.setWeight') + ': '},
+      {text: Local.get('command.setWeight') + ': '},
       {text: words.join()},
     ]
   },
@@ -5174,13 +5218,13 @@ Command.cases.setWeight = {
     actor   = {type: 'trigger'},
     weight  = 0,
   }) {
-    const write = Yami.getElementWriter('setWeight')
+    const write = getElementWriter('setWeight')
     write('actor', actor)
     write('weight', weight)
     $('#setWeight-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setWeight')
+    const read = getElementReader('setWeight')
     const actor = read('actor')
     const weight = read('weight')
     Command.save({actor, weight})
@@ -5212,7 +5256,7 @@ Command.cases.setMovementSpeed = {
   parse: function ({actor, property, base, factor}) {
     const words = Command.words
     .push(Command.parseActor(actor))
-    .push(Yami.Local.get('command.setMovementSpeed.' + property))
+    .push(Local.get('command.setMovementSpeed.' + property))
     switch (property) {
       case 'base':
         words.push(Command.parseVariableNumber(base, 't/s'))
@@ -5224,7 +5268,7 @@ Command.cases.setMovementSpeed = {
     }
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.setMovementSpeed') + ': '},
+      {text: Local.get('command.setMovementSpeed') + ': '},
       {text: words.join()},
     ]
   },
@@ -5234,7 +5278,7 @@ Command.cases.setMovementSpeed = {
     base      = 0,
     factor    = 0,
   }) {
-    const write = Yami.getElementWriter('setMovementSpeed')
+    const write = getElementWriter('setMovementSpeed')
     write('actor', actor)
     write('property', property)
     write('base', base)
@@ -5242,7 +5286,7 @@ Command.cases.setMovementSpeed = {
     $('#setMovementSpeed-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setMovementSpeed')
+    const read = getElementReader('setMovementSpeed')
     const actor = read('actor')
     const property = read('property')
     switch (property) {
@@ -5275,7 +5319,7 @@ Command.cases.setAngle = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#setAngle').on('open', function (event) {
       $('#setAngle-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -5291,18 +5335,18 @@ Command.cases.setAngle = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.setAngle') + ': '},
+      {text: Local.get('command.setAngle') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     actor     = {type: 'trigger'},
     angle     = {type: 'absolute', degrees: 0},
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = false,
   }) {
-    const write = Yami.getElementWriter('setAngle')
+    const write = getElementWriter('setAngle')
     write('actor', actor)
     write('angle', angle)
     write('easingId', easingId)
@@ -5311,7 +5355,7 @@ Command.cases.setAngle = {
     $('#setAngle-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setAngle')
+    const read = getElementReader('setAngle')
     const actor = read('actor')
     const angle = read('angle')
     const easingId = read('easingId')
@@ -5335,10 +5379,10 @@ Command.cases.fixAngle = {
   parse: function ({actor, fixed}) {
     const words = Command.words
     .push(Command.parseActor(actor))
-    .push(Yami.Local.get('command.fixAngle.fixed.' + fixed))
+    .push(Local.get('command.fixAngle.fixed.' + fixed))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.fixAngle') + ': '},
+      {text: Local.get('command.fixAngle') + ': '},
       {text: words.join()},
     ]
   },
@@ -5346,13 +5390,13 @@ Command.cases.fixAngle = {
     actor = {type: 'trigger'},
     fixed = true,
   }) {
-    const write = Yami.getElementWriter('fixAngle')
+    const write = getElementWriter('fixAngle')
     write('actor', actor)
     write('fixed', fixed)
     $('#fixAngle-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('fixAngle')
+    const read = getElementReader('fixAngle')
     const actor = read('actor')
     const fixed = read('fixed')
     Command.save({actor, fixed})
@@ -5373,10 +5417,10 @@ Command.cases.setActive = {
   parse: function ({actor, active}) {
     const words = Command.words
     .push(Command.parseActor(actor))
-    .push(Yami.Local.get('command.setActive.active.' + active))
+    .push(Local.get('command.setActive.active.' + active))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.setActive') + ': '},
+      {text: Local.get('command.setActive') + ': '},
       {text: words.join()},
     ]
   },
@@ -5384,13 +5428,13 @@ Command.cases.setActive = {
     actor   = {type: 'trigger'},
     active  = false,
   }) {
-    const write = Yami.getElementWriter('setActive')
+    const write = getElementWriter('setActive')
     write('actor', actor)
     write('active', active)
     $('#setActive-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setActive')
+    const read = getElementReader('setActive')
     const actor = read('actor')
     const active = read('active')
     Command.save({actor, active})
@@ -5405,17 +5449,17 @@ Command.cases.deleteActor = {
   parse: function ({actor}) {
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.deleteActor') + ': '},
+      {text: Local.get('command.deleteActor') + ': '},
       {text: Command.parseActor(actor)},
     ]
   },
   load: function ({actor = {type: 'trigger'}}) {
-    const write = Yami.getElementWriter('deleteActor')
+    const write = getElementWriter('deleteActor')
     write('actor', actor)
     $('#deleteActor-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('deleteActor')
+    const read = getElementReader('deleteActor')
     const actor = read('actor')
     Command.save({actor})
   },
@@ -5429,7 +5473,7 @@ Command.cases.changeActorTeam = {
     // 创建队伍选项 - 窗口打开事件
     $('#changeActorTeam').on('open', function (event) {
       $('#changeActorTeam-teamId').loadItems(
-        Yami.Data.createTeamItems()
+        Data.createTeamItems()
       )
     })
 
@@ -5444,21 +5488,21 @@ Command.cases.changeActorTeam = {
     .push(Command.parseTeam(teamId))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.changeActorTeam') + ': '},
+      {text: Local.get('command.changeActorTeam') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     actor   = {type: 'trigger'},
-    teamId  = Yami.Data.teams.list[0].id,
+    teamId  = Data.teams.list[0].id,
   }) {
-    const write = Yami.getElementWriter('changeActorTeam')
+    const write = getElementWriter('changeActorTeam')
     write('actor', actor)
     write('teamId', teamId)
     $('#changeActorTeam-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('changeActorTeam')
+    const read = getElementReader('changeActorTeam')
     const actor = read('actor')
     const teamId = read('teamId')
     Command.save({actor, teamId})
@@ -5488,7 +5532,7 @@ Command.cases.changeActorState = {
     ])
   },
   parseOperation: function (operation) {
-    return Yami.Local.get('command.changeActorState.' + operation)
+    return Local.get('command.changeActorState.' + operation)
   },
   parse: function ({actor, operation, stateId, state}) {
     const words = Command.words
@@ -5505,7 +5549,7 @@ Command.cases.changeActorState = {
     }
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.changeActorState') + ': '},
+      {text: Local.get('command.changeActorState') + ': '},
       {text: words.join()},
     ]
   },
@@ -5515,7 +5559,7 @@ Command.cases.changeActorState = {
     stateId   = '',
     state     = {type: 'latest'},
   }) {
-    const write = Yami.getElementWriter('changeActorState')
+    const write = getElementWriter('changeActorState')
     write('actor', actor)
     write('operation', operation)
     write('stateId', stateId)
@@ -5523,7 +5567,7 @@ Command.cases.changeActorState = {
     $('#changeActorState-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('changeActorState')
+    const read = getElementReader('changeActorState')
     const actor = read('actor')
     const operation = read('operation')
     switch (operation) {
@@ -5567,7 +5611,7 @@ Command.cases.changeActorEquipment = {
     switch (operation) {
       case 'add':
       case 'remove':
-        return Yami.Local.get('command.changeActorEquipment.' + operation)
+        return Local.get('command.changeActorEquipment.' + operation)
     }
   },
   parse: function ({actor, operation, equipment, slot}) {
@@ -5586,7 +5630,7 @@ Command.cases.changeActorEquipment = {
     }
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.changeActorEquipment') + ': '},
+      {text: Local.get('command.changeActorEquipment') + ': '},
       {text: words.join()},
     ]
   },
@@ -5598,9 +5642,9 @@ Command.cases.changeActorEquipment = {
   }) {
     // 加载装备选项
     $('#changeActorEquipment-slot').loadItems(
-      Yami.Enum.getStringItems('equipment-slot')
+      Enum.getStringItems('equipment-slot')
     )
-    const write = Yami.getElementWriter('changeActorEquipment')
+    const write = getElementWriter('changeActorEquipment')
     write('actor', actor)
     write('operation', operation)
     write('equipment', equipment)
@@ -5608,7 +5652,7 @@ Command.cases.changeActorEquipment = {
     $('#changeActorEquipment-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('changeActorEquipment')
+    const read = getElementReader('changeActorEquipment')
     const actor = read('actor')
     const operation = read('operation')
     const slot = read('slot')
@@ -5652,7 +5696,7 @@ Command.cases.changeActorSkill = {
     ])
   },
   parseOperation: function (operation) {
-    return Yami.Local.get('command.changeActorSkill.' + operation)
+    return Local.get('command.changeActorSkill.' + operation)
   },
   parse: function ({actor, operation, skill, skillId}) {
     const words = Command.words
@@ -5669,7 +5713,7 @@ Command.cases.changeActorSkill = {
     }
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.changeActorSkill') + ': '},
+      {text: Local.get('command.changeActorSkill') + ': '},
       {text: words.join()},
     ]
   },
@@ -5679,7 +5723,7 @@ Command.cases.changeActorSkill = {
     skillId   = '',
     skill     = {type: 'latest'},
   }) {
-    const write = Yami.getElementWriter('changeActorSkill')
+    const write = getElementWriter('changeActorSkill')
     write('actor', actor)
     write('operation', operation)
     write('skillId', skillId)
@@ -5687,7 +5731,7 @@ Command.cases.changeActorSkill = {
     $('#changeActorSkill-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('changeActorSkill')
+    const read = getElementReader('changeActorSkill')
     const actor = read('actor')
     const operation = read('operation')
     switch (operation) {
@@ -5719,7 +5763,7 @@ Command.cases.changeActorSprite = {
 
     // 侦听事件
     $('#changeActorSprite-animationId').on('write', event => {
-      const items = Yami.Animation.getSpriteListItems(event.value)
+      const items = Animation.getSpriteListItems(event.value)
       const elSpriteId = $('#changeActorSprite-spriteId')
       elSpriteId.loadItems(items)
       elSpriteId.write(elSpriteId.read())
@@ -5733,7 +5777,7 @@ Command.cases.changeActorSprite = {
     .push(Command.parseFileName(image))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.changeActorSprite') + ': '},
+      {text: Local.get('command.changeActorSprite') + ': '},
       {text: words.join()},
     ]
   },
@@ -5743,7 +5787,7 @@ Command.cases.changeActorSprite = {
     spriteId    = '',
     image       = '',
   }) {
-    const write = Yami.getElementWriter('changeActorSprite')
+    const write = getElementWriter('changeActorSprite')
     write('actor', actor)
     write('animationId', animationId)
     write('spriteId', spriteId)
@@ -5751,7 +5795,7 @@ Command.cases.changeActorSprite = {
     $('#changeActorSprite-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('changeActorSprite')
+    const read = getElementReader('changeActorSprite')
     const actor = read('actor')
     const animationId = read('animationId')
     if (animationId === '') {
@@ -5778,7 +5822,7 @@ Command.cases.remapActorMotion = {
     ])
   },
   parseMapping: function (type, motion) {
-    const motionType = Yami.Local.get('command.remapActorMotion.type.' + type)
+    const motionType = Local.get('command.remapActorMotion.type.' + type)
     const motionName = Command.parseEnumString(motion)
     return `${motionType} -> ${motionName}`
   },
@@ -5788,7 +5832,7 @@ Command.cases.remapActorMotion = {
     .push(this.parseMapping(type, motion))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.remapActorMotion') + ': '},
+      {text: Local.get('command.remapActorMotion') + ': '},
       {text: words.join()},
     ]
   },
@@ -5797,14 +5841,14 @@ Command.cases.remapActorMotion = {
     type    = 'move',
     motion  = '',
   }) {
-    const write = Yami.getElementWriter('remapActorMotion')
+    const write = getElementWriter('remapActorMotion')
     write('actor', actor)
     write('type', type)
     write('motion', motion)
     $('#remapActorMotion-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('remapActorMotion')
+    const read = getElementReader('remapActorMotion')
     const actor = read('actor')
     const type = read('type')
     const motion = read('motion')
@@ -5843,7 +5887,7 @@ Command.cases.playActorAnimation = {
     .push(Command.parseWait(wait))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.playActorAnimation') + ': '},
+      {text: Local.get('command.playActorAnimation') + ': '},
       {text: words.join()},
     ]
   },
@@ -5853,7 +5897,7 @@ Command.cases.playActorAnimation = {
     speed     = 1,
     wait      = false,
   }) {
-    const write = Yami.getElementWriter('playActorAnimation')
+    const write = getElementWriter('playActorAnimation')
     write('actor', actor)
     write('motion', motion)
     write('speed', speed)
@@ -5861,7 +5905,7 @@ Command.cases.playActorAnimation = {
     $('#playActorAnimation-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('playActorAnimation')
+    const read = getElementReader('playActorAnimation')
     const actor = read('actor')
     const motion = read('motion').trim()
     const speed = read('speed')
@@ -5881,17 +5925,17 @@ Command.cases.stopActorAnimation = {
   parse: function ({actor}) {
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.stopActorAnimation') + ': '},
+      {text: Local.get('command.stopActorAnimation') + ': '},
       {text: Command.parseActor(actor)},
     ]
   },
   load: function ({actor = {type: 'trigger'}}) {
-    const write = Yami.getElementWriter('stopActorAnimation')
+    const write = getElementWriter('stopActorAnimation')
     write('actor', actor)
     $('#stopActorAnimation-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('stopActorAnimation')
+    const read = getElementReader('stopActorAnimation')
     const actor = read('actor')
     Command.save({actor})
   },
@@ -5905,7 +5949,7 @@ Command.cases.createGlobalActor = {
     // 创建队伍选项 - 窗口打开事件
     $('#createGlobalActor').on('open', function (event) {
       $('#createGlobalActor-teamId').loadItems(
-        Yami.Data.createTeamItems()
+        Data.createTeamItems()
       )
     })
 
@@ -5920,21 +5964,21 @@ Command.cases.createGlobalActor = {
     .push(Command.parseTeam(teamId))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.createGlobalActor') + ': '},
+      {text: Local.get('command.createGlobalActor') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     actorId = '',
-    teamId  = Yami.Data.teams.list[0].id,
+    teamId  = Data.teams.list[0].id,
   }) {
-    const write = Yami.getElementWriter('createGlobalActor')
+    const write = getElementWriter('createGlobalActor')
     write('actorId', actorId)
     write('teamId', teamId)
     $('#createGlobalActor-actorId').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('createGlobalActor')
+    const read = getElementReader('createGlobalActor')
     const actorId = read('actorId')
     if (actorId === '') {
       return $('#createGlobalActor-actorId').getFocus()
@@ -5955,7 +5999,7 @@ Command.cases.placeGlobalActor = {
     .push(Command.parsePosition(position))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.placeGlobalActor') + ': '},
+      {text: Local.get('command.placeGlobalActor') + ': '},
       {text: words.join()},
     ]
   },
@@ -5963,13 +6007,13 @@ Command.cases.placeGlobalActor = {
     actor     = {type: 'trigger'},
     position  = {type: 'absolute', x: 0, y: 0},
   }) {
-    const write = Yami.getElementWriter('placeGlobalActor')
+    const write = getElementWriter('placeGlobalActor')
     write('actor', actor)
     write('position', position)
     $('#placeGlobalActor-actor').getFocus('all')
   },
   save: function () {
-    const read = Yami.getElementReader('placeGlobalActor')
+    const read = getElementReader('placeGlobalActor')
     const actor = read('actor')
     const position = read('position')
     Command.save({actor, position})
@@ -5986,17 +6030,17 @@ Command.cases.deleteGlobalActor = {
     .push(Command.parseFileName(actorId))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.deleteGlobalActor') + ': '},
+      {text: Local.get('command.deleteGlobalActor') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({actorId = ''}) {
-    const write = Yami.getElementWriter('deleteGlobalActor')
+    const write = getElementWriter('deleteGlobalActor')
     write('actorId', actorId)
     $('#deleteGlobalActor-actorId').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('deleteGlobalActor')
+    const read = getElementReader('deleteGlobalActor')
     const actorId = read('actorId')
     if (actorId === '') {
       return $('#deleteGlobalActor-actorId').getFocus()
@@ -6044,7 +6088,7 @@ Command.cases.getTarget = {
     ])
   },
   parseCondition: function (condition, attribute, divisor) {
-    const label = Yami.Local.get('command.getTarget.condition.' + condition)
+    const label = Local.get('command.getTarget.condition.' + condition)
     switch (condition) {
       case 'max-threat':
       case 'nearest':
@@ -6066,7 +6110,7 @@ Command.cases.getTarget = {
     .push(this.parseCondition(condition, attribute, divisor))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.getTarget') + ': '},
+      {text: Local.get('command.getTarget') + ': '},
       {text: words.join()},
     ]
   },
@@ -6074,14 +6118,14 @@ Command.cases.getTarget = {
     actor     = {type: 'trigger'},
     selector  = 'enemy',
     condition = 'max-threat',
-    attribute = Yami.Attribute.getDefAttributeId('actor', 'number'),
-    divisor   = Yami.Attribute.getDefAttributeId('actor', 'number'),
+    attribute = Attribute.getDefAttributeId('actor', 'number'),
+    divisor   = Attribute.getDefAttributeId('actor', 'number'),
   }) {
     // 加载角色数值属性选项
-    const attrItems = Yami.Attribute.getAttributeItems('actor', 'number')
+    const attrItems = Attribute.getAttributeItems('actor', 'number')
     $('#getTarget-attribute').loadItems(attrItems)
     $('#getTarget-divisor').loadItems(attrItems)
-    const write = Yami.getElementWriter('getTarget')
+    const write = getElementWriter('getTarget')
     write('actor', actor)
     write('selector', selector)
     write('condition', condition)
@@ -6090,7 +6134,7 @@ Command.cases.getTarget = {
     $('#getTarget-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('getTarget')
+    const read = getElementReader('getTarget')
     const actor = read('actor')
     const selector = read('selector')
     const condition = read('condition')
@@ -6151,7 +6195,7 @@ Command.cases.detectTargets = {
   parseInSight: function (inSight) {
     switch (inSight) {
       case true:
-        return Yami.Local.get('command.detectTargets.inSight')
+        return Local.get('command.detectTargets.inSight')
       case false:
         return ''
     }
@@ -6164,7 +6208,7 @@ Command.cases.detectTargets = {
     .push(this.parseInSight(inSight))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.detectTargets') + ': '},
+      {text: Local.get('command.detectTargets') + ': '},
       {text: words.join()},
     ]
   },
@@ -6174,7 +6218,7 @@ Command.cases.detectTargets = {
     selector  = 'enemy',
     inSight   = false,
   }) {
-    const write = Yami.getElementWriter('detectTargets')
+    const write = getElementWriter('detectTargets')
     write('actor', actor)
     write('distance', distance)
     write('selector', selector)
@@ -6182,7 +6226,7 @@ Command.cases.detectTargets = {
     $('#detectTargets-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('detectTargets')
+    const read = getElementReader('detectTargets')
     const actor = read('actor')
     const distance = read('distance')
     const selector = read('selector')
@@ -6216,7 +6260,7 @@ Command.cases.discardTargets = {
     .push(Command.parseActorSelector(selector))
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.discardTargets') + ': '},
+      {text: Local.get('command.discardTargets') + ': '},
       {text: words.join()},
     ]
   },
@@ -6225,14 +6269,14 @@ Command.cases.discardTargets = {
     distance  = 0,
     selector  = 'any',
   }) {
-    const write = Yami.getElementWriter('discardTargets')
+    const write = getElementWriter('discardTargets')
     write('actor', actor)
     write('distance', distance)
     write('selector', selector)
     $('#discardTargets-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('discardTargets')
+    const read = getElementReader('discardTargets')
     const actor = read('actor')
     const distance = read('distance')
     const selector = read('selector')
@@ -6248,17 +6292,17 @@ Command.cases.resetTargets = {
   parse: function ({actor}) {
     return [
       {color: 'actor'},
-      {text: Yami.Local.get('command.resetTargets') + ': '},
+      {text: Local.get('command.resetTargets') + ': '},
       {text: Command.parseActor(actor)},
     ]
   },
   load: function ({actor = {type: 'trigger'}}) {
-    const write = Yami.getElementWriter('resetTargets')
+    const write = getElementWriter('resetTargets')
     write('actor', actor)
     $('#resetTargets-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('resetTargets')
+    const read = getElementReader('resetTargets')
     const actor = read('actor')
     Command.save({actor})
   },
@@ -6311,23 +6355,23 @@ Command.cases.castSkill = {
     words.push(Command.parseWait(wait))
     return [
       {color: 'skill'},
-      {text: Yami.Local.get('command.castSkill') + ': '},
+      {text: Local.get('command.castSkill') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     actor   = {type: 'trigger'},
     mode    = 'by-key',
-    key     = Yami.Enum.getDefStringId('shortcut-key'),
+    key     = Enum.getDefStringId('shortcut-key'),
     skillId = '',
     skill   = {type: 'trigger'},
     wait    = false,
   }) {
     // 加载快捷键选项
     $('#castSkill-key').loadItems(
-      Yami.Enum.getStringItems('shortcut-key')
+      Enum.getStringItems('shortcut-key')
     )
-    const write = Yami.getElementWriter('castSkill')
+    const write = getElementWriter('castSkill')
     write('actor', actor)
     write('mode', mode)
     write('key', key)
@@ -6337,7 +6381,7 @@ Command.cases.castSkill = {
     $('#castSkill-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('castSkill')
+    const read = getElementReader('castSkill')
     const actor = read('actor')
     const mode = read('mode')
     const wait = read('wait')
@@ -6382,7 +6426,7 @@ Command.cases.setSkill = {
   parse: function ({skill, operation, cooldown}) {
     const words = Command.words
     .push(Command.parseSkill(skill))
-    .push(Yami.Local.get('command.setSkill.' + operation))
+    .push(Local.get('command.setSkill.' + operation))
     switch (operation) {
       case 'set-cooldown':
       case 'increase-cooldown':
@@ -6392,7 +6436,7 @@ Command.cases.setSkill = {
     }
     return [
       {color: 'skill'},
-      {text: Yami.Local.get('command.setSkill') + ': '},
+      {text: Local.get('command.setSkill') + ': '},
       {text: words.join()},
     ]
   },
@@ -6401,14 +6445,14 @@ Command.cases.setSkill = {
     operation = 'set-cooldown',
     cooldown  = 0,
   }) {
-    const write = Yami.getElementWriter('setSkill')
+    const write = getElementWriter('setSkill')
     write('skill', skill)
     write('operation', operation)
     write('cooldown', cooldown)
     $('#setSkill-skill').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setSkill')
+    const read = getElementReader('setSkill')
     const skill = read('skill')
     const operation = read('operation')
     switch (operation) {
@@ -6449,7 +6493,7 @@ Command.cases.createTrigger = {
     .push(this.parseTimeScale(timeScale))
     return [
       {color: 'skill'},
-      {text: Yami.Local.get('command.createTrigger') + ': '},
+      {text: Local.get('command.createTrigger') + ': '},
       {text: words.join()},
     ]
   },
@@ -6461,7 +6505,7 @@ Command.cases.createTrigger = {
     distance  = 0,
     timeScale = 1,
   }) {
-    const write = Yami.getElementWriter('createTrigger')
+    const write = getElementWriter('createTrigger')
     write('triggerId', triggerId)
     write('caster', caster)
     write('origin', origin)
@@ -6471,7 +6515,7 @@ Command.cases.createTrigger = {
     $('#createTrigger-triggerId').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('createTrigger')
+    const read = getElementReader('createTrigger')
     const triggerId = read('triggerId')
     if (triggerId === '') {
       return $('#createTrigger-triggerId').getFocus()
@@ -6496,7 +6540,7 @@ Command.cases.setTriggerSpeed = {
     .push(Command.parseVariableNumber(speed, 't/s'))
     return [
       {color: 'skill'},
-      {text: Yami.Local.get('command.setTriggerSpeed') + ': '},
+      {text: Local.get('command.setTriggerSpeed') + ': '},
       {text: words.join()},
     ]
   },
@@ -6504,13 +6548,13 @@ Command.cases.setTriggerSpeed = {
     trigger = {type: 'trigger'},
     speed   = 0,
   }) {
-    const write = Yami.getElementWriter('setTriggerSpeed')
+    const write = getElementWriter('setTriggerSpeed')
     write('trigger', trigger)
     write('speed', speed)
     $('#setTriggerSpeed-trigger').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setTriggerSpeed')
+    const read = getElementReader('setTriggerSpeed')
     const trigger = read('trigger')
     const speed = read('speed')
     Command.save({trigger, speed})
@@ -6528,7 +6572,7 @@ Command.cases.setTriggerAngle = {
     .push(Command.parseAngle(angle))
     return [
       {color: 'skill'},
-      {text: Yami.Local.get('command.setTriggerAngle') + ': '},
+      {text: Local.get('command.setTriggerAngle') + ': '},
       {text: words.join()},
     ]
   },
@@ -6536,13 +6580,13 @@ Command.cases.setTriggerAngle = {
     trigger = {type: 'trigger'},
     angle   = {type: 'absolute', degrees: 0},
   }) {
-    const write = Yami.getElementWriter('setTriggerAngle')
+    const write = getElementWriter('setTriggerAngle')
     write('trigger', trigger)
     write('angle', angle)
     $('#setTriggerAngle-trigger').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setTriggerAngle')
+    const read = getElementReader('setTriggerAngle')
     const trigger = read('trigger')
     const angle = read('angle')
     Command.save({trigger, angle})
@@ -6597,7 +6641,7 @@ Command.cases.setBag = {
   parse: function ({actor, operation, money, itemId, quantity, equipmentId, equipment, index1, index2, refActor}) {
     const words = Command.words
     .push(Command.parseActor(actor))
-    .push(Yami.Local.get('command.setBag.' + operation))
+    .push(Local.get('command.setBag.' + operation))
     switch (operation) {
       case 'increase-money':
       case 'decrease-money':
@@ -6627,7 +6671,7 @@ Command.cases.setBag = {
     }
     return [
       {color: 'bag'},
-      {text: Yami.Local.get('command.setBag') + ': '},
+      {text: Local.get('command.setBag') + ': '},
       {text: words.join()},
     ]
   },
@@ -6643,7 +6687,7 @@ Command.cases.setBag = {
     index2      = 1,
     refActor    = {type: 'player'},
   }) {
-    const write = Yami.getElementWriter('setBag')
+    const write = getElementWriter('setBag')
     write('actor', actor)
     write('operation', operation)
     write('money', money)
@@ -6657,7 +6701,7 @@ Command.cases.setBag = {
     $('#setBag-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setBag')
+    const read = getElementReader('setBag')
     const actor = read('actor')
     const operation = read('operation')
     switch (operation) {
@@ -6760,23 +6804,23 @@ Command.cases.useItem = {
     words.push(Command.parseWait(wait))
     return [
       {color: 'bag'},
-      {text: Yami.Local.get('command.useItem') + ': '},
+      {text: Local.get('command.useItem') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     actor   = {type: 'trigger'},
     mode    = 'by-key',
-    key     = Yami.Enum.getDefStringId('shortcut-key'),
+    key     = Enum.getDefStringId('shortcut-key'),
     itemId  = '',
     item    = {type: 'trigger'},
     wait    = false,
   }) {
     // 加载快捷键选项
     $('#useItem-key').loadItems(
-      Yami.Enum.getStringItems('shortcut-key')
+      Enum.getStringItems('shortcut-key')
     )
-    const write = Yami.getElementWriter('useItem')
+    const write = getElementWriter('useItem')
     write('actor', actor)
     write('mode', mode)
     write('key', key)
@@ -6786,7 +6830,7 @@ Command.cases.useItem = {
     $('#useItem-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('useItem')
+    const read = getElementReader('useItem')
     const actor = read('actor')
     const mode = read('mode')
     const wait = read('wait')
@@ -6830,7 +6874,7 @@ Command.cases.setItem = {
   parse: function ({item, operation, quantity}) {
     const words = Command.words
     .push(Command.parseItem(item))
-    .push(Yami.Local.get('command.setItem.' + operation))
+    .push(Local.get('command.setItem.' + operation))
     switch (operation) {
       case 'increase':
       case 'decrease':
@@ -6839,7 +6883,7 @@ Command.cases.setItem = {
     }
     return [
       {color: 'bag'},
-      {text: Yami.Local.get('command.setItem') + ': '},
+      {text: Local.get('command.setItem') + ': '},
       {text: words.join()},
     ]
   },
@@ -6848,14 +6892,14 @@ Command.cases.setItem = {
     operation = 'increase',
     quantity  = 1,
   }) {
-    const write = Yami.getElementWriter('setItem')
+    const write = getElementWriter('setItem')
     write('item', item)
     write('operation', operation)
     write('quantity', quantity)
     $('#setItem-item').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setItem')
+    const read = getElementReader('setItem')
     const item = read('item')
     const operation = read('operation')
     switch (operation) {
@@ -6892,7 +6936,7 @@ Command.cases.setCooldown = {
   parse: function ({actor, operation, key, cooldown}) {
     const words = Command.words
     .push(Command.parseActor(actor))
-    .push(Yami.Local.get('command.setCooldown.' + operation))
+    .push(Local.get('command.setCooldown.' + operation))
     .push(Command.parseVariableEnum('cooldown-key', key))
     switch (operation) {
       case 'set':
@@ -6903,21 +6947,21 @@ Command.cases.setCooldown = {
     }
     return [
       {color: 'bag'},
-      {text: Yami.Local.get('command.setCooldown') + ': '},
+      {text: Local.get('command.setCooldown') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     actor     = {type: 'trigger'},
     operation = 'set',
-    key       = Yami.Enum.getDefStringId('cooldown-key'),
+    key       = Enum.getDefStringId('cooldown-key'),
     cooldown  = 0,
   }) {
     // 加载快捷键选项
     $('#setCooldown-key').loadItems(
-      Yami.Enum.getStringItems('cooldown-key')
+      Enum.getStringItems('cooldown-key')
     )
-    const write = Yami.getElementWriter('setCooldown')
+    const write = getElementWriter('setCooldown')
     write('actor', actor)
     write('operation', operation)
     write('key', key)
@@ -6925,7 +6969,7 @@ Command.cases.setCooldown = {
     $('#setCooldown-actor').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setCooldown')
+    const read = getElementReader('setCooldown')
     const actor = read('actor')
     const operation = read('operation')
     const key = read('key')
@@ -6977,7 +7021,7 @@ Command.cases.setShortcut = {
   parse: function ({actor, operation, item, skill, key}) {
     const words = Command.words
     .push(Command.parseActor(actor))
-    .push(Yami.Local.get('command.setShortcut.' + operation))
+    .push(Local.get('command.setShortcut.' + operation))
     const shortcutKey = Command.parseGroupEnumString('shortcut-key', key)
     switch (operation) {
       case 'set-item-shortcut':
@@ -6992,7 +7036,7 @@ Command.cases.setShortcut = {
     }
     return [
       {color: 'bag'},
-      {text: Yami.Local.get('command.setShortcut') + ': '},
+      {text: Local.get('command.setShortcut') + ': '},
       {text: words.join()},
     ]
   },
@@ -7001,13 +7045,13 @@ Command.cases.setShortcut = {
     operation = 'set-item-shortcut',
     item      = {type: 'trigger'},
     skill     = {type: 'trigger'},
-    key       = Yami.Enum.getDefStringId('shortcut-key'),
+    key       = Enum.getDefStringId('shortcut-key'),
   }) {
     // 加载快捷键选项
     $('#setShortcut-key').loadItems(
-      Yami.Enum.getStringItems('shortcut-key')
+      Enum.getStringItems('shortcut-key')
     )
-    const write = Yami.getElementWriter('setShortcut')
+    const write = getElementWriter('setShortcut')
     write('actor', actor)
     write('operation', operation)
     write('item', item)
@@ -7016,7 +7060,7 @@ Command.cases.setShortcut = {
     $('#setShortcut-operation').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setShortcut')
+    const read = getElementReader('setShortcut')
     const actor = read('actor')
     const operation = read('operation')
     const key = read('key')
@@ -7061,17 +7105,17 @@ Command.cases.activateScene = {
   parse: function ({pointer}) {
     return [
       {color: 'scene'},
-      {text: Yami.Local.get('command.activateScene') + ': '},
+      {text: Local.get('command.activateScene') + ': '},
       {text: this.parsePointer(pointer)},
     ]
   },
   load: function ({pointer = 0}) {
-    const write = Yami.getElementWriter('activateScene')
+    const write = getElementWriter('activateScene')
     write('pointer', pointer)
     $('#activateScene-pointer').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('activateScene')
+    const read = getElementReader('activateScene')
     const pointer = read('pointer')
     Command.save({pointer})
   },
@@ -7102,12 +7146,12 @@ Command.cases.loadScene = {
         scene = Command.parseFileName(sceneId)
         break
       case 'start':
-        scene = Yami.Local.get('command.loadScene.start')
+        scene = Local.get('command.loadScene.start')
         break
     }
     return [
       {color: 'scene'},
-      {text: Yami.Local.get('command.loadScene') + ': '},
+      {text: Local.get('command.loadScene') + ': '},
       {text: scene},
     ]
   },
@@ -7115,13 +7159,13 @@ Command.cases.loadScene = {
     type    = 'specify',
     sceneId = '',
   }) {
-    const write = Yami.getElementWriter('loadScene')
+    const write = getElementWriter('loadScene')
     write('type', type)
     write('sceneId', sceneId)
     $('#loadScene-sceneId').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('loadScene')
+    const read = getElementReader('loadScene')
     const type = read('type')
     switch (type) {
       case 'specify': {
@@ -7144,7 +7188,7 @@ Command.cases.deleteScene = {
   parse: function () {
     return [
       {color: 'scene'},
-      {text: Yami.Local.get('command.deleteScene')},
+      {text: Local.get('command.deleteScene')},
     ]
   },
   save: function () {
@@ -7182,7 +7226,7 @@ Command.cases.moveCamera = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#moveCamera').on('open', function (event) {
       $('#moveCamera-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -7192,7 +7236,7 @@ Command.cases.moveCamera = {
     })
   },
   parse: function ({mode, position, actor, easingId, duration, wait}) {
-    const words = Command.words.push(Yami.Local.get('command.moveCamera.' + mode))
+    const words = Command.words.push(Local.get('command.moveCamera.' + mode))
     switch (mode) {
       case 'position':
         words.push(Command.parsePosition(position))
@@ -7204,7 +7248,7 @@ Command.cases.moveCamera = {
     words.push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'scene'},
-      {text: Yami.Local.get('command.moveCamera') + ': '},
+      {text: Local.get('command.moveCamera') + ': '},
       {text: words.join()},
     ]
   },
@@ -7212,11 +7256,11 @@ Command.cases.moveCamera = {
     mode      = 'position',
     position  = {type: 'absolute', x: 0, y: 0},
     actor     = {type: 'trigger'},
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = true,
   }) {
-    const write = Yami.getElementWriter('moveCamera')
+    const write = getElementWriter('moveCamera')
     write('mode', mode)
     write('position', position)
     write('actor', actor)
@@ -7226,7 +7270,7 @@ Command.cases.moveCamera = {
     $('#moveCamera-mode').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('moveCamera')
+    const read = getElementReader('moveCamera')
     const mode = read('mode')
     const easingId = read('easingId')
     const duration = read('duration')
@@ -7260,7 +7304,7 @@ Command.cases.setZoomFactor = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#setZoomFactor').on('open', function (event) {
       $('#setZoomFactor-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -7275,17 +7319,17 @@ Command.cases.setZoomFactor = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'scene'},
-      {text: Yami.Local.get('command.setZoomFactor') + ': '},
+      {text: Local.get('command.setZoomFactor') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     zoom      = 1,
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = true,
   }) {
-    const write = Yami.getElementWriter('setZoomFactor')
+    const write = getElementWriter('setZoomFactor')
     write('zoom', zoom)
     write('easingId', easingId)
     write('duration', duration)
@@ -7293,7 +7337,7 @@ Command.cases.setZoomFactor = {
     $('#setZoomFactor-zoom').getFocus('all')
   },
   save: function () {
-    const read = Yami.getElementReader('setZoomFactor')
+    const read = getElementReader('setZoomFactor')
     const zoom = read('zoom')
     const easingId = read('easingId')
     const duration = read('duration')
@@ -7316,7 +7360,7 @@ Command.cases.setAmbientLight = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#setAmbientLight').on('open', function (event) {
       $('#setAmbientLight-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -7337,7 +7381,7 @@ Command.cases.setAmbientLight = {
     .push(Command.parseEasing(easingId, duration, wait))
     const contents = [
       {color: 'scene'},
-      {text: Yami.Local.get('command.setAmbientLight') + ': '},
+      {text: Local.get('command.setAmbientLight') + ': '},
       {text: words.join()},
     ]
     return contents
@@ -7346,11 +7390,11 @@ Command.cases.setAmbientLight = {
     red       = 0,
     green     = 0,
     blue      = 0,
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = true,
   }) {
-    const write = Yami.getElementWriter('setAmbientLight')
+    const write = getElementWriter('setAmbientLight')
     write('red', red)
     write('green', green)
     write('blue', blue)
@@ -7360,7 +7404,7 @@ Command.cases.setAmbientLight = {
     $('#setAmbientLight-red').getFocus('all')
   },
   save: function () {
-    const read = Yami.getElementReader('setAmbientLight')
+    const read = getElementReader('setAmbientLight')
     const red = read('red')
     const green = read('green')
     const blue = read('blue')
@@ -7385,7 +7429,7 @@ Command.cases.tintScreen = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#tintScreen').on('open', function (event) {
       $('#tintScreen-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -7415,18 +7459,18 @@ Command.cases.tintScreen = {
     .push(Command.parseEasing(easingId, duration, wait))
     const contents = [
       {color: 'scene'},
-      {text: Yami.Local.get('command.tintScreen') + ': '},
+      {text: Local.get('command.tintScreen') + ': '},
       {text: words.join()},
     ]
     return contents
   },
   load: function ({
     tint      = [0, 0, 0, 0],
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = true,
   }) {
-    const write = Yami.getElementWriter('tintScreen')
+    const write = getElementWriter('tintScreen')
     write('tint-0', tint[0])
     write('tint-1', tint[1])
     write('tint-2', tint[2])
@@ -7438,7 +7482,7 @@ Command.cases.tintScreen = {
     $('#tintScreen-tint-0').getFocus('all')
   },
   save: function () {
-    const read = Yami.getElementReader('tintScreen')
+    const read = getElementReader('tintScreen')
     const red = read('tint-0')
     const green = read('tint-1')
     const blue = read('tint-2')
@@ -7465,7 +7509,7 @@ Command.cases.setGameSpeed = {
     // 创建过渡方式选项 - 窗口打开事件
     $('#setGameSpeed').on('open', function (event) {
       $('#setGameSpeed-easingId').loadItems(
-        Yami.Data.createEasingItems()
+        Data.createEasingItems()
       )
     })
 
@@ -7480,17 +7524,17 @@ Command.cases.setGameSpeed = {
     .push(Command.parseEasing(easingId, duration, wait))
     return [
       {color: 'system'},
-      {text: Yami.Local.get('command.setGameSpeed') + ': '},
+      {text: Local.get('command.setGameSpeed') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
     speed     = 1,
-    easingId  = Yami.Data.easings[0].id,
+    easingId  = Data.easings[0].id,
     duration  = 0,
     wait      = true,
   }) {
-    const write = Yami.getElementWriter('setGameSpeed')
+    const write = getElementWriter('setGameSpeed')
     write('speed', speed)
     write('easingId', easingId)
     write('duration', duration)
@@ -7498,7 +7542,7 @@ Command.cases.setGameSpeed = {
     $('#setGameSpeed-speed').getFocus('all')
   },
   save: function () {
-    const read = Yami.getElementReader('setGameSpeed')
+    const read = getElementReader('setGameSpeed')
     const speed = read('speed')
     const easingId = read('easingId')
     const duration = read('duration')
@@ -7515,17 +7559,17 @@ Command.cases.setCursor = {
   parse: function ({image}) {
     return [
       {color: 'system'},
-      {text: Yami.Local.get('command.setCursor') + ': '},
+      {text: Local.get('command.setCursor') + ': '},
       {text: Command.parseFileName(image)},
     ]
   },
   load: function ({image = ''}) {
-    const write = Yami.getElementWriter('setCursor')
+    const write = getElementWriter('setCursor')
     write('image', image)
     $('#setCursor-image').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setCursor')
+    const read = getElementReader('setCursor')
     const image = read('image')
     Command.save({image})
   },
@@ -7544,7 +7588,7 @@ Command.cases.setTeamRelation = {
 
     // 创建过渡方式选项 - 窗口打开事件
     $('#setTeamRelation').on('open', function (event) {
-      const items = Yami.Data.createTeamItems()
+      const items = Data.createTeamItems()
       $('#setTeamRelation-teamId1').loadItems(items)
       $('#setTeamRelation-teamId2').loadItems(items)
     })
@@ -7556,7 +7600,7 @@ Command.cases.setTeamRelation = {
     })
   },
   parseRelation: function (relation) {
-    return Yami.Local.get('command.setTeamRelation.relation.' + relation)
+    return Local.get('command.setTeamRelation.relation.' + relation)
   },
   parse: function ({teamId1, teamId2, relation}) {
     const words = Command.words
@@ -7565,23 +7609,23 @@ Command.cases.setTeamRelation = {
     .push(this.parseRelation(relation))
     return [
       {color: 'system'},
-      {text: Yami.Local.get('command.setTeamRelation') + ': '},
+      {text: Local.get('command.setTeamRelation') + ': '},
       {text: words.join()},
     ]
   },
   load: function ({
-    teamId1   = Yami.Data.teams.list[0].id,
-    teamId2   = Yami.Data.teams.list[0].id,
+    teamId1   = Data.teams.list[0].id,
+    teamId2   = Data.teams.list[0].id,
     relation  = 0,
   }) {
-    const write = Yami.getElementWriter('setTeamRelation')
+    const write = getElementWriter('setTeamRelation')
     write('teamId1', teamId1)
     write('teamId2', teamId2)
     write('relation', relation)
     $('#setTeamRelation-teamId1').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('setTeamRelation')
+    const read = getElementReader('setTeamRelation')
     const teamId1 = read('teamId1')
     const teamId2 = read('teamId2')
     const relation = read('relation')
@@ -7608,8 +7652,8 @@ Command.cases.switchCollisionSystem = {
   parse: function ({operation}) {
     return [
       {color: 'system'},
-      {text: Yami.Local.get('command.switchCollisionSystem') + ': '},
-      {text: Yami.Local.get('command.switchCollisionSystem.' + operation)},
+      {text: Local.get('command.switchCollisionSystem') + ': '},
+      {text: Local.get('command.switchCollisionSystem.' + operation)},
     ]
   },
   load: function ({operation = 'enable-actor-collision'}) {
@@ -7648,7 +7692,7 @@ Command.cases.gameData = {
     ])
   },
   parseOperation: function (operation) {
-    return Yami.Local.get('command.gameData.' + operation)
+    return Local.get('command.gameData.' + operation)
   },
   parse: function ({operation, filename, variables}) {
     const words = Command.words.push(this.parseOperation(operation))
@@ -7656,7 +7700,7 @@ Command.cases.gameData = {
       case 'save':
         words.push(Command.parseVariableString(filename))
         if (variables) {
-          const label = Yami.Local.get('command.gameData.variables')
+          const label = Local.get('command.gameData.variables')
           const string = variables.split(/\s*,\s*/).join(', ')
           words.push(`${label} {${string}}`)
         }
@@ -7668,7 +7712,7 @@ Command.cases.gameData = {
     }
     return [
       {color: 'system'},
-      {text: Yami.Local.get('command.gameData') + ': '},
+      {text: Local.get('command.gameData') + ': '},
       {text: words.join()},
     ]
   },
@@ -7683,7 +7727,7 @@ Command.cases.gameData = {
     $('#gameData-operation').getFocus()
   },
   save: function () {
-    const read = Yami.getElementReader('gameData')
+    const read = getElementReader('gameData')
     const operation = read('operation')
     switch (operation) {
       case 'save': {
@@ -7717,7 +7761,7 @@ Command.cases.reset = {
   parse: function () {
     return [
       {color: 'system'},
-      {text: Yami.Local.get('command.reset')},
+      {text: Local.get('command.reset')},
     ]
   },
   save: function () {
@@ -7766,9 +7810,9 @@ Command.cases.script = {
     try {
       new Function(script)
     } catch (error) {
-      const get = Yami.Local.createGetter('confirmation')
+      const get = Local.createGetter('confirmation')
       let continued = false
-      return Yami.Window.confirm({
+      return Window.confirm({
         message: `${error.message}\n${get('compileError')}`,
         close: () => {
           if (!continued) {
@@ -7854,10 +7898,10 @@ Command.custom = {
   // 解析自定义指令
   parse: function (id, parameters) {
     // 如果不存在脚本，则返回ID名称
-    const meta = Yami.Data.scripts[id]
+    const meta = Data.scripts[id]
     const name = this.commandNameMap[id]
     if (meta === undefined || name === undefined) {
-      const label = Yami.Local.get('command.invalidCommand')
+      const label = Local.get('command.invalidCommand')
       const cmdId = Command.parseUnlinkedId(id)
       return [
         {color: 'invalid'},
@@ -7868,7 +7912,7 @@ Command.custom = {
     const script = this.script
     script.id = id
     script.parameters = parameters
-    Yami.PluginManager.reconstruct(script)
+    PluginManager.reconstruct(script)
     // 获取重构后的参数
     parameters = script.parameters
     script.parameters = null
@@ -7908,13 +7952,13 @@ Command.custom = {
           continue
         }
         case 'easing':
-          words.push(Yami.Data.easings.map[value].name)
+          words.push(Data.easings.map[value].name)
           continue
         case 'team':
-          words.push(Yami.Data.teams.map[value].name)
+          words.push(Data.teams.map[value].name)
           continue
         case 'variable':
-          words.push(value ? `{variable:${value}}` : Yami.Local.get('common.none'))
+          words.push(value ? `{variable:${value}}` : Local.get('common.none'))
           continue
         case 'file':
         case 'image':
@@ -7941,7 +7985,7 @@ Command.custom = {
           continue
         }
         case 'keycode':
-          words.push(value || Yami.Local.get('common.none'))
+          words.push(value || Local.get('common.none'))
           continue
         case 'color':
           words.push(`#${value}`)
@@ -7959,10 +8003,10 @@ Command.custom = {
   load: function (id, parameters) {
     this.script.id = id
     this.script.parameters = Object.clone(parameters)
-    this.windowX = Yami.Window.absolutePos.x
-    this.windowY = Yami.Window.absolutePos.y
+    this.windowX = Window.absolutePos.x
+    this.windowY = Window.absolutePos.y
     this.parameterPane.update()
-    const selector = Yami.Layout.focusableSelector
+    const selector = Layout.focusableSelector
     this.parameterPane.querySelector(selector)?.getFocus()
     this.windowFrame.setTitle(this.commandNameMap[id])
   },
@@ -7974,8 +8018,8 @@ Command.custom = {
 
   // 加载指令列表
   loadCommandList: async function () {
-    if (!Yami.Data.commands) return
-    const {list} = Yami.CommandSuggestion
+    if (!Data.commands) return
+    const {list} = CommandSuggestion
     if (!this.customFolder) {
       if (list.data instanceof Promise) {
         await list.data
@@ -7991,9 +8035,9 @@ Command.custom = {
     }
     const commands = []
     const commandNameMap = {}
-    for (const command of Yami.Data.commands) {
+    for (const command of Data.commands) {
       const id = command.id
-      let meta = Yami.Data.scripts[id]
+      let meta = Data.scripts[id]
       // 可能出现脚本未加载完毕的情况
       if (meta instanceof Promise) {
         meta = await meta
@@ -8015,9 +8059,9 @@ Command.custom = {
     }
     this.customFolder.children = commands
     this.commandNameMap = commandNameMap
-    Yami.CommandSuggestion.windowLocalize()
+    CommandSuggestion.windowLocalize()
     // 重新构建指令项目的父对象引用
-    Yami.NodeList.createParents(commands, this.customFolder)
+    NodeList.createParents(commands, this.customFolder)
   },
 
   // 窗口 - 本地化事件

@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  PresetObject,
+  Window
+} = Yami
+
 // ******************************** 位置访问器窗口 ********************************
 
 const PositionGetter = {
@@ -59,14 +65,14 @@ PositionGetter.initialize = function () {
 // 打开窗口
 PositionGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('positionGetter')
+  Window.open('positionGetter')
 
   let commonX = 0
   let commonY = 0
   let actor = {type: 'trigger'}
   let trigger = {type: 'trigger'}
   let light = {type: 'trigger'}
-  let regionId = Yami.PresetObject.getDefaultPresetId('region')
+  let regionId = PresetObject.getDefaultPresetId('region')
   const position = target.dataValue
   switch (position.type) {
     case 'absolute':
@@ -102,7 +108,7 @@ PositionGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 PositionGetter.confirm = function (event) {
-  const read = Yami.getElementReader('positionGetter')
+  const read = getElementReader('positionGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -143,7 +149,7 @@ PositionGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('positionGetter')
+  Window.close('positionGetter')
 }.bind(PositionGetter)
 
 // ******************************** 位置访问器窗口导出 ********************************

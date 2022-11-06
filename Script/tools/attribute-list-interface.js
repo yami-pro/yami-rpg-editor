@@ -2,6 +2,17 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Attribute,
+  Command,
+  Enum,
+  getElementReader,
+  getElementWriter,
+  Inspector,
+  SelectBox,
+  Window
+} = Yami
+
 // ******************************** 属性列表接口 ********************************
 
 class AttributeListInterface {
@@ -25,7 +36,7 @@ class AttributeListInterface {
     // 创建参数历史操作
     const {editor, owner} = this
     if (editor && owner) {
-      this.history = new Yami.Inspector.ParamHistory(editor, owner, list)
+      this.history = new Inspector.ParamHistory(editor, owner, list)
     }
   }
 
@@ -34,9 +45,9 @@ class AttributeListInterface {
     if (item instanceof Object) {
       let {key, value} = item
       if (typeof value === 'string') {
-        value = Yami.Command.parseMultiLineString(value)
+        value = Command.parseMultiLineString(value)
       }
-      const attr = Yami.Attribute.getGroupAttribute(this.group, key)
+      const attr = Attribute.getGroupAttribute(this.group, key)
       let attrName = ''
       let attrClass = ''
       let valueClass = ''
@@ -51,17 +62,17 @@ class AttributeListInterface {
           break
         case 'enum': {
           attrName = attr.name
-          const item = Yami.Enum.getGroupString(attr.enum, value)
+          const item = Enum.getGroupString(attr.enum, value)
           if (item) {
             value = item.name
           } else {
-            value = Yami.Command.parseUnlinkedId(value)
+            value = Command.parseUnlinkedId(value)
             valueClass = 'invalid'
           }
           break
         }
         case undefined:
-          attrName = Yami.Command.parseUnlinkedId(key)
+          attrName = Command.parseUnlinkedId(key)
           attrClass = 'invalid'
           break
       }
@@ -75,13 +86,13 @@ class AttributeListInterface {
 
   // 打开窗口
   open(item = {key: '', value: 0}) {
-    Yami.Window.open('object-attribute')
+    Window.open('object-attribute')
     AttributeListInterface.target = this.target
     const isNew = item.key === ''
     if (isNew) {
       // 新建属性数据
-      item.key = Yami.Attribute.getDefAttributeId(this.group)
-      switch (Yami.Attribute.getGroupAttribute(this.group, item.key)?.type) {
+      item.key = Attribute.getDefAttributeId(this.group)
+      switch (Attribute.getGroupAttribute(this.group, item.key)?.type) {
         case 'boolean': item.value = false; break
         case 'number':  item.value = 0    ; break
         case 'string':  item.value = ''   ; break
@@ -89,16 +100,16 @@ class AttributeListInterface {
       }
     }
     const key = item.key
-    const type = Yami.Attribute.getGroupAttribute(this.group, key)?.type ?? typeof item.value
+    const type = Attribute.getGroupAttribute(this.group, key)?.type ?? typeof item.value
     const booleanValue = type === 'boolean' ? item.value : false
     const numberValue  = type === 'number'  ? item.value : 0
     const stringValue  = type === 'string'  ? item.value : ''
     const enumValue    = type === 'enum'    ? item.value : ''
     const keyBox = $('#object-attribute-key')
-    keyBox.loadItems(Yami.Attribute.getAttributeItems(this.group))
-    const invalid = !Yami.Attribute.getGroupAttribute(this.group, key)
+    keyBox.loadItems(Attribute.getAttributeItems(this.group))
+    const invalid = !Attribute.getGroupAttribute(this.group, key)
     if (invalid) AttributeListInterface.typeBox.write(type)
-    const write = Yami.getElementWriter('object-attribute')
+    const write = getElementWriter('object-attribute')
     write('key', key)
     write('boolean-value', booleanValue)
     write('number-value', numberValue)
@@ -123,7 +134,7 @@ class AttributeListInterface {
 
   // 保存数据
   save() {
-    const read = Yami.getElementReader('object-attribute')
+    const read = getElementReader('object-attribute')
     const type = AttributeListInterface.typeBox.read()
     const key = read('key')
     if (key === '') {
@@ -147,7 +158,7 @@ class AttributeListInterface {
         }
         break
     }
-    Yami.Window.close('object-attribute')
+    Window.close('object-attribute')
     return {key, value}
   }
 
@@ -194,18 +205,18 @@ class AttributeListInterface {
   }
 
   // 类型选择框(隐藏)
-  static typeBox = new Yami.SelectBox()
+  static typeBox = new SelectBox()
 
   // 属性键写入事件
   static keyWrite(event) {
     const group = AttributeListInterface.target.getAttribute('group')
-    const attr = Yami.Attribute.getGroupAttribute(group, event.value)
+    const attr = Attribute.getGroupAttribute(group, event.value)
     if (attr) {
       AttributeListInterface.typeBox.write(attr.type)
       if (attr.type === 'enum') {
         const enumBox = $('#object-attribute-enum-value')
-        enumBox.loadItems(Yami.Enum.getStringItems(attr.enum))
-        enumBox.write(Yami.Enum.getDefStringId(attr.enum))
+        enumBox.loadItems(Enum.getStringItems(attr.enum))
+        enumBox.write(Enum.getDefStringId(attr.enum))
       }
     }
   }

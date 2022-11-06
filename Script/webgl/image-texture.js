@@ -2,17 +2,23 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  BaseTexture,
+  GL,
+  Texture
+} = Yami
+
 // ******************************** 图像纹理类 ********************************
 
-class ImageTexture extends Yami.Texture {
+class ImageTexture extends Texture {
   constructor(image, options = {}) {
     super(options)
 
     // 设置属性
-    const texture = Yami.GL.createImageTexture(image, options)
+    const texture = GL.createImageTexture(image, options)
     this.complete = false
     this.base = texture
-    this.gl = Yami.GL
+    this.gl = GL
     this.x = 0
     this.y = 0
     this.width = 0
@@ -149,10 +155,10 @@ class ImageTexture extends Yami.Texture {
 }
 
 // 设置加载回调
-ImageTexture.prototype.on = Yami.BaseTexture.prototype.on
+ImageTexture.prototype.on = BaseTexture.prototype.on
 
 // 执行加载回调
-ImageTexture.prototype.reply = Yami.BaseTexture.prototype.reply
+ImageTexture.prototype.reply = BaseTexture.prototype.reply
 
 // ******************************** 图像纹理类导出 ********************************
 

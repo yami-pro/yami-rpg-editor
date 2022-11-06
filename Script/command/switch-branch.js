@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  SwitchCondition,
+  Window
+} = Yami
+
 // ******************************** 匹配 - 分支窗口 ********************************
 
 const SwitchBranch = {
@@ -29,9 +35,9 @@ SwitchBranch.initialize = function () {
 
 // 解析项目
 SwitchBranch.parse = function (branch) {
-  const words = Yami.Command.words
+  const words = Command.words
   for (const condition of branch.conditions) {
-    words.push(Yami.SwitchCondition.parse(condition))
+    words.push(SwitchCondition.parse(condition))
   }
   return words.join()
 }
@@ -42,7 +48,7 @@ SwitchBranch.open = function (branch) {
     SwitchCondition.target = this.target
     SwitchCondition.open()
   } else {
-    Yami.Window.open('switch-branch')
+    Window.open('switch-branch')
     $('#switch-branch-conditions').write(branch.conditions.slice())
     $('#switch-branch-conditions').getFocus()
     this.commands = branch.commands
@@ -64,7 +70,7 @@ SwitchBranch.save = function () {
       return element.getFocus()
     }
     const commands = this.commands
-    Yami.Window.close('switch-branch')
+    Window.close('switch-branch')
     return {conditions, commands}
   }
 }

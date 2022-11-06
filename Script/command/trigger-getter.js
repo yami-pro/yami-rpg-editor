@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 触发器访问器窗口 ********************************
 
 const TriggerGetter = {
@@ -39,7 +45,7 @@ TriggerGetter.initialize = function () {
 // 打开窗口
 TriggerGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('triggerGetter')
+  Window.open('triggerGetter')
 
   let variable = {type: 'local', key: ''}
   const trigger = target.dataValue
@@ -58,7 +64,7 @@ TriggerGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 TriggerGetter.confirm = function (event) {
-  const read = Yami.getElementReader('triggerGetter')
+  const read = getElementReader('triggerGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -68,7 +74,7 @@ TriggerGetter.confirm = function (event) {
       break
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#triggerGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -76,7 +82,7 @@ TriggerGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('triggerGetter')
+  Window.close('triggerGetter')
 }.bind(TriggerGetter)
 
 // ******************************** 触发器访问器窗口导出 ********************************

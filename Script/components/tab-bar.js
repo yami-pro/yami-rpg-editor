@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Title } = Yami
+
 // ******************************** 标签栏 ********************************
 
 class TabBar extends HTMLElement {
@@ -272,7 +274,7 @@ class TabBar extends HTMLElement {
       event.hint.addClass('for-tab')
       this.parentNode.insertBefore(event.hint.hide(), this)
       this.addClass('dragging')
-      Yami.Title.updateAppRegion()
+      Title.updateAppRegion()
       this.on('dragenter', this.dragenter)
       this.on('dragleave', this.dragleave)
       this.on('dragover', this.dragover)

@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  getElementWriter,
+  Inspector
+} = Yami
+
 // ******************************** 动画 - 粒子层页面 ********************************
 
 {
@@ -30,8 +36,8 @@ import * as Yami from '../yami.js'
     // 侦听事件
     const elements = $('#animParticleLayer-particleId, #animParticleLayer-angle')
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(
       this, Animation, data => {
         data.type = 'inspector-layer-change'
         data.motion = this.motion
@@ -48,7 +54,7 @@ import * as Yami from '../yami.js'
       locked: false,
       particleId: '',
       angle: 'default',
-      frames: [Yami.Inspector.animParticleFrame.create()],
+      frames: [Inspector.animParticleFrame.create()],
     }
   }
 
@@ -56,10 +62,10 @@ import * as Yami from '../yami.js'
   AnimParticleLayer.open = function (layer) {
     if (this.target !== layer) {
       this.target = layer
-      this.motion = Yami.Animation.motion
+      this.motion = Animation.motion
 
       // 写入数据
-      const write = Yami.getElementWriter('animParticleLayer', layer)
+      const write = getElementWriter('animParticleLayer', layer)
       write('particleId')
       write('angle')
     }
@@ -75,13 +81,13 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   AnimParticleLayer.update = function (layer, key, value) {
-    Yami.Animation.planToSave()
+    Animation.planToSave()
     switch (key) {
       case 'particleId':
         if (layer.particleId !== value) {
           layer.particleId = value
-          Yami.Animation.player.destroyContextEmitters()
-          Yami.Animation.updateFrameContexts()
+          Animation.player.destroyContextEmitters()
+          Animation.updateFrameContexts()
         }
         break
       case 'angle':
@@ -90,17 +96,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Yami.Animation.requestRendering()
+    Animation.requestRendering()
   }
 
   // 参数 - 输入事件
   AnimParticleLayer.paramInput = function (event) {
     AnimParticleLayer.update(
       AnimParticleLayer.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.animParticleLayer = AnimParticleLayer
+  Inspector.animParticleLayer = AnimParticleLayer
 }

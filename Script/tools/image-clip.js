@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Cursor,
+  File,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Path,
+  Window
+} = Yami
+
 // ******************************** 图像剪辑窗口 ********************************
 
 const ImageClip = {
@@ -54,10 +64,10 @@ ImageClip.initialize = function () {
 // 打开窗口
 ImageClip.open = async function (target) {
   this.target = target
-  Yami.Window.open('imageClip')
+  Window.open('imageClip')
 
   // 写入数据
-  const write = Yami.getElementWriter('imageClip')
+  const write = getElementWriter('imageClip')
   const [x, y, width, height] = target.read()
   write('x', x)
   write('y', y)
@@ -75,10 +85,10 @@ ImageClip.loadImage = function () {
   // 这里假设图像输入框就在剪辑输入框前面第二个位置
   const id = this.target.getAttribute('image')
   const guid = $('#' + id).read()
-  const path = Yami.File.getPath(guid)
+  const path = File.getPath(guid)
   if (path) {
     const image = this.image
-    image.src = Yami.File.route(path)
+    image.src = File.route(path)
 
     // 更新图像和信息
     const symbol = this.symbol = Symbol()
@@ -139,20 +149,20 @@ ImageClip.updateImage = function () {
 ImageClip.updateTitle = function (path, image) {
   let info
   if (path && image) {
-    const name = Yami.Path.basename(path)
-    const alias = Yami.File.filterGUID(name)
+    const name = Path.basename(path)
+    const alias = File.filterGUID(name)
     const width = image.naturalWidth
     const height = image.naturalHeight
     info = `${alias} - ${width}x${height}`
   } else {
-    info = Yami.Local.get('common.none')
+    info = Local.get('common.none')
   }
   this.window.setTitle(info)
 }
 
 // 更新选框
 ImageClip.updateMarquee = function () {
-  const read = Yami.getElementReader('imageClip')
+  const read = getElementReader('imageClip')
   const x = read('x')
   const y = read('y')
   const width = read('width')
@@ -166,8 +176,8 @@ ImageClip.shiftMarquee = function (ox, oy) {
   const iw = image.naturalWidth
   const ih = image.naturalHeight
   if (iw * ih === 0) return
-  const read = Yami.getElementReader('imageClip')
-  const write = Yami.getElementWriter('imageClip')
+  const read = getElementReader('imageClip')
+  const write = getElementWriter('imageClip')
   const sx = read('x')
   const sy = read('y')
   const sw = read('width')
@@ -215,7 +225,7 @@ ImageClip.scrollToMarquee = function (mode) {
 
 // 开始拖拽
 ImageClip.startDragging = function (event) {
-  Yami.Cursor.open('cursor-grab')
+  Cursor.open('cursor-grab')
   this.dragging = event
   event.mode = 'scroll'
   event.scrollLeft = this.screen.scrollLeft
@@ -294,8 +304,8 @@ ImageClip.marqueePointerdown = function (event) {
       }
       const marquee = this.marquee
       const coords = event.getRelativeCoords(marquee)
-      const read = Yami.getElementReader('imageClip')
-      const write = Yami.getElementWriter('imageClip')
+      const read = getElementReader('imageClip')
+      const write = getElementWriter('imageClip')
       const x = coords.x / marquee.scaleX
       const y = coords.y / marquee.scaleY
       const cw = Math.max(read('width'), 1)
@@ -326,7 +336,7 @@ ImageClip.pointerup = function (event) {
   if (dragging.relate(event)) {
     switch (dragging.mode) {
       case 'scroll':
-        Yami.Cursor.close('cursor-grab')
+        Cursor.close('cursor-grab')
         break
     }
     this.dragging = null
@@ -355,14 +365,14 @@ ImageClip.paramInput = function (event) {
 
 // 确定按钮 - 鼠标点击事件
 ImageClip.confirm = function (event) {
-  const read = Yami.getElementReader('imageClip')
+  const read = getElementReader('imageClip')
   this.target.input([
     read('x'),
     read('y'),
     read('width'),
     read('height'),
   ])
-  Yami.Window.close('imageClip')
+  Window.close('imageClip')
 }.bind(ImageClip)
 
 // ******************************** 图像剪辑窗口导出 ********************************

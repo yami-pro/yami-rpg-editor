@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Window } = Yami
+
 // ******************************** 设置键窗口 ********************************
 
 const SetKey = {
@@ -27,7 +29,7 @@ SetKey.initialize = function () {
 // 打开窗口
 SetKey.open = function (key, callback) {
   this.callback = callback
-  Yami.Window.open('setKey')
+  Window.open('setKey')
   $('#setKey-key').write(key)
   $('#setKey-key').getFocus('all')
 }
@@ -40,7 +42,7 @@ SetKey.windowClosed = function (event) {
 // 确定按钮 - 鼠标点击事件
 SetKey.confirm = function (event) {
   this.callback($('#setKey-key').read())
-  Yami.Window.close('setKey')
+  Window.close('setKey')
 }.bind(SetKey)
 
 // ******************************** 设置键窗口导出 ********************************

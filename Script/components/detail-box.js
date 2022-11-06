@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { DetailSummary } = Yami
+
 // ******************************** 细节框 ********************************
 
 // 默认 details 的子元素无法正确获得 css 百分比高度属性
@@ -29,7 +31,7 @@ class DetailBox extends HTMLElement {
     if (!this.hasAttribute('open')) {
       this.setAttribute('open', '')
       for (const node of this.children) {
-        if (!(node instanceof Yami.DetailSummary)) {
+        if (!(node instanceof DetailSummary)) {
           node.show()
         }
       }
@@ -46,7 +48,7 @@ class DetailBox extends HTMLElement {
     if (this.hasAttribute('open')) {
       this.removeAttribute('open')
       for (const node of this.children) {
-        if (!(node instanceof Yami.DetailSummary)) {
+        if (!(node instanceof DetailSummary)) {
           node.hide()
         }
       }

@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Browser,
+  File,
+  Inspector
+} = Yami
+
 // ******************************** 文件 - 字体页面 ********************************
 
 {
@@ -48,11 +54,11 @@ import * as Yami from '../yami.js'
       const elSize = $('#fileFont-size')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = Yami.File.parseFileSize(size)
+      elSize.textContent = File.parseFileSize(size)
 
       // 加载字体
       const previews = this.previews
-      const path = Yami.File.route(file.path)
+      const path = File.route(file.path)
       const url = CSS.encodeURL(path)
       const font = new FontFace('preview', url)
       for (const preview of previews) {
@@ -81,7 +87,7 @@ import * as Yami from '../yami.js'
       if (this.font instanceof FontFace) {
         document.fonts.delete(this.font)
       }
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.symbol = null
@@ -107,5 +113,5 @@ import * as Yami from '../yami.js'
     }
   }
 
-  Yami.Inspector.fileFont = FileFont
+  Inspector.fileFont = FileFont
 }

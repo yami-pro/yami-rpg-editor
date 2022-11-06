@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  CommonList,
+  Window
+} = Yami
+
 // ******************************** 选择列表 ********************************
 
 class SelectList extends HTMLElement {
@@ -140,12 +145,12 @@ class SelectList extends HTMLElement {
 
   // 重新调整
   resize() {
-    return Yami.CommonList.resize(this)
+    return CommonList.resize(this)
   }
 
   // 更新头部和尾部元素
   updateHeadAndFoot() {
-    return Yami.CommonList.updateHeadAndFoot(this)
+    return CommonList.updateHeadAndFoot(this)
   }
 
   // 在重新调整时更新
@@ -226,7 +231,7 @@ class SelectList extends HTMLElement {
 
   // 清除元素
   clearElements(start) {
-    return Yami.CommonList.clearElements(this, start)
+    return CommonList.clearElements(this, start)
   }
 
   // 清除列表
@@ -347,7 +352,7 @@ class SelectList extends HTMLElement {
     this.style.top = `${top}px`
     this.style.width = `calc(${rw}px - var(--2dpx))`
     this.style.height = `${lines * 20}px`
-    this.style.zIndex = Yami.Window.frames.length + 1
+    this.style.zIndex = Window.frames.length + 1
   }
 
   // 窗口 - 失去焦点事件

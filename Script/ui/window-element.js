@@ -2,9 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  Timer,
+  UI
+} = Yami
+
 // ******************************** 窗口元素 ********************************
 
-class WindowElement extends Yami.UI.Element {
+class WindowElement extends UI.Element {
   _layout       //:string
   scrollWidth   //:number
   scrollHeight  //:number
@@ -77,7 +83,7 @@ class WindowElement extends Yami.UI.Element {
       this._scrollX = scrollX
       if (this.connected) {
         this.resize()
-        Yami.UI.requestRendering()
+        UI.requestRendering()
       }
     }
   }
@@ -95,7 +101,7 @@ class WindowElement extends Yami.UI.Element {
       this._scrollY = scrollY
       if (this.connected) {
         this.resize()
-        Yami.UI.requestRendering()
+        UI.requestRendering()
       }
     }
   }
@@ -107,19 +113,19 @@ class WindowElement extends Yami.UI.Element {
         this.drawChildren()
         break
       case 'hidden':
-        if (!Yami.GL.depthTest) {
-          Yami.GL.alpha = 1
-          Yami.GL.blend = 'normal'
-          Yami.GL.depthTest = true
-          Yami.GL.enable(Yami.GL.DEPTH_TEST)
-          Yami.GL.depthFunc(Yami.GL.ALWAYS)
-          Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
-          Yami.GL.fillRect(this.x, this.y, this.width, this.height, 0x00000000)
-          Yami.GL.depthFunc(Yami.GL.EQUAL)
+        if (!GL.depthTest) {
+          GL.alpha = 1
+          GL.blend = 'normal'
+          GL.depthTest = true
+          GL.enable(GL.DEPTH_TEST)
+          GL.depthFunc(GL.ALWAYS)
+          GL.matrix.set(UI.matrix).multiply(this.matrix)
+          GL.fillRect(this.x, this.y, this.width, this.height, 0x00000000)
+          GL.depthFunc(GL.EQUAL)
           this.drawChildren()
-          Yami.GL.clear(Yami.GL.DEPTH_BUFFER_BIT)
-          Yami.GL.disable(Yami.GL.DEPTH_TEST)
-          Yami.GL.depthTest = false
+          GL.clear(GL.DEPTH_BUFFER_BIT)
+          GL.disable(GL.DEPTH_TEST)
+          GL.depthTest = false
         }
         break
     }
@@ -127,7 +133,7 @@ class WindowElement extends Yami.UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof Yami.UI.Window) {
+    if (this.parent instanceof UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -151,7 +157,7 @@ class WindowElement extends Yami.UI.Element {
 
   // 请求调整大小
   requestResizing = (IIFE => {
-    const timer = new Yami.Timer({
+    const timer = new Timer({
       duration: 0,
       callback: () => this.resize(),
     })
@@ -279,7 +285,7 @@ class WindowElement extends Yami.UI.Element {
   }
 }
 
-Yami.UI.Window = WindowElement
+UI.Window = WindowElement
 
 // ******************************** 窗口元素导出 ********************************
 

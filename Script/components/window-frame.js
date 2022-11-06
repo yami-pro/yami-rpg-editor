@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Layout,
+  TitleBar,
+  Window
+} = Yami
+
 // ******************************** 窗口框架 ********************************
 
 class WindowFrame extends HTMLElement {
@@ -34,11 +40,11 @@ class WindowFrame extends HTMLElement {
 
   // 打开窗口
   open() {
-    if (Yami.Window.frames.append(this)) {
-      Yami.Window.ambient.update()
+    if (Window.frames.append(this)) {
+      Window.ambient.update()
       this.addClass('open')
       this.computePosition()
-      this.style.zIndex = Yami.Window.frames.length
+      this.style.zIndex = Window.frames.length
       if (this.openEventEnabled) {
         this.dispatchEvent(new Event('open'))
       }
@@ -59,8 +65,8 @@ class WindowFrame extends HTMLElement {
       }))) {
       return false
     }
-    if (Yami.Window.frames.remove(this)) {
-      Yami.Window.ambient.update()
+    if (Window.frames.remove(this)) {
+      Window.ambient.update()
       this.removeClass('open')
       if (this.closedEventEnabled) {
         this.dispatchEvent(new Event('closed'))
@@ -130,7 +136,7 @@ class WindowFrame extends HTMLElement {
         !this.hasClass('maximized')) {
         this.addClass('translucent')
       }
-      const selector = Yami.Layout.focusableSelector
+      const selector = Layout.focusableSelector
       const elements = this.querySelectorAll(selector)
       for (const element of elements) {
         element.tabIndex -= 1
@@ -146,17 +152,17 @@ class WindowFrame extends HTMLElement {
   // 计算位置
   computePosition() {
     const mode = this.getAttribute('mode')
-    switch (mode ?? Yami.Window.positionMode) {
+    switch (mode ?? Window.positionMode) {
       case 'center':
         this.center()
         break
       case 'absolute': {
-        const pos = Yami.Window.absolutePos
+        const pos = Window.absolutePos
         this.absolute(pos.x, pos.y)
         break
       }
       case 'overlap': {
-        const frames = Yami.Window.frames
+        const frames = Window.frames
         const parent = frames[frames.length - 2]
         this.overlap(parent)
         break
@@ -206,7 +212,7 @@ class WindowFrame extends HTMLElement {
   // 设置标题
   setTitle(text) {
     const titleBar = this.firstElementChild
-    if (titleBar instanceof Yami.TitleBar) {
+    if (titleBar instanceof TitleBar) {
       for (const childNode of titleBar.childNodes) {
         if (childNode instanceof Text) {
           childNode.nodeValue = text

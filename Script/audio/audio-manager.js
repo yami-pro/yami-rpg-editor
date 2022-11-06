@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  File,
+  SinglePlayer
+} = Yami
+
 // ******************************** 音频管理器 ********************************
 
 const AudioManager = {
@@ -28,7 +33,7 @@ AudioManager.initialize = function () {
   this.analyser.connect(this.context.destination)
 
   // 创建音频对象
-  this.player = new Yami.SinglePlayer()
+  this.player = new SinglePlayer()
 }
 
 // 获取波形图
@@ -41,7 +46,7 @@ AudioManager.getWaveform = function (guid) {
     case 'object':
       return waveform
   }
-  const promise = waveforms[guid] = Yami.File.get({
+  const promise = waveforms[guid] = File.get({
     guid: guid,
     type: 'arraybuffer',
   }).then(

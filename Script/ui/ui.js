@@ -2,6 +2,30 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ctrl,
+  Cursor,
+  Data,
+  DialogBoxElement,
+  Easing,
+  File,
+  GL,
+  GUID,
+  History,
+  ImageTexture,
+  Inspector,
+  Layout,
+  Local,
+  Matrix,
+  Menu,
+  Scene,
+  StageColor,
+  TextBoxElement,
+  TextElement,
+  Timer,
+  Window
+} = Yami
+
 // ******************************** UI 窗口 ********************************
 
 const UI = {
@@ -172,20 +196,20 @@ UI.list.paste = null
 UI.list.delete = null
 UI.list.toggle = null
 UI.list.cancelSearch = null
-UI.list.restoreRecursiveStates = Yami.Scene.list.restoreRecursiveStates
-UI.list.setRecursiveStates = Yami.Scene.list.setRecursiveStates
+UI.list.restoreRecursiveStates = Scene.list.restoreRecursiveStates
+UI.list.setRecursiveStates = Scene.list.setRecursiveStates
 UI.list.createIcon = null
 UI.list.updateHead = null
 UI.list.createConditionIcon = null
 UI.list.updateConditionIcon = null
-UI.list.createEventIcon = Yami.Scene.list.createEventIcon
-UI.list.updateEventIcon = Yami.Scene.list.updateEventIcon
-UI.list.createScriptIcon = Yami.Scene.list.createScriptIcon
-UI.list.updateScriptIcon = Yami.Scene.list.updateScriptIcon
-UI.list.createVisibilityIcon = Yami.Scene.list.createVisibilityIcon
-UI.list.updateVisibilityIcon = Yami.Scene.list.updateVisibilityIcon
-UI.list.createLockIcon = Yami.Scene.list.createLockIcon
-UI.list.updateLockIcon = Yami.Scene.list.updateLockIcon
+UI.list.createEventIcon = Scene.list.createEventIcon
+UI.list.updateEventIcon = Scene.list.updateEventIcon
+UI.list.createScriptIcon = Scene.list.createScriptIcon
+UI.list.updateScriptIcon = Scene.list.updateScriptIcon
+UI.list.createVisibilityIcon = Scene.list.createVisibilityIcon
+UI.list.updateVisibilityIcon = Scene.list.updateVisibilityIcon
+UI.list.createLockIcon = Scene.list.createLockIcon
+UI.list.updateLockIcon = Scene.list.updateLockIcon
 UI.list.onCreate = null
 UI.list.onRemove = null
 UI.list.onDelete = null
@@ -236,24 +260,24 @@ UI.initialize = function () {
   this.controlPoints = points
 
   // 创建控制点纹理
-  Yami.File.get({
+  File.get({
     local: 'images/ui_control_point.png',
     type: 'image',
   }).then(image => {
     if (!image) return
     image.guid = 'ui:control-point'
-    this.controlPointTexture = new Yami.ImageTexture(image)
+    this.controlPointTexture = new ImageTexture(image)
     this.controlPointTexture.base.protected = true
   })
 
   // 创建位移计时器
-  this.translationTimer = new Yami.Timer({
+  this.translationTimer = new Timer({
     duration: Infinity,
     update: timer => {
       if (this.state === 'open' &&
         this.dragging === null) {
         const key = this.translationKey
-        const step = Yami.Timer.deltaTime * 1.5 / this.scale
+        const step = Timer.deltaTime * 1.5 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -280,7 +304,7 @@ UI.initialize = function () {
   })
 
   // 创建缩放计时器
-  this.zoomTimer = new Yami.Timer({
+  this.zoomTimer = new Timer({
     duration: 80,
     update: timer => {
       if (this.state === 'open') {
@@ -300,7 +324,7 @@ UI.initialize = function () {
   this.padding = 800
 
   // 创建变换矩阵
-  this.matrix = new Yami.Matrix()
+  this.matrix = new Matrix()
 
   // 设置检查器类型映射表
   this.inspectorTypeMap = {
@@ -335,21 +359,21 @@ UI.initialize = function () {
   list.updaters.push(list.updateLockIcon)
 
   // 设置历史操作处理器
-  Yami.History.processors['ui-object-create'] = (operation, data) => {
+  History.processors['ui-object-create'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
   }
-  Yami.History.processors['ui-object-delete'] = (operation, data) => {
+  History.processors['ui-object-delete'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
   }
-  Yami.History.processors['ui-object-remove'] = (operation, data) => {
+  History.processors['ui-object-remove'] = (operation, data) => {
     const {response} = data
     const {item} = response
     list.restore(operation, response)
     UI.updateElement(item)
   }
-  Yami.History.processors['ui-object-toggle'] = (operation, data) => {
+  History.processors['ui-object-toggle'] = (operation, data) => {
     const {item, oldValue, newValue} = data
     if (operation === 'undo') {
       item.enabled = oldValue
@@ -359,7 +383,7 @@ UI.initialize = function () {
     list.updateConditionIcon(item)
     UI.planToSave()
   }
-  Yami.History.processors['ui-object-hidden'] = (operation, data) => {
+  History.processors['ui-object-hidden'] = (operation, data) => {
     const {item, oldValues1, oldValues2, newValue} = data
     const {instance} = item
     if (operation === 'undo') {
@@ -373,7 +397,7 @@ UI.initialize = function () {
     UI.requestRendering()
     UI.planToSave()
   }
-  Yami.History.processors['ui-object-locked'] = (operation, data) => {
+  History.processors['ui-object-locked'] = (operation, data) => {
     const {item, oldValues, newValue} = data
     if (operation === 'undo') {
       list.restoreRecursiveStates(item, 'locked', oldValues)
@@ -383,7 +407,7 @@ UI.initialize = function () {
     list.update()
     UI.planToSave()
   }
-  Yami.History.processors['ui-target-anchor'] = (operation, data) => {
+  History.processors['ui-target-anchor'] = (operation, data) => {
     const {editor, target, anchorX, anchorY} = data
     const {instance, transform} = target
     data.anchorX = transform.anchorX
@@ -398,7 +422,7 @@ UI.initialize = function () {
     UI.requestRendering()
     UI.planToSave()
   }
-  Yami.History.processors['ui-target-shift'] = (operation, data) => {
+  History.processors['ui-target-shift'] = (operation, data) => {
     const {editor, target, x, y} = data
     const {instance, transform} = target
     data.x = transform.x
@@ -413,7 +437,7 @@ UI.initialize = function () {
     UI.requestRendering()
     UI.planToSave()
   }
-  Yami.History.processors['ui-target-resize'] = (operation, data) => {
+  History.processors['ui-target-resize'] = (operation, data) => {
     const {editor, target, width, height} = data
     const {instance, transform} = target
     data.width = transform.width
@@ -428,7 +452,7 @@ UI.initialize = function () {
     UI.requestRendering()
     UI.planToSave()
   }
-  Yami.History.processors['ui-target-rotate'] = (operation, data) => {
+  History.processors['ui-target-rotate'] = (operation, data) => {
     const {editor, target, rotation} = data
     const {instance, transform} = target
     data.rotation = transform.rotation
@@ -448,7 +472,7 @@ UI.initialize = function () {
   window.on('keydown', this.keydown)
   this.page.on('resize', this.windowResize)
   this.head.on('pointerdown', this.headPointerdown)
-  Yami.GL.canvas.on('webglcontextrestored', this.webglRestored)
+  GL.canvas.on('webglcontextrestored', this.webglRestored)
   $('#ui-head-start').on('pointerdown', this.switchPointerdown)
   $('#ui-zoom').on('focus', this.zoomFocus)
   $('#ui-zoom').on('input', this.zoomInput)
@@ -483,7 +507,7 @@ UI.open = function (context) {
   // 首次加载界面
   const {meta} = context
   if (!context.ui) {
-    context.ui = Yami.Data.ui[meta.guid]
+    context.ui = Data.ui[meta.guid]
   }
   if (context.ui) {
     this.state = 'open'
@@ -494,8 +518,8 @@ UI.open = function (context) {
     this.resize()
     this.requestRendering()
   } else {
-    Yami.Layout.manager.switch('directory')
-    Yami.Window.confirm({
+    Layout.manager.switch('directory')
+    Window.confirm({
       message: `Failed to read file: ${meta.path}`,
     }, [{
       label: 'Confirm',
@@ -510,7 +534,7 @@ UI.load = function (context) {
     context.editor = {
       target: null,
       root: new UI.Root(),
-      history: new Yami.History(100),
+      history: new History(100),
       centerX: context.ui.width / 2,
       centerY: context.ui.height / 2,
       // listScrollTop: 0,
@@ -580,8 +604,8 @@ UI.close = function () {
   if (this.state !== 'closed') {
     this.screen.blur()
     // 关闭检查器
-    if (Yami.Inspector.type === 'fileUI') {
-      Yami.Inspector.close()
+    if (Inspector.type === 'fileUI') {
+      Inspector.close()
     }
     this.setTarget(null)
     this.state = 'closed'
@@ -636,7 +660,7 @@ UI.paste = function (x, y) {
 UI.create = function (kind, x, y) {
   const map = this.inspectorTypeMap
   const key = map[kind]
-  const editor = Yami.Inspector[key]
+  const editor = Inspector[key]
   const node = editor.create()
   node.transform.x = x
   node.transform.y = y
@@ -737,21 +761,21 @@ UI.setTarget = function (target) {
     if (target) {
       const map = this.inspectorTypeMap
       const key = map[target.class]
-      Yami.Inspector.open(key, target)
+      Inspector.open(key, target)
     } else {
-      Yami.Inspector.close()
+      Inspector.close()
     }
   }
 }
 
 // 显示目标对象
 UI.revealTarget = function IIFE() {
-  const timer = new Yami.Timer({
+  const timer = new Timer({
     duration: 200,
     update: timer => {
       const {target} = timer
       if (target === UI.target) {
-        const easing = Yami.Easing.EasingMap.easeInOut
+        const easing = Easing.EasingMap.easeInOut
         const time = easing.map(timer.elapsed / timer.duration)
         const x = timer.startX * (1 - time) + timer.endX * time
         const y = timer.startY * (1 - time) + timer.endY * time
@@ -825,7 +849,7 @@ UI.shiftAnchor = function (anchorX, anchorY) {
     this.planToSave()
     const instance = target.instance
     const transform = target.transform
-    const editor = Yami.Inspector.uiElement
+    const editor = Inspector.uiElement
     const history = this.history
     const index = history.index
     const length = history.length
@@ -862,7 +886,7 @@ UI.shiftTarget = function (x, y) {
     this.planToSave()
     const instance = target.instance
     const transform = target.transform
-    const editor = Yami.Inspector.uiElement
+    const editor = Inspector.uiElement
     const history = this.history
     const index = history.index
     const length = history.length
@@ -902,7 +926,7 @@ UI.resizeTarget = function (width, height) {
     this.planToSave()
     const instance = target.instance
     const transform = target.transform
-    const editor = Yami.Inspector.uiElement
+    const editor = Inspector.uiElement
     const history = this.history
     const index = history.index
     const length = history.length
@@ -946,7 +970,7 @@ UI.rotateTarget = function (rotation) {
     this.planToSave()
     const instance = target.instance
     const transform = target.transform
-    const editor = Yami.Inspector.uiElement
+    const editor = Inspector.uiElement
     const history = this.history
     const index = history.index
     const length = history.length
@@ -1056,9 +1080,9 @@ UI.updateElementFont = function () {
     const TextBoxElement = UI.TextBox
     const DialogBoxElement = UI.DialogBox
     const update = element => {
-      if ((element instanceof Yami.TextElement ||
-        element instanceof Yami.TextBoxElement ||
-        element instanceof Yami.DialogBoxElement) &&
+      if ((element instanceof TextElement ||
+        element instanceof TextBoxElement ||
+        element instanceof DialogBoxElement) &&
         element.printer !== null) {
         element.printer.reset()
         if (element._font === '') {
@@ -1083,7 +1107,7 @@ UI.updateIndexedColor = function (index) {
     const TextElement = UI.Text
     const regexp = new RegExp(`<color:${index}>`, 'i')
     const update = element => {
-      if (element instanceof Yami.TextElement &&
+      if (element instanceof TextElement &&
         regexp.test(element.content)) {
         element.printer.reset()
         this.requestRendering()
@@ -1224,7 +1248,7 @@ UI.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Yami.Layout.getGroupOfElement(head)
+    const {nav} = Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left
@@ -1277,7 +1301,7 @@ UI.resize = function () {
     this.paddingTop = paddingTop
     this.marquee.style.width = `${outerWidth / dpr}px`
     this.marquee.style.height = `${outerHeight / dpr}px`
-    Yami.GL.resize(screenWidth, screenHeight)
+    GL.resize(screenWidth, screenHeight)
     this.updateCamera()
     this.updateTransform()
     this.root.resize()
@@ -1305,10 +1329,10 @@ UI.updateCamera = function (x = this.centerX, y = this.centerY) {
   const scrollX = x * this.scaleX + this.paddingLeft
   const scrollY = y * this.scaleY + this.paddingTop
   const toleranceForDPR = 0.0001
-  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - Yami.GL.width) / dpr
-  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - Yami.GL.height) / dpr
-  screen.scrollLeft = (scrollX - (Yami.GL.width >> 1) + toleranceForDPR) / dpr
-  screen.scrollTop = (scrollY - (Yami.GL.height >> 1) + toleranceForDPR) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
+  screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceForDPR) / dpr
+  screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceForDPR) / dpr
 }
 
 // 更新变换参数
@@ -1317,8 +1341,8 @@ UI.updateTransform = function () {
   const screen = this.screen
   const left = Math.roundTo(screen.scrollLeft * dpr - this.paddingLeft, 4)
   const top = Math.roundTo(screen.scrollTop * dpr - this.paddingTop, 4)
-  const right = left + Yami.GL.width
-  const bottom = top + Yami.GL.height
+  const right = left + GL.width
+  const bottom = top + GL.height
   this.scrollLeft = left / this.scaleX
   this.scrollTop = top / this.scaleY
   this.scrollRight = right / this.scaleX
@@ -1335,15 +1359,15 @@ UI.updateTransform = function () {
 // 设置预设对象ID
 UI.setPresetId = function IIFE() {
   const generatePresetId = () => {
-    const {uiLinks} = Yami.Data
+    const {uiLinks} = Data
     let id
-    do {id = Yami.GUID.generate64bit()}
+    do {id = GUID.generate64bit()}
     while (id in uiLinks)
     uiLinks[id] = UI.meta.guid
     return id
   }
   const setPresetId = item => {
-    const {uiLinks} = Yami.Data
+    const {uiLinks} = Data
     const {presetId} = item
     if (presetId === '' || presetId in uiLinks) {
       item.presetId = generatePresetId()
@@ -1362,7 +1386,7 @@ UI.setPresetId = function IIFE() {
 // 解除预设对象ID的链接
 UI.unlinkPresetId = function IIFE() {
   const unlinkPresetId = item => {
-    delete Yami.Data.uiLinks[item.presetId]
+    delete Data.uiLinks[item.presetId]
     for (const child of item.children) {
       unlinkPresetId(child)
     }
@@ -1418,7 +1442,7 @@ UI.loadElement = function (node, parent) {
 
 // 绘制背景
 UI.drawBackground = function () {
-  const gl = Yami.GL
+  const gl = GL
   gl.clearColor(...this.background.getGLRGBA())
   gl.clear(gl.COLOR_BUFFER_BIT)
 }
@@ -1432,7 +1456,7 @@ UI.drawElements = function () {
 UI.drawCoordinateAxes = function () {
   if (this.target !== null) {
     const {parent} = this.target.instance
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     const matrix = gl.matrix
     .set(UI.matrix)
@@ -1530,7 +1554,7 @@ UI.drawTargetWireframe = function () {
 UI.drawTargetAnchor = function () {
   if (this.target !== null) {
     const {instance} = this.target
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     const matrix = gl.matrix
     .set(UI.matrix)
@@ -1577,7 +1601,7 @@ UI.drawControlPoints = function () {
   if (target !== null && texture !== null) {
     this.updateControlPoints()
     const POINT_RADIUS = 4 / this.scale
-    const gl = Yami.GL
+    const gl = GL
     const vertices = gl.arrays[0].float32
     let vi = 0
     const {list} = this.controlPoints
@@ -1668,13 +1692,13 @@ UI.selectObject = function IIFE() {
 // 请求渲染
 UI.requestRendering = function () {
   if (this.state === 'open') {
-    Yami.Timer.appendUpdater('stageRendering', this.renderingFunction)
+    Timer.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
 // 渲染函数
 UI.renderingFunction = function () {
-  if (Yami.GL.width * Yami.GL.height !== 0) {
+  if (GL.width * GL.height !== 0) {
     UI.drawBackground()
     UI.drawElements()
     UI.drawCoordinateAxes()
@@ -1687,22 +1711,22 @@ UI.renderingFunction = function () {
 
 // 停止渲染
 UI.stopRendering = function () {
-  Yami.Timer.removeUpdater('stageRendering', this.renderingFunction)
+  Timer.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 开关设置
 UI.switchSettings = function () {
-  if (!Yami.Inspector.fileUI.button.hasClass('selected')) {
-    Yami.Inspector.open('fileUI', UI)
+  if (!Inspector.fileUI.button.hasClass('selected')) {
+    Inspector.open('fileUI', UI)
   } else {
-    Yami.Inspector.close()
+    Inspector.close()
   }
 }
 
 // 更新字体
 UI.updateFont = function () {
-  const context = Yami.GL.context2d
-  const font = Yami.Data.config.font
+  const context = GL.context2d
+  const font = Data.config.font
   const {pixelated, threshold} = font
   if (context.mode !== 'ui' ||
     context.pixelated !== pixelated ||
@@ -1710,8 +1734,8 @@ UI.updateFont = function () {
     context.mode = 'ui'
     context.pixelated = pixelated
     context.threshold = threshold
-    const program = Yami.GL.textProgram.use()
-    Yami.GL.uniform1f(program.u_Threshold, pixelated ? threshold / 255 : 0)
+    const program = GL.textProgram.use()
+    GL.uniform1f(program.u_Threshold, pixelated ? threshold / 255 : 0)
     return true
   }
   return false
@@ -1719,7 +1743,7 @@ UI.updateFont = function () {
 
 // 计划保存
 UI.planToSave = function () {
-  Yami.File.planToSave(this.meta)
+  File.planToSave(this.meta)
 }
 
 // 保存状态到配置文件
@@ -1730,11 +1754,11 @@ UI.saveToConfig = function (config) {
 
 // 从配置文件中加载状态
 UI.loadFromConfig = function (config) {
-  this.background = new Yami.StageColor(
+  this.background = new StageColor(
     config.colors.uiBackground,
     () => this.requestRendering(),
   )
-  this.foreground = new Yami.StageColor(
+  this.foreground = new StageColor(
     config.colors.uiForeground,
     () => {
       if (this.state === 'open') {
@@ -2034,7 +2058,7 @@ UI.marqueePointerdown = function (event) {
         event.mode = 'scroll'
         event.scrollLeft = this.screen.scrollLeft
         event.scrollTop = this.screen.scrollTop
-        Yami.Cursor.open('cursor-grab')
+        Cursor.open('cursor-grab')
         window.on('pointerup', this.pointerup)
         window.on('pointermove', this.pointermove)
         return
@@ -2049,7 +2073,7 @@ UI.marqueePointerdown = function (event) {
           case points.rotate.BL:
           case points.rotate.BR: {
             const {instance} = this.target
-            const matrix = Yami.Matrix.instance
+            const matrix = Matrix.instance
             .set(UI.matrix)
             .multiply(instance.matrix)
             const X = instance.x + instance.width * transform.anchorX
@@ -2062,7 +2086,7 @@ UI.marqueePointerdown = function (event) {
             const f = matrix[7]
             const ax = a * X + c * Y + e
             const ay = b * X + d * Y + f
-            const {x, y} = event.getRelativeCoords(Yami.GL.canvas)
+            const {x, y} = event.getRelativeCoords(GL.canvas)
             event.mode = 'object-rotate'
             event.absoluteAnchorX = ax
             event.absoluteAnchorY = ay
@@ -2175,7 +2199,7 @@ UI.pointerup = function (event) {
         break
       case 'scroll':
         this.screen.endScrolling()
-        Yami.Cursor.close('cursor-grab')
+        Cursor.close('cursor-grab')
         break
     }
     this.dragging = null
@@ -2191,7 +2215,7 @@ UI.pointermove = function (event) {
     switch (dragging.mode) {
       case 'object-rotate':
         if (this.target) {
-          const {x, y} = event.getRelativeCoords(Yami.GL.canvas)
+          const {x, y} = event.getRelativeCoords(GL.canvas)
           const distX = x - dragging.absoluteAnchorX
           const distY = y - dragging.absoluteAnchorY
           const currentAngle = Math.atan2(distY, distX)
@@ -2350,7 +2374,7 @@ UI.pointermove = function (event) {
         )
         if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
-          Yami.Cursor.open('cursor-grab')
+          Cursor.open('cursor-grab')
         }
         break
       }
@@ -2375,8 +2399,8 @@ UI.menuPopup = function (event) {
   const target = this.target
   const selected = !!target
   const pastable = Clipboard.has('yami.ui.object')
-  const get = Yami.Local.createGetter('menuUI')
-  Yami.Menu.popup({
+  const get = Local.createGetter('menuUI')
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [{
@@ -2433,7 +2457,7 @@ UI.menuPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: Yami.ctrl('X'),
+    accelerator: ctrl('X'),
     enabled: selected,
     click: () => {
       this.copy()
@@ -2441,14 +2465,14 @@ UI.menuPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: selected,
     click: () => {
       this.copy()
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(x, y)
@@ -2605,7 +2629,7 @@ UI.listRecord = function (event) {
 UI.listPopup = function (event) {
   const item = event.value
   const menuItems = []
-  const get = Yami.Local.createGetter('menuUIList')
+  const get = Local.createGetter('menuUIList')
   let selected
   let copyable
   let pastable
@@ -2616,42 +2640,42 @@ UI.listPopup = function (event) {
     submenu: [{
       label: get('create.image'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiImage.create(), item)
+        this.addNodeTo(Inspector.uiImage.create(), item)
       },
     }, {
       label: get('create.text'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiText.create(), item)
+        this.addNodeTo(Inspector.uiText.create(), item)
       },
     }, {
       label: get('create.textBox'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiTextBox.create(), item)
+        this.addNodeTo(Inspector.uiTextBox.create(), item)
       },
     }, {
       label: get('create.dialogBox'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiDialogBox.create(), item)
+        this.addNodeTo(Inspector.uiDialogBox.create(), item)
       },
     }, {
       label: get('create.progressBar'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiProgressBar.create(), item)
+        this.addNodeTo(Inspector.uiProgressBar.create(), item)
       },
     }, {
       label: get('create.video'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiVideo.create(), item)
+        this.addNodeTo(Inspector.uiVideo.create(), item)
       },
     }, {
       label: get('create.window'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiWindow.create(), item)
+        this.addNodeTo(Inspector.uiWindow.create(), item)
       },
     }, {
       label: get('create.container'),
       click: () => {
-        this.addNodeTo(Yami.Inspector.uiContainer.create(), item)
+        this.addNodeTo(Inspector.uiContainer.create(), item)
       },
     }],
   })
@@ -2685,7 +2709,7 @@ UI.listPopup = function (event) {
     type: 'separator',
   }, {
     label: get('cut'),
-    accelerator: Yami.ctrl('X'),
+    accelerator: ctrl('X'),
     enabled: copyable,
     click: () => {
       this.copy(item)
@@ -2693,14 +2717,14 @@ UI.listPopup = function (event) {
     },
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -2726,7 +2750,7 @@ UI.listPopup = function (event) {
       navigator.clipboard.writeText(item.presetId)
     },
   })
-  Yami.Menu.popup({
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, menuItems)
@@ -2739,7 +2763,7 @@ UI.listOpen = function (event) {
 
 // 列表 - 重命名事件
 UI.listRename = function (response) {
-  const editor = Yami.Inspector.uiElement
+  const editor = Inspector.uiElement
   const target = response.item
   const input = editor.nameBox
   const {oldValue, newValue} = response
@@ -2880,7 +2904,7 @@ UI.list.updateHead = function () {
   const {page, head} = this
   if (page.clientWidth !== 0) {
     // 调整左边位置
-    const {nav} = Yami.Layout.getGroupOfElement(head)
+    const {nav} = Layout.getGroupOfElement(head)
     const nRect = nav.rect()
     const iRect = nav.lastChild.rect()
     const left = iRect.right - nRect.left

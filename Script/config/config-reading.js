@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  File,
+  Path
+} = Yami
+
 // ******************************** 读取配置文件 ********************************
 
 if (window.process) {
@@ -12,7 +17,7 @@ if (window.process) {
   .then(json => JSON.parse(json))
   .catch(error => {
     // 如果不存在配置文件或加载出错
-    return Yami.File.get({
+    return File.get({
       local: 'default.json',
       type: 'json',
     }).then(config => {
@@ -31,7 +36,7 @@ if (window.process) {
       .then(path => {
         const dirname = `${path}/Games`
         for (const key of Object.keys(config.dialogs)) {
-          config.dialogs[key] = Yami.Path.slash(dirname)
+          config.dialogs[key] = Path.slash(dirname)
         }
         return config
       })

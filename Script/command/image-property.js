@@ -2,6 +2,14 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 设置图像 - 属性窗口 ********************************
 
 const ImageProperty = {
@@ -83,31 +91,31 @@ ImageProperty.initialize = function () {
 
 // 解析属性
 ImageProperty.parse = function ({key, value}) {
-  const get = Yami.Local.createGetter('command.setImage')
+  const get = Local.createGetter('command.setImage')
   const name = get(key)
   switch (key) {
     case 'image':
-      return `${name}(${Yami.Command.parseFileName(value)})`
+      return `${name}(${Command.parseFileName(value)})`
     case 'display':
       return `${name}(${get('display.' + value)})`
     case 'flip':
       return `${name}(${get('flip.' + value)})`
     case 'blend':
-      return `${name}(${Yami.Command.parseBlend(value)})`
+      return `${name}(${Command.parseBlend(value)})`
     case 'shiftX':
     case 'shiftY':
     case 'clip-0':
     case 'clip-1':
     case 'clip-2':
     case 'clip-3':
-      return `${name}(${Yami.Command.parseVariableNumber(value)})`
+      return `${name}(${Command.parseVariableNumber(value)})`
   }
 }
 
 // 打开数据
 ImageProperty.open = function ({key = 'image', value = ''} = {}) {
-  Yami.Window.open('setImage-property')
-  const write = Yami.getElementWriter('setImage-property')
+  Window.open('setImage-property')
+  const write = getElementWriter('setImage-property')
   let image = ''
   let display = 'stretch'
   let flip = 'none'
@@ -166,7 +174,7 @@ ImageProperty.open = function ({key = 'image', value = ''} = {}) {
 
 // 保存数据
 ImageProperty.save = function () {
-  const read = Yami.getElementReader('setImage-property')
+  const read = getElementReader('setImage-property')
   const key = read('key')
   let value
   switch (key) {
@@ -201,7 +209,7 @@ ImageProperty.save = function () {
       value = read('clip-3')
       break
   }
-  Yami.Window.close('setImage-property')
+  Window.close('setImage-property')
   return {key, value}
 }
 

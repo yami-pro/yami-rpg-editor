@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Editor,
+  getElementReader,
+  getElementWriter,
+  Window
+} = Yami
+
 // ******************************** 默认对象文件夹 ********************************
 
 const ObjectFolder = {
@@ -20,9 +27,9 @@ ObjectFolder.initialize = function () {
 
 // 打开窗口
 ObjectFolder.open = function () {
-  Yami.Window.open('object-folder')
-  const data = Yami.Editor.project.scene.defaultFolders
-  const write = Yami.getElementWriter('object-folder', data)
+  Window.open('object-folder')
+  const data = Editor.project.scene.defaultFolders
+  const write = getElementWriter('object-folder', data)
   write('tilemap')
   write('actor')
   write('region')
@@ -34,8 +41,8 @@ ObjectFolder.open = function () {
 
 // 确定按钮 - 鼠标点击事件
 ObjectFolder.confirm = function (event) {
-  const read = Yami.getElementReader('object-folder')
-  Yami.Editor.project.scene.defaultFolders = {
+  const read = getElementReader('object-folder')
+  Editor.project.scene.defaultFolders = {
     tilemap: read('tilemap'),
     actor: read('actor'),
     region: read('region'),
@@ -44,7 +51,7 @@ ObjectFolder.confirm = function (event) {
     particle: read('particle'),
     parallax: read('parallax'),
   }
-  Yami.Window.close('object-folder')
+  Window.close('object-folder')
 }
 
 // ******************************** 默认对象文件夹导出 ********************************

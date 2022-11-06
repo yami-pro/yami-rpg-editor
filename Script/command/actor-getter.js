@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  PresetObject,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 角色访问器窗口 ********************************
 
 const ActorGetter = {
@@ -62,11 +69,11 @@ ActorGetter.initialize = function () {
 // 打开窗口
 ActorGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('actorGetter')
+  Window.open('actorGetter')
 
   let memberId = 0
   let actorId = ''
-  let presetId = Yami.PresetObject.getDefaultPresetId('actor')
+  let presetId = PresetObject.getDefaultPresetId('actor')
   let variable = {type: 'local', key: ''}
   const actor = target.dataValue
   switch (actor.type) {
@@ -99,7 +106,7 @@ ActorGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 ActorGetter.confirm = function (event) {
-  const read = Yami.getElementReader('actorGetter')
+  const read = getElementReader('actorGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -133,7 +140,7 @@ ActorGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#actorGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -141,7 +148,7 @@ ActorGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('actorGetter')
+  Window.close('actorGetter')
 }.bind(ActorGetter)
 
 // ******************************** 角色访问器窗口导出 ********************************

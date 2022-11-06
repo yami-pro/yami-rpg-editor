@@ -2,6 +2,17 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ctrl,
+  Data,
+  File,
+  GUID,
+  History,
+  Local,
+  Menu,
+  Window
+} = Yami
+
 // ******************************** 属性窗口 ********************************
 
 const Attribute = {
@@ -108,7 +119,7 @@ Attribute.initialize = function () {
   this.searcher.addCloseButton()
 
   // 设置历史操作处理器
-  Yami.History.processors['attribute-list-operation'] = (operation, data) => {
+  History.processors['attribute-list-operation'] = (operation, data) => {
     const {response} = data
     list.restore(operation, response)
     if (list.read() === null &&
@@ -117,14 +128,14 @@ Attribute.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['attribute-settings-change'] = (operation, data) => {
+  History.processors['attribute-settings-change'] = (operation, data) => {
     const {settings} = data
     data.settings = this.settings
     this.settings = settings
     list.update()
     this.changed = true
   }
-  Yami.History.processors['attribute-name-change'] = (operation, data) => {
+  History.processors['attribute-name-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.name
     item.name = value
@@ -138,7 +149,7 @@ Attribute.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['attribute-key-change'] = (operation, data) => {
+  History.processors['attribute-key-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.key
     item.key = value
@@ -152,7 +163,7 @@ Attribute.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['attribute-type-change'] = (operation, data) => {
+  History.processors['attribute-type-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.type
     item.type = value
@@ -166,7 +177,7 @@ Attribute.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['attribute-enum-change'] = (operation, data) => {
+  History.processors['attribute-enum-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.enum
     item.enum = value
@@ -179,7 +190,7 @@ Attribute.initialize = function () {
     }
     this.changed = true
   }
-  Yami.History.processors['attribute-note-change'] = (operation, data) => {
+  History.processors['attribute-note-change'] = (operation, data) => {
     const {item, value} = data
     data.value = item.note
     item.note = value
@@ -222,9 +233,9 @@ Attribute.initialize = function () {
 Attribute.open = function (target = null, mode = 'normal') {
   this.mode = mode
   this.target = target
-  this.history = new Yami.History(100)
+  this.history = new History(100)
   this.unpackAttribute()
-  Yami.Window.open('attribute')
+  Window.open('attribute')
 
   // 查询项目并更新列表
   const list = this.list
@@ -270,7 +281,7 @@ Attribute.redo = function () {
 // 创建ID
 Attribute.createId = function () {
   let id
-  do {id = Yami.GUID.generate64bit()}
+  do {id = GUID.generate64bit()}
   while (this.idList.includes(id))
   this.idList.push(id)
   return id
@@ -317,27 +328,27 @@ Attribute.setFolderGroup = function (folder, newGroup) {
 
 // 获取属性群组
 Attribute.getGroup = function (groupKey) {
-  return Yami.Data.attribute.context.getGroup(groupKey)
+  return Data.attribute.context.getGroup(groupKey)
 }
 
 // 获取属性
 Attribute.getAttribute = function (attrId) {
-  return Yami.Data.attribute.context.getAttribute(attrId)
+  return Data.attribute.context.getAttribute(attrId)
 }
 
 // 获取群组属性
 Attribute.getGroupAttribute = function (groupKey, attrId) {
-  return Yami.Data.attribute.context.getGroupAttribute(groupKey, attrId)
+  return Data.attribute.context.getGroupAttribute(groupKey, attrId)
 }
 
 // 获取默认属性ID
 Attribute.getDefAttributeId = function (groupKey, type) {
-  return Yami.Data.attribute.context.getDefAttributeId(groupKey, type)
+  return Data.attribute.context.getDefAttributeId(groupKey, type)
 }
 
 // 获取属性选项列表
 Attribute.getAttributeItems = function (groupKey, attrType, allowNone) {
-  return Yami.Data.attribute.context.getAttributeItems(groupKey, attrType, allowNone)
+  return Data.attribute.context.getAttributeItems(groupKey, attrType, allowNone)
 }
 
 // 打开属性面板
@@ -384,7 +395,7 @@ Attribute.unpackAttribute = function IIFE() {
     // 写入展开状态
     set expanded(value) {
       this.data.expanded = value
-      Yami.File.planToSave(Yami.Data.manifest.project.attribute)
+      File.planToSave(Data.manifest.project.attribute)
     }
   }
   const clone = items => {
@@ -403,8 +414,8 @@ Attribute.unpackAttribute = function IIFE() {
   }
   return function () {
     this.idList = []
-    this.data = clone(Yami.Data.attribute.keys)
-    this.settings = Object.clone(Yami.Data.attribute.settings)
+    this.data = clone(Data.attribute.keys)
+    this.settings = Object.clone(Data.attribute.settings)
     // 创建特殊分组的键列表
     if (!this.settingKeys) {
       this.settingKeys = Object.keys(this.settings)
@@ -440,9 +451,9 @@ Attribute.packAttribute = function IIFE() {
     return copies
   }
   return function () {
-    Yami.Data.attribute.keys = clone(this.data)
-    Yami.Data.attribute.settings = Object.clone(this.settings)
-    Yami.Data.createAttributeContext()
+    Data.attribute.keys = clone(this.data)
+    Data.attribute.settings = Object.clone(this.settings)
+    Data.createAttributeContext()
   }
 }()
 
@@ -470,14 +481,14 @@ Attribute.windowClose = function (event) {
   this.list.saveScroll()
   if (this.changed) {
     event.preventDefault()
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('closeUnsavedAttributes'),
     }, [{
       label: get('yes'),
       click: () => {
         this.changed = false
-        Yami.Window.close('attribute')
+        Window.close('attribute')
       },
     }, {
       label: get('no'),
@@ -618,7 +629,7 @@ Attribute.listPopup = function (event) {
   const pastable = Clipboard.has('yami.data.attribute')
   const undoable = Attribute.history.canUndo()
   const redoable = Attribute.history.canRedo()
-  const get = Yami.Local.createGetter('menuAttributeList')
+  const get = Local.createGetter('menuAttributeList')
   let headItems = Array.empty
   let footItems = Array.empty
   if (selected) {
@@ -653,7 +664,7 @@ Attribute.listPopup = function (event) {
       submenu: submenu,
     }]
   }
-  Yami.Menu.popup({
+  Menu.popup({
     x: event.clientX,
     y: event.clientY,
   }, [...headItems, {
@@ -672,14 +683,14 @@ Attribute.listPopup = function (event) {
     }],
   }, {
     label: get('copy'),
-    accelerator: Yami.ctrl('C'),
+    accelerator: ctrl('C'),
     enabled: copyable,
     click: () => {
       this.copy(item)
     },
   }, {
     label: get('paste'),
-    accelerator: Yami.ctrl('V'),
+    accelerator: ctrl('V'),
     enabled: pastable,
     click: () => {
       this.paste(item)
@@ -700,14 +711,14 @@ Attribute.listPopup = function (event) {
     },
   }, {
     label: get('undo'),
-    accelerator: Yami.ctrl('Z'),
+    accelerator: ctrl('Z'),
     enabled: undoable,
     click: () => {
       Attribute.undo()
     },
   }, {
     label: get('redo'),
-    accelerator: Yami.ctrl('Y'),
+    accelerator: ctrl('Y'),
     enabled: redoable,
     click: () => {
       Attribute.redo()
@@ -844,7 +855,7 @@ Attribute.confirm = function (event) {
       break
     }
   }
-  Yami.Window.close('attribute')
+  Window.close('attribute')
 }.bind(Attribute)
 
 // 应用按钮 - 鼠标点击事件
@@ -854,7 +865,7 @@ Attribute.apply = function (event) {
 
     // 保存属性数据
     this.packAttribute()
-    Yami.File.planToSave(Yami.Data.manifest.project.attribute)
+    File.planToSave(Data.manifest.project.attribute)
 
     // 发送属性改变事件
     window.dispatchEvent(new Event('attributechange'))
@@ -881,8 +892,8 @@ Attribute.list.paste = function (dItem) {
 // 列表 - 删除
 Attribute.list.delete = function (item) {
   if (item) {
-    const get = Yami.Local.createGetter('confirmation')
-    Yami.Window.confirm({
+    const get = Local.createGetter('confirmation')
+    Window.confirm({
       message: get('deleteSingleFile').replace('<filename>', item.name),
     }, [{
       label: get('yes'),
@@ -906,7 +917,7 @@ Attribute.list.delete = function (item) {
 
 // 列表 - 保存滚动状态
 Attribute.list.saveScroll = function () {
-  const {attribute} = Yami.Data
+  const {attribute} = Data
   // 将数据保存在外部可以切换项目后重置
   if (attribute.scrollTop === undefined) {
     Object.defineProperty(attribute, 'scrollTop', {
@@ -919,7 +930,7 @@ Attribute.list.saveScroll = function () {
 
 // 列表 - 恢复滚动状态
 Attribute.list.restoreScroll = function () {
-  this.scrollTop = Yami.Data.attribute.scrollTop ?? 0
+  this.scrollTop = Data.attribute.scrollTop ?? 0
 }
 
 // 列表 - 取消搜索

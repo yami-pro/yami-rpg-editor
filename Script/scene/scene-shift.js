@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Window } = Yami
+
 // ******************************** 移动场景 ********************************
 
 const SceneShift = {
@@ -25,7 +27,7 @@ SceneShift.initialize = function () {
 // 打开窗口
 SceneShift.open = function (callback) {
   this.callback = callback
-  Yami.Window.open('scene-shift')
+  Window.open('scene-shift')
   $('#scene-shift-x').write(0)
   $('#scene-shift-y').write(0)
   $('#scene-shift-x').getFocus('all')
@@ -44,7 +46,7 @@ SceneShift.confirm = function (event) {
     return $('#scene-shift-x').getFocus()
   }
   SceneShift.callback(x, y)
-  Yami.Window.close('scene-shift')
+  Window.close('scene-shift')
 }
 
 // ******************************** 移动场景导出 ********************************

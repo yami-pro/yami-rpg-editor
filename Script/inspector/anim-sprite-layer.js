@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Animation,
+  getElementWriter,
+  Inspector
+} = Yami
+
 // ******************************** 动画 - 精灵层页面 ********************************
 
 {
@@ -38,8 +44,8 @@ import * as Yami from '../yami.js'
     // 侦听事件
     const elements = $('#animSpriteLayer-sprite, #animSpriteLayer-blend, #animSpriteLayer-light')
     elements.on('input', this.paramInput)
-    elements.on('focus', Yami.Inspector.inputFocus)
-    elements.on('blur', Yami.Inspector.inputBlur(
+    elements.on('focus', Inspector.inputFocus)
+    elements.on('blur', Inspector.inputBlur(
       this, Animation, data => {
         data.type = 'inspector-layer-change'
         data.motion = this.motion
@@ -57,7 +63,7 @@ import * as Yami from '../yami.js'
       sprite: '',
       blend: 'normal',
       light: 'raw',
-      frames: [Yami.Inspector.animSpriteFrame.create()],
+      frames: [Inspector.animSpriteFrame.create()],
     }
   }
 
@@ -65,15 +71,15 @@ import * as Yami from '../yami.js'
   AnimSpriteLayer.open = function (layer) {
     if (this.target !== layer) {
       this.target = layer
-      this.motion = Yami.Animation.motion
+      this.motion = Animation.motion
 
       // 创建精灵图选项
-      const id = Yami.Animation.meta.guid
-      const items = Yami.Animation.getSpriteListItems(id)
+      const id = Animation.meta.guid
+      const items = Animation.getSpriteListItems(id)
       $('#animSpriteLayer-sprite').loadItems(items)
 
       // 写入数据
-      const write = Yami.getElementWriter('animSpriteLayer', layer)
+      const write = getElementWriter('animSpriteLayer', layer)
       write('sprite')
       write('blend')
       write('light')
@@ -90,7 +96,7 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   AnimSpriteLayer.update = function (layer, key, value) {
-    Yami.Animation.planToSave()
+    Animation.planToSave()
     switch (key) {
       case 'sprite':
       case 'blend':
@@ -100,17 +106,17 @@ import * as Yami from '../yami.js'
         }
         break
     }
-    Yami.Animation.requestRendering()
+    Animation.requestRendering()
   }
 
   // 参数 - 输入事件
   AnimSpriteLayer.paramInput = function (event) {
     AnimSpriteLayer.update(
       AnimSpriteLayer.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
-  Yami.Inspector.animSpriteLayer = AnimSpriteLayer
+  Inspector.animSpriteLayer = AnimSpriteLayer
 }

@@ -2,6 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Color,
+  Command,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 设置对话框 - 属性窗口 ********************************
 
 const DialogBoxProperty = {
@@ -92,11 +101,11 @@ DialogBoxProperty.initialize = function () {
 
 // 解析属性
 DialogBoxProperty.parse = function ({key, value}) {
-  const get = Yami.Local.createGetter('command.setDialogBox')
+  const get = Local.createGetter('command.setDialogBox')
   const name = get(key)
   switch (key) {
     case 'content': {
-      let string = Yami.Command.parseMultiLineString(Yami.Command.parseVariableTag(value))
+      let string = Command.parseMultiLineString(Command.parseVariableTag(value))
       if (string.length > 40) {
         string = string.slice(0, 40) + '...'
       }
@@ -108,7 +117,7 @@ DialogBoxProperty.parse = function ({key, value}) {
     case 'letterSpacing':
       return `${name}(${value})`
     case 'color':
-      return `${name}(#${Yami.Color.simplifyHexColor(value)})`
+      return `${name}(#${Color.simplifyHexColor(value)})`
     case 'font':
       return `${name}(${value || get('font.default')})`
     case 'effect':
@@ -118,28 +127,28 @@ DialogBoxProperty.parse = function ({key, value}) {
         case 'shadow': {
           const x = value.shadowOffsetX
           const y = value.shadowOffsetY
-          const color = Yami.Color.simplifyHexColor(value.color)
+          const color = Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.shadow')}, ${x}, ${y}, #${color})`
         }
         case 'stroke': {
           const width = value.strokeWidth
-          const color = Yami.Color.simplifyHexColor(value.color)
+          const color = Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.stroke')}, ${width}, #${color})`
         }
         case 'outline': {
-          const color = Yami.Color.simplifyHexColor(value.color)
+          const color = Color.simplifyHexColor(value.color)
           return `${name}(${get('effect.outline')}, #${color})`
         }
       }
     case 'blend':
-      return `${name}(${Yami.Command.parseBlend(value)})`
+      return `${name}(${Command.parseBlend(value)})`
   }
 }
 
 // 打开数据
 DialogBoxProperty.open = function ({key = 'content', value = ''} = {}) {
-  Yami.Window.open('setDialogBox-property')
-  const write = Yami.getElementWriter('setDialogBox-property')
+  Window.open('setDialogBox-property')
+  const write = getElementWriter('setDialogBox-property')
   let content = ''
   let interval = 0
   let size = 16
@@ -205,7 +214,7 @@ DialogBoxProperty.open = function ({key = 'content', value = ''} = {}) {
 
 // 保存数据
 DialogBoxProperty.save = function () {
-  const read = Yami.getElementReader('setDialogBox-property')
+  const read = getElementReader('setDialogBox-property')
   const key = read('key')
   let value
   switch (key) {
@@ -264,7 +273,7 @@ DialogBoxProperty.save = function () {
       value = read('blend')
       break
   }
-  Yami.Window.close('setDialogBox-property')
+  Window.close('setDialogBox-property')
   return {key, value}
 }
 

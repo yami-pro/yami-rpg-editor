@@ -2,6 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Attribute,
+  Data,
+  getElementReader,
+  getElementWriter,
+  SelectBox,
+  Window
+} = Yami
+
 // ******************************** 变量访问器窗口 ********************************
 
 const VariableGetter = {
@@ -79,7 +88,7 @@ VariableGetter.initialize = function () {
   $('#variableGetter-type').setItemNames = function (options) {
     const backup = this.dataItems
     this.dataItems = allTypes
-    Yami.SelectBox.prototype.setItemNames.call(this, options)
+    SelectBox.prototype.setItemNames.call(this, options)
     this.dataItems = backup
   }
 
@@ -119,7 +128,7 @@ VariableGetter.open = function (target) {
   }
 
   this.target = target
-  Yami.Window.open('variableGetter')
+  Window.open('variableGetter')
   const variable = target.dataValue
   const type = variable.type
   const key = variable.key
@@ -170,8 +179,8 @@ VariableGetter.open = function (target) {
       commonKey = key
       break
   }
-  const write = Yami.getElementWriter('variableGetter')
-  this.keyBox.loadItems(Yami.Attribute.getAttributeItems('none'))
+  const write = getElementWriter('variableGetter')
+  this.keyBox.loadItems(Attribute.getAttributeItems('none'))
   write('type', type)
   write('actor', actor)
   write('skill', skill)
@@ -205,7 +214,7 @@ VariableGetter.loadPresetKeys = function (group) {
       type = this.filter.split('-')[1]
       break
   }
-  this.keyBox.loadItems(Yami.Attribute.getAttributeItems(group, type))
+  this.keyBox.loadItems(Attribute.getAttributeItems(group, type))
 }
 
 // 类型写入事件
@@ -257,14 +266,14 @@ VariableGetter.typeInput = function (event) {
 
 // 确定按钮 - 鼠标点击事件
 VariableGetter.confirm = function (event) {
-  const read = Yami.getElementReader('variableGetter')
+  const read = getElementReader('variableGetter')
   const type = read('type')
   let getter
   let key
   switch (type) {
     case 'global': {
       key = read('global-key')
-      const variable = Yami.Data.variables.map[key]
+      const variable = Data.variables.map[key]
       const filter = this.target.filter
       switch (filter) {
         case 'boolean':
@@ -332,7 +341,7 @@ VariableGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('variableGetter')
+  Window.close('variableGetter')
 }.bind(VariableGetter)
 
 // ******************************** 变量访问器窗口导出 ********************************

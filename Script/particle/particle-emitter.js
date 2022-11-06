@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { Particle } = Yami
+
 // ******************************** 粒子发射器类 ********************************
 
 class ParticleEmitter {
@@ -21,7 +23,7 @@ class ParticleEmitter {
     const sLength = sLayers.length
     const dLayers = new Array(sLength)
     for (let i = 0; i < sLength; i++) {
-      dLayers[i] = new Yami.Particle.Layer(this, sLayers[i])
+      dLayers[i] = new Particle.Layer(this, sLayers[i])
     }
     this.data = data
     this.startX = 0
@@ -57,7 +59,7 @@ class ParticleEmitter {
       const sLayer = sLayers[i]
       let dLayer = map.get(sLayer)
       if (dLayer) map.delete(sLayer)
-      else dLayer = new Yami.Particle.Layer(this, sLayer)
+      else dLayer = new Particle.Layer(this, sLayer)
       dLayers[i] = dLayer
     }
     // 销毁已经不存在的图层
@@ -134,7 +136,7 @@ class ParticleEmitter {
   }
 }
 
-Yami.Particle.Emitter = ParticleEmitter
+Particle.Emitter = ParticleEmitter
 
 // ******************************** 粒子发射器类导出 ********************************
 

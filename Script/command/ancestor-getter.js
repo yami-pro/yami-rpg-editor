@@ -2,6 +2,13 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementReader,
+  PresetElement,
+  VariableGetter,
+  Window
+} = Yami
+
 // ******************************** 祖先元素访问器窗口 ********************************
 
 const AncestorGetter = {
@@ -44,9 +51,9 @@ AncestorGetter.initialize = function () {
 // 打开窗口
 AncestorGetter.open = function (target) {
   this.target = target
-  Yami.Window.open('ancestorGetter')
+  Window.open('ancestorGetter')
 
-  let presetId = Yami.PresetElement.getDefaultPresetId()
+  let presetId = PresetElement.getDefaultPresetId()
   let variable = {type: 'local', key: ''}
   const element = target.dataValue
   switch (element.type) {
@@ -68,7 +75,7 @@ AncestorGetter.open = function (target) {
 
 // 确定按钮 - 鼠标点击事件
 AncestorGetter.confirm = function (event) {
-  const read = Yami.getElementReader('ancestorGetter')
+  const read = getElementReader('ancestorGetter')
   const type = read('type')
   let getter
   switch (type) {
@@ -86,7 +93,7 @@ AncestorGetter.confirm = function (event) {
     }
     case 'variable': {
       const variable = read('variable')
-      if (Yami.VariableGetter.isNone(variable)) {
+      if (VariableGetter.isNone(variable)) {
         return $('#ancestorGetter-variable').getFocus()
       }
       getter = {type, variable}
@@ -94,7 +101,7 @@ AncestorGetter.confirm = function (event) {
     }
   }
   this.target.input(getter)
-  Yami.Window.close('ancestorGetter')
+  Window.close('ancestorGetter')
 }.bind(AncestorGetter)
 
 // ******************************** 祖先元素访问器窗口导出 ********************************

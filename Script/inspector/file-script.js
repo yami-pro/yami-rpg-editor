@@ -2,6 +2,14 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Browser,
+  Data,
+  File,
+  Inspector,
+  PluginManager
+} = Yami
+
 // ******************************** 文件 - 脚本页面 ********************************
 
 {
@@ -54,11 +62,11 @@ import * as Yami from '../yami.js'
       const elSize = $('#fileScript-size')
       const size = Number(file.stats.size)
       elName.textContent = file.basename + file.extname
-      elSize.textContent = Yami.File.parseFileSize(size)
+      elSize.textContent = File.parseFileSize(size)
 
       // 加载脚本概述
-      await Yami.Data.scripts[meta.guid]
-      const elements = Yami.PluginManager.createOverview(meta, true)
+      await Data.scripts[meta.guid]
+      const elements = PluginManager.createOverview(meta, true)
       const overview = this.overview.clear()
       for (const element of elements) {
         overview.appendChild(element)
@@ -69,7 +77,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileScript.close = function () {
     if (this.target) {
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       this.overview.clear()
@@ -85,5 +93,5 @@ import * as Yami from '../yami.js'
     }
   }
 
-  Yami.Inspector.fileScript = FileScript
+  Inspector.fileScript = FileScript
 }

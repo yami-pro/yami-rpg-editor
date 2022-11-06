@@ -2,9 +2,15 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  ImageTexture,
+  UI
+} = Yami
+
 // ******************************** 图像元素 ********************************
 
-class ImageElement extends Yami.UI.Element {
+class ImageElement extends UI.Element {
   texture   //:object
   _display  //:string
   _image    //:string
@@ -44,9 +50,9 @@ class ImageElement extends Yami.UI.Element {
         this.texture = null
       }
       if (value) {
-        this.texture = new Yami.ImageTexture(value)
+        this.texture = new ImageTexture(value)
         this.texture.on('load', () => {
-          Yami.UI.requestRendering()
+          UI.requestRendering()
         })
       }
     }
@@ -76,21 +82,21 @@ class ImageElement extends Yami.UI.Element {
       let dw = this.width
       let dh = this.height
       if (this.blend === 'mask') {
-        if (Yami.GL.maskTexture.binding) {
+        if (GL.maskTexture.binding) {
           break draw
         }
-        if (Yami.GL.depthTest) {
-          Yami.GL.disable(Yami.GL.DEPTH_TEST)
+        if (GL.depthTest) {
+          GL.disable(GL.DEPTH_TEST)
         }
-        Yami.GL.maskTexture.binding = this
-        Yami.GL.bindFBO(Yami.GL.maskTexture.fbo)
-        Yami.GL.alpha = 1
-        Yami.GL.blend = 'normal'
+        GL.maskTexture.binding = this
+        GL.bindFBO(GL.maskTexture.fbo)
+        GL.alpha = 1
+        GL.blend = 'normal'
       } else {
-        Yami.GL.alpha = this.opacity
-        Yami.GL.blend = this.blend
+        GL.alpha = this.opacity
+        GL.blend = this.blend
       }
-      Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
+      GL.matrix.set(UI.matrix).multiply(this.matrix)
       switch (this.display) {
         case 'stretch':
           texture.clip(this.shiftX, this.shiftY, texture.base.width, texture.base.height)
@@ -102,7 +108,7 @@ class ImageElement extends Yami.UI.Element {
           texture.clip(...this.clip)
           break
         case 'slice':
-          Yami.GL.drawSliceImage(texture, dx, dy, dw, dh, this.clip, this.border, this.tint)
+          GL.drawSliceImage(texture, dx, dy, dw, dh, this.clip, this.border, this.tint)
           break draw
       }
       switch (this.flip) {
@@ -123,37 +129,37 @@ class ImageElement extends Yami.UI.Element {
           dh *= -1
           break
       }
-      Yami.GL.drawImage(texture, dx, dy, dw, dh, this.tint)
+      GL.drawImage(texture, dx, dy, dw, dh, this.tint)
     } else {
       this.drawDefaultImage()
     }
 
     // 绘制子元素
-    if (Yami.GL.maskTexture.binding === this) {
-      Yami.GL.unbindFBO()
-      if (Yami.GL.depthTest) {
-        Yami.GL.enable(Yami.GL.DEPTH_TEST)
+    if (GL.maskTexture.binding === this) {
+      GL.unbindFBO()
+      if (GL.depthTest) {
+        GL.enable(GL.DEPTH_TEST)
       }
-      Yami.GL.masking = true
+      GL.masking = true
       this.drawChildren()
-      Yami.GL.masking = false
-      Yami.GL.maskTexture.binding = null
+      GL.masking = false
+      GL.maskTexture.binding = null
       // 擦除遮罩纹理缓冲区
       const [x1, y1, x2, y2] = this.computeBoundingRectangle()
       const sl = Math.max(Math.floor(x1 - 1), 0)
       const st = Math.max(Math.floor(y1 - 1), 0)
-      const sr = Math.min(Math.ceil(x2 + 1), Yami.GL.maskTexture.width)
-      const sb = Math.min(Math.ceil(y2 + 1), Yami.GL.maskTexture.height)
+      const sr = Math.min(Math.ceil(x2 + 1), GL.maskTexture.width)
+      const sb = Math.min(Math.ceil(y2 + 1), GL.maskTexture.height)
       const sw = sr - sl
       const sh = sb - st
       if (sw > 0 && sh > 0) {
-        Yami.GL.bindFBO(Yami.GL.maskTexture.fbo)
-        Yami.GL.enable(Yami.GL.SCISSOR_TEST)
-        Yami.GL.scissor(sl, st, sw, sh)
-        Yami.GL.clearColor(0, 0, 0, 0)
-        Yami.GL.clear(Yami.GL.COLOR_BUFFER_BIT)
-        Yami.GL.disable(Yami.GL.SCISSOR_TEST)
-        Yami.GL.unbindFBO()
+        GL.bindFBO(GL.maskTexture.fbo)
+        GL.enable(GL.SCISSOR_TEST)
+        GL.scissor(sl, st, sw, sh)
+        GL.clearColor(0, 0, 0, 0)
+        GL.clear(GL.COLOR_BUFFER_BIT)
+        GL.disable(GL.SCISSOR_TEST)
+        GL.unbindFBO()
       }
     } else {
       this.drawChildren()
@@ -162,7 +168,7 @@ class ImageElement extends Yami.UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof Yami.UI.Window) {
+    if (this.parent instanceof UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -178,7 +184,7 @@ class ImageElement extends Yami.UI.Element {
 
   // 计算外接矩形
   computeBoundingRectangle() {
-    const matrix = Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
+    const matrix = GL.matrix.set(UI.matrix).multiply(this.matrix)
     const L = this.x
     const T = this.y
     const R = L + this.width
@@ -209,7 +215,7 @@ class ImageElement extends Yami.UI.Element {
   static sharedFloat64Array = new Float64Array(4)
 }
 
-Yami.UI.Image = ImageElement
+UI.Image = ImageElement
 
 // ******************************** 图像元素导出 ********************************
 

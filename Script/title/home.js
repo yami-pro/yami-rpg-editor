@@ -2,6 +2,18 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Editor,
+  File,
+  FS,
+  FSP,
+  Layout,
+  Local,
+  Menu,
+  Path,
+  Title
+} = Yami
+
 // ******************************** 主页面对象 ********************************
 
 const Home = {
@@ -31,7 +43,7 @@ Home.initialize = function () {
 // 解析最近的项目
 Home.parseRecentProjects = function () {
   const nodes = $('.home-recent-item')
-  const items = Yami.Editor.config.recent
+  const items = Editor.config.recent
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i].clear()
     const item = items[i]
@@ -69,7 +81,7 @@ Home.parseRecentProjects = function () {
     const ePath = document.createElement('text')
     const path = item.path
     ePath.addClass('home-recent-path')
-    ePath.textContent = Yami.Path.normalize(path)
+    ePath.textContent = Path.normalize(path)
     node.appendChild(ePath)
 
     // 创建统计列表
@@ -78,11 +90,11 @@ Home.parseRecentProjects = function () {
     node.appendChild(eStat)
 
     // 检查文件是否存在
-    const dirname = Yami.Path.dirname(path)
+    const dirname = Path.dirname(path)
     new Promise((resolve, reject) => {
-      if (Yami.FS.existsSync(path)) {
+      if (FS.existsSync(path)) {
         const dPath = `${dirname}/data/config.json`
-        resolve(Yami.FSP.readFile(dPath, 'utf8'))
+        resolve(FSP.readFile(dPath, 'utf8'))
       } else {
         reject(new URIError())
       }
@@ -128,7 +140,7 @@ Home.parseRecentProjects = function () {
       + sizes.image
       + sizes.media
       + sizes.other
-      const get = Yami.Local.createGetter('stats')
+      const get = Local.createGetter('stats')
       for (const {type, name} of [
         {type: 'data',   name: get('data')},
         {type: 'script', name: get('script')},
@@ -138,7 +150,7 @@ Home.parseRecentProjects = function () {
         {type: 'total',  name: get('total')},
       ]) {
         const count = counts[type]
-        const size = Yami.File.parseFileSize(sizes[type])
+        const size = File.parseFileSize(sizes[type])
 
         // 创建统计文本
         const eText1 = document.createElement('text')
@@ -169,7 +181,7 @@ Home.parseRecentProjects = function () {
 // 移除最近的项目
 Home.removeRecentProject = function (index) {
   const nodes = $('.home-recent-item')
-  const items = Yami.Editor.config.recent
+  const items = Editor.config.recent
   const item = items[index]
   const node = nodes[index]
   if (item && node) {
@@ -231,7 +243,7 @@ Home.readFileList = function IIFE() {
   }
   const options = {withFileTypes: true}
   const read = (path, list) => {
-    return Yami.FSP.readdir(
+    return FSP.readdir(
       path,
       options,
     ).then(
@@ -252,14 +264,14 @@ Home.readFileList = function IIFE() {
               newPath, list,
             ))
           } else {
-            const extname = Yami.Path.extname(name)
+            const extname = Path.extname(name)
             const type = extnameToTypeMap[extname] ?? 'other'
             const item = {
               type: type,
               size: 0,
             }
             list.push(item)
-            promises.push(Yami.FSP.stat(newPath).then(
+            promises.push(FSP.stat(newPath).then(
               stats => {
                 item.size = stats.size
             }))
@@ -279,7 +291,7 @@ Home.readFileList = function IIFE() {
 
 // 窗口 - 本地化事件
 Home.windowLocalize = function (event) {
-  if (Yami.Layout.manager.index === 'home') {
+  if (Layout.manager.index === 'home') {
     Home.parseRecentProjects()
   }
 }
@@ -290,10 +302,10 @@ Home.startClick = function (event) {
   if (element.hasClass('home-start-item')) {
     switch (element.getAttribute('value')) {
       case 'new':
-        Yami.Title.newProject()
+        Title.newProject()
         break
       case 'open':
-        Yami.Title.openProject()
+        Title.openProject()
         break
     }
   }
@@ -305,9 +317,9 @@ Home.recentClick = function (event) {
   if (element.hasClass('home-recent-item') &&
     !element.hasClass('disabled')) {
     const index = element.getAttribute('value')
-    const items = Yami.Editor.config.recent
+    const items = Editor.config.recent
     const item = items[parseInt(index)]
-    if (item) Yami.Editor.open(item.path)
+    if (item) Editor.open(item.path)
   }
 }
 
@@ -322,8 +334,8 @@ Home.recentPointerup = function (event) {
         element.addClass('hover')
         const index = parseInt(element.getAttribute('value'))
         const enabled = !element.hasClass('disabled')
-        const get = Yami.Local.createGetter('menuRecent')
-        Yami.Menu.popup({
+        const get = Local.createGetter('menuRecent')
+        Menu.popup({
           x: event.clientX,
           y: event.clientY,
           close: () => {
@@ -333,20 +345,20 @@ Home.recentPointerup = function (event) {
           label: get('openProject'),
           enabled: enabled,
           click: () => {
-            const items = Yami.Editor.config.recent
+            const items = Editor.config.recent
             const item = items[index]
             if (item) {
-              Yami.Editor.open(item.path)
+              Editor.open(item.path)
             }
           },
         }, {
           label: get('showInExplorer'),
           enabled: enabled,
           click: () => {
-            const items = Yami.Editor.config.recent
+            const items = Editor.config.recent
             const item = items[index]
             if (item) {
-              Yami.File.showInExplorer(item.path)
+              File.showInExplorer(item.path)
             }
           },
         }, {

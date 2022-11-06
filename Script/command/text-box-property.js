@@ -2,6 +2,14 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  getElementReader,
+  getElementWriter,
+  Local,
+  Window
+} = Yami
+
 // ******************************** 设置文本框 - 属性窗口 ********************************
 
 const TextBoxProperty = {
@@ -65,13 +73,13 @@ TextBoxProperty.initialize = function () {
 
 // 解析属性
 TextBoxProperty.parse = function ({key, value}) {
-  const get = Yami.Local.createGetter('command.setTextBox')
+  const get = Local.createGetter('command.setTextBox')
   const name = get(key)
   switch (key) {
     case 'type':
       return `${name}(${get('type.' + value)})`
     case 'text': {
-      let string = Yami.Command.parseVariableString(value)
+      let string = Command.parseVariableString(value)
       if (string.length > 40) {
         string = string.slice(0, 40) + '...'
       }
@@ -80,7 +88,7 @@ TextBoxProperty.parse = function ({key, value}) {
     case 'number':
     case 'min':
     case 'max':
-      return `${name}(${Yami.Command.parseVariableNumber(value)})`
+      return `${name}(${Command.parseVariableNumber(value)})`
     case 'decimals':
       return `${name}(${value})`
     case 'color':
@@ -90,8 +98,8 @@ TextBoxProperty.parse = function ({key, value}) {
 
 // 打开数据
 TextBoxProperty.open = function ({key = 'type', value = 'text'} = {}) {
-  Yami.Window.open('setTextBox-property')
-  const write = Yami.getElementWriter('setTextBox-property')
+  Window.open('setTextBox-property')
+  const write = getElementWriter('setTextBox-property')
   let type = 'text'
   let text = ''
   let number = 0
@@ -135,7 +143,7 @@ TextBoxProperty.open = function ({key = 'type', value = 'text'} = {}) {
 
 // 保存数据
 TextBoxProperty.save = function () {
-  const read = Yami.getElementReader('setTextBox-property')
+  const read = getElementReader('setTextBox-property')
   const key = read('key')
   let value
   switch (key) {
@@ -161,7 +169,7 @@ TextBoxProperty.save = function () {
       value = read('color')
       break
   }
-  Yami.Window.close('setTextBox-property')
+  Window.close('setTextBox-property')
   return {key, value}
 }
 

@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  GL,
+  ImageTexture,
+  Scene
+} = Yami
+
 // ******************************** 视差图类 ********************************
 
 class Parallax {
@@ -23,7 +29,7 @@ class Parallax {
     const {shiftSpeedX, shiftSpeedY} = this.data
     if (shiftSpeedX !== 0 || shiftSpeedY !== 0) {
       const texture = this.texture
-      if (texture instanceof Yami.ImageTexture) {
+      if (texture instanceof ImageTexture) {
         this.shiftX = (
           this.shiftX
         + shiftSpeedX
@@ -43,8 +49,8 @@ class Parallax {
   // 绘制图像
   draw(id) {
     const texture = this.texture
-    if (texture instanceof Yami.ImageTexture) {
-      const gl = Yami.GL
+    if (texture instanceof ImageTexture) {
+      const gl = GL
       const parallax = this.data
       const vertices = gl.arrays[0].float32
       const pw = texture.width
@@ -57,15 +63,15 @@ class Parallax {
       const oy = parallax.offsetY
       const ax = parallax.anchorX * pw
       const ay = parallax.anchorY * ph
-      const anchor = Yami.Scene.getParallaxAnchor(parallax)
+      const anchor = Scene.getParallaxAnchor(parallax)
       const dl = anchor.x - ax + ox
       const dt = anchor.y - ay + oy
       const dr = dl + pw
       const db = dt + ph
-      const cl = Yami.Scene.scrollLeft
-      const ct = Yami.Scene.scrollTop
-      const cr = Yami.Scene.scrollRight
-      const cb = Yami.Scene.scrollBottom
+      const cl = Scene.scrollLeft
+      const ct = Scene.scrollTop
+      const cr = Scene.scrollRight
+      const cb = Scene.scrollBottom
       if (dl < cr && dr > cl && dt < cb && db > ct) {
         const sl = this.shiftX
         const st = this.shiftY
@@ -89,7 +95,7 @@ class Parallax {
         vertices[15] = st
         gl.blend = parallax.blend
         gl.alpha = parallax.opacity
-        const activeId = Yami.Scene.activeTilemapId
+        const activeId = Scene.activeTilemapId
         if (activeId !== -1 && id > activeId) {
           gl.alpha *= 0.25
         }
@@ -100,7 +106,7 @@ class Parallax {
         const blue = tint[2] / 255
         const gray = tint[3] / 255
         const modeMap = Parallax.lightSamplingModes
-        const lightMode = Yami.Scene.showLight ? parallax.light : 'raw'
+        const lightMode = Scene.showLight ? parallax.light : 'raw'
         const lightModeIndex = modeMap[lightMode]
         const matrix = gl.matrix.project(
           gl.flip,
@@ -134,20 +140,20 @@ class Parallax {
     const oy = parallax.offsetY
     const ax = parallax.anchorX * width
     const ay = parallax.anchorY * height
-    const anchor = Yami.Scene.getParallaxAnchor(parallax)
+    const anchor = Scene.getParallaxAnchor(parallax)
     const x = anchor.x - ax + ox
     const y = anchor.y - ay + oy
-    Yami.GL.matrix.set(Yami.Scene.matrix)
-    Yami.GL.alpha = parallax.opacity
-    Yami.GL.blend = parallax.blend
-    Yami.GL.fillRect(x, y, width, height, 0x80ffffff)
+    GL.matrix.set(Scene.matrix)
+    GL.alpha = parallax.opacity
+    GL.blend = parallax.blend
+    GL.fillRect(x, y, width, height, 0x80ffffff)
   }
 
   // 加载纹理
   loadTexture() {
     const guid = this.data.image
     if (guid) {
-      const texture = new Yami.ImageTexture(guid)
+      const texture = new ImageTexture(guid)
       this.texture = texture
       if (texture.complete) {
         return texture
@@ -155,7 +161,7 @@ class Parallax {
       this.update = Function.empty
       this.draw = Function.empty
       texture.on('load', () => {
-        Yami.Scene.requestRendering()
+        Scene.requestRendering()
         delete this.update
         delete this.draw
       })
@@ -164,7 +170,7 @@ class Parallax {
 
   // 销毁
   destroy() {
-    if (this.texture instanceof Yami.ImageTexture) {
+    if (this.texture instanceof ImageTexture) {
       this.texture.destroy()
     }
     this.texture = null

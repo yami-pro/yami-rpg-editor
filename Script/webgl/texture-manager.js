@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  File,
+  GL,
+  ImageTexture
+} = Yami
+
 // ******************************** 纹理管理器类 ********************************
 
 class TextureManager {
@@ -12,7 +18,7 @@ class TextureManager {
   count   //:number
 
   constructor() {
-    this.gl = Yami.GL
+    this.gl = GL
     this.map = {}
     this.images = {}
     this.pointer = 0
@@ -24,7 +30,7 @@ class TextureManager {
   updateImage(guid) {
     const texture = this.images[guid]
     if (texture === undefined) return
-    Yami.File.get({
+    File.get({
       guid: guid,
       type: 'image',
     }).then(image => {
@@ -98,7 +104,7 @@ class TextureManager {
     if (this.map[oldTex.index]) {
       this.map[oldTex.index] = newTex
     }
-    if (oldTex instanceof Yami.ImageTexture &&
+    if (oldTex instanceof ImageTexture &&
       oldTex.guid === newTex.guid) {
       if (this.images[oldTex.guid] === oldTex) {
         this.images[oldTex.guid] = newTex

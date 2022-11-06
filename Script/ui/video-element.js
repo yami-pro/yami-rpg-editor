@@ -2,9 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const { UI } = Yami
+
 // ******************************** 视频元素 ********************************
 
-class VideoElement extends Yami.UI.Element {
+class VideoElement extends UI.Element {
   video   //:string
   loop    //:boolean
   flip    //:string
@@ -26,7 +28,7 @@ class VideoElement extends Yami.UI.Element {
 
   // 调整大小
   resize() {
-    if (this.parent instanceof Yami.UI.Window) {
+    if (this.parent instanceof UI.Window) {
       return this.parent.requestResizing()
     }
     this.calculatePosition()
@@ -40,7 +42,7 @@ class VideoElement extends Yami.UI.Element {
   }
 }
 
-Yami.UI.Video = VideoElement
+UI.Video = VideoElement
 
 // ******************************** 视频元素导出 ********************************
 

@@ -2,12 +2,19 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  getElementWriter,
+  Inspector,
+  UI,
+  UIElement
+} = Yami
+
 // ******************************** 元素 - 容器页面 ********************************
 
 {
   const UIContainer = {
     // properties
-    owner: Yami.UI,
+    owner: UI,
     target: null,
     // methods
     create: null,
@@ -17,7 +24,7 @@ import * as Yami from '../yami.js'
 
   // 创建窗口
   UIContainer.create = function () {
-    const transform = Yami.UIElement.createTransform()
+    const transform = UIElement.createTransform()
     transform.width = 100
     transform.height = 100
     return {
@@ -39,23 +46,23 @@ import * as Yami from '../yami.js'
   UIContainer.open = function (node) {
     if (this.target !== node) {
       this.target = node
-      Yami.UIElement.open(node)
+      UIElement.open(node)
 
       // 写入数据
-      const write = Yami.getElementWriter('uiContainer', node)
-      Yami.UIElement.open(node)
+      const write = getElementWriter('uiContainer', node)
+      UIElement.open(node)
     }
   }
 
   // 关闭数据
   UIContainer.close = function () {
     if (this.target) {
-      Yami.UI.list.unselect(this.target)
-      Yami.UI.updateTarget()
-      Yami.UIElement.close()
+      UI.list.unselect(this.target)
+      UI.updateTarget()
+      UIElement.close()
       this.target = null
     }
   }
 
-  Yami.Inspector.uiContainer = UIContainer
+  Inspector.uiContainer = UIContainer
 }

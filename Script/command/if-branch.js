@@ -2,6 +2,12 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Command,
+  IfCondition,
+  Window
+} = Yami
+
 // ******************************** 条件分支 - 分支窗口 ********************************
 
 const IfBranch = {
@@ -35,14 +41,14 @@ IfBranch.initialize = function () {
 
 // 解析项目
 IfBranch.parse = function (branch) {
-  const words = Yami.Command.words
+  const words = Command.words
   let joint
   switch (branch.mode) {
     case 'all': joint = ' && '; break
     case 'any': joint = ' || '; break
   }
   for (const condition of branch.conditions) {
-    words.push(Yami.IfCondition.parse(condition))
+    words.push(IfCondition.parse(condition))
   }
   return words.join(joint)
 }
@@ -50,10 +56,10 @@ IfBranch.parse = function (branch) {
 // 打开数据
 IfBranch.open = function (branch) {
   if (this.target.inserting) {
-    Yami.IfCondition.target = this.target
-    Yami.IfCondition.open()
+    IfCondition.target = this.target
+    IfCondition.open()
   } else {
-    Yami.Window.open('if-branch')
+    Window.open('if-branch')
     $('#if-branch-mode').write(branch.mode)
     $('#if-branch-conditions').write(branch.conditions.slice())
     $('#if-branch-conditions').getFocus()
@@ -64,7 +70,7 @@ IfBranch.open = function (branch) {
 // 保存数据
 IfBranch.save = function () {
   if (this.target.inserting) {
-    const condition = Yami.IfCondition.save()
+    const condition = IfCondition.save()
     if (condition !== undefined) {
       const mode = 'all'
       const conditions = [condition]
@@ -79,7 +85,7 @@ IfBranch.save = function () {
       return element.getFocus()
     }
     const commands = this.commands
-    Yami.Window.close('if-branch')
+    Window.close('if-branch')
     return {mode, conditions, commands}
   }
 }

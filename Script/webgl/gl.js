@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  BaseTexture,
+  BatchRenderer,
+  Data,
+  File,
+  Matrix,
+  Texture,
+  TextureManager
+} = Yami
+
 // ******************************** WebGL ********************************
 
 /**
@@ -108,7 +118,7 @@ GL.initialize = function () {
   this.flip = this.flip ?? -1
   this.alpha = this.alpha ?? 1
   this.blend = this.blend ?? 'normal'
-  this.matrix = this.matrix ?? new Yami.Matrix()
+  this.matrix = this.matrix ?? new Matrix()
   this.width = this.drawingBufferWidth
   this.height = this.drawingBufferHeight
   this.program = null
@@ -123,13 +133,13 @@ GL.initialize = function () {
   this.ambient = {red: -1, green: -1, blue: -1}
 
   // 创建纹理管理器
-  this.textureManager = this.textureManager ?? new Yami.TextureManager()
+  this.textureManager = this.textureManager ?? new TextureManager()
 
   // 设置最大纹理数量
   this.maxTexUnits = 16
 
   // 创建光影纹理
-  this.lightmap = this.lightmap ?? new Yami.Texture({
+  this.lightmap = this.lightmap ?? new Texture({
     format: this.RGB,
     magFilter: this.LINEAR,
     minFilter: this.LINEAR,
@@ -141,11 +151,11 @@ GL.initialize = function () {
   this.activeTexture(this.TEXTURE0)
 
   // 创建模板纹理
-  this.stencilTexture = this.stencilTexture ?? new Yami.Texture({format: this.ALPHA})
+  this.stencilTexture = this.stencilTexture ?? new Texture({format: this.ALPHA})
   this.stencilTexture.base.protected = true
 
   // 创建遮罩纹理
-  this.maskTexture = this.maskTexture ?? new Yami.Texture({format: this.RGBA})
+  this.maskTexture = this.maskTexture ?? new Texture({format: this.RGBA})
   this.maskTexture.fbo = this.createTextureFBO(this.maskTexture)
 
   // 创建图层数组
@@ -209,7 +219,7 @@ GL.initialize = function () {
   this.updateBlending = this.createBlendingUpdater()
 
   // 创建批量渲染器
-  this.batchRenderer = new Yami.BatchRenderer(this)
+  this.batchRenderer = new BatchRenderer(this)
 
   // 创建2D上下文对象
   this.context2d = this.context2d ?? this.createContext2D()
@@ -1341,7 +1351,7 @@ GL.resizeLightmap = function () {
     lightmap.innerWidth = width
     lightmap.innerHeight = height
     if (lightmap.paddingLeft === undefined) {
-      const {lightArea} = Yami.Data.config
+      const {lightArea} = Data.config
       // 计算光影纹理最大扩张值(4倍)
       // 避免频繁调整纹理尺寸
       lightmap.paddingLeft = Math.min(lightArea.expansionLeft * 4, 1024)
@@ -1471,7 +1481,7 @@ GL.drawImage = function drawImage() {
     const th = base.height
 
     // 计算变换矩阵
-    const matrix = Yami.Matrix.instance.project(
+    const matrix = Matrix.instance.project(
       this.flip,
       this.width,
       this.height,
@@ -1526,7 +1536,7 @@ GL.drawSliceImage = function (texture, dx, dy, dw, dh, clip, border, tint) {
   if (!texture.complete) return
 
   // 计算变换矩阵
-  const matrix = Yami.Matrix.instance.project(
+  const matrix = Matrix.instance.project(
     this.flip,
     this.width,
     this.height,
@@ -1592,7 +1602,7 @@ GL.drawText = function (texture, dx, dy, dw, dh, color) {
   const th = base.height
 
   // 计算变换矩阵
-  const matrix = Yami.Matrix.instance.project(
+  const matrix = Matrix.instance.project(
     this.flip,
     this.width,
     this.height,
@@ -1648,7 +1658,7 @@ GL.fillRect = function (dx, dy, dw, dh, color) {
   const colors = this.arrays[0].uint32
 
   // 计算变换矩阵
-  const matrix = Yami.Matrix.instance.project(
+  const matrix = Matrix.instance.project(
     this.flip,
     this.width,
     this.height,
@@ -1796,7 +1806,7 @@ GL.fillTextWithOutline = function fillTextWithOutline() {
 GL.createNormalTexture = function (options = {}) {
   const magFilter = options.magFilter ?? this.NEAREST
   const minFilter = options.minFilter ?? this.LINEAR
-  const texture = new Yami.BaseTexture()
+  const texture = new BaseTexture()
   texture.magFilter = magFilter
   texture.minFilter = minFilter
   texture.format = options.format ?? GL.RGBA
@@ -1817,7 +1827,7 @@ GL.createImageTexture = function (image, options = {}) {
   const manager = this.textureManager
   let texture = manager.images[guid]
   if (!texture) {
-    texture = new Yami.BaseTexture()
+    texture = new BaseTexture()
     texture.guid = guid
     texture.image = null
     texture.refCount = 0
@@ -1843,7 +1853,7 @@ GL.createImageTexture = function (image, options = {}) {
     }
     image instanceof Image
     ? initialize(image)
-    : Yami.File.get({
+    : File.get({
       guid: guid,
       type: 'image',
     }).then(initialize)
@@ -1871,7 +1881,7 @@ GL.createTextureFBO = function (texture) {
 
   // 重写纹理方法 - 调整大小
   texture.resize = (width, height) => {
-    Yami.Texture.prototype.resize.call(texture, width, height)
+    Texture.prototype.resize.call(texture, width, height)
 
     // 调整深度模板缓冲区大小
     this.bindRenderbuffer(this.RENDERBUFFER, depthStencilBuffer)

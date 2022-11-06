@@ -2,6 +2,8 @@
 
 import * as Yami from '../yami.js'
 
+const { HistoryTimer } = Yami
+
 // ******************************** 数值操作历史 ********************************
 
 class NumberHistory {
@@ -71,7 +73,7 @@ class NumberHistory {
       operation === 'undo' &&
       input.select()
       NumberHistory.restoring = false
-      Yami.HistoryTimer.finish()
+      HistoryTimer.finish()
 
       // 改变指针
       switch (operation) {
@@ -116,22 +118,22 @@ class NumberHistory {
         case 'insertText':
         case 'deleteContentForward':
         case 'deleteContentBackward':
-          if (Yami.HistoryTimer.complete ||
-            Yami.HistoryTimer.type !== event.inputType) {
+          if (HistoryTimer.complete ||
+            HistoryTimer.type !== event.inputType) {
             this.history.save()
           }
-          Yami.HistoryTimer.start(event.inputType)
+          HistoryTimer.start(event.inputType)
           break
         case undefined:
-          if (Yami.HistoryTimer.complete ||
-            Yami.HistoryTimer.type !== 'quickInput') {
+          if (HistoryTimer.complete ||
+            HistoryTimer.type !== 'quickInput') {
             this.history.save()
           }
-          Yami.HistoryTimer.start('quickInput')
+          HistoryTimer.start('quickInput')
           break
         default:
           this.history.save()
-          Yami.HistoryTimer.finish()
+          HistoryTimer.finish()
           break
       }
     }
@@ -146,7 +148,7 @@ class NumberHistory {
 
   // 输入框 - 失去焦点事件
   inputBlur(event) {
-    Yami.HistoryTimer.finish()
+    HistoryTimer.finish()
   }
 }
 

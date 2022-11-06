@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  Timer,
+  Window
+} = Yami
+
 // ******************************** 菜单列表 ********************************
 
 class MenuList extends HTMLElement {
@@ -67,7 +72,7 @@ class MenuList extends HTMLElement {
     const y = options.y ?? 0
     this.style.left = `${Math.min(x + dpx, right)}px`
     this.style.top = `${Math.min(y + dpx, bottom)}px`
-    this.style.zIndex = Yami.Window.frames.length + 1
+    this.style.zIndex = Window.frames.length + 1
 
     // 侦听事件
     window.event?.stopPropagation()
@@ -251,7 +256,7 @@ class MenuList extends HTMLElement {
       const node = element.dataValue
       if (node.submenu) {
         if (!this.popupTimer) {
-          this.popupTimer = new Yami.Timer({
+          this.popupTimer = new Timer({
             duration: delay,
             callback: () => {
               this.popupTimer = null
@@ -290,7 +295,7 @@ class MenuList extends HTMLElement {
     const {submenu, selection} = this
     if (submenu?.parentMenuItem === selection) {
       if (!this.closeTimer) {
-        this.closeTimer = new Yami.Timer({
+        this.closeTimer = new Timer({
           duration: delay,
           callback: () => {
             this.closeTimer = null

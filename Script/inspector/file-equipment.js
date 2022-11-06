@@ -2,6 +2,16 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  AttributeListInterface,
+  Browser,
+  EventListInterface,
+  File,
+  getElementWriter,
+  Inspector,
+  ScriptListInterface
+} = Yami
+
 // ******************************** 文件 - 装备页面 ********************************
 
 {
@@ -23,13 +33,13 @@ import * as Yami from '../yami.js'
   // 初始化
   FileEquipment.initialize = function () {
     // 绑定属性列表
-    $('#fileEquipment-attributes').bind(new Yami.AttributeListInterface())
+    $('#fileEquipment-attributes').bind(new AttributeListInterface())
 
     // 绑定事件列表
-    $('#fileEquipment-events').bind(new Yami.EventListInterface())
+    $('#fileEquipment-events').bind(new EventListInterface())
 
     // 绑定脚本列表
-    $('#fileEquipment-scripts').bind(new Yami.ScriptListInterface())
+    $('#fileEquipment-scripts').bind(new ScriptListInterface())
 
     // 绑定脚本参数面板
     $('#fileEquipment-parameter-pane').bind($('#fileEquipment-scripts'))
@@ -57,7 +67,7 @@ import * as Yami from '../yami.js'
       this.meta = meta
 
       // 写入数据
-      const write = Yami.getElementWriter('fileEquipment', equipment)
+      const write = getElementWriter('fileEquipment', equipment)
       write('icon')
       write('clip')
       write('attributes')
@@ -69,7 +79,7 @@ import * as Yami from '../yami.js'
   // 关闭数据
   FileEquipment.close = function () {
     if (this.target) {
-      Yami.Browser.unselect(this.meta)
+      Browser.unselect(this.meta)
       this.target = null
       this.meta = null
       $('#fileEquipment-attributes').clear()
@@ -81,13 +91,13 @@ import * as Yami from '../yami.js'
 
   // 更新数据
   FileEquipment.update = function (equipment, key, value) {
-    Yami.File.planToSave(this.meta)
+    File.planToSave(this.meta)
     switch (key) {
       case 'icon':
       case 'clip':
         if (equipment[key] !== value) {
           equipment[key] = value
-          Yami.Browser.body.updateIcon(this.meta.file)
+          Browser.body.updateIcon(this.meta.file)
         }
         break
     }
@@ -97,15 +107,15 @@ import * as Yami from '../yami.js'
   FileEquipment.paramInput = function (event) {
     FileEquipment.update(
       FileEquipment.target,
-      Yami.Inspector.getKey(this),
+      Inspector.getKey(this),
       this.read(),
     )
   }
 
   // 列表 - 改变事件
   FileEquipment.listChange = function (event) {
-    Yami.File.planToSave(FileEquipment.meta)
+    File.planToSave(FileEquipment.meta)
   }
 
-  Yami.Inspector.fileEquipment = FileEquipment
+  Inspector.fileEquipment = FileEquipment
 }

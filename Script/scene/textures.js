@@ -2,6 +2,11 @@
 
 import * as Yami from '../yami.js'
 
+const {
+  ImageTexture,
+  Scene
+} = Yami
+
 // ******************************** 纹理集合类 ********************************
 
 class Textures {
@@ -22,11 +27,11 @@ class Textures {
   // 加载纹理
   load(guid) {
     if (!this[guid]) {
-      const texture = new Yami.ImageTexture(guid)
+      const texture = new ImageTexture(guid)
       if (texture.complete) {
         this[guid] = texture
         return Promise.resolve().then(() => {
-          Yami.Scene.requestRendering()
+          Scene.requestRendering()
           return texture
         })
       }
@@ -35,7 +40,7 @@ class Textures {
           if (this.state === 'open' &&
             this[guid] instanceof Promise) {
             this[guid] = texture
-            Yami.Scene.requestRendering()
+            Scene.requestRendering()
             return resolve(texture)
           }
           texture.destroy()
@@ -50,14 +55,14 @@ class Textures {
   destroy() {
     this.state = 'closed'
     for (const texture of Object.values(this)) {
-      if (texture instanceof Yami.ImageTexture) {
+      if (texture instanceof ImageTexture) {
         texture.destroy()
       }
     }
   }
 }
 
-Yami.Scene.Textures = Textures
+Scene.Textures = Textures
 
 // ******************************** 纹理集合类导出 ********************************
 
