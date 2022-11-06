@@ -6074,11 +6074,11 @@ Command.cases.getTarget = {
     actor     = {type: 'trigger'},
     selector  = 'enemy',
     condition = 'max-threat',
-    attribute = Attribute.getDefAttributeId('actor', 'number'),
-    divisor   = Attribute.getDefAttributeId('actor', 'number'),
+    attribute = Yami.Attribute.getDefAttributeId('actor', 'number'),
+    divisor   = Yami.Attribute.getDefAttributeId('actor', 'number'),
   }) {
     // 加载角色数值属性选项
-    const attrItems = Attribute.getAttributeItems('actor', 'number')
+    const attrItems = Yami.Attribute.getAttributeItems('actor', 'number')
     $('#getTarget-attribute').loadItems(attrItems)
     $('#getTarget-divisor').loadItems(attrItems)
     const write = Yami.getElementWriter('getTarget')
