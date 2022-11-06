@@ -139,11 +139,11 @@ GL.initialize = function () {
   this.maxTexUnits = 16
 
   // 创建光影纹理
-  this.lightmap = this.lightmap ?? new Texture({
+  this.lightmap = this.lightmap ?? new Texture(this, {
     format: this.RGB,
     magFilter: this.LINEAR,
     minFilter: this.LINEAR,
-  }, this)
+  })
   this.lightmap.base.protected = true
   this.lightmap.fbo = this.createTextureFBO(this.lightmap)
   this.activeTexture(this.TEXTURE0 + this.maxTexUnits - 1)
@@ -151,11 +151,11 @@ GL.initialize = function () {
   this.activeTexture(this.TEXTURE0)
 
   // 创建模板纹理
-  this.stencilTexture = this.stencilTexture ?? new Texture({format: this.ALPHA}, this)
+  this.stencilTexture = this.stencilTexture ?? new Texture(this, {format: this.ALPHA})
   this.stencilTexture.base.protected = true
 
   // 创建遮罩纹理
-  this.maskTexture = this.maskTexture ?? new Texture({format: this.RGBA}, this)
+  this.maskTexture = this.maskTexture ?? new Texture(this, {format: this.RGBA})
   this.maskTexture.fbo = this.createTextureFBO(this.maskTexture)
 
   // 创建图层数组

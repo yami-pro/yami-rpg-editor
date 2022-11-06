@@ -58,7 +58,7 @@ class ProgressBarElement extends UI.Element {
         this.texture = null
       }
       if (value) {
-        this.texture = new ImageTexture(value)
+        this.texture = new ImageTexture(GL, value)
         this.texture.on('load', () => {
           UI.requestRendering()
         })

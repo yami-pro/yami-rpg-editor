@@ -11,7 +11,7 @@ class Texture {
   width     //:number
   height    //:number
 
-  constructor(options = {}, gl) {
+  constructor(gl, options = {}) {
     if (new.target !== Texture) {
       return
     }

@@ -373,7 +373,7 @@ class AnimationPlayer {
       const sprite = this.sprites[spriteId]
       const imageId = this.images[spriteId]
       if (sprite !== undefined && imageId) {
-        const texture = new ImageTexture(imageId)
+        const texture = new ImageTexture(GL, imageId)
         textures[spriteId] = null
         texture.on('load', () => {
           if (this.textures === textures) {

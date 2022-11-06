@@ -1,7 +1,5 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
 // ******************************** 基础纹理类 ********************************
 
 class BaseTexture {

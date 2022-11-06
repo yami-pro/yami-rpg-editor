@@ -255,7 +255,7 @@ class ParticleLayer {
       this.unitHeight = 0
     }
     if (guid) {
-      const texture = new ImageTexture(guid)
+      const texture = new ImageTexture(GL, guid)
       if (texture.complete) {
         this.texture = texture
         this.calculateElementSize()

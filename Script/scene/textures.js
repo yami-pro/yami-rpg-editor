@@ -3,6 +3,7 @@
 import * as Yami from '../yami.js'
 
 const {
+  GL,
   ImageTexture,
   Scene
 } = Yami
@@ -27,7 +28,7 @@ class Textures {
   // 加载纹理
   load(guid) {
     if (!this[guid]) {
-      const texture = new ImageTexture(guid)
+      const texture = new ImageTexture(GL, guid)
       if (texture.complete) {
         this[guid] = texture
         return Promise.resolve().then(() => {
