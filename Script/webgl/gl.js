@@ -143,7 +143,7 @@ GL.initialize = function () {
     format: this.RGB,
     magFilter: this.LINEAR,
     minFilter: this.LINEAR,
-  })
+  }, this)
   this.lightmap.base.protected = true
   this.lightmap.fbo = this.createTextureFBO(this.lightmap)
   this.activeTexture(this.TEXTURE0 + this.maxTexUnits - 1)
@@ -151,11 +151,11 @@ GL.initialize = function () {
   this.activeTexture(this.TEXTURE0)
 
   // 创建模板纹理
-  this.stencilTexture = this.stencilTexture ?? new Texture({format: this.ALPHA})
+  this.stencilTexture = this.stencilTexture ?? new Texture({format: this.ALPHA}, this)
   this.stencilTexture.base.protected = true
 
   // 创建遮罩纹理
-  this.maskTexture = this.maskTexture ?? new Texture({format: this.RGBA})
+  this.maskTexture = this.maskTexture ?? new Texture({format: this.RGBA}, this)
   this.maskTexture.fbo = this.createTextureFBO(this.maskTexture)
 
   // 创建图层数组
@@ -1806,7 +1806,7 @@ GL.fillTextWithOutline = function fillTextWithOutline() {
 GL.createNormalTexture = function (options = {}) {
   const magFilter = options.magFilter ?? this.NEAREST
   const minFilter = options.minFilter ?? this.LINEAR
-  const texture = new BaseTexture()
+  const texture = new BaseTexture(this)
   texture.magFilter = magFilter
   texture.minFilter = minFilter
   texture.format = options.format ?? GL.RGBA
@@ -1827,7 +1827,7 @@ GL.createImageTexture = function (image, options = {}) {
   const manager = this.textureManager
   let texture = manager.images[guid]
   if (!texture) {
-    texture = new BaseTexture()
+    texture = new BaseTexture(this)
     texture.guid = guid
     texture.image = null
     texture.refCount = 0

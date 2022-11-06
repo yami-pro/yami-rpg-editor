@@ -4145,7 +4145,7 @@ Scene.createStartPositionTexture = function () {
     context.shadowOffsetY = 4
     context.font = '160px Awesome'
     context.fillText('\uf041', 128, y)
-    texture = new Texture()
+    texture = new Texture({}, GL)
     texture.fromImage(canvas)
     texture.base.protected = true
     this.startPositionTexture = texture

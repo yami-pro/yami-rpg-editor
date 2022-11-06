@@ -196,7 +196,7 @@ class TextBoxElement extends UI.Element {
     // 打印文本
     let printer = this.printer
     if (printer === null) {
-      const texture = new Texture()
+      const texture = new Texture({}, GL)
       printer = new Printer(texture)
       printer.matchTag = Function.empty
       printer.sizes[0] = this.size

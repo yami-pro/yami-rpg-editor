@@ -298,7 +298,7 @@ class TextElement extends UI.Element {
   update() {
     let printer = this.printer
     if (printer === null) {
-      const texture = new Texture()
+      const texture = new Texture({}, GL)
       printer = new Printer(texture)
       printer.direction = this.direction
       printer.horizontalAlign = this.horizontalAlign

@@ -2,19 +2,19 @@
 
 import * as Yami from '../yami.js'
 
-const { GL } = Yami
-
 // ******************************** 基础纹理类 ********************************
 
 class BaseTexture {
-  constructor() {
-    this.glTexture = GL.createTexture()
+  constructor(gl) {
+    this.glTexture = gl.createTexture()
+    this.gl = gl
     this.width = 0
     this.height = 0
   }
 
   // 恢复普通纹理
   restoreNormalTexture() {
+    const GL = this.gl
     this.glTexture = GL.createTexture()
     const {format, width, height} = this
     GL.bindTexture(GL.TEXTURE_2D, this.glTexture)
