@@ -1,5 +1,4 @@
 {
-  "fontSize": "normal",
   "properties": {
     "common": {
       "none": "None",
@@ -123,6 +122,10 @@
       "input": "Input",
       "focus": "Focus",
       "blur": "Blur"
+    },
+    "showChoices": {
+      "yes": "Yes",
+      "no": "No"
     },
     "menuFile": {
       "newProject": "New Project",
@@ -519,11 +522,11 @@
       "trigger": "TriggerActor",
       "caster": "SkillCaster",
       "latest": "LatestActor",
+      "target": "TargetActor",
       "player": "PlayerActor",
       "member": "PartyMember",
       "global": "GlobalActor",
       "by-id": "ID",
-      "by-name": "Name",
       "variable": "Var"
     },
     "skill": {
@@ -583,7 +586,6 @@
       "trigger": "TriggerLight",
       "latest": "LatestLight",
       "by-id": "ID",
-      "by-name": "Name",
       "variable": "Var"
     },
     "element": {
@@ -591,7 +593,6 @@
       "trigger": "TriggerElement",
       "latest": "LatestElement",
       "by-id": "ID",
-      "by-name": "Name",
       "variable": "Var"
     },
     "variable": {
@@ -605,7 +606,8 @@
       "normal": "Normal",
       "screen": "Screen",
       "additive": "Additive",
-      "subtract": "Subtract"
+      "subtract": "Subtract",
+      "mask": "Mask"
     },
     "transition": {
       "wait": "Wait"
@@ -631,9 +633,6 @@
       "setNumber.math.ceil": "Ceil",
       "setNumber.math.sqrt": "Sqrt",
       "setNumber.math.abs": "Abs",
-      "setNumber.math.cos": "Cos",
-      "setNumber.math.sin": "Sin",
-      "setNumber.math.tan": "Tan",
       "setNumber.math.random": "Random",
       "setNumber.math.random-int": "RandomInt",
       "setNumber.math.distance": "Distance",
@@ -701,7 +700,6 @@
       "setNumber.element.dialogBox-printEndX": "DialogBox.PrintEndX",
       "setNumber.element.dialogBox-printEndY": "DialogBox.PrintEndY",
       "setNumber.other.trigger-button": "EventTriggerButton",
-      "setNumber.other.trigger-wheel-x": "EventTriggerWheelDeltaX",
       "setNumber.other.trigger-wheel-y": "EventTriggerWheelDeltaY",
       "setNumber.other.mouse-screen-x": "Mouse.ScreenX",
       "setNumber.other.mouse-screen-y": "Mouse.ScreenY",
@@ -730,15 +728,11 @@
       "setString.string.replace": "Replace",
       "setString.string.replace-all": "ReplaceAll",
       "setString.object.actor-file-id": "FileID",
-      "setString.object.actor-portrait-id": "PortraitID",
       "setString.object.actor-animation-motion-name": "Anim.MotionName",
       "setString.object.skill-file-id": "FileID",
-      "setString.object.skill-key": "KeyName",
       "setString.object.state-file-id": "FileID",
       "setString.object.equipment-file-id": "FileID",
-      "setString.object.equipment-key": "KeyName",
       "setString.object.item-file-id": "FileID",
-      "setString.object.item-key": "KeyName",
       "setString.object.file-id": "ID",
       "setString.element.text-content": "Text.Content",
       "setString.element.textBox-text": "TextBox.Text",
@@ -746,9 +740,7 @@
       "setString.other.trigger-key": "EventTriggerKey",
       "setString.other.parse-timestamp": "ParseTimestamp",
       "setString.other.screenshot": "Screenshot.Base64",
-      "setString.other.showText-parameters": "ShowText.Parameters",
       "setString.other.showText-content": "ShowText.Content",
-      "setString.other.showChoices-parameters": "ShowChoices.Parameters",
       "setString.other.showChoices-content-0": "ShowChoices.Content1",
       "setString.other.showChoices-content-1": "ShowChoices.Content2",
       "setString.other.showChoices-content-2": "ShowChoices.Content3",
@@ -1102,7 +1094,7 @@
       "setBag.swap": "SwapItemLocations",
       "setBag.sort": "SortSimply",
       "setBag.sort-by-filename": "SortByFilename",
-      "setBag.reference": "UseSomeoneElse'sBag",
+      "setBag.reference": "UseGlobalActor'sBag",
       "setBag.reset": "Reset",
       "useItem": "Use Item",
       "setItem": "Set Item",
@@ -1593,7 +1585,7 @@
     "uiImage-image": {"label": "Image"},
     "uiImage-display": {"label": "Display", "options": {"stretch": "Stretch", "tile": "Tile", "clip": "Clip", "slice": "Slice"}},
     "uiImage-flip": {"label": "Flip", "options": {"none": "None", "horizontal": "Horizontal", "vertical": "Vertical", "both": "Both"}},
-    "uiImage-blend": {"label": "Blend", "options": {"normal": "Normal", "additive": "Additive", "subtract": "Subtract"}},
+    "uiImage-blend": {"label": "Blend", "options": {"normal": "Normal", "additive": "Additive", "subtract": "Subtract", "mask": "Mask"}},
     "uiImage-shift-box": {"label": "Shift"},
     "uiImage-clip": {"label": "Clip"},
     "uiImage-border": {"label": "Border"},
@@ -1901,6 +1893,7 @@
     "config-actor-partyMembers-1": {"label": "Party Member 2"},
     "config-actor-partyMembers-2": {"label": "Party Member 3"},
     "config-actor-partyMembers-3": {"label": "Party Member 4"},
+    "config-actor-partyBagMode": {"label": "Party Bag Mode", "options": {"shared": "Share the Player's Bag", "separate": "Use Separate Bags"}},
     "config-actor-tempAttributes": {"label": "Temporary Attributes"},
     "config-animation-summary": {"content": "Animation"},
     "config-animation-frameRate": {"label": "Frame Rate"},
@@ -2003,7 +1996,7 @@
     "attribute-type-boolean-label": {"content": "Boolean"},
     "attribute-type-number-label": {"content": "Number"},
     "attribute-type-string-label": {"content": "String"},
-    "attribute-type-enum-label": {"content": "Enum"},
+    "attribute-type-enum-label": {"content": "String(Enum)"},
     "attribute-enum": {"label": "Options"},
     "attribute-note": {"label": "Note"},
 
@@ -2125,11 +2118,11 @@
       "trigger": "Event Trigger Actor",
       "caster": "Skill Caster",
       "latest": "Latest Actor",
+      "target": "Target Actor",
       "player": "Player Actor",
       "member": "Party Member",
       "global": "Global Actor",
       "by-id": "Select By ID",
-      "by-name": "Select By Name",
       "variable": "Variable"
     }},
     "actorGetter-memberId": {"label": "Actor", "options": {
@@ -2140,7 +2133,6 @@
     }},
     "actorGetter-actorId": {"label": "Actor"},
     "actorGetter-presetId": {"label": "Data ID"},
-    "actorGetter-name": {"label": "Name"},
     "actorGetter-variable": {"label": "Variable"},
 
     "[comment]": "********** Skill Getter **********",
@@ -2232,11 +2224,9 @@
       "trigger": "Event Trigger Light",
       "latest": "Latest Light",
       "by-id": "Select By ID",
-      "by-name": "Select By Name",
       "variable": "Variable"
     }},
     "lightGetter-presetId": {"label": "Data ID"},
-    "lightGetter-name": {"label": "Name"},
     "lightGetter-variable": {"label": "Variable"},
 
     "[comment]": "********** Element Getter **********",
@@ -2245,26 +2235,23 @@
       "trigger": "Event Trigger Element",
       "latest": "Latest Element",
       "by-id": "Select By ID",
-      "by-name": "Select By Name",
       "by-ancestor-and-id": "Select By Ancestor And ID",
-      "by-ancestor-and-name": "Select By Ancestor And Name",
       "variable": "Variable"
     }},
     "elementGetter-ancestor": {"label": "Ancestor"},
     "elementGetter-presetId": {"label": "Data ID"},
-    "elementGetter-name": {"label": "Name"},
     "elementGetter-variable": {"label": "Variable"},
 
     "[comment]": "********** Ancestor Getter **********",
     "ancestorGetter": {"title": "Ancestor Element"},
     "ancestorGetter-type": {"label": "Type"},
     "ancestorGetter-presetId": {"label": "Data ID"},
-    "ancestorGetter-name": {"label": "Name"},
     "ancestorGetter-variable": {"label": "Variable"},
 
     "[comment]": "********** Command - Show Text **********",
     "showText": {"title": "Show Text"},
-    "showText-parameters": {"tip": "Parameter Format\nname1: value1, name2: value2, ...", "placeholder": "Parameters"},
+    "showText-target": {"tip": "Target Actor\nThis actor will be set as the target actor"},
+    "showText-parameters": {"tip": "Parameter Format\nbool1, bool2: true, num: 0, str: hello world, ...", "placeholder": "Parameters"},
 
     "[comment]": "********** Command - Show Choices **********",
     "showChoices": {"title": "Show Choices"},
@@ -2272,7 +2259,7 @@
     "showChoices-choices-1": {"label": "Choice 2"},
     "showChoices-choices-2": {"label": "Choice 3"},
     "showChoices-choices-3": {"label": "Choice 4"},
-    "showChoices-parameters": {"label": "Parameters", "tip": "Parameter Format\nname1: value1, name2: value2, ..."},
+    "showChoices-parameters": {"label": "Parameters", "tip": "Parameter Format\nbool1, bool2: true, num: 0, str: hello world, ..."},
 
     "[comment]": "********** Command - Comment **********",
     "comment": {"title": "Comment"},
@@ -2290,7 +2277,7 @@
     "setBoolean-constant-value": {"label": "Constant"},
     "setBoolean-common-variable": {"label": "Variable"},
     "setBoolean-list-index": {"label": "Index"},
-    "setBoolean-parameter-paramName": {"label": "Param Name"},
+    "setBoolean-parameter-key": {"label": "Param Name"},
 
     "[comment]": "********** Command - Set Number **********",
     "setNumber": {"title": "Set Number"},
@@ -2335,9 +2322,6 @@
       "ceil": "Ceil",
       "sqrt": "Sqrt",
       "abs": "Abs",
-      "cos": "Cos(radians)",
-      "sin": "Sin(radians)",
-      "tan": "Tan(radians)",
       "random": "Random[0,1)",
       "random-int": "Random Int",
       "distance": "Distance",
@@ -2429,10 +2413,9 @@
     "setNumber-operand-math-endPosition": {"label": "End Position"},
     "setNumber-operand-cooldown-key": {"label": "Key"},
     "setNumber-operand-list-index": {"label": "Index"},
-    "setNumber-operand-parameter-paramName": {"label": "Param Name"},
+    "setNumber-operand-parameter-key": {"label": "Param Name"},
     "setNumber-operand-other-data": {"label": "Data", "options": {
       "trigger-button": "Event Trigger Button",
-      "trigger-wheel-x": "Event Trigger Wheel Delta X",
       "trigger-wheel-y": "Event Trigger Wheel Delta Y",
       "mouse-screen-x": "Mouse Screen X",
       "mouse-screen-y": "Mouse Screen Y",
@@ -2488,15 +2471,11 @@
     "setString-operand-enum-stringId": {"label": "Enum String"},
     "setString-operand-object-property": {"label": "Property", "options": {
       "actor-file-id": "Actor - File ID",
-      "actor-portrait-id": "Actor - Portrait ID",
       "actor-animation-motion-name": "Actor - Anim Motion Name",
       "skill-file-id": "Skill - File ID",
-      "skill-key": "Skill - Key Name",
       "state-file-id": "State - File ID",
       "equipment-file-id": "Equipment - File ID",
-      "equipment-key": "Equipment - Key Name",
       "item-file-id": "Item - File ID",
-      "item-key": "Item - Key Name",
       "file-id": "File - ID"
     }},
     "setString-operand-element-property": {"label": "Property", "options": {
@@ -2512,13 +2491,16 @@
     "setString-operand-common-item": {"label": "Item"},
     "setString-operand-object-fileId": {"label": "File"},
     "setString-operand-list-index": {"label": "Index"},
-    "setString-operand-parameter-paramName": {"label": "Param Name"},
+    "setString-operand-parameter-key": {"label": "Param Name"},
     "setString-operand-other-data": {"label": "Data", "options": {
       "trigger-key": "Event Trigger Key",
       "parse-timestamp": "Parse Timestamp",
       "screenshot": "Screenshot(Base64)",
-      "showText-parameters": "ShowText Parameters",
-      "showText-content": "ShowText Content"
+      "showText-content": "ShowText - Content",
+      "showChoices-content-0": "ShowChoices - Content 1",
+      "showChoices-content-1": "ShowChoices - Content 2",
+      "showChoices-content-2": "ShowChoices - Content 3",
+      "showChoices-content-3": "ShowChoices - Content 4"
     }},
     "setString-operand-parse-timestamp-variable": {"label": "Variable"},
     "setString-operand-parse-timestamp-format": {"label": "Date Format"},
@@ -3404,7 +3386,6 @@
     }},
     "getTarget-attribute": {"label": "Attribute"},
     "getTarget-divisor": {"label": "Attribute 2"},
-    "getTarget-variable": {"label": "Save to Variable"},
 
     "[comment]": "********** Command - Detect Targets **********",
     "detectTargets": {"title": "Detect Targets"},
@@ -3493,7 +3474,7 @@
       "swap": "Swap Item Locations",
       "sort": "Sort Simply",
       "sort-by-filename": "Sort by Filename",
-      "reference": "Use Someone Else's Bag",
+      "reference": "Use Global Actor's Bag",
       "reset": "Reset"
     }},
     "setBag-money": {"label": "Money"},
@@ -3503,7 +3484,7 @@
     "setBag-equipment": {"label": "Equipment"},
     "setBag-index1": {"label": "Index A"},
     "setBag-index2": {"label": "Index B"},
-    "setBag-refActorId": {"label": "Global Actor"},
+    "setBag-refActor": {"label": "Global Actor"},
 
     "[comment]": "********** Command - Use Item **********",
     "useItem": {"title": "Use Item"},

@@ -521,12 +521,14 @@ Enum.listDoubleclick = function (event) {
   switch (Enum.mode) {
     case 'group':
       if (Enum.list.read()?.class === 'folder') {
+        Enum.target.getFocus?.()
         event.stopPropagation()
         Enum.confirm()
       }
       break
     case 'string':
       if (Enum.list.read()?.value !== undefined) {
+        Enum.target.getFocus?.()
         event.stopPropagation()
         Enum.confirm()
       }

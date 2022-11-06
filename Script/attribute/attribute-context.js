@@ -77,8 +77,16 @@ class AttributeContext {
   }
 
   // 获取默认属性ID
-  getDefAttributeId(groupKey) {
-    return this.groupMap[groupKey]?.itemList[0]?.id ?? ''
+  getDefAttributeId(groupKey, type) {
+    const group = this.groupMap[groupKey]
+    if (group) {
+      for (const attr of group.itemList) {
+        if (!type || attr.type === type) {
+          return attr.id
+        }
+      }
+    }
+    return ''
   }
 
   // 获取属性选项列表

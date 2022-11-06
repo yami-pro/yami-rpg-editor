@@ -91,8 +91,7 @@ NumberOperand.initialize = function () {
       $('#setNumber-operand-list-index'),
     ]},
     {case: 'parameter', targets: [
-      $('#setNumber-operand-common-variable'),
-      $('#setNumber-operand-parameter-paramName'),
+      $('#setNumber-operand-parameter-key'),
     ]},
     {case: 'other', targets: [
       $('#setNumber-operand-other-data'),
@@ -106,9 +105,6 @@ NumberOperand.initialize = function () {
     {name: 'Ceil', value: 'ceil'},
     {name: 'Sqrt', value: 'sqrt'},
     {name: 'Abs', value: 'abs'},
-    {name: 'Cos(radians)', value: 'cos'},
-    {name: 'Sin(radians)', value: 'sin'},
-    {name: 'Tan(radians)', value: 'tan'},
     {name: 'Random[0,1)', value: 'random'},
     {name: 'Random Int', value: 'random-int'},
     {name: 'Distance', value: 'distance'},
@@ -123,7 +119,7 @@ NumberOperand.initialize = function () {
       $('#setNumber-operand-common-variable'),
       $('#setNumber-operand-math-decimals'),
     ]},
-    {case: ['floor', 'ceil', 'sqrt', 'abs', 'cos', 'sin', 'tan'], targets: [
+    {case: ['floor', 'ceil', 'sqrt', 'abs'], targets: [
       $('#setNumber-operand-common-variable'),
     ]},
     {case: 'random-int', targets: [
@@ -277,7 +273,6 @@ NumberOperand.initialize = function () {
   // 创建其他数据选项
   $('#setNumber-operand-other-data').loadItems([
     {name: 'Event Trigger Button', value: 'trigger-button'},
-    {name: 'Event Trigger Wheel Delta X', value: 'trigger-wheel-x'},
     {name: 'Event Trigger Wheel Delta Y', value: 'trigger-wheel-y'},
     {name: 'Mouse Screen X', value: 'mouse-screen-x'},
     {name: 'Mouse Screen Y', value: 'mouse-screen-y'},
@@ -317,10 +312,7 @@ NumberOperand.parseMathMethod = function (operand) {
     case 'floor':
     case 'ceil':
     case 'sqrt':
-    case 'abs':
-    case 'cos':
-    case 'sin':
-    case 'tan': {
+    case 'abs': {
       const varName = Yami.Command.parseVariable(operand.variable)
       return `${label}(${varName})`
     }
@@ -446,7 +438,7 @@ NumberOperand.parseOperand = function (operand) {
     case 'list':
       return Yami.Command.parseListItem(operand.variable, operand.index)
     case 'parameter':
-      return Yami.Command.parseParameter(operand.variable, operand.paramName)
+      return Yami.Command.parseParameter(operand.key)
     case 'other':
       return this.parseOther(operand)
   }
@@ -533,7 +525,7 @@ NumberOperand.open = function (operand = {
   let commonTrigger = {type: 'trigger'}
   let cooldownKey = ''
   let listIndex = 0
-  let parameterParamName = ''
+  let parameterKey = ''
   let otherData = 'trigger-button'
   switch (operand.type) {
     case 'constant':
@@ -578,8 +570,7 @@ NumberOperand.open = function (operand = {
       listIndex = operand.index
       break
     case 'parameter':
-      commonVariable = operand.variable
-      parameterParamName = operand.paramName
+      parameterKey = operand.key
       break
     case 'other':
       otherData = operand.data
@@ -610,7 +601,7 @@ NumberOperand.open = function (operand = {
   write('math-endPosition', mathEndPosition)
   write('cooldown-key', cooldownKey)
   write('list-index', listIndex)
-  write('parameter-paramName', parameterParamName)
+  write('parameter-key', parameterKey)
   write('other-data', otherData)
 }
 
@@ -649,10 +640,7 @@ NumberOperand.save = function () {
         case 'floor':
         case 'ceil':
         case 'sqrt':
-        case 'abs':
-        case 'cos':
-        case 'sin':
-        case 'tan': {
+        case 'abs': {
           const variable = read('common-variable')
           if (Yami.VariableGetter.isNone(variable)) {
             return $('#setNumber-operand-common-variable').getFocus()
@@ -815,15 +803,11 @@ NumberOperand.save = function () {
       break
     }
     case 'parameter': {
-      const variable = read('common-variable')
-      const paramName = read('parameter-paramName')
-      if (Yami.VariableGetter.isNone(variable)) {
-        return $('#setNumber-operand-common-variable').getFocus()
+      const key = read('parameter-key')
+      if (key === '') {
+        return $('#setNumber-operand-parameter-key').getFocus()
       }
-      if (paramName === '') {
-        return $('#setNumber-operand-parameter-paramName').getFocus()
-      }
-      operand = {operation, type, variable, paramName}
+      operand = {operation, type, key}
       break
     }
     case 'other': {

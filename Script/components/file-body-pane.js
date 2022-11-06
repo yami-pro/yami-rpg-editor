@@ -690,7 +690,10 @@ class FileBodyPane extends HTMLElement {
 
   // 选择路径匹配的项目
   selectByPath(path) {
-    for (let {file} of this.elements) {
+    const {elements} = this
+    const {count} = elements
+    for (let i = 0; i < count; i++) {
+      const {file} = elements[i]
       if (file.path === path) {
         return this.select(file)
       }
@@ -714,8 +717,8 @@ class FileBodyPane extends HTMLElement {
 
   // 在网格列表中选择相对位置的项目
   selectRelativeInGridMode(direction) {
-    const elements = this.elements
-    const count = elements.count
+    const {elements} = this
+    const {count} = elements
     if (count > 0) {
       let index
       let start = Infinity

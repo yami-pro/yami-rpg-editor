@@ -1,5 +1,4 @@
 {
-  "fontSize": "normal",
   "properties": {
     "common": {
       "none": "None",
@@ -123,6 +122,10 @@
       "input": "输入事件",
       "focus": "获得焦点",
       "blur": "失去焦点"
+    },
+    "showChoices": {
+      "yes": "是",
+      "no": "否"
     },
     "menuFile": {
       "newProject": "新建项目",
@@ -519,11 +522,11 @@
       "trigger": "事件触发角色",
       "caster": "技能施放角色",
       "latest": "最新创建角色",
+      "target": "目标角色",
       "player": "玩家角色",
       "member": "队伍成员",
       "global": "全局角色",
       "by-id": "ID",
-      "by-name": "名称",
       "variable": "变量"
     },
     "skill": {
@@ -583,7 +586,6 @@
       "trigger": "事件触发光源",
       "latest": "最新创建光源",
       "by-id": "ID",
-      "by-name": "名称",
       "variable": "变量"
     },
     "element": {
@@ -591,7 +593,6 @@
       "trigger": "事件触发元素",
       "latest": "最新创建元素",
       "by-id": "ID",
-      "by-name": "名称",
       "variable": "变量"
     },
     "variable": {
@@ -605,7 +606,8 @@
       "normal": "正常",
       "screen": "滤色",
       "additive": "加法",
-      "subtract": "减法"
+      "subtract": "减法",
+      "mask": "遮罩"
     },
     "transition": {
       "wait": "等待"
@@ -631,9 +633,6 @@
       "setNumber.math.ceil": "向上取整",
       "setNumber.math.sqrt": "开平方根",
       "setNumber.math.abs": "取绝对值",
-      "setNumber.math.cos": "取余弦值",
-      "setNumber.math.sin": "取正弦值",
-      "setNumber.math.tan": "取正切值",
       "setNumber.math.random": "取随机数",
       "setNumber.math.random-int": "随机整数",
       "setNumber.math.distance": "距离",
@@ -701,7 +700,6 @@
       "setNumber.element.dialogBox-printEndX": "对话框.打印结束位置X",
       "setNumber.element.dialogBox-printEndY": "对话框.打印结束位置Y",
       "setNumber.other.trigger-button": "事件触发鼠标按键",
-      "setNumber.other.trigger-wheel-x": "事件触发鼠标滚轮X",
       "setNumber.other.trigger-wheel-y": "事件触发鼠标滚轮Y",
       "setNumber.other.mouse-screen-x": "鼠标.屏幕X",
       "setNumber.other.mouse-screen-y": "鼠标.屏幕Y",
@@ -730,15 +728,11 @@
       "setString.string.replace": "替换",
       "setString.string.replace-all": "替换全部",
       "setString.object.actor-file-id": "文件ID",
-      "setString.object.actor-portrait-id": "头像ID",
       "setString.object.actor-animation-motion-name": "动画.动作名称",
       "setString.object.skill-file-id": "文件ID",
-      "setString.object.skill-key": "键名",
       "setString.object.state-file-id": "文件ID",
       "setString.object.equipment-file-id": "文件ID",
-      "setString.object.equipment-key": "键名",
       "setString.object.item-file-id": "文件ID",
-      "setString.object.item-key": "键名",
       "setString.object.file-id": "ID",
       "setString.element.text-content": "文本.内容",
       "setString.element.textBox-text": "文本框.文本",
@@ -746,9 +740,7 @@
       "setString.other.trigger-key": "事件触发键盘按键",
       "setString.other.parse-timestamp": "解析时间戳",
       "setString.other.screenshot": "屏幕截图.Base64",
-      "setString.other.showText-parameters": "显示文本.参数",
       "setString.other.showText-content": "显示文本.内容",
-      "setString.other.showChoices-parameters": "显示选项.参数",
       "setString.other.showChoices-content-0": "显示选项.内容1",
       "setString.other.showChoices-content-1": "显示选项.内容2",
       "setString.other.showChoices-content-2": "显示选项.内容3",
@@ -1102,7 +1094,7 @@
       "setBag.swap": "交换物品位置",
       "setBag.sort": "简单排序",
       "setBag.sort-by-filename": "按文件名排序",
-      "setBag.reference": "使用其他角色的包裹",
+      "setBag.reference": "使用全局角色的包裹",
       "setBag.reset": "重置",
       "useItem": "使用物品",
       "setItem": "设置物品",
@@ -1593,7 +1585,7 @@
     "uiImage-image": {"label": "图像"},
     "uiImage-display": {"label": "显示", "options": {"stretch": "拉伸", "tile": "平铺", "clip": "裁剪", "slice": "切片"}},
     "uiImage-flip": {"label": "翻转", "options": {"none": "不翻转", "horizontal": "水平翻转", "vertical": "垂直翻转", "both": "水平垂直翻转"}},
-    "uiImage-blend": {"label": "混合模式", "options": {"normal": "正常", "additive": "加法", "subtract": "减法"}},
+    "uiImage-blend": {"label": "混合模式", "options": {"normal": "正常", "additive": "加法", "subtract": "减法", "mask": "遮罩"}},
     "uiImage-shift-box": {"label": "偏移"},
     "uiImage-clip": {"label": "裁剪"},
     "uiImage-border": {"label": "边框"},
@@ -1901,6 +1893,7 @@
     "config-actor-partyMembers-1": {"label": "队伍成员 2"},
     "config-actor-partyMembers-2": {"label": "队伍成员 3"},
     "config-actor-partyMembers-3": {"label": "队伍成员 4"},
+    "config-actor-partyBagMode": {"label": "队伍包裹模式", "options": {"shared": "共用玩家角色的包裹", "separate": "使用独立的包裹"}},
     "config-actor-tempAttributes": {"label": "临时属性"},
     "config-animation-summary": {"content": "动画"},
     "config-animation-frameRate": {"label": "动画帧率"},
@@ -2003,7 +1996,7 @@
     "attribute-type-boolean-label": {"content": "布尔值"},
     "attribute-type-number-label": {"content": "数值"},
     "attribute-type-string-label": {"content": "字符串"},
-    "attribute-type-enum-label": {"content": "枚举"},
+    "attribute-type-enum-label": {"content": "字符串(枚举)"},
     "attribute-enum": {"label": "选项"},
     "attribute-note": {"label": "备注"},
 
@@ -2125,11 +2118,11 @@
       "trigger": "事件触发角色",
       "caster": "技能施放角色",
       "latest": "最新创建角色",
+      "target": "目标角色",
       "player": "玩家角色",
       "member": "队伍成员",
       "global": "全局角色",
       "by-id": "指定ID",
-      "by-name": "指定名称",
       "variable": "角色变量"
     }},
     "actorGetter-memberId": {"label": "角色", "options": {
@@ -2140,7 +2133,6 @@
     }},
     "actorGetter-actorId": {"label": "角色"},
     "actorGetter-presetId": {"label": "数据ID"},
-    "actorGetter-name": {"label": "名称"},
     "actorGetter-variable": {"label": "变量"},
 
     "[comment]": "********** 技能访问器 **********",
@@ -2232,11 +2224,9 @@
       "trigger": "事件触发光源",
       "latest": "最新创建光源",
       "by-id": "指定ID",
-      "by-name": "指定名称",
       "variable": "光源变量"
     }},
     "lightGetter-presetId": {"label": "数据ID"},
-    "lightGetter-name": {"label": "名称"},
     "lightGetter-variable": {"label": "变量"},
 
     "[comment]": "********** 元素访问器 **********",
@@ -2245,26 +2235,23 @@
       "trigger": "事件触发元素",
       "latest": "最新创建元素",
       "by-id": "指定ID",
-      "by-name": "指定名称",
       "by-ancestor-and-id": "指定祖先元素和ID",
-      "by-ancestor-and-name": "指定祖先元素和名称",
       "variable": "元素变量"
     }},
     "elementGetter-ancestor": {"label": "元素"},
     "elementGetter-presetId": {"label": "数据ID"},
-    "elementGetter-name": {"label": "名称"},
     "elementGetter-variable": {"label": "变量"},
 
     "[comment]": "********** 祖先元素访问器 **********",
     "ancestorGetter": {"title": "祖先元素"},
     "ancestorGetter-type": {"label": "类型"},
     "ancestorGetter-presetId": {"label": "数据ID"},
-    "ancestorGetter-name": {"label": "名称"},
     "ancestorGetter-variable": {"label": "变量"},
 
     "[comment]": "********** 指令 - 显示文本 **********",
     "showText": {"title": "显示文本"},
-    "showText-parameters": {"tip": "参数格式\nname1: value1, name2: value2, ...", "placeholder": "参数"},
+    "showText-target": {"tip": "目标角色\n这个角色将会被设置为目标角色"},
+    "showText-parameters": {"tip": "参数格式\nbool1, bool2: true, num: 0, str: hello world, ...", "placeholder": "参数"},
 
     "[comment]": "********** 指令 - 显示选项 **********",
     "showChoices": {"title": "显示选项"},
@@ -2272,7 +2259,7 @@
     "showChoices-choices-1": {"label": "选项 2"},
     "showChoices-choices-2": {"label": "选项 3"},
     "showChoices-choices-3": {"label": "选项 4"},
-    "showChoices-parameters": {"label": "参数", "tip": "参数格式\nname1: value1, name2: value2, ..."},
+    "showChoices-parameters": {"label": "参数", "tip": "参数格式\nbool1, bool2: true, num: 0, str: hello world, ..."},
 
     "[comment]": "********** 指令 - 注释 **********",
     "comment": {"title": "注释"},
@@ -2290,7 +2277,7 @@
     "setBoolean-constant-value": {"label": "常量"},
     "setBoolean-common-variable": {"label": "变量"},
     "setBoolean-list-index": {"label": "索引"},
-    "setBoolean-parameter-paramName": {"label": "参数名称"},
+    "setBoolean-parameter-key": {"label": "参数名称"},
 
     "[comment]": "********** 指令 - 设置数值 **********",
     "setNumber": {"title": "设置数值"},
@@ -2335,9 +2322,6 @@
       "ceil": "向上取整",
       "sqrt": "开平方根",
       "abs": "取绝对值",
-      "cos": "取余弦值(弧度)",
-      "sin": "取正弦值(弧度)",
-      "tan": "取正切值(弧度)",
       "random": "取随机数[0,1)",
       "random-int": "随机整数",
       "distance": "距离",
@@ -2429,10 +2413,9 @@
     "setNumber-operand-math-endPosition": {"label": "终点"},
     "setNumber-operand-cooldown-key": {"label": "键"},
     "setNumber-operand-list-index": {"label": "索引"},
-    "setNumber-operand-parameter-paramName": {"label": "参数名称"},
+    "setNumber-operand-parameter-key": {"label": "参数名称"},
     "setNumber-operand-other-data": {"label": "数据", "options": {
       "trigger-button": "事件触发鼠标按键",
-      "trigger-wheel-x": "事件触发鼠标滚轮 X",
       "trigger-wheel-y": "事件触发鼠标滚轮 Y",
       "mouse-screen-x": "鼠标屏幕 X",
       "mouse-screen-y": "鼠标屏幕 Y",
@@ -2488,15 +2471,11 @@
     "setString-operand-enum-stringId": {"label": "枚举字符串"},
     "setString-operand-object-property": {"label": "属性", "options": {
       "actor-file-id": "角色 - 文件ID",
-      "actor-portrait-id": "角色 - 头像ID",
       "actor-animation-motion-name": "角色 - 动画动作名称",
       "skill-file-id": "技能 - 文件ID",
-      "skill-key": "技能 - 键名",
       "state-file-id": "状态 - 文件ID",
       "equipment-file-id": "装备 - 文件ID",
-      "equipment-key": "装备 - 键名",
       "item-file-id": "物品 - 文件ID",
-      "item-key": "物品 - 键名",
       "file-id": "文件 - ID"
     }},
     "setString-operand-element-property": {"label": "属性", "options": {
@@ -2512,13 +2491,16 @@
     "setString-operand-common-item": {"label": "物品"},
     "setString-operand-object-fileId": {"label": "文件"},
     "setString-operand-list-index": {"label": "索引"},
-    "setString-operand-parameter-paramName": {"label": "参数名称"},
+    "setString-operand-parameter-key": {"label": "参数名称"},
     "setString-operand-other-data": {"label": "数据", "options": {
       "trigger-key": "事件触发键盘按键",
       "parse-timestamp": "解析时间戳",
       "screenshot": "屏幕截图(Base64)",
-      "showText-parameters": "显示文本指令参数",
-      "showText-content": "显示文本指令内容"
+      "showText-content": "显示文本 - 内容",
+      "showChoices-content-0": "显示选项 - 内容1",
+      "showChoices-content-1": "显示选项 - 内容2",
+      "showChoices-content-2": "显示选项 - 内容3",
+      "showChoices-content-3": "显示选项 - 内容4"
     }},
     "setString-operand-parse-timestamp-variable": {"label": "变量"},
     "setString-operand-parse-timestamp-format": {"label": "日期格式"},
@@ -3404,7 +3386,6 @@
     }},
     "getTarget-attribute": {"label": "属性"},
     "getTarget-divisor": {"label": "属性 2"},
-    "getTarget-variable": {"label": "保存到变量"},
 
     "[comment]": "********** 指令 - 探测目标 **********",
     "detectTargets": {"title": "探测目标"},
@@ -3493,7 +3474,7 @@
       "swap": "交换物品位置",
       "sort": "简单排序",
       "sort-by-filename": "按文件名排序",
-      "reference": "使用其他角色的包裹",
+      "reference": "使用全局角色的包裹",
       "reset": "重置"
     }},
     "setBag-money": {"label": "金钱"},
@@ -3503,7 +3484,7 @@
     "setBag-equipment": {"label": "装备"},
     "setBag-index1": {"label": "索引 A"},
     "setBag-index2": {"label": "索引 B"},
-    "setBag-refActorId": {"label": "全局角色"},
+    "setBag-refActor": {"label": "全局角色"},
 
     "[comment]": "********** 指令 - 使用物品 **********",
     "useItem": {"title": "使用物品"},

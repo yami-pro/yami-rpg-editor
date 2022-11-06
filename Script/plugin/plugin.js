@@ -631,6 +631,8 @@ PluginManager.parseMeta = function IIFE() {
     ui: true,
     animation: true,
     particle: true,
+    image: true,
+    audio: true,
     video: true,
     script: true,
     font: true,
@@ -1096,12 +1098,14 @@ PluginManager.reconstruct = function IIFE() {
         return value === '' || !!Yami.Data.variables.map[value]
       case 'attribute':
       case 'attribute-key':
+        if (value === '') return true
         if (parameter.filter === 'any') return !!Yami.Attribute.getAttribute(value)
         return !!Yami.Attribute.getGroupAttribute(parameter.filter, value)
       case 'attribute-group':
         return !!Yami.Attribute.getGroup(value)
       case 'enum':
       case 'enum-value':
+        if (value === '') return true
         if (parameter.filter === 'any') return !!Yami.Enum.getString(value)
         return !!Yami.Enum.getGroupString(parameter.filter, value)
       case 'enum-group':
@@ -1165,11 +1169,10 @@ PluginManager.reconstruct = function IIFE() {
       case 'attribute-key':
         if (parameter.filter === 'any') {
           if (Yami.Attribute.getAttribute(value)) return value
-          return ''
         } else {
           if (Yami.Attribute.getGroupAttribute(parameter.filter, value)) return value
-          return Yami.Attribute.getDefAttributeId(parameter.filter)
         }
+        return ''
       case 'attribute-group':
         if (Yami.Attribute.getGroup(value)) return value
         return ''
@@ -1177,11 +1180,10 @@ PluginManager.reconstruct = function IIFE() {
       case 'enum-value':
         if (parameter.filter === 'any') {
           if (Yami.Enum.getString(value)) return value
-          return ''
         } else {
           if (Yami.Enum.getGroupString(parameter.filter, value)) return value
-          return Yami.Enum.getDefStringId(parameter.filter)
         }
+        return ''
       case 'enum-group':
         if (Yami.Enum.getEnumGroup(value)) return value
         return ''

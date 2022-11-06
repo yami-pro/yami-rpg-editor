@@ -4773,6 +4773,10 @@
       filter: "actor"
     }), /* @__PURE__ */ createElement("text", {
       class: "project-label"
+    }, "Party Bag Mode"), /* @__PURE__ */ createElement("select-box", {
+      id: "config-actor-partyBagMode"
+    }), /* @__PURE__ */ createElement("text", {
+      class: "project-label"
     }, "Temporary Attributes"), /* @__PURE__ */ createElement("param-list", {
       id: "config-actor-tempAttributes",
       group: "actor",
@@ -5261,7 +5265,7 @@
       value: "enum"
     }, /* @__PURE__ */ createElement("text", {
       id: "attribute-type-enum-label"
-    }, "Enum"))), /* @__PURE__ */ createElement("flex-item", {
+    }, "String(Enum)"))), /* @__PURE__ */ createElement("flex-item", {
       id: "attribute-enum-box"
     }, /* @__PURE__ */ createElement("text", null, "Options"), /* @__PURE__ */ createElement("custom-box", {
       id: "attribute-enum",
@@ -5783,8 +5787,6 @@
       id: "actorGetter-presetId",
       type: "preset-object",
       filter: "actor"
-    }), /* @__PURE__ */ createElement("text", null, "Name"), /* @__PURE__ */ createElement("string-var", {
-      id: "actorGetter-name"
     }), /* @__PURE__ */ createElement("text", null, "Variable"), /* @__PURE__ */ createElement("custom-box", {
       id: "actorGetter-variable",
       type: "variable",
@@ -5942,8 +5944,6 @@
       id: "lightGetter-presetId",
       type: "preset-object",
       filter: "light"
-    }), /* @__PURE__ */ createElement("text", null, "Name"), /* @__PURE__ */ createElement("text-box", {
-      id: "lightGetter-name"
     }), /* @__PURE__ */ createElement("text", null, "Variable"), /* @__PURE__ */ createElement("custom-box", {
       id: "lightGetter-variable",
       type: "variable",
@@ -5964,8 +5964,6 @@
     }), /* @__PURE__ */ createElement("text", null, "Data ID"), /* @__PURE__ */ createElement("custom-box", {
       id: "elementGetter-presetId",
       type: "preset-element"
-    }), /* @__PURE__ */ createElement("text", null, "Name"), /* @__PURE__ */ createElement("text-box", {
-      id: "elementGetter-name"
     }), /* @__PURE__ */ createElement("text", null, "Variable"), /* @__PURE__ */ createElement("custom-box", {
       id: "elementGetter-variable",
       type: "variable",
@@ -5983,8 +5981,6 @@
     }), /* @__PURE__ */ createElement("text", null, "Data ID"), /* @__PURE__ */ createElement("custom-box", {
       id: "ancestorGetter-presetId",
       type: "preset-element"
-    }), /* @__PURE__ */ createElement("text", null, "Name"), /* @__PURE__ */ createElement("text-box", {
-      id: "ancestorGetter-name"
     }), /* @__PURE__ */ createElement("text", null, "Variable"), /* @__PURE__ */ createElement("custom-box", {
       id: "ancestorGetter-variable",
       type: "variable",
@@ -6031,7 +6027,10 @@
       name: "cancel"
     }, "Cancel"))), /* @__PURE__ */ createElement("window-frame", {
       id: "showText"
-    }, /* @__PURE__ */ createElement("title-bar", null, "Show Text", /* @__PURE__ */ createElement("close", null)), /* @__PURE__ */ createElement("content-frame", null, /* @__PURE__ */ createElement("text-box", {
+    }, /* @__PURE__ */ createElement("title-bar", null, "Show Text", /* @__PURE__ */ createElement("close", null)), /* @__PURE__ */ createElement("content-frame", null, /* @__PURE__ */ createElement("custom-box", {
+      id: "showText-target",
+      type: "actor"
+    }), /* @__PURE__ */ createElement("text-box", {
       id: "showText-parameters"
     }), /* @__PURE__ */ createElement("text-area", {
       id: "showText-content",
@@ -6081,7 +6080,7 @@
       min: "0",
       max: "1000000000"
     }), /* @__PURE__ */ createElement("text", null, "Param Name"), /* @__PURE__ */ createElement("string-var", {
-      id: "setBoolean-parameter-paramName"
+      id: "setBoolean-parameter-key"
     })), /* @__PURE__ */ createElement("button", {
       id: "setBoolean-confirm",
       name: "confirm"
@@ -6183,7 +6182,7 @@
       min: "0",
       max: "1000000000"
     }), /* @__PURE__ */ createElement("text", null, "Param Name"), /* @__PURE__ */ createElement("string-var", {
-      id: "setNumber-operand-parameter-paramName"
+      id: "setNumber-operand-parameter-key"
     }), /* @__PURE__ */ createElement("text", null, "Data"), /* @__PURE__ */ createElement("select-box", {
       id: "setNumber-operand-other-data"
     })), /* @__PURE__ */ createElement("button", {
@@ -6265,7 +6264,7 @@
       min: "0",
       max: "1000000000"
     }), /* @__PURE__ */ createElement("text", null, "Param Name"), /* @__PURE__ */ createElement("string-var", {
-      id: "setString-operand-parameter-paramName"
+      id: "setString-operand-parameter-key"
     }), /* @__PURE__ */ createElement("text", null, "Data"), /* @__PURE__ */ createElement("select-box", {
       id: "setString-operand-other-data"
     }), /* @__PURE__ */ createElement("text", null, "Variable"), /* @__PURE__ */ createElement("custom-box", {
@@ -8096,14 +8095,10 @@
       id: "getTarget-selector"
     }), /* @__PURE__ */ createElement("text", null, "Condition"), /* @__PURE__ */ createElement("select-box", {
       id: "getTarget-condition"
-    }), /* @__PURE__ */ createElement("text", null, "Attribute"), /* @__PURE__ */ createElement("text-box", {
+    }), /* @__PURE__ */ createElement("text", null, "Attribute"), /* @__PURE__ */ createElement("select-box", {
       id: "getTarget-attribute"
-    }), /* @__PURE__ */ createElement("text", null, "Divisor"), /* @__PURE__ */ createElement("text-box", {
+    }), /* @__PURE__ */ createElement("text", null, "Attribute 2"), /* @__PURE__ */ createElement("select-box", {
       id: "getTarget-divisor"
-    }), /* @__PURE__ */ createElement("text", null, "Save to Variable"), /* @__PURE__ */ createElement("custom-box", {
-      id: "getTarget-variable",
-      type: "variable",
-      filter: "object"
     })), /* @__PURE__ */ createElement("button", {
       id: "getTarget-confirm",
       name: "confirm"
@@ -8302,9 +8297,8 @@
       min: "0",
       max: "10000"
     }), /* @__PURE__ */ createElement("text", null, "Global Actor"), /* @__PURE__ */ createElement("custom-box", {
-      id: "setBag-refActorId",
-      type: "file",
-      filter: "actor"
+      id: "setBag-refActor",
+      type: "actor"
     })), /* @__PURE__ */ createElement("button", {
       id: "setBag-confirm",
       name: "confirm"

@@ -58,6 +58,7 @@ import * as Yami from '../yami.js'
       {name: 'Normal', value: 'normal'},
       {name: 'Additive', value: 'additive'},
       {name: 'Subtract', value: 'subtract'},
+      {name: 'Mask', value: 'mask'},
     ])
 
     // 同步滑动框和数字框的数值

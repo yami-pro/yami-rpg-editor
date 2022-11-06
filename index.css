@@ -250,10 +250,6 @@
   --attribute-color-invalid: #ff0000;
 }
 
-:root.font-size-large {
-  --font-size-normal: 13px;
-}
-
 /* --------------------------------
  * 主题配色 - 黑暗
  * --------------------------------
@@ -6577,11 +6573,18 @@ text.animation-motion-direction {
   height: 264px;
 }
 
-#showText-parameters {
+#showText-target {
   position: absolute;
   left: 10px;
   top: 10px;
-  width: 700px;
+  width: 200px;
+}
+
+#showText-parameters {
+  position: absolute;
+  left: 220px;
+  top: 10px;
+  width: 490px;
   font-family: var(--font-family-mono);
 }
 
@@ -6690,11 +6693,11 @@ text.animation-motion-direction {
  */
 #setString {
   width: 324px;
-  height: 214px;
+  height: 238px;
 }
 
 #setString-operand-constant-value {
-  height: 68px;
+  height: 92px;
 }
 
 #setString-confirm {
@@ -8201,7 +8204,7 @@ text.animation-motion-direction {
  */
 #getTarget {
   width: 324px;
-  height: 214px;
+  height: 190px;
 }
 
 #getTarget-confirm {

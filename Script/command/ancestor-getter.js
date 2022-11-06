@@ -23,7 +23,6 @@ AncestorGetter.initialize = function () {
     'trigger',
     'latest',
     'by-id',
-    'by-name',
     'variable',
   ]
   $('#ancestorGetter-type').loadItems(
@@ -33,9 +32,6 @@ AncestorGetter.initialize = function () {
 
   // 设置关联元素
   $('#ancestorGetter-type').enableHiddenMode().relate([
-    {case: 'by-name', targets: [
-      $('#ancestorGetter-name'),
-    ]},
     {case: 'variable', targets: [
       $('#ancestorGetter-variable'),
     ]},
@@ -43,7 +39,6 @@ AncestorGetter.initialize = function () {
 
   // 侦听事件
   $('#ancestorGetter-confirm').on('click', this.confirm)
-  Yami.TextSuggestion.listen($('#ancestorGetter-name'), 'element')
 }
 
 // 打开窗口
@@ -51,7 +46,6 @@ AncestorGetter.open = function (target) {
   this.target = target
   Yami.Window.open('ancestorGetter')
 
-  let name = ''
   let presetId = Yami.PresetElement.getDefaultPresetId()
   let variable = {type: 'local', key: ''}
   const element = target.dataValue
@@ -62,16 +56,12 @@ AncestorGetter.open = function (target) {
     case 'by-id':
       presetId = element.presetId
       break
-    case 'by-name':
-      name = element.name
-      break
     case 'variable':
       variable = element.variable
       break
   }
   $('#ancestorGetter-type').write(element.type)
   $('#ancestorGetter-presetId').write(presetId)
-  $('#ancestorGetter-name').write(name)
   $('#ancestorGetter-variable').write(variable)
   $('#ancestorGetter-type').getFocus()
 }
@@ -92,14 +82,6 @@ AncestorGetter.confirm = function (event) {
         return $('#ancestorGetter-presetId').getFocus()
       }
       getter = {type, presetId}
-      break
-    }
-    case 'by-name': {
-      const name = read('name').trim()
-      if (!name) {
-        return $('#ancestorGetter-name').getFocus()
-      }
-      getter = {type, name}
       break
     }
     case 'variable': {

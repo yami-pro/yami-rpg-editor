@@ -107,16 +107,20 @@ class WindowElement extends Yami.UI.Element {
         this.drawChildren()
         break
       case 'hidden':
-        Yami.GL.alpha = 1
-        Yami.GL.blend = 'normal'
-        Yami.GL.enable(Yami.GL.DEPTH_TEST)
-        Yami.GL.depthFunc(Yami.GL.ALWAYS)
-        Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
-        Yami.GL.fillRect(this.x, this.y, this.width, this.height, 0x00000000)
-        Yami.GL.depthFunc(Yami.GL.EQUAL)
-        this.drawChildren()
-        Yami.GL.clear(Yami.GL.DEPTH_BUFFER_BIT)
-        Yami.GL.disable(Yami.GL.DEPTH_TEST)
+        if (!Yami.GL.depthTest) {
+          Yami.GL.alpha = 1
+          Yami.GL.blend = 'normal'
+          Yami.GL.depthTest = true
+          Yami.GL.enable(Yami.GL.DEPTH_TEST)
+          Yami.GL.depthFunc(Yami.GL.ALWAYS)
+          Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
+          Yami.GL.fillRect(this.x, this.y, this.width, this.height, 0x00000000)
+          Yami.GL.depthFunc(Yami.GL.EQUAL)
+          this.drawChildren()
+          Yami.GL.clear(Yami.GL.DEPTH_BUFFER_BIT)
+          Yami.GL.disable(Yami.GL.DEPTH_TEST)
+          Yami.GL.depthTest = false
+        }
         break
     }
   }

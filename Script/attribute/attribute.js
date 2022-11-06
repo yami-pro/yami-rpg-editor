@@ -331,8 +331,8 @@ Attribute.getGroupAttribute = function (groupKey, attrId) {
 }
 
 // 获取默认属性ID
-Attribute.getDefAttributeId = function (groupKey) {
-  return Yami.Data.attribute.context.getDefAttributeId(groupKey)
+Attribute.getDefAttributeId = function (groupKey, type) {
+  return Yami.Data.attribute.context.getDefAttributeId(groupKey, type)
 }
 
 // 获取属性选项列表
@@ -559,12 +559,14 @@ Attribute.listDoubleclick = function (event) {
   switch (Attribute.mode) {
     case 'group':
       if (Attribute.list.read()?.class === 'folder') {
+        Attribute.target.getFocus?.()
         event.stopPropagation()
         Attribute.confirm()
       }
       break
     case 'attribute':
       if (Attribute.list.read()?.key !== undefined) {
+        Attribute.target.getFocus?.()
         event.stopPropagation()
         Attribute.confirm()
       }

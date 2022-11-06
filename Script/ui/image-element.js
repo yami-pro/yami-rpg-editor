@@ -75,8 +75,21 @@ class ImageElement extends Yami.UI.Element {
       let dy = this.y
       let dw = this.width
       let dh = this.height
-      Yami.GL.alpha = this.opacity
-      Yami.GL.blend = this.blend
+      if (this.blend === 'mask') {
+        if (Yami.GL.maskTexture.binding) {
+          break draw
+        }
+        if (Yami.GL.depthTest) {
+          Yami.GL.disable(Yami.GL.DEPTH_TEST)
+        }
+        Yami.GL.maskTexture.binding = this
+        Yami.GL.bindFBO(Yami.GL.maskTexture.fbo)
+        Yami.GL.alpha = 1
+        Yami.GL.blend = 'normal'
+      } else {
+        Yami.GL.alpha = this.opacity
+        Yami.GL.blend = this.blend
+      }
       Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
       switch (this.display) {
         case 'stretch':
@@ -116,7 +129,35 @@ class ImageElement extends Yami.UI.Element {
     }
 
     // 绘制子元素
-    this.drawChildren()
+    if (Yami.GL.maskTexture.binding === this) {
+      Yami.GL.unbindFBO()
+      if (Yami.GL.depthTest) {
+        Yami.GL.enable(Yami.GL.DEPTH_TEST)
+      }
+      Yami.GL.masking = true
+      this.drawChildren()
+      Yami.GL.masking = false
+      Yami.GL.maskTexture.binding = null
+      // 擦除遮罩纹理缓冲区
+      const [x1, y1, x2, y2] = this.computeBoundingRectangle()
+      const sl = Math.max(Math.floor(x1 - 1), 0)
+      const st = Math.max(Math.floor(y1 - 1), 0)
+      const sr = Math.min(Math.ceil(x2 + 1), Yami.GL.maskTexture.width)
+      const sb = Math.min(Math.ceil(y2 + 1), Yami.GL.maskTexture.height)
+      const sw = sr - sl
+      const sh = sb - st
+      if (sw > 0 && sh > 0) {
+        Yami.GL.bindFBO(Yami.GL.maskTexture.fbo)
+        Yami.GL.enable(Yami.GL.SCISSOR_TEST)
+        Yami.GL.scissor(sl, st, sw, sh)
+        Yami.GL.clearColor(0, 0, 0, 0)
+        Yami.GL.clear(Yami.GL.COLOR_BUFFER_BIT)
+        Yami.GL.disable(Yami.GL.SCISSOR_TEST)
+        Yami.GL.unbindFBO()
+      }
+    } else {
+      this.drawChildren()
+    }
   }
 
   // 调整大小
@@ -134,6 +175,38 @@ class ImageElement extends Yami.UI.Element {
     this.destroyChildren()
     delete this.node.instance
   }
+
+  // 计算外接矩形
+  computeBoundingRectangle() {
+    const matrix = Yami.GL.matrix.set(Yami.UI.matrix).multiply(this.matrix)
+    const L = this.x
+    const T = this.y
+    const R = L + this.width
+    const B = T + this.height
+    const a = matrix[0]
+    const b = matrix[1]
+    const c = matrix[3]
+    const d = matrix[4]
+    const e = matrix[6]
+    const f = matrix[7]
+    const x1 = a * L + c * T + e
+    const y1 = b * L + d * T + f
+    const x2 = a * L + c * B + e
+    const y2 = b * L + d * B + f
+    const x3 = a * R + c * B + e
+    const y3 = b * R + d * B + f
+    const x4 = a * R + c * T + e
+    const y4 = b * R + d * T + f
+    const vertices = ImageElement.sharedFloat64Array
+    vertices[0] = Math.min(x1, x2, x3, x4)
+    vertices[1] = Math.min(y1, y2, y3, y4)
+    vertices[2] = Math.max(x1, x2, x3, x4)
+    vertices[3] = Math.max(y1, y2, y3, y4)
+    return vertices
+  }
+
+  // 公共属性
+  static sharedFloat64Array = new Float64Array(4)
 }
 
 Yami.UI.Image = ImageElement

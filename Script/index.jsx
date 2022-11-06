@@ -1854,6 +1854,7 @@ function Body() {
           <text class="project-label">Party Member 2</text><custom-box id="config-actor-partyMembers-1" type="file" filter="actor"></custom-box>
           <text class="project-label">Party Member 3</text><custom-box id="config-actor-partyMembers-2" type="file" filter="actor"></custom-box>
           <text class="project-label">Party Member 4</text><custom-box id="config-actor-partyMembers-3" type="file" filter="actor"></custom-box>
+          <text class="project-label">Party Bag Mode</text><select-box id="config-actor-partyBagMode"></select-box>
           <text class="project-label">Temporary Attributes</text><param-list id="config-actor-tempAttributes" group="actor" flexible></param-list>
           <text id="config-animation-summary" class="project-summary">Animation</text>
           <text class="project-label">Frame Rate</text><number-box id="config-animation-frameRate" min="1" max="240" unit="fps"></number-box>
@@ -2090,7 +2091,7 @@ function Body() {
             <radio-box id="attribute-type-boolean" name="attribute-type" class="standard" value="boolean"><text id="attribute-type-boolean-label">Boolean</text></radio-box>
             <radio-box id="attribute-type-number" name="attribute-type" class="standard" value="number"><text id="attribute-type-number-label">Number</text></radio-box>
             <radio-box id="attribute-type-string" name="attribute-type" class="standard" value="string"><text id="attribute-type-string-label">String</text></radio-box>
-            <radio-box id="attribute-type-enum" name="attribute-type" class="standard" value="enum"><text id="attribute-type-enum-label">Enum</text></radio-box>
+            <radio-box id="attribute-type-enum" name="attribute-type" class="standard" value="enum"><text id="attribute-type-enum-label">String(Enum)</text></radio-box>
           </flex-item>
           <flex-item id="attribute-enum-box"><text>Options</text>
             <custom-box id="attribute-enum" type="enum-group"></custom-box>
@@ -2478,7 +2479,6 @@ function Body() {
         <text>Actor</text><select-box id="actorGetter-memberId"></select-box>
         <text>Actor</text><custom-box id="actorGetter-actorId" type="file" filter="actor"></custom-box>
         <text>Data ID</text><custom-box id="actorGetter-presetId" type="preset-object" filter="actor"></custom-box>
-        <text>Name</text><string-var id="actorGetter-name"></string-var>
         <text>Variable</text><custom-box id="actorGetter-variable" type="variable" filter="object"></custom-box>
       </grid-box>
       <button id="actorGetter-confirm" name="confirm">Confirm</button>
@@ -2596,7 +2596,6 @@ function Body() {
       <grid-box>
         <text>Type</text><select-box id="lightGetter-type"></select-box>
         <text>Light</text><custom-box id="lightGetter-presetId" type="preset-object" filter="light"></custom-box>
-        <text>Name</text><text-box id="lightGetter-name"></text-box>
         <text>Variable</text><custom-box id="lightGetter-variable" type="variable" filter="object"></custom-box>
       </grid-box>
       <button id="lightGetter-confirm" name="confirm">Confirm</button>
@@ -2612,7 +2611,6 @@ function Body() {
         <text>Type</text><select-box id="elementGetter-type"></select-box>
         <text>Ancestor</text><custom-box id="elementGetter-ancestor" type="ancestor-element"></custom-box>
         <text>Data ID</text><custom-box id="elementGetter-presetId" type="preset-element"></custom-box>
-        <text>Name</text><text-box id="elementGetter-name"></text-box>
         <text>Variable</text><custom-box id="elementGetter-variable" type="variable" filter="object"></custom-box>
       </grid-box>
       <button id="elementGetter-confirm" name="confirm">Confirm</button>
@@ -2627,7 +2625,6 @@ function Body() {
       <grid-box>
         <text>Type</text><select-box id="ancestorGetter-type"></select-box>
         <text>Data ID</text><custom-box id="ancestorGetter-presetId" type="preset-element"></custom-box>
-        <text>Name</text><text-box id="ancestorGetter-name"></text-box>
         <text>Variable</text><custom-box id="ancestorGetter-variable" type="variable" filter="object"></custom-box>
       </grid-box>
       <button id="ancestorGetter-confirm" name="confirm">Confirm</button>
@@ -2669,6 +2666,7 @@ function Body() {
   <window-frame id="showText">
     <title-bar>Show Text<close></close></title-bar>
     <content-frame>
+      <custom-box id="showText-target" type="actor"></custom-box>
       <text-box id="showText-parameters"></text-box>
       <text-area id="showText-content" menu="tag-variable"></text-area>
       <button id="showText-confirm" name="confirm">Confirm</button>
@@ -2703,7 +2701,7 @@ function Body() {
         <text>Constant</text><select-box id="setBoolean-constant-value"></select-box>
         <text>Variable</text><custom-box id="setBoolean-common-variable" type="variable" filter="all"></custom-box>
         <text>Index</text><number-var id="setBoolean-list-index" min="0" max="1000000000"></number-var>
-        <text>Param Name</text><string-var id="setBoolean-parameter-paramName"></string-var>
+        <text>Param Name</text><string-var id="setBoolean-parameter-key"></string-var>
       </grid-box>
       <button id="setBoolean-confirm" name="confirm">Confirm</button>
       <button id="setBoolean-cancel" name="cancel">Cancel</button>
@@ -2753,7 +2751,7 @@ function Body() {
         <text>End Position</text><custom-box id="setNumber-operand-math-endPosition" type="position"></custom-box>
         <text>Key</text><string-var id="setNumber-operand-cooldown-key"></string-var>
         <text>Index</text><number-var id="setNumber-operand-list-index" min="0" max="1000000000"></number-var>
-        <text>Param Name</text><string-var id="setNumber-operand-parameter-paramName"></string-var>
+        <text>Param Name</text><string-var id="setNumber-operand-parameter-key"></string-var>
         <text>Data</text><select-box id="setNumber-operand-other-data"></select-box>
       </grid-box>
       <button id="setNumber-operand-confirm" name="confirm">Confirm</button>
@@ -2790,7 +2788,7 @@ function Body() {
         <text>Item</text><custom-box id="setString-operand-common-item" type="item"></custom-box>
         <text>File</text><custom-box id="setString-operand-object-fileId" type="file"></custom-box>
         <text>Index</text><number-var id="setString-operand-list-index" min="0" max="1000000000"></number-var>
-        <text>Param Name</text><string-var id="setString-operand-parameter-paramName"></string-var>
+        <text>Param Name</text><string-var id="setString-operand-parameter-key"></string-var>
         <text>Data</text><select-box id="setString-operand-other-data"></select-box>
         <text>Variable</text><custom-box id="setString-operand-parse-timestamp-variable" type="variable" filter="number"></custom-box>
         <text>Date Format</text><text-box id="setString-operand-parse-timestamp-format"></text-box>
@@ -3967,9 +3965,8 @@ function Body() {
         <text>Actor</text><custom-box id="getTarget-actor" type="actor"></custom-box>
         <text>Selector</text><select-box id="getTarget-selector"></select-box>
         <text>Condition</text><select-box id="getTarget-condition"></select-box>
-        <text>Attribute</text><text-box id="getTarget-attribute"></text-box>
-        <text>Divisor</text><text-box id="getTarget-divisor"></text-box>
-        <text>Save to Variable</text><custom-box id="getTarget-variable" type="variable" filter="object"></custom-box>
+        <text>Attribute</text><select-box id="getTarget-attribute"></select-box>
+        <text>Attribute 2</text><select-box id="getTarget-divisor"></select-box>
       </grid-box>
       <button id="getTarget-confirm" name="confirm">Confirm</button>
       <button id="getTarget-cancel" name="cancel">Cancel</button>
@@ -4105,7 +4102,7 @@ function Body() {
         <text>Equipment</text><custom-box id="setBag-equipment" type="equipment"></custom-box>
         <text>Index A</text><number-var id="setBag-index1" min="0" max="10000"></number-var>
         <text>Index B</text><number-var id="setBag-index2" min="0" max="10000"></number-var>
-        <text>Global Actor</text><custom-box id="setBag-refActorId" type="file" filter="actor"></custom-box>
+        <text>Global Actor</text><custom-box id="setBag-refActor" type="actor"></custom-box>
       </grid-box>
       <button id="setBag-confirm" name="confirm">Confirm</button>
       <button id="setBag-cancel" name="cancel">Cancel</button>

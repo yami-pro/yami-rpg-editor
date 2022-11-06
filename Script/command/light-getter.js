@@ -23,7 +23,6 @@ LightGetter.initialize = function () {
     {name: 'Event Trigger Light', value: 'trigger'},
     {name: 'Latest Light', value: 'latest'},
     {name: 'Select By ID', value: 'by-id'},
-    {name: 'Select By Name', value: 'by-name'},
     {name: 'Variable', value: 'variable'},
   ])
 
@@ -32,9 +31,6 @@ LightGetter.initialize = function () {
     {case: 'by-id', targets: [
       $('#lightGetter-presetId'),
     ]},
-    {case: 'by-name', targets: [
-      $('#lightGetter-name'),
-    ]},
     {case: 'variable', targets: [
       $('#lightGetter-variable'),
     ]},
@@ -42,7 +38,6 @@ LightGetter.initialize = function () {
 
   // 侦听事件
   $('#lightGetter-confirm').on('click', this.confirm)
-  Yami.TextSuggestion.listen($('#lightGetter-name'), 'light')
 }
 
 // 打开窗口
@@ -50,7 +45,6 @@ LightGetter.open = function (target) {
   this.target = target
   Yami.Window.open('lightGetter')
 
-  let name = ''
   let presetId = Yami.PresetObject.getDefaultPresetId('light')
   let variable = {type: 'local', key: ''}
   const light = target.dataValue
@@ -61,16 +55,13 @@ LightGetter.open = function (target) {
     case 'by-id':
       presetId = light.presetId
       break
-    case 'by-name':
-      name = light.name
-      break
     case 'variable':
       variable = light.variable
       break
   }
   $('#lightGetter-type').write(light.type)
   $('#lightGetter-presetId').write(presetId)
-  $('#lightGetter-name').write(name)
+
   $('#lightGetter-variable').write(variable)
   $('#lightGetter-type').getFocus()
 }
@@ -91,14 +82,6 @@ LightGetter.confirm = function (event) {
         return $('#lightGetter-presetId').getFocus()
       }
       getter = {type, presetId}
-      break
-    }
-    case 'by-name': {
-      const name = read('name').trim()
-      if (!name) {
-        return $('#lightGetter-name').getFocus()
-      }
-      getter = {type, name}
       break
     }
     case 'variable': {

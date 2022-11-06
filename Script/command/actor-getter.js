@@ -23,11 +23,11 @@ ActorGetter.initialize = function () {
     {name: 'Event Trigger Actor', value: 'trigger'},
     {name: 'Skill Caster', value: 'caster'},
     {name: 'Latest Actor', value: 'latest'},
+    {name: 'Target Actor', value: 'target'},
     {name: 'Player Actor', value: 'player'},
     {name: 'Party Member', value: 'member'},
     {name: 'Global Actor', value: 'global'},
     {name: 'Select By ID', value: 'by-id'},
-    {name: 'Select By Name', value: 'by-name'},
     {name: 'Variable', value: 'variable'},
   ])
 
@@ -41,9 +41,6 @@ ActorGetter.initialize = function () {
     ]},
     {case: 'by-id', targets: [
       $('#actorGetter-presetId'),
-    ]},
-    {case: 'by-name', targets: [
-      $('#actorGetter-name'),
     ]},
     {case: 'variable', targets: [
       $('#actorGetter-variable'),
@@ -60,7 +57,6 @@ ActorGetter.initialize = function () {
 
   // 侦听事件
   $('#actorGetter-confirm').on('click', this.confirm)
-  Yami.TextSuggestion.listen($('#actorGetter-name'), 'actor')
 }
 
 // 打开窗口
@@ -68,7 +64,6 @@ ActorGetter.open = function (target) {
   this.target = target
   Yami.Window.open('actorGetter')
 
-  let name = ''
   let memberId = 0
   let actorId = ''
   let presetId = Yami.PresetObject.getDefaultPresetId('actor')
@@ -78,6 +73,7 @@ ActorGetter.open = function (target) {
     case 'trigger':
     case 'caster':
     case 'latest':
+    case 'target':
     case 'player':
       break
     case 'member':
@@ -89,9 +85,6 @@ ActorGetter.open = function (target) {
     case 'by-id':
       presetId = actor.presetId
       break
-    case 'by-name':
-      name = actor.name
-      break
     case 'variable':
       variable = actor.variable
       break
@@ -100,7 +93,6 @@ ActorGetter.open = function (target) {
   $('#actorGetter-memberId').write(memberId)
   $('#actorGetter-actorId').write(actorId)
   $('#actorGetter-presetId').write(presetId)
-  $('#actorGetter-name').write(name)
   $('#actorGetter-variable').write(variable)
   $('#actorGetter-type').getFocus()
 }
@@ -114,6 +106,7 @@ ActorGetter.confirm = function (event) {
     case 'trigger':
     case 'caster':
     case 'latest':
+    case 'target':
     case 'player':
       getter = {type}
       break
@@ -136,14 +129,6 @@ ActorGetter.confirm = function (event) {
         return $('#actorGetter-presetId').getFocus()
       }
       getter = {type, presetId}
-      break
-    }
-    case 'by-name': {
-      const name = read('name')
-      if (name === '') {
-        return $('#actorGetter-name').getFocus()
-      }
-      getter = {type, name}
       break
     }
     case 'variable': {
