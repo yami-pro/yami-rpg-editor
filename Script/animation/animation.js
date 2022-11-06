@@ -2299,7 +2299,7 @@ Animation.loadTextures = function () {
       continue
     }
     if (imageId) {
-      const texture = new ImageTexture(GL, imageId)
+      const texture = new ImageTexture(imageId)
       texture.on('load', () => {
         if (player.textures === textures) {
           const {base} = texture

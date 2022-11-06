@@ -266,7 +266,7 @@ UI.initialize = function () {
   }).then(image => {
     if (!image) return
     image.guid = 'ui:control-point'
-    this.controlPointTexture = new ImageTexture(GL, image)
+    this.controlPointTexture = new ImageTexture(image)
     this.controlPointTexture.base.protected = true
   })
 

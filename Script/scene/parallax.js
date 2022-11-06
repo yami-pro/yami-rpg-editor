@@ -153,7 +153,7 @@ class Parallax {
   loadTexture() {
     const guid = this.data.image
     if (guid) {
-      const texture = new ImageTexture(GL, guid)
+      const texture = new ImageTexture(guid)
       this.texture = texture
       if (texture.complete) {
         return texture

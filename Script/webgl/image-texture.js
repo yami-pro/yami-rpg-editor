@@ -4,20 +4,21 @@ import * as Yami from '../yami.js'
 
 const {
   BaseTexture,
+  GL,
   Texture
 } = Yami
 
 // ******************************** 图像纹理类 ********************************
 
 class ImageTexture extends Texture {
-  constructor(gl, image, options = {}) {
+  constructor(image, options = {}) {
     super(options)
 
     // 设置属性
-    const texture = gl.createImageTexture(image, options)
+    const texture = GL.createImageTexture(image, options)
     this.complete = false
     this.base = texture
-    this.gl = gl
+    this.gl = GL
     this.x = 0
     this.y = 0
     this.width = 0

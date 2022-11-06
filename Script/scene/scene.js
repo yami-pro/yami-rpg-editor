@@ -2626,7 +2626,7 @@ Scene.drawTileLayer = function (
                 const guid = tileset.image
                 const image = Palette.images[guid]
                 if (image instanceof Image) {
-                  textures.append(new ImageTexture(GL, image))
+                  textures.append(new ImageTexture(image))
                   x--
                 } else {
                   textures.load(guid)
@@ -2693,7 +2693,7 @@ Scene.drawTileLayer = function (
                 const guid = autoTile.image
                 const image = Palette.images[guid]
                 if (image instanceof Image) {
-                  textures.append(new ImageTexture(GL, image))
+                  textures.append(new ImageTexture(image))
                   x--
                 } else {
                   textures.load(guid)
@@ -3099,7 +3099,7 @@ Scene.drawObjectLayer = function () {
                   const guid = tileset.image
                   const image = Palette.images[guid]
                   if (image instanceof Image) {
-                    textures.append(new ImageTexture(GL, image))
+                    textures.append(new ImageTexture(image))
                     x--
                   } else {
                     textures.load(guid)
@@ -3176,7 +3176,7 @@ Scene.drawObjectLayer = function () {
                   const guid = autoTile.image
                   const image = Palette.images[guid]
                   if (image instanceof Image) {
-                    textures.append(new ImageTexture(GL, image))
+                    textures.append(new ImageTexture(image))
                     x--
                   } else {
                     textures.load(guid)
@@ -4145,7 +4145,7 @@ Scene.createStartPositionTexture = function () {
     context.shadowOffsetY = 4
     context.font = '160px Awesome'
     context.fillText('\uf041', 128, y)
-    texture = new Texture(GL)
+    texture = new Texture()
     texture.fromImage(canvas)
     texture.base.protected = true
     this.startPositionTexture = texture
@@ -5700,7 +5700,7 @@ Scene.createDefaultAnimation = function IIFE() {
     const width = image.naturalWidth
     const height = image.naturalHeight / 2
     image.guid = 'scene:default_actor'
-    texture = new ImageTexture(GL, image)
+    texture = new ImageTexture(image)
     texture.width = width
     texture.height = height
     texture.offsetX = -width / 2

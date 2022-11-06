@@ -1,5 +1,9 @@
 'use strict'
 
+import * as Yami from '../yami.js'
+
+const { GL } = Yami
+
 // ******************************** 纹理类 ********************************
 
 class Texture {
@@ -11,15 +15,15 @@ class Texture {
   width     //:number
   height    //:number
 
-  constructor(gl, options = {}) {
+  constructor(options = {}) {
     if (new.target !== Texture) {
       return
     }
 
     // 设置属性
     this.complete = true
-    this.base = gl.createNormalTexture(options)
-    this.gl = gl
+    this.base = GL.createNormalTexture(options)
+    this.gl = GL
     this.x = 0
     this.y = 0
     this.width = 0
