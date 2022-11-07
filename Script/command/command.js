@@ -1,5 +1,6 @@
 'use strict'
 
+import { measureText, getElementReader, getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
@@ -16,7 +17,6 @@ const {
   EquipmentGetter,
   EventEditor,
   File,
-  getElementReader,
   IfBranch,
   IfCondition,
   ImageProperty,
@@ -25,7 +25,6 @@ const {
   LightGetter,
   LightProperty,
   Local,
-  measureText,
   NodeList,
   NumberOperand,
   PluginManager,

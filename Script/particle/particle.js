@@ -1,25 +1,21 @@
 'use strict'
 
+import { GL,ImageTexture, Matrix } from '../webgl/index.js'
+import { Timer, StageColor, ctrl } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 let {
   Command,
-  ctrl,
   Cursor,
   Data,
   File,
   FileBodyPane,
-  GL,
   History,
-  ImageTexture,
   Inspector,
   Layout,
   Local,
-  Matrix,
   Menu,
   Scene,
-  StageColor,
-  Timer,
   Window
 } = Yami
 

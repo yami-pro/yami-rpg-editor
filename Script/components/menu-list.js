@@ -1,9 +1,9 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
-  Timer,
   Window
 } = Yami
 

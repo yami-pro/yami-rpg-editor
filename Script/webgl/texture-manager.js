@@ -1,10 +1,10 @@
 'use strict'
 
+import { GL } from './index.js'
 import * as Yami from '../yami.js'
 
 const {
   File,
-  GL,
   ImageTexture
 } = Yami
 

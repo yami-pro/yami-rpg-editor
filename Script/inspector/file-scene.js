@@ -1,13 +1,13 @@
 'use strict'
 
+import { GL } from '../webgl/index.js'
+import { getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   Codec,
   Editor,
   EventListInterface,
-  getElementWriter,
-  GL,
   Inspector,
   Scene,
   ScriptListInterface

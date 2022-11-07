@@ -1,11 +1,11 @@
 'use strict'
 
+import { measureText } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   Animation,
   Layout,
-  measureText,
   Menubar,
   Particle,
   Scene,

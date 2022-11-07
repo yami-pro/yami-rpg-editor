@@ -1,5 +1,6 @@
 'use strict'
 
+import { Timer, getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
@@ -7,12 +8,10 @@ const {
   File,
   FS,
   FSP,
-  getElementWriter,
   GUID,
   Layout,
   Log,
   Path,
-  Timer,
   Window
 } = Yami
 

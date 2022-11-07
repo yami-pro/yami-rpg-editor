@@ -1,11 +1,10 @@
 'use strict'
 
+import { GL, ImageTexture } from '../webgl/index.js'
 import * as Yami from '../yami.js'
 
 let {
   Easing,
-  GL,
-  ImageTexture,
   Particle
 } = Yami
 

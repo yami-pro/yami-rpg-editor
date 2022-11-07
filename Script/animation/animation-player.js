@@ -1,13 +1,11 @@
 'use strict'
 
+import { GL, ImageTexture, Matrix } from '../webgl/index.js'
 import * as Yami from '../yami.js'
 
 const {
   Data,
   Easing,
-  GL,
-  ImageTexture,
-  Matrix,
   Particle,
   Scene
 } = Yami

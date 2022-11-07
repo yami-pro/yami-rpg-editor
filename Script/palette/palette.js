@@ -1,5 +1,6 @@
 'use strict'
 
+import { Timer } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
@@ -15,7 +16,6 @@ const {
   Scene,
   TileFrame,
   TileNode,
-  Timer,
   Window
 } = Yami
 

@@ -1,9 +1,9 @@
 'use strict'
 
+import { measureText } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
-  measureText,
   NumberHistory
 } = Yami
 

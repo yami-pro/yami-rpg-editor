@@ -1,10 +1,10 @@
 'use strict'
 
+import { getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   EventListInterface,
-  getElementWriter,
   Inspector,
   ScriptListInterface,
   UI

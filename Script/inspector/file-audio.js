@@ -1,12 +1,12 @@
 'use strict'
 
+import { getElementReader } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   AudioManager,
   Browser,
   File,
-  getElementReader,
   Inspector,
   Timer
 } = Yami

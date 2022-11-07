@@ -1,5 +1,6 @@
 'use strict'
 
+import { getElementReader, getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
@@ -11,8 +12,6 @@ const {
   Enum,
   EventListInterface,
   File,
-  getElementReader,
-  getElementWriter,
   Inspector,
   Scene,
   ScriptListInterface,

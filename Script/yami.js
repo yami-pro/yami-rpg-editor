@@ -1,16 +1,6 @@
 'use strict'
 
 export {
-  ctrl,
-  Timer,
-  StageColor,
-  measureText,
-  getElementReader,
-  getElementWriter,
-  INTRGBA
-} from './util/index.js'
-
-export {
   CommandHistory,
   HistoryTimer,
   History,
@@ -83,17 +73,6 @@ export {
 } from './data/index.js'
 
 export { PluginManager } from './plugin/index.js'
-
-export {
-  Matrix,
-  Vector,
-  Texture,
-  BaseTexture,
-  ImageTexture,
-  TextureManager,
-  BatchRenderer,
-  GL
-} from './webgl/index.js'
 
 export {
   Scene,
