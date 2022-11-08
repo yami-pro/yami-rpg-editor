@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { CustomBox } = Yami
+import { CustomBox } from '../yami.js'
 
 // ******************************** 文件变量框 ********************************
 

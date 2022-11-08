@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { Scene } = Yami
+import { Scene } from '../yami.js'
 
 // ******************************** 坐标点类 ********************************
 

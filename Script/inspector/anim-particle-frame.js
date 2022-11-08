@@ -1,13 +1,11 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Animation,
   Curve,
   getElementWriter,
   Inspector
-} = Yami
+} from '../yami.js'
 
 // ******************************** 动画 - 粒子帧页面 ********************************
 

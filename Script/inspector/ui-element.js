@@ -1,14 +1,12 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   EventListInterface,
   getElementWriter,
   Inspector,
   ScriptListInterface,
   UI
-} = Yami
+} from '../yami.js'
 
 // ******************************** 元素页面 ********************************
 

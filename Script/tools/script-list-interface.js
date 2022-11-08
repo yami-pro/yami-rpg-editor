@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Browser,
   Command,
   File,
@@ -10,7 +8,7 @@ const {
   NodeList,
   PluginManager,
   Selector
-} = Yami
+} from '../yami.js'
 
 // ******************************** 脚本列表接口 ********************************
 

@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   Editor,
   File,
@@ -13,7 +11,7 @@ const {
   Path,
   Timer,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 部署项目窗口 ********************************
 

@@ -1,14 +1,12 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   File,
   FileItem,
   FSP,
   Meta,
   Path
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件夹项目 ********************************
 
@@ -130,7 +128,7 @@ class FolderItem {
       }
       const meta = item.meta
       if (meta !== null) {
-        meta.versionId = Meta.meta.versionId
+        meta.versionId = Meta.versionId
       }
       children[i] = item
     }

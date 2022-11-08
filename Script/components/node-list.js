@@ -1,13 +1,11 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   CommonList,
   Menu,
   TextBox,
   Timer
-} = Yami
+} from '../yami.js'
 
 // ******************************** 节点列表 ********************************
 

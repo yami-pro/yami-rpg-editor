@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { NumberBox } = Yami
+import { NumberBox } from '../yami.js'
 
 // ******************************** 滑动框 ********************************
 

@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { Color } = Yami
+import { Color } from '../yami.js'
 
 // ******************************** 颜色框 ********************************
 

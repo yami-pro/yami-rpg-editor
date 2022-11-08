@@ -1,12 +1,10 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   File,
   GL,
   ImageTexture
-} = Yami
+} from '../yami.js'
 
 // ******************************** 纹理管理器类 ********************************
 

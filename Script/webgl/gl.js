@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   BaseTexture,
   BatchRenderer,
   Data,
@@ -10,7 +8,7 @@ const {
   Matrix,
   Texture,
   TextureManager
-} = Yami
+} from '../yami.js'
 
 // ******************************** WebGL ********************************
 

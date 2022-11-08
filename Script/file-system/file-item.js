@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   Directory,
   File,
@@ -12,7 +10,7 @@ const {
   Log,
   Meta,
   Path
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件项目 ********************************
 
@@ -93,7 +91,7 @@ class FileItem {
         throw new Error(`GUID already exists: ${guid}`)
       }
     }
-    this.meta = new Meta.meta(this, guid)
+    this.meta = new Meta(this, guid)
     this.meta.mtimeMs = stats.mtimeMs
   }
 

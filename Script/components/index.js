@@ -1,7 +1,5 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 import './html-element.js'
 import './html-button-element.js'
 import './object.js'

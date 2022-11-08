@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   Easing,
   GL,
@@ -10,7 +8,7 @@ const {
   Matrix,
   Particle,
   Scene
-} = Yami
+} from '../yami.js'
 
 // ******************************** 动画播放器类 ********************************
 

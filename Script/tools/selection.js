@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Color,
   ctrl,
   Local,
@@ -10,7 +8,7 @@ const {
   Printer,
   Variable,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 选取文本 ********************************
 

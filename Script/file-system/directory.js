@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   Editor,
   File,
@@ -14,7 +12,7 @@ const {
   Meta,
   Path,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 目录 ********************************
 
@@ -60,7 +58,7 @@ Directory.read = function () {
     if (this.symbol === symbol) {
       this.symbol = null
       this.assets = assets
-      Meta.meta.versionId++
+      Meta.versionId++
       return assets.update().then(
         async ({promises}) => {
           this.createInoMap()
@@ -96,7 +94,7 @@ Directory.update = function () {
   const {assets} = this
   if (assets !== null &&
     this.updating === null) {
-    Meta.meta.versionId++
+    Meta.versionId++
     this.updating = assets.update().then(
       async ({changed, promises}) => {
         if (this.assets !== assets) {

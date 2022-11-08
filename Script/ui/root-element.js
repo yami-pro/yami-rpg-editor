@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   GL,
   UI
-} = Yami
+} from '../yami.js'
 
 // ******************************** 根元素 ********************************
 

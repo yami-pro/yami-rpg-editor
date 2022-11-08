@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { Particle } = Yami
+import { Particle } from '../yami.js'
 
 // ******************************** 粒子发射器类 ********************************
 

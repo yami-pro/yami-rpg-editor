@@ -1,9 +1,9 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 export { UI } from './ui.js'
+
 import './ui-element.js'
+
 export { RootElement } from './root-element.js'
 export { TextBoxElement } from './text-box-element.js'
 export { TextElement } from './text-element.js'

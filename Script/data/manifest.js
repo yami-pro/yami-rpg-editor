@@ -1,13 +1,11 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   File,
   Meta,
   Title
-} = Yami
+} from '../yami.js'
 
 // ******************************** 元数据清单类 ********************************
 
@@ -48,7 +46,7 @@ class Manifest {
     const {metaList} = this
     const {guidMap} = this
     const {pathMap} = this
-    const {versionId} = Meta.meta
+    const {versionId} = Meta
     let i = metaList.length
     while (--i >= 0) {
       const meta = metaList[i]

@@ -1,13 +1,11 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Editor,
   getElementReader,
   getElementWriter,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 默认对象文件夹 ********************************
 

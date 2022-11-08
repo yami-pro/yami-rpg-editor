@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   TextHistory,
   Timer
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文本区域 ********************************
 

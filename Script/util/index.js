@@ -1,7 +1,5 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 import './array.js'
 import './canvas-rendering-context2D.js'
 import './clipboard.js'
@@ -22,12 +20,10 @@ import './string.js'
 import './undo-redo.js'
 import './util.js'
 
-export { ctrl } from './ctrl.js'
 export { Timer } from './timer.js'
 export { StageColor } from './stage-color.js'
-export {
-  measureText,
-  getElementReader,
-  getElementWriter,
-  INTRGBA
-} from './util.js'
+export { ctrl } from './ctrl.js'
+export { measureText } from './util.js'
+export { getElementReader } from './util.js'
+export { getElementWriter } from './util.js'
+export { INTRGBA } from './util.js'

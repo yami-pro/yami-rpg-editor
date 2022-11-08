@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   ActorGetter,
   AncestorGetter,
   AngleGetter,
@@ -44,7 +42,7 @@ const {
   TriggerGetter,
   VariableGetter,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 指令对象 ********************************
 

@@ -1,243 +1,30 @@
 'use strict'
 
-export {
-  ctrl,
-  Timer,
-  StageColor,
-  measureText,
-  getElementReader,
-  getElementWriter,
-  INTRGBA
-} from './util/index.js'
-
-export {
-  CommandHistory,
-  HistoryTimer,
-  History,
-  NumberHistory,
-  ParamHistory,
-  TextHistory
-} from './history/index.js'
-
-export {
-  CheckBox,
-  ColorBox,
-  CommonList,
-  CommandList,
-  CustomBox,
-  DetailBox,
-  DetailSummary,
-  DragAndDropHint,
-  TextBox,
-  SliderBox,
-  FileBrowser,
-  FileHeadPane,
-  FileNavPane,
-  FileBodyPane,
-  FileVar,
-  FilterBox,
-  KeyboardBox,
-  MarqueeArea,
-  MenuList,
-  Menu,
-  NavBar,
-  NodeList,
-  NumberBox,
-  NumberVar,
-  PageManager,
-  ParamList,
-  ParameterPane,
-  RadioBox,
-  RadioProxy,
-  ScrollBar,
-  SelectBox,
-  SelectList,
-  Select,
-  SelectVar,
-  StringVar,
-  SwitchItem,
-  TabBar,
-  TextArea,
-  TitleBar,
-  WindowFrame
-} from './components/index.js'
-
-export {
-  Directory,
-  FS,
-  FSP,
-  File,
-  FolderItem,
-  FileItem,
-  GUID,
-  Path
-} from './file-system/index.js'
-
-export {
-  Data,
-  Easing,
-  Manifest,
-  Meta,
-  Project,
-  Team
-} from './data/index.js'
-
-export { PluginManager } from './plugin/index.js'
-
-export {
-  Matrix,
-  Vector,
-  Texture,
-  BaseTexture,
-  ImageTexture,
-  TextureManager,
-  BatchRenderer,
-  GL
-} from './webgl/index.js'
-
-export {
-  Scene,
-  Light,
-  ObjectFolder,
-  Parallax,
-  Point,
-  SceneShift,
-  Textures,
-  TilemapShortcuts
-} from './scene/index.js'
-
-export {
-  UI,
-  RootElement,
-  TextBoxElement,
-  TextElement,
-  ContainerElement,
-  DialogBoxElement,
-  ImageElement,
-  ProgressBarElement,
-  VideoElement,
-  WindowElement
-} from './ui/index.js'
-
-export {
-  ActorGetter,
-  AncestorGetter,
-  AngleGetter,
-  CommandSuggestion,
-  Command,
-  CustomCommand,
-  DialogBoxProperty,
-  ElementGetter,
-  EquipmentGetter,
-  EventEditor,
-  IfBranch,
-  IfCondition,
-  ImageProperty,
-  ItemGetter,
-  LightGetter,
-  LightProperty,
-  NumberOperand,
-  PositionGetter,
-  ProgressBarProperty,
-  SkillGetter,
-  StateGetter,
-  SwitchBranch,
-  SwitchCondition,
-  TextBoxProperty,
-  TextProperty,
-  TextSuggestion,
-  TransformProperty,
-  TriggerGetter,
-  VariableGetter
-} from './command/index.js'
-
-export {
-  ArrayList,
-  AttributeListInterface,
-  Color,
-  ConditionListInterface,
-  Cursor,
-  EventListInterface,
-  ImageClip,
-  Local,
-  PresetElement,
-  PresetObject,
-  Rename,
-  ScriptListInterface,
-  Selection,
-  SetKey,
-  SetQuantity,
-  Window,
-  Zoom
-} from './tools/index.js'
-
-export {
-  Inspector,
-  UIElement
-} from './inspector/index.js'
-
-export {
-  Particle,
-  ParticleElement,
-  ParticleEmitter,
-  ParticleLayer
-} from './particle/index.js'
-
-export {
-  AnimationPlayer,
-  Animation,
-  Curve
-} from './animation/index.js'
-
-export {
-  AttributeContext,
-  Attribute
-} from './attribute/index.js'
-
-export {
-  AudioManager,
-  Reverb,
-  SinglePlayer
-} from './audio/index.js'
-
-export {
-  Browser,
-  Selector
-} from './browser/index.js'
-
-export { Codec } from './codec/index.js'
-
-export {} from './config/config-reading.js'
-
-export {
-  Enum,
-  EnumerationContext
-} from './enum/index.js'
-
-export { Layout } from './layout/index.js'
-
-export { Log } from './log/index.js'
-
-export {
-  AutoTile,
-  FrameGenerator,
-  Palette,
-  TileFrame,
-  TileNode
-} from './palette/index.js'
-
-export { Printer } from './printer/printer.js'
-
-export { Sprite } from './sprite/index.js'
-
-export {
-  Deployment,
-  Home,
-  Menubar,
-  NewProject,
-  Title
-} from './title/index.js'
-
-export { Variable } from './variable/index.js'
-
-export { Editor } from './editor/editor.js'
+export * from './util/index.js'
+export * from './webgl/index.js'
+export * from './history/index.js'
+export * from './components/index.js'
+export * from './file-system/index.js'
+export * from './scene/index.js'
+export * from './animation/index.js'
+export * from './attribute/index.js'
+export * from './audio/index.js'
+export * from './browser/index.js'
+export * from './codec/index.js'
+export * from './data/index.js'
+export * from './plugin/index.js'
+export * from './command/index.js'
+export * from './config/index.js'
+export * from './editor/index.js'
+export * from './enum/index.js'
+export * from './particle/index.js'
+export * from './ui/index.js'
+export * from './inspector/index.js'
+export * from './layout/index.js'
+export * from './log/index.js'
+export * from './palette/index.js'
+export * from './printer/index.js'
+export * from './sprite/index.js'
+export * from './title/index.js'
+export * from './tools/index.js'
+export * from './variable/index.js'

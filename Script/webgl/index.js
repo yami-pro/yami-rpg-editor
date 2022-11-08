@@ -1,7 +1,5 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 export { Matrix } from './matrix.js'
 export { Vector } from './vector.js'
 export { Texture } from './texture.js'

@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { RadioProxy } = Yami
+import { RadioProxy } from '../yami.js'
 
 // ******************************** 单选框 ********************************
 

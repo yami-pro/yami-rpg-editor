@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { Inspector } = Yami
+import { Inspector } from '../yami.js'
 
 // ******************************** 动画 - 关节层页面 ********************************
 

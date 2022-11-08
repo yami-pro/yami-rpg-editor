@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   ctrl,
   Cursor,
   Data,
@@ -24,7 +22,7 @@ const {
   TextElement,
   Timer,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** UI 窗口 ********************************
 

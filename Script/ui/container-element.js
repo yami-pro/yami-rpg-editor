@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { UI } = Yami
+import { UI } from '../yami.js'
 
 // ******************************** 容器元素 ********************************
 

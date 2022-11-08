@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   CommonList,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 选择列表 ********************************
 

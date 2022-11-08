@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Codec,
   Editor,
   EventListInterface,
@@ -11,7 +9,7 @@ const {
   Inspector,
   Scene,
   ScriptListInterface
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件 - 场景页面 ********************************
 

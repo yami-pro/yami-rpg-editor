@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   CommonList,
   ctrl,
   DetailBox,
@@ -10,7 +8,7 @@ const {
   Menu,
   ParamHistory,
   WindowFrame
-} = Yami
+} from '../yami.js'
 
 // ******************************** 参数列表 ********************************
 

@@ -1,7 +1,5 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 export { ActorGetter } from './actor-getter.js'
 export { AncestorGetter } from './ancestor-getter.js'
 export { AngleGetter } from './angle-getter.js'

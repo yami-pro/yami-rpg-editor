@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Attribute,
   Command,
   Enum,
@@ -11,7 +9,7 @@ const {
   Inspector,
   SelectBox,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 属性列表接口 ********************************
 

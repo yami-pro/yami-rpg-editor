@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Animation,
   Cursor,
   History,
@@ -10,7 +8,7 @@ const {
   MarqueeArea,
   ParamHistory,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 检查器 ********************************
 

@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   measureText,
   NumberHistory
-} = Yami
+} from '../yami.js'
 
 // ******************************** 数字框 ********************************
 

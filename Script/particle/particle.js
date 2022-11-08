@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-let {
+import {
   Command,
   ctrl,
   Cursor,
@@ -21,7 +19,7 @@ let {
   StageColor,
   Timer,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 粒子窗口 ********************************
 

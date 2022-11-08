@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { HistoryTimer } = Yami
+import { HistoryTimer } from '../yami.js'
 
 // ******************************** 数值操作历史 ********************************
 

@@ -1,13 +1,11 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   FolderItem,
   Menu,
   SliderBox,
   TextBox
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件头部面板 ********************************
 

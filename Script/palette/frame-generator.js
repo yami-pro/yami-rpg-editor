@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { Window } = Yami
+import { Window } from '../yami.js'
 
 // ******************************** 图块帧生成器窗口 ********************************
 

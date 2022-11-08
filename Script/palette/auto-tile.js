@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   ctrl,
   Data,
   Easing,
@@ -20,7 +18,7 @@ const {
   SetQuantity,
   TileFrame,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 自动图块 ********************************
 

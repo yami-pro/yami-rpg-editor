@@ -1,12 +1,10 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Command,
   SwitchCondition,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 匹配 - 分支窗口 ********************************
 

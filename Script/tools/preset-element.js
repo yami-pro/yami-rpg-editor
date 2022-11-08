@@ -1,12 +1,10 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   UI,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 预设元素窗口 ********************************
 

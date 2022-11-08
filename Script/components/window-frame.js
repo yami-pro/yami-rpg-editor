@@ -1,12 +1,10 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Layout,
   TitleBar,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 窗口框架 ********************************
 

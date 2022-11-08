@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   File,
   SinglePlayer
-} = Yami
+} from '../yami.js'
 
 // ******************************** 音频管理器 ********************************
 

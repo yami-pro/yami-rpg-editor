@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { AudioManager } = Yami
+import { AudioManager } from '../yami.js'
 
 // ******************************** 混响类 ********************************
 

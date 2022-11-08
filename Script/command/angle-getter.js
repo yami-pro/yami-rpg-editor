@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   getElementReader,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 角度访问器窗口 ********************************
 

@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Editor,
   File,
   FSP,
@@ -11,7 +9,7 @@ const {
   SelectBox,
   TextBox,
   WindowFrame
-} = Yami
+} from '../yami.js'
 
 // ******************************** 本地化对象 ********************************
 

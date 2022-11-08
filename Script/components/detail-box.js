@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { DetailSummary } = Yami
+import { DetailSummary } from '../yami.js'
 
 // ******************************** 细节框 ********************************
 

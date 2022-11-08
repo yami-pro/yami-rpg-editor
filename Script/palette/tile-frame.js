@@ -1,13 +1,11 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   AutoTile,
   Cursor,
   Palette,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 图块帧索引窗口 ********************************
 

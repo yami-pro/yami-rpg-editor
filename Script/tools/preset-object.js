@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Scene,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 场景预设对象窗口 ********************************
 

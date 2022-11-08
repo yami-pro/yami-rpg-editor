@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   AutoTile,
   Cursor,
   Data,
@@ -17,7 +15,7 @@ const {
   TileNode,
   Timer,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 调色板 ********************************
 

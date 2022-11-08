@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Animation,
   AttributeListInterface,
   Browser,
@@ -17,7 +15,7 @@ const {
   Scene,
   ScriptListInterface,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件 - 角色页面 ********************************
 

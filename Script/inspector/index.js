@@ -1,9 +1,6 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 export { Inspector } from './inspector.js'
-export { UIElement } from './ui-element.js'
 
 import './anim-joint-frame.js'
 import './anim-joint-layer.js'
@@ -45,3 +42,5 @@ import './ui-text-box.js'
 import './ui-text.js'
 import './ui-video.js'
 import './ui-window.js'
+
+export { UIElement } from './ui-element.js'

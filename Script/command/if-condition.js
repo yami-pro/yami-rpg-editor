@@ -1,15 +1,13 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Command,
   getElementReader,
   getElementWriter,
   Local,
   VariableGetter,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 条件分支 - 条件窗口 ********************************
 

@@ -1,14 +1,12 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Browser,
   Data,
   File,
   Inspector,
   PluginManager
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件 - 脚本页面 ********************************
 

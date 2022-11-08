@@ -1,14 +1,12 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   File,
   GL,
   INTRGBA,
   UI
-} = Yami
+} from '../yami.js'
 
 // ******************************** 打印机类 ********************************
 

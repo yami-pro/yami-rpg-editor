@@ -1,12 +1,10 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   GL,
   Timer,
   UI
-} = Yami
+} from '../yami.js'
 
 // ******************************** 窗口元素 ********************************
 

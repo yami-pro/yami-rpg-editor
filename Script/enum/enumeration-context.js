@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { Local } = Yami
+import { Local } from '../yami.js'
 
 // ******************************** 枚举上下文类 ********************************
 

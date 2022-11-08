@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   File,
   getElementReader,
@@ -12,7 +10,7 @@ const {
   Rename,
   UI,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 拾色器窗口 ********************************
 

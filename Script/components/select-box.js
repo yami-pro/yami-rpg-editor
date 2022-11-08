@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const { Select } = Yami
+import { Select } from '../yami.js'
 
 // ******************************** 选择框 ********************************
 

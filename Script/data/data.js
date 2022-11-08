@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   AttributeContext,
   Codec,
   Editor,
@@ -12,7 +10,7 @@ const {
   Log,
   Manifest,
   PluginManager
-} = Yami
+} from '../yami.js'
 
 // ******************************** 数据对象 ********************************
 

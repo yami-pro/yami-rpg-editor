@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Attribute,
   CheckBox,
   ColorBox,
@@ -19,7 +17,7 @@ const {
   Select,
   SelectBox,
   TextBox
-} = Yami
+} from '../yami.js'
 
 // ******************************** 脚本参数面板 ********************************
 

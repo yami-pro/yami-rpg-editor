@@ -1,15 +1,13 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   AudioManager,
   Browser,
   File,
   getElementReader,
   Inspector,
   Timer
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件 - 音频页面 ********************************
 

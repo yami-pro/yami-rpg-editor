@@ -1,8 +1,6 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   CommonList,
   Directory,
   File,
@@ -12,7 +10,7 @@ const {
   Path,
   TextBox,
   Timer
-} = Yami
+} from '../yami.js'
 
 // ******************************** 文件导航面板 ********************************
 

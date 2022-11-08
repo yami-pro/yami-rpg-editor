@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Editor,
   Window
-} = Yami
+} from '../yami.js'
 
 // ******************************** 缩放窗口 ********************************
 

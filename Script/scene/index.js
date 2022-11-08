@@ -1,12 +1,10 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 export { Scene } from './scene.js'
 export { Light } from './light.js'
-export { ObjectFolder } from './object-folder.js'
 export { Parallax } from './parallax.js'
 export { Point } from './point.js'
-export { SceneShift } from './scene-shift.js'
 export { Textures } from './textures.js'
 export { TilemapShortcuts } from './tilemap-shortcuts.js'
+export { ObjectFolder } from './object-folder.js'
+export { SceneShift } from './scene-shift.js'

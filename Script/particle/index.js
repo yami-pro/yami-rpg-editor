@@ -1,7 +1,5 @@
 'use strict'
 
-// ******************************** 模块导出 ********************************
-
 export { Particle } from './particle.js'
 export { ParticleElement } from './particle-element.js'
 export { ParticleEmitter } from './particle-emitter.js'

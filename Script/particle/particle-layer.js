@@ -1,13 +1,11 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-let {
+import {
   Easing,
   GL,
   ImageTexture,
   Particle
-} = Yami
+} from '../yami.js'
 
 // ******************************** 粒子图层类 ********************************
 

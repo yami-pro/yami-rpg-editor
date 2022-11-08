@@ -1,22 +1,14 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   Data,
   File,
   FileItem
-} = Yami
+} from '../yami.js'
 
 // ******************************** 元数据类 ********************************
 
-const Meta = {
-  meta: null
-}
-
-// ******************************** 元数据类加载 ********************************
-
-Meta.meta = function IIFE() {
+const Meta = function IIFE() {
   // 类型到分组名称映射表
   const typeMapToGroupName = {
     ...FileItem.dataMapNames,

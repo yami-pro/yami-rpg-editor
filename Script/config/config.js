@@ -1,11 +1,9 @@
 'use strict'
 
-import * as Yami from '../yami.js'
-
-const {
+import {
   File,
   Path
-} = Yami
+} from '../yami.js'
 
 // ******************************** 读取配置文件 ********************************
 
