@@ -7,7 +7,5 @@ const FSP = FS.promises
 
 // ******************************** 文件系统导出 ********************************
 
-export {
-  FS,
-  FSP
-}
+export { FS }
+export { FSP }

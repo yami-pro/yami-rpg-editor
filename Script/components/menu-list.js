@@ -474,9 +474,5 @@ const Menu = new MenuList()
 
 // ******************************** 菜单列表导出 ********************************
 
-export {
-  // class
-  MenuList,
-  // variable
-  Menu
-}
+export { MenuList }
+export { Menu }

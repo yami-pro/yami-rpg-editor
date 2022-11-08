@@ -177,9 +177,7 @@ window.on('resize', function IIFE() {
 
 // ******************************** 其他导出 ********************************
 
-export {
-  measureText,
-  getElementReader,
-  getElementWriter,
-  INTRGBA
-}
+export { measureText }
+export { getElementReader }
+export { getElementWriter }
+export { INTRGBA }
