@@ -1,11 +1,11 @@
 'use strict'
 
-import { getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   Animation,
   Curve,
+  getElementWriter,
   Inspector
 } = Yami
 

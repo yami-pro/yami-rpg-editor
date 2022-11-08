@@ -1,188 +1,6 @@
 'use strict'
 
-// ******************************** 其他 ********************************
-
-// 测量文本大小
-const measureText = function IIFE() {
-  const size = {width: 0, lines: 0}
-  const container = document.createElement('text')
-  let appended = false
-  let usedFont = ''
-  let lineHeight = 0
-  container.style.whiteSpace = 'pre'
-  return function (text, font = '') {
-    if (appended === false) {
-      appended = true
-      document.body.appendChild(container)
-      container.textContent = 'a'
-      lineHeight = container.offsetHeight
-      Promise.resolve().then(() => {
-        appended = false
-        container.textContent = ''
-        container.remove()
-      })
-    }
-    if (usedFont !== font) {
-      usedFont = font
-      container.style.fontFamily = font ?? ''
-    }
-    container.textContent = text
-    size.width = container.offsetWidth
-    size.lines = container.offsetHeight / lineHeight
-    return size
-  }
-}()
-
-// 请求执行回调函数
-// 过滤一帧内的重复事件
-// const request = function IIFE() {
-//   const keys = []
-//   return function (key, callback) {
-//     if (keys.append(key)) {
-//       requestAnimationFrame(() => {
-//         if (keys.remove(key)) {
-//           callback()
-//         }
-//       })
-//     }
-//   }
-// }()
-
-{
-  // 拖拽状态
-  let dragging = false
-  let osdragging = false
-
-  // 拖拽开始事件 - 阻止拖拽元素
-  const dragstart = function (event) {
-    dragging = true
-    event.preventDefault()
-    window.on('pointerup', pointerup)
-  }
-
-  // 拖拽结束事件 - 比指针弹起事件优先执行
-  const dragend = function (event) {
-    if (dragging) {
-      dragging = false
-      window.off('pointerup', pointerup)
-    }
-  }
-
-  // 指针弹起事件 - 拖拽被阻止时的备用方案
-  const pointerup = function (event) {
-    if (dragging) {
-      dragging = false
-      window.off('pointerup', pointerup)
-    }
-  }
-
-  // 拖拽进入事件
-  const dragenter = function (event) {
-    if (!dragging &&
-      !osdragging &&
-      !event.relatedTarget) {
-      osdragging = true
-      window.dispatchEvent(
-        new DragEvent('os-dragstart')
-      )
-      window.on('dragleave', dragleave)
-      window.on('dragover', dragover)
-      window.on('drop', drop)
-    }
-  }
-
-  // 拖拽离开事件
-  const dragleave = function (event) {
-    if (osdragging &&
-      !event.relatedTarget) {
-      osdragging = false
-      window.dispatchEvent(
-        new DragEvent('os-dragend')
-      )
-      window.off('dragleave', dragleave)
-      window.off('dragover', dragover)
-      window.off('drop', drop)
-    }
-  }
-
-  // 拖拽悬停事件
-  const dragover = function (event) {
-    event.preventDefault()
-  }
-
-  // 拖拽释放事件
-  // 停止冒泡会拦截该事件
-  const drop = function (event) {
-    if (osdragging) {
-      osdragging = false
-      window.dispatchEvent(
-        new DragEvent('os-dragend')
-      )
-      window.off('dragleave', dragleave)
-      window.off('dragover', dragover)
-      window.off('drop', drop)
-    }
-  }
-
-  // 初始化
-  window.on('dragstart', dragstart)
-  window.on('dragend', dragend)
-  window.on('dragenter', dragenter)
-}
-
-// 获取元素读取器
-const getElementReader = function (prefix) {
-  return function (suffix) {
-    return $(`#${prefix}-${suffix}`).read()
-  }
-}
-
-// 获取元素写入器
-const getElementWriter = function (prefix, bindingObject) {
-  return function (suffix, value) {
-    if (value === undefined) {
-      const nodes = typeof suffix === 'string'
-                  ? suffix.split('-')
-                  : [suffix]
-      value = bindingObject
-      for (const node of nodes) {
-        value = value[node]
-      }
-    }
-    $(`#${prefix}-${suffix}`).write(value)
-  }
-}
-
-// 生成整数颜色
-const INTRGBA = function (hex) {
-  const r = parseInt(hex.slice(0, 2), 16)
-  const g = parseInt(hex.slice(2, 4), 16)
-  const b = parseInt(hex.slice(4, 6), 16)
-  const a = parseInt(hex.slice(6, 8), 16)
-  return r + (g + (b + a * 256) * 256) * 256
-}
-
-// ******************************** 检测设备像素比例 ********************************
-
-// 侦听像素比率改变事件
-window.on('resize', function IIFE() {
-  let dpr = window.devicePixelRatio
-  return event => {
-    if (dpr !== window.devicePixelRatio) {
-      dpr = window.devicePixelRatio
-      window.dispatchEvent(new Event('dprchange'))
-    }
-  }
-}())
-
-// ******************************** 组合键访问器 ********************************
-
-// 获取Ctrl组合键名称
-const ctrl = navigator.userAgentData.platform === 'macOS'
-? function (keyName) {return '⌘+' + keyName}
-: function (keyName) {return 'Ctrl+' + keyName}
-
-// ******************************** 模块加载 ********************************
+// ******************************** 模块导出 ********************************
 
 import './array.js'
 import './canvas-rendering-context2D.js'
@@ -202,16 +20,14 @@ import './pointer-event.js'
 import './reg-exp.js'
 import './string.js'
 import './undo-redo.js'
+import './util.js'
 
-// ******************************** 类导出 ********************************
-
+export { ctrl } from './ctrl.js'
 export { Timer } from './timer.js'
 export { StageColor } from './stage-color.js'
-
-// ******************************** 对象导出 ********************************
-
-export { ctrl }
-export { measureText }
-export { getElementReader }
-export { getElementWriter }
-export { INTRGBA }
+export {
+  measureText,
+  getElementReader,
+  getElementWriter,
+  INTRGBA
+} from './util.js'

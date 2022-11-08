@@ -1,6 +1,5 @@
 'use strict'
 
-import { Variable } from '../variable/index.js'
 import * as Yami from '../yami.js'
 
 const {
@@ -24,6 +23,7 @@ const {
   SkillGetter,
   StateGetter,
   TriggerGetter,
+  Variable,
   VariableGetter
 } = Yami
 

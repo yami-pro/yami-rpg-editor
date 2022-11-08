@@ -1,13 +1,15 @@
 'use strict'
 
-import { ctrl, getElementReader, getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
+  ctrl,
   Data,
   Easing,
   File,
   FrameGenerator,
+  getElementReader,
+  getElementWriter,
   GUID,
   Local,
   Menu,

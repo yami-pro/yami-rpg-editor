@@ -1,17 +1,20 @@
 'use strict'
 
-import { Timer, ctrl, getElementReader, getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
+  ctrl,
   Data,
   File,
+  getElementReader,
+  getElementWriter,
   GUID,
   Inspector,
   Local,
   Menu,
   NodeList,
   SetKey,
+  Timer,
   Window
 } = Yami
 

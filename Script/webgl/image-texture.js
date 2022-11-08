@@ -1,6 +1,12 @@
 'use strict'
 
-import { GL, BaseTexture, Texture } from './index.js'
+import * as Yami from '../yami.js'
+
+const {
+  BaseTexture,
+  GL,
+  Texture
+} = Yami
 
 // ******************************** 图像纹理类 ********************************
 

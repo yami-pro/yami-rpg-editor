@@ -1,14 +1,14 @@
 'use strict'
 
-import { Variable } from '../variable/index.js'
-import { ctrl } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   Color,
+  ctrl,
   Local,
   Menu,
   Printer,
+  Variable,
   Window
 } = Yami
 

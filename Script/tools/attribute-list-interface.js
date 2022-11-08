@@ -1,12 +1,13 @@
 'use strict'
 
-import { getElementReader, getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   Attribute,
   Command,
   Enum,
+  getElementReader,
+  getElementWriter,
   Inspector,
   SelectBox,
   Window

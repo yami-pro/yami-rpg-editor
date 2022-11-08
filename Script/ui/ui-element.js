@@ -1,9 +1,10 @@
 'use strict'
 
-import { GL, Matrix } from '../webgl/index.js'
 import * as Yami from '../yami.js'
 
 const {
+  GL,
+  Matrix,
   UI
 } = Yami
 

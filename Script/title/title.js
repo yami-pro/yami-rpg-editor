@@ -1,11 +1,11 @@
 'use strict'
 
-import { ctrl } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
   Animation,
   AudioManager,
+  ctrl,
   Data,
   Deployment,
   Directory,

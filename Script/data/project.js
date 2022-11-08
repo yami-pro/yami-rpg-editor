@@ -1,6 +1,5 @@
 'use strict'
 
-import { getElementWriter } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
@@ -8,6 +7,7 @@ const {
   Command,
   Data,
   File,
+  getElementWriter,
   Inspector,
   Local,
   Selector,

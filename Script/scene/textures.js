@@ -1,9 +1,9 @@
 'use strict'
 
-import { ImageTexture } from '../webgl/index.js'
 import * as Yami from '../yami.js'
 
 const {
+  ImageTexture,
   Scene
 } = Yami
 

@@ -1,9 +1,9 @@
 'use strict'
 
-import { GL } from '../webgl/index.js'
 import * as Yami from '../yami.js'
 
 const {
+  GL,
   Particle
 } = Yami
 

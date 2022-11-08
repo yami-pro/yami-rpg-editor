@@ -1,8 +1,5 @@
 'use strict'
 
-import { GL } from '../webgl/index.js'
-import { Variable } from '../variable/index.js'
-import { Timer } from '../util/index.js'
 import * as Yami from '../yami.js'
 
 const {
@@ -24,6 +21,7 @@ const {
   File,
   FS,
   FSP,
+  GL,
   Home,
   ImageClip,
   Inspector,
@@ -47,8 +45,10 @@ const {
   SetQuantity,
   Sprite,
   Team,
+  Timer,
   Title,
   UI,
+  Variable,
   Window,
   Zoom
 } = Yami
