@@ -2,39 +2,58 @@
 
 import { createElement } from './vhtml/index.js'
 
-let sceneHeadStartItems = [
-  { id: 'scene-switch-grid', value: 'grid'},
-  { id: 'scene-switch-light', value: 'light'},
-  { id: 'scene-switch-animation', value: 'animation'},
-  { id: 'scene-switch-settings', value: 'settings'}
-]
+const data = {
+  sceneHeadStart: [
+    { id: 'scene-switch-grid', value: 'grid'},
+    { id: 'scene-switch-light', value: 'light'},
+    { id: 'scene-switch-animation', value: 'animation'},
+    { id: 'scene-switch-settings', value: 'settings'}
+  ],
+  sceneLayer: [
+    { id: 'scene-layer-object', value: 'object' },
+    { id: 'scene-layer-tilemap-1', value: '1' },
+    { id: 'scene-layer-tilemap-2', value: '2' },
+    { id: 'scene-layer-tilemap-3', value: '3' },
+    { id: 'scene-layer-tilemap-4', value: '4' },
+    { id: 'scene-layer-tilemap-5', value: '5' },
+    { id: 'scene-layer-tilemap-6', value: '6' },
+    { id: 'scene-layer-terrain', value: 'terrain' }
+  ],
+  sceneBrush: [
+    { id: 'scene-brush-eraser', value: 'eraser' },
+    { id: 'scene-brush-pencil', value: 'pencil' },
+    { id: 'scene-brush-rect', value: 'rect' },
+    { id: 'scene-brush-oval', value: 'oval' },
+    { id: 'scene-brush-fill', value: 'fill' }
+  ]
+}
+
+const sceneLayerClass = (item) => {
+  if (["object", "terrain"].indexOf(item.value) === -1) {
+    return "toolbar-item hidden"
+  }
+  return "toolbar-item"
+}
 
 const LayoutPageManager = () => {
   const Scene = () => (
     <page-frame id="scene" value="scene">
       <box id="scene-head">
         <box id="scene-head-start">
-          { sceneHeadStartItems.map((item, index) => (
+          { data.sceneHeadStart.map((item, index) => (
               <item id={ item.id } class="toolbar-item" value={ item.value } ></item>
             )) }
         </box>
         <box id="scene-head-center">
           <box id="scene-layer">
-            <item id="scene-layer-object" class="toolbar-item" value="object"></item>
-            <item id="scene-layer-tilemap-1" class="toolbar-item hidden" value="1"></item>
-            <item id="scene-layer-tilemap-2" class="toolbar-item hidden" value="2"></item>
-            <item id="scene-layer-tilemap-3" class="toolbar-item hidden" value="3"></item>
-            <item id="scene-layer-tilemap-4" class="toolbar-item hidden" value="4"></item>
-            <item id="scene-layer-tilemap-5" class="toolbar-item hidden" value="5"></item>
-            <item id="scene-layer-tilemap-6" class="toolbar-item hidden" value="6"></item>
-            <item id="scene-layer-terrain" class="toolbar-item" value="terrain"></item>
+            { data.sceneLayer.map((item, index) => (
+                <item id={ item.id } class={ sceneLayerClass(item) } value={ item.value } ></item>
+              )) }
           </box>
           <box id="scene-brush">
-            <item id="scene-brush-eraser" class="toolbar-item" value="eraser"></item>
-            <item id="scene-brush-pencil" class="toolbar-item" value="pencil"></item>
-            <item id="scene-brush-rect" class="toolbar-item" value="rect"></item>
-            <item id="scene-brush-oval" class="toolbar-item" value="oval"></item>
-            <item id="scene-brush-fill" class="toolbar-item" value="fill"></item>
+            { data.sceneBrush.map((item, index) => (
+                <item id={ item.id } class="toolbar-item" value={ item.value } ></item>
+              )) }
           </box>
         </box>
         <box id="scene-head-end">
