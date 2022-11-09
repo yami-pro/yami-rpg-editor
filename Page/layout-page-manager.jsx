@@ -2,15 +2,21 @@
 
 import { createElement } from './vhtml/index.js'
 
+let sceneHeadStartItems = [
+  { id: 'scene-switch-grid', value: 'grid'},
+  { id: 'scene-switch-light', value: 'light'},
+  { id: 'scene-switch-animation', value: 'animation'},
+  { id: 'scene-switch-settings', value: 'settings'}
+]
+
 const LayoutPageManager = () => {
   const Scene = () => (
     <page-frame id="scene" value="scene">
       <box id="scene-head">
         <box id="scene-head-start">
-          <item id="scene-switch-grid" class="toolbar-item" value="grid"></item>
-          <item id="scene-switch-light" class="toolbar-item" value="light"></item>
-          <item id="scene-switch-animation" class="toolbar-item" value="animation"></item>
-          <item id="scene-switch-settings" class="toolbar-item" value="settings"></item>
+          { sceneHeadStartItems.map((item, index) => (
+              <item id={ item.id } class="toolbar-item" value={ item.value } ></item>
+            )) }
         </box>
         <box id="scene-head-center">
           <box id="scene-layer">
