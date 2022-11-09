@@ -1,10 +1,12 @@
 'use strict'
 
-import { createElement, render } from '../Script/preact'
+import { createElement } from './vhtml/index.js'
 
-function Body() {
-  return (
-  <body>
+// tell esbuild to transpile JSX to createElement() calls:
+/** @jsx createElement */
+
+document.body.innerHTML = (
+  <page-app>
   {/*标题栏*/}
   <box id="title">
     <box id="menu">
@@ -4354,8 +4356,5 @@ function Body() {
       <button id="scriptCommand-cancel" name="cancel">Cancel</button>
     </content-frame>
   </window-frame>
-  </body>
-  )
-}
-
-render(<Body />, document.body)
+  </page-app>
+)
