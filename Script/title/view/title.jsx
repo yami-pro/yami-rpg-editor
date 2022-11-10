@@ -1,8 +1,10 @@
 'use strict'
 
-import { createElement } from './vhtml/index.js'
+import { createElement } from '../../vhtml/index.js'
 
-const Title = () => (
+const Title = ()=>(
+  <>
+  {/*标题栏*/}
   <box id="title">
     <box id="menu">
       <item id="menu-file" class="menu-item" value="file">File</item>
@@ -19,6 +21,7 @@ const Title = () => (
       <close id="title-close"></close>
     </box>
   </box>
+  </>
 )
 
 export { Title }
