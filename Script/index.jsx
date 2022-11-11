@@ -2,7 +2,8 @@
 
 import { createElement } from './vhtml/index.js'
 import { Title } from './title/view/title.jsx'
-import { WindowAmbient } from './tools/view/window-ambient.js'
+import { WindowAmbient } from './tools/view/window-ambient.jsx'
+import { Tooltip } from './components/view/html-element.jsx'
 
 document.body.innerHTML = (
   <>
@@ -13,7 +14,7 @@ document.body.innerHTML = (
   <WindowAmbient />
 
   {/*工具提示*/}
-  <box id="tooltip"></box>
+  <Tooltip />
 
   {/*指针区域*/}
   <box id="cursor-region"></box>
