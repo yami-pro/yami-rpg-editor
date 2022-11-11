@@ -29,7 +29,7 @@ PositionGetter.initialize = function () {
     {name: 'Position of Actor', value: 'actor'},
     {name: 'Position of Trigger', value: 'trigger'},
     {name: 'Position of Light', value: 'light'},
-    {name: 'Position of Region', value: 'region'},
+    {name: 'Position of Object', value: 'object'},
   ])
 
   // 设置类型关联元素
@@ -51,8 +51,8 @@ PositionGetter.initialize = function () {
     {case: 'light', targets: [
       $('#positionGetter-light'),
     ]},
-    {case: 'region', targets: [
-      $('#positionGetter-regionId'),
+    {case: 'object', targets: [
+      $('#positionGetter-objectId'),
     ]},
   ])
 
@@ -70,7 +70,7 @@ PositionGetter.open = function (target) {
   let actor = {type: 'trigger'}
   let trigger = {type: 'trigger'}
   let light = {type: 'trigger'}
-  let regionId = PresetObject.getDefaultPresetId('region')
+  let objectId = PresetObject.getDefaultPresetId('any')
   const position = target.dataValue
   switch (position.type) {
     case 'absolute':
@@ -90,8 +90,8 @@ PositionGetter.open = function (target) {
     case 'light':
       light = position.light
       break
-    case 'region':
-      regionId = position.regionId
+    case 'object':
+      objectId = position.objectId
       break
   }
   $('#positionGetter-type').write(position.type)
@@ -100,7 +100,7 @@ PositionGetter.open = function (target) {
   $('#positionGetter-actor').write(actor)
   $('#positionGetter-trigger').write(trigger)
   $('#positionGetter-light').write(light)
-  $('#positionGetter-regionId').write(regionId)
+  $('#positionGetter-objectId').write(objectId)
   $('#positionGetter-type').getFocus()
 }
 
@@ -137,12 +137,12 @@ PositionGetter.confirm = function (event) {
       getter = {type, light}
       break
     }
-    case 'region': {
-      const regionId = read('regionId')
-      if (regionId === '') {
-        return $('#positionGetter-regionId').getFocus()
+    case 'object': {
+      const objectId = read('objectId')
+      if (objectId === '') {
+        return $('#positionGetter-objectId').getFocus()
       }
-      getter = {type, regionId}
+      getter = {type, objectId}
       break
     }
   }

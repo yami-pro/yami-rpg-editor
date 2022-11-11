@@ -27,8 +27,9 @@ ElementGetter.initialize = function () {
   $('#elementGetter-type').loadItems([
     {name: 'Event Trigger Element', value: 'trigger'},
     {name: 'Latest Element', value: 'latest'},
-    {name: 'Select By ID', value: 'by-id'},
-    {name: 'Select By Ancestor And ID', value: 'by-ancestor-and-id'},
+    {name: 'By Element ID', value: 'by-id'},
+    {name: 'By Ancestor And ID', value: 'by-ancestor-and-id'},
+    {name: 'By Parent And Index', value: 'by-index'},
     {name: 'Variable', value: 'variable'},
   ])
 
@@ -40,6 +41,10 @@ ElementGetter.initialize = function () {
     {case: 'by-ancestor-and-id', targets: [
       $('#elementGetter-ancestor'),
       $('#elementGetter-presetId'),
+    ]},
+    {case: 'by-index', targets: [
+      $('#elementGetter-ancestor'),
+      $('#elementGetter-index'),
     ]},
     {case: 'variable', targets: [
       $('#elementGetter-variable'),
@@ -55,6 +60,7 @@ ElementGetter.open = function (target) {
   this.target = target
   Window.open('elementGetter')
 
+  let index = 0
   let presetId = PresetElement.getDefaultPresetId()
   let ancestor = {type: 'trigger'}
   let variable = {type: 'local', key: ''}
@@ -70,6 +76,10 @@ ElementGetter.open = function (target) {
       ancestor = element.ancestor
       presetId = element.presetId
       break
+    case 'by-index':
+      ancestor = element.parent
+      index = element.index
+      break
     case 'variable':
       variable = element.variable
       break
@@ -77,7 +87,7 @@ ElementGetter.open = function (target) {
   $('#elementGetter-type').write(element.type)
   $('#elementGetter-ancestor').write(ancestor)
   $('#elementGetter-presetId').write(presetId)
-
+  $('#elementGetter-index').write(index)
   $('#elementGetter-variable').write(variable)
   $('#elementGetter-type').getFocus()
 }
@@ -107,6 +117,12 @@ ElementGetter.confirm = function (event) {
         return $('#elementGetter-presetId').getFocus()
       }
       getter = {type, ancestor, presetId}
+      break
+    }
+    case 'by-index': {
+      const parent = read('ancestor')
+      const index = read('index')
+      getter = {type, parent, index}
       break
     }
     case 'variable': {

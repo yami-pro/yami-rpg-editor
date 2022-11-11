@@ -265,6 +265,10 @@ IfCondition.initialize = function () {
     {name: 'Has Targets', value: 'has-targets'},
     {name: 'Has No Targets', value: 'has-no-targets'},
     {name: 'In Screen', value: 'in-screen'},
+    {name: 'Is Player Actor', value: 'is-player'},
+    {name: 'Is Party Member', value: 'is-member'},
+    {name: 'Has Skill', value: 'has-skill'},
+    {name: 'Has State', value: 'has-state'},
     {name: 'Has Items', value: 'has-items'},
     {name: 'Has Equipments', value: 'has-equipments'},
     {name: 'Equipped', value: 'equipped'},
@@ -272,6 +276,12 @@ IfCondition.initialize = function () {
 
   // 设置角色操作关联元素
   $('#if-condition-actor-operation').enableHiddenMode().relate([
+    {case: 'has-skill', targets: [
+      $('#if-condition-actor-skillId'),
+    ]},
+    {case: 'has-state', targets: [
+      $('#if-condition-actor-stateId'),
+    ]},
     {case: 'has-items', targets: [
       $('#if-condition-actor-itemId'),
       $('#if-condition-actor-quantity'),
@@ -396,10 +406,8 @@ IfCondition.parseStringOperand = function ({operand}) {
       return `"${Command.parseMultiLineString(operand.value)}"`
     case 'variable':
       return Command.parseVariable(operand.variable)
-    case 'enum': {
-      const name = Command.parseEnumString(operand.stringId)
-      return `${Local.get('command.if.string.enum')}(${name})`
-    }
+    case 'enum':
+      return Command.parseEnumStringTag(operand.stringId)
   }
 }
 
@@ -440,9 +448,13 @@ IfCondition.parseObjectOperand = function ({operand}) {
 }
 
 // 解析角色操作
-IfCondition.parseActorOperation = function ({operation, itemId, equipmentId, quantity}) {
+IfCondition.parseActorOperation = function ({operation, itemId, equipmentId, skillId, stateId, quantity}) {
   const op = Local.get('command.if.actor.' + operation)
   switch (operation) {
+    case 'has-skill':
+      return `${op} ${Command.parseFileName(skillId)}`
+    case 'has-state':
+      return `${op} ${Command.parseFileName(stateId)}`
     case 'has-items': {
       const text = `${op} ${Command.parseFileName(itemId)}`
       return quantity === 1 ? text : `${text} x ${quantity}`
@@ -581,6 +593,8 @@ IfCondition.open = function (condition = {
   let commonLight = {type: 'trigger'}
   let commonElement = {type: 'trigger'}
   let actorOperation = 'present-active'
+  let actorSkillId = ''
+  let actorStateId = ''
   let actorItemId = ''
   let actorEquipmentId = ''
   let actorQuantity = 1
@@ -631,6 +645,8 @@ IfCondition.open = function (condition = {
     case 'actor':
       commonActor = condition.actor
       actorOperation = condition.operation
+      actorSkillId = condition.skillId ?? actorSkillId
+      actorStateId = condition.stateId ?? actorStateId
       actorItemId = condition.itemId ?? actorItemId
       actorEquipmentId = condition.equipmentId ?? actorEquipmentId
       actorQuantity = condition.quantity ?? actorQuantity
@@ -681,6 +697,8 @@ IfCondition.open = function (condition = {
   write('common-light', commonLight)
   write('common-element', commonElement)
   write('actor-operation', actorOperation)
+  write('actor-skillId', actorSkillId)
+  write('actor-stateId', actorStateId)
   write('actor-itemId', actorItemId)
   write('actor-equipmentId', actorEquipmentId)
   write('actor-quantity', actorQuantity)
@@ -891,6 +909,22 @@ IfCondition.save = function () {
       const actor = read('common-actor')
       const operation = read('actor-operation')
       switch (operation) {
+        case 'has-skill': {
+          const skillId = read('actor-skillId')
+          if (skillId === '') {
+            return $('#if-condition-actor-skillId').getFocus()
+          }
+          condition = {type, actor, operation, skillId}
+          break
+        }
+        case 'has-state': {
+          const stateId = read('actor-stateId')
+          if (stateId === '') {
+            return $('#if-condition-actor-stateId').getFocus()
+          }
+          condition = {type, actor, operation, stateId}
+          break
+        }
         case 'has-items': {
           const itemId = read('actor-itemId')
           if (itemId === '') {

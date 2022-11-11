@@ -74,9 +74,9 @@ Project.initialize = function () {
   ])
 
   // 创建队伍包裹模式选项
-  $('#config-actor-partyBagMode').loadItems([
-    {name: 'Share the Player\'s Bag', value: 'shared'},
-    {name: 'Use Separate Bags', value: 'separate'},
+  $('#config-actor-partyInventoryMode').loadItems([
+    {name: 'Share the Player\'s Inventory', value: 'shared'},
+    {name: 'Use Separate Inventorys', value: 'separate'},
   ])
 
   // 绑定角色临时属性列表
@@ -115,7 +115,7 @@ Project.initialize = function () {
     #config-actor-playerTeam, #config-actor-playerActor,
     #config-actor-partyMembers-0, #config-actor-partyMembers-1,
     #config-actor-partyMembers-2, #config-actor-partyMembers-3,
-    #config-actor-partyBagMode,
+    #config-actor-partyInventoryMode,
     #config-animation-frameRate, #config-script-language, #config-script-outDir`
   ).on('input', this.paramInput)
 }
@@ -171,7 +171,7 @@ Project.open = function () {
   write('actor-partyMembers-1')
   write('actor-partyMembers-2')
   write('actor-partyMembers-3')
-  write('actor-partyBagMode')
+  write('actor-partyInventoryMode')
   write('actor-tempAttributes')
   write('animation-frameRate')
   write('script-language')

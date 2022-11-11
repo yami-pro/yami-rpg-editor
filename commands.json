@@ -286,6 +286,14 @@
       },
       {
         "class": "actor",
+        "value": "setPlayerActor"
+      },
+      {
+        "class": "actor",
+        "value": "setPartyMember"
+      },
+      {
+        "class": "actor",
         "value": "changeActorTeam",
         "keywords": "changeTeam"
       },
@@ -303,6 +311,11 @@
         "class": "actor",
         "value": "changeActorSkill",
         "keywords": "changeSkill"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorAnimation",
+        "keywords": "changeAnimation"
       },
       {
         "class": "actor",
@@ -381,27 +394,27 @@
   },
   {
     "class": "folder",
-    "value": "bag",
+    "value": "inventory",
     "expanded": true,
     "children": [
       {
-        "class": "bag",
-        "value": "setBag"
+        "class": "inventory",
+        "value": "setInventory"
       },
       {
-        "class": "bag",
+        "class": "inventory",
         "value": "useItem"
       },
       {
-        "class": "bag",
+        "class": "inventory",
         "value": "setItem"
       },
       {
-        "class": "bag",
+        "class": "inventory",
         "value": "setCooldown"
       },
       {
-        "class": "bag",
+        "class": "inventory",
         "value": "setShortcut"
       }
     ]
@@ -461,11 +474,6 @@
       {
         "class": "system",
         "value": "switchCollisionSystem"
-      },
-      {
-        "class": "system",
-        "value": "gameData",
-        "keywords": "save, load"
       },
       {
         "class": "system",

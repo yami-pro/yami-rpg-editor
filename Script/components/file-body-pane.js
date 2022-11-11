@@ -539,7 +539,7 @@ class FileBodyPane extends HTMLElement {
       case 'event':
         icon.addClass('icon-file-event')
         icon.textContent = 'EV'
-        if (!file.data.enabled) {
+        if (!file.data?.enabled) {
           icon.addClass('disabled')
         }
         break

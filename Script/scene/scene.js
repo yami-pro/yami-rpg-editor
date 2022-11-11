@@ -671,9 +671,7 @@ Scene.initialize = function () {
     const {editor, target, angle} = data
     data.angle = target.angle
     target.angle = angle
-    const params = target.player.getDirParamsByAngle(angle)
-    target.player.switch(target.data.idleMotion, params.suffix)
-    target.player.mirror = params.mirror
+    target.player.setAngle(Math.radians(angle))
     if (editor.target === target) {
       editor.write({angle})
     }
@@ -1480,9 +1478,7 @@ Scene.redirectTarget = function (angle) {
     }
     this.requestRendering()
     target.angle = angle
-    const params = target.player.getDirParamsByAngle(angle)
-    target.player.switch(target.data.idleMotion, params.suffix)
-    target.player.mirror = params.mirror
+    target.player.setAngle(Math.radians(angle))
     if (editor.target === target) {
       editor.write({angle})
     }
@@ -2100,7 +2096,6 @@ Scene.loadActorContext = function (actor) {
     const animation = Data.animations[animationId]
     if (animation !== undefined) {
       const player = new Animation.Player(animation)
-      const params = player.getDirParamsByAngle(actor.angle)
       // 加载精灵哈希表
       const images = {}
       const sprites = data.sprites
@@ -2109,9 +2104,9 @@ Scene.loadActorContext = function (actor) {
         const sprite = sprites[i]
         images[sprite.name] = sprite.image
       }
+      player.angle = Math.radians(actor.angle)
       player.setSpriteImages(images)
-      player.switch(data.idleMotion, params.suffix)
-      player.mirror = params.mirror
+      player.setMotion(data.idleMotion)
       Object.defineProperty(
         actor, 'player', {
           configurable: true,
@@ -2157,7 +2152,7 @@ Scene.loadAnimationContext = function (animation) {
       }
     )
     const player = new Animation.Player(data)
-    player.switch(animation.motion)
+    player.setMotion(animation.motion)
     player.mirror = animation.mirror
     Object.defineProperty(
       animation, 'player', {

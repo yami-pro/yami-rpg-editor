@@ -94,10 +94,8 @@ SwitchCondition.parse = function (condition) {
       return condition.value.toString()
     case 'string':
       return `"${Command.parseMultiLineString(condition.value)}"`
-    case 'enum': {
-      const name = Command.parseEnumString(condition.stringId)
-      return `${Local.get('command.switch.enum')}(${name})`
-    }
+    case 'enum':
+      return Command.parseEnumStringTag(condition.stringId)
     case 'keyboard': {
       const key = condition.keycode
       const keyboard = Local.get('command.switch.keyboard')

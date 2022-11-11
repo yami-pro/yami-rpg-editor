@@ -26,11 +26,16 @@ StateGetter.initialize = function () {
   $('#stateGetter-type').loadItems([
     {name: 'Event Trigger State', value: 'trigger'},
     {name: 'Latest State', value: 'latest'},
+    {name: 'By State Id', value: 'by-id'},
     {name: 'Variable', value: 'variable'},
   ])
 
   // 设置关联元素
   $('#stateGetter-type').enableHiddenMode().relate([
+    {case: 'by-id', targets: [
+      $('#stateGetter-actor'),
+      $('#stateGetter-stateId'),
+    ]},
     {case: 'variable', targets: [
       $('#stateGetter-variable'),
     ]},
@@ -45,17 +50,25 @@ StateGetter.open = function (target) {
   this.target = target
   Window.open('stateGetter')
 
+  let actor = {type: 'trigger'}
+  let stateId = ''
   let variable = {type: 'local', key: ''}
   const state = target.dataValue
   switch (state.type) {
     case 'trigger':
     case 'latest':
       break
+    case 'by-id':
+      actor = state.actor
+      stateId = state.stateId
+      break
     case 'variable':
       variable = state.variable
       break
   }
   $('#stateGetter-type').write(state.type)
+  $('#stateGetter-actor').write(actor)
+  $('#stateGetter-stateId').write(stateId)
   $('#stateGetter-variable').write(variable)
   $('#stateGetter-type').getFocus()
 }
@@ -70,6 +83,15 @@ StateGetter.confirm = function (event) {
     case 'latest':
       getter = {type}
       break
+    case 'by-id': {
+      const actor = read('actor')
+      const stateId = read('stateId')
+      if (stateId === '') {
+        return $('#stateGetter-stateId').getFocus()
+      }
+      getter = {type, actor, stateId}
+      break
+    }
     case 'variable': {
       const variable = read('variable')
       if (VariableGetter.isNone(variable)) {

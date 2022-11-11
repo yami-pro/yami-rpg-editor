@@ -2,7 +2,7 @@
 
 import {
   File,
-  SinglePlayer
+  AudioPlayer
 } from '../yami.js'
 
 // ******************************** 音频管理器 ********************************
@@ -30,8 +30,8 @@ AudioManager.initialize = function () {
   this.analyser = this.context.createAnalyser()
   this.analyser.connect(this.context.destination)
 
-  // 创建音频对象
-  this.player = new SinglePlayer()
+  // 创建音频播放器
+  this.player = new AudioPlayer()
 }
 
 // 获取波形图

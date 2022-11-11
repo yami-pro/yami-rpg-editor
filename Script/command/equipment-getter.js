@@ -27,7 +27,7 @@ EquipmentGetter.initialize = function () {
   $('#equipmentGetter-type').loadItems([
     {name: 'Event Trigger Equipment', value: 'trigger'},
     {name: 'Latest Equipment', value: 'latest'},
-    {name: 'Select By Slot', value: 'by-slot'},
+    {name: 'By Equipment Slot', value: 'by-slot'},
     {name: 'Variable', value: 'variable'},
   ])
 

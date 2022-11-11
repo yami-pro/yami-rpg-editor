@@ -27,7 +27,7 @@ LightGetter.initialize = function () {
   $('#lightGetter-type').loadItems([
     {name: 'Event Trigger Light', value: 'trigger'},
     {name: 'Latest Light', value: 'latest'},
-    {name: 'Select By ID', value: 'by-id'},
+    {name: 'By Light ID', value: 'by-id'},
     {name: 'Variable', value: 'variable'},
   ])
 

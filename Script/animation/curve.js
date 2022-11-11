@@ -372,6 +372,7 @@ Curve.easingIdInput = function (event) {
   Animation.history.save({
     type: 'animation-easing-change',
     motion: Animation.motion,
+    direction: Animation.direction,
     target: Animation.target,
     easingId: Curve.target.easingId,
   })

@@ -110,15 +110,17 @@ Inspector.initialize = function () {
     editor.owner?.setTarget(target)
   }
   History.processors['inspector-layer-change'] = (operation, data) => {
-    const {target, motion} = data
+    const {target, motion, direction} = data
     History.processors['inspector-change'](operation, data)
     Animation.setMotion(motion)
+    Animation.setDirection(direction)
     Animation.openLayer(target)
   }
   History.processors['inspector-frame-change'] = (operation, data) => {
-    const {target, motion} = data
+    const {target, motion, direction} = data
     History.processors['inspector-change'](operation, data)
     Animation.setMotion(motion)
+    Animation.setDirection(direction)
     Animation.selectFrame(target)
   }
   History.processors['inspector-param-insert'] = (operation, data) => {

@@ -27,7 +27,7 @@ ItemGetter.initialize = function () {
   $('#itemGetter-type').loadItems([
     {name: 'Event Trigger Item', value: 'trigger'},
     {name: 'Latest Item', value: 'latest'},
-    {name: 'Select By Shortcut Key', value: 'by-key'},
+    {name: 'By Shortcut Key', value: 'by-key'},
     {name: 'Variable', value: 'variable'},
   ])
 

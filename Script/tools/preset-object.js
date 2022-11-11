@@ -79,28 +79,27 @@ PresetObject.buildNodes = function IIFE() {
   const build = (nodes, className) => {
     const list = []
     for (const node of nodes) {
-      switch (node.class) {
-        case 'folder':
-          list.push({
-            class: node.class,
-            name: node.name,
-            expanded: node.expanded,
-            children: build(node.children, className),
-          })
-          continue
-        case className:
-          list.push({
-            class: node.class,
-            name: node.name,
-            presetId: node.presetId,
-            teamId: node.teamId ?? '',
-            color: node.color ?? '',
-            red: node.red ?? 0,
-            green: node.green ?? 0,
-            blue: node.blue ?? 0,
-            image: node.image ?? '',
-          })
-          break
+      if (node.class === 'folder') {
+        list.push({
+          class: node.class,
+          name: node.name,
+          expanded: node.expanded,
+          children: build(node.children, className),
+        })
+        continue
+      }
+      if (className === 'any' || node.class === className) {
+        list.push({
+          class: node.class,
+          name: node.name,
+          presetId: node.presetId,
+          teamId: node.teamId ?? '',
+          color: node.color ?? '',
+          red: node.red ?? 0,
+          green: node.green ?? 0,
+          blue: node.blue ?? 0,
+          image: node.image ?? '',
+        })
       }
     }
     return list
@@ -111,8 +110,11 @@ PresetObject.buildNodes = function IIFE() {
 }()
 
 // 获取默认的场景预设对象ID
-PresetObject.getDefaultPresetId = function (className) {
-  return Scene.target?.class === className ? Scene.target.presetId : ''
+PresetObject.getDefaultPresetId = function (className = 'any') {
+  if (Scene.target && (className === 'any' || Scene.target.class === className)) {
+    return Scene.target.presetId
+  }
+  return ''
 }
 
 // 窗口 - 已关闭事件

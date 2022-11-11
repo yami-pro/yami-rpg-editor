@@ -441,7 +441,6 @@ Sprite.selectSprite = function (hindex, vindex) {
     this.marquee.select(hindex, vindex, 1, 1)
     Animation.planToSave()
     const x = Animation.timelineMarquee.x
-    const editor = Inspector.animSpriteFrame
     const history = Animation.history
     const index = history.index
     const length = history.length
@@ -453,8 +452,8 @@ Sprite.selectSprite = function (hindex, vindex) {
       record.target !== target) {
       history.save({
         type: type,
-        editor: editor,
         motion: Animation.motion,
+        direction: Animation.direction,
         target: target,
         hindex: target.spriteX,
         vindex: target.spriteY,

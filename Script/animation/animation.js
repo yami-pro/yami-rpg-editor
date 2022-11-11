@@ -38,6 +38,7 @@ const Animation = {
   body: $('#animation-body').hide(),
   screen: $('#animation-screen'),
   marquee: $('#animation-marquee'),
+  dirList: $('#animation-dirList'),
   searcher: $('#animation-searcher'),
   list: $('#animation-list'),
   layerList: $('#animation-layer-list'),
@@ -53,10 +54,12 @@ const Animation = {
   outerPointerArea: $('#animation-timeline-pointer-area-outer'),
   innerPointerArea: $('#animation-timeline-pointer-area-inner'),
   pointer: $('#animation-timeline-pointer'),
+  dirTags: null,
   // editor properties
   dragging: null,
   playing: false,
   motion: null,
+  direction: 0,
   target: null,
   hover: null,
   history: null,
@@ -126,6 +129,9 @@ const Animation = {
   setZoom: null,
   setHover: null,
   setMotion: null,
+  setMotionMode: null,
+  setDirection: null,
+  createDirItems: null,
   editMotion: null,
   getNewMotionId: null,
   revealTarget: null,
@@ -252,11 +258,11 @@ const Animation = {
   listPointerdown: null,
   listSelect: null,
   listRecord: null,
-  listUpdate: null,
   listOpen: null,
   listPopup: null,
   listChange: null,
   listPageResize: null,
+  dirListPointerdown: null,
   timelinePageResize: null,
   timelineToolbarPointerdown: null,
   layerListWheel: null,
@@ -298,9 +304,6 @@ Animation.list.updateHead = null
 Animation.list.createIcon = null
 Animation.list.createText = null
 Animation.list.updateText = null
-Animation.list.createDirText = null
-Animation.list.updateDirText = null
-Animation.list.updateDirections = null
 Animation.list.createLoopIcon = null
 Animation.list.updateLoopIcon = null
 Animation.list.onDelete = null
@@ -443,6 +446,17 @@ Animation.initialize = function () {
     }
   })
 
+  // 设置方向标签
+  this.dirTags = {
+    '1-dir': ['→'],
+    '1-dir-mirror': ['→'],
+    '2-dir': ['←', '→'],
+    '3-dir-mirror': ['↓', '→', '↑'],
+    '4-dir': ['↓', '←', '→', '↑'],
+    '5-dir-mirror': ['↓', '→', '↑', '↘', '↗'],
+    '8-dir': ['↓', '←', '→', '↑', '↙', '↘', '↖', '↗'],
+  }
+
   // 设置舞台边距
   this.padding = 800
 
@@ -465,8 +479,6 @@ Animation.initialize = function () {
   list.removable = true
   list.bind(() => this.motions)
   list.updaters.push(list.updateText)
-  list.creators.push(list.createDirText)
-  list.updaters.push(list.updateDirText)
   list.creators.push(list.createLoopIcon)
   list.creators.push(list.updateLoopIcon)
 
@@ -502,22 +514,37 @@ Animation.initialize = function () {
     list.scrollToSelection()
     Animation.planToSave()
   }
+  History.processors['animation-motion-mode-change'] = (operation, data) => {
+    const {motion, direction, mode, dirCases} = data
+    data.mode = motion.mode
+    data.dirCases = motion.dirCases
+    motion.mode = mode
+    motion.dirCases = dirCases
+    list.update()
+    list.select(motion)
+    list.scrollToSelection()
+    Inspector.open('animMotion', motion)
+    Inspector.animMotion.write({mode})
+    Animation.createDirItems()
+    Animation.setDirection(direction)
+    Animation.planToSave()
+  }
   History.processors['animation-layer-rename'] = (operation, data) => {
-    const {motion, response} = data
-    layerList.restoreMotion(motion)
+    const {motion, direction, response} = data
+    layerList.restoreMotion(motion, direction)
     layerList.restore(operation, response)
   }
   History.processors['animation-layer-create'] =
   History.processors['animation-layer-delete'] =
   History.processors['animation-layer-remove'] = (operation, data) => {
-    const {motion, response} = data
+    const {motion, direction, response} = data
     Animation.contextLoaded = false
-    layerList.restoreMotion(motion)
+    layerList.restoreMotion(motion, direction)
     layerList.restore(operation, response)
   }
   History.processors['animation-layer-hidden'] = (operation, data) => {
-    const {motion, item, oldValues, newValue} = data
-    layerList.restoreMotion(motion)
+    const {motion, direction, item, oldValues, newValue} = data
+    layerList.restoreMotion(motion, direction)
     if (operation === 'undo') {
       layerList.restoreRecursiveStates(item, 'hidden', oldValues)
     } else {
@@ -528,8 +555,8 @@ Animation.initialize = function () {
     Animation.planToSave()
   }
   History.processors['animation-layer-locked'] = (operation, data) => {
-    const {motion, item, oldValues, newValue} = data
-    layerList.restoreMotion(motion)
+    const {motion, direction, item, oldValues, newValue} = data
+    layerList.restoreMotion(motion, direction)
     if (operation === 'undo') {
       layerList.restoreRecursiveStates(item, 'locked', oldValues)
     } else {
@@ -539,14 +566,14 @@ Animation.initialize = function () {
     Animation.planToSave()
   }
   History.processors['animation-frames-change'] = (operation, data) => {
-    const {motion, changes, sMarquee, dMarquee} = data
+    const {motion, direction, changes, sMarquee, dMarquee} = data
     for (const change of changes) {
       const {layer, frames} = change
       change.frames = layer.frames
       layer.frames = frames
     }
     const {layer, x, length} = operation === 'undo' ? sMarquee : dMarquee
-    Animation.outerTimelineList.restoreMotionAndLayer(motion, layer)
+    Animation.outerTimelineList.restoreMotionAndLayer(motion, direction, layer)
     Animation.player.index = x
     // 取消选择选框来避免获取错误的窗口宽高
     Animation.unselectMarquee()
@@ -557,7 +584,7 @@ Animation.initialize = function () {
     Animation.planToSave()
   }
   History.processors['animation-easing-change'] = (operation, data) => {
-    const {motion, target, easingId} = data
+    const {motion, direction, target, easingId} = data
     data.easingId = target.easingId
     target.easingId = easingId
     if (Curve.target === target) {
@@ -565,13 +592,14 @@ Animation.initialize = function () {
     }
     Curve.updateTimeline(target)
     Animation.setMotion(motion)
+    Animation.setDirection(direction)
     Animation.selectFrame(target)
     Animation.updateFrameContexts()
     Animation.requestRendering()
     Animation.planToSave()
   }
   History.processors['animation-target-shift'] = (operation, data) => {
-    const {editor, motion, target, x, y} = data
+    const {editor, motion, direction, target, x, y} = data
     data.x = target.x
     data.y = target.y
     target.x = x
@@ -580,13 +608,14 @@ Animation.initialize = function () {
       editor.write({x, y})
     }
     Animation.setMotion(motion)
+    Animation.setDirection(direction)
     Animation.selectFrame(target)
     Animation.updateFrameContexts()
     Animation.requestRendering()
     Animation.planToSave()
   }
   History.processors['animation-target-resize'] = (operation, data) => {
-    const {editor, motion, target, scaleX, scaleY} = data
+    const {editor, motion, direction, target, scaleX, scaleY} = data
     data.scaleX = target.scaleX
     data.scaleY = target.scaleY
     target.scaleX = scaleX
@@ -595,31 +624,34 @@ Animation.initialize = function () {
       editor.write({scaleX, scaleY})
     }
     Animation.setMotion(motion)
+    Animation.setDirection(direction)
     Animation.selectFrame(target)
     Animation.updateFrameContexts()
     Animation.requestRendering()
     Animation.planToSave()
   }
   History.processors['animation-target-rotate'] = (operation, data) => {
-    const {editor, motion, target, rotation} = data
+    const {editor, motion, direction, target, rotation} = data
     data.rotation = target.rotation
     target.rotation = rotation
     if (editor.target === target) {
       editor.write({rotation})
     }
     Animation.setMotion(motion)
+    Animation.setDirection(direction)
     Animation.selectFrame(target)
     Animation.updateFrameContexts()
     Animation.requestRendering()
     Animation.planToSave()
   }
   History.processors['animation-target-index'] = (operation, data) => {
-    const {editor, motion, target, hindex, vindex} = data
+    const {motion, direction, target, hindex, vindex} = data
     data.hindex = target.spriteX
     data.vindex = target.spriteY
     target.spriteX = hindex
     target.spriteY = vindex
     Animation.setMotion(motion)
+    Animation.setDirection(direction)
     Animation.selectFrame(target)
     Animation.requestRendering()
     if (Sprite.state !== 'closed') {
@@ -1105,34 +1137,100 @@ Animation.setMotion = function (motion) {
   if (this.motion !== motion) {
     this.motion = motion
     this.updateMotionItem()
+    this.createDirItems()
     this.stop()
     this.stopAnimation()
     this.requestRendering()
-    this.updatePlayerMotion()
     this.player.destroyUpdatingEmitters()
     if (motion) {
-      this.layers = motion.layers
-      this.contextLoaded = false
       this.timeline.show()
       this.timeline.updateHead()
-      this.layerList.update()
-      Inspector.open('animMotion', motion)
       Curve.open()
-      // 标记动作对象为已加载状态 - 以便销毁元素
-      if (motion.loaded === undefined) {
-        Object.defineProperty(motion, 'loaded', {
-          configurable: true,
-          value: true,
-        })
-      }
+      this.setDirection(this.direction)
     } else {
       this.layers = null
       this.timeline.hide()
       this.layerList.clear()
       this.innerTimelineList.clear()
+      this.updatePlayerMotion()
       this.unselectMarquee()
       Inspector.close()
       Curve.close()
+    }
+  }
+}
+
+// 设置动作模式
+Animation.setMotionMode = function (mode) {
+  if (!this.motion) return
+  const dirCases = this.motion.dirCases
+  this.history.save({
+    type: 'animation-motion-mode-change',
+    motion: this.motion,
+    direction: this.direction,
+    mode: this.motion.mode,
+    dirCases: dirCases.slice(),
+  })
+  // 设置新的模式
+  this.motion.mode = mode
+  // 补充缺少的动作方向
+  const dirs = this.dirTags[mode]
+  const length = dirs.length
+  for (let i = dirCases.length; i < length; i++) {
+    dirCases[i] = Inspector.animMotion.createDir()
+  }
+  // 删除多余的动作方向
+  if (dirCases.length > length) {
+    dirCases.length = length
+  }
+}
+
+// 设置动作方向
+Animation.setDirection = function (direction) {
+  if (!this.motion) return
+  const dirCases = this.motion.dirCases
+  const dirIndex = Math.min(direction, dirCases.length - 1)
+  const dirCase = this.motion.dirCases[dirIndex]
+  this.direction = dirIndex
+  this.layers = dirCase.layers
+  this.updatePlayerMotion()
+  this.contextLoaded = false
+  this.layerList.update()
+  this.dirList.querySelector('.selected')?.removeClass('selected')
+  this.dirList.childNodes[dirIndex].addClass('selected')
+  // 标记动作对象为已加载状态 - 以便销毁元素
+  if (dirCase.loaded === undefined) {
+    Object.defineProperty(dirCase, 'loaded', {
+      configurable: true,
+      value: true,
+    })
+  }
+}
+
+// 创建方向选项
+Animation.createDirItems = function () {
+  const dirList = this.dirList
+  const motion = this.motion
+  const mode = motion?.mode ?? 'none'
+  // 当动作模式发生变化时，更新方向选项
+  if (dirList.mode !== mode) {
+    dirList.mode = mode
+    dirList.clear()
+    if (mode === 'none') return
+    const dirs = this.dirTags[mode]
+    for (let i = 0; i < dirs.length; i++) {
+      const element = document.createElement('anim-dir')
+      if (i === Animation.direction) {
+        element.addClass('selected')
+      }
+      element.direction = i
+      element.textContent = dirs[i]
+      dirList.appendChild(element)
+    }
+    if (dirs.length > 1) {
+      dirList.show()
+    } else {
+      dirList.hide()
     }
   }
 }
@@ -1245,6 +1343,7 @@ Animation.shiftTarget = function (x, y) {
         type: type,
         editor: editor,
         motion: this.motion,
+        direction: this.direction,
         target: target,
         x: target.x,
         y: target.y,
@@ -1284,6 +1383,7 @@ Animation.resizeTarget = function (scaleX, scaleY) {
         type: type,
         editor: editor,
         motion: this.motion,
+        direction: this.direction,
         target: target,
         scaleX: target.scaleX,
         scaleY: target.scaleY,
@@ -1327,6 +1427,7 @@ Animation.rotateTarget = function (rotation) {
         type: type,
         editor: editor,
         motion: this.motion,
+        direction: this.direction,
         target: target,
         rotation: target.rotation,
       })
@@ -1441,10 +1542,10 @@ Animation.updateTargetContext = function () {
 
 // 更新播放器动作
 Animation.updatePlayerMotion = function () {
-  const {player, motion} = this
-  if (player.motion !== motion) {
-    player.motion = motion
-  }
+  this.player.motion = this.motion
+  this.player.direction = this.direction
+  this.player.layers = this.layers
+
 }
 
 // 更新所有帧的上下文
@@ -1740,31 +1841,23 @@ Animation.getMotionListItems = function (animationId) {
       value: undefined,
     })
   }
-  const version = Data.enumeration.context.version
-  let items = motions.listItems
-  // 枚举数据版本变化时重新生成选项列表
-  if (items && items.version !== version) {
-    items = undefined
+  const items = []
+  const flags = {}
+  for (const motion of motions) {
+    const enumId = motion.id
+    if (enumId in flags) continue
+    flags[enumId] = true
+    const name = Enum.getString(enumId)?.name ?? Command.parseUnlinkedId(enumId)
+    items.push({
+      name: name,
+      value: enumId,
+    })
   }
-  if (items === undefined) {
-    const length = motions.length
-    items = new Array(length)
-    for (let i = 0; i < length; i++) {
-      const enumId = motions[i].id
-      const name = Enum.getString(enumId)?.name ?? Command.parseUnlinkedId(enumId)
-      items[i] = {
-        name: name,
-        value: enumId,
-      }
-    }
-    if (length === 0) {
-      items.push({
-        name: Local.get('common.none'),
-        value: '',
-      })
-    }
-    items.version = version
-    motions.listItems = items
+  if (items.length === 0) {
+    items.push({
+      name: Local.get('common.none'),
+      value: '',
+    })
   }
   return items
 }
@@ -3221,6 +3314,7 @@ Animation.saveFrames = function (layers, sMarquee, dMarquee = sMarquee) {
   this.history.save({
     type: 'animation-frames-change',
     motion: Animation.motion,
+    direction: Animation.direction,
     changes: changes,
     sMarquee: sMarquee,
     dMarquee: dMarquee,
@@ -4822,11 +4916,6 @@ Animation.listRecord = function (event) {
   }
 }
 
-// 列表 - 更新事件
-Animation.listUpdate = function (event) {
-  this.updateDirections()
-}
-
 // 列表 - 打开事件
 Animation.listOpen = function (event) {
   Animation.editMotion(event.value)
@@ -4865,7 +4954,10 @@ Animation.listPopup = function (event) {
     label: get('insert'),
     click: () => {
       Animation.getNewMotionId(motionId => {
-        this.addNodeTo(Inspector.animMotion.create(motionId), item)
+        const motion = Inspector.animMotion.create(motionId)
+        this.addNodeTo(motion, item)
+        // 打开新建动作的检查器页面
+        Inspector.open('animMotion', motion)
       })
     },
   }, {
@@ -4911,6 +5003,15 @@ Animation.listChange = function (event) {
 Animation.listPageResize = function (event) {
   Animation.list.updateHead()
   Animation.list.resize()
+}
+
+// 方向列表 - 指针按下事件
+Animation.dirListPointerdown = function (event) {
+  const element = event.target
+  if (element.tagName === 'ANIM-DIR' && !element.hasClass('selected')) {
+    Animation.setDirection(element.direction)
+    Inspector.close()
+  }
 }
 
 // 时间轴页面 - 调整大小事件
@@ -5019,6 +5120,7 @@ Animation.layerListPointerdown = function (event) {
           Animation.history.save({
             type: 'animation-layer-hidden',
             motion: Animation.motion,
+            direction: Animation.direction,
             item: item,
             oldValues: backups,
             newValue: !hidden,
@@ -5034,6 +5136,7 @@ Animation.layerListPointerdown = function (event) {
           Animation.history.save({
             type: 'animation-layer-locked',
             motion: Animation.motion,
+            direction: Animation.direction,
             item: item,
             oldValues: backups,
             newValue: !locked,
@@ -5064,6 +5167,7 @@ Animation.layerListRecord = function (event) {
       Animation.history.save({
         type: `animation-layer-${type}`,
         motion: Animation.motion,
+        direction: Animation.direction,
         response: response,
       })
       break
@@ -5679,59 +5783,6 @@ Animation.list.updateText = function (item) {
   }
 }
 
-// 列表 - 创建动作方向文本
-Animation.list.createDirText = function (item) {
-  const dirText = document.createElement('text')
-  dirText.addClass('animation-motion-direction')
-  item.element.appendChild(dirText)
-  item.element.dirText = dirText
-}
-
-// 列表 - 更新动作方向文本
-Animation.list.updateDirText = function (item) {
-  const {direction, dirText} = item.element
-  if (direction !== undefined) {
-    dirText.textContent = direction
-  }
-}
-
-// 列表 - 更新所有动作方向
-Animation.list.updateDirections = function (replace = false) {
-  let dirMap
-  switch (Animation.mode) {
-    case '1-dir':
-    case '1-dir-mirror':
-      dirMap = {0: ''}
-      break
-    case '2-dir':
-      dirMap = {0: ' ←', 1: ' →'}
-      break
-    case '3-dir-mirror':
-      dirMap = {0: ' ↓', 1: ' →', 2: ' ↑'}
-      break
-    case '4-dir':
-      dirMap = {0: ' ↓', 1: ' ←', 2: ' →', 3: ' ↑'}
-      break
-    case '5-dir-mirror':
-      dirMap = {0: ' ↓', 1: ' →', 2: ' ↑', 3: ' ↘', 4: ' ↗'}
-      break
-    case '8-dir':
-      dirMap = {0: ' ↓', 1: ' ←', 2: ' →', 3: ' ↑', 4: ' ↙', 5: ' ↘', 6: ' ↖', 7: ' ↗'}
-      break
-  }
-  const dirCounters = {}
-  for (const item of this.data) {
-    const {id, element} = item
-    if (dirCounters[id] === undefined) {
-      dirCounters[id] = 0
-    }
-    element.direction = dirMap[dirCounters[id]++] ?? ''
-    if (replace && element.dirText?.parentNode) {
-      element.dirText.textContent = element.direction
-    }
-  }
-}
-
 // 列表 - 创建循环图标
 Animation.list.createLoopIcon = function (item) {
   const {element} = item
@@ -5821,13 +5872,12 @@ Animation.layerList.delete = function (item) {
 }
 
 // 图层列表 - 恢复动作对象
-Animation.layerList.restoreMotion = function (motion) {
-  if (Animation.motion !== motion) {
-    const {update} = this
-    this.update = Function.empty
-    Animation.setMotion(motion)
-    this.update = update
-  }
+Animation.layerList.restoreMotion = function (motion, direction) {
+  const {update} = this
+  this.update = Function.empty
+  Animation.setMotion(motion)
+  Animation.setDirection(direction)
+  this.update = update
 }
 
 // 图层列表 - 重写创建图标方法
@@ -5889,10 +5939,11 @@ Animation.timeline.updateHead = function () {
 }
 
 // 时间轴列表 - 恢复动作和图层对象
-Animation.outerTimelineList.restoreMotionAndLayer = function (motion, layer) {
+Animation.outerTimelineList.restoreMotionAndLayer = function (motion, direction, layer) {
   const {updateTimeline} = Animation
   Animation.updateTimeline = Function.empty
   Animation.setMotion(motion)
+  Animation.setDirection(direction)
   Animation.layerList.expandToItem(layer)
   Animation.updateTimeline = updateTimeline
 }

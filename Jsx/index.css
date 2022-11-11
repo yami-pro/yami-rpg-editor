@@ -84,7 +84,8 @@
 :root {
   --font-size-normal: 12px;
   --font-family-normal: Inter, Microsoft YaHei UI;
-  --font-family-bold: Inter Bold, Microsoft YaHei UI;
+  /*--font-family-bold: Inter Bold, Microsoft YaHei UI;*/
+  --font-family-bold: Inter, Microsoft YaHei UI;
   --font-family-mono: Consolas, Microsoft YaHei UI;
   --font-family-title: Arial, Microsoft YaHei UI;
   --font-family-accelerator: Segoe UI;
@@ -128,7 +129,7 @@
   --nav-bar-background: #d0d0d0;
   --nav-bar-border: 1px solid #c0c0c0;
   --nav-item-background: transparent;
-  --nav-item-background-hover: #d8d8d8;
+  --nav-item-background-hover: #cccccc;
   --nav-item-background-selected: #e0e0e0;
   --group-page-background: #e0e0e0;
   --group-head-background: #e8e8e8;
@@ -136,11 +137,11 @@
   --summary-background: #e8e8e8;
   --summary-background-hover: #f0f0f0;
   --summary-border-dark: 1px solid #b0b0b0;
-  --summary-border-light: 1px solid #d8d8d8;
+  --summary-border-light: 1px solid #cccccc;
   --window-background: #f0f0f0;
   --window-outline: var(--1dpx) solid rgba(0, 0, 0, 0.25);
   --title-background: #d0d0d0;
-  --tab-item-background: #d8d8d8;
+  --tab-item-background: #cccccc;
   --tab-item-background-hover: #e0e0e0;
   --tab-item-background-selected: #f0f0f0;
   --tab-item-border: 1px solid #b0b0b0;
@@ -183,7 +184,7 @@
   --number-box-label-blue: #0000ff;
   --selector-browser-background: #f0f0f0;
   --selector-browser-border: 1px solid #c0c0c0;
-  --viewer-background: #d8d8d8;
+  --viewer-background: #cccccc;
   --selected-background: #2080d0;
   --selected-background-blur: rgba(0, 0, 0, 0.1);
   --selection-background: rgba(32, 128, 192, 0.996);
@@ -200,7 +201,7 @@
   --list-item-background-hover: rgba(0, 0, 0, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(255, 255, 255, 0.75);
   --timeline-ruler-background: url(images/timeline_scale_light.png);
-  --timeline-frame-list-background: #d8d8d8;
+  --timeline-frame-list-background: #cccccc;
   --timeline-grid: url(images/timeline_grid_light.png);
   --timeline-grid-border: 1px solid #c0c0c0;
   --timeline-key-background: rgba(0, 0, 0, 0.2);
@@ -226,7 +227,7 @@
   --command-color-audio: #008080;
   --command-color-actor: #800000;
   --command-color-skill: #804000;
-  --command-color-inventory: #f06000;
+  --command-color-bag: #f06000;
   --command-color-scene: #0080c0;
   --command-color-system: #ff289c;
   --command-color-custom: #c800a4;
@@ -254,7 +255,7 @@
  * --------------------------------
  */
 :root.dark {
-  --text-color: #d8d8d8;
+  --text-color: #cccccc;
   --text-color-inverse: #000000;
   --text-color-unit: #808080;
   --text-color-rename: #ffffff;
@@ -286,16 +287,16 @@
   --nav-bar-background: #282828;
   --nav-bar-border: 1px solid #202020;
   --nav-item-background: transparent;
-  --nav-item-background-hover: #303030;
-  --nav-item-background-selected: #303030;
-  --group-page-background: #303030;
+  --nav-item-background-hover: #333333;
+  --nav-item-background-selected: #333333;
+  --group-page-background: #333333;
   --group-head-background: #3c3c3c;
   --stage-page-background: #202020;
   --summary-background: #383838;
   --summary-background-hover: #404040;
   --summary-border-dark: 1px solid #181818;
   --summary-border-light: 1px solid #282828;
-  --window-background: #303030;
+  --window-background: #333333;
   --window-outline: var(--1dpx) solid rgba(0, 0, 0, 0.5);
   --title-background: #282828;
   --tab-item-background: #202020;
@@ -331,7 +332,7 @@
   --suggestion-widget-background: #202020;
   --slider-thumb-background: #484848;
   --slider-thumb-background-hover: #505050;
-  --slider-thumb-background-active: #303030;
+  --slider-thumb-background-active: #333333;
   --slider-bar-background: #18191a;
   --slider-filler-background: #c0c0c0;
   --check-box-mark-color: #0060ac;
@@ -369,7 +370,7 @@
   --timeline-marquee-background: rgba(0, 255, 255, 0.25);
   --timeline-marquee-shift-background: rgba(255, 255, 0, 0.25);
   --timeline-marquee-shift-background-disabled: rgba(255, 0, 0, 0.25);
-  --command-gutter-border: 1px dotted #303030;
+  --command-gutter-border: 1px dotted #333333;
   --command-line-number-color: rgba(255, 255, 255, 0.25);
   --command-color-mark-minor: rgba(255, 255, 255, 0.3);
   --command-color-mark-minor-selected: rgba(255, 255, 255, 0.3);
@@ -384,7 +385,7 @@
   --command-color-audio: #00fa9a;
   --command-color-actor: #ffc0cb;
   --command-color-skill: #f0e68c;
-  --command-color-inventory: #ffd700;
+  --command-color-bag: #ffd700;
   --command-color-scene: #00ced1;
   --command-color-system: #ff69b4;
   --command-color-custom: #e8dcaa;
@@ -637,22 +638,6 @@ spacing {
 }
 
 /* --------------------------------
- * 窗口环境
- * --------------------------------
- */
-#window-ambient {
-  display: none;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-#window-ambient.open {
-  display: block;
-}
-
-/* --------------------------------
  * 工具提示
  * --------------------------------
  */
@@ -715,7 +700,7 @@ detail-summary {
   height: 22px;
   line-height: 20px;
   text-indent: 16px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   background-color: var(--summary-background);
   border-top: var(--summary-border-dark);
@@ -816,7 +801,7 @@ legend {
   top: -7px;
   height: 7px;
   line-height: 14px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   border-bottom: 1px solid var(--window-background);
   z-index: 1;
@@ -1327,7 +1312,7 @@ check-box > check-mark::before {
   width: 16px;
   height: 16px;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-normal);
   text-align: center;
   color: var(--check-box-mark-color);
@@ -1773,7 +1758,7 @@ menu-checked {
   height: 16px;
   text-align: center;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-normal);
   pointer-events: none;
 }
@@ -2179,7 +2164,7 @@ node-icon.icon-particle-image {
   height: 14px;
   line-height: 14px;
   font-size: 10px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: Arial, var(--font-family-symbol);
   background-color: var(--node-bubble-background);
   border-radius: 25%;
@@ -2586,8 +2571,8 @@ command-item:not(.selected) > .skill {
   color: var(--command-color-skill);
 }
 
-command-item:not(.selected) > .inventory {
-  color: var(--command-color-inventory);
+command-item:not(.selected) > .bag {
+  color: var(--command-color-bag);
 }
 
 command-item:not(.selected) > .scene {
@@ -2733,7 +2718,7 @@ file-head-address {
   margin: 2px 0;
   height: 20px;
   line-height: 20px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
@@ -2956,7 +2941,7 @@ file-body-icon.icon-file-font {
 
 file-body-icon.icon-file-event {
   font-family: var(--font-family-bold);
-  font-weight: bold;
+  /*font-weight: bold*/;
   text-align: center;
   color: green;
   background-image: url(images/file_other.png);
@@ -2983,7 +2968,7 @@ file-body-icon.icon-file-video {
 
 file-body-icon.icon-file-other {
   font-family: var(--font-family-bold);
-  font-weight: bold;
+  /*font-weight: bold*/;
   text-align: center;
   color: #404040;
   overflow: hidden;
@@ -3367,7 +3352,7 @@ body.maximized > #title > #title-buttons > #title-maximize::after {
   height: 20px;
   line-height: 20px;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
 }
 
@@ -3555,7 +3540,7 @@ group-info {
   top: 25px;
   max-width: 100%;
   line-height: 20px;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
@@ -4016,36 +4001,6 @@ nav-item[value=particle].selected {
   overflow: hidden;
 }
 
-#animation-dirList {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  /* background-color: green; */
-}
-
-anim-dir {
-  margin: 4px 0 0 4px;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  font-size: 1.2em;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 4px;
-  opacity: 0.25;
-}
-
-anim-dir:hover {
-  opacity: 0.5;
-}
-
-anim-dir.selected {
-  opacity: 1;
-}
-
 #animation-timeline {
   position: absolute;
   width: 100%;
@@ -4378,6 +4333,11 @@ anim-dir.selected {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+text.animation-motion-direction {
+  pointer-events: none;
+  color: var(--text-color-variable-init);
 }
 
 /* --------------------------------
@@ -5248,7 +5208,7 @@ anim-dir.selected {
 #sprite-info {
   /* position: absolute; */
   /* width: 100%; */
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
   text-indent: 0;
   text-align: center;
@@ -6313,8 +6273,8 @@ anim-dir.selected {
   background-color: var(--command-color-skill);
 }
 
-.icon-command.inventory {
-  background-color: var(--command-color-inventory);
+.icon-command.bag {
+  background-color: var(--command-color-bag);
 }
 
 .icon-command.scene {
@@ -6331,6 +6291,26 @@ anim-dir.selected {
 
 .icon-command.custom {
   background-color: var(--command-color-custom);
+}
+
+/* --------------------------------
+ * 文本建议列表
+ * --------------------------------
+ */
+#text-suggestions {
+  display: block;
+  position: fixed;
+  margin-left: var(--1dpx);
+  /* box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5); */
+  background-color: var(--suggestion-widget-background);
+  outline: var(--window-outline);
+  pointer-events: visible;
+}
+
+.text-suggestion-item {
+  padding-left: 4px;
+  padding-right: 4px;
+  /* color: var(--text-color-unit); */
 }
 
 /* --------------------------------
@@ -6396,7 +6376,7 @@ anim-dir.selected {
  */
 #stateGetter {
   width: 324px;
-  height: 142px;
+  height: 118px;
 }
 
 #stateGetter-confirm {
@@ -7619,7 +7599,7 @@ anim-dir.selected {
  */
 #playAnimation {
   width: 324px;
-  height: 262px;
+  height: 286px;
 }
 
 #playAnimation-confirm {
@@ -7994,44 +7974,6 @@ anim-dir.selected {
 }
 
 /* --------------------------------
- * 设置玩家角色
- * --------------------------------
- */
-#setPlayerActor {
-  width: 324px;
-  height: 94px;
-}
-
-#setPlayerActor-confirm {
-  right: 108px;
-  bottom: 10px;
-}
-
-#setPlayerActor-cancel {
-  right: 10px;
-  bottom: 10px;
-}
-
-/* --------------------------------
- * 设置队伍成员
- * --------------------------------
- */
- #setPartyMember {
-  width: 324px;
-  height: 118px;
-}
-
-#setPartyMember-confirm {
-  right: 108px;
-  bottom: 10px;
-}
-
-#setPartyMember-cancel {
-  right: 10px;
-  bottom: 10px;
-}
-
-/* --------------------------------
  * 改变角色队伍
  * --------------------------------
  */
@@ -8103,25 +8045,6 @@ anim-dir.selected {
 }
 
 #changeActorSkill-cancel {
-  right: 10px;
-  bottom: 10px;
-}
-
-/* --------------------------------
- * 改变角色动画
- * --------------------------------
- */
- #changeActorAnimation {
-  width: 324px;
-  height: 118px;
-}
-
-#changeActorAnimation-confirm {
-  right: 108px;
-  bottom: 10px;
-}
-
-#changeActorAnimation-cancel {
   right: 10px;
   bottom: 10px;
 }
@@ -8434,17 +8357,17 @@ anim-dir.selected {
  * 设置包裹
  * --------------------------------
  */
-#setInventory {
+#setBag {
   width: 324px;
   height: 166px;
 }
 
-#setInventory-confirm {
+#setBag-confirm {
   right: 108px;
   bottom: 10px;
 }
 
-#setInventory-cancel {
+#setBag-cancel {
   right: 10px;
   bottom: 10px;
 }
@@ -8550,7 +8473,7 @@ anim-dir.selected {
  */
 #loadScene {
   width: 324px;
-  height: 166px;
+  height: 118px;
 }
 
 #loadScene-confirm {
@@ -8736,12 +8659,31 @@ anim-dir.selected {
 }
 
 /* --------------------------------
+ * 游戏数据
+ * --------------------------------
+ */
+#gameData {
+  width: 324px;
+  height: 142px;
+}
+
+#gameData-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#gameData-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 执行脚本
  * --------------------------------
  */
 #script {
   width: 720px;
-  height: 234px;
+  height: 314px;
 }
 
 #script-script {
@@ -8749,7 +8691,7 @@ anim-dir.selected {
   left: 10px;
   top: 10px;
   width: 700px;
-  height: 160px;
+  height: 240px;
 }
 
 #script-confirm {
@@ -8921,7 +8863,7 @@ anim-dir.selected {
   grid-column-start: 1;
   grid-column-end: 3;
   font-size: 1.2em;
-  font-weight: bold;
+  /*font-weight: bold*/;
   font-family: var(--font-family-bold);
 }
 

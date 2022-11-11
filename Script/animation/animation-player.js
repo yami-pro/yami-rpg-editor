@@ -21,7 +21,10 @@ class AnimationPlayer {
   anchorY   //:number
   mirror    //:string
   data      //:object
-  suffix    //:string
+  dirMap    //:array
+  dirCases  //:array
+  angle     //:number
+  direction //:number
   motion    //:object
   motions   //:object
   sprites   //:object
@@ -38,8 +41,10 @@ class AnimationPlayer {
     this.anchorY = 0
     this.mirror = 'none'
     this.data = animation
-    this.dirMap = AnimationPlayer.dirMaps[animation.mode]
-    this.suffix = ''
+    this.dirMap = Array.empty
+    this.dirCases = null
+    this.angle = 0
+    this.direction = -1
     this.motion = null
     this.motions = {}
     this.sprites = {}
@@ -51,19 +56,61 @@ class AnimationPlayer {
     this.loadMotions()
   }
 
-  // 切换动作
-  switch(key, suffix = '') {
+  // 设置动作
+  setMotion(key) {
     const motions = this.motions
-    const motion =
-    motions[key + suffix] ??
-    motions[key]
-    this.suffix = suffix
+    const motion = motions[key]
     if (motion !== undefined &&
       this.motion !== motion) {
       this.motion = motion
+      this.dirCases = motion.dirCases
+      // 如果方向模式发生变化，重新计算方向
+      const dirMap = AnimationPlayer.dirMaps[motion.mode]
+      if (this.dirMap !== dirMap) {
+        this.dirMap = dirMap
+        this.direction = -1
+        this.setAngle(this.angle)
+      } else {
+        this.loadDirCase()
+      }
+      return true
+    }
+    return false
+  }
+
+  // 加载动画方向
+  loadDirCase() {
+    const params = this.dirMap[this.direction]
+    if (params) {
+      const dirCase = this.dirCases[params.index]
+      this.layers = dirCase.layers
+      // 销毁上下文中的粒子发射器
+      // 加载当前动作的上下文
       this.destroyContextEmitters()
       this.loadContexts(this.contexts)
       this.computeLength()
+    }
+  }
+
+  // 设置动画角度
+  setAngle(angle) {
+    this.angle = angle
+    const directions = this.dirMap.length
+    // 将角度映射为0~方向数量的数值
+    const proportion = Math.modRadians(angle) / (Math.PI * 2)
+    const section = (proportion * directions + 0.5) % directions
+    const direction = Math.floor(section)
+    return this.setDirection(direction)
+  }
+
+  // 设置动画方向
+  setDirection(direction) {
+    if (this.direction !== direction) {
+      const params = this.dirMap[direction]
+      if (!params) return false
+      this.direction = direction
+      this.mirror = params.mirror
+      this.loadDirCase()
       return true
     }
     return false
@@ -153,18 +200,9 @@ class AnimationPlayer {
 
   // 加载动作哈希表
   loadMotions() {
-    const dirSuffixList = AnimationPlayer.dirSuffixLists[this.data.mode]
-    const dirCounters = {}
     const motionMap = this.motions
     for (const motion of this.data.motions) {
-      if (dirCounters[motion.id] === undefined) {
-        dirCounters[motion.id] = 0
-      }
-      const suffixIndex = dirCounters[motion.id]++
-      const suffix = dirSuffixList[suffixIndex]
-      if (suffix !== undefined) {
-        motionMap[motion.id + suffix] = motion
-      }
+      motionMap[motion.id] = motion
     }
   }
 
@@ -414,11 +452,13 @@ class AnimationPlayer {
     this.destroyContextEmitters()
     // 销毁编辑器元素
     for (const motion of Object.values(this.motions)) {
-      if (motion.loaded === undefined) continue
-      delete motion.loaded
-      for (const layer of motion.layers) {
-        for (const frame of layer.frames) {
-          delete frame.key
+      for (const dirCase of motion.dirCases) {
+        if (dirCase.loaded === undefined) continue
+        delete dirCase.loaded
+        for (const layer of dirCase.layers) {
+          for (const frame of layer.frames) {
+            delete frame.key
+          }
         }
       }
     }
@@ -463,77 +503,56 @@ class AnimationPlayer {
     }
   }
 
-  // 获取指定角度的方向参数
-  getDirParamsByAngle(angle) {
-    const dirMap = this.dirMap
-    const directions = dirMap.length
-    const destAngle = Math.radians(angle)
-    const proportion = Math.modRadians(destAngle) / (Math.PI * 2)
-    const direction = Math.floor((proportion * directions + 0.5) % directions)
-    return dirMap[direction]
-  }
-
   // 静态 - 动画属性
   static step = 0
   static matrix = new Matrix()
   static lightSamplingModes = {raw: 0, global: 1, anchor: 2}
   static stage
 
-  // 各种模式的动画方向后缀列表
-  static dirSuffixLists = {
-    '1-dir': [''],
-    '1-dir-mirror': [''],
-    '2-dir': ['.left', '.right'],
-    '3-dir-mirror': ['.down', '.right', '.up'],
-    '4-dir': ['.down', '.left', '.right', '.up'],
-    '5-dir-mirror': ['.down', '.right', '.up', '.down-right', '.up-right'],
-    '8-dir': ['.down', '.left', '.right', '.up', '.down-left', '.down-right', '.up-left', '.up-right'],
-  }
-
   // 各种模式的动画方向映射表
   static dirMaps = {
     '1-dir': [
-      {suffix: '', mirror: 'none'},
+      {index: 0, mirror: 'none'},
     ],
     '1-dir-mirror': [
-      {suffix: '', mirror: 'none'},
-      {suffix: '', mirror: 'horizontal'},
+      {index: 0, mirror: 'none'},
+      {index: 0, mirror: 'horizontal'},
     ],
     '2-dir': [
-      {suffix: '.right', mirror: 'none'},
-      {suffix: '.left', mirror: 'none'},
+      {index: 1, mirror: 'none'},
+      {index: 0, mirror: 'none'},
     ],
     '3-dir-mirror': [
-      {suffix: '.right', mirror: 'none'},
-      {suffix: '.down', mirror: 'none'},
-      {suffix: '.right', mirror: 'horizontal'},
-      {suffix: '.up', mirror: 'none'},
+      {index: 1, mirror: 'none'},
+      {index: 0, mirror: 'none'},
+      {index: 1, mirror: 'horizontal'},
+      {index: 2, mirror: 'none'},
     ],
     '4-dir': [
-      {suffix: '.right', mirror: 'none'},
-      {suffix: '.down', mirror: 'none'},
-      {suffix: '.left', mirror: 'none'},
-      {suffix: '.up', mirror: 'none'},
+      {index: 2, mirror: 'none'},
+      {index: 0, mirror: 'none'},
+      {index: 1, mirror: 'none'},
+      {index: 3, mirror: 'none'},
     ],
     '5-dir-mirror': [
-      {suffix: '.right', mirror: 'none'},
-      {suffix: '.down-right', mirror: 'none'},
-      {suffix: '.down', mirror: 'none'},
-      {suffix: '.down-right', mirror: 'horizontal'},
-      {suffix: '.right', mirror: 'horizontal'},
-      {suffix: '.up-right', mirror: 'horizontal'},
-      {suffix: '.up', mirror: 'none'},
-      {suffix: '.up-right', mirror: 'none'},
+      {index: 1, mirror: 'none'},
+      {index: 3, mirror: 'none'},
+      {index: 0, mirror: 'none'},
+      {index: 3, mirror: 'horizontal'},
+      {index: 1, mirror: 'horizontal'},
+      {index: 4, mirror: 'horizontal'},
+      {index: 2, mirror: 'none'},
+      {index: 4, mirror: 'none'},
     ],
     '8-dir': [
-      {suffix: '.right', mirror: 'none'},
-      {suffix: '.down-right', mirror: 'none'},
-      {suffix: '.down', mirror: 'none'},
-      {suffix: '.down-left', mirror: 'none'},
-      {suffix: '.left', mirror: 'none'},
-      {suffix: '.up-left', mirror: 'none'},
-      {suffix: '.up', mirror: 'none'},
-      {suffix: '.up-right', mirror: 'none'},
+      {index: 2, mirror: 'none'},
+      {index: 5, mirror: 'none'},
+      {index: 0, mirror: 'none'},
+      {index: 4, mirror: 'none'},
+      {index: 1, mirror: 'none'},
+      {index: 6, mirror: 'none'},
+      {index: 3, mirror: 'none'},
+      {index: 7, mirror: 'none'},
     ],
   }
 
@@ -544,11 +563,10 @@ class AnimationPlayer {
 
   // 静态 - 加载动画图层上下文列表
   static loadContexts(animation, contexts) {
-    const {motion} = animation
     contexts.count = 0
-    if (motion !== null) {
+    if (animation.layers !== null) {
       // 如果动画已设置动作，加载所有图层上下文
-      this.#loadContext(animation, motion.layers, null, contexts)
+      this.#loadContext(animation, animation.layers, null, contexts)
     }
   }
 

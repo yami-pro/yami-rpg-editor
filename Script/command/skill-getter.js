@@ -27,7 +27,8 @@ SkillGetter.initialize = function () {
   $('#skillGetter-type').loadItems([
     {name: 'Event Trigger Skill', value: 'trigger'},
     {name: 'Latest Skill', value: 'latest'},
-    {name: 'Select By Shortcut Key', value: 'by-key'},
+    {name: 'By Shortcut Key', value: 'by-key'},
+    {name: 'By Skill Id', value: 'by-id'},
     {name: 'Variable', value: 'variable'},
   ])
 
@@ -36,6 +37,10 @@ SkillGetter.initialize = function () {
     {case: 'by-key', targets: [
       $('#skillGetter-actor'),
       $('#skillGetter-key'),
+    ]},
+    {case: 'by-id', targets: [
+      $('#skillGetter-actor'),
+      $('#skillGetter-skillId'),
     ]},
     {case: 'variable', targets: [
       $('#skillGetter-variable'),
@@ -58,6 +63,7 @@ SkillGetter.open = function (target) {
 
   let actor = {type: 'trigger'}
   let key = Enum.getDefStringId('shortcut-key')
+  let skillId = ''
   let variable = {type: 'local', key: ''}
   const skill = target.dataValue
   switch (skill.type) {
@@ -68,6 +74,10 @@ SkillGetter.open = function (target) {
       actor = skill.actor
       key = skill.key
       break
+    case 'by-id':
+      actor = skill.actor
+      skillId = skill.skillId
+      break
     case 'variable':
       variable = skill.variable
       break
@@ -75,6 +85,7 @@ SkillGetter.open = function (target) {
   $('#skillGetter-type').write(skill.type)
   $('#skillGetter-actor').write(actor)
   $('#skillGetter-key').write(key)
+  $('#skillGetter-skillId').write(skillId)
   $('#skillGetter-variable').write(variable)
   $('#skillGetter-type').getFocus()
 }
@@ -96,6 +107,15 @@ SkillGetter.confirm = function (event) {
         return $('#skillGetter-key').getFocus()
       }
       getter = {type, actor, key}
+      break
+    }
+    case 'by-id': {
+      const actor = read('actor')
+      const skillId = read('skillId')
+      if (skillId === '') {
+        return $('#skillGetter-skillId').getFocus()
+      }
+      getter = {type, actor, skillId}
       break
     }
     case 'variable': {

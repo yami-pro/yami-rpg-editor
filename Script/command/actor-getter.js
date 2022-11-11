@@ -32,7 +32,7 @@ ActorGetter.initialize = function () {
     {name: 'Player Actor', value: 'player'},
     {name: 'Party Member', value: 'member'},
     {name: 'Global Actor', value: 'global'},
-    {name: 'Select By ID', value: 'by-id'},
+    {name: 'By Actor ID', value: 'by-id'},
     {name: 'Variable', value: 'variable'},
   ])
 

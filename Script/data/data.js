@@ -63,8 +63,18 @@ const Data = {
   loadScript: null,
 }
 
-
 // ******************************** 数据对象加载 ********************************
+
+Data.fuck = function () {
+  for (const [key, animation] of Object.entries(this.animations)) {
+    for (const motion of animation.motions) {
+      const dirMap = motion.dirMap
+      delete motion.dirMap
+      motion.dirCases = dirMap
+    }
+    File.planToSave(Data.manifest.guidMap[key])
+  }
+}
 
 // 加载所有文件
 Data.loadAll = function () {
