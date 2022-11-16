@@ -7,7 +7,7 @@ import {
   IfCondition,
   Inspector,
   Local,
-  NodeList,
+  TreeList,
   Window
 } from '../yami.js'
 

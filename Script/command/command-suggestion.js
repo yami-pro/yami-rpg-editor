@@ -2,7 +2,6 @@
 
 import {
   Command,
-  FSP,
   Local,
   Window
 } from '../yami.js'

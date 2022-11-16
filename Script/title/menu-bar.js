@@ -16,7 +16,6 @@ import {
   Local,
   Menu,
   Particle,
-  Path,
   PluginManager,
   Project,
   Scene,

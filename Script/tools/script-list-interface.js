@@ -5,7 +5,7 @@ import {
   Command,
   File,
   Inspector,
-  NodeList,
+  TreeList,
   PluginManager,
   Selector
 } from '../yami.js'

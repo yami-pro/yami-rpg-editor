@@ -4,7 +4,7 @@ import {
   ctrl,
   Cursor,
   Data,
-  DialogBoxElement,
+  // DialogBoxElement,
   Easing,
   File,
   GL,
@@ -18,8 +18,8 @@ import {
   Menu,
   Scene,
   StageColor,
-  TextBoxElement,
-  TextElement,
+  // TextBoxElement,
+  // TextElement,
   Timer,
   Window
 } from '../yami.js'

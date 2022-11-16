@@ -5,7 +5,7 @@ import {
   EventEditor,
   Inspector,
   Local,
-  NodeList
+  TreeList
 } from '../yami.js'
 
 // ******************************** 事件列表接口类 ********************************

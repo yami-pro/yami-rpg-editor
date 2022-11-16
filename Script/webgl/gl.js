@@ -16,7 +16,7 @@ import {
  * @type {WebGLRenderingContext}
  */
 let GL
-namespace: {
+{
   // 创建画布元素
   const canvas = document.createElement('canvas')
   canvas.width = 0

@@ -4,7 +4,7 @@ import { Timer } from '../yami.js'
 
 // ******************************** 滚动侦听器 ********************************
 
-namespace: {
+{
   let target = null
   let highSpeed = 0
   let lowSpeed = 0
