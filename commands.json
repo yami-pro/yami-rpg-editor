@@ -361,6 +361,10 @@
       },
       {
         "class": "actor",
+        "value": "appendTarget"
+      },
+      {
+        "class": "actor",
         "value": "detectTargets"
       },
       {

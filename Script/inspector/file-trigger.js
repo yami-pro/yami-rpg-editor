@@ -67,6 +67,7 @@ FileTrigger.initialize = function () {
     {case: 'rectangle', targets: [
       $('#fileTrigger-shape-width'),
       $('#fileTrigger-shape-height'),
+      $('#fileTrigger-shape-anchor'),
     ]},
     {case: 'circle', targets: [
       $('#fileTrigger-shape-radius'),
@@ -110,8 +111,8 @@ FileTrigger.initialize = function () {
   $('#fileTrigger-animationId').on('write', this.animationIdWrite)
   $(`#fileTrigger-selector, #fileTrigger-onHitWalls, #fileTrigger-onHitActors,
     #fileTrigger-shape-type, #fileTrigger-shape-width, #fileTrigger-shape-height,
-    #fileTrigger-shape-radius, #fileTrigger-shape-centralAngle, #fileTrigger-speed,
-    #fileTrigger-hitMode, #fileTrigger-hitInterval,
+    #fileTrigger-shape-anchor, #fileTrigger-shape-radius, #fileTrigger-shape-centralAngle,
+    #fileTrigger-speed, #fileTrigger-hitMode, #fileTrigger-hitInterval,
     #fileTrigger-initialDelay, #fileTrigger-effectiveTime, #fileTrigger-duration,
     #fileTrigger-animationId, #fileTrigger-motion,
     #fileTrigger-priority, #fileTrigger-offsetY, #fileTrigger-rotatable
@@ -127,7 +128,7 @@ FileTrigger.create = function () {
     onHitActors: 'through',
     shape: {
       type: 'circle',
-      radius: 0.25,
+      radius: 0.5,
     },
     speed: 0,
     hitMode: 'once',
@@ -160,6 +161,7 @@ FileTrigger.open = function (trigger, meta) {
     write('shape-type')
     write('shape-width', shape.width ?? 1)
     write('shape-height', shape.height ?? 1)
+    write('shape-anchor', shape.anchor ?? 0.5)
     write('shape-radius', shape.radius ?? 0.5)
     write('shape-centralAngle', shape.centralAngle ?? 90)
     write('speed')
@@ -217,6 +219,7 @@ FileTrigger.update = function (trigger, key, value) {
               type: 'rectangle',
               width: read('width'),
               height: read('height'),
+              anchor: read('anchor'),
             }
             break
           case 'circle':
@@ -237,6 +240,7 @@ FileTrigger.update = function (trigger, key, value) {
       break
     case 'shape-width':
     case 'shape-height':
+    case 'shape-anchor':
     case 'shape-radius':
     case 'shape-centralAngle': {
       const index = key.indexOf('-') + 1
@@ -267,7 +271,7 @@ FileTrigger.update = function (trigger, key, value) {
 FileTrigger.animationIdWrite = function (event) {
   const elMotion = $('#fileTrigger-motion')
   elMotion.loadItems(Animation.getMotionListItems(event.value))
-  elMotion.write2(elMotion.read())
+  elMotion.write(elMotion.read())
 }
 
 // 参数 - 输入事件

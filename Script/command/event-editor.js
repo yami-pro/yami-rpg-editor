@@ -119,6 +119,7 @@ EventEditor.initialize = function () {
       types.equipmentremove,
     ],
     trigger: [
+      types.autorun,
       types.hitactor,
       types.destroy,
     ],

@@ -83,7 +83,7 @@ class ParticleElement {
     this.scaleAccel = Math.randomBetween(scale.accel[0], scale.accel[1]) / 1e6 * emitter.scale
     this.anchorX = Math.randomBetween(anchor.x[0], anchor.x[1])
     this.anchorY = Math.randomBetween(anchor.y[0], anchor.y[1])
-    this.rotationAngle = Math.radians(Math.randomBetween(rotation.angle[0], rotation.angle[1]))
+    this.rotationAngle = Math.radians(Math.randomBetween(rotation.angle[0], rotation.angle[1])) + emitter.angle
     this.rotationSpeed = Math.radians(Math.randomBetween(rotation.speed[0], rotation.speed[1])) / 1e3
     this.rotationAccel = Math.radians(Math.randomBetween(rotation.accel[0], rotation.accel[1])) / 1e6
     const movementAngle = Math.radians(Math.randomBetween(movement.angle[0], movement.angle[1])) + emitter.angle

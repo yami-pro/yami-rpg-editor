@@ -451,6 +451,7 @@
               <text>Shape</text><select-box id="fileTrigger-shape-type"></select-box>
               <text>Width</text><number-box id="fileTrigger-shape-width" min="0" max="512" decimals="4" unit="tile"></number-box>
               <text>Height</text><number-box id="fileTrigger-shape-height" min="0" max="512" decimals="4" unit="tile"></number-box>
+              <text>Anchor</text><number-box id="fileTrigger-shape-anchor" min="-4" max="5" decimals="4"></number-box>
               <text>Radius</text><number-box id="fileTrigger-shape-radius" min="0" max="512" decimals="4" unit="tile"></number-box>
               <text>Central Angle</text><number-box id="fileTrigger-shape-centralAngle" min="0" max="360" decimals="4" unit="deg"></number-box>
               <text>Speed</text><number-box id="fileTrigger-speed" min="0" max="512" decimals="4" unit="t/s"></number-box>
@@ -3903,6 +3904,21 @@
   </content-frame>
 </window-frame>
 
+<!-- 改变角色头像 -->
+<window-frame id="changeActorPortrait">
+  <title-bar>Change Actor Portrait<close></close></title-bar>
+  <content-frame>
+    <grid-box>
+      <text>Actor</text><custom-box id="changeActorPortrait-actor" type="actor"></custom-box>
+      <text>Mode</text><select-box id="changeActorPortrait-mode"></select-box>
+      <text>Portrait</text><custom-box id="changeActorPortrait-portrait" type="file" filter="image"></custom-box>
+      <text>Clip</text><custom-box id="changeActorPortrait-clip" type="clip" image="changeActorPortrait-portrait"></custom-box>
+    </grid-box>
+    <button id="changeActorPortrait-confirm" name="confirm">Confirm</button>
+    <button id="changeActorPortrait-cancel" name="cancel">Cancel</button>
+  </content-frame>
+</window-frame>
+
 <!-- 改变角色动画 -->
 <window-frame id="changeActorAnimation">
   <title-bar>Change Actor Animation<close></close></title-bar>
@@ -4023,6 +4039,19 @@
     </grid-box>
     <button id="getTarget-confirm" name="confirm">Confirm</button>
     <button id="getTarget-cancel" name="cancel">Cancel</button>
+  </content-frame>
+</window-frame>
+
+<!-- 添加目标 -->
+<window-frame id="appendTarget">
+  <title-bar>Append Target<close></close></title-bar>
+  <content-frame>
+    <grid-box>
+      <text>Actor</text><custom-box id="appendTarget-actor" type="actor"></custom-box>
+      <text>Target</text><custom-box id="appendTarget-target" type="actor"></custom-box>
+    </grid-box>
+    <button id="appendTarget-confirm" name="confirm">Confirm</button>
+    <button id="appendTarget-cancel" name="cancel">Cancel</button>
   </content-frame>
 </window-frame>
 

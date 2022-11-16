@@ -8317,6 +8317,25 @@ anim-dir.selected {
 }
 
 /* --------------------------------
+ * 添加目标
+ * --------------------------------
+ */
+#appendTarget {
+  width: 324px;
+  height: 122px;
+}
+
+#appendTarget-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#appendTarget-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 探测目标
  * --------------------------------
  */

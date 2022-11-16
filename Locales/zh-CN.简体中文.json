@@ -1063,6 +1063,7 @@
       "getTarget.condition.min-attribute-ratio": "最小属性比率",
       "getTarget.condition.max-attribute-ratio": "最大属性比率",
       "getTarget.condition.random": "随机",
+      "appendTarget": "添加目标",
       "detectTargets": "探测目标",
       "detectTargets.inSight": "可见",
       "discardTargets": "放弃目标",
@@ -1313,6 +1314,7 @@
     "fileTrigger-shape-type": {"label": "形状", "options": {"rectangle": "矩形", "circle": "圆形", "sector": "扇形"}},
     "fileTrigger-shape-width": {"label": "宽度"},
     "fileTrigger-shape-height": {"label": "高度"},
+    "fileTrigger-shape-anchor": {"label": "锚点"},
     "fileTrigger-shape-radius": {"label": "半径"},
     "fileTrigger-shape-centralAngle": {"label": "圆心角"},
     "fileTrigger-speed": {"label": "速度"},
@@ -3425,6 +3427,11 @@
     }},
     "getTarget-attribute": {"label": "属性"},
     "getTarget-divisor": {"label": "属性 2"},
+
+    "[comment]": "********** 指令 - 添加目标 **********",
+    "appendTarget": {"title": "添加目标"},
+    "appendTarget-actor": {"label": "角色"},
+    "appendTarget-target": {"label": "目标"},
 
     "[comment]": "********** 指令 - 探测目标 **********",
     "detectTargets": {"title": "探测目标"},

@@ -1063,6 +1063,7 @@
       "getTarget.condition.min-attribute-ratio": "MinAttributeRatio",
       "getTarget.condition.max-attribute-ratio": "MaxAttributeRatio",
       "getTarget.condition.random": "Random",
+      "appendTarget": "Append Target",
       "detectTargets": "Detect Targets",
       "detectTargets.inSight": "InSight",
       "discardTargets": "Discard Targets",
@@ -1313,6 +1314,7 @@
     "fileTrigger-shape-type": {"label": "Shape", "options": {"rectangle": "Rectangle", "circle": "Circle", "sector": "Sector"}},
     "fileTrigger-shape-width": {"label": "Width"},
     "fileTrigger-shape-height": {"label": "Height"},
+    "fileTrigger-shape-anchor": {"label": "Anchor"},
     "fileTrigger-shape-radius": {"label": "Radius"},
     "fileTrigger-shape-centralAngle": {"label": "Central Angle"},
     "fileTrigger-speed": {"label": "Speed"},
@@ -3425,6 +3427,11 @@
     }},
     "getTarget-attribute": {"label": "Attribute"},
     "getTarget-divisor": {"label": "Attribute 2"},
+
+    "[comment]": "********** Command - Append Target **********",
+    "appendTarget": {"title": "Append Target"},
+    "appendTarget-actor": {"label": "Actor"},
+    "appendTarget-target": {"label": "Target"},
 
     "[comment]": "********** Command - Detect Targets **********",
     "detectTargets": {"title": "Detect Targets"},
