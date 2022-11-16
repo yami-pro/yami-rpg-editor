@@ -64,7 +64,7 @@ EventTarget.prototype.off = function (type, listener, options) {
 }
 
 // 创建作用域
-// namespace: {
+// {
 // const map = new Map()
 // const obs = new ResizeObserver(entries => {
 //   for (const entry of entries) {

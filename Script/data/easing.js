@@ -235,7 +235,7 @@ Easing.initialize = function () {
 }
 
 // 创建作用域
-namespace: {
+{
 const maps = {}
 const linear = {map: a => a}
 const get = id => {

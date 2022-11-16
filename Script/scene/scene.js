@@ -5547,7 +5547,7 @@ Scene.planToSaveTerrains = function () {
 }
 
 // 创建作用域
-namespace: {
+{
 let tilemap = null
 let mapData = null
 let changes = null
