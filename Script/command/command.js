@@ -27,6 +27,7 @@ import {
   measureText,
   TreeList,
   NumberOperand,
+  ObjectGetter,
   PluginManager,
   PositionGetter,
   PresetElement,

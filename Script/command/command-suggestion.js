@@ -2,6 +2,7 @@
 
 import {
   Command,
+  File,
   Local,
   Window
 } from '../yami.js'
