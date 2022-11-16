@@ -95,6 +95,8 @@
       "hitactor": "HitActor",
       "collision": "Collision",
       "destroy": "Destroy",
+      "playerenter": "PlayerEnter",
+      "playerleave": "PlayerLeave",
       "actorenter": "ActorEnter",
       "actorleave": "ActorLeave",
       "skillcast": "SkillCast",
@@ -525,35 +527,27 @@
       "target": "TargetActor",
       "player": "PlayerActor",
       "member": "PartyMember",
-      "global": "GlobalActor",
-      "variable": "Var"
+      "global": "GlobalActor"
     },
     "skill": {
       "common": "Skill",
       "trigger": "TriggerSkill",
-      "latest": "LatestSkill",
-      "by-key": "Key",
-      "variable": "Var"
+      "latest": "LatestSkill"
     },
     "state": {
       "common": "State",
       "trigger": "TriggerState",
-      "latest": "LatestState",
-      "variable": "Var"
+      "latest": "LatestState"
     },
     "equipment": {
       "common": "Equipment",
       "trigger": "TriggerEquipment",
-      "latest": "LatestEquipment",
-      "by-slot": "Slot",
-      "variable": "Var"
+      "latest": "LatestEquipment"
     },
     "item": {
       "common": "Item",
       "trigger": "TriggerItem",
-      "latest": "LatestItem",
-      "by-key": "Key",
-      "variable": "Var"
+      "latest": "LatestItem"
     },
     "position": {
       "common": "Position",
@@ -577,20 +571,17 @@
     "trigger": {
       "common": "Trigger",
       "trigger": "EventTrigger",
-      "latest": "LatestTrigger",
-      "variable": "Var"
+      "latest": "LatestTrigger"
     },
     "light": {
       "common": "Light",
       "trigger": "TriggerLight",
-      "latest": "LatestLight",
-      "variable": "Var"
+      "latest": "LatestLight"
     },
     "element": {
       "common": "Element",
       "trigger": "TriggerElement",
-      "latest": "LatestElement",
-      "variable": "Var"
+      "latest": "LatestElement"
     },
     "variable": {
       "local": "Local",
@@ -652,6 +643,10 @@
       "setNumber.object.actor-inventory-equipment-quantity": "Quantity",
       "setNumber.object.actor-inventory-money": "Inventory.Money",
       "setNumber.object.actor-inventory-used-space": "Inventory.UsedSpace",
+      "setNumber.object.actor-inventory-version": "Inventory.Version",
+      "setNumber.object.actor-skill-version": "Skill.Version",
+      "setNumber.object.actor-state-version": "State.Version",
+      "setNumber.object.actor-equipment-version": "Equipment.Version",
       "setNumber.object.actor-animation-current-time": "Anim.CurrentTime",
       "setNumber.object.actor-animation-duration": "Anim.Duration",
       "setNumber.object.actor-animation-progress": "Anim.Progress",
@@ -664,6 +659,8 @@
       "setNumber.object.state-current-time": "CurrentTime",
       "setNumber.object.state-duration": "Duration",
       "setNumber.object.state-progress": "Progress",
+      "setNumber.object.equipment-order": "Order",
+      "setNumber.object.item-order": "Order",
       "setNumber.object.item-quantity": "Quantity",
       "setNumber.object.trigger-speed": "Speed",
       "setNumber.object.trigger-angle": "Angle",
@@ -709,6 +706,7 @@
       "setNumber.other.elapsed-time": "ElapsedTime",
       "setNumber.other.delta-time": "DeltaTime",
       "setNumber.other.raw-delta-time": "RawDeltaTime",
+      "setNumber.other.party-member-count": "NumberOfPartyMembers",
       "setString": "Set String",
       "setString.alias": "String",
       "setString.string.char": "Char",
@@ -721,6 +719,7 @@
       "setString.object.skill-file-id": "FileID",
       "setString.object.state-file-id": "FileID",
       "setString.object.equipment-file-id": "FileID",
+      "setString.object.equipment-slot": "Slot",
       "setString.object.item-file-id": "FileID",
       "setString.object.file-id": "ID",
       "setString.element.text-content": "Text.Content",
@@ -809,6 +808,7 @@
       "forEach.equipment": "Equipment",
       "forEach.inventory": "Inventory",
       "forEach.element": "ChildElement",
+      "forEach.member": "PartyMember",
       "break": "Break",
       "continue": "Continue",
       "independent": "Independent",
@@ -816,9 +816,9 @@
       "callEvent": "Call Event",
       "callEvent.alias": "Call",
       "callEvent.scene": "Scene",
+      "stopEvent": "Stop Event",
       "setEvent": "Set Event",
       "setEvent.alias": "Event",
-      "setEvent.stop": "Stop",
       "setEvent.stop-propagation": "Stop Propagation",
       "setEvent.pause": "Pause and Save to Variable",
       "setEvent.continue": "Continue and Reset Variable",
@@ -1034,6 +1034,9 @@
       "changeActorEquipment": "Change Actor Equipment",
       "changeActorEquipment.add": "Add",
       "changeActorEquipment.remove": "Remove",
+      "changeActorEquipment.add-instance": "Add",
+      "changeActorEquipment.remove-instance": "Remove",
+      "changeActorEquipment.remove-slot": "Remove",
       "changeActorSkill": "Change Actor Skill",
       "changeActorSkill.add": "Add",
       "changeActorSkill.remove": "Remove",
@@ -1271,6 +1274,7 @@
     "[comment]": "********** Inspector - File - Actor **********",
     "fileActor-general-grid": {"label": "General"},
     "fileActor-portrait": {"label": "Portrait"},
+    "fileActor-clip": {"label": "Clip"},
     "fileActor-animationId": {"label": "Animation"},
     "fileActor-idleMotion": {"label": "Idle Motion"},
     "fileActor-moveMotion": {"label": "Move Motion"},
@@ -1450,9 +1454,9 @@
     "sceneAnimation-name": {"label": "Name"},
     "sceneAnimation-animationId": {"label": "Animation"},
     "sceneAnimation-motion": {"label": "Motion"},
-    "sceneAnimation-mirror": {"label": "Mirror", "options": {"none": "None", "horizontal": "Horizontal", "vertical": "Vertical", "both": "Both"}},
     "sceneAnimation-x": {"label": "X"},
     "sceneAnimation-y": {"label": "Y"},
+    "sceneAnimation-angle": {"label": "Angle"},
     "sceneAnimation-conditions": {"label": "Conditions"},
     "sceneAnimation-events": {"label": "Events"},
     "sceneAnimation-scripts": {"label": "Scripts"},
@@ -1722,7 +1726,14 @@
     "[comment]": "********** Inspector - Particle - Layer **********",
     "particleLayer-general-grid": {"label": "General"},
     "particleLayer-name": {"label": "Name"},
-    "particleLayer-area-type": {"label": "Emission Area", "options": {"point": "Point", "rectangle": "Rectangle", "circle": "Circle", "edge": "Screen Edge"}},
+    "particleLayer-area-type": {"label": "Emission Area", "options": {
+      "point": "Point",
+      "rectangle": "Rectangle",
+      "circle": "Circle",
+      "edge": "Screen Edge"
+    }},
+    "particleLayer-area-x": {"label": "X"},
+    "particleLayer-area-y": {"label": "Y"},
     "particleLayer-area-width": {"label": "Width"},
     "particleLayer-area-height": {"label": "Height"},
     "particleLayer-area-radius": {"label": "Radius"},
@@ -1853,8 +1864,9 @@
     "config-lightArea-expansionBottom": {"label": "Expansion Bottom"},
     "config-collision-summary": {"content": "Collision System"},
     "config-collision-actor-enabled": {"label": "Actor Collision", "options": {"true": "Enabled", "false": "Disabled"}},
+    "config-collision-actor-ignoreTeamMember": {"label": "Ignore Team Member", "options": {"true": "Enabled", "false": "Disabled"}},
     "config-collision-scene-enabled": {"label": "Scene Collision", "options": {"true": "Enabled", "false": "Disabled"}},
-    "config-collision-scene-size": {"label": "Scene Collision Size"},
+    "config-collision-scene-actorSize": {"label": "Scene Collision Actor Size"},
     "config-font-summary": {"content": "Font"},
     "config-font-imports": {"label": "Imports"},
     "config-font-default": {"label": "Default"},
@@ -1873,8 +1885,8 @@
     "config-actor-partyMembers-1": {"label": "Party Member 2"},
     "config-actor-partyMembers-2": {"label": "Party Member 3"},
     "config-actor-partyMembers-3": {"label": "Party Member 4"},
-    "config-actor-partyInventoryMode": {"label": "Party Inventory Mode", "options": {"shared": "Share the Player's Inventory", "separate": "Use Separate Inventorys"}},
-    "config-actor-tempAttributes": {"label": "Temporary Attributes"},
+    "config-actor-partyInventory": {"label": "Party Inventory Mode", "options": {"shared": "Share the Player's Inventory", "separate": "Use Separate Inventorys"}},
+    "config-actor-tempAttributes": {"label": "Actor Temporary Attributes"},
     "config-animation-summary": {"content": "Animation"},
     "config-animation-frameRate": {"label": "Frame Rate"},
     "config-script-summary": {"content": "Script"},
@@ -1977,6 +1989,7 @@
     "attribute-type-number-label": {"content": "Number"},
     "attribute-type-string-label": {"content": "String"},
     "attribute-type-enum-label": {"content": "String(Enum)"},
+    "attribute-type-object-label": {"content": "Object(For Element)"},
     "attribute-enum": {"label": "Options"},
     "attribute-note": {"label": "Note"},
 
@@ -2091,6 +2104,12 @@
     "variableGetter-common-key": {"label": "Key"},
     "variableGetter-preset-key": {"label": "Key"},
     "variableGetter-global-key": {"label": "Key"},
+
+    "[comment]": "********** Object Getter **********",
+    "objectGetter": {"title": "Variable"},
+    "objectGetter-type": {"label": "Type"},
+    "objectGetter-common-key": {"label": "Key"},
+    "objectGetter-global-key": {"label": "Key"},
 
     "[comment]": "********** Actor Getter **********",
     "actorGetter": {"title": "Actor"},
@@ -2258,7 +2277,7 @@
     "setBoolean-operand-type": {"label": "Type", "options": {
       "constant": "Constant",
       "variable": "Variable",
-      "list": "List",
+      "list": "List Item",
       "parameter": "Parameter"
     }},
     "setBoolean-constant-value": {"label": "Constant"},
@@ -2298,7 +2317,7 @@
       "string": "String",
       "object": "Object",
       "element": "Element",
-      "list": "List",
+      "list": "List Item",
       "parameter": "Parameter",
       "other": "Other"
     }},
@@ -2335,6 +2354,10 @@
       "actor-inventory-equipment-quantity": "Actor - Equipment Quantity",
       "actor-inventory-money": "Actor - Inventory Money",
       "actor-inventory-used-space": "Actor - Inventory Used Space",
+      "actor-inventory-version": "Actor - Inventory Version",
+      "actor-skill-version": "Actor - Skill Version",
+      "actor-state-version": "Actor - State Version",
+      "actor-equipment-version": "Actor - Equipment Version",
       "actor-animation-current-time": "Actor - Anim Current Time",
       "actor-animation-duration": "Actor - Anim Duration",
       "actor-animation-progress": "Actor - Anim Progress",
@@ -2347,6 +2370,8 @@
       "state-current-time": "State - Current Time",
       "state-duration": "State - Duration",
       "state-progress": "State - Progress",
+      "equipment-order": "Equipment - Order in Inventory",
+      "item-order": "Item - Order in Inventory",
       "item-quantity": "Item - Quantity",
       "trigger-speed": "Trigger - Speed",
       "trigger-angle": "Trigger - Angle",
@@ -2381,6 +2406,7 @@
     "setNumber-operand-common-actor": {"label": "Actor"},
     "setNumber-operand-common-skill": {"label": "Skill"},
     "setNumber-operand-common-state": {"label": "State"},
+    "setNumber-operand-common-equipment": {"label": "Equipment"},
     "setNumber-operand-common-item": {"label": "Item"},
     "setNumber-operand-common-trigger": {"label": "Trigger"},
     "setNumber-operand-object-itemId": {"label": "Item"},
@@ -2413,7 +2439,8 @@
       "play-time": "Play Time",
       "elapsed-time": "Elapsed Time",
       "delta-time": "Delta Time",
-      "raw-delta-time": "Raw Delta Time"
+      "raw-delta-time": "Raw Delta Time",
+      "party-member-count": "Number of Party Members"
     }},
 
     "[comment]": "********** Command - Set String **********",
@@ -2427,7 +2454,7 @@
       "enum": "Enumeration",
       "object": "Object",
       "element": "Element",
-      "list": "List",
+      "list": "List Item",
       "parameter": "Parameter",
       "other": "Other"
     }},
@@ -2454,6 +2481,7 @@
       "skill-file-id": "Skill - File ID",
       "state-file-id": "State - File ID",
       "equipment-file-id": "Equipment - File ID",
+      "equipment-slot": "Equipment - Slot",
       "item-file-id": "Item - File ID",
       "file-id": "File - ID"
     }},
@@ -2495,7 +2523,7 @@
       "light": "Light",
       "element": "Element",
       "variable": "Variable",
-      "list": "List"
+      "list": "List Item"
     }},
     "setObject-operand-actor": {"label": "Actor"},
     "setObject-operand-skill": {"label": "Skill"},
@@ -2519,8 +2547,8 @@
       "set-number": "Set Number",
       "set-string": "Set String",
       "set-variable": "Set Variable",
-      "push": "Push",
-      "remove": "Remove"
+      "push": "Add Item",
+      "remove": "Remove Item"
     }},
     "setList-numbers": {"label": "Numbers"},
     "setList-strings": {"label": "Strings"},
@@ -2703,12 +2731,13 @@
     "[comment]": "********** Command - For Each **********",
     "forEach": {"title": "For Each"},
     "forEach-data": {"label": "Data", "options": {
-      "list": "List",
+      "list": "List Item",
       "skill": "Skill",
       "state": "State",
       "equipment": "Equipment",
       "inventory": "Inventory",
-      "element": "Element"
+      "element": "Element",
+      "member": "Party Member"
     }},
     "forEach-list": {"label": "List Variable"},
     "forEach-actor": {"label": "Actor"},
@@ -2741,7 +2770,6 @@
     "[comment]": "********** Command - Set Event **********",
     "setEvent": {"title": "Set Event"},
     "setEvent-operation": {"label": "Operation", "options": {
-      "stop": "Stop",
       "stop-propagation": "Stop Propagation",
       "pause": "Pause and Save to Variable",
       "continue": "Continue and Reset Variable",
@@ -3295,9 +3323,16 @@
     "[comment]": "********** Command - Change Actor Equipment **********",
     "changeActorEquipment": {"title": "Change Actor Equipment"},
     "changeActorEquipment-actor": {"label": "Actor"},
-    "changeActorEquipment-operation": {"label": "Operation", "options": {"add": "Add", "remove": "Remove"}},
-    "changeActorEquipment-equipment": {"label": "Equipment"},
+    "changeActorEquipment-operation": {"label": "Operation", "options": {
+      "add": "Add",
+      "remove": "Remove",
+      "add-instance": "Add Instance",
+      "remove-instance": "Remove Instance",
+      "remove-slot": "Remove Slot"
+    }},
     "changeActorEquipment-slot": {"label": "Slot"},
+    "changeActorEquipment-equipmentId": {"label": "EquipmentId"},
+    "changeActorEquipment-equipment": {"label": "Equipment"},
 
     "[comment]": "********** Command - Change Actor Skill **********",
     "changeActorSkill": {"title": "Change Actor Skill"},
@@ -3395,7 +3430,6 @@
     "[comment]": "********** Command - Discard Targets **********",
     "discardTargets": {"title": "Discard Targets"},
     "discardTargets-actor": {"label": "Actor"},
-    "discardTargets-distance": {"label": "Distance"},
     "discardTargets-selector": {"label": "Selector", "options": {
       "enemy": "Enemy",
       "friend": "Friend",
@@ -3404,6 +3438,7 @@
       "any-except-self": "Any Except Self",
       "any": "Any"
     }},
+    "discardTargets-distance": {"label": "Distance"},
 
     "[comment]": "********** Command - Reset Targets **********",
     "resetTargets": {"title": "Reset Targets"},
@@ -3516,9 +3551,9 @@
       "set-skill-shortcut": "Set Skill Shortcut",
       "delete-shortcut": "Delete Shortcut"
     }},
+    "setShortcut-key": {"label": "Shortcut Key"},
     "setShortcut-itemId": {"label": "Item"},
     "setShortcut-skillId": {"label": "Skill"},
-    "setShortcut-key": {"label": "Shortcut Key"},
 
     "[comment]": "********** Command - Activate Scene **********",
     "activateScene": {"title": "Activate Scene"},

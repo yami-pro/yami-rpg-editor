@@ -100,7 +100,8 @@ ParticleLayer.initialize = function () {
   $('#particleLayer-color-tint-3-slider').synchronize($('#particleLayer-color-tint-3'))
 
   // 侦听事件
-  const elements = $(`#particleLayer-name, #particleLayer-area-type,
+  const elements = $(`#particleLayer-name,
+    #particleLayer-area-type, #particleLayer-area-x, #particleLayer-area-y,
     #particleLayer-area-width, #particleLayer-area-height, #particleLayer-area-radius,
     #particleLayer-maximum, #particleLayer-count,
     #particleLayer-delay, #particleLayer-interval, #particleLayer-lifetime,
@@ -155,6 +156,8 @@ ParticleLayer.create = function () {
     locked: false,
     area: {
       type: 'point',
+      x: 0,
+      y: 0,
     },
     maximum: 20,
     count: 0,
@@ -211,6 +214,8 @@ ParticleLayer.open = function (layer) {
     const {rgba, min, max, easingId, startMin, startMax, endMin, endMax, tint} = color
     write('name')
     write('area-type')
+    write('area-x', area.x ?? 0)
+    write('area-y', area.y ?? 0)
     write('area-width', area.width ?? 64)
     write('area-height', area.height ?? 64)
     write('area-radius', area.radius ?? 32)
@@ -312,20 +317,29 @@ ParticleLayer.update = function (layer, key, value) {
       const {area} = layer
       if (area.type !== value) {
         area.type = value
+        delete area.x
+        delete area.y
         delete area.width
         delete area.height
         delete area.radius
         const read = getElementReader('particleLayer-area')
         switch (value) {
           case 'point':
-          case 'edge':
+            area.x = read('x')
+            area.y = read('y')
             break
           case 'rectangle':
+            area.x = read('x')
+            area.y = read('y')
             area.width = read('width')
             area.height = read('height')
             break
           case 'circle':
+            area.x = read('x')
+            area.y = read('y')
             area.radius = read('radius')
+            break
+          case 'edge':
             break
         }
         layerInstance.updateElementMethods()
@@ -333,6 +347,8 @@ ParticleLayer.update = function (layer, key, value) {
       }
       break
     }
+    case 'area-x':
+    case 'area-y':
     case 'area-width':
     case 'area-height':
     case 'area-radius': {

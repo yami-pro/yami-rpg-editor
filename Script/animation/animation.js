@@ -5815,7 +5815,7 @@ Animation.list.onDelete = function () {
 
 // 图层列表 - 重写更新方法
 Animation.layerList.update = function () {
-  NodeList.prototype.update.call(this)
+  TreeList.prototype.update.call(this)
   if (!Animation.contextLoaded) {
     Animation.contextLoaded = true
     const {player} = Animation

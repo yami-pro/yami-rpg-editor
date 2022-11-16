@@ -104,7 +104,7 @@ class AttributeListInterface {
     const stringValue  = type === 'string'  ? item.value : ''
     const enumValue    = type === 'enum'    ? item.value : ''
     const keyBox = $('#object-attribute-key')
-    keyBox.loadItems(Attribute.getAttributeItems(this.group))
+    keyBox.loadItems(Attribute.getAttributeItems(this.group, 'boolean|number|string'))
     const invalid = !Attribute.getGroupAttribute(this.group, key)
     if (invalid) AttributeListInterface.typeBox.write(type)
     const write = getElementWriter('object-attribute')

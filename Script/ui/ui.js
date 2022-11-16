@@ -259,7 +259,7 @@ UI.initialize = function () {
 
   // 创建控制点纹理
   File.get({
-    local: 'images/ui_control_point.png',
+    local: 'Images/ui_control_point.png',
     type: 'image',
   }).then(image => {
     if (!image) return

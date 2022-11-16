@@ -104,6 +104,32 @@ IfCondition.initialize = function () {
     ]},
   ])
 
+  // 设置类型写入事件，切换变量输入框的过滤器
+  $('#if-condition-type').on('write', event => {
+    let filter1 = 'all'
+    let filter2 = 'all'
+    switch (event.value) {
+      case 'boolean':
+        filter1 = filter2 = 'boolean'
+        break
+      case 'number':
+        filter1 = filter2 = 'number'
+        break
+      case 'string':
+        filter1 = filter2 = 'string'
+        break
+      case 'object':
+        filter1 = filter2 = 'object'
+        break
+      case 'list':
+        filter1 = 'object'
+        filter2 = 'all'
+        break
+    }
+    $('#if-condition-common-variable').filter = filter1
+    $('#if-condition-operand-variable').filter = filter2
+  })
+
   // 创建布尔值操作选项
   $('#if-condition-boolean-operation').loadItems([
     {name: '==', value: 'equal'},

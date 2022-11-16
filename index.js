@@ -4,10 +4,7 @@ import { Editor } from './Script/yami.js'
 
 // ******************************** 主函数 ********************************
 
-!async function main () {
-  // 设置Node.js工作目录
-  process.chdir(__dirname)
-
+!function main () {
   // 初始化并打开最近的项目
   Editor.initialize()
 }()

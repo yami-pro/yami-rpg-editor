@@ -707,7 +707,7 @@ Easing.selectPointByCoords = function (mouseX, mouseY) {
 Easing.createPointImage = function () {
   if (!this.pointImage) {
     File.get({
-      local: 'images/curve_mark.png',
+      local: 'Images/curve_mark.png',
       type: 'image',
     }).then(image => {
       this.pointImage = image
@@ -1165,7 +1165,7 @@ Easing.confirm = function (event) {
     this.clear()
     // 删除数据绑定的元素对象
     const easings = this.data
-    NodeList.deleteCaches(easings)
+    TreeList.deleteCaches(easings)
     Data.easings = easings
     Data.createGUIDMap(easings)
     File.planToSave(Data.manifest.project.easings)

@@ -214,6 +214,7 @@ Data.close = function () {
 Data.createEasingItems = function () {
   let items = this.easings.items
   if (items === undefined) {
+    // 把属性写入数组中不会被保存到文件
     items = this.easings.items = []
     const easings = this.easings
     const length = easings.length

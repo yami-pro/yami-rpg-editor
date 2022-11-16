@@ -2153,7 +2153,7 @@ Scene.loadAnimationContext = function (animation) {
     )
     const player = new Animation.Player(data)
     player.setMotion(animation.motion)
-    player.mirror = animation.mirror
+    player.setAngle(Math.radians(animation.angle))
     Object.defineProperty(
       animation, 'player', {
         configurable: true,
@@ -2662,26 +2662,28 @@ Scene.drawTileLayer = function (
                 const st = (sy + 0.002) / texture.height
                 const sr = (sx + sw - 0.002) / texture.width
                 const sb = (sy + sh - 0.002) / texture.height
-                const vi = response[0] * 4
+                const vi = response[0] * 5
                 const si = response[1]
-                const ai = vi / 8
-                const param = si << 8 | si
                 vertices[vi    ] = dl
                 vertices[vi + 1] = dt
                 vertices[vi + 2] = sl
                 vertices[vi + 3] = st
-                vertices[vi + 4] = dl
-                vertices[vi + 5] = db
-                vertices[vi + 6] = sl
-                vertices[vi + 7] = sb
-                vertices[vi + 8] = dr
-                vertices[vi + 9] = db
-                vertices[vi + 10] = sr
-                vertices[vi + 11] = sb
-                vertices[vi + 12] = dr
-                vertices[vi + 13] = dt
-                vertices[vi + 14] = sr
-                vertices[vi + 15] = st
+                vertices[vi + 4] = si
+                vertices[vi + 5] = dl
+                vertices[vi + 6] = db
+                vertices[vi + 7] = sl
+                vertices[vi + 8] = sb
+                vertices[vi + 9] = si
+                vertices[vi + 10] = dr
+                vertices[vi + 11] = db
+                vertices[vi + 12] = sr
+                vertices[vi + 13] = sb
+                vertices[vi + 14] = si
+                vertices[vi + 15] = dr
+                vertices[vi + 16] = dt
+                vertices[vi + 17] = sr
+                vertices[vi + 18] = st
+                vertices[vi + 19] = si
               } else if (texture === undefined) {
                 const guid = autoTile.image
                 const image = Palette.images[guid]
@@ -5679,14 +5681,12 @@ Scene.createHistory = function IIFE() {
 
 // 创建默认动画播放器
 Scene.createDefaultAnimation = function IIFE() {
-  let DefaultPlayer = null
-  let texture = null
-  let motion = null
-  let data = null
+  let DefaultPlayer
+  let texture
 
   // 创建默认图像纹理
   File.get({
-    local: 'images/default_actor.png',
+    local: 'Images/default_actor.png',
     type: 'image',
   }).then(image => {
     if (!image) return
@@ -5704,10 +5704,10 @@ Scene.createDefaultAnimation = function IIFE() {
   // 返回函数
   return function (target) {
     // 初始化默认动画播放器类
-    if (DefaultPlayer === null) {
-      motion = Inspector.animMotion.create()
-      data = {mode: '1-dir', sprites: [], motions: [motion]}
-      const frames = motion.layers[0].frames
+    if (!DefaultPlayer) {
+      const motion = Inspector.animMotion.create('ffffffffffffffff')
+      const data = {mode: '1-dir', sprites: [], motions: [motion]}
+      const frames = motion.dirCases[0].layers[0].frames
       frames[0].y = -8
       frames[0].scaleX = 0.25
       frames[0].scaleY = 0.25
@@ -5719,7 +5719,7 @@ Scene.createDefaultAnimation = function IIFE() {
         constructor(target) {
           super(data)
           this.target = target
-          this.switch(motion.name)
+          this.setMotion(motion.id)
         }
 
         getTexture() {
@@ -5980,8 +5980,9 @@ Scene.screenKeydown = function (event) {
         case 'ArrowUp':
         case 'ArrowRight':
         case 'ArrowDown':
-          if (this.layer === 'object' &&
-            this.target?.class === 'actor') {
+          if (this.layer === 'object' && (
+            this.target?.class === 'actor' ||
+            this.target?.class === 'animation')) {
             let angle
             switch (event.code) {
               case 'ArrowLeft':  angle = 180 ; break

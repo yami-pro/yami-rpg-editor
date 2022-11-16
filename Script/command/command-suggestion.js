@@ -60,10 +60,12 @@ CommandSuggestion.initialize = function () {
   list.creators.push(list.createCommandTip)
 
   // 加载指令数据
-  const path = 'commands.json'
-  this.data = FSP.readFile(path, 'utf8').then(
-    data => this.data = JSON.parse(data)
-  )
+  this.data = File.get({
+    local: 'commands.json',
+    type: 'json',
+  }).then(data => {
+    this.data = data
+  })
 
   // 侦听事件
   window.on('localize', this.windowLocalize)

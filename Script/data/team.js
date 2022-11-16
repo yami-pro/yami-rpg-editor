@@ -53,7 +53,7 @@ Team.list.restoreSelection = null
 Team.list.updateNodeElement = Easing.list.updateNodeElement
 Team.list.createIcon = null
 Team.list.updateIcon = null
-Team.list.updateItemName = Easing.list.updateItemName
+Team.list.updateItemName = null
 Team.list.addElementClass = Easing.list.addElementClass
 Team.list.updateTextNode = Easing.list.updateTextNode
 Team.list.createMark = null
@@ -467,6 +467,11 @@ Team.list.updateIcon = function (item) {
     const a = parseInt(color.slice(6, 8), 16) / 255
     icon.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
   }
+}
+
+// 列表 - 重写更新项目名称方法
+Team.list.updateItemName = function (item) {
+  this.updateTextNode(item)
 }
 
 // 列表 - 创建标记

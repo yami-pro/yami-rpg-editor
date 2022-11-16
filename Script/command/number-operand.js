@@ -105,6 +105,25 @@ NumberOperand.initialize = function () {
     ]},
   ])
 
+  // 设置类型写入事件，切换变量输入框的过滤器
+  $('#setNumber-operand-type').on('write', event => {
+    let filter = 'all'
+    switch (event.value) {
+      case 'variable':
+      case 'math':
+        filter = 'number'
+        break
+      case 'string':
+        filter = 'string'
+        break
+      case 'object':
+      case 'list':
+        filter = 'object'
+        break
+    }
+    $('#setNumber-operand-common-variable').filter = filter
+  })
+
   // 创建数学方法选项
   $('#setNumber-operand-math-method').loadItems([
     {name: 'Round', value: 'round'},
@@ -172,6 +191,10 @@ NumberOperand.initialize = function () {
     {name: 'Actor - Equipment Quantity', value: 'actor-inventory-equipment-quantity'},
     {name: 'Actor - Inventory Money', value: 'actor-inventory-money'},
     {name: 'Actor - Inventory Used Space', value: 'actor-inventory-used-space'},
+    {name: 'Actor - Inventory Version', value: 'actor-inventory-version'},
+    {name: 'Actor - Skill Version', value: 'actor-skill-version'},
+    {name: 'Actor - State Version', value: 'actor-state-version'},
+    {name: 'Actor - Equipment Version', value: 'actor-equipment-version'},
     {name: 'Actor - Anim Current Time', value: 'actor-animation-current-time'},
     {name: 'Actor - Anim Duration', value: 'actor-animation-duration'},
     {name: 'Actor - Anim Progress', value: 'actor-animation-progress'},
@@ -184,6 +207,8 @@ NumberOperand.initialize = function () {
     {name: 'State - Current Time', value: 'state-current-time'},
     {name: 'State - Duration', value: 'state-duration'},
     {name: 'State - Progress', value: 'state-progress'},
+    {name: 'Equipment - Order in Inventory', value: 'equipment-order'},
+    {name: 'Item - Order in Inventory', value: 'item-order'},
     {name: 'Item - Quantity', value: 'item-quantity'},
     {name: 'Trigger - Speed', value: 'trigger-speed'},
     {name: 'Trigger - Angle', value: 'trigger-angle'},
@@ -204,6 +229,10 @@ NumberOperand.initialize = function () {
       'actor-collision-weight',
       'actor-inventory-money',
       'actor-inventory-used-space',
+      'actor-inventory-version',
+      'actor-skill-version',
+      'actor-state-version',
+      'actor-equipment-version',
       'actor-animation-current-time',
       'actor-animation-duration',
       'actor-animation-progress'], targets: [
@@ -227,7 +256,10 @@ NumberOperand.initialize = function () {
     {case: ['state-current-time', 'state-duration', 'state-progress'], targets: [
       $('#setNumber-operand-common-state'),
     ]},
-    {case: 'item-quantity', targets: [
+    {case: 'equipment-order', targets: [
+      $('#setNumber-operand-common-equipment'),
+    ]},
+    {case: ['item-order', 'item-quantity'], targets: [
       $('#setNumber-operand-common-item'),
     ]},
     {case: ['trigger-speed', 'trigger-angle'], targets: [
@@ -285,6 +317,7 @@ NumberOperand.initialize = function () {
     {name: 'Elapsed Time', value: 'elapsed-time'},
     {name: 'Delta Time', value: 'delta-time'},
     {name: 'Raw Delta Time', value: 'raw-delta-time'},
+    {name: 'Number of Party Members', value: 'party-member-count'},
   ])
 
   // 侦听事件
@@ -362,6 +395,10 @@ NumberOperand.parseObjectProperty = function (operand) {
     case 'actor-collision-weight':
     case 'actor-inventory-money':
     case 'actor-inventory-used-space':
+    case 'actor-inventory-version':
+    case 'actor-skill-version':
+    case 'actor-state-version':
+    case 'actor-equipment-version':
     case 'actor-animation-current-time':
     case 'actor-animation-duration':
     case 'actor-animation-progress':
@@ -373,7 +410,7 @@ NumberOperand.parseObjectProperty = function (operand) {
     case 'actor-cooldown-time':
     case 'actor-cooldown-duration':
     case 'actor-cooldown-progress': {
-      const key = Command.parseVariableString(operand.key)
+      const key = Command.parseVariableEnum('cooldown-key', operand.key)
       return `${Command.parseActor(operand.actor)} -> ${property}(${key})`
     }
     case 'skill-cooldown-time':
@@ -384,6 +421,9 @@ NumberOperand.parseObjectProperty = function (operand) {
     case 'state-duration':
     case 'state-progress':
       return `${Command.parseState(operand.state)} -> ${property}`
+    case 'equipment-order':
+      return `${Command.parseEquipment(operand.equipment)} -> ${property}`
+    case 'item-order':
     case 'item-quantity':
       return `${Command.parseItem(operand.item)} -> ${property}`
     case 'trigger-speed':
@@ -486,6 +526,11 @@ NumberOperand.open = function (operand = {
     $('#setNumber-operand-operation').getFocus()
   }
 
+  // 加载快捷键选项
+  $('#setNumber-operand-cooldown-key').loadItems(
+    Enum.getStringItems('cooldown-key')
+  )
+
   // 写入数据
   const write = getElementWriter('setNumber-operand')
   let constantValue = 0
@@ -506,9 +551,10 @@ NumberOperand.open = function (operand = {
   let commonActor = {type: 'trigger'}
   let commonSkill = {type: 'trigger'}
   let commonState = {type: 'trigger'}
+  let commonEquipment = {type: 'trigger'}
   let commonItem = {type: 'trigger'}
   let commonTrigger = {type: 'trigger'}
-  let cooldownKey = ''
+  let cooldownKey = Enum.getDefStringId('cooldown-key')
   let listIndex = 0
   let parameterKey = ''
   let otherData = 'trigger-button'
@@ -540,6 +586,7 @@ NumberOperand.open = function (operand = {
       commonActor = operand.actor ?? commonActor
       commonSkill = operand.skill ?? commonSkill
       commonState = operand.state ?? commonState
+      commonEquipment = operand.equipment ?? commonEquipment
       commonItem = operand.item ?? commonItem
       commonTrigger = operand.trigger ?? commonTrigger
       cooldownKey = operand.key ?? cooldownKey
@@ -574,6 +621,7 @@ NumberOperand.open = function (operand = {
   write('common-actor', commonActor)
   write('common-skill', commonSkill)
   write('common-state', commonState)
+  write('common-equipment', commonEquipment)
   write('common-item', commonItem)
   write('common-trigger', commonTrigger)
   write('string-search', stringSearch)
@@ -688,6 +736,10 @@ NumberOperand.save = function () {
         case 'actor-collision-weight':
         case 'actor-inventory-money':
         case 'actor-inventory-used-space':
+        case 'actor-inventory-version':
+        case 'actor-skill-version':
+        case 'actor-state-version':
+        case 'actor-equipment-version':
         case 'actor-animation-current-time':
         case 'actor-animation-duration':
         case 'actor-animation-progress': {
@@ -738,6 +790,12 @@ NumberOperand.save = function () {
           operand = {operation, type, property, state}
           break
         }
+        case 'equipment-order': {
+          const equipment = read('common-equipment')
+          operand = {operation, type, property, equipment}
+          break
+        }
+        case 'item-order':
         case 'item-quantity': {
           const item = read('common-item')
           operand = {operation, type, property, item}

@@ -335,7 +335,7 @@ CustomCommand.apply = function (event) {
     if (event instanceof Event) {
       commands = Object.clone(commands)
     } else {
-      NodeList.deleteCaches(commands)
+      TreeList.deleteCaches(commands)
     }
     Data.commands = commands
     File.planToSave(Data.manifest.project.commands)

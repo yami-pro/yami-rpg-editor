@@ -75,7 +75,7 @@ class ParameterPane extends HTMLElement {
         this.update()
       }
     }
-    if (scriptList instanceof NodeList) {
+    if (scriptList instanceof TreeList) {
       this.getData = () => {
         const item = scriptList.read()
         return item ? [item] : []
@@ -230,15 +230,15 @@ class ParameterPane extends HTMLElement {
       }
       case 'variable': {
         const wrap = this.createCustomBox()
-        wrap.input.setAttribute('type', 'global-variable')
-        wrap.input.setAttribute('filter', '')
+        wrap.input.type = 'global-variable'
+        wrap.input.filter = ''
         return wrap
       }
       case 'attribute':
       case 'attribute-key':
         if (parameter.filter === 'any') {
           const wrap = this.createCustomBox()
-          wrap.input.setAttribute('type', 'attribute')
+          wrap.input.type = 'attribute'
           return wrap
         } else {
           const wrap = this.createSelectBox()
@@ -247,14 +247,14 @@ class ParameterPane extends HTMLElement {
         }
       case 'attribute-group': {
         const wrap = this.createCustomBox()
-        wrap.input.setAttribute('type', 'attribute-group')
+        wrap.input.type = 'attribute-group'
         return wrap
       }
       case 'enum':
       case 'enum-value':
         if (parameter.filter === 'any') {
           const wrap = this.createCustomBox()
-          wrap.input.setAttribute('type', 'enum-string')
+          wrap.input.type = 'enum-string'
           return wrap
         } else {
           const wrap = this.createSelectBox()
@@ -263,7 +263,7 @@ class ParameterPane extends HTMLElement {
         }
       case 'enum-group': {
         const wrap = this.createCustomBox()
-        wrap.input.setAttribute('type', 'enum-group')
+        wrap.input.type = 'enum-group'
         return wrap
       }
       case 'actor':
@@ -274,28 +274,28 @@ class ParameterPane extends HTMLElement {
       case 'parallax':
       case 'tilemap': {
         const wrap = this.createCustomBox()
-        wrap.input.setAttribute('type', 'preset-object')
-        wrap.input.setAttribute('filter', type)
+        wrap.input.type = 'preset-object'
+        wrap.input.filter = type
         return wrap
       }
       case 'element':
       case 'element-id': {
         const wrap = this.createCustomBox()
-        wrap.input.setAttribute('type', 'preset-element')
-        wrap.input.setAttribute('filter', '')
+        wrap.input.type = 'preset-element'
+        wrap.input.filter = ''
         return wrap
       }
       case 'file': {
         const wrap = this.createCustomBox()
-        wrap.input.setAttribute('type', 'file')
-        wrap.input.setAttribute('filter', parameter.filter)
+        wrap.input.type = 'file'
+        wrap.input.filter = parameter.filter
         return wrap
       }
       case 'number[]':
       case 'string[]': {
         const wrap = this.createCustomBox()
-        wrap.input.setAttribute('type', 'array')
-        wrap.input.setAttribute('filter', type.slice(0, -2))
+        wrap.input.type = 'array'
+        wrap.input.filter = type.slice(0, -2)
         return wrap
       }
       case 'keycode':

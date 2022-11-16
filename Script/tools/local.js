@@ -16,6 +16,7 @@ import {
 const Local = {
   // properties
   active: null,
+  dirname: '',
   language: null,
   languages: null,
   properties: {},
@@ -34,6 +35,8 @@ const Local = {
 
 // 初始化
 Local.initialize = function () {
+  // 获取语言包目录
+  this.dirname = Path.resolve(__dirname, 'Locales')
   // 读取语言包后显示菜单栏
   this.readLanguageList().then(() => {
     return this.setLanguage(Editor.config.language)
@@ -45,8 +48,7 @@ Local.initialize = function () {
 // 读取语言列表
 Local.readLanguageList = function () {
   const languages = this.languages = []
-  const dir = Path.resolve(__dirname, 'locales')
-  return FSP.readdir(dir, {withFileTypes: true}).then(files => {
+  return FSP.readdir(this.dirname, {withFileTypes: true}).then(files => {
     const regexp = /\.(.+)$/
     for (const file of files) {
       if (file.isDirectory()) {
@@ -107,7 +109,7 @@ Local.setLanguage = async function (language) {
     if (key !== language) continue
     if (this.active !== filename) {
       try {
-        const path = `Locales/${filename}`
+        const path = Path.resolve(this.dirname, filename)
         this.update(await File.get({local: path, type: 'json'}))
         this.active = filename
         this.language = language

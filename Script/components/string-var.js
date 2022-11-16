@@ -19,8 +19,8 @@ class StringVar extends HTMLElement {
     this.mode = null
     this.strBox = new TextBox()
     this.varBox = new CustomBox()
-    this.varBox.setAttribute('type', 'variable')
-    this.varBox.setAttribute('filter', 'string')
+    this.varBox.type = 'variable'
+    this.varBox.filter = 'string'
 
     // 侦听事件
     this.on('keydown', this.keydown)

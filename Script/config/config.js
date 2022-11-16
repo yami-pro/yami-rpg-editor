@@ -8,6 +8,10 @@ import {
 // ******************************** 读取配置文件 ********************************
 
 if (window.process) {
+  // 打包模式下重定向目录到app.asar.unpacked
+  if (/.asar$/.test(__dirname)) {
+    __dirname += '.unpacked'
+  }
   // 提前读取配置文件以减少等待时间
   // promise.then的执行顺序在main.js之后
   const path = require('path').resolve(__dirname, 'config.json')

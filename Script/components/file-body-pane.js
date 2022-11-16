@@ -499,20 +499,13 @@ class FileBodyPane extends HTMLElement {
           icon.addClass('icon-file-actor')
           break
         }
-        const guidMap = Data.manifest.guidMap
-        const meta = guidMap[data.portrait]
-        if (!meta) {
-          break
-        }
+        const meta = Data.manifest.guidMap[data.portrait]
+        const [cx, cy, cw, ch] = data.clip
+        if (!meta || cw * ch === 0) break
         const version = meta.mtimeMs
         const path = `${File.getPath(data.portrait)}?ver=${version}`
-        icon.style.backgroundImage = CSS.encodeURL(File.route(path))
         icon.isImageChanged = () => version !== meta.mtimeMs
-        File.getImageResolution(path).then(({width, height}) => {
-          if (width <= 128 && height <= 128) {
-            icon.style.imageRendering = 'pixelated'
-          }
-        })
+        this.setIconClip(icon, path, cx, cy, cw, ch)
         break
       }
       case 'skill':

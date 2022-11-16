@@ -83,7 +83,7 @@ class ConditionListInterface {
     if (item?.conditions === list.read()) {
       const element = item.element
       const list = element?.parentNode
-      if (list instanceof NodeList) {
+      if (list instanceof TreeList) {
         list.updateConditionIcon(item)
       }
     }
@@ -242,7 +242,7 @@ class ConditionListInterface {
         case 'number':
         case 'string':
           // 设置全局变量类型过滤器
-          $('#condition-key').setAttribute('filter', type)
+          $('#condition-key').filter = type
           break
       }
     })

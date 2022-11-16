@@ -26,6 +26,7 @@ const Window = {
   open: null,
   close: null,
   closeAll: null,
+  isWindowOpen: null,
   setPositionMode: null,
   saveActiveElement: null,
   restoreActiveElement: null,
@@ -137,6 +138,14 @@ Window.closeAll = function () {
     this.close(frame.id)
     frame.closeEventEnabled = enabled
   }
+}
+
+// 判断窗口是否已打开
+Window.isWindowOpen = function (id) {
+  for (const frame of this.frames) {
+    if (frame.id === id) return true
+  }
+  return false
 }
 
 // 设置位置模式

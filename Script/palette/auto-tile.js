@@ -103,7 +103,7 @@ const AutoTile = {
 
 // list methods
 AutoTile.templateList.updateNodeElement = Easing.list.updateNodeElement
-AutoTile.templateList.updateItemName = Easing.list.updateItemName
+AutoTile.templateList.updateItemName = Team.list.updateItemName
 AutoTile.templateList.addElementClass = Easing.list.addElementClass
 AutoTile.templateList.updateTextNode = Easing.list.updateTextNode
 
@@ -1008,7 +1008,7 @@ AutoTile.confirm = function (event) {
     this.changed = false
     // 删除数据绑定的元素对象
     const templates = this.templates
-    NodeList.deleteCaches(templates)
+    TreeList.deleteCaches(templates)
     Data.autotiles = templates
     Data.createGUIDMap(templates)
     File.planToSave(Data.manifest.project.autotiles)

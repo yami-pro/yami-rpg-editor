@@ -19,8 +19,8 @@ class NumberVar extends HTMLElement {
     this.mode = null
     this.numBox = new NumberBox(this)
     this.varBox = new CustomBox()
-    this.varBox.setAttribute('type', 'variable')
-    this.varBox.setAttribute('filter', 'number')
+    this.varBox.type = 'variable'
+    this.varBox.filter = 'number'
 
     // 侦听事件
     this.on('keydown', this.keydown)

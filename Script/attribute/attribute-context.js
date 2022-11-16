@@ -100,9 +100,9 @@ class AttributeContext {
       const items = []
       const group = this.groupMap[groupKey]
       if (group) {
-        const attrTypes = [attrType]
-        if (attrType === 'string') {
-          attrTypes.push('enum')
+        const attrTypes = attrType.split('|')
+        if (attrTypes.includes('string')) {
+          attrTypes.append('enum')
         }
         const itemCache = this.itemCache
         for (const attr of group.itemList) {

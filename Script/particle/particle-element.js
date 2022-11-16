@@ -255,8 +255,9 @@ class ParticleElement {
   // 设置初始位置 - 点
   setStartPositionPoint() {
     const {emitter} = this
-    this.x = emitter.startX
-    this.y = emitter.startY
+    const {area} = this.data
+    this.x = emitter.startX + area.x
+    this.y = emitter.startY + area.y
     this.transformStartPosition()
   }
 
@@ -264,8 +265,8 @@ class ParticleElement {
   setStartPositionRectangle() {
     const {emitter} = this
     const {area} = this.data
-    const x = emitter.startX
-    const y = emitter.startY
+    const x = emitter.startX + area.x
+    const y = emitter.startY + area.y
     const wh = area.width / 2
     const hh = area.height / 2
     this.x = Math.randomBetween(x - wh, x + wh)
@@ -277,10 +278,12 @@ class ParticleElement {
   setStartPositionCircle() {
     const {emitter} = this
     const {area} = this.data
+    const x = emitter.startX + area.x
+    const y = emitter.startY + area.y
     const angle = Math.random() * Math.PI * 2
     const distance = Math.random() * area.radius
-    this.x = emitter.startX + distance * Math.cos(angle)
-    this.y = emitter.startY + distance * Math.sin(angle)
+    this.x = x + distance * Math.cos(angle)
+    this.y = y + distance * Math.sin(angle)
     this.transformStartPosition()
   }
 

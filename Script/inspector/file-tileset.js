@@ -57,7 +57,6 @@ FileTileset.create = function (type) {
     case 'auto':
       return {
         type: 'auto',
-        tiles: [0],
         width: 1,
         height: 1,
         tileWidth: 32,
@@ -65,6 +64,7 @@ FileTileset.create = function (type) {
         globalOffsetX: 0,
         globalOffsetY: 0,
         globalPriority: 0,
+        tiles: [0],
         priorities: [0],
       }
   }

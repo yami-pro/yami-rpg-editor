@@ -58,9 +58,17 @@ class CustomBox extends HTMLElement {
     return this.getAttribute('type')
   }
 
+  set type(value) {
+    this.setAttribute('type', value)
+  }
+
   // 获取过滤属性
   get filter() {
     return this.getAttribute('filter')
+  }
+
+  set filter(value) {
+    this.setAttribute('filter', value)
   }
 
   // 读取数据

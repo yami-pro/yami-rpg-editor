@@ -984,10 +984,10 @@ Particle.drawElementAnchors = function () {
 
 // 计算发射器外部矩形
 Particle.computeOuterRect = function () {
-  let L = 0
-  let T = 0
-  let R = 0
-  let B = 0
+  let L = Infinity
+  let T = Infinity
+  let R = -Infinity
+  let B = -Infinity
   const emitter = this.emitter
   const sx = emitter.startX
   const sy = emitter.startY
@@ -995,25 +995,41 @@ Particle.computeOuterRect = function () {
     switch (area.type) {
       case 'edge':
         continue
-    }
-    if (L === 0) {
-      L = T = -16
-      R = B = 16
-    }
-    switch (area.type) {
+      case 'point':
+        L = Math.min(L, area.x)
+        T = Math.min(T, area.y)
+        R = Math.max(R, area.x)
+        B = Math.max(B, area.y)
+        break
       case 'rectangle':
-        L = Math.min(L, area.width * -0.5)
-        T = Math.min(T, area.height * -0.5)
-        R = Math.max(R, area.width * +0.5)
-        B = Math.max(B, area.height * +0.5)
+        L = Math.min(L, area.x - area.width * 0.5)
+        T = Math.min(T, area.y - area.height * 0.5)
+        R = Math.max(R, area.x + area.width * 0.5)
+        B = Math.max(B, area.y + area.height * 0.5)
         continue
       case 'circle':
-        L = Math.min(L, -area.radius)
-        T = Math.min(T, -area.radius)
-        R = Math.max(R, +area.radius)
-        B = Math.max(B, +area.radius)
+        L = Math.min(L, area.x - area.radius)
+        T = Math.min(T, area.y - area.radius)
+        R = Math.max(R, area.x + area.radius)
+        B = Math.max(B, area.y + area.radius)
         continue
     }
+  }
+  // 最小外部矩形宽度32
+  if (L > R) {
+    L = R = 0
+  } else if (R - L < 32) {
+    const padding = 32 - (R - L)
+    L += -padding >> 1
+    R += +padding >> 1
+  }
+  // 最小外部矩形高度32
+  if (T > B) {
+    T = B = 0
+  } else if (B - T < 32) {
+    const padding = 32 - (B - T)
+    T += -padding >> 1
+    B += +padding >> 1
   }
   emitter.outerLeft = sx + L
   emitter.outerTop = sy + T
@@ -1723,6 +1739,7 @@ Particle.list.createVisibilityIcon = function (item) {
 // 列表 - 在创建数据时回调
 Particle.list.onCreate = function () {
   Particle.emitter.updateLayers()
+  Particle.computeOuterRect()
   Particle.requestRendering()
 }
 
@@ -1736,12 +1753,14 @@ Particle.list.onRemove = function () {
 Particle.list.onDelete = function () {
   Particle.updateTarget()
   Particle.emitter.updateLayers()
+  Particle.computeOuterRect()
   Particle.requestRendering()
 }
 
 // 列表 - 在恢复数据时回调
 Particle.list.onResume = function () {
   Particle.emitter.updateLayers()
+  Particle.computeOuterRect()
   Particle.requestRendering()
 }
 

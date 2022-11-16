@@ -39,7 +39,7 @@ class AnimationPlayer {
     this.loopStart = 0
     this.anchorX = 0
     this.anchorY = 0
-    this.mirror = 'none'
+    this.mirror = false
     this.data = animation
     this.dirMap = Array.empty
     this.dirCases = null
@@ -135,19 +135,10 @@ class AnimationPlayer {
   setPosition(x, y) {
     const matrix = AnimationPlayer
     .matrix.set6f(1, 0, 0, 1, x, y)
-    switch (this.mirror) {
-      case 'none':
-        break
-      case 'horizontal':
-        matrix.mirrorh()
-        break
-      case 'vertical':
-        matrix.mirrorv()
-        break
-      case 'both':
-        matrix.mirrorh()
-        matrix.mirrorv()
-        break
+
+    // 设置镜像
+    if (this.mirror) {
+      matrix.mirrorh()
     }
   }
 
@@ -512,47 +503,47 @@ class AnimationPlayer {
   // 各种模式的动画方向映射表
   static dirMaps = {
     '1-dir': [
-      {index: 0, mirror: 'none'},
+      {index: 0, mirror: false},
     ],
     '1-dir-mirror': [
-      {index: 0, mirror: 'none'},
-      {index: 0, mirror: 'horizontal'},
+      {index: 0, mirror: false},
+      {index: 0, mirror: true},
     ],
     '2-dir': [
-      {index: 1, mirror: 'none'},
-      {index: 0, mirror: 'none'},
+      {index: 1, mirror: false},
+      {index: 0, mirror: false},
     ],
     '3-dir-mirror': [
-      {index: 1, mirror: 'none'},
-      {index: 0, mirror: 'none'},
-      {index: 1, mirror: 'horizontal'},
-      {index: 2, mirror: 'none'},
+      {index: 1, mirror: false},
+      {index: 0, mirror: false},
+      {index: 1, mirror: true},
+      {index: 2, mirror: false},
     ],
     '4-dir': [
-      {index: 2, mirror: 'none'},
-      {index: 0, mirror: 'none'},
-      {index: 1, mirror: 'none'},
-      {index: 3, mirror: 'none'},
+      {index: 2, mirror: false},
+      {index: 0, mirror: false},
+      {index: 1, mirror: false},
+      {index: 3, mirror: false},
     ],
     '5-dir-mirror': [
-      {index: 1, mirror: 'none'},
-      {index: 3, mirror: 'none'},
-      {index: 0, mirror: 'none'},
-      {index: 3, mirror: 'horizontal'},
-      {index: 1, mirror: 'horizontal'},
-      {index: 4, mirror: 'horizontal'},
-      {index: 2, mirror: 'none'},
-      {index: 4, mirror: 'none'},
+      {index: 1, mirror: false},
+      {index: 3, mirror: false},
+      {index: 0, mirror: false},
+      {index: 3, mirror: true},
+      {index: 1, mirror: true},
+      {index: 4, mirror: true},
+      {index: 2, mirror: false},
+      {index: 4, mirror: false},
     ],
     '8-dir': [
-      {index: 2, mirror: 'none'},
-      {index: 5, mirror: 'none'},
-      {index: 0, mirror: 'none'},
-      {index: 4, mirror: 'none'},
-      {index: 1, mirror: 'none'},
-      {index: 6, mirror: 'none'},
-      {index: 3, mirror: 'none'},
-      {index: 7, mirror: 'none'},
+      {index: 2, mirror: false},
+      {index: 5, mirror: false},
+      {index: 0, mirror: false},
+      {index: 4, mirror: false},
+      {index: 1, mirror: false},
+      {index: 6, mirror: false},
+      {index: 3, mirror: false},
+      {index: 7, mirror: false},
     ],
   }
 
@@ -704,6 +695,7 @@ class AnimationPlayer {
     }
     emitter.scale = scale
     emitter.speed = speed
+    emitter.opacity = this.opacity
   }
 }
 

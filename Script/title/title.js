@@ -326,7 +326,8 @@ Title.dispatchThemechangeEvent = function IIFE() {
 // 播放游戏
 Title.playGame = async function () {
   const element = $('#title-play')
-  if (!element.hasClass('selected')) {
+  if (Editor.state === 'open' &&
+    !element.hasClass('selected')) {
     element.addClass('selected')
 
     // 暂时失去输入框焦点来触发改变事件

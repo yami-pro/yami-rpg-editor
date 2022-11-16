@@ -61,10 +61,6 @@ class EventListInterface {
       const eventClass = Command.invalid ? 'invalid' : ''
       return {content: eventType, class: eventClass}
     }
-    // 暂时
-    if (type === 'common') {
-      return {content: 'Common', class: 'invalid'}
-    }
     return Local.get('eventTypes.' + type)
   }
 
@@ -91,7 +87,7 @@ class EventListInterface {
     if (item?.events === list.read()) {
       const element = item.element
       const list = element?.parentNode
-      if (list instanceof NodeList) {
+      if (list instanceof TreeList) {
         list.updateEventIcon(item)
       }
     }

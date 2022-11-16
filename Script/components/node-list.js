@@ -7,9 +7,9 @@ import {
   Timer
 } from '../yami.js'
 
-// ******************************** 节点列表 ********************************
+// ******************************** 树状列表 ********************************
 
-class NodeList extends HTMLElement {
+class TreeList extends HTMLElement {
   display               //:string
   keyword               //:string
   searchResults         //:array
@@ -117,7 +117,7 @@ class NodeList extends HTMLElement {
   initialize() {
     const {data} = this
     if (!data.initialized) {
-      NodeList.createParents(this.data, this.root)
+      TreeList.createParents(this.data, this.root)
       Object.defineProperty(data, 'initialized', {
         configurable: true,
         value: true,
@@ -503,7 +503,7 @@ class NodeList extends HTMLElement {
 
       // 创建父对象引用属性
       if (sItem.parent === undefined) {
-        NodeList.createParents([sItem], null)
+        TreeList.createParents([sItem], null)
       }
 
       // 展开所在目录
@@ -813,7 +813,7 @@ class NodeList extends HTMLElement {
     }
     if (selections.length !== 0) {
       // 提高blur事件的触发优先级
-      NodeList.textBox.input.blur()
+      TreeList.textBox.input.blur()
       for (const item of selections) {
         const {element} = item
         if (element !== undefined) {
@@ -1011,7 +1011,7 @@ class NodeList extends HTMLElement {
   rename(item) {
     if (this.renamable) {
       const {element} = item
-      const {textBox} = NodeList
+      const {textBox} = TreeList
       if (document.activeElement === this &&
         !textBox.parentNode &&
         element.parentNode) {
@@ -1050,7 +1050,7 @@ class NodeList extends HTMLElement {
 
   // 插入填充元素并且清除其他元素
   insertPaddingAndClear() {
-    const padding = NodeList.padding
+    const padding = TreeList.padding
     let count = this.elements.count
     if (this.padded) count++
     if (padding.count !== count) {
@@ -1281,7 +1281,7 @@ class NodeList extends HTMLElement {
       !this.dragging &&
       this.display === 'normal' &&
       this.read() !== null &&
-      !NodeList.textBox.parentNode && (
+      !TreeList.textBox.parentNode && (
         this.lockDirectory === false ||
         this.read().class !== 'folder'
       )) {
@@ -1585,8 +1585,8 @@ class NodeList extends HTMLElement {
   }()
 }
 
-customElements.define('node-list', NodeList)
+customElements.define('node-list', TreeList)
 
-// ******************************** 节点列表导出 ********************************
+// ******************************** 树状列表导出 ********************************
 
-export { NodeList }
+export { TreeList }

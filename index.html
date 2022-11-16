@@ -5,7 +5,33 @@
 <meta charset="utf-8" content="text/html"/>
 <meta name="viewport" content="width=device-width"/>
 <link rel="stylesheet" href="index.css"/>
-<script type="module" src="index.js"></script>
+<script src="Script/util.js" defer></script>
+<script src="Script/file.js" defer></script>
+<script src="Script/components.js" defer></script>
+<script src="Script/codec.js" defer></script>
+<script src="Script/webgl.js" defer></script>
+<script src="Script/audio.js" defer></script>
+<script src="Script/printer.js" defer></script>
+<script src="Script/data.js" defer></script>
+<script src="Script/plugin.js" defer></script>
+<script src="Script/variable.js" defer></script>
+<script src="Script/attribute.js" defer></script>
+<script src="Script/enum.js" defer></script>
+<script src="Script/tools.js" defer></script>
+<script src="Script/title.js" defer></script>
+<script src="Script/layout.js" defer></script>
+<script src="Script/scene.js" defer></script>
+<script src="Script/ui.js" defer></script>
+<script src="Script/animation.js" defer></script>
+<script src="Script/particle.js" defer></script>
+<script src="Script/palette.js" defer></script>
+<script src="Script/sprite.js" defer></script>
+<script src="Script/browser.js" defer></script>
+<script src="Script/inspector.js" defer></script>
+<script src="Script/command.js" defer></script>
+<script src="Script/log.js" defer></script>
+<script src="Script/main.js" defer></script>
+<!-- <script src="Script/yami.min.js" defer></script> -->
 </head>
 <body>
 
@@ -379,6 +405,7 @@
             <detail-summary>General</detail-summary>
             <detail-grid id="fileActor-general-grid">
               <text>Portrait</text><custom-box id="fileActor-portrait" type="file" filter="image"></custom-box>
+              <text>Clip</text><custom-box id="fileActor-clip" type="clip" image="fileActor-portrait"></custom-box>
               <text>Animation</text><custom-box id="fileActor-animationId" type="file" filter="animation"></custom-box>
               <text>Idle Motion</text><select-box id="fileActor-idleMotion"></select-box>
               <text>Move Motion</text><select-box id="fileActor-moveMotion"></select-box>
@@ -832,9 +859,9 @@
               <text>Name</text><text-box id="sceneAnimation-name"></text-box>
               <text>Animation</text><custom-box id="sceneAnimation-animationId" type="file" filter="animation"></custom-box>
               <text>Motion</text><select-box id="sceneAnimation-motion"></select-box>
-              <text>Mirror</text><select-box id="sceneAnimation-mirror"></select-box>
               <text>X</text><number-box id="sceneAnimation-x" min="-128" max="640" step="0.1" decimals="4" unit="tile"></number-box>
               <text>Y</text><number-box id="sceneAnimation-y" min="-128" max="640" step="0.1" decimals="4" unit="tile"></number-box>
+              <text>Angle</text><number-box id="sceneAnimation-angle" min="-360" max="360" step="45" decimals="4" unit="deg"></number-box>
             </detail-grid>
           </detail-box>
           <detail-box open>
@@ -1438,6 +1465,8 @@
             <detail-grid id="particleLayer-general-grid">
               <text>Name</text><text-box id="particleLayer-name"></text-box>
               <text>Emission Area</text><select-box id="particleLayer-area-type"></select-box>
+              <text>X</text><number-box id="particleLayer-area-x" min="-10000" max="10000" unit="px"></number-box>
+              <text>Y</text><number-box id="particleLayer-area-y" min="-10000" max="10000" unit="px"></number-box>
               <text>Width</text><number-box id="particleLayer-area-width" min="0" max="10000" unit="px"></number-box>
               <text>Height</text><number-box id="particleLayer-area-height" min="0" max="10000" unit="px"></number-box>
               <text>Radius</text><number-box id="particleLayer-area-radius" min="0" max="10000" unit="px"></number-box>
@@ -1833,8 +1862,9 @@
         <text class="project-label">Expansion Bottom</text><number-box id="config-lightArea-expansionBottom" min="0" max="400" unit="px"></number-box>
         <text id="config-collision-summary" class="project-summary">Collision System</text>
         <text class="project-label">Actor Collision</text><select-box id="config-collision-actor-enabled"></select-box>
+        <text class="project-label">Ignore Team Member</text><select-box id="config-collision-actor-ignoreTeamMember"></select-box>
         <text class="project-label">Scene Collision</text><select-box id="config-collision-scene-enabled"></select-box>
-        <text class="project-label">Scene Collision Size</text><number-box id="config-collision-scene-size" min="0.5" max="1" step="0.1" decimals="4"></number-box>
+        <text class="project-label">Scene Collision Size</text><number-box id="config-collision-scene-actorSize" min="0.5" max="1" step="0.1" decimals="4"></number-box>
         <text id="config-font-summary" class="project-summary">Font</text>
         <text class="project-label">Imports</text><param-list id="config-font-imports" flexible></param-list>
         <text class="project-label">Default</text><text-box id="config-font-default"></text-box>
@@ -1853,7 +1883,7 @@
         <text class="project-label">Party Member 2</text><custom-box id="config-actor-partyMembers-1" type="file" filter="actor"></custom-box>
         <text class="project-label">Party Member 3</text><custom-box id="config-actor-partyMembers-2" type="file" filter="actor"></custom-box>
         <text class="project-label">Party Member 4</text><custom-box id="config-actor-partyMembers-3" type="file" filter="actor"></custom-box>
-        <text class="project-label">Party Inventory Mode</text><select-box id="config-actor-partyInventoryMode"></select-box>
+        <text class="project-label">Party Inventory Mode</text><select-box id="config-actor-partyInventory"></select-box>
         <text class="project-label">Temporary Attributes</text><param-list id="config-actor-tempAttributes" group="actor" flexible></param-list>
         <text id="config-animation-summary" class="project-summary">Animation</text>
         <text class="project-label">Frame Rate</text><number-box id="config-animation-frameRate" min="1" max="240" unit="fps"></number-box>
@@ -2091,6 +2121,7 @@
           <radio-box id="attribute-type-number" name="attribute-type" class="standard" value="number"><text id="attribute-type-number-label">Number</text></radio-box>
           <radio-box id="attribute-type-string" name="attribute-type" class="standard" value="string"><text id="attribute-type-string-label">String</text></radio-box>
           <radio-box id="attribute-type-enum" name="attribute-type" class="standard" value="enum"><text id="attribute-type-enum-label">String(Enum)</text></radio-box>
+          <radio-box id="attribute-type-object" name="attribute-type" class="standard" value="object"><text id="attribute-type-object-label">Object(For Element)</text></radio-box>
         </flex-item>
         <flex-item id="attribute-enum-box"><text>Options</text>
           <custom-box id="attribute-enum" type="enum-group"></custom-box>
@@ -2466,6 +2497,20 @@
   </content-frame>
 </window-frame>
 
+<!-- 对象变量访问器窗口 -->
+<window-frame id='objectGetter'>
+  <title-bar>Variable<close></close></title-bar>
+  <content-frame>
+    <grid-box>
+      <text>Type</text><select-box id='objectGetter-type'></select-box>
+      <text>Key</text><text-box id='objectGetter-common-key'></text-box>
+      <text>Key</text><custom-box id='objectGetter-global-key' type='global-variable' filter='object'></custom-box>
+    </grid-box>
+    <button id='objectGetter-confirm' name='confirm'>Confirm</button>
+    <button id='objectGetter-cancel' name='cancel'>Cancel</button>
+  </content-frame>
+</window-frame>
+
 <!-- 角色访问器窗口 -->
 <window-frame id="actorGetter">
   <title-bar>Actor<close></close></title-bar>
@@ -2738,6 +2783,7 @@
       <text>Actor</text><custom-box id="setNumber-operand-common-actor" type="actor"></custom-box>
       <text>Skill</text><custom-box id="setNumber-operand-common-skill" type="skill"></custom-box>
       <text>State</text><custom-box id="setNumber-operand-common-state" type="state"></custom-box>
+      <text>Equipment</text><custom-box id="setNumber-operand-common-equipment" type="equipment"></custom-box>
       <text>Item</text><custom-box id="setNumber-operand-common-item" type="item"></custom-box>
       <text>Trigger</text><custom-box id="setNumber-operand-common-trigger" type="trigger"></custom-box>
       <text>Item</text><custom-box id="setNumber-operand-object-itemId" type="file" filter="item"></custom-box>
@@ -2748,7 +2794,7 @@
       <text>Max</text><number-var id="setNumber-operand-math-max" min="-1000000000" max="1000000000"></number-var>
       <text>Start Position</text><custom-box id="setNumber-operand-math-startPosition" type="position"></custom-box>
       <text>End Position</text><custom-box id="setNumber-operand-math-endPosition" type="position"></custom-box>
-      <text>Cooldown Key</text><string-var id="setNumber-operand-cooldown-key"></string-var>
+      <text>Cooldown Key</text><select-var id="setNumber-operand-cooldown-key"></select-var>
       <text>Index</text><number-var id="setNumber-operand-list-index" min="0" max="1000000000"></number-var>
       <text>Param Name</text><string-var id="setNumber-operand-parameter-key"></string-var>
       <text>Data</text><select-box id="setNumber-operand-other-data"></select-box>
@@ -3859,6 +3905,7 @@
       <text>Actor</text><custom-box id="changeActorEquipment-actor" type="actor"></custom-box>
       <text>Operation</text><select-box id="changeActorEquipment-operation"></select-box>
       <text>Shortcut Key</text><select-box id="changeActorEquipment-slot"></select-box>
+      <text>Equipment</text><custom-box id="changeActorEquipment-equipmentId" type="file" filter="equipment"></custom-box>
       <text>Equipment</text><custom-box id="changeActorEquipment-equipment" type="equipment"></custom-box>
     </grid-box>
     <button id="changeActorEquipment-confirm" name="confirm">Confirm</button>
@@ -4025,8 +4072,8 @@
   <content-frame>
     <grid-box>
       <text>Actor</text><custom-box id="discardTargets-actor" type="actor"></custom-box>
-      <text>Distance</text><number-box id="discardTargets-distance" min="0" max="512" decimals="4" unit="tile"></number-box>
       <text>Selector</text><select-box id="discardTargets-selector"></select-box>
+      <text>Distance</text><number-box id="discardTargets-distance" min="0" max="512" decimals="4" unit="tile"></number-box>
     </grid-box>
     <button id="discardTargets-confirm" name="confirm">Confirm</button>
     <button id="discardTargets-cancel" name="cancel">Cancel</button>
@@ -4191,9 +4238,9 @@
     <grid-box>
       <text>Actor</text><custom-box id="setShortcut-actor" type="actor"></custom-box>
       <text>Operation</text><select-box id="setShortcut-operation"></select-box>
+      <text>Shortcut Key</text><select-box id="setShortcut-key"></select-box>
       <text>Item</text><custom-box id="setShortcut-itemId" type="file" filter="item"></custom-box>
       <text>Skill</text><custom-box id="setShortcut-skillId" type="file" filter="skill"></custom-box>
-      <text>Shortcut Key</text><select-box id="setShortcut-key"></select-box>
     </grid-box>
     <button id="setShortcut-confirm" name="confirm">Confirm</button>
     <button id="setShortcut-cancel" name="cancel">Cancel</button>

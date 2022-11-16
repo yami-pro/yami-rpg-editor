@@ -53,6 +53,8 @@ EventEditor.initialize = function () {
     hittrigger: {name: 'HitTrigger', value: 'hittrigger'},
     hitactor: {name: 'HitActor', value: 'hitactor'},
     destroy: {name: 'Destroy', value: 'destroy'},
+    playerenter: {name: 'PlayerEnter', value: 'playerenter'},
+    playerleave: {name: 'PlayerLeave', value: 'playerleave'},
     actorenter: {name: 'ActorEnter', value: 'actorenter'},
     actorleave: {name: 'ActorLeave', value: 'actorleave'},
     skillcast: {name: 'SkillCast', value: 'skillcast'},
@@ -125,6 +127,8 @@ EventEditor.initialize = function () {
     ],
     region: [
       types.autorun,
+      types.playerenter,
+      types.playerleave,
       types.actorenter,
       types.actorleave,
     ],

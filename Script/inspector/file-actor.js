@@ -64,8 +64,9 @@ FileActor.initialize = function () {
 
   // 侦听事件
   $('#fileActor-animationId').on('write', this.animationIdWrite)
-  $(`#fileActor-portrait, #fileActor-animationId, #fileActor-idleMotion, #fileActor-moveMotion,
-    #fileActor-speed, #fileActor-size, #fileActor-weight`).on('input', this.paramInput)
+  $(`#fileActor-portrait, #fileActor-clip, #fileActor-animationId,
+    #fileActor-idleMotion, #fileActor-moveMotion, #fileActor-speed,
+    #fileActor-size, #fileActor-weight`).on('input', this.paramInput)
   $(`#fileActor-sprites, #fileActor-attributes, #fileActor-skills, #fileActor-equipments,
     #fileActor-events, #fileActor-scripts
   `).on('change', this.listChange)
@@ -75,6 +76,7 @@ FileActor.initialize = function () {
 FileActor.create = function () {
   return {
     portrait: '',
+    clip: [0, 0, 64, 64],
     animationId: '',
     idleMotion: '',
     moveMotion: '',
@@ -99,6 +101,7 @@ FileActor.open = function (actor, meta) {
     // 写入数据
     const write = getElementWriter('fileActor', actor)
     write('portrait')
+    write('clip')
     write('animationId')
     write('idleMotion')
     write('moveMotion')
@@ -135,8 +138,9 @@ FileActor.update = function (actor, key, value) {
   File.planToSave(this.meta)
   switch (key) {
     case 'portrait':
-      if (actor.portrait !== value) {
-        actor.portrait = value
+    case 'clip':
+      if (actor[key] !== value) {
+        actor[key] = value
         Browser.body.updateIcon(this.meta.file)
       }
       break

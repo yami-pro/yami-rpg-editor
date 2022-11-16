@@ -188,7 +188,7 @@
   --selected-background-blur: rgba(0, 0, 0, 0.1);
   --selection-background: rgba(32, 128, 192, 0.996);
   --drop-target-background: rgba(32, 128, 192, 0.4);
-  --grid-background: url(images/grid_light.png);
+  --grid-background: url(Images/grid_light.png);
   --node-icon-color: rgba(0, 0, 0, 0.2);
   --node-icon-color-highlight: rgba(0, 0, 0, 0.8);
   --node-icon-border: 1px solid var(--text-color);
@@ -199,9 +199,9 @@
   --menu-separator-background: #e0e0e0;
   --list-item-background-hover: rgba(0, 0, 0, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(255, 255, 255, 0.75);
-  --timeline-ruler-background: url(images/timeline_scale_light.png);
+  --timeline-ruler-background: url(Images/timeline_scale_light.png);
   --timeline-frame-list-background: #d8d8d8;
-  --timeline-grid: url(images/timeline_grid_light.png);
+  --timeline-grid: url(Images/timeline_grid_light.png);
   --timeline-grid-border: 1px solid #c0c0c0;
   --timeline-key-background: rgba(0, 0, 0, 0.2);
   --timeline-key-mark-color: #202020;
@@ -297,7 +297,7 @@
   --summary-border-light: 1px solid #282828;
   --window-background: #303030;
   --window-outline: var(--1dpx) solid rgba(0, 0, 0, 0.5);
-  --title-background: #282828;
+  --title-background: #202020;
   --tab-item-background: #202020;
   --tab-item-background-hover: #323232;
   --tab-item-background-selected: #323232;
@@ -346,7 +346,7 @@
   --selected-background-blur: rgba(255, 255, 255, 0.1);
   --selection-background: rgba(8, 72, 114, 0.996);
   --drop-target-background: rgba(8, 72, 114, 0.4);
-  --grid-background: url(images/grid_dark.png);
+  --grid-background: url(Images/grid_dark.png);
   --node-icon-color: rgba(255, 255, 255, 0.1);
   --node-icon-color-highlight: rgba(255, 255, 255, 0.6);
   --node-icon-border: 1px solid var(--text-color);
@@ -357,9 +357,9 @@
   --menu-separator-background: #404040;
   --list-item-background-hover: rgba(255, 255, 255, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(0, 0, 0, 0.75);
-  --timeline-ruler-background: url(images/timeline_scale_dark.png);
+  --timeline-ruler-background: url(Images/timeline_scale_dark.png);
   --timeline-frame-list-background: #2c2c2c;
-  --timeline-grid: url(images/timeline_grid_dark.png);
+  --timeline-grid: url(Images/timeline_grid_dark.png);
   --timeline-grid-border: 1px solid #000000;
   --timeline-key-background: rgba(0, 0, 0, 0.5);
   --timeline-key-mark-color: #a0a0a0;
@@ -378,7 +378,7 @@
   --command-color-text: #b0c4de;
   --command-color-variable: #fa8072;
   --command-color-flow: #b0e0e6;
-  --command-color-comment: #32cd32;
+  --command-color-comment: #28a528;
   --command-color-wait: #ffa07a;
   --command-color-object: #deb887;
   --command-color-audio: #00fa9a;
@@ -445,19 +445,19 @@
 }
 
 ::-webkit-scrollbar-button:horizontal:start:decrement {
-  background-image: url(images/scrollbar_arrow_left.png);
+  background-image: url(Images/scrollbar_arrow_left.png);
 }
 
 ::-webkit-scrollbar-button:horizontal:end:increment {
-  background-image: url(images/scrollbar_arrow_right.png);
+  background-image: url(Images/scrollbar_arrow_right.png);
 }
 
 ::-webkit-scrollbar-button:vertical:start:decrement {
-  background-image: url(images/scrollbar_arrow_up.png);
+  background-image: url(Images/scrollbar_arrow_up.png);
 }
 
 ::-webkit-scrollbar-button:vertical:end:increment {
-  background-image: url(images/scrollbar_arrow_down.png);
+  background-image: url(Images/scrollbar_arrow_down.png);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -908,10 +908,10 @@ body.border > window-frame.maximized {
  */
 title-bar {
   display: block;
-  padding: 0 4px;
+  padding: 0 5px;
   width: 100%;
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   background-color: var(--titlebar-background);
 }
 
@@ -919,7 +919,7 @@ minimize {
   position: absolute;
   right: 88px;
   width: 44px;
-  height: 24px;
+  height: 28px;
 }
 
 minimize::after {
@@ -928,7 +928,7 @@ minimize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/title_buttons.png);
+  -webkit-mask-image: url(Images/title_buttons.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
@@ -945,7 +945,7 @@ maximize {
   position: absolute;
   right: 44px;
   width: 44px;
-  height: 24px;
+  height: 28px;
 }
 
 maximize::after {
@@ -954,7 +954,7 @@ maximize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/title_buttons.png);
+  -webkit-mask-image: url(Images/title_buttons.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
@@ -971,7 +971,7 @@ close {
   position: absolute;
   right: 0;
   width: 44px;
-  height: 24px;
+  height: 28px;
 }
 
 close::after {
@@ -980,7 +980,7 @@ close::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/title_buttons.png);
+  -webkit-mask-image: url(Images/title_buttons.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
@@ -1009,7 +1009,7 @@ window-frame.maximized > title-bar > maximize::after {
 content-frame {
   display: block;
   position: absolute;
-  top: 24px;
+  top: 28px;
   bottom: 0;
   width: 100%;
 }
@@ -1914,7 +1914,7 @@ filter-box {
   flex-grow: 1;
   display: flex;
   width: 240px;
-  height: 24px;
+  height: 28px;
   overflow: hidden;
   visibility: hidden;
 }
@@ -1930,7 +1930,7 @@ tab-bar.dragging {
 tab-item {
   display: flex;
   width: 200px;
-  line-height: 24px;
+  line-height: 28px;
   font-family: var(--font-family-symbol), var(--font-family-title);
   justify-content: space-between;
   background-color: var(--tab-item-background);
@@ -2148,12 +2148,12 @@ node-icon {
 
 node-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_folded.png);
+  -webkit-mask-image: url(Images/folder_folded.png);
   -webkit-mask-size: 100%;
 }
 
 node-icon.icon-folder.expanded {
-  -webkit-mask-image: url(images/folder_expanded.png);
+  -webkit-mask-image: url(Images/folder_expanded.png);
   -webkit-mask-size: 100%;
 }
 
@@ -2166,7 +2166,7 @@ node-icon.icon-particle-image {
 
 .icon-file {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/file_common.png);
+  -webkit-mask-image: url(Images/file_common.png);
   -webkit-mask-size: 100%;
 }
 
@@ -2220,56 +2220,56 @@ node-icon.icon-particle-image {
 
 .icon-ui-image {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 0;
 }
 
 .icon-ui-text {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -100%;
 }
 
 .icon-ui-textbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -200%;
 }
 
 .icon-ui-dialogbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -300%;
 }
 
 .icon-ui-progressbar {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -400%;
 }
 
 .icon-ui-video {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -500%;
 }
 
 .icon-ui-window {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -600%;
 }
 
 .icon-ui-container {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -700%;
 }
@@ -2692,13 +2692,13 @@ file-nav-icon {
 
 file-nav-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_folded.png);
+  -webkit-mask-image: url(Images/folder_folded.png);
   -webkit-mask-size: 100%;
 }
 
 file-nav-icon.icon-folder.expanded {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_expanded.png);
+  -webkit-mask-image: url(Images/folder_expanded.png);
   -webkit-mask-size: 100%;
 }
 
@@ -2905,52 +2905,52 @@ file-body-icon {
 
 file-body-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_folded.png);
+  -webkit-mask-image: url(Images/folder_folded.png);
   -webkit-mask-size: 100%;
 }
 
 file-body-icon.icon-file-scene {
-  background-image: url(images/file_scene.png);
+  background-image: url(Images/file_scene.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-ui {
-  background-image: url(images/file_ui.png);
+  background-image: url(Images/file_ui.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-animation {
-  background-image: url(images/file_animation.png);
+  background-image: url(Images/file_animation.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-particle {
-  background-image: url(images/file_particle.png);
+  background-image: url(Images/file_particle.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-actor {
-  background-image: url(images/file_actor.png);
+  background-image: url(Images/file_actor.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-cube {
-  background-image: url(images/file_cube.png);
+  background-image: url(Images/file_cube.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-trigger {
-  background-image: url(images/file_trigger.png);
+  background-image: url(Images/file_trigger.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-tileset {
-  background-image: url(images/file_tileset.png);
+  background-image: url(Images/file_tileset.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-font {
-  background-image: url(images/file_font.png);
+  background-image: url(Images/file_font.png);
   opacity: 0.8;
 }
 
@@ -2959,7 +2959,7 @@ file-body-icon.icon-file-event {
   font-weight: bold;
   text-align: center;
   color: green;
-  background-image: url(images/file_other.png);
+  background-image: url(Images/file_other.png);
   opacity: 0.8;
 }
 
@@ -2989,7 +2989,7 @@ file-body-icon.icon-file-other {
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
-  background-image: url(images/file_other.png);
+  background-image: url(Images/file_other.png);
 }
 
 /* 当字号与行高是某些相等的值
@@ -3231,7 +3231,7 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
   display: flex;
   position: absolute;
   width: 100%;
-  height: 24px;
+  height: 28px;
   justify-content: flex-end;
   background-color: var(--title-background);
   overflow: hidden;
@@ -3240,8 +3240,8 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
 #menu {
   flex: 0 1 320px;
   display: flex;
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   overflow: hidden;
   visibility: hidden;
 }
@@ -3252,7 +3252,7 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
 
 .menu-item {
   padding: 0 10px;
-  height: 24px;
+  height: 28px;
   font-family: var(--font-family-title);
   overflow: hidden;
   white-space: nowrap;
@@ -3272,14 +3272,14 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
 #title-buttons {
   flex: 0 1 320px;
   display: flex;
-  height: 24px;
+  height: 28px;
   justify-content: flex-end;
 }
 
 #title-play {
   width: 44px;
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   text-align: center;
   /* font-size: 10px; */
   font-family: var(--font-family-symbol);
@@ -3317,7 +3317,7 @@ body.maximized > #title > #title-buttons > #title-maximize::after {
 #workspace-page-manager {
   position: absolute;
   left: 0;
-  top: 24px;
+  top: 28px;
   right: 0;
   bottom: 0;
   overflow: hidden;
@@ -3651,25 +3651,25 @@ nav-item[value=particle].selected {
 }
 
 #scene-switch-grid::after {
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
 
 #scene-switch-light::after {
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
 
 #scene-switch-animation::after {
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
 
 #scene-switch-settings::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -3694,7 +3694,7 @@ nav-item[value=particle].selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/scene_tilemap.png);
+  -webkit-mask-image: url(Images/scene_tilemap.png);
   -webkit-mask-size: 100% 1300%;
 }
 
@@ -3838,7 +3838,7 @@ nav-item[value=particle].selected {
 }
 
 #ui-switch-settings::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -3857,7 +3857,7 @@ nav-item[value=particle].selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
 }
 
@@ -3963,25 +3963,25 @@ nav-item[value=particle].selected {
 }
 
 #animation-switch-mark::after {
-  -webkit-mask-image: url(images/animation_layer.png);
+  -webkit-mask-image: url(Images/animation_layer.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 #animation-switch-onionskin::after {
-  -webkit-mask-image: url(images/animation_buttons.png);
+  -webkit-mask-image: url(Images/animation_buttons.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 #animation-switch-mirror::after {
-  -webkit-mask-image: url(images/animation_buttons.png);
+  -webkit-mask-image: url(Images/animation_buttons.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
 
 #animation-switch-settings::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -4082,7 +4082,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/timeline_buttons.png);
+  -webkit-mask-image: url(Images/timeline_buttons.png);
   -webkit-mask-size: 100% 700%;
 }
 
@@ -4182,21 +4182,21 @@ anim-dir.selected {
 
 .anim-layer-joint {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/animation_layer.png);
+  -webkit-mask-image: url(Images/animation_layer.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 .anim-layer-sprite {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/animation_layer.png);
+  -webkit-mask-image: url(Images/animation_layer.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
 
 .anim-layer-particle {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
@@ -4408,7 +4408,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/curve_settings.png);
+  -webkit-mask-image: url(Images/curve_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -4457,7 +4457,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/particle_view.png);
+  -webkit-mask-image: url(Images/particle_view.png);
   -webkit-mask-size: 100% 200%;
 }
 
@@ -4497,7 +4497,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/particle_animation.png);
+  -webkit-mask-image: url(Images/particle_animation.png);
   -webkit-mask-size: 100% 200%;
 }
 
@@ -4558,7 +4558,7 @@ anim-dir.selected {
  */
 #scene-shift {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #scene-shift-confirm {
@@ -4589,7 +4589,7 @@ anim-dir.selected {
  */
 #object-folder {
   width: 324px;
-  height: 238px;
+  height: 242px;
 }
 
 #object-folder-confirm {
@@ -4652,7 +4652,7 @@ anim-dir.selected {
  */
 #object-attribute {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #object-attribute-string-value {
@@ -4675,7 +4675,7 @@ anim-dir.selected {
  */
 #condition {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #condition-string-value {
@@ -4698,7 +4698,7 @@ anim-dir.selected {
  */
 #fileAnimation-sprite {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #fileAnimation-sprite-confirm {
@@ -4717,7 +4717,7 @@ anim-dir.selected {
  */
 #fileActor-sprite {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fileActor-sprite-confirm {
@@ -4736,7 +4736,7 @@ anim-dir.selected {
  */
 #fileActor-skill {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fileActor-skill-confirm {
@@ -4755,7 +4755,7 @@ anim-dir.selected {
  */
 #fileActor-equipment {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fileActor-equipment-confirm {
@@ -5405,19 +5405,19 @@ anim-dir.selected {
 }
 
 #palette-scroll::after {
-  -webkit-mask-image: url(images/tileset_scroll.png);
+  -webkit-mask-image: url(Images/tileset_scroll.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-edit::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-flip::after {
-  -webkit-mask-image: url(images/animation_buttons.png);
+  -webkit-mask-image: url(Images/animation_buttons.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
@@ -5490,7 +5490,7 @@ anim-dir.selected {
  */
 #autoTile {
   width: 504px;
-  height: 516px;
+  height: 520px;
 }
 
 #autoTile-general-fieldset {
@@ -5557,7 +5557,7 @@ anim-dir.selected {
   height: 30px;
   background-clip: content-box;
   background-color: var(--input-background);
-  background-image: url(images/tile_ruleview.png);
+  background-image: url(Images/tile_ruleview.png);
   background-size: 100% 1100%;
   border: var(--input-border);
   border-radius: 50%;
@@ -5648,7 +5648,7 @@ anim-dir.selected {
  */
 #autoTile-generateFrames {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #autoTile-generateFrames-confirm {
@@ -5747,7 +5747,7 @@ anim-dir.selected {
  */
 #confirmation {
   width: 304px;
-  height: 94px;
+  height: 98px;
 }
 
 #confirmation-message {
@@ -5777,7 +5777,7 @@ anim-dir.selected {
  */
 #newProject {
   width: 448px;
-  height: 118px;
+  height: 122px;
 }
 
 #newProject-folder {
@@ -5818,7 +5818,7 @@ anim-dir.selected {
  */
 #deployment {
   width: 448px;
-  height: 142px;
+  height: 146px;
 }
 
 #deployment-folder {
@@ -5859,7 +5859,7 @@ anim-dir.selected {
  */
 #copyProgress {
   width: 380px;
-  height: 112px;
+  height: 116px;
 }
 
 #copyProgress-flex {
@@ -5889,7 +5889,7 @@ anim-dir.selected {
  */
 #color {
   width: 410px;
-  height: 302px;
+  height: 306px;
 }
 
 #color-palette-canvas {
@@ -6040,7 +6040,7 @@ anim-dir.selected {
  */
 #font {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #font-confirm {
@@ -6059,7 +6059,7 @@ anim-dir.selected {
  */
 #fontSize {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #fontSize-confirm {
@@ -6078,7 +6078,7 @@ anim-dir.selected {
  */
 #textPosition {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #textPosition-confirm {
@@ -6097,7 +6097,7 @@ anim-dir.selected {
  */
 #textEffect {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #textEffect-confirm {
@@ -6116,7 +6116,7 @@ anim-dir.selected {
  */
 #localVariable {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #localVariable-confirm {
@@ -6135,7 +6135,7 @@ anim-dir.selected {
  */
 #event {
   width: 1080px;
-  height: 696px;
+  height: 700px;
 }
 
 /* #event.maximized > #event-title {
@@ -6339,7 +6339,7 @@ anim-dir.selected {
  */
 #variableGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #variableGetter-confirm {
@@ -6353,12 +6353,31 @@ anim-dir.selected {
 }
 
 /* --------------------------------
+ * 对象变量访问器窗口
+ * --------------------------------
+ */
+ #objectGetter {
+  width: 324px;
+  height: 146px;
+}
+
+#objectGetter-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#objectGetter-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 角色访问器窗口
  * --------------------------------
  */
 #actorGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #actorGetter-confirm {
@@ -6377,7 +6396,7 @@ anim-dir.selected {
  */
 #skillGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #skillGetter-confirm {
@@ -6396,7 +6415,7 @@ anim-dir.selected {
  */
 #stateGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #stateGetter-confirm {
@@ -6415,7 +6434,7 @@ anim-dir.selected {
  */
 #equipmentGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #equipmentGetter-confirm {
@@ -6434,7 +6453,7 @@ anim-dir.selected {
  */
 #itemGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #itemGetter-confirm {
@@ -6453,7 +6472,7 @@ anim-dir.selected {
  */
 #positionGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #positionGetter-absolute-x,
@@ -6479,7 +6498,7 @@ anim-dir.selected {
  */
 #angleGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #angleGetter-confirm {
@@ -6498,7 +6517,7 @@ anim-dir.selected {
  */
 #triggerGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #triggerGetter-confirm {
@@ -6517,7 +6536,7 @@ anim-dir.selected {
  */
 #lightGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #lightGetter-confirm {
@@ -6536,7 +6555,7 @@ anim-dir.selected {
  */
 #elementGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #elementGetter-confirm {
@@ -6555,7 +6574,7 @@ anim-dir.selected {
  */
 #ancestorGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #ancestorGetter-confirm {
@@ -6574,7 +6593,7 @@ anim-dir.selected {
  */
 #showText {
   width: 720px;
-  height: 264px;
+  height: 268px;
 }
 
 #showText-target {
@@ -6617,7 +6636,7 @@ anim-dir.selected {
  */
  #showChoices {
   width: 400px;
-  height: 190px;
+  height: 194px;
 }
 
 #showChoices-confirm {
@@ -6636,7 +6655,7 @@ anim-dir.selected {
  */
 #setBoolean {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setBoolean-confirm {
@@ -6655,11 +6674,11 @@ anim-dir.selected {
  */
 #setNumber {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setNumber-operands {
-  height: 102px;
+  height: 106px;
 }
 
 #setNumber-confirm {
@@ -6697,7 +6716,7 @@ anim-dir.selected {
  */
 #setString {
   width: 324px;
-  height: 238px;
+  height: 242px;
 }
 
 #setString-operand-constant-value {
@@ -6720,7 +6739,7 @@ anim-dir.selected {
  */
 #setObject {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setObject-confirm {
@@ -6739,7 +6758,7 @@ anim-dir.selected {
  */
 #setList {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setList-string {
@@ -6762,7 +6781,7 @@ anim-dir.selected {
  */
 #deleteVariable {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteVariable-confirm {
@@ -6781,11 +6800,11 @@ anim-dir.selected {
  */
 #if {
   width: 324px;
-  height: 176px;
+  height: 180px;
 }
 
 #if-branches {
-  height: 102px;
+  height: 106px;
 }
 
 #if-else {
@@ -6833,7 +6852,7 @@ anim-dir.selected {
  */
 #if-condition {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #if-condition-string-constant-value {
@@ -6856,7 +6875,7 @@ anim-dir.selected {
  */
 #switch {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #switch-branches {
@@ -6885,7 +6904,7 @@ anim-dir.selected {
  */
 #switch-branch {
   width: 324px;
-  height: 176px;
+  height: 180px;
 }
 
 #switch-branch-conditions {
@@ -6908,7 +6927,7 @@ anim-dir.selected {
  */
 #switch-condition {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #switch-condition-string-value {
@@ -6931,7 +6950,7 @@ anim-dir.selected {
  */
 #loop {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #loop-conditions {
@@ -6954,7 +6973,7 @@ anim-dir.selected {
  */
 #forEach {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #forEach-confirm {
@@ -6973,7 +6992,7 @@ anim-dir.selected {
  */
 #callEvent {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #callEvent-confirm {
@@ -6992,7 +7011,7 @@ anim-dir.selected {
  */
 #setEvent {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setEvent-confirm {
@@ -7011,7 +7030,7 @@ anim-dir.selected {
  */
 #comment {
   width: 720px;
-  height: 234px;
+  height: 238px;
 }
 
 #comment-comment {
@@ -7039,7 +7058,7 @@ anim-dir.selected {
  */
 #label {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #label-confirm {
@@ -7058,7 +7077,7 @@ anim-dir.selected {
  */
 #jumpTo {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #jumpTo-confirm {
@@ -7077,7 +7096,7 @@ anim-dir.selected {
  */
 #wait {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #wait-confirm {
@@ -7096,7 +7115,7 @@ anim-dir.selected {
  */
 #createElement {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #createElement-confirm {
@@ -7115,7 +7134,7 @@ anim-dir.selected {
  */
 #setImage {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setImage-properties {
@@ -7138,7 +7157,7 @@ anim-dir.selected {
  */
 #setImage-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setImage-property-confirm {
@@ -7157,7 +7176,7 @@ anim-dir.selected {
  */
 #loadImage {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #loadImage-confirm {
@@ -7176,7 +7195,7 @@ anim-dir.selected {
  */
 #tintImage {
   width: 428px;
-  height: 286px;
+  height: 290px;
 }
 
 #tintImage-grid-box {
@@ -7207,7 +7226,7 @@ anim-dir.selected {
  */
 #setText {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setText-properties {
@@ -7230,7 +7249,7 @@ anim-dir.selected {
  */
 #setText-property {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setText-property-content {
@@ -7253,7 +7272,7 @@ anim-dir.selected {
  */
 #setTextBox {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setTextBox-properties {
@@ -7276,7 +7295,7 @@ anim-dir.selected {
  */
 #setTextBox-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setTextBox-property-confirm {
@@ -7295,7 +7314,7 @@ anim-dir.selected {
  */
 #setDialogBox {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setDialogBox-properties {
@@ -7318,7 +7337,7 @@ anim-dir.selected {
  */
 #setDialogBox-property {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setDialogBox-property-content {
@@ -7341,7 +7360,7 @@ anim-dir.selected {
  */
 #controlDialog {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #controlDialog-confirm {
@@ -7360,7 +7379,7 @@ anim-dir.selected {
  */
 #setProgressBar {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setProgressBar-properties {
@@ -7383,7 +7402,7 @@ anim-dir.selected {
  */
 #setProgressBar-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setProgressBar-property-confirm {
@@ -7402,7 +7421,7 @@ anim-dir.selected {
  */
 #waitForVideo {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #waitForVideo-confirm {
@@ -7421,7 +7440,7 @@ anim-dir.selected {
  */
 #setElement {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setElement-confirm {
@@ -7440,7 +7459,7 @@ anim-dir.selected {
  */
 #nestElement {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #nestElement-confirm {
@@ -7459,7 +7478,7 @@ anim-dir.selected {
  */
 #moveElement {
   width: 324px;
-  height: 272px;
+  height: 276px;
 }
 
 #moveElement-properties {
@@ -7482,7 +7501,7 @@ anim-dir.selected {
  */
 #moveElement-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #moveElement-property-confirm {
@@ -7501,7 +7520,7 @@ anim-dir.selected {
  */
 #deleteElement {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #deleteElement-confirm {
@@ -7520,7 +7539,7 @@ anim-dir.selected {
  */
 #createLight {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #createLight-confirm {
@@ -7539,7 +7558,7 @@ anim-dir.selected {
  */
 #moveLight {
   width: 324px;
-  height: 272px;
+  height: 276px;
 }
 
 #moveLight-properties {
@@ -7562,7 +7581,7 @@ anim-dir.selected {
  */
 #moveLight-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #moveLight-property-confirm {
@@ -7581,7 +7600,7 @@ anim-dir.selected {
  */
 #deleteLight {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteLight-confirm {
@@ -7600,7 +7619,7 @@ anim-dir.selected {
  */
 #setState {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setState-confirm {
@@ -7619,7 +7638,7 @@ anim-dir.selected {
  */
 #playAnimation {
   width: 324px;
-  height: 262px;
+  height: 266px;
 }
 
 #playAnimation-confirm {
@@ -7638,7 +7657,7 @@ anim-dir.selected {
  */
 #playAudio {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #playAudio-confirm {
@@ -7657,7 +7676,7 @@ anim-dir.selected {
  */
 #stopAudio {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #stopAudio-confirm {
@@ -7676,7 +7695,7 @@ anim-dir.selected {
  */
 #setVolume {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setVolume-confirm {
@@ -7695,7 +7714,7 @@ anim-dir.selected {
  */
 #setPan {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setPan-confirm {
@@ -7714,7 +7733,7 @@ anim-dir.selected {
  */
 #setReverb {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #setReverb-confirm {
@@ -7733,7 +7752,7 @@ anim-dir.selected {
  */
 #setLoop {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setLoop-confirm {
@@ -7752,7 +7771,7 @@ anim-dir.selected {
  */
 #saveAudio {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #saveAudio-confirm {
@@ -7771,7 +7790,7 @@ anim-dir.selected {
  */
 #restoreAudio {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #restoreAudio-confirm {
@@ -7790,7 +7809,7 @@ anim-dir.selected {
  */
 #createActor {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #createActor-confirm {
@@ -7809,7 +7828,7 @@ anim-dir.selected {
  */
 #moveActor {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #moveActor-confirm {
@@ -7828,7 +7847,7 @@ anim-dir.selected {
  */
 #followActor {
   width: 324px;
-  height: 286px;
+  height: 290px;
 }
 
 #followActor-confirm {
@@ -7847,7 +7866,7 @@ anim-dir.selected {
  */
 #translateActor {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #translateActor-confirm {
@@ -7866,7 +7885,7 @@ anim-dir.selected {
  */
 #changeThreat {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #changeThreat-confirm {
@@ -7885,7 +7904,7 @@ anim-dir.selected {
  */
 #setWeight {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setWeight-confirm {
@@ -7904,7 +7923,7 @@ anim-dir.selected {
  */
 #setMovementSpeed {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setMovementSpeed-confirm {
@@ -7923,7 +7942,7 @@ anim-dir.selected {
  */
 #setAngle {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setAngle-confirm {
@@ -7942,7 +7961,7 @@ anim-dir.selected {
  */
 #fixAngle {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fixAngle-confirm {
@@ -7961,7 +7980,7 @@ anim-dir.selected {
  */
 #setActive {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setActive-confirm {
@@ -7980,7 +7999,7 @@ anim-dir.selected {
  */
 #deleteActor {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteActor-confirm {
@@ -7999,7 +8018,7 @@ anim-dir.selected {
  */
 #setPlayerActor {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #setPlayerActor-confirm {
@@ -8018,7 +8037,7 @@ anim-dir.selected {
  */
  #setPartyMember {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setPartyMember-confirm {
@@ -8037,7 +8056,7 @@ anim-dir.selected {
  */
 #changeActorTeam {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #changeActorTeam-confirm {
@@ -8056,7 +8075,7 @@ anim-dir.selected {
  */
 #changeActorState {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #changeActorState-confirm {
@@ -8075,7 +8094,7 @@ anim-dir.selected {
  */
 #changeActorEquipment {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #changeActorEquipment-confirm {
@@ -8094,7 +8113,7 @@ anim-dir.selected {
  */
 #changeActorSkill {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #changeActorSkill-confirm {
@@ -8113,7 +8132,7 @@ anim-dir.selected {
  */
  #changeActorAnimation {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #changeActorAnimation-confirm {
@@ -8132,7 +8151,7 @@ anim-dir.selected {
  */
 #changeActorSprite {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #changeActorSprite-confirm {
@@ -8151,7 +8170,7 @@ anim-dir.selected {
  */
 #remapActorMotion {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #remapActorMotion-confirm {
@@ -8170,7 +8189,7 @@ anim-dir.selected {
  */
 #playActorAnimation {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #playActorAnimation-confirm {
@@ -8189,7 +8208,7 @@ anim-dir.selected {
  */
 #stopActorAnimation {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #stopActorAnimation-confirm {
@@ -8208,7 +8227,7 @@ anim-dir.selected {
  */
 #createGlobalActor {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #createGlobalActor-confirm {
@@ -8227,7 +8246,7 @@ anim-dir.selected {
  */
 #placeGlobalActor {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #placeGlobalActor-confirm {
@@ -8246,7 +8265,7 @@ anim-dir.selected {
  */
 #deleteGlobalActor {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteGlobalActor-confirm {
@@ -8265,7 +8284,7 @@ anim-dir.selected {
  */
 #getTarget {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #getTarget-confirm {
@@ -8284,7 +8303,7 @@ anim-dir.selected {
  */
 #detectTargets {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #detectTargets-confirm {
@@ -8303,7 +8322,7 @@ anim-dir.selected {
  */
 #discardTargets {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #discardTargets-confirm {
@@ -8322,7 +8341,7 @@ anim-dir.selected {
  */
 #resetTargets {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #resetTargets-confirm {
@@ -8341,7 +8360,7 @@ anim-dir.selected {
  */
 #castSkill {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #castSkill-confirm {
@@ -8360,7 +8379,7 @@ anim-dir.selected {
  */
 #setSkill {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setSkill-confirm {
@@ -8379,7 +8398,7 @@ anim-dir.selected {
  */
 #createTrigger {
   width: 346px;
-  height: 214px;
+  height: 218px;
 }
 
 #createTrigger-confirm {
@@ -8398,7 +8417,7 @@ anim-dir.selected {
  */
 #setTriggerSpeed {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setTriggerSpeed-confirm {
@@ -8417,7 +8436,7 @@ anim-dir.selected {
  */
 #setTriggerAngle {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setTriggerAngle-confirm {
@@ -8436,7 +8455,7 @@ anim-dir.selected {
  */
 #setInventory {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setInventory-confirm {
@@ -8455,7 +8474,7 @@ anim-dir.selected {
  */
 #useItem {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #useItem-confirm {
@@ -8474,7 +8493,7 @@ anim-dir.selected {
  */
 #setItem {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setItem-confirm {
@@ -8493,7 +8512,7 @@ anim-dir.selected {
  */
 #setCooldown {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setCooldown-confirm {
@@ -8512,7 +8531,7 @@ anim-dir.selected {
  */
 #setShortcut {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setShortcut-confirm {
@@ -8531,7 +8550,7 @@ anim-dir.selected {
  */
 #activateScene {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #activateScene-confirm {
@@ -8550,7 +8569,7 @@ anim-dir.selected {
  */
 #loadScene {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #loadScene-confirm {
@@ -8569,7 +8588,7 @@ anim-dir.selected {
  */
 #moveCamera {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #moveCamera-confirm {
@@ -8588,7 +8607,7 @@ anim-dir.selected {
  */
 #setZoomFactor {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setZoomFactor-confirm {
@@ -8607,7 +8626,7 @@ anim-dir.selected {
  */
 #setAmbientLight {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #setAmbientLight-filter {
@@ -8634,7 +8653,7 @@ anim-dir.selected {
  */
 #tintScreen {
   width: 428px;
-  height: 238px;
+  height: 242px;
 }
 
 #tintScreen-grid-box {
@@ -8665,7 +8684,7 @@ anim-dir.selected {
  */
 #setGameSpeed {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setGameSpeed-confirm {
@@ -8684,7 +8703,7 @@ anim-dir.selected {
  */
 #setCursor {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #setCursor-confirm {
@@ -8703,7 +8722,7 @@ anim-dir.selected {
  */
 #setTeamRelation {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setTeamRelation-confirm {
@@ -8722,7 +8741,7 @@ anim-dir.selected {
  */
 #switchCollisionSystem {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #switchCollisionSystem-confirm {
@@ -8741,7 +8760,7 @@ anim-dir.selected {
  */
 #script {
   width: 720px;
-  height: 234px;
+  height: 238px;
 }
 
 #script-script {
@@ -8793,7 +8812,7 @@ anim-dir.selected {
  */
 #selector {
   width: 1080px;
-  height: 696px;
+  height: 700px;
 }
 
 #selector-browser {
@@ -8837,7 +8856,7 @@ anim-dir.selected {
  */
 #imageClip {
   width: 1080px;
-  height: 696px;
+  height: 700px;
 }
 
 #imageClip-screen {
@@ -8895,7 +8914,7 @@ anim-dir.selected {
  */
 #project-settings {
   width: 480px;
-  height: 696px;
+  height: 700px;
 }
 
 #project-page {
@@ -8945,7 +8964,7 @@ anim-dir.selected {
  */
 #easing {
   width: 800px;
-  height: 600px;
+  height: 604px;
 }
 
 #easing-list-fieldset {
@@ -9072,7 +9091,7 @@ anim-dir.selected {
  */
 #team {
   width: 304px;
-  height: 416px;
+  height: 420px;
 }
 
 #team-list-fieldset {
@@ -9129,7 +9148,7 @@ anim-dir.selected {
  */
 #variable {
   width: 572px;
-  height: 696px;
+  height: 700px;
 }
 
 #variable-list-fieldset {
@@ -9255,7 +9274,7 @@ node-icon.icon-note {
  */
 #attribute {
   width: 572px;
-  height: 696px;
+  height: 700px;
 }
 
 #attribute-list-fieldset {
@@ -9343,7 +9362,7 @@ node-icon.icon-note {
  */
 #enum {
   width: 572px;
-  height: 696px;
+  height: 700px;
 }
 
 #enum-list-fieldset {
@@ -9431,7 +9450,7 @@ node-icon.icon-note {
  */
 #presetObject {
   width: 340px;
-  height: 500px;
+  height: 504px;
 }
 
 #presetObject-searcher {
@@ -9471,7 +9490,7 @@ node-icon.icon-note {
  */
 #presetElement {
   width: 340px;
-  height: 500px;
+  height: 504px;
 }
 
 #presetElement-uiId {
@@ -9511,7 +9530,7 @@ node-icon.icon-note {
  */
 #plugin {
   width: 700px;
-  height: 696px;
+  height: 700px;
 }
 
 #plugin-list-fieldset {
@@ -9650,7 +9669,7 @@ node-icon.icon-note {
  */
 #command {
   width: 700px;
-  height: 696px;
+  height: 700px;
 }
 
 #command-list-fieldset {
@@ -9718,7 +9737,7 @@ node-icon.icon-note {
  */
 #arrayList {
   width: 340px;
-  height: 476px;
+  height: 480px;
 }
 
 #arrayList-list {
@@ -9745,7 +9764,7 @@ node-icon.icon-note {
  */
 #arrayList-number {
   width: 300px;
-  height: 94px;
+  height: 98px;
 }
 
 #arrayList-number-value {
@@ -9771,7 +9790,7 @@ node-icon.icon-note {
  */
 #arrayList-string {
   width: 300px;
-  height: 118px;
+  height: 122px;
 }
 
 #arrayList-string-value {
@@ -9798,7 +9817,7 @@ node-icon.icon-note {
  */
 #log {
   width: 800px;
-  height: 400px;
+  height: 404px;
 }
 
 #log-list {
@@ -9868,7 +9887,7 @@ error-counter {
  */
 #about {
   width: 280px;
-  height: 208px;
+  height: 212px;
 }
 
 /* --------------------------------
@@ -9877,7 +9896,7 @@ error-counter {
  */
 #zoom {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #zoom-confirm {
@@ -9896,7 +9915,7 @@ error-counter {
  */
 #rename {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #rename-confirm {
@@ -9915,7 +9934,7 @@ error-counter {
  */
 #setKey {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #setKey-confirm {
@@ -9934,7 +9953,7 @@ error-counter {
  */
 #setQuantity {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #setQuantity-confirm {

@@ -19,8 +19,8 @@ class SelectVar extends HTMLElement {
     this.mode = null
     this.selectBox = new SelectBox()
     this.varBox = new CustomBox()
-    this.varBox.setAttribute('type', 'variable')
-    this.varBox.setAttribute('filter', 'all')
+    this.varBox.type = 'variable'
+    this.varBox.filter = 'all'
 
     // 侦听事件
     this.on('keydown', this.keydown)

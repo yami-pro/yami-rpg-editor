@@ -188,6 +188,7 @@ class ParticleLayer {
 
     // 绘制元素
     if (vi !== 0) {
+      gl.alpha = this.emitter.opacity
       gl.blend = data.blend
       const program = gl.particleProgram.use()
       const vertices = gl.arrays[0].float32
@@ -217,6 +218,7 @@ class ParticleLayer {
       gl.bindTexture(gl.TEXTURE_2D, texture.base.glTexture)
       gl.drawElements(gl.TRIANGLES, vi / 20 * 6, gl.UNSIGNED_INT, 0)
       // 重置混合模式
+      gl.alpha = 1
       gl.blend = 'normal'
     }
   }

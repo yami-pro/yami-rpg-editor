@@ -11,6 +11,7 @@ class ParticleEmitter {
   angle     //:number
   scale     //:number
   speed     //:number
+  opacity   //:number
   elapsed   //:number
   duration  //:number
   matrix    //:object
@@ -29,6 +30,7 @@ class ParticleEmitter {
     this.angle = 0
     this.scale = 1
     this.speed = 1
+    this.opacity = 1
     this.elapsed = 0
     this.duration = data.duration || Infinity
     this.matrix = null

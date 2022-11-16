@@ -95,6 +95,8 @@
       "hitactor": "击中角色",
       "collision": "碰撞事件",
       "destroy": "销毁事件",
+      "playerenter": "玩家进入",
+      "playerleave": "玩家离开",
       "actorenter": "角色进入",
       "actorleave": "角色离开",
       "skillcast": "技能施放",
@@ -525,35 +527,27 @@
       "target": "目标角色",
       "player": "玩家角色",
       "member": "队伍成员",
-      "global": "全局角色",
-      "variable": "变量"
+      "global": "全局角色"
     },
     "skill": {
       "common": "技能",
       "trigger": "事件触发技能",
-      "latest": "最新创建技能",
-      "by-key": "键",
-      "variable": "变量"
+      "latest": "最新创建技能"
     },
     "state": {
       "common": "状态",
       "trigger": "事件触发状态",
-      "latest": "最新创建状态",
-      "variable": "变量"
+      "latest": "最新创建状态"
     },
     "equipment": {
       "common": "装备",
       "trigger": "事件触发装备",
-      "latest": "最新创建装备",
-      "by-slot": "槽",
-      "variable": "变量"
+      "latest": "最新创建装备"
     },
     "item": {
       "common": "物品",
       "trigger": "事件触发物品",
-      "latest": "最新创建物品",
-      "by-key": "键",
-      "variable": "变量"
+      "latest": "最新创建物品"
     },
     "position": {
       "common": "位置",
@@ -577,20 +571,17 @@
     "trigger": {
       "common": "触发器",
       "trigger": "事件触发器",
-      "latest": "最新创建触发器",
-      "variable": "变量"
+      "latest": "最新创建触发器"
     },
     "light": {
       "common": "光源",
       "trigger": "事件触发光源",
-      "latest": "最新创建光源",
-      "variable": "变量"
+      "latest": "最新创建光源"
     },
     "element": {
       "common": "元素",
       "trigger": "事件触发元素",
-      "latest": "最新创建元素",
-      "variable": "变量"
+      "latest": "最新创建元素"
     },
     "variable": {
       "local": "本地变量",
@@ -652,6 +643,10 @@
       "setNumber.object.actor-inventory-equipment-quantity": "数量",
       "setNumber.object.actor-inventory-money": "包裹.金钱",
       "setNumber.object.actor-inventory-used-space": "包裹.已用空间",
+      "setNumber.object.actor-inventory-version": "包裹.版本号",
+      "setNumber.object.actor-skill-version": "技能.版本号",
+      "setNumber.object.actor-state-version": "状态.版本号",
+      "setNumber.object.actor-equipment-version": "装备.版本号",
       "setNumber.object.actor-animation-current-time": "动画.当前时间",
       "setNumber.object.actor-animation-duration": "动画.持续时间",
       "setNumber.object.actor-animation-progress": "动画.播放进度",
@@ -664,6 +659,8 @@
       "setNumber.object.state-current-time": "当前时间",
       "setNumber.object.state-duration": "最大时间",
       "setNumber.object.state-progress": "进度",
+      "setNumber.object.equipment-order": "顺序",
+      "setNumber.object.item-order": "顺序",
       "setNumber.object.item-quantity": "数量",
       "setNumber.object.trigger-speed": "速度",
       "setNumber.object.trigger-angle": "角度",
@@ -709,6 +706,7 @@
       "setNumber.other.elapsed-time": "游戏运行时间",
       "setNumber.other.delta-time": "当前帧的时间增量",
       "setNumber.other.raw-delta-time": "当前帧的原始时间增量",
+      "setNumber.other.party-member-count": "队伍成员数量",
       "setString": "设置字符串",
       "setString.alias": "字符串",
       "setString.string.char": "字符",
@@ -721,6 +719,7 @@
       "setString.object.skill-file-id": "文件ID",
       "setString.object.state-file-id": "文件ID",
       "setString.object.equipment-file-id": "文件ID",
+      "setString.object.equipment-slot": "装备槽",
       "setString.object.item-file-id": "文件ID",
       "setString.object.file-id": "ID",
       "setString.element.text-content": "文本.内容",
@@ -809,6 +808,7 @@
       "forEach.equipment": "装备",
       "forEach.inventory": "包裹",
       "forEach.element": "子元素",
+      "forEach.member": "队伍成员",
       "break": "跳出循环",
       "continue": "继续循环",
       "independent": "独立执行",
@@ -816,9 +816,9 @@
       "callEvent": "调用事件",
       "callEvent.alias": "调用",
       "callEvent.scene": "场景事件",
+      "stopEvent": "停止事件",
       "setEvent": "设置事件",
       "setEvent.alias": "事件",
-      "setEvent.stop": "停止",
       "setEvent.stop-propagation": "停止传递",
       "setEvent.pause": "暂停并保存到变量",
       "setEvent.continue": "继续并重置变量",
@@ -1034,6 +1034,9 @@
       "changeActorEquipment": "改变角色装备",
       "changeActorEquipment.add": "添加",
       "changeActorEquipment.remove": "移除",
+      "changeActorEquipment.add-instance": "添加",
+      "changeActorEquipment.remove-instance": "移除",
+      "changeActorEquipment.remove-slot": "移除",
       "changeActorSkill": "改变角色技能",
       "changeActorSkill.add": "添加",
       "changeActorSkill.remove": "移除",
@@ -1271,6 +1274,7 @@
     "[comment]": "********** 检查器 - 文件 - 角色 **********",
     "fileActor-general-grid": {"label": "基本设置"},
     "fileActor-portrait": {"label": "头像"},
+    "fileActor-clip": {"label": "裁剪"},
     "fileActor-animationId": {"label": "动画"},
     "fileActor-idleMotion": {"label": "闲置动作"},
     "fileActor-moveMotion": {"label": "移动动作"},
@@ -1450,9 +1454,9 @@
     "sceneAnimation-name": {"label": "名称"},
     "sceneAnimation-animationId": {"label": "动画"},
     "sceneAnimation-motion": {"label": "动作"},
-    "sceneAnimation-mirror": {"label": "镜像", "options": {"none": "无", "horizontal": "水平镜像", "vertical": "垂直镜像", "both": "水平垂直镜像"}},
     "sceneAnimation-x": {"label": "X"},
     "sceneAnimation-y": {"label": "Y"},
+    "sceneAnimation-angle": {"label": "角度"},
     "sceneAnimation-conditions": {"label": "条件"},
     "sceneAnimation-events": {"label": "事件"},
     "sceneAnimation-scripts": {"label": "脚本"},
@@ -1722,7 +1726,14 @@
     "[comment]": "********** 检查器 - 粒子 - 图层 **********",
     "particleLayer-general-grid": {"label": "基本设置"},
     "particleLayer-name": {"label": "名称"},
-    "particleLayer-area-type": {"label": "发射区域", "options": {"point": "点", "rectangle": "矩形", "circle": "圆形", "edge": "屏幕边缘"}},
+    "particleLayer-area-type": {"label": "发射区域", "options": {
+      "point": "点",
+      "rectangle": "矩形",
+      "circle": "圆形",
+      "edge": "屏幕边缘"
+    }},
+    "particleLayer-area-x": {"label": "X"},
+    "particleLayer-area-y": {"label": "Y"},
     "particleLayer-area-width": {"label": "宽度"},
     "particleLayer-area-height": {"label": "高度"},
     "particleLayer-area-radius": {"label": "半径"},
@@ -1853,8 +1864,9 @@
     "config-lightArea-expansionBottom": {"label": "下边距"},
     "config-collision-summary": {"content": "碰撞系统"},
     "config-collision-actor-enabled": {"label": "角色碰撞", "options": {"true": "启用", "false": "禁用"}},
+    "config-collision-actor-ignoreTeamMember": {"label": "忽略队友碰撞", "options": {"true": "启用", "false": "禁用"}},
     "config-collision-scene-enabled": {"label": "场景碰撞", "options": {"true": "启用", "false": "禁用"}},
-    "config-collision-scene-size": {"label": "场景碰撞体积"},
+    "config-collision-scene-actorSize": {"label": "场景碰撞角色体积"},
     "config-font-summary": {"content": "字体"},
     "config-font-imports": {"label": "导入字体"},
     "config-font-default": {"label": "默认使用字体"},
@@ -1873,8 +1885,8 @@
     "config-actor-partyMembers-1": {"label": "队伍成员 2"},
     "config-actor-partyMembers-2": {"label": "队伍成员 3"},
     "config-actor-partyMembers-3": {"label": "队伍成员 4"},
-    "config-actor-partyInventoryMode": {"label": "队伍包裹模式", "options": {"shared": "共用玩家角色的包裹", "separate": "使用独立的包裹"}},
-    "config-actor-tempAttributes": {"label": "临时属性"},
+    "config-actor-partyInventory": {"label": "队伍包裹模式", "options": {"shared": "共用玩家角色的包裹", "separate": "使用独立的包裹"}},
+    "config-actor-tempAttributes": {"label": "角色临时属性"},
     "config-animation-summary": {"content": "动画"},
     "config-animation-frameRate": {"label": "动画帧率"},
     "config-script-summary": {"content": "脚本"},
@@ -1977,6 +1989,7 @@
     "attribute-type-number-label": {"content": "数值"},
     "attribute-type-string-label": {"content": "字符串"},
     "attribute-type-enum-label": {"content": "字符串(枚举)"},
+    "attribute-type-object-label": {"content": "对象(元素属性)"},
     "attribute-enum": {"label": "选项"},
     "attribute-note": {"label": "备注"},
 
@@ -2091,6 +2104,12 @@
     "variableGetter-common-key": {"label": "键"},
     "variableGetter-preset-key": {"label": "键"},
     "variableGetter-global-key": {"label": "键"},
+
+    "[comment]": "********** 对象访问器 **********",
+    "objectGetter": {"title": "变量"},
+    "objectGetter-type": {"label": "类型"},
+    "objectGetter-common-key": {"label": "键"},
+    "objectGetter-global-key": {"label": "键"},
 
     "[comment]": "********** 角色访问器 **********",
     "actorGetter": {"title": "角色"},
@@ -2258,7 +2277,7 @@
     "setBoolean-operand-type": {"label": "类型", "options": {
       "constant": "常量",
       "variable": "变量",
-      "list": "列表",
+      "list": "列表项",
       "parameter": "参数"
     }},
     "setBoolean-constant-value": {"label": "常量"},
@@ -2298,7 +2317,7 @@
       "string": "字符串",
       "object": "对象",
       "element": "元素",
-      "list": "列表",
+      "list": "列表项",
       "parameter": "参数",
       "other": "其他"
     }},
@@ -2335,6 +2354,10 @@
       "actor-inventory-equipment-quantity": "角色 - 装备数量",
       "actor-inventory-money": "角色 - 包裹金钱",
       "actor-inventory-used-space": "角色 - 包裹已用空间",
+      "actor-inventory-version": "角色 - 包裹版本号",
+      "actor-skill-version": "角色 - 技能版本号",
+      "actor-state-version": "角色 - 状态版本号",
+      "actor-equipment-version": "角色 - 装备版本号",
       "actor-animation-current-time": "角色 - 动画当前时间",
       "actor-animation-duration": "角色 - 动画持续时间",
       "actor-animation-progress": "角色 - 动画播放进度",
@@ -2347,6 +2370,8 @@
       "state-current-time": "状态 - 当前时间",
       "state-duration": "状态 - 最大时间",
       "state-progress": "状态 - 进度",
+      "equipment-order": "装备 - 在包裹中的顺序",
+      "item-order": "物品 - 在包裹中的顺序",
       "item-quantity": "物品 - 数量",
       "trigger-speed": "触发器 - 速度",
       "trigger-angle": "触发器 - 角度",
@@ -2381,6 +2406,7 @@
     "setNumber-operand-common-actor": {"label": "角色"},
     "setNumber-operand-common-skill": {"label": "技能"},
     "setNumber-operand-common-state": {"label": "状态"},
+    "setNumber-operand-common-equipment": {"label": "装备"},
     "setNumber-operand-common-item": {"label": "物品"},
     "setNumber-operand-common-trigger": {"label": "触发器"},
     "setNumber-operand-object-itemId": {"label": "物品"},
@@ -2413,7 +2439,8 @@
       "play-time": "累计游戏时间",
       "elapsed-time": "游戏运行时间",
       "delta-time": "当前帧的时间增量",
-      "raw-delta-time": "当前帧的原始时间增量"
+      "raw-delta-time": "当前帧的原始时间增量",
+      "party-member-count": "队伍成员数量"
     }},
 
     "[comment]": "********** 指令 - 设置字符串 **********",
@@ -2427,7 +2454,7 @@
       "enum": "枚举",
       "object": "对象",
       "element": "元素",
-      "list": "列表",
+      "list": "列表项",
       "parameter": "参数",
       "other": "其他"
     }},
@@ -2454,6 +2481,7 @@
       "skill-file-id": "技能 - 文件ID",
       "state-file-id": "状态 - 文件ID",
       "equipment-file-id": "装备 - 文件ID",
+      "equipment-slot": "装备 - 装备槽",
       "item-file-id": "物品 - 文件ID",
       "file-id": "文件 - ID"
     }},
@@ -2495,7 +2523,7 @@
       "light": "光源",
       "element": "元素",
       "variable": "变量",
-      "list": "列表"
+      "list": "列表项"
     }},
     "setObject-operand-actor": {"label": "角色"},
     "setObject-operand-skill": {"label": "技能"},
@@ -2512,15 +2540,15 @@
     "setList": {"title": "设置列表"},
     "setList-variable": {"label": "变量"},
     "setList-operation": {"label": "操作", "options": {
-      "set-empty": "设置为空",
+      "set-empty": "设置为空列表",
       "set-numbers": "设置数值列表",
       "set-strings": "设置字符串列表",
       "set-boolean": "设置布尔值",
       "set-number": "设置数值",
       "set-string": "设置字符串",
       "set-variable": "设置变量值",
-      "push": "添加数据",
-      "remove": "移除数据"
+      "push": "添加列表项",
+      "remove": "移除列表项"
     }},
     "setList-numbers": {"label": "数值列表"},
     "setList-strings": {"label": "字符串列表"},
@@ -2703,12 +2731,13 @@
     "[comment]": "********** 指令 - 遍历 **********",
     "forEach": {"title": "遍历"},
     "forEach-data": {"label": "数据", "options": {
-      "list": "列表",
+      "list": "列表项",
       "skill": "技能",
       "state": "状态",
       "equipment": "装备",
       "inventory": "包裹",
-      "element": "元素"
+      "element": "元素",
+      "member": "队伍成员"
     }},
     "forEach-list": {"label": "列表变量"},
     "forEach-actor": {"label": "角色"},
@@ -2741,8 +2770,7 @@
     "[comment]": "********** 指令 - 设置事件 **********",
     "setEvent": {"title": "设置事件"},
     "setEvent-operation": {"label": "操作", "options": {
-      "stop": "停止",
-      "stop-propagation": "停止传递",
+      "stop-propagation": "停止传递事件",
       "pause": "暂停并保存到变量",
       "continue": "继续并重置变量",
       "enable": "启用全局事件",
@@ -3295,9 +3323,16 @@
     "[comment]": "********** 指令 - 改变角色装备 **********",
     "changeActorEquipment": {"title": "改变角色装备"},
     "changeActorEquipment-actor": {"label": "角色"},
-    "changeActorEquipment-operation": {"label": "操作", "options": {"add": "添加", "remove": "移除"}},
-    "changeActorEquipment-equipment": {"label": "装备"},
+    "changeActorEquipment-operation": {"label": "操作", "options": {
+      "add": "添加",
+      "remove": "移除",
+      "add-instance": "添加实例",
+      "remove-instance": "移除实例",
+      "remove-slot": "移除装备槽"
+    }},
     "changeActorEquipment-slot": {"label": "装备槽"},
+    "changeActorEquipment-equipmentId": {"label": "装备"},
+    "changeActorEquipment-equipment": {"label": "装备"},
 
     "[comment]": "********** 指令 - 改变角色技能 **********",
     "changeActorSkill": {"title": "改变角色技能"},
@@ -3395,7 +3430,6 @@
     "[comment]": "********** 指令 - 放弃目标 **********",
     "discardTargets": {"title": "放弃目标"},
     "discardTargets-actor": {"label": "角色"},
-    "discardTargets-distance": {"label": "放弃距离"},
     "discardTargets-selector": {"label": "放弃目标", "options": {
       "enemy": "敌对角色",
       "friend": "友好角色",
@@ -3404,6 +3438,7 @@
       "any-except-self": "除自己外的任意角色",
       "any": "任意角色"
     }},
+    "discardTargets-distance": {"label": "放弃距离"},
 
     "[comment]": "********** 指令 - 重置目标列表 **********",
     "resetTargets": {"title": "重置目标列表"},
@@ -3516,9 +3551,9 @@
       "set-skill-shortcut": "设置技能快捷键",
       "delete-shortcut": "删除快捷键"
     }},
+    "setShortcut-key": {"label": "快捷键"},
     "setShortcut-itemId": {"label": "物品"},
     "setShortcut-skillId": {"label": "技能"},
-    "setShortcut-key": {"label": "快捷键"},
 
     "[comment]": "********** 指令 - 激活场景 **********",
     "activateScene": {"title": "激活场景"},

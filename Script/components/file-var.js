@@ -16,10 +16,10 @@ class FileVar extends HTMLElement {
     this.mode = null
     this.fileBox = new CustomBox()
     this.varBox = new CustomBox()
-    this.fileBox.setAttribute('type', 'file')
-    this.fileBox.setAttribute('filter', this.getAttribute('filter'))
-    this.varBox.setAttribute('type', 'variable')
-    this.varBox.setAttribute('filter', 'string')
+    this.fileBox.type = 'file'
+    this.fileBox.filter = this.getAttribute('filter')
+    this.varBox.type = 'variable'
+    this.varBox.filter = 'string'
 
     // 侦听事件
     this.on('keydown', this.keydown)

@@ -584,7 +584,7 @@ Menubar.createLanguageItems = function () {
     items.push({
       label: get('showInExplorer'),
       click: () => {
-        File.openPath(Path.resolve(__dirname, 'locales'))
+        File.openPath(Local.dirname)
       },
     })
   })

@@ -61,7 +61,7 @@ class ScriptListInterface {
     if (item?.scripts === list.read()) {
       const element = item.element
       const list = element?.parentNode
-      if (list instanceof NodeList) {
+      if (list instanceof TreeList) {
         list.updateScriptIcon(item)
       }
     }
@@ -96,7 +96,7 @@ class ScriptListInterface {
     const pointerup = event => {
       if (element.contains(event.target)) {
         const el = element.parentNode
-        // 临时兼容ParamList和NodeList
+        // 临时兼容ParamList和TreeList
         // 应该统一这个属性的命名
         const item = el.dataItem ?? el.item
         const path = File.getPath(item.id)

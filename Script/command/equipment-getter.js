@@ -57,7 +57,7 @@ EquipmentGetter.open = function (target) {
 
   let actor = {type: 'trigger'}
   let slot = Enum.getDefStringId('equipment-slot')
-  let variable = {type: 'local', slot: ''}
+  let variable = {type: 'local', key: ''}
   const equipment = target.dataValue
   switch (equipment.type) {
     case 'trigger':

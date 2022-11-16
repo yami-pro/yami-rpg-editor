@@ -89,8 +89,12 @@
       },
       {
         "class": "flow",
-        "value": "setEvent",
-        "keywords": "stop, return"
+        "value": "stopEvent",
+        "keywords": "return"
+      },
+      {
+        "class": "flow",
+        "value": "setEvent"
       },
       {
         "class": "flow",

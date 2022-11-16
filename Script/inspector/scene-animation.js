@@ -33,14 +33,6 @@ const SceneAnimation = {
 
 // 初始化
 SceneAnimation.initialize = function () {
-  // 创建翻转选项
-  $('#sceneAnimation-mirror').loadItems([
-    {name: 'None', value: 'none'},
-    {name: 'Horizontal', value: 'horizontal'},
-    {name: 'Vertical', value: 'vertical'},
-    {name: 'Both', value: 'both'},
-  ])
-
   // 绑定条件列表
   $('#sceneAnimation-conditions').bind(new ConditionListInterface(this, Scene))
 
@@ -57,7 +49,7 @@ SceneAnimation.initialize = function () {
   $('#sceneAnimation-animationId').on('write', this.animationIdWrite)
   const elements = $(`#sceneAnimation-name,
     #sceneAnimation-animationId, #sceneAnimation-motion,
-    #sceneAnimation-mirror, #sceneAnimation-x, #sceneAnimation-y`)
+    #sceneAnimation-x, #sceneAnimation-y, #sceneAnimation-angle`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, Scene))
@@ -74,9 +66,9 @@ SceneAnimation.create = function () {
     presetId: '',
     animationId: '',
     motion: '',
-    mirror: 'none',
     x: 0,
     y: 0,
+    angle: 0,
     conditions: [],
     events: [],
     scripts: [],
@@ -93,9 +85,9 @@ SceneAnimation.open = function (animation) {
     write('name')
     write('animationId')
     write('motion')
-    write('mirror')
     write('x')
     write('y')
+    write('angle')
     write('conditions')
     write('events')
     write('scripts')
@@ -123,6 +115,9 @@ SceneAnimation.write = function (options) {
   }
   if (options.y !== undefined) {
     $('#sceneAnimation-y').write(options.y)
+  }
+  if (options.angle !== undefined) {
+    $('#sceneAnimation-angle').write(options.angle)
   }
 }
 
@@ -153,16 +148,16 @@ SceneAnimation.update = function (animation, key, value) {
         }
       }
       break
-    case 'mirror':
-      if (animation.mirror !== value) {
-        animation.mirror = value
-        animation.player.mirror = value
-      }
-      break
     case 'x':
     case 'y':
       if (animation[key] !== value) {
         animation[key] = value
+      }
+      break
+    case 'angle':
+      if (animation.angle !== value) {
+        animation.angle = value
+        animation.player?.setAngle(Math.radians(value))
       }
       break
   }

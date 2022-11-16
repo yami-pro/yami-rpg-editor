@@ -88,10 +88,11 @@ NewProject.check = function () {
 
 // 读取文件列表
 NewProject.readFileList = function IIFE() {
+  const dirname = Path.resolve(__dirname, 'Templates/project')
   const options = {withFileTypes: true}
   const read = (path, list) => {
     return FSP.readdir(
-      `Templates/project/${path}`,
+      `${dirname}/${path}`,
       options,
     ).then(
       async files => {
@@ -138,7 +139,7 @@ NewProject.copyFilesTo = function (dirPath) {
     let total = 0
     let count = 0
     let info = ''
-    const sPath = 'Templates/project/'
+    const sPath = Path.resolve(__dirname, 'Templates/project') + '/'
     const dPath = `${dirPath}/`
     const promises = []
     const length = list.length

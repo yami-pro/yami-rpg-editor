@@ -132,7 +132,7 @@ Deployment.readShellList = function IIFE() {
     )
   }
   return function (rootDir) {
-    root = rootDir
+    root = Path.resolve(__dirname, rootDir) + '/'
     return read('', [])
   }
 }()
@@ -143,11 +143,11 @@ Deployment.readFileList = async function (platform) {
   // 读取外壳文件列表
   switch (platform) {
     case 'windows-electron':
-      fileList = await this.readShellList('Templates/electron-win/')
+      fileList = await this.readShellList('Templates/electron-win')
       break
     case 'windows-nwjs': {
       const {window} = Data.config
-      fileList = await this.readShellList('Templates/nwjs-win/')
+      fileList = await this.readShellList('Templates/nwjs-win')
       fileList.push({
         path: 'package.json',
         data: {

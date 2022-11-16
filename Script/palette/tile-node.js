@@ -104,7 +104,7 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   contentWidth = Math.clamp(contentWidth, MIN_CONTENT_WIDTH, MAX_CONTENT_WIDTH)
   contentHeight = Math.clamp(contentHeight, MIN_CONTENT_HEIGHT, MAX_CONTENT_HEIGHT)
   windowFrame.style.width = `${contentWidth}px`
-  windowFrame.style.height = `${contentHeight + 24}px`
+  windowFrame.style.height = `${contentHeight + 28}px`
   window.on('keydown', this.keydown)
   Window.open('autoTile-selectNode')
 

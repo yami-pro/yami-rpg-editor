@@ -51,12 +51,18 @@ VariableGetter.initialize = function () {
     item => item.value !== 'global'
   )
   const objectTypes = [
-    types['local'],
-    types['global'],
+    types.local,
+    types.global,
+    types.element,
+  ]
+  const objectTypes2 = [
+    types.local,
+    types.global,
   ]
   this.types = {
     all: allTypes,
     object: objectTypes,
+    object2: objectTypes2,
     writable: writableTypes,
     deletable: deletableTypes,
   }
@@ -108,17 +114,26 @@ VariableGetter.open = function (target) {
     case 'number':
     case 'string':
       $('#variableGetter-type').loadItems(types.all)
-      $('#variableGetter-global-key').setAttribute('filter', filter)
+      $('#variableGetter-global-key').filter = filter
       break
     case 'object':
-      $('#variableGetter-type').loadItems(types.object)
-      $('#variableGetter-global-key').setAttribute('filter', filter)
+      // 如果已经打开了变量访问器窗口，避免冲突使用新窗口
+      if (Window.isWindowOpen('variableGetter')) {
+        return ObjectGetter.open(target)
+      }
+      // 打开元素访问器时则过滤掉元素属性选项
+      $('#variableGetter-type').loadItems(
+        !Window.isWindowOpen('elementGetter')
+      ? types.object
+      : types.object2
+      )
+      $('#variableGetter-global-key').filter = filter
       break
     case 'writable-boolean':
     case 'writable-number':
     case 'writable-string':
       $('#variableGetter-type').loadItems(types.writable)
-      $('#variableGetter-global-key').setAttribute('filter', filter.slice(9))
+      $('#variableGetter-global-key').filter = filter.slice(9)
       break
     case 'deletable':
       $('#variableGetter-type').loadItems(types.deletable)
@@ -139,7 +154,13 @@ VariableGetter.open = function (target) {
   let equipment = {type: 'trigger'}
   let item = {type: 'trigger'}
   let element = {type: 'trigger'}
-  switch (type.replace('[]', '')) {
+  switch (type) {
+    case 'local':
+      commonKey = key
+      break
+    case 'global':
+      globalKey = key
+      break
     case 'actor':
       this.loadPresetKeys(type)
       actor = variable.actor
@@ -170,12 +191,6 @@ VariableGetter.open = function (target) {
       element = variable.element
       presetKey = key
       break
-    case 'global':
-      globalKey = key
-      break
-    default:
-      commonKey = key
-      break
   }
   const write = getElementWriter('variableGetter')
   this.keyBox.loadItems(Attribute.getAttributeItems('none'))
@@ -204,6 +219,7 @@ VariableGetter.loadPresetKeys = function (group) {
     case 'boolean':
     case 'number':
     case 'string':
+    case 'object':
       type = this.filter
       break
     case 'writable-boolean':
@@ -269,6 +285,12 @@ VariableGetter.confirm = function (event) {
   let getter
   let key
   switch (type) {
+    case 'local':
+      key = read('common-key').trim()
+      if (key === '') {
+        return $('#variableGetter-common-key').getFocus()
+      }
+      break
     case 'global': {
       key = read('global-key')
       const variable = Data.variables.map[key]
@@ -295,14 +317,8 @@ VariableGetter.confirm = function (event) {
         return $('#variableGetter-preset-key').getFocus()
       }
       break
-    default:
-      key = read('common-key').trim()
-      if (key === '') {
-        return $('#variableGetter-common-key').getFocus()
-      }
-      break
   }
-  switch (type.replace('[]', '')) {
+  switch (type) {
     case 'local':
     case 'global':
       getter = {type, key}
