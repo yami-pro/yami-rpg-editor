@@ -318,6 +318,11 @@
       },
       {
         "class": "actor",
+        "value": "changeActorPortrait",
+        "keywords": "changePortrait"
+      },
+      {
+        "class": "actor",
         "value": "changeActorAnimation",
         "keywords": "changeAnimation"
       },

@@ -1042,6 +1042,8 @@
       "changeActorSkill.remove": "Remove",
       "changeActorSkill.remove-instance": "Remove",
       "changeActorSkill.sort-by-filename": "Sort by Filename",
+      "changeActorPortrait": "Change Actor Portrait",
+      "changeActorPortrait.clip": "Clip",
       "changeActorAnimation": "Change Actor Animation",
       "changeActorSprite": "Change Actor Sprite",
       "remapActorMotion": "Remap Actor Motion",
@@ -3345,6 +3347,17 @@
     }},
     "changeActorSkill-skillId": {"label": "Skill"},
     "changeActorSkill-skill": {"label": "Skill"},
+
+    "[comment]": "********** Command - Change Actor Portrait **********",
+    "changeActorPortrait": {"title": "Change Actor Portrait"},
+    "changeActorPortrait-actor": {"label": "Actor"},
+    "changeActorPortrait-mode": {"label": "Mode", "options": {
+      "full": "Full Mode",
+      "portrait": "Image Mode",
+      "clip": "Clip Mode"
+    }},
+    "changeActorPortrait-portrait": {"label": "Portrait"},
+    "changeActorPortrait-clip": {"label": "Clip"},
 
     "[comment]": "********** Command - Change Actor Animation **********",
     "changeActorAnimation": {"title": "Change Actor Animation"},

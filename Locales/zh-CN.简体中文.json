@@ -1042,6 +1042,8 @@
       "changeActorSkill.remove": "移除",
       "changeActorSkill.remove-instance": "移除",
       "changeActorSkill.sort-by-filename": "按文件名排序",
+      "changeActorPortrait": "改变角色头像",
+      "changeActorPortrait.clip": "裁剪",
       "changeActorAnimation": "改变角色动画",
       "changeActorSprite": "改变角色精灵图",
       "remapActorMotion": "映射角色动作",
@@ -3345,6 +3347,17 @@
     }},
     "changeActorSkill-skillId": {"label": "技能"},
     "changeActorSkill-skill": {"label": "技能"},
+
+    "[comment]": "********** 指令 - 改变角色头像 **********",
+    "changeActorPortrait": {"title": "改变角色头像"},
+    "changeActorPortrait-actor": {"label": "角色"},
+    "changeActorPortrait-mode": {"label": "模式", "options": {
+      "full": "完全模式",
+      "portrait": "图像模式",
+      "clip": "裁剪模式"
+    }},
+    "changeActorPortrait-portrait": {"label": "头像"},
+    "changeActorPortrait-clip": {"label": "裁剪区域"},
 
     "[comment]": "********** 指令 - 改变角色动画 **********",
     "changeActorAnimation": {"title": "改变角色动画"},

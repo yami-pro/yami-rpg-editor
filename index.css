@@ -8127,10 +8127,29 @@ anim-dir.selected {
 }
 
 /* --------------------------------
+ * 改变角色头像
+ * --------------------------------
+ */
+ #changeActorPortrait {
+  width: 324px;
+  height: 170px;
+}
+
+#changeActorPortrait-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#changeActorPortrait-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 改变角色动画
  * --------------------------------
  */
- #changeActorAnimation {
+#changeActorAnimation {
   width: 324px;
   height: 122px;
 }
