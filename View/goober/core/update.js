@@ -1,4 +1,4 @@
-import { getSheet } from './get-sheet';
+import { getSheet } from './get-sheet.js';
 /**
  * Extracts and wipes the cache
  * @returns {String}

@@ -1,7 +1,7 @@
-import { toHash } from './to-hash';
-import { update } from './update';
-import { astish } from './astish';
-import { parse } from './parse';
+import { toHash } from './to-hash.js';
+import { update } from './update.js';
+import { astish } from './astish.js';
+import { parse } from './parse.js';
 
 /**
  * In-memory cache.

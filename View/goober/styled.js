@@ -1,5 +1,5 @@
-import { css } from './css';
-import { parse } from './core/parse';
+import { css } from './css.js';
+import { parse } from './core/parse.js';
 
 let h, useTheme, fwdProp;
 function setup(pragma, prefix, theme, forwardProps) {

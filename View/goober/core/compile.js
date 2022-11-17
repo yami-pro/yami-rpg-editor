@@ -1,4 +1,4 @@
-import { parse } from './parse';
+import { parse } from './parse.js';
 
 /**
  * Can parse a compiled string, from a tagged template
