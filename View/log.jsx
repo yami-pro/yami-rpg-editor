@@ -12,6 +12,7 @@ const LogView = ()=>(
       </content-frame>
     </window-frame>
 
+
     {/*错误消息*/}
     <box id="error-message"></box>
   </>

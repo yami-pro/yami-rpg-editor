@@ -31,6 +31,7 @@ const ParticleView = ()=>(
       </box>
     </page-frame>
 
+
     {/*粒子图层列表页面*/}
     <page-frame id="particle-layer" value="particle-layer">
       <node-list id="particle-list" padded></node-list>
