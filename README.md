@@ -11,7 +11,7 @@ npm install
 ## Run 
 ```shell
 esbuild View/index.jsx --jsx-factory=createElement --jsx-fragment=null --bundle --outfile=dist-page.js
-esbuild Script/index.js --jsx-factory=createElement --jsx-fragment=null --bundle --platform=node --external:electron --outfile=dist-script.js
+esbuild index.js --jsx-factory=createElement --jsx-fragment=null --bundle --platform=node --external:electron --outfile=dist-script.js
 npm run start
 ```
 

@@ -4,6 +4,8 @@ import { createElement } from './vhtml/index.js'
 
 const ComponentsView = ()=>(
   <>
+    {/*工具提示*/}
+    <box id="tooltip"></box>
   </>
 )
 
