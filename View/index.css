@@ -84,8 +84,8 @@
 :root {
   --font-size-normal: 12px;
   --font-family-normal: Inter, Microsoft YaHei UI;
-  /*--font-family-bold: Inter Bold, Microsoft YaHei UI;*/
-  --font-family-bold: Inter, Microsoft YaHei UI;
+/*  --font-family-bold: Inter Bold, Microsoft YaHei UI;*/
+  --font-family-bold: var(--font-family-normal);
   --font-family-mono: Consolas, Microsoft YaHei UI;
   --font-family-title: Arial, Microsoft YaHei UI;
   --font-family-accelerator: Segoe UI;
@@ -189,7 +189,7 @@
   --selected-background-blur: rgba(0, 0, 0, 0.1);
   --selection-background: rgba(32, 128, 192, 0.996);
   --drop-target-background: rgba(32, 128, 192, 0.4);
-  --grid-background: url(images/grid_light.png);
+  --grid-background: url(Images/grid_light.png);
   --node-icon-color: rgba(0, 0, 0, 0.2);
   --node-icon-color-highlight: rgba(0, 0, 0, 0.8);
   --node-icon-border: 1px solid var(--text-color);
@@ -200,9 +200,9 @@
   --menu-separator-background: #e0e0e0;
   --list-item-background-hover: rgba(0, 0, 0, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(255, 255, 255, 0.75);
-  --timeline-ruler-background: url(images/timeline_scale_light.png);
+  --timeline-ruler-background: url(Images/timeline_scale_light.png);
   --timeline-frame-list-background: #cccccc;
-  --timeline-grid: url(images/timeline_grid_light.png);
+  --timeline-grid: url(Images/timeline_grid_light.png);
   --timeline-grid-border: 1px solid #c0c0c0;
   --timeline-key-background: rgba(0, 0, 0, 0.2);
   --timeline-key-mark-color: #202020;
@@ -227,7 +227,7 @@
   --command-color-audio: #008080;
   --command-color-actor: #800000;
   --command-color-skill: #804000;
-  --command-color-bag: #f06000;
+  --command-color-inventory: #f06000;
   --command-color-scene: #0080c0;
   --command-color-system: #ff289c;
   --command-color-custom: #c800a4;
@@ -298,7 +298,7 @@
   --summary-border-light: 1px solid #282828;
   --window-background: #333333;
   --window-outline: var(--1dpx) solid rgba(0, 0, 0, 0.5);
-  --title-background: #282828;
+  --title-background: #202020;
   --tab-item-background: #202020;
   --tab-item-background-hover: #323232;
   --tab-item-background-selected: #323232;
@@ -347,7 +347,7 @@
   --selected-background-blur: rgba(255, 255, 255, 0.1);
   --selection-background: rgba(8, 72, 114, 0.996);
   --drop-target-background: rgba(8, 72, 114, 0.4);
-  --grid-background: url(images/grid_dark.png);
+  --grid-background: url(Images/grid_dark.png);
   --node-icon-color: rgba(255, 255, 255, 0.1);
   --node-icon-color-highlight: rgba(255, 255, 255, 0.6);
   --node-icon-border: 1px solid var(--text-color);
@@ -358,9 +358,9 @@
   --menu-separator-background: #404040;
   --list-item-background-hover: rgba(255, 255, 255, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(0, 0, 0, 0.75);
-  --timeline-ruler-background: url(images/timeline_scale_dark.png);
+  --timeline-ruler-background: url(Images/timeline_scale_dark.png);
   --timeline-frame-list-background: #2c2c2c;
-  --timeline-grid: url(images/timeline_grid_dark.png);
+  --timeline-grid: url(Images/timeline_grid_dark.png);
   --timeline-grid-border: 1px solid #000000;
   --timeline-key-background: rgba(0, 0, 0, 0.5);
   --timeline-key-mark-color: #a0a0a0;
@@ -379,13 +379,13 @@
   --command-color-text: #b0c4de;
   --command-color-variable: #fa8072;
   --command-color-flow: #b0e0e6;
-  --command-color-comment: #32cd32;
+  --command-color-comment: #28a528;
   --command-color-wait: #ffa07a;
   --command-color-object: #deb887;
   --command-color-audio: #00fa9a;
   --command-color-actor: #ffc0cb;
   --command-color-skill: #f0e68c;
-  --command-color-bag: #ffd700;
+  --command-color-inventory: #ffd700;
   --command-color-scene: #00ced1;
   --command-color-system: #ff69b4;
   --command-color-custom: #e8dcaa;
@@ -446,19 +446,19 @@
 }
 
 ::-webkit-scrollbar-button:horizontal:start:decrement {
-  background-image: url(images/scrollbar_arrow_left.png);
+  background-image: url(Images/scrollbar_arrow_left.png);
 }
 
 ::-webkit-scrollbar-button:horizontal:end:increment {
-  background-image: url(images/scrollbar_arrow_right.png);
+  background-image: url(Images/scrollbar_arrow_right.png);
 }
 
 ::-webkit-scrollbar-button:vertical:start:decrement {
-  background-image: url(images/scrollbar_arrow_up.png);
+  background-image: url(Images/scrollbar_arrow_up.png);
 }
 
 ::-webkit-scrollbar-button:vertical:end:increment {
-  background-image: url(images/scrollbar_arrow_down.png);
+  background-image: url(Images/scrollbar_arrow_down.png);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -638,6 +638,22 @@ spacing {
 }
 
 /* --------------------------------
+ * 窗口环境
+ * --------------------------------
+ */
+#window-ambient {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#window-ambient.open {
+  display: block;
+}
+
+/* --------------------------------
  * 工具提示
  * --------------------------------
  */
@@ -700,7 +716,7 @@ detail-summary {
   height: 22px;
   line-height: 20px;
   text-indent: 16px;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-bold);
   background-color: var(--summary-background);
   border-top: var(--summary-border-dark);
@@ -801,7 +817,7 @@ legend {
   top: -7px;
   height: 7px;
   line-height: 14px;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-bold);
   border-bottom: 1px solid var(--window-background);
   z-index: 1;
@@ -893,10 +909,10 @@ body.border > window-frame.maximized {
  */
 title-bar {
   display: block;
-  padding: 0 4px;
+  padding: 0 5px;
   width: 100%;
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   background-color: var(--titlebar-background);
 }
 
@@ -904,7 +920,7 @@ minimize {
   position: absolute;
   right: 88px;
   width: 44px;
-  height: 24px;
+  height: 28px;
 }
 
 minimize::after {
@@ -913,7 +929,7 @@ minimize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/title_buttons.png);
+  -webkit-mask-image: url(Images/title_buttons.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
@@ -930,7 +946,7 @@ maximize {
   position: absolute;
   right: 44px;
   width: 44px;
-  height: 24px;
+  height: 28px;
 }
 
 maximize::after {
@@ -939,7 +955,7 @@ maximize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/title_buttons.png);
+  -webkit-mask-image: url(Images/title_buttons.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
@@ -956,7 +972,7 @@ close {
   position: absolute;
   right: 0;
   width: 44px;
-  height: 24px;
+  height: 28px;
 }
 
 close::after {
@@ -965,7 +981,7 @@ close::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/title_buttons.png);
+  -webkit-mask-image: url(Images/title_buttons.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
@@ -994,7 +1010,7 @@ window-frame.maximized > title-bar > maximize::after {
 content-frame {
   display: block;
   position: absolute;
-  top: 24px;
+  top: 28px;
   bottom: 0;
   width: 100%;
 }
@@ -1312,7 +1328,7 @@ check-box > check-mark::before {
   width: 16px;
   height: 16px;
   font-size: 1.2em;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-normal);
   text-align: center;
   color: var(--check-box-mark-color);
@@ -1758,7 +1774,7 @@ menu-checked {
   height: 16px;
   text-align: center;
   font-size: 1.2em;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-normal);
   pointer-events: none;
 }
@@ -1899,7 +1915,7 @@ filter-box {
   flex-grow: 1;
   display: flex;
   width: 240px;
-  height: 24px;
+  height: 28px;
   overflow: hidden;
   visibility: hidden;
 }
@@ -1915,7 +1931,7 @@ tab-bar.dragging {
 tab-item {
   display: flex;
   width: 200px;
-  line-height: 24px;
+  line-height: 28px;
   font-family: var(--font-family-symbol), var(--font-family-title);
   justify-content: space-between;
   background-color: var(--tab-item-background);
@@ -2133,12 +2149,12 @@ node-icon {
 
 node-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_folded.png);
+  -webkit-mask-image: url(Images/folder_folded.png);
   -webkit-mask-size: 100%;
 }
 
 node-icon.icon-folder.expanded {
-  -webkit-mask-image: url(images/folder_expanded.png);
+  -webkit-mask-image: url(Images/folder_expanded.png);
   -webkit-mask-size: 100%;
 }
 
@@ -2151,7 +2167,7 @@ node-icon.icon-particle-image {
 
 .icon-file {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/file_common.png);
+  -webkit-mask-image: url(Images/file_common.png);
   -webkit-mask-size: 100%;
 }
 
@@ -2164,7 +2180,7 @@ node-icon.icon-particle-image {
   height: 14px;
   line-height: 14px;
   font-size: 10px;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: Arial, var(--font-family-symbol);
   background-color: var(--node-bubble-background);
   border-radius: 25%;
@@ -2205,56 +2221,56 @@ node-icon.icon-particle-image {
 
 .icon-ui-image {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 0;
 }
 
 .icon-ui-text {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -100%;
 }
 
 .icon-ui-textbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -200%;
 }
 
 .icon-ui-dialogbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -300%;
 }
 
 .icon-ui-progressbar {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -400%;
 }
 
 .icon-ui-video {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -500%;
 }
 
 .icon-ui-window {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -600%;
 }
 
 .icon-ui-container {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -700%;
 }
@@ -2571,8 +2587,8 @@ command-item:not(.selected) > .skill {
   color: var(--command-color-skill);
 }
 
-command-item:not(.selected) > .bag {
-  color: var(--command-color-bag);
+command-item:not(.selected) > .inventory {
+  color: var(--command-color-inventory);
 }
 
 command-item:not(.selected) > .scene {
@@ -2677,13 +2693,13 @@ file-nav-icon {
 
 file-nav-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_folded.png);
+  -webkit-mask-image: url(Images/folder_folded.png);
   -webkit-mask-size: 100%;
 }
 
 file-nav-icon.icon-folder.expanded {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_expanded.png);
+  -webkit-mask-image: url(Images/folder_expanded.png);
   -webkit-mask-size: 100%;
 }
 
@@ -2718,7 +2734,7 @@ file-head-address {
   margin: 2px 0;
   height: 20px;
   line-height: 20px;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
@@ -2890,61 +2906,61 @@ file-body-icon {
 
 file-body-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(images/folder_folded.png);
+  -webkit-mask-image: url(Images/folder_folded.png);
   -webkit-mask-size: 100%;
 }
 
 file-body-icon.icon-file-scene {
-  background-image: url(images/file_scene.png);
+  background-image: url(Images/file_scene.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-ui {
-  background-image: url(images/file_ui.png);
+  background-image: url(Images/file_ui.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-animation {
-  background-image: url(images/file_animation.png);
+  background-image: url(Images/file_animation.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-particle {
-  background-image: url(images/file_particle.png);
+  background-image: url(Images/file_particle.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-actor {
-  background-image: url(images/file_actor.png);
+  background-image: url(Images/file_actor.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-cube {
-  background-image: url(images/file_cube.png);
+  background-image: url(Images/file_cube.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-trigger {
-  background-image: url(images/file_trigger.png);
+  background-image: url(Images/file_trigger.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-tileset {
-  background-image: url(images/file_tileset.png);
+  background-image: url(Images/file_tileset.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-font {
-  background-image: url(images/file_font.png);
+  background-image: url(Images/file_font.png);
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-event {
   font-family: var(--font-family-bold);
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   text-align: center;
   color: green;
-  background-image: url(images/file_other.png);
+  background-image: url(Images/file_other.png);
   opacity: 0.8;
 }
 
@@ -2968,13 +2984,13 @@ file-body-icon.icon-file-video {
 
 file-body-icon.icon-file-other {
   font-family: var(--font-family-bold);
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   text-align: center;
   color: #404040;
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
-  background-image: url(images/file_other.png);
+  background-image: url(Images/file_other.png);
 }
 
 /* 当字号与行高是某些相等的值
@@ -3216,7 +3232,7 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
   display: flex;
   position: absolute;
   width: 100%;
-  height: 24px;
+  height: 28px;
   justify-content: flex-end;
   background-color: var(--title-background);
   overflow: hidden;
@@ -3225,8 +3241,8 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
 #menu {
   flex: 0 1 320px;
   display: flex;
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   overflow: hidden;
   visibility: hidden;
 }
@@ -3237,7 +3253,7 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
 
 .menu-item {
   padding: 0 10px;
-  height: 24px;
+  height: 28px;
   font-family: var(--font-family-title);
   overflow: hidden;
   white-space: nowrap;
@@ -3257,14 +3273,14 @@ file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
 #title-buttons {
   flex: 0 1 320px;
   display: flex;
-  height: 24px;
+  height: 28px;
   justify-content: flex-end;
 }
 
 #title-play {
   width: 44px;
-  height: 24px;
-  line-height: 24px;
+  height: 28px;
+  line-height: 28px;
   text-align: center;
   /* font-size: 10px; */
   font-family: var(--font-family-symbol);
@@ -3302,7 +3318,7 @@ body.maximized > #title > #title-buttons > #title-maximize::after {
 #workspace-page-manager {
   position: absolute;
   left: 0;
-  top: 24px;
+  top: 28px;
   right: 0;
   bottom: 0;
   overflow: hidden;
@@ -3352,7 +3368,7 @@ body.maximized > #title > #title-buttons > #title-maximize::after {
   height: 20px;
   line-height: 20px;
   font-size: 1.2em;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-bold);
 }
 
@@ -3540,7 +3556,7 @@ group-info {
   top: 25px;
   max-width: 100%;
   line-height: 20px;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
@@ -3636,25 +3652,25 @@ nav-item[value=particle].selected {
 }
 
 #scene-switch-grid::after {
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
 
 #scene-switch-light::after {
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
 
 #scene-switch-animation::after {
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
 
 #scene-switch-settings::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -3679,7 +3695,7 @@ nav-item[value=particle].selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/scene_tilemap.png);
+  -webkit-mask-image: url(Images/scene_tilemap.png);
   -webkit-mask-size: 100% 1300%;
 }
 
@@ -3823,7 +3839,7 @@ nav-item[value=particle].selected {
 }
 
 #ui-switch-settings::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -3842,7 +3858,7 @@ nav-item[value=particle].selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/ui_components.png);
+  -webkit-mask-image: url(Images/ui_components.png);
   -webkit-mask-size: 100% 800%;
 }
 
@@ -3948,25 +3964,25 @@ nav-item[value=particle].selected {
 }
 
 #animation-switch-mark::after {
-  -webkit-mask-image: url(images/animation_layer.png);
+  -webkit-mask-image: url(Images/animation_layer.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 #animation-switch-onionskin::after {
-  -webkit-mask-image: url(images/animation_buttons.png);
+  -webkit-mask-image: url(Images/animation_buttons.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 #animation-switch-mirror::after {
-  -webkit-mask-image: url(images/animation_buttons.png);
+  -webkit-mask-image: url(Images/animation_buttons.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
 
 #animation-switch-settings::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -3999,6 +4015,36 @@ nav-item[value=particle].selected {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+#animation-dirList {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /* background-color: green; */
+}
+
+anim-dir {
+  margin: 4px 0 0 4px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  font-size: 1.2em;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  opacity: 0.25;
+}
+
+anim-dir:hover {
+  opacity: 0.5;
+}
+
+anim-dir.selected {
+  opacity: 1;
 }
 
 #animation-timeline {
@@ -4037,7 +4083,7 @@ nav-item[value=particle].selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/timeline_buttons.png);
+  -webkit-mask-image: url(Images/timeline_buttons.png);
   -webkit-mask-size: 100% 700%;
 }
 
@@ -4137,21 +4183,21 @@ nav-item[value=particle].selected {
 
 .anim-layer-joint {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/animation_layer.png);
+  -webkit-mask-image: url(Images/animation_layer.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 .anim-layer-sprite {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/animation_layer.png);
+  -webkit-mask-image: url(Images/animation_layer.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
 
 .anim-layer-particle {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(images/scene_view.png);
+  -webkit-mask-image: url(Images/scene_view.png);
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
@@ -4335,11 +4381,6 @@ nav-item[value=particle].selected {
   height: 100%;
 }
 
-text.animation-motion-direction {
-  pointer-events: none;
-  color: var(--text-color-variable-init);
-}
-
 /* --------------------------------
  * 动画过渡
  * --------------------------------
@@ -4368,7 +4409,7 @@ text.animation-motion-direction {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/curve_settings.png);
+  -webkit-mask-image: url(Images/curve_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -4417,7 +4458,7 @@ text.animation-motion-direction {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/particle_view.png);
+  -webkit-mask-image: url(Images/particle_view.png);
   -webkit-mask-size: 100% 200%;
 }
 
@@ -4457,7 +4498,7 @@ text.animation-motion-direction {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(images/particle_animation.png);
+  -webkit-mask-image: url(Images/particle_animation.png);
   -webkit-mask-size: 100% 200%;
 }
 
@@ -4518,7 +4559,7 @@ text.animation-motion-direction {
  */
 #scene-shift {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #scene-shift-confirm {
@@ -4549,7 +4590,7 @@ text.animation-motion-direction {
  */
 #object-folder {
   width: 324px;
-  height: 238px;
+  height: 242px;
 }
 
 #object-folder-confirm {
@@ -4612,7 +4653,7 @@ text.animation-motion-direction {
  */
 #object-attribute {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #object-attribute-string-value {
@@ -4635,7 +4676,7 @@ text.animation-motion-direction {
  */
 #condition {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #condition-string-value {
@@ -4658,7 +4699,7 @@ text.animation-motion-direction {
  */
 #fileAnimation-sprite {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #fileAnimation-sprite-confirm {
@@ -4677,7 +4718,7 @@ text.animation-motion-direction {
  */
 #fileActor-sprite {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fileActor-sprite-confirm {
@@ -4696,7 +4737,7 @@ text.animation-motion-direction {
  */
 #fileActor-skill {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fileActor-skill-confirm {
@@ -4715,7 +4756,7 @@ text.animation-motion-direction {
  */
 #fileActor-equipment {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fileActor-equipment-confirm {
@@ -5206,9 +5247,9 @@ text.animation-motion-direction {
 }
 
 #sprite-info {
-  /* position: absolute; */
-  /* width: 100%; */
-  /*font-weight: bold*/;
+/*  position: absolute;*/
+/*  width: 100%;*/
+/*  font-weight: bold;*/
   font-family: var(--font-family-bold);
   text-indent: 0;
   text-align: center;
@@ -5216,7 +5257,7 @@ text.animation-motion-direction {
   white-space: pre;
   text-overflow: ellipsis;
   pointer-events: none;
-  /* background-color: yellow; */
+/*  background-color: yellow;*/
 }
 
 #sprite-zoom {
@@ -5365,19 +5406,19 @@ text.animation-motion-direction {
 }
 
 #palette-scroll::after {
-  -webkit-mask-image: url(images/tileset_scroll.png);
+  -webkit-mask-image: url(Images/tileset_scroll.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-edit::after {
-  -webkit-mask-image: url(images/common_settings.png);
+  -webkit-mask-image: url(Images/common_settings.png);
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-flip::after {
-  -webkit-mask-image: url(images/animation_buttons.png);
+  -webkit-mask-image: url(Images/animation_buttons.png);
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
@@ -5450,7 +5491,7 @@ text.animation-motion-direction {
  */
 #autoTile {
   width: 504px;
-  height: 516px;
+  height: 520px;
 }
 
 #autoTile-general-fieldset {
@@ -5517,7 +5558,7 @@ text.animation-motion-direction {
   height: 30px;
   background-clip: content-box;
   background-color: var(--input-background);
-  background-image: url(images/tile_ruleview.png);
+  background-image: url(Images/tile_ruleview.png);
   background-size: 100% 1100%;
   border: var(--input-border);
   border-radius: 50%;
@@ -5608,7 +5649,7 @@ text.animation-motion-direction {
  */
 #autoTile-generateFrames {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #autoTile-generateFrames-confirm {
@@ -5707,7 +5748,7 @@ text.animation-motion-direction {
  */
 #confirmation {
   width: 304px;
-  height: 94px;
+  height: 98px;
 }
 
 #confirmation-message {
@@ -5737,7 +5778,7 @@ text.animation-motion-direction {
  */
 #newProject {
   width: 448px;
-  height: 118px;
+  height: 122px;
 }
 
 #newProject-folder {
@@ -5778,7 +5819,7 @@ text.animation-motion-direction {
  */
 #deployment {
   width: 448px;
-  height: 142px;
+  height: 146px;
 }
 
 #deployment-folder {
@@ -5819,7 +5860,7 @@ text.animation-motion-direction {
  */
 #copyProgress {
   width: 380px;
-  height: 112px;
+  height: 116px;
 }
 
 #copyProgress-flex {
@@ -5849,7 +5890,7 @@ text.animation-motion-direction {
  */
 #color {
   width: 410px;
-  height: 302px;
+  height: 306px;
 }
 
 #color-palette-canvas {
@@ -6000,7 +6041,7 @@ text.animation-motion-direction {
  */
 #font {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #font-confirm {
@@ -6019,7 +6060,7 @@ text.animation-motion-direction {
  */
 #fontSize {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #fontSize-confirm {
@@ -6038,7 +6079,7 @@ text.animation-motion-direction {
  */
 #textPosition {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #textPosition-confirm {
@@ -6057,7 +6098,7 @@ text.animation-motion-direction {
  */
 #textEffect {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #textEffect-confirm {
@@ -6076,7 +6117,7 @@ text.animation-motion-direction {
  */
 #localVariable {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #localVariable-confirm {
@@ -6095,7 +6136,7 @@ text.animation-motion-direction {
  */
 #event {
   width: 1080px;
-  height: 696px;
+  height: 700px;
 }
 
 /* #event.maximized > #event-title {
@@ -6273,8 +6314,8 @@ text.animation-motion-direction {
   background-color: var(--command-color-skill);
 }
 
-.icon-command.bag {
-  background-color: var(--command-color-bag);
+.icon-command.inventory {
+  background-color: var(--command-color-inventory);
 }
 
 .icon-command.scene {
@@ -6294,32 +6335,12 @@ text.animation-motion-direction {
 }
 
 /* --------------------------------
- * 文本建议列表
- * --------------------------------
- */
-#text-suggestions {
-  display: block;
-  position: fixed;
-  margin-left: var(--1dpx);
-  /* box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5); */
-  background-color: var(--suggestion-widget-background);
-  outline: var(--window-outline);
-  pointer-events: visible;
-}
-
-.text-suggestion-item {
-  padding-left: 4px;
-  padding-right: 4px;
-  /* color: var(--text-color-unit); */
-}
-
-/* --------------------------------
  * 变量访问器窗口
  * --------------------------------
  */
 #variableGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #variableGetter-confirm {
@@ -6333,12 +6354,31 @@ text.animation-motion-direction {
 }
 
 /* --------------------------------
+ * 对象变量访问器窗口
+ * --------------------------------
+ */
+ #objectGetter {
+  width: 324px;
+  height: 146px;
+}
+
+#objectGetter-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#objectGetter-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 角色访问器窗口
  * --------------------------------
  */
 #actorGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #actorGetter-confirm {
@@ -6357,7 +6397,7 @@ text.animation-motion-direction {
  */
 #skillGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #skillGetter-confirm {
@@ -6376,7 +6416,7 @@ text.animation-motion-direction {
  */
 #stateGetter {
   width: 324px;
-  height: 118px;
+  height: 146px;
 }
 
 #stateGetter-confirm {
@@ -6395,7 +6435,7 @@ text.animation-motion-direction {
  */
 #equipmentGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #equipmentGetter-confirm {
@@ -6414,7 +6454,7 @@ text.animation-motion-direction {
  */
 #itemGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #itemGetter-confirm {
@@ -6433,7 +6473,7 @@ text.animation-motion-direction {
  */
 #positionGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #positionGetter-absolute-x,
@@ -6459,7 +6499,7 @@ text.animation-motion-direction {
  */
 #angleGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #angleGetter-confirm {
@@ -6478,7 +6518,7 @@ text.animation-motion-direction {
  */
 #triggerGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #triggerGetter-confirm {
@@ -6497,7 +6537,7 @@ text.animation-motion-direction {
  */
 #lightGetter {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #lightGetter-confirm {
@@ -6516,7 +6556,7 @@ text.animation-motion-direction {
  */
 #elementGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #elementGetter-confirm {
@@ -6535,7 +6575,7 @@ text.animation-motion-direction {
  */
 #ancestorGetter {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #ancestorGetter-confirm {
@@ -6554,7 +6594,7 @@ text.animation-motion-direction {
  */
 #showText {
   width: 720px;
-  height: 264px;
+  height: 268px;
 }
 
 #showText-target {
@@ -6597,7 +6637,7 @@ text.animation-motion-direction {
  */
  #showChoices {
   width: 400px;
-  height: 190px;
+  height: 194px;
 }
 
 #showChoices-confirm {
@@ -6616,7 +6656,7 @@ text.animation-motion-direction {
  */
 #setBoolean {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setBoolean-confirm {
@@ -6635,11 +6675,11 @@ text.animation-motion-direction {
  */
 #setNumber {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setNumber-operands {
-  height: 102px;
+  height: 106px;
 }
 
 #setNumber-confirm {
@@ -6677,7 +6717,7 @@ text.animation-motion-direction {
  */
 #setString {
   width: 324px;
-  height: 238px;
+  height: 242px;
 }
 
 #setString-operand-constant-value {
@@ -6700,7 +6740,7 @@ text.animation-motion-direction {
  */
 #setObject {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setObject-confirm {
@@ -6719,7 +6759,7 @@ text.animation-motion-direction {
  */
 #setList {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setList-string {
@@ -6742,7 +6782,7 @@ text.animation-motion-direction {
  */
 #deleteVariable {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteVariable-confirm {
@@ -6761,11 +6801,11 @@ text.animation-motion-direction {
  */
 #if {
   width: 324px;
-  height: 176px;
+  height: 180px;
 }
 
 #if-branches {
-  height: 102px;
+  height: 106px;
 }
 
 #if-else {
@@ -6813,7 +6853,7 @@ text.animation-motion-direction {
  */
 #if-condition {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #if-condition-string-constant-value {
@@ -6836,7 +6876,7 @@ text.animation-motion-direction {
  */
 #switch {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #switch-branches {
@@ -6865,7 +6905,7 @@ text.animation-motion-direction {
  */
 #switch-branch {
   width: 324px;
-  height: 176px;
+  height: 180px;
 }
 
 #switch-branch-conditions {
@@ -6888,7 +6928,7 @@ text.animation-motion-direction {
  */
 #switch-condition {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #switch-condition-string-value {
@@ -6911,7 +6951,7 @@ text.animation-motion-direction {
  */
 #loop {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #loop-conditions {
@@ -6934,7 +6974,7 @@ text.animation-motion-direction {
  */
 #forEach {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #forEach-confirm {
@@ -6953,7 +6993,7 @@ text.animation-motion-direction {
  */
 #callEvent {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #callEvent-confirm {
@@ -6972,7 +7012,7 @@ text.animation-motion-direction {
  */
 #setEvent {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setEvent-confirm {
@@ -6991,7 +7031,7 @@ text.animation-motion-direction {
  */
 #comment {
   width: 720px;
-  height: 234px;
+  height: 238px;
 }
 
 #comment-comment {
@@ -7019,7 +7059,7 @@ text.animation-motion-direction {
  */
 #label {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #label-confirm {
@@ -7038,7 +7078,7 @@ text.animation-motion-direction {
  */
 #jumpTo {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #jumpTo-confirm {
@@ -7057,7 +7097,7 @@ text.animation-motion-direction {
  */
 #wait {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #wait-confirm {
@@ -7076,7 +7116,7 @@ text.animation-motion-direction {
  */
 #createElement {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #createElement-confirm {
@@ -7095,7 +7135,7 @@ text.animation-motion-direction {
  */
 #setImage {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setImage-properties {
@@ -7118,7 +7158,7 @@ text.animation-motion-direction {
  */
 #setImage-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setImage-property-confirm {
@@ -7137,7 +7177,7 @@ text.animation-motion-direction {
  */
 #loadImage {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #loadImage-confirm {
@@ -7156,7 +7196,7 @@ text.animation-motion-direction {
  */
 #tintImage {
   width: 428px;
-  height: 286px;
+  height: 290px;
 }
 
 #tintImage-grid-box {
@@ -7187,7 +7227,7 @@ text.animation-motion-direction {
  */
 #setText {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setText-properties {
@@ -7210,7 +7250,7 @@ text.animation-motion-direction {
  */
 #setText-property {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setText-property-content {
@@ -7233,7 +7273,7 @@ text.animation-motion-direction {
  */
 #setTextBox {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setTextBox-properties {
@@ -7256,7 +7296,7 @@ text.animation-motion-direction {
  */
 #setTextBox-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setTextBox-property-confirm {
@@ -7275,7 +7315,7 @@ text.animation-motion-direction {
  */
 #setDialogBox {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setDialogBox-properties {
@@ -7298,7 +7338,7 @@ text.animation-motion-direction {
  */
 #setDialogBox-property {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setDialogBox-property-content {
@@ -7321,7 +7361,7 @@ text.animation-motion-direction {
  */
 #controlDialog {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #controlDialog-confirm {
@@ -7340,7 +7380,7 @@ text.animation-motion-direction {
  */
 #setProgressBar {
   width: 324px;
-  height: 200px;
+  height: 204px;
 }
 
 #setProgressBar-properties {
@@ -7363,7 +7403,7 @@ text.animation-motion-direction {
  */
 #setProgressBar-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setProgressBar-property-confirm {
@@ -7382,7 +7422,7 @@ text.animation-motion-direction {
  */
 #waitForVideo {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #waitForVideo-confirm {
@@ -7401,7 +7441,7 @@ text.animation-motion-direction {
  */
 #setElement {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setElement-confirm {
@@ -7420,7 +7460,7 @@ text.animation-motion-direction {
  */
 #nestElement {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #nestElement-confirm {
@@ -7439,7 +7479,7 @@ text.animation-motion-direction {
  */
 #moveElement {
   width: 324px;
-  height: 272px;
+  height: 276px;
 }
 
 #moveElement-properties {
@@ -7462,7 +7502,7 @@ text.animation-motion-direction {
  */
 #moveElement-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #moveElement-property-confirm {
@@ -7481,7 +7521,7 @@ text.animation-motion-direction {
  */
 #deleteElement {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #deleteElement-confirm {
@@ -7500,7 +7540,7 @@ text.animation-motion-direction {
  */
 #createLight {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #createLight-confirm {
@@ -7519,7 +7559,7 @@ text.animation-motion-direction {
  */
 #moveLight {
   width: 324px;
-  height: 272px;
+  height: 276px;
 }
 
 #moveLight-properties {
@@ -7542,7 +7582,7 @@ text.animation-motion-direction {
  */
 #moveLight-property {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #moveLight-property-confirm {
@@ -7561,7 +7601,7 @@ text.animation-motion-direction {
  */
 #deleteLight {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteLight-confirm {
@@ -7580,7 +7620,7 @@ text.animation-motion-direction {
  */
 #setState {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setState-confirm {
@@ -7599,7 +7639,7 @@ text.animation-motion-direction {
  */
 #playAnimation {
   width: 324px;
-  height: 286px;
+  height: 266px;
 }
 
 #playAnimation-confirm {
@@ -7618,7 +7658,7 @@ text.animation-motion-direction {
  */
 #playAudio {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #playAudio-confirm {
@@ -7637,7 +7677,7 @@ text.animation-motion-direction {
  */
 #stopAudio {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #stopAudio-confirm {
@@ -7656,7 +7696,7 @@ text.animation-motion-direction {
  */
 #setVolume {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setVolume-confirm {
@@ -7675,7 +7715,7 @@ text.animation-motion-direction {
  */
 #setPan {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setPan-confirm {
@@ -7694,7 +7734,7 @@ text.animation-motion-direction {
  */
 #setReverb {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #setReverb-confirm {
@@ -7713,7 +7753,7 @@ text.animation-motion-direction {
  */
 #setLoop {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setLoop-confirm {
@@ -7732,7 +7772,7 @@ text.animation-motion-direction {
  */
 #saveAudio {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #saveAudio-confirm {
@@ -7751,7 +7791,7 @@ text.animation-motion-direction {
  */
 #restoreAudio {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #restoreAudio-confirm {
@@ -7770,7 +7810,7 @@ text.animation-motion-direction {
  */
 #createActor {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #createActor-confirm {
@@ -7789,7 +7829,7 @@ text.animation-motion-direction {
  */
 #moveActor {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #moveActor-confirm {
@@ -7808,7 +7848,7 @@ text.animation-motion-direction {
  */
 #followActor {
   width: 324px;
-  height: 286px;
+  height: 290px;
 }
 
 #followActor-confirm {
@@ -7827,7 +7867,7 @@ text.animation-motion-direction {
  */
 #translateActor {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #translateActor-confirm {
@@ -7846,7 +7886,7 @@ text.animation-motion-direction {
  */
 #changeThreat {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #changeThreat-confirm {
@@ -7865,7 +7905,7 @@ text.animation-motion-direction {
  */
 #setWeight {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setWeight-confirm {
@@ -7884,7 +7924,7 @@ text.animation-motion-direction {
  */
 #setMovementSpeed {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setMovementSpeed-confirm {
@@ -7903,7 +7943,7 @@ text.animation-motion-direction {
  */
 #setAngle {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #setAngle-confirm {
@@ -7922,7 +7962,7 @@ text.animation-motion-direction {
  */
 #fixAngle {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #fixAngle-confirm {
@@ -7941,7 +7981,7 @@ text.animation-motion-direction {
  */
 #setActive {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setActive-confirm {
@@ -7960,7 +8000,7 @@ text.animation-motion-direction {
  */
 #deleteActor {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteActor-confirm {
@@ -7974,12 +8014,50 @@ text.animation-motion-direction {
 }
 
 /* --------------------------------
+ * 设置玩家角色
+ * --------------------------------
+ */
+#setPlayerActor {
+  width: 324px;
+  height: 98px;
+}
+
+#setPlayerActor-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#setPlayerActor-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置队伍成员
+ * --------------------------------
+ */
+ #setPartyMember {
+  width: 324px;
+  height: 122px;
+}
+
+#setPartyMember-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#setPartyMember-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 改变角色队伍
  * --------------------------------
  */
 #changeActorTeam {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #changeActorTeam-confirm {
@@ -7998,7 +8076,7 @@ text.animation-motion-direction {
  */
 #changeActorState {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #changeActorState-confirm {
@@ -8017,7 +8095,7 @@ text.animation-motion-direction {
  */
 #changeActorEquipment {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #changeActorEquipment-confirm {
@@ -8036,7 +8114,7 @@ text.animation-motion-direction {
  */
 #changeActorSkill {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #changeActorSkill-confirm {
@@ -8050,12 +8128,50 @@ text.animation-motion-direction {
 }
 
 /* --------------------------------
+ * 改变角色头像
+ * --------------------------------
+ */
+#changeActorPortrait {
+  width: 324px;
+  height: 170px;
+}
+
+#changeActorPortrait-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#changeActorPortrait-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 改变角色动画
+ * --------------------------------
+ */
+#changeActorAnimation {
+  width: 324px;
+  height: 122px;
+}
+
+#changeActorAnimation-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#changeActorAnimation-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 改变角色精灵图
  * --------------------------------
  */
 #changeActorSprite {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #changeActorSprite-confirm {
@@ -8074,7 +8190,7 @@ text.animation-motion-direction {
  */
 #remapActorMotion {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #remapActorMotion-confirm {
@@ -8093,7 +8209,7 @@ text.animation-motion-direction {
  */
 #playActorAnimation {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #playActorAnimation-confirm {
@@ -8112,7 +8228,7 @@ text.animation-motion-direction {
  */
 #stopActorAnimation {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #stopActorAnimation-confirm {
@@ -8131,7 +8247,7 @@ text.animation-motion-direction {
  */
 #createGlobalActor {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #createGlobalActor-confirm {
@@ -8150,7 +8266,7 @@ text.animation-motion-direction {
  */
 #placeGlobalActor {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #placeGlobalActor-confirm {
@@ -8169,7 +8285,7 @@ text.animation-motion-direction {
  */
 #deleteGlobalActor {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #deleteGlobalActor-confirm {
@@ -8188,7 +8304,7 @@ text.animation-motion-direction {
  */
 #getTarget {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #getTarget-confirm {
@@ -8202,12 +8318,31 @@ text.animation-motion-direction {
 }
 
 /* --------------------------------
+ * 添加目标
+ * --------------------------------
+ */
+#appendTarget {
+  width: 324px;
+  height: 122px;
+}
+
+#appendTarget-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#appendTarget-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
  * 探测目标
  * --------------------------------
  */
 #detectTargets {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #detectTargets-confirm {
@@ -8226,7 +8361,7 @@ text.animation-motion-direction {
  */
 #discardTargets {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #discardTargets-confirm {
@@ -8245,7 +8380,7 @@ text.animation-motion-direction {
  */
 #resetTargets {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #resetTargets-confirm {
@@ -8264,7 +8399,7 @@ text.animation-motion-direction {
  */
 #castSkill {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #castSkill-confirm {
@@ -8283,7 +8418,7 @@ text.animation-motion-direction {
  */
 #setSkill {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setSkill-confirm {
@@ -8302,7 +8437,7 @@ text.animation-motion-direction {
  */
 #createTrigger {
   width: 346px;
-  height: 214px;
+  height: 218px;
 }
 
 #createTrigger-confirm {
@@ -8321,7 +8456,7 @@ text.animation-motion-direction {
  */
 #setTriggerSpeed {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setTriggerSpeed-confirm {
@@ -8340,7 +8475,7 @@ text.animation-motion-direction {
  */
 #setTriggerAngle {
   width: 324px;
-  height: 118px;
+  height: 122px;
 }
 
 #setTriggerAngle-confirm {
@@ -8357,17 +8492,17 @@ text.animation-motion-direction {
  * 设置包裹
  * --------------------------------
  */
-#setBag {
+#setInventory {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
-#setBag-confirm {
+#setInventory-confirm {
   right: 108px;
   bottom: 10px;
 }
 
-#setBag-cancel {
+#setInventory-cancel {
   right: 10px;
   bottom: 10px;
 }
@@ -8378,7 +8513,7 @@ text.animation-motion-direction {
  */
 #useItem {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #useItem-confirm {
@@ -8397,7 +8532,7 @@ text.animation-motion-direction {
  */
 #setItem {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setItem-confirm {
@@ -8416,7 +8551,7 @@ text.animation-motion-direction {
  */
 #setCooldown {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setCooldown-confirm {
@@ -8435,7 +8570,7 @@ text.animation-motion-direction {
  */
 #setShortcut {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setShortcut-confirm {
@@ -8454,7 +8589,7 @@ text.animation-motion-direction {
  */
 #activateScene {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #activateScene-confirm {
@@ -8473,7 +8608,7 @@ text.animation-motion-direction {
  */
 #loadScene {
   width: 324px;
-  height: 118px;
+  height: 170px;
 }
 
 #loadScene-confirm {
@@ -8492,7 +8627,7 @@ text.animation-motion-direction {
  */
 #moveCamera {
   width: 324px;
-  height: 190px;
+  height: 194px;
 }
 
 #moveCamera-confirm {
@@ -8511,7 +8646,7 @@ text.animation-motion-direction {
  */
 #setZoomFactor {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setZoomFactor-confirm {
@@ -8530,7 +8665,7 @@ text.animation-motion-direction {
  */
 #setAmbientLight {
   width: 324px;
-  height: 214px;
+  height: 218px;
 }
 
 #setAmbientLight-filter {
@@ -8557,7 +8692,7 @@ text.animation-motion-direction {
  */
 #tintScreen {
   width: 428px;
-  height: 238px;
+  height: 242px;
 }
 
 #tintScreen-grid-box {
@@ -8588,7 +8723,7 @@ text.animation-motion-direction {
  */
 #setGameSpeed {
   width: 324px;
-  height: 166px;
+  height: 170px;
 }
 
 #setGameSpeed-confirm {
@@ -8607,7 +8742,7 @@ text.animation-motion-direction {
  */
 #setCursor {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #setCursor-confirm {
@@ -8626,7 +8761,7 @@ text.animation-motion-direction {
  */
 #setTeamRelation {
   width: 324px;
-  height: 142px;
+  height: 146px;
 }
 
 #setTeamRelation-confirm {
@@ -8645,7 +8780,7 @@ text.animation-motion-direction {
  */
 #switchCollisionSystem {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #switchCollisionSystem-confirm {
@@ -8659,31 +8794,12 @@ text.animation-motion-direction {
 }
 
 /* --------------------------------
- * 游戏数据
- * --------------------------------
- */
-#gameData {
-  width: 324px;
-  height: 142px;
-}
-
-#gameData-confirm {
-  right: 108px;
-  bottom: 10px;
-}
-
-#gameData-cancel {
-  right: 10px;
-  bottom: 10px;
-}
-
-/* --------------------------------
  * 执行脚本
  * --------------------------------
  */
 #script {
   width: 720px;
-  height: 314px;
+  height: 238px;
 }
 
 #script-script {
@@ -8691,7 +8807,7 @@ text.animation-motion-direction {
   left: 10px;
   top: 10px;
   width: 700px;
-  height: 240px;
+  height: 160px;
 }
 
 #script-confirm {
@@ -8735,7 +8851,7 @@ text.animation-motion-direction {
  */
 #selector {
   width: 1080px;
-  height: 696px;
+  height: 700px;
 }
 
 #selector-browser {
@@ -8779,7 +8895,7 @@ text.animation-motion-direction {
  */
 #imageClip {
   width: 1080px;
-  height: 696px;
+  height: 700px;
 }
 
 #imageClip-screen {
@@ -8837,7 +8953,7 @@ text.animation-motion-direction {
  */
 #project-settings {
   width: 480px;
-  height: 696px;
+  height: 700px;
 }
 
 #project-page {
@@ -8863,7 +8979,7 @@ text.animation-motion-direction {
   grid-column-start: 1;
   grid-column-end: 3;
   font-size: 1.2em;
-  /*font-weight: bold*/;
+/*  font-weight: bold;*/
   font-family: var(--font-family-bold);
 }
 
@@ -8887,7 +9003,7 @@ text.animation-motion-direction {
  */
 #easing {
   width: 800px;
-  height: 600px;
+  height: 604px;
 }
 
 #easing-list-fieldset {
@@ -9014,7 +9130,7 @@ text.animation-motion-direction {
  */
 #team {
   width: 304px;
-  height: 416px;
+  height: 420px;
 }
 
 #team-list-fieldset {
@@ -9071,7 +9187,7 @@ text.animation-motion-direction {
  */
 #variable {
   width: 572px;
-  height: 696px;
+  height: 700px;
 }
 
 #variable-list-fieldset {
@@ -9197,7 +9313,7 @@ node-icon.icon-note {
  */
 #attribute {
   width: 572px;
-  height: 696px;
+  height: 700px;
 }
 
 #attribute-list-fieldset {
@@ -9285,7 +9401,7 @@ node-icon.icon-note {
  */
 #enum {
   width: 572px;
-  height: 696px;
+  height: 700px;
 }
 
 #enum-list-fieldset {
@@ -9373,7 +9489,7 @@ node-icon.icon-note {
  */
 #presetObject {
   width: 340px;
-  height: 500px;
+  height: 504px;
 }
 
 #presetObject-searcher {
@@ -9413,7 +9529,7 @@ node-icon.icon-note {
  */
 #presetElement {
   width: 340px;
-  height: 500px;
+  height: 504px;
 }
 
 #presetElement-uiId {
@@ -9453,7 +9569,7 @@ node-icon.icon-note {
  */
 #plugin {
   width: 700px;
-  height: 696px;
+  height: 700px;
 }
 
 #plugin-list-fieldset {
@@ -9592,7 +9708,7 @@ node-icon.icon-note {
  */
 #command {
   width: 700px;
-  height: 696px;
+  height: 700px;
 }
 
 #command-list-fieldset {
@@ -9660,7 +9776,7 @@ node-icon.icon-note {
  */
 #arrayList {
   width: 340px;
-  height: 476px;
+  height: 480px;
 }
 
 #arrayList-list {
@@ -9687,7 +9803,7 @@ node-icon.icon-note {
  */
 #arrayList-number {
   width: 300px;
-  height: 94px;
+  height: 98px;
 }
 
 #arrayList-number-value {
@@ -9713,7 +9829,7 @@ node-icon.icon-note {
  */
 #arrayList-string {
   width: 300px;
-  height: 118px;
+  height: 122px;
 }
 
 #arrayList-string-value {
@@ -9740,7 +9856,7 @@ node-icon.icon-note {
  */
 #log {
   width: 800px;
-  height: 400px;
+  height: 404px;
 }
 
 #log-list {
@@ -9810,7 +9926,7 @@ error-counter {
  */
 #about {
   width: 280px;
-  height: 208px;
+  height: 212px;
 }
 
 /* --------------------------------
@@ -9819,7 +9935,7 @@ error-counter {
  */
 #zoom {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #zoom-confirm {
@@ -9838,7 +9954,7 @@ error-counter {
  */
 #rename {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #rename-confirm {
@@ -9857,7 +9973,7 @@ error-counter {
  */
 #setKey {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #setKey-confirm {
@@ -9876,7 +9992,7 @@ error-counter {
  */
 #setQuantity {
   width: 324px;
-  height: 94px;
+  height: 98px;
 }
 
 #setQuantity-confirm {
