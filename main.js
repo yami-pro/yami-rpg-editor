@@ -68,7 +68,7 @@ const createEditorWindow = function () {
   editor.setMenuBarVisibility(false)
 
   // 加载文件
-  editor.loadFile(Path.resolve(__dirname, 'index.html'))
+  editor.loadFile(Path.resolve(__dirname, 'next-index.html'))
 
   // 侦听窗口模式切换事件
   editor.on('maximize', event => editor.send('maximize'))
