@@ -18,4 +18,6 @@ _electron/LICENSES.chromium.html
 _electron/version
 *.json
 
+Dist/
 dist-*.js
+dist-*.css

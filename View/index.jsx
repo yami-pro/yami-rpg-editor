@@ -1,5 +1,6 @@
 'use strict'
 
+import './index.css'
 import { createElement } from './vhtml/index.js'
 import { TitleView } from './title.jsx'
 import { ToolsView } from './tools.jsx'

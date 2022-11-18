@@ -1,20 +1,22 @@
+@import "animation.css";
+
 /* --------------------------------
  * 加载字体
  * --------------------------------
  */
 @font-face {
   font-family: Awesome;
-  src: url(Fonts/font_awesome.woff2);
+  src: url("../Fonts/font_awesome.woff2");
 }
 
 @font-face {
   font-family: Inter;
-  src: url(Fonts/Inter-Regular.woff2);
+  src: url("../Fonts/Inter-Regular.woff2");
 }
 
 @font-face {
   font-family: Inter Bold;
-  src: url(Fonts/Inter-Bold.woff2);
+  src: url("../Fonts/Inter-Bold.woff2");
 }
 
 /* --------------------------------
@@ -189,7 +191,7 @@
   --selected-background-blur: rgba(0, 0, 0, 0.1);
   --selection-background: rgba(32, 128, 192, 0.996);
   --drop-target-background: rgba(32, 128, 192, 0.4);
-  --grid-background: url(Images/grid_light.png);
+  --grid-background: url("../Images/grid_light.png");
   --node-icon-color: rgba(0, 0, 0, 0.2);
   --node-icon-color-highlight: rgba(0, 0, 0, 0.8);
   --node-icon-border: 1px solid var(--text-color);
@@ -200,9 +202,9 @@
   --menu-separator-background: #e0e0e0;
   --list-item-background-hover: rgba(0, 0, 0, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(255, 255, 255, 0.75);
-  --timeline-ruler-background: url(Images/timeline_scale_light.png);
+  --timeline-ruler-background: url("../Images/timeline_scale_light.png");
   --timeline-frame-list-background: #cccccc;
-  --timeline-grid: url(Images/timeline_grid_light.png);
+  --timeline-grid: url("../Images/timeline_grid_light.png");
   --timeline-grid-border: 1px solid #c0c0c0;
   --timeline-key-background: rgba(0, 0, 0, 0.2);
   --timeline-key-mark-color: #202020;
@@ -347,7 +349,7 @@
   --selected-background-blur: rgba(255, 255, 255, 0.1);
   --selection-background: rgba(8, 72, 114, 0.996);
   --drop-target-background: rgba(8, 72, 114, 0.4);
-  --grid-background: url(Images/grid_dark.png);
+  --grid-background: url("../Images/grid_dark.png");
   --node-icon-color: rgba(255, 255, 255, 0.1);
   --node-icon-color-highlight: rgba(255, 255, 255, 0.6);
   --node-icon-border: 1px solid var(--text-color);
@@ -358,9 +360,9 @@
   --menu-separator-background: #404040;
   --list-item-background-hover: rgba(255, 255, 255, 0.05);
   --timeline-ruler-number-shadow: 1px 1px rgba(0, 0, 0, 0.75);
-  --timeline-ruler-background: url(Images/timeline_scale_dark.png);
+  --timeline-ruler-background: url("../Images/timeline_scale_dark.png");
   --timeline-frame-list-background: #2c2c2c;
-  --timeline-grid: url(Images/timeline_grid_dark.png);
+  --timeline-grid: url("../Images/timeline_grid_dark.png");
   --timeline-grid-border: 1px solid #000000;
   --timeline-key-background: rgba(0, 0, 0, 0.5);
   --timeline-key-mark-color: #a0a0a0;
@@ -446,19 +448,19 @@
 }
 
 ::-webkit-scrollbar-button:horizontal:start:decrement {
-  background-image: url(Images/scrollbar_arrow_left.png);
+  background-image: url("../Images/scrollbar_arrow_left.png");
 }
 
 ::-webkit-scrollbar-button:horizontal:end:increment {
-  background-image: url(Images/scrollbar_arrow_right.png);
+  background-image: url("../Images/scrollbar_arrow_right.png");
 }
 
 ::-webkit-scrollbar-button:vertical:start:decrement {
-  background-image: url(Images/scrollbar_arrow_up.png);
+  background-image: url("../Images/scrollbar_arrow_up.png");
 }
 
 ::-webkit-scrollbar-button:vertical:end:increment {
-  background-image: url(Images/scrollbar_arrow_down.png);
+  background-image: url("../Images/scrollbar_arrow_down.png");
 }
 
 ::-webkit-scrollbar-thumb {
@@ -929,7 +931,7 @@ minimize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(Images/title_buttons.png);
+  -webkit-mask-image: url("../Images/title_buttons.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
@@ -955,7 +957,7 @@ maximize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(Images/title_buttons.png);
+  -webkit-mask-image: url("../Images/title_buttons.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
@@ -981,7 +983,7 @@ close::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url(Images/title_buttons.png);
+  -webkit-mask-image: url("../Images/title_buttons.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
@@ -2149,12 +2151,12 @@ node-icon {
 
 node-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(Images/folder_folded.png);
+  -webkit-mask-image: url("../Images/folder_folded.png");
   -webkit-mask-size: 100%;
 }
 
 node-icon.icon-folder.expanded {
-  -webkit-mask-image: url(Images/folder_expanded.png);
+  -webkit-mask-image: url("../Images/folder_expanded.png");
   -webkit-mask-size: 100%;
 }
 
@@ -2167,7 +2169,7 @@ node-icon.icon-particle-image {
 
 .icon-file {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/file_common.png);
+  -webkit-mask-image: url("../Images/file_common.png");
   -webkit-mask-size: 100%;
 }
 
@@ -2221,56 +2223,56 @@ node-icon.icon-particle-image {
 
 .icon-ui-image {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 0;
 }
 
 .icon-ui-text {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -100%;
 }
 
 .icon-ui-textbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -200%;
 }
 
 .icon-ui-dialogbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -300%;
 }
 
 .icon-ui-progressbar {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -400%;
 }
 
 .icon-ui-video {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -500%;
 }
 
 .icon-ui-window {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -600%;
 }
 
 .icon-ui-container {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -700%;
 }
@@ -2693,13 +2695,13 @@ file-nav-icon {
 
 file-nav-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(Images/folder_folded.png);
+  -webkit-mask-image: url("../Images/folder_folded.png");
   -webkit-mask-size: 100%;
 }
 
 file-nav-icon.icon-folder.expanded {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(Images/folder_expanded.png);
+  -webkit-mask-image: url("../Images/folder_expanded.png");
   -webkit-mask-size: 100%;
 }
 
@@ -2906,52 +2908,52 @@ file-body-icon {
 
 file-body-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url(Images/folder_folded.png);
+  -webkit-mask-image: url("../Images/folder_folded.png");
   -webkit-mask-size: 100%;
 }
 
 file-body-icon.icon-file-scene {
-  background-image: url(Images/file_scene.png);
+  background-image: url("../Images/file_scene.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-ui {
-  background-image: url(Images/file_ui.png);
+  background-image: url("../Images/file_ui.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-animation {
-  background-image: url(Images/file_animation.png);
+  background-image: url("../Images/file_animation.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-particle {
-  background-image: url(Images/file_particle.png);
+  background-image: url("../Images/file_particle.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-actor {
-  background-image: url(Images/file_actor.png);
+  background-image: url("../Images/file_actor.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-cube {
-  background-image: url(Images/file_cube.png);
+  background-image: url("../Images/file_cube.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-trigger {
-  background-image: url(Images/file_trigger.png);
+  background-image: url("../Images/file_trigger.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-tileset {
-  background-image: url(Images/file_tileset.png);
+  background-image: url("../Images/file_tileset.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-font {
-  background-image: url(Images/file_font.png);
+  background-image: url("../Images/file_font.png");
   opacity: 0.8;
 }
 
@@ -2960,7 +2962,7 @@ file-body-icon.icon-file-event {
 /*  font-weight: bold;*/
   text-align: center;
   color: green;
-  background-image: url(Images/file_other.png);
+  background-image: url("../Images/file_other.png");
   opacity: 0.8;
 }
 
@@ -2990,7 +2992,7 @@ file-body-icon.icon-file-other {
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
-  background-image: url(Images/file_other.png);
+  background-image: url("../Images/file_other.png");
 }
 
 /* 当字号与行高是某些相等的值
@@ -3652,25 +3654,25 @@ nav-item[value=particle].selected {
 }
 
 #scene-switch-grid::after {
-  -webkit-mask-image: url(Images/scene_view.png);
+  -webkit-mask-image: url("../Images/scene_view.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
 
 #scene-switch-light::after {
-  -webkit-mask-image: url(Images/scene_view.png);
+  -webkit-mask-image: url("../Images/scene_view.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
 
 #scene-switch-animation::after {
-  -webkit-mask-image: url(Images/scene_view.png);
+  -webkit-mask-image: url("../Images/scene_view.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
 
 #scene-switch-settings::after {
-  -webkit-mask-image: url(Images/common_settings.png);
+  -webkit-mask-image: url("../Images/common_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -3695,7 +3697,7 @@ nav-item[value=particle].selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(Images/scene_tilemap.png);
+  -webkit-mask-image: url("../Images/scene_tilemap.png");
   -webkit-mask-size: 100% 1300%;
 }
 
@@ -3839,7 +3841,7 @@ nav-item[value=particle].selected {
 }
 
 #ui-switch-settings::after {
-  -webkit-mask-image: url(Images/common_settings.png);
+  -webkit-mask-image: url("../Images/common_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -3858,7 +3860,7 @@ nav-item[value=particle].selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(Images/ui_components.png);
+  -webkit-mask-image: url("../Images/ui_components.png");
   -webkit-mask-size: 100% 800%;
 }
 
@@ -3933,502 +3935,6 @@ nav-item[value=particle].selected {
 }
 
 /* --------------------------------
- * 动画
- * --------------------------------
- */
-#animation-head {
-  display: flex;
-  position: absolute;
-  flex: 1 0 auto;
-  justify-content: space-between;
-  top: -25px;
-  right: 0;
-  height: 24px;
-  overflow: hidden;
-  background-color: var(--group-head-background);
-}
-
-#animation-head-start {
-  display: flex;
-  flex: 0 0 auto;
-  /* background: yellow; */
-}
-
-#animation-head-start > .toolbar-item::after {
-  content: '';
-  display: block;
-  margin: 4px 6px;
-  width: 16px;
-  height: 16px;
-  background-color: var(--text-color);
-}
-
-#animation-switch-mark::after {
-  -webkit-mask-image: url(Images/animation_layer.png);
-  -webkit-mask-size: 100% 200%;
-  -webkit-mask-position: 0 0;
-}
-
-#animation-switch-onionskin::after {
-  -webkit-mask-image: url(Images/animation_buttons.png);
-  -webkit-mask-size: 100% 200%;
-  -webkit-mask-position: 0 0;
-}
-
-#animation-switch-mirror::after {
-  -webkit-mask-image: url(Images/animation_buttons.png);
-  -webkit-mask-size: 100% 200%;
-  -webkit-mask-position: 0 -100%;
-}
-
-#animation-switch-settings::after {
-  -webkit-mask-image: url(Images/common_settings.png);
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-position: 0 0;
-}
-
-#animation-head-center {
-  display: flex;
-  flex: 0 0 auto;
-  /* background: green; */
-}
-
-#animation-speed {
-  margin: 2px;
-  width: 82px;
-}
-
-#animation-head-end {
-  flex: 0 0 auto;
-  /* background: blue; */
-}
-
-#animation-zoom {
-  /* position: absolute; */
-  margin: 2px 4px;
-  right: 0;
-  width: 80px;
-}
-
-#animation-screen {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-#animation-dirList {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  /* background-color: green; */
-}
-
-anim-dir {
-  margin: 4px 0 0 4px;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  font-size: 1.2em;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 4px;
-  opacity: 0.25;
-}
-
-anim-dir:hover {
-  opacity: 0.5;
-}
-
-anim-dir.selected {
-  opacity: 1;
-}
-
-#animation-timeline {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-#animation-timeline-head {
-  position: absolute;
-  top: -25px;
-  right: 0;
-  height: 24px;
-  background-color: var(--group-head-background);
-}
-
-#animation-timeline-toolbar {
-  display: flex;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 24px;
-  font-family: var(--font-family-symbol);
-  overflow: hidden;
-  /* background-color: blue; */
-}
-
-#animation-timeline-toolbar > .toolbar-item {
-  min-width: 16px;
-}
-
-#animation-timeline-toolbar > .toolbar-item::after {
-  content: '';
-  display: block;
-  margin: 4px auto;
-  width: 16px;
-  height: 16px;
-  background-color: var(--text-color);
-  -webkit-mask-image: url(Images/timeline_buttons.png);
-  -webkit-mask-size: 100% 700%;
-}
-
-#animation-timeline-play::after {
-  -webkit-mask-position: 0 0;
-}
-
-#animation-timeline-play.playing::after {
-  -webkit-mask-position: 0 -100%;
-}
-
-#animation-timeline-previous::after {
-  -webkit-mask-position: 0 -200%;
-}
-
-#animation-timeline-next::after {
-  -webkit-mask-position: 0 -300%;
-}
-
-#animation-timeline-previousKey::after {
-  -webkit-mask-position: 0 -400%;
-}
-
-#animation-timeline-nextKey::after {
-  -webkit-mask-position: 0 -500%;
-}
-
-#animation-timeline-loop::after {
-  -webkit-mask-position: 0 -600%;
-}
-
-#animation-timeline-ruler-outer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 24px;
-  /* background-color: green; */
-  overflow: hidden;
-}
-
-/* #animation-timeline-ruler-outer::before {
-  content: '';
-  position: absolute;
-  margin-left: -3px;
-  width: 0;
-  height: 20px;
-  border-left: var(--nav-bar-border);
-} */
-
-#animation-timeline-ruler-inner {
-  display: flex;
-  position: absolute;
-  margin-left: -16px;
-  height: 24px;
-  /* background-color: blue; */
-  background-image: var(--timeline-ruler-background);
-  background-size: 16px 24px;
-}
-
-.timeline-number {
-  flex: 0 0 auto;
-  padding-left: 0;
-  padding-right: 32px;
-  width: 80px;
-  height: 24px;
-  line-height: 24px;
-  /* font-size: 0.9em; */
-  text-align: center;
-  text-shadow: var(--timeline-ruler-number-shadow);
-  /* background-color: red; */
-}
-
-#animation-layer-list {
-  position: absolute;
-  padding-bottom: 12px;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 18%;
-  border-right: var(--nav-bar-border);
-}
-
-/* 使用零宽滚动条在拖拽列表项的时候可以滚动 */
-#animation-layer-list::-webkit-scrollbar:vertical {
-  width: 0;
-}
-
-#animation-layer-list > node-item {
-  background-clip: padding-box;
-  border-bottom: 1px solid transparent;
-}
-
-:focus > .selected > node-icon.anim-layer-joint,
-:focus > .selected > node-icon.anim-layer-sprite {
-  background-color: white;
-}
-
-.anim-layer-joint {
-  background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/animation_layer.png);
-  -webkit-mask-size: 100% 200%;
-  -webkit-mask-position: 0 0;
-}
-
-.anim-layer-sprite {
-  background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/animation_layer.png);
-  -webkit-mask-size: 100% 200%;
-  -webkit-mask-position: 0 -100%;
-}
-
-.anim-layer-particle {
-  background-color: var(--file-icon-color);
-  -webkit-mask-image: url(Images/scene_view.png);
-  -webkit-mask-size: 100% 400%;
-  -webkit-mask-position: 0 -300%;
-}
-
-#animation-timeline-list-outer {
-  position: absolute;
-  left: 18%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  overflow-x: auto;
-  background-color: var(--timeline-frame-list-background);
-}
-
-#animation-timeline-list-outer:focus {
-  background-image: linear-gradient(
-    to right,
-    rgba(64, 128, 192, 0) 0%,
-    rgba(64, 128, 192, 0.5) 20%,
-    rgba(64, 128, 192, 0.5) 80%,
-    rgba(64, 128, 192, 0) 100%
-  );
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-}
-
-#animation-timeline-list-inner {
-  display: block;
-  /* width: 2000px; */
-}
-
-.timeline-frames {
-  display: block;
-  width: 100%;
-  height: 20px;
-  /* background-color: rgba(0, 0, 0, 0.1); */
-  background-image: var(--timeline-grid);
-  background-size: 80px 20px;
-  border-bottom: var(--timeline-grid-border);
-  pointer-events: none;
-}
-
-.timeline-key {
-  position: absolute;
-  width: 16px;
-  height: 20px;
-  background-color: var(--timeline-key-background);
-  pointer-events: none;
-}
-
-.timeline-key::before {
-  content: '';
-  position: absolute;
-  margin-left: 2px;
-  margin-top: 4px;
-  width: 11px;
-  height: 11px;
-  background-color: var(--timeline-key-mark-color);
-  border-radius: 50%;
-}
-
-.timeline-key.easing::before {
-  background-color: var(--timeline-key-easing-color);
-}
-
-.timeline-key.long:not(.easing)::after {
-  content: '';
-  position: absolute;
-  margin-right: 3px;
-  margin-top: 4px;
-  top: 0;
-  right: 0;
-  width: 9px;
-  height: 9px;
-  border: 1px solid var(--timeline-key-long-color);
-}
-
-.timeline-key.long.easing::after {
-  content: '';
-  position: absolute;
-  top: 9px;
-  left: 15px;
-  right: 0;
-  border-top: 1px dotted var(--timeline-key-mark-color);
-}
-
-#animation-timeline-cursor {
-  position: absolute;
-  width: 16px;
-  height: 20px;
-  background-clip: content-box;
-  background-color: var(--timeline-cursor-background);
-  border-right: 1px solid transparent;
-  border-bottom: 1px solid transparent;
-  pointer-events: none;
-}
-
-#animation-timeline-marquee {
-  position: absolute;
-  /* width: 16px; */
-  height: 20px;
-  background-clip: content-box;
-  background-color: var(--timeline-marquee-background);
-  border-right: 1px solid transparent;
-  border-bottom: 1px solid transparent;
-  pointer-events: none;
-}
-
-#animation-timeline-marquee-shift {
-  position: absolute;
-  /* width: 16px; */
-  height: 20px;
-  background-clip: content-box;
-  background-color: var(--timeline-marquee-shift-background);
-  border-right: 1px solid transparent;
-  border-bottom: 1px solid transparent;
-  pointer-events: none;
-}
-
-#animation-timeline-marquee-shift.disabled {
-  background-color: var(--timeline-marquee-shift-background-disabled);
-}
-
-#animation-timeline-pointer-area-outer {
-  position: absolute;
-  left: 18%;
-  top: -25px;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  pointer-events: none;
-  /* background-color: green; */
-}
-
-#animation-timeline-pointer-area-outer.has-horiz-scrollbar {
-  bottom: 12px;
-}
-
-#animation-timeline-pointer-area-outer.has-vert-scrollbar {
-  right: 12px;
-}
-
-#animation-timeline-pointer-area-inner {
-  position: absolute;
-  height: 100%;
-}
-
-#animation-timeline-pointer {
-  position: absolute;
-  margin-left: 7px;
-  top: 21px;
-  bottom: 0;
-  border-left: 1px dotted #cc0000;
-}
-
-/* #animation-timeline-pointer::before {
-  content: '';
-  display: block;
-  margin-left: -7px;
-  width: 13px;
-  border-top: 1px dotted #cc0000;
-} */
-
-#animation-list-head {
-  position: absolute;
-  top: -25px;
-  right: 0;
-  height: 24px;
-  overflow: hidden;
-  background-color: var(--group-head-background);
-}
-
-#animation-searcher {
-  margin: 2px;
-  width: calc(100% - 4px);
-}
-
-#animation-list {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-/* --------------------------------
- * 动画过渡
- * --------------------------------
- */
-#animation-easing {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-#animation-easing-head {
-  display: flex;
-  position: absolute;
-  justify-content: space-between;
-  top: -25px;
-  right: 0;
-  height: 24px;
-  overflow: hidden;
-  background-color: var(--group-head-background);
-}
-
-#animation-easing-settings::after {
-  content: '';
-  display: block;
-  margin: 4px 6px;
-  width: 16px;
-  height: 16px;
-  background-color: var(--text-color);
-  -webkit-mask-image: url(Images/curve_settings.png);
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-position: 0 0;
-}
-
-#animation-easing-id {
-  margin: 2px;
-  flex: 1 1 auto;
-  /* background: blue; */
-}
-
-#animation-easing-canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* --------------------------------
  * 粒子
  * --------------------------------
  */
@@ -4458,7 +3964,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(Images/particle_view.png);
+  -webkit-mask-image: url("../Images/particle_view.png");
   -webkit-mask-size: 100% 200%;
 }
 
@@ -4498,7 +4004,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url(Images/particle_animation.png);
+  -webkit-mask-image: url("../Images/particle_animation.png");
   -webkit-mask-size: 100% 200%;
 }
 
@@ -5406,19 +4912,19 @@ anim-dir.selected {
 }
 
 #palette-scroll::after {
-  -webkit-mask-image: url(Images/tileset_scroll.png);
+  -webkit-mask-image: url("../Images/tileset_scroll.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-edit::after {
-  -webkit-mask-image: url(Images/common_settings.png);
+  -webkit-mask-image: url("../Images/common_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-flip::after {
-  -webkit-mask-image: url(Images/animation_buttons.png);
+  -webkit-mask-image: url("../Images/animation_buttons.png");
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
@@ -5558,7 +5064,7 @@ anim-dir.selected {
   height: 30px;
   background-clip: content-box;
   background-color: var(--input-background);
-  background-image: url(Images/tile_ruleview.png);
+  background-image: url("../Images/tile_ruleview.png");
   background-size: 100% 1100%;
   border: var(--input-border);
   border-radius: 50%;
