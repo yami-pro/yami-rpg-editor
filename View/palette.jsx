@@ -1,5 +1,6 @@
 'use strict'
 
+import './palette.css'
 import { createElement } from './vhtml/index.js'
 
 const PaletteView = ()=>(

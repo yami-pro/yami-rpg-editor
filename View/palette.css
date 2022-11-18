@@ -1,0 +1,256 @@
+/* --------------------------------
+ * 图块组 - 自动图块
+ * --------------------------------
+ */
+#autoTile {
+  width: 504px;
+  height: 520px;
+}
+
+#autoTile-general-fieldset {
+  left: 10px;
+  top: 10px;
+  width: 342px;
+  height: 90px;
+}
+
+#autoTile-templates-fieldset {
+  left: 10px;
+  top: 110px;
+  width: 200px;
+  height: 342px;
+}
+
+#autoTile-templates {
+  font-family: var(--font-family-mono);
+}
+
+#autoTile-nodes-fieldset {
+  left: 220px;
+  top: 110px;
+  width: 132px;
+  height: 342px;
+}
+
+#autoTile-nodes {
+  font-family: var(--font-family-mono);
+}
+
+#autoTile-canvas-fieldset {
+  left: 362px;
+  top: 10px;
+  width: 132px;
+  height: 132px;
+}
+
+#autoTile-canvas {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background-image: var(--grid-background);
+  background-size: var(--16dpx);
+}
+
+#autoTile-rule-fieldset {
+  left: 362px;
+  top: 152px;
+  width: 132px;
+  height: 132px;
+}
+
+#autoTile-rule-grid {
+  grid-gap: 10px;
+  grid-template-columns: 30px 30px 30px;
+}
+
+.autoTile-switch {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-clip: content-box;
+  background-color: var(--input-background);
+  background-image: url("../Images/tile_ruleview.png");
+  background-size: 100% 1100%;
+  border: var(--input-border);
+  border-radius: 50%;
+}
+
+.autoTile-switch:hover {
+  background-color: var(--input-background-hover);
+}
+
+#autoTile-rule-0.zero,
+#autoTile-rule-1.zero,
+#autoTile-rule-2.zero,
+#autoTile-rule-3.zero,
+#autoTile-rule-4.zero,
+#autoTile-rule-5.zero,
+#autoTile-rule-6.zero,
+#autoTile-rule-7.zero {
+  background-image: none;
+}
+
+#autoTile-rule-0.one {
+  background-position: 0 0;
+}
+
+#autoTile-rule-1.one {
+  background-position: 0 -100%;
+}
+
+#autoTile-rule-2.one {
+  background-position: 0 -200%;
+}
+
+#autoTile-rule-3.one {
+  background-position: 0 -300%;
+}
+
+#autoTile-rule-4.one {
+  background-position: 0 -400%;
+}
+
+#autoTile-rule-5.one {
+  background-position: 0 -500%;
+}
+
+#autoTile-rule-6.one {
+  background-position: 0 -600%;
+}
+
+#autoTile-rule-7.one {
+  background-position: 0 -700%;
+}
+
+#autoTile-rule-0.two,
+#autoTile-rule-1.two,
+#autoTile-rule-2.two,
+#autoTile-rule-3.two,
+#autoTile-rule-4.two,
+#autoTile-rule-5.two,
+#autoTile-rule-6.two,
+#autoTile-rule-7.two {
+  background-position: 0 -800%;
+}
+
+#autoTile-frames-fieldset {
+  left: 362px;
+  top: 294px;
+  width: 132px;
+  height: 158px;
+}
+
+#autoTile-frames {
+  font-family: var(--font-family-mono);
+}
+
+#autoTile-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#autoTile-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 自动图块 - 生成动画帧窗口
+ * --------------------------------
+ */
+#autoTile-generateFrames {
+  width: 324px;
+  height: 146px;
+}
+
+#autoTile-generateFrames-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#autoTile-generateFrames-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 自动图块 - 图块帧索引窗口
+ * --------------------------------
+ */
+#autoTile-frameIndex {
+  width: auto;
+  height: auto;
+}
+
+#autoTile-frameIndex-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+#autoTile-frameIndex-image-clip {
+  position: absolute;
+  overflow: hidden;
+}
+
+#autoTile-frameIndex-image {
+  position: absolute;
+  background-image: var(--grid-background);
+  background-size: var(--16dpx);
+}
+
+#autoTile-frameIndex-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-left: 0 solid rgba(0, 0, 0, 0.5);
+  border-top: 0 solid rgba(0, 0, 0, 0.5);
+}
+
+#autoTile-frameIndex-marquee > selection {
+  background-color: var(--marquee-background);
+  border: var(--marquee-border);
+  animation: marquee-flash 0.25s linear infinite alternate;
+}
+
+#autoTile-frameIndex-info {
+  position: absolute;
+  padding: 0 4px;
+  line-height: 20px;
+  color: white;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  text-shadow: var(--stage-info-text-shadow);
+  pointer-events: none;
+}
+
+/* --------------------------------
+ * 自动图块 - 选择节点窗口
+ * --------------------------------
+ */
+#autoTile-selectNode {
+  width: auto;
+  height: auto;
+}
+
+#autoTile-selectNode-canvas {
+  position: absolute;
+  background-image: var(--grid-background);
+  background-size: var(--16dpx);
+}
+
+#autoTile-selectNode-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#autoTile-selectNode-marquee > selection {
+  background-color: var(--marquee-background);
+  border: var(--marquee-border);
+  animation: marquee-flash 0.25s linear infinite alternate;
+}

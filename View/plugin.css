@@ -1,0 +1,138 @@
+/* --------------------------------
+ * 插件窗口
+ * --------------------------------
+ */
+#plugin {
+  width: 700px;
+  height: 700px;
+}
+
+#plugin-list-fieldset {
+  left: 10px;
+  top: 10px;
+  width: 270px;
+  height: 622px;
+}
+
+.plugin-item {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.plugin-item-button {
+  position: absolute;
+  margin-right: 0;
+  right: 0;
+}
+
+#plugin-inspector {
+  position: absolute;
+  left: 290px;
+  top: 10px;
+  width: 400px;
+  height: 622px;
+  background-color: var(--fieldset-background);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#plugin-inspector::-webkit-scrollbar-track {
+  border-left: none;
+}
+
+#plugin-inspector::-webkit-scrollbar-button {
+  border-left: none;
+}
+
+/* #plugin-list {
+  font-family: var(--font-family-mono);
+} */
+
+#plugin-overview {
+  display: block;
+  margin: 4px;
+  padding: 4px 10px;
+  width: calc(100% - 8px);
+  /* font-family: var(--font-family-mono); */
+  user-select: text;
+  overflow: hidden;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+}
+
+.plugin-title {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.plugin-name {
+  color: var(--plugin-name-color);
+  font-size: 18px;
+  white-space: pre;
+}
+
+.plugin-version {
+  color: var(--text-color-unit);
+  font-size: 10px;
+  white-space: pre;
+}
+
+.plugin-wrap {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plugin-label {
+  white-space: pre;
+}
+
+.plugin-link {
+  cursor: pointer;
+  text-decoration: underline var(--text-color-unit);
+}
+
+.plugin-link:hover {
+  background-color: var(--plugin-link-background-hover);
+}
+
+.plugin-link:active {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+.plugin-key {
+  color: var(--plugin-key-color);
+  white-space: pre;
+}
+
+.plugin-type {
+  color: var(--plugin-type-color);
+  white-space: pre;
+}
+
+.plugin-param-desc {
+  display: block;
+  margin-left: 12px;
+}
+
+#plugin-confirm {
+  right: 206px;
+  bottom: 10px;
+}
+
+#plugin-cancel {
+  right: 108px;
+  bottom: 10px;
+}
+
+#plugin-apply {
+  right: 10px;
+  bottom: 10px;
+}

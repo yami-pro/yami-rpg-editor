@@ -1,5 +1,6 @@
 'use strict'
 
+import './data.css'
 import { createElement } from './vhtml/index.js'
 
 const DataView = ()=>(

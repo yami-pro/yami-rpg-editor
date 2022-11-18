@@ -1,0 +1,124 @@
+/* --------------------------------
+ * 粒子
+ * --------------------------------
+ */
+#particle-head {
+  display: flex;
+  position: absolute;
+  flex: 1 0 auto;
+  justify-content: space-between;
+  top: -25px;
+  right: 0;
+  height: 24px;
+  overflow: hidden;
+  background-color: var(--group-head-background);
+}
+
+#particle-head-start {
+  display: flex;
+  flex: 0 0 auto;
+  width: 57px;
+  /* background: yellow; */
+}
+
+#particle-head-start > .toolbar-item::after {
+  content: '';
+  display: block;
+  margin: 4px 6px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("../Images/particle_view.png");
+  -webkit-mask-size: 100% 200%;
+}
+
+#particle-view-wireframe::after {
+  -webkit-mask-position: 0 0;
+}
+
+#particle-view-anchor::after {
+  -webkit-mask-position: 0 -100%;
+}
+
+#particle-head-center {
+  display: flex;
+  flex: 0 0 auto;
+  /* background: green; */
+  border-left: var(--toolbar-item-border);
+}
+
+#particle-control {
+  display: flex;
+}
+
+#particle-speed {
+  margin: 2px;
+  width: 82px;
+}
+
+#particle-duration {
+  margin: 2px;
+  width: 132px;
+}
+
+#particle-control > .toolbar-item::after {
+  content: '';
+  display: block;
+  margin: 4px 6px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("../Images/particle_animation.png");
+  -webkit-mask-size: 100% 200%;
+}
+
+#particle-control > .toolbar-item.selected::after,
+#particle-control-restart:active::after {
+  background-color: var(--toolbar-item-color-highlight);
+}
+
+#particle-control-restart::after {
+  -webkit-mask-position: 0 0;
+}
+
+#particle-control-pause::after {
+  -webkit-mask-position: 0 -100%;
+}
+
+#particle-head-end {
+  flex: 0 0 auto;
+  /* background: blue; */
+}
+
+#particle-zoom {
+  /* position: absolute; */
+  margin: 2px 4px;
+  right: 0;
+  width: 80px;
+}
+
+#particle-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#particle-info {
+  position: absolute;
+  padding: 0 4px;
+  width: 100%;
+  line-height: 20px;
+  color: white;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  text-shadow: var(--stage-info-text-shadow);
+  pointer-events: none;
+}
+
+#particle-list {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

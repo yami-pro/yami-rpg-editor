@@ -1,0 +1,125 @@
+/* --------------------------------
+ * 界面
+ * --------------------------------
+ */
+#ui-head {
+  display: flex;
+  position: absolute;
+  flex: 1 0 auto;
+  justify-content: space-between;
+  top: -25px;
+  right: 0;
+  height: 24px;
+  overflow: hidden;
+  background-color: var(--group-head-background);
+}
+
+#ui-head-start {
+  display: flex;
+  flex: 0 0 auto;
+  width: 28px;
+  /* background: yellow; */
+}
+
+#ui-head-start > .toolbar-item::after {
+  content: '';
+  display: block;
+  margin: 4px 6px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--text-color);
+}
+
+#ui-switch-settings::after {
+  -webkit-mask-image: url("../Images/common_settings.png");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-position: 0 0;
+}
+
+#ui-head-center {
+  display: flex;
+  flex: 0 0 auto;
+  /* background: green; */
+  border-left: var(--toolbar-item-border);
+}
+
+#ui-head-center > .toolbar-item::after {
+  content: '';
+  display: block;
+  margin: 4px 6px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+}
+
+#ui-element-image::after {
+  -webkit-mask-position: 0 0;
+}
+
+#ui-element-text::after {
+  -webkit-mask-position: 0 -100%;
+}
+
+#ui-element-textbox::after {
+  -webkit-mask-position: 0 -200%;
+}
+
+#ui-element-dialogbox::after {
+  -webkit-mask-position: 0 -300%;
+}
+
+#ui-element-progressbar::after {
+  -webkit-mask-position: 0 -400%;
+}
+
+#ui-element-video::after {
+  -webkit-mask-position: 0 -500%;
+}
+
+#ui-element-window::after {
+  -webkit-mask-position: 0 -600%;
+}
+
+#ui-element-container::after {
+  -webkit-mask-position: 0 -700%;
+}
+
+#ui-head-end {
+  flex: 0 0 auto;
+  /* background: blue; */
+}
+
+#ui-zoom {
+  margin: 2px 4px;
+  right: 0;
+  width: 80px;
+}
+
+#ui-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#ui-list-head {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  height: 24px;
+  overflow: hidden;
+  background-color: var(--group-head-background);
+}
+
+#ui-searcher {
+  margin: 2px;
+  width: calc(100% - 4px);
+}
+
+#ui-list {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

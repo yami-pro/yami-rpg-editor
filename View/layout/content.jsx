@@ -1,7 +1,7 @@
 'use strict'
 
+import './content.css'
 import { createElement } from '../vhtml/index.js'
-
 import { AnimationView } from '../animation.jsx'
 import { InspectorView } from '../inspector.jsx'
 import { UIView } from '../ui.jsx'

@@ -1,0 +1,252 @@
+/* --------------------------------
+ * 工作空间
+ * --------------------------------
+ */
+#workspace-page-manager {
+  position: absolute;
+  left: 0;
+  top: 28px;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-top: var(--nav-bar-border);
+}
+
+/* --------------------------------
+ * 项目页面
+ * --------------------------------
+ */
+#workspace-page-manager > page-frame {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+group {
+  position: absolute;
+}
+
+.horizontal > group:not(:last-of-type) {
+  border-right: 1px solid transparent;
+}
+
+.horizontal > group:not(:first-of-type) {
+  border-left: 1px solid transparent;
+}
+
+.vertical > group:not(:last-of-type) {
+  border-bottom: 1px solid transparent;
+}
+
+.vertical > group:not(:first-of-type) {
+  border-top: 1px solid transparent;
+}
+
+.horizontal > group > group-border {
+  position: absolute;
+  right: -2px;
+  height: 100%;
+  border-right: 2px solid transparent;
+  cursor: col-resize;
+  z-index: 1;
+}
+
+.vertical > group > group-border {
+  position: absolute;
+  bottom: -2px;
+  width: 100%;
+  border-bottom: 2px solid transparent;
+  cursor: row-resize;
+  z-index: 1;
+}
+
+.horizontal > group:last-of-type > group-border,
+.vertical > group:last-of-type > group-border {
+  display: none;
+}
+
+group.ready-to-focus > nav-bar > nav-item.selected,
+group:focus-within > nav-bar > nav-item.selected {
+  background-image: linear-gradient(
+    to right,
+    rgba(64, 128, 192, 0) 0%,
+    rgba(64, 128, 192, 1) 20%,
+    rgba(64, 128, 192, 1) 80%,
+    rgba(64, 128, 192, 0) 100%
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+}
+
+.group-manager {
+  position: absolute;
+  top: 25px;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--group-page-background);
+}
+
+group-region {
+  position: absolute;
+  top: 25px;
+  bottom: 0;
+  width: 100%;
+}
+
+group-info {
+  position: absolute;
+  padding: 0 4px;
+  top: 25px;
+  max-width: 100%;
+  line-height: 20px;
+/*  font-weight: bold;*/
+  font-family: var(--font-family-bold);
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  background-color: var(--stage-page-background);
+}
+
+/* --------------------------------
+ * 主页面
+ * --------------------------------
+ */
+#home-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  background-color: var(--home-page-background);
+}
+
+#home-start-list {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+  margin-right: 10px;
+  margin-left: -170px;
+  width: 160px;
+  height: 410px;
+  row-gap: 10px;
+}
+
+#home-recent-list {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+  width: 466px;
+  height: 410px;
+  row-gap: 10px;
+  overflow: hidden;
+}
+
+.home-list-label {
+  display: block;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 1.2em;
+/*  font-weight: bold;*/
+  font-family: var(--font-family-bold);
+}
+
+.home-start-item {
+  display: block;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.home-start-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+.home-start-item:active {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+.home-recent-item {
+  display: block;
+  position: relative;
+  white-space: pre;
+  padding: 0;
+  height: 120px;
+  background-color: var(--recent-card-background);
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+.home-recent-item:hover,
+.home-recent-item.hover {
+  border: 1px solid var(--input-border-color-focus);
+}
+
+.home-recent-bar {
+  position: absolute;
+  width: 100%;
+  height: 24px;
+  pointer-events: none;
+  background-color: var(--selected-background);
+}
+
+.home-recent-item.disabled > .home-recent-bar {
+  filter: grayscale(1);
+}
+
+.home-recent-title {
+  position: absolute;
+  left: 10px;
+  right: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 24px;
+  font-size: 1.2em;
+  color: white;
+}
+
+.home-recent-date {
+  position: absolute;
+  right: 10px;
+  line-height: 24px;
+  color: white;
+}
+
+.home-recent-path {
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  right: 10px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.home-recent-stat {
+  display: grid;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 60px;
+  grid-auto-flow: column;
+  grid-column-gap: 4px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, auto);
+  pointer-events: none;
+}
+
+.home-recent-data {
+  line-height: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--recent-card-stat-color);
+}

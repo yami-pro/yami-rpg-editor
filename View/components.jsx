@@ -1,5 +1,6 @@
 'use strict'
 
+import './components.css'
 import { createElement } from './vhtml/index.js'
 
 const ComponentsView = ()=>(

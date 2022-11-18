@@ -1,5 +1,6 @@
 'use strict'
 
+import './variable.css'
 import { createElement } from './vhtml/index.js'
 
 const VariableView = ()=>(

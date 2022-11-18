@@ -1,5 +1,6 @@
 'use strict'
 
+import './sprite.css'
 import { createElement } from './vhtml/index.js'
 
 const SpriteView = ()=>(

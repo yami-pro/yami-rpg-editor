@@ -1,0 +1,2461 @@
+/* --------------------------------
+ * 工具提示
+ * --------------------------------
+ */
+#tooltip {
+  display: none;
+  position: fixed;
+  padding: 4px;
+  color: var(--text-color-rename);
+  background-color: var(--tooltip-background);
+  border: var(--tooltip-border);
+  border-radius: 2px;
+  overflow: hidden;
+  white-space: pre;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#tooltip.open {
+  display: block;
+}
+
+/* --------------------------------
+ * 细节组件
+ * --------------------------------
+ */
+detail-summary {
+  display: block;
+  height: 22px;
+  line-height: 20px;
+  text-indent: 16px;
+/*  font-weight: bold;*/
+  font-family: var(--font-family-bold);
+  background-color: var(--summary-background);
+  border-top: var(--summary-border-dark);
+  border-bottom: var(--summary-border-light);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+detail-summary:hover {
+  background-color: var(--summary-background-hover);
+}
+
+detail-box:first-child > detail-summary {
+  height: 21px;
+  border-top: none;
+}
+
+detail-box:not([open]) > detail-summary {
+  margin-bottom: -1px;
+}
+
+detail-box[open] > detail-summary::before {
+  content: '';
+  display: block;
+  position: absolute;
+  margin: 6px 3px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid var(--folder-mark-color);
+}
+
+detail-box:not([open]) > detail-summary::before {
+  content: '';
+  display: block;
+  position: absolute;
+  margin: 5px 4px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid var(--folder-mark-color);
+}
+
+detail-grid {
+  display: grid;
+  margin: 4px 4px 4px 10px;
+  grid-gap: 4px;
+  grid-template-columns: 1fr 2fr;
+}
+
+detail-grid > text {
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------
+ * 控件组框架
+ * --------------------------------
+ */
+field-set {
+  position: absolute;
+  background-color: var(--fieldset-background);
+  border: var(--fieldset-border);
+  border-radius: 2px;
+}
+
+field-set.input {
+  background-color: var(--input-background);
+}
+
+field-set.pad::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 12px;
+  height: 10px;
+  background-color: inherit;
+  z-index: 1;
+}
+
+field-set.pad::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 12px;
+  height: 10px;
+  background-color: inherit;
+}
+
+legend {
+  position: absolute;
+  padding-left: 2px;
+  padding-right: 2px;
+  left: 8px;
+  top: -7px;
+  height: 7px;
+  line-height: 14px;
+/*  font-weight: bold;*/
+  font-family: var(--font-family-bold);
+  border-bottom: 1px solid var(--window-background);
+  z-index: 1;
+}
+
+/* --------------------------------
+ * 弹性盒子
+ * --------------------------------
+ */
+flex-box {
+  display: flex;
+  row-gap: 4px;
+  column-gap: 4px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+field-set > flex-box {
+  margin: 10px;
+}
+
+/* --------------------------------
+ * 网格盒子
+ * --------------------------------
+ */
+grid-box {
+  display: grid;
+  margin: 10px;
+  grid-gap: 4px;
+  grid-template-columns: 100px 1fr;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+grid-box > text {
+  line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------
+ * 窗口框架
+ * --------------------------------
+ */
+/* 使用outline会导致文本丢失子像素渲染
+ * 结合overflow: hidden可以解决此问题
+ * 使用border会导致放大时背景和边框之间出现空隙
+ */
+window-frame {
+  display: none;
+  position: fixed;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5);
+  background-color: var(--window-background);
+  outline: var(--window-outline);
+  overflow: hidden;
+}
+
+window-frame.open {
+  display: block;
+  pointer-events: auto;
+}
+
+window-frame.blur {
+  pointer-events: none;
+}
+
+window-frame.translucent {
+  filter: opacity(75%);
+}
+
+window-frame.maximized {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.border > window-frame {
+  margin: var(--1dpx);
+}
+
+body.border > window-frame.maximized {
+  width: calc(100% - var(--2dpx)) !important;
+  height: calc(100% - var(--2dpx)) !important;
+}
+
+/* --------------------------------
+ * 标题栏
+ * --------------------------------
+ */
+title-bar {
+  display: block;
+  padding: 0 5px;
+  width: 100%;
+  height: 28px;
+  line-height: 28px;
+  background-color: var(--titlebar-background);
+}
+
+minimize {
+  position: absolute;
+  right: 88px;
+  width: 44px;
+  height: 28px;
+}
+
+minimize::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("../Images/title_buttons.png");
+  -webkit-mask-size: 100% 400%;
+  -webkit-mask-position: 0 0;
+}
+
+minimize:hover {
+  background-color: var(--titlebar-button-background-hover);
+}
+
+minimize:active {
+  background-color: var(--titlebar-button-background-active);
+}
+
+maximize {
+  position: absolute;
+  right: 44px;
+  width: 44px;
+  height: 28px;
+}
+
+maximize::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("../Images/title_buttons.png");
+  -webkit-mask-size: 100% 400%;
+  -webkit-mask-position: 0 -100%;
+}
+
+maximize:hover {
+  background-color: var(--titlebar-button-background-hover);
+}
+
+maximize:active {
+  background-color: var(--titlebar-button-background-active);
+}
+
+close {
+  position: absolute;
+  right: 0;
+  width: 44px;
+  height: 28px;
+}
+
+close::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("../Images/title_buttons.png");
+  -webkit-mask-size: 100% 400%;
+  -webkit-mask-position: 0 -300%;
+}
+
+close:hover {
+  background-color: var(--titlebar-close-background-hover);
+}
+
+close:active {
+  background-color: var(--titlebar-close-background-active);
+}
+
+close:hover::after,
+close:active::after {
+  background-color: var(--titlebar-close-color);
+}
+
+window-frame.maximized > title-bar > maximize::after {
+  -webkit-mask-position: 0 -200%;
+}
+
+/* --------------------------------
+ * 内容框架
+ * --------------------------------
+ */
+content-frame {
+  display: block;
+  position: absolute;
+  top: 28px;
+  bottom: 0;
+  width: 100%;
+}
+
+/* --------------------------------
+ * 页面管理器
+ * --------------------------------
+ */
+page-frame:not(.visible) {
+  display: none !important;
+}
+
+/* --------------------------------
+ * 选框区域
+ * --------------------------------
+ */
+marquee-area {
+  display: block;
+  position: absolute;
+  overflow: hidden;
+}
+
+marquee-area > selection {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* --------------------------------
+ * 按钮
+ * --------------------------------
+ */
+button {
+  position: absolute;
+  padding: 0;
+  width: 88px;
+  height: 20px;
+  /* line-height: 18px; */
+  white-space: nowrap;
+  font-size: 1em;
+  font-family: var(--font-family-normal);
+  color: var(--text-color);
+  background-color: var(--button-background);
+  border-top: var(--input-border-light);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-dark);
+  border-radius: 2px;
+}
+
+button:disabled {
+  pointer-events: none;
+  color: var(--text-color-disabled);
+  background-color: var(--button-background-disabled);
+}
+
+button:hover {
+  background-color: var(--button-background-hover);
+}
+
+button:active {
+  background-color: var(--button-background-active);
+}
+
+button:focus {
+  border-color: var(--input-border-color-focus);
+}
+
+/* --------------------------------
+ * 文本框
+ * --------------------------------
+ */
+text-box {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+text-box.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+text-box:focus-within {
+  border-color: var(--input-border-color-focus);
+}
+
+.text-box-input {
+  position: absolute;
+  margin: 0;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+}
+
+.close-button {
+  position: absolute;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 10px;
+  text-align: center;
+  color: var(--tab-close-color);
+  /* background-color: green; */
+}
+
+.close-button:hover {
+  color: var(--tab-close-color-hover);
+}
+
+.close-button:active {
+  color: var(--tab-close-color-active);
+}
+
+/* --------------------------------
+ * 文本区域
+ * --------------------------------
+ */
+text-area {
+  display: block;
+  position: relative;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+}
+
+text-area.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+text-area:focus-within {
+  border-color: var(--input-border-color-focus);
+}
+
+text-area > textarea {
+  display: block;
+  position: absolute;
+  margin: 0;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  font-size: 1em;
+  font-family: var(--font-family-mono);
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: auto;
+  resize: none;
+  word-break: break-all;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+}
+
+/* 添加 margin-top 属性避免微软输入法面板晃动 */
+text-area > textarea.inputting {
+  margin-top: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: calc(100% - 8px);
+}
+
+field-set > text-area {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+field-set > text-area > textarea {
+  padding: 10px;
+}
+
+field-set > text-area > textarea.inputting {
+  margin-top: 10px;
+  height: calc(100% - 20px);
+}
+
+/* --------------------------------
+ * 键盘按键框
+ * --------------------------------
+ */
+keyboard-box {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+}
+
+keyboard-box.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+keyboard-box:focus-within {
+  border-color: var(--input-border-color-focus);
+}
+
+.keyboard-box-input {
+  position: absolute;
+  margin: 0;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+}
+
+/* --------------------------------
+ * 颜色框
+ * --------------------------------
+ */
+color-box {
+  display: block;
+  position: relative;
+  padding: 1px;
+  width: auto;
+  height: 20px;
+  background-color: var(--input-background);
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+color-box:focus {
+  border-color: var(--input-border-color-focus);
+}
+
+color-box.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+.color-box-background {
+  position: absolute;
+  padding: 1px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-origin: content-box;
+  background-clip: content-box;
+  background-image: var(--grid-background);
+  background-size: 8px;
+}
+
+.color-box-foreground {
+  position: absolute;
+  padding: 1px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-origin: content-box;
+  background-clip: content-box;
+}
+
+/* --------------------------------
+ * 复选框
+ * --------------------------------
+ */
+check-box {
+  white-space: nowrap;
+}
+
+check-box.standard {
+  display: block;
+  padding: 2px 0;
+  line-height: 16px;
+}
+
+check-box.standard:focus > check-mark {
+  border-color: var(--input-border-color-focus);
+}
+
+check-mark {
+  display: inline-block;
+  position: static;
+  vertical-align: top;
+  margin-right: 4px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+}
+
+check-box > check-mark::before {
+  content: '✓';
+  position: absolute;
+  margin: -1px;
+  width: 16px;
+  height: 16px;
+  font-size: 1.2em;
+/*  font-weight: bold;*/
+  font-family: var(--font-family-normal);
+  text-align: center;
+  color: var(--check-box-mark-color);
+  opacity: 0;
+}
+
+check-box.selected > check-mark::before {
+  opacity: 1;
+}
+
+check-box:active > check-mark::before {
+  opacity: 0.5;
+}
+
+check-box.standard.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+check-box.standard.large {
+  padding: 0;
+  line-height: 20px;
+}
+
+check-box.standard.large > check-mark {
+  width: 20px;
+  height: 20px;
+}
+
+check-box.standard.large > check-mark::before {
+  width: 20px;
+  height: 20px;
+  font-size: 1.5em;
+}
+
+/* --------------------------------
+ * 单选框
+ * --------------------------------
+ */
+radio-box {
+  white-space: nowrap;
+}
+
+radio-box.standard {
+  display: block;
+  padding: 2px 0;
+  line-height: 16px;
+}
+
+radio-box.standard:focus > radio-mark {
+  border-color: var(--input-border-color-focus);
+}
+
+radio-mark {
+  display: inline-block;
+  position: static;
+  vertical-align: top;
+  margin-right: 4px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--input-background);
+  border: var(--input-border);
+  border-radius: 50%;
+}
+
+radio-box > radio-mark::before {
+  content: '';
+  position: absolute;
+  margin: -1px;
+  padding: 3px;
+  width: 10px;
+  height: 10px;
+  background-clip: content-box;
+  background-color: var(--radio-box-mark-color);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+radio-box.selected > radio-mark::before {
+  opacity: 1;
+}
+
+radio-box:active > radio-mark::before {
+  opacity: 0.5;
+}
+
+radio-box.standard.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* --------------------------------
+ * 滑动框
+ * --------------------------------
+ */
+slider-box {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20px;
+}
+
+slider-box.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+slider-bar {
+  position: absolute;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--slider-bar-background);
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+slider-filler {
+  position: absolute;
+  height: 100%;
+  background-color: var(--slider-filler-background);
+}
+
+.slider-input {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  appearance: none;
+}
+
+::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: var(--slider-thumb-background);
+  border: var(--input-border);
+  border-radius: 8px;
+  appearance: none;
+}
+
+::-webkit-slider-thumb:hover {
+  background-color: var(--slider-thumb-background-hover);
+}
+
+::-webkit-slider-thumb:active {
+  background-color: var(--slider-thumb-background-active);
+}
+
+/* --------------------------------
+ * 数字框
+ * --------------------------------
+ */
+number-box {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+number-box.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+number-box:focus-within {
+  border-color: var(--input-border-color-focus);
+}
+
+number-box > .label {
+  position: absolute;
+  padding: 0 4px;
+  left: 0;
+  line-height: 18px;
+  font-family: var(--font-family-mono);
+  color: var(--text-color-unit);
+}
+
+number-box > .label.red {
+  color: var(--number-box-label-red);
+}
+
+number-box > .label.green {
+  color: var(--number-box-label-green);
+}
+
+number-box > .label.blue {
+  color: var(--number-box-label-blue);
+}
+
+number-box > .unit {
+  position: absolute;
+  padding: 0 4px;
+  right: 0;
+  line-height: 18px;
+  font-family: var(--font-family-mono);
+  color: var(--text-color-unit);
+}
+
+.number-box-input {
+  position: absolute;
+  margin: 0;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+}
+
+::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+/* --------------------------------
+ * 数字变量框
+ * --------------------------------
+ */
+number-var:focus-within::before {
+  position: absolute;
+  margin-left: -2em;
+  font-family: var(--font-family-mono);
+  color: var(--text-color-disabled);
+}
+
+number-var.constant:focus-within::before {
+  content: 'num';
+}
+
+number-var.variable:focus-within::before {
+  content: 'var';
+}
+
+/* --------------------------------
+ * 字符串变量框
+ * --------------------------------
+ */
+string-var:focus-within::before {
+  position: absolute;
+  margin-left: -2em;
+  font-family: var(--font-family-mono);
+  color: var(--text-color-disabled);
+}
+
+string-var.constant:focus-within::before {
+  content: 'str';
+}
+
+string-var.variable:focus-within::before {
+  content: 'var';
+}
+
+/* --------------------------------
+ * 选择变量框
+ * --------------------------------
+ */
+select-var:focus-within::before {
+  position: absolute;
+  font-family: var(--font-family-mono);
+  color: var(--text-color-disabled);
+}
+
+select-var.constant:focus-within::before {
+  content: 'enum';
+  margin-left: -2.6em;
+}
+
+select-var.variable:focus-within::before {
+  content: 'var';
+  margin-left: -2em;
+}
+
+/* --------------------------------
+ * 文件变量框
+ * --------------------------------
+ */
+file-var:focus-within::before {
+  position: absolute;
+  font-family: var(--font-family-mono);
+  color: var(--text-color-disabled);
+}
+
+file-var.constant:focus-within::before {
+  content: 'file';
+  margin-left: -2.6em;
+}
+
+file-var.variable:focus-within::before {
+  content: 'var';
+  margin-left: -2em;
+}
+
+/* --------------------------------
+ * 选择框
+ * --------------------------------
+ */
+select-box {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+select-box:not(.disabled)::before {
+  content: '';
+  position: absolute;
+  right: 4px;
+  top: 7px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid var(--text-color);
+}
+
+select-box.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+select-box:hover {
+  background-color: var(--input-background-hover);
+}
+
+select-box:focus {
+  border-color: var(--input-border-color-focus);
+}
+
+.select-box-text {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 4px;
+  width: calc(100% - 16px);
+  line-height: 18px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+.select-box-text.invalid {
+  color: var(--command-color-invalid);
+}
+
+/* --------------------------------
+ * 选择列表
+ * --------------------------------
+ */
+select-list {
+  display: block;
+  position: fixed;
+  margin-left: var(--1dpx);
+  background-color: var(--select-list-background);
+  outline: var(--input-border);
+  pointer-events: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* 指针在列表底部边框触发 mousemove 事件时
+ * position: relative 事件目标为列表本身
+ * position: static 事件目标为列表选项
+ */
+select-item {
+  display: block;
+  padding: 0 4px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+select-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+/* --------------------------------
+ * 菜单列表
+ * --------------------------------
+ */
+menu-list {
+  display: block;
+  position: fixed;
+  padding: 4px 0;
+  line-height: 16px;
+  background-color: var(--menu-list-background);
+  outline: var(--menu-list-outline);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+menu-item {
+  display: block;
+  margin: 0;
+  padding: 4px 0;
+  height: 24px;
+  pointer-events: auto;
+}
+
+menu-item.id {
+  color: var(--text-color-disabled);
+}
+
+menu-item.id.selected {
+  color: var(--text-color-accelerator-selected);
+}
+
+menu-item.id > menu-label {
+  width: 100px;
+  overflow: visible;
+}
+
+menu-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+menu-item.disabled {
+  color: var(--text-color-disabled);
+  background-color: transparent;
+}
+
+menu-checked {
+  position: absolute;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  font-size: 1.2em;
+/*  font-weight: bold;*/
+  font-family: var(--font-family-normal);
+  pointer-events: none;
+}
+
+menu-icon.color-icon {
+  position: absolute;
+  left: 4px;
+  margin: 2px;
+  width: 12px;
+  height: 12px;
+  border: var(--node-icon-border);
+  pointer-events: none;
+}
+
+menu-icon.color-icon.transparent::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  width: 10px;
+  height: 2px;
+  background-color: red;
+  transform-origin: center;
+  transform: rotate(-45deg);
+}
+
+menu-label {
+  position: absolute;
+  left: 24px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+menu-accelerator {
+  position: absolute;
+  right: 24px;
+  font-family: var(--font-family-accelerator);
+  color: var(--text-color-disabled);
+  pointer-events: none;
+}
+
+.selected > menu-accelerator {
+  color: var(--text-color-accelerator-selected);
+}
+
+menu-sub-mark {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+}
+
+menu-separator {
+  display: block;
+  position: relative;
+  margin: 4px 0;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: var(--1dpx);
+  background-color: var(--menu-separator-background);
+  border: none;
+  pointer-events: none;
+}
+
+/* --------------------------------
+ * 自定义框
+ * --------------------------------
+ */
+custom-box {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+custom-box:not(.disabled)::before {
+  content: '…';
+  position: absolute;
+  right: 0;
+  width: 16px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+}
+
+custom-box.disabled {
+  pointer-events: none;
+  background-color: var(--input-background-disabled);
+}
+
+custom-box:hover {
+  background-color: var(--input-background-hover);
+}
+
+custom-box:focus {
+  border-color: var(--input-border-color-focus);
+}
+
+.custom-box-text {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 4px;
+  width: calc(100% - 16px);
+  height: 100%;
+  line-height: 18px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+.custom-box-text.invalid {
+  color: var(--attribute-color-invalid);
+}
+
+/* --------------------------------
+ * 滤镜框
+ * --------------------------------
+ */
+filter-box {
+  display: block;
+  padding: 1px;
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+/* --------------------------------
+ * 导航栏
+ * --------------------------------
+ */
+/* 使用本地字体让导航项目的宽度固定 */
+nav-bar {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 25px;
+  line-height: 24px;
+  /* font-size: 0.9em; */
+  font-family: var(--font-family-title);
+  background-color: var(--nav-bar-background);
+  border-bottom: var(--nav-bar-border);
+  /* border-top-right-radius: 2px; */
+  /* overflow: hidden; */
+}
+
+nav-item {
+  padding: 0 10px;
+  height: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: var(--nav-item-background);
+  border-right: var(--nav-bar-border);
+  /* border-top-right-radius: 2px; */
+}
+
+nav-item:hover,
+nav-item.hover {
+  background-color: var(--nav-item-background-hover);
+}
+
+nav-item.selected {
+  height: 25px;
+  background-color: var(--nav-item-background-selected);
+}
+
+nav-item.drag-entered {
+  background-color: rgba(0, 255, 0, 0.25);
+  z-index: 1;
+}
+
+nav-icon {
+  display: inline-block;
+  margin-right: 2px;
+  width: 1em;
+  height: 24px;
+  text-align: center;
+  font-family: var(--font-family-symbol);
+  pointer-events: none;
+}
+
+nav-text {
+  pointer-events: none;
+}
+
+/* --------------------------------
+ * 节点列表
+ * --------------------------------
+ */
+node-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+node-item {
+  display: block;
+  padding-right: 32px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+/* 避免拖拽时非指针位置的列表项触发:hover样式 */
+node-list:not(.dragging) > node-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+node-list:focus > node-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+node-list:not(:focus) > node-item.selected {
+  background-color: var(--selected-background-blur);
+}
+
+node-item.highlight {
+  color: var(--toolbar-item-color-highlight) !important;
+}
+
+node-item.hint {
+  color: var(--text-color-inverse);
+}
+
+node-item.plain {
+  padding: 0 10px;
+}
+
+node-item.weak {
+  color: var(--text-color-disabled);
+}
+
+node-item.weak.selected {
+  color: var(--text-color-accelerator-selected) !important;
+}
+
+folder-mark {
+  display: inline-block;
+  vertical-align: top;
+  width: 16px;
+  height: 20px;
+}
+
+folder-mark::before {
+  content: '';
+  display: block;
+  position: absolute;
+  margin: 5px 4px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid var(--folder-mark-color);
+}
+
+folder-mark.expanded::before {
+  margin: 6px 3px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid var(--folder-mark-color);
+  border-bottom: none;
+}
+
+node-icon {
+  display: inline-block;
+  vertical-align: top;
+  margin: 2px 2px 2px 0;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  font-size: 14px;
+  text-indent: 0;
+  text-align: center;
+  font-family: var(--font-family-symbol);
+  pointer-events: none;
+}
+
+:focus > .selected > node-icon.icon-folder,
+:focus > .selected > node-icon.icon-ui-image,
+:focus > .selected > node-icon.icon-ui-text,
+:focus > .selected > node-icon.icon-ui-textbox,
+:focus > .selected > node-icon.icon-ui-dialogbox,
+:focus > .selected > node-icon.icon-ui-progressbar,
+:focus > .selected > node-icon.icon-ui-video,
+:focus > .selected > node-icon.icon-ui-window,
+:focus > .selected > node-icon.icon-ui-container {
+  background-color: white;
+}
+
+node-icon.icon-folder {
+  background-color: var(--folder-icon-color);
+  -webkit-mask-image: url("../Images/folder_folded.png");
+  -webkit-mask-size: 100%;
+}
+
+node-icon.icon-folder.expanded {
+  -webkit-mask-image: url("../Images/folder_expanded.png");
+  -webkit-mask-size: 100%;
+}
+
+node-icon.icon-particle-image {
+  margin: 3px 3px 3px 1px;
+  width: 14px;
+  height: 14px;
+  image-rendering: auto !important;
+}
+
+.icon-file {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/file_common.png");
+  -webkit-mask-size: 100%;
+}
+
+.icon-conditional,
+.icon-eventEnabled,
+.icon-scriptEnabled,
+.icon-loop {
+  margin: 3px -2px 3px 4px;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  font-size: 10px;
+/*  font-weight: bold;*/
+  font-family: Arial, var(--font-family-symbol);
+  background-color: var(--node-bubble-background);
+  border-radius: 25%;
+}
+
+.icon-conditional {
+  color: var(--icon-conditional-color);
+}
+
+.icon-eventEnabled {
+  color: var(--icon-eventEnabled-color);
+}
+
+.icon-scriptEnabled {
+  color: var(--icon-scriptEnabled-color);
+}
+
+.icon-loop {
+  color: var(--icon-loop-color);
+}
+
+.icon-scene-region {
+  margin: 4px 4px 4px 2px;
+  width: 12px;
+  height: 12px;
+  border: var(--node-icon-border);
+}
+
+.icon-scene-parallax {
+  margin: 3px 3px 3px 1px;
+  width: 14px;
+  height: 14px;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--parallax-icon-background);
+}
+
+.icon-ui-image {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 0;
+}
+
+.icon-ui-text {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 -100%;
+}
+
+.icon-ui-textbox {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 -200%;
+}
+
+.icon-ui-dialogbox {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 -300%;
+}
+
+.icon-ui-progressbar {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 -400%;
+}
+
+.icon-ui-video {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 -500%;
+}
+
+.icon-ui-window {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 -600%;
+}
+
+.icon-ui-container {
+  background-color: var(--file-icon-color);
+  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-size: 100% 800%;
+  -webkit-mask-position: 0 -700%;
+}
+
+visibility-icon {
+  position: absolute;
+  right: 16px;
+  width: 16px;
+  height: 20px;
+  text-indent: 2px;
+  /* text-align: center; */
+  font-family: var(--font-family-symbol);
+  color: var(--node-icon-color);
+  /* background: gray; */
+}
+
+lock-icon {
+  position: absolute;
+  right: 0;
+  width: 16px;
+  height: 20px;
+  text-indent: 2px;
+  /* text-align: center; */
+  font-family: var(--font-family-symbol);
+  color: var(--node-icon-color);
+  /* background: green; */
+}
+
+.node-icon-highlight {
+  color: var(--node-icon-color-highlight);
+}
+
+visibility-icon:hover,
+lock-icon:hover {
+  color: var(--text-color);
+}
+
+.node-list-text-box {
+  display: inline-block;
+  position: absolute;
+  text-indent: 0;
+  border-color: var(--input-border-color) !important;
+}
+
+.node-list-text-box-input {
+  position: static;
+  padding: 2px;
+  text-align: inherit;
+  vertical-align: top;
+  color: var(--text-color-rename);
+}
+
+field-set > node-list {
+  position: absolute;
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------
+ * 拖放提示
+ * --------------------------------
+ */
+drag-and-drop-hint {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+}
+
+drag-and-drop-hint.for-tab,
+drag-and-drop-hint.for-list {
+  background-color: var(--node-hint-background);
+}
+
+drag-and-drop-hint.for-group {
+  background-color: rgba(0, 128, 255, 0.25);
+}
+
+/* --------------------------------
+ * 普通列表
+ * --------------------------------
+ */
+common-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+common-item {
+  display: block;
+  padding: 0 10px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+common-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+common-list:focus > common-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+common-list:not(:focus) > common-item.selected {
+  background-color: var(--selected-background-blur);
+}
+
+field-set > common-list {
+  position: absolute;
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------
+ * 参数列表
+ * --------------------------------
+ */
+param-list {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: var(--font-family-mono);
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+}
+
+param-item {
+  display: flex;
+  padding: 0 10px;
+  height: 20px;
+  line-height: 20px;
+  white-space: pre;
+}
+
+param-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+param-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+/* display: flex 无法显示省略号 */
+param-item.one-column {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-0-of-2,
+.text-1-of-2 {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+param-item.invalid,
+.text-0-of-2.invalid,
+.text-1-of-2.invalid {
+  color: var(--attribute-color-invalid);
+}
+
+param-item.weak,
+.text-0-of-2.weak,
+.text-1-of-2.weak {
+  color: var(--text-color-disabled);
+}
+
+param-item.weak.selected,
+.selected > .text-0-of-2.weak,
+.selected > .text-1-of-2.weak {
+  color: var(--text-color-accelerator-selected);
+}
+
+.array-index {
+  padding-right: 10px;
+  pointer-events: none;
+  color: var(--text-color-disabled);
+}
+
+.selected > .array-index {
+  color: var(--text-color-accelerator-selected);
+}
+
+.array-value {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.script-edit-button {
+  flex-shrink: 0;
+  margin-right: -10px;
+  width: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  font-family: var(--font-family-symbol);
+  color: var(--text-color-disabled);
+}
+
+.selected > .script-edit-button {
+  color: var(--text-color-accelerator-selected);
+}
+
+.script-edit-button:hover {
+  color: var(--text-color-rename);
+}
+
+/* field-set > param-list {
+  position: absolute;
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+} */
+
+/* --------------------------------
+ * 指令列表
+ * --------------------------------
+ */
+command-list {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* font-size: 14px; */
+  font-family: var(--font-family-mono);
+}
+
+command-item {
+  display: block;
+  padding-left: 56px;
+  padding-right: 8px;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+command-item.disabled > command-mark-major,
+command-item.disabled > command-mark-minor,
+command-item.disabled > command-text:not(.transparent) {
+  color: var(--command-color-mark-minor) !important;
+}
+
+command-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+command-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+command-item > .transparent {
+  color: transparent;
+  text-shadow: none;
+}
+
+command-item:not(.selected) > .element {
+  color: var(--command-color-element);
+}
+
+command-item:not(.selected) > .gray {
+  color: var(--command-color-gray);
+}
+
+command-item:not(.selected) > .text {
+  color: var(--command-color-text);
+}
+
+command-item:not(.selected) > .variable {
+  color: var(--command-color-variable);
+}
+
+command-item:not(.selected) > .flow {
+  color: var(--command-color-flow);
+}
+
+command-item:not(.selected) > .comment {
+  color: var(--command-color-comment);
+}
+
+command-item:not(.selected) > .wait {
+  color: var(--command-color-wait);
+}
+
+command-item:not(.selected) > .object {
+  color: var(--command-color-object);
+}
+
+command-item:not(.selected) > .audio {
+  color: var(--command-color-audio);
+}
+
+command-item:not(.selected) > .actor {
+  color: var(--command-color-actor);
+}
+
+command-item:not(.selected) > .skill {
+  color: var(--command-color-skill);
+}
+
+command-item:not(.selected) > .inventory {
+  color: var(--command-color-inventory);
+}
+
+command-item:not(.selected) > .scene {
+  color: var(--command-color-scene);
+}
+
+command-item:not(.selected) > .system {
+  color: var(--command-color-system);
+}
+
+command-item:not(.selected) > .custom {
+  color: var(--command-color-custom);
+}
+
+command-item:not(.selected) > .invalid {
+  color: var(--command-color-invalid);
+}
+
+command-mark-major {
+  letter-spacing: 2px;
+  /* background: green; */
+}
+
+command-mark-minor {
+  letter-spacing: 2px;
+  color: var(--command-color-mark-minor);
+  /* background: green; */
+}
+
+command-item.selected > command-mark-minor {
+  color: var(--command-color-mark-minor-selected);
+}
+
+field-set > command-list {
+  position: absolute;
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------
+ * 文件浏览器
+ * --------------------------------
+ */
+file-browser {
+  position: absolute;
+}
+
+/* 如果设置了nav背景色而未设置body背景色
+ * 在nav垂直溢出时会导致body丢失子像素渲染
+ */
+file-nav-pane {
+  position: absolute;
+  width: 18%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: var(--nav-bar-border);
+}
+
+file-browser.hide-nav-pane > file-nav-pane {
+  display: none;
+}
+
+file-nav-item {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+file-nav-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+file-nav-item.drop-target {
+  background-color: var(--drop-target-background);
+}
+
+file-nav-pane:focus > file-nav-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+file-nav-pane:not(:focus) > file-nav-item.selected {
+  background-color: var(--selected-background-blur);
+}
+
+file-nav-icon {
+  display: inline-block;
+  vertical-align: top;
+  margin: 2px 2px 2px 0;
+  width: 16px;
+  height: 16px;
+}
+
+:focus > .selected > file-nav-icon.icon-folder {
+  background-color: white;
+}
+
+file-nav-icon.icon-folder {
+  background-color: var(--folder-icon-color);
+  -webkit-mask-image: url("../Images/folder_folded.png");
+  -webkit-mask-size: 100%;
+}
+
+file-nav-icon.icon-folder.expanded {
+  background-color: var(--folder-icon-color);
+  -webkit-mask-image: url("../Images/folder_expanded.png");
+  -webkit-mask-size: 100%;
+}
+
+.file-nav-text-box {
+  display: inline-block;
+  position: absolute;
+  text-indent: 0;
+  border-color: var(--input-border-color) !important;
+}
+
+.file-nav-text-box-input {
+  position: static;
+  padding: 2px;
+  text-align: inherit;
+  vertical-align: top;
+  color: var(--text-color-rename);
+}
+
+file-head-pane {
+  display: flex;
+  position: absolute;
+  flex: 1 0 auto;
+  top: -25px;
+  right: 0;
+  height: 24px;
+  overflow: hidden;
+  background-color: var(--group-head-background);
+}
+
+file-head-address {
+  flex: 1 0 0;
+  margin: 2px 0;
+  height: 20px;
+  line-height: 20px;
+/*  font-weight: bold;*/
+  font-family: var(--font-family-bold);
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  text-indent: 2px;
+  /* background-color: green; */
+}
+
+file-head-address::before {
+  content: '';
+  position: absolute;
+  margin-left: -3px;
+  width: 0;
+  height: 20px;
+  border-left: var(--nav-bar-border);
+}
+
+file-head-address-folder {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 2px;
+  text-indent: 0;
+  /* background-color: green; */
+}
+
+file-head-address-arrow {
+  display: inline-block;
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  text-indent: 0;
+  border-color: var(--folder-mark-color);
+  /* background-color: red; */
+}
+
+file-head-address-link {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  text-indent: 0;
+  color: var(--folder-mark-color);
+  /* background-color: red; */
+}
+
+file-head-address-text {
+  display: block;
+  padding: 0 2px;
+  width: 100%;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  /* background-color: red; */
+}
+
+file-head-address-folder.drop-target {
+  background-color: var(--drop-target-background);
+}
+
+file-head-address-folder:hover,
+file-head-address-arrow:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+file-head-address-folder:active,
+file-head-address-arrow:active,
+file-head-address-arrow.active {
+  color: white;
+  border-color: white;
+  background-color: var(--selected-background);
+}
+
+file-head-address-arrow::before {
+  content: '';
+  display: block;
+  position: absolute;
+  margin: 6px 7px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left-width: 6px;
+  border-left-style: solid;
+  border-left-color: inherit;
+  /* background-color: blue; */
+}
+
+.upper-level-directory {
+  flex: 0 0 auto;
+  margin: 2px 0 2px 2px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  font-family: var(--font-family-symbol);
+}
+
+.upper-level-directory:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+.upper-level-directory:active {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+.file-head-searcher {
+  flex: 0 1 auto;
+  margin: 2px;
+  width: 300px;
+}
+
+.file-head-view {
+  flex: 0 1 80px;
+  margin: 2px 4px 2px 2px;
+  /* background-color: red; */
+}
+
+file-body-pane {
+  position: absolute;
+  left: 18%;
+  right: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+file-browser.hide-nav-pane > file-body-pane {
+  left: 0;
+}
+
+file-body-pane.horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+file-body-item {
+  border-radius: 2px;
+}
+
+file-body-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+file-body-item.drop-target {
+  background-color: var(--drop-target-background);
+}
+
+file-body-content:focus > file-body-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+file-body-content:not(:focus) > file-body-item:not(:focus-within).selected {
+  background-color: var(--selected-background-blur);
+}
+
+file-body-icon {
+  display: block;
+  pointer-events: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+:focus > .selected > file-body-icon.icon-folder {
+  background-color: var(--folder-icon-color-selected);
+}
+
+file-body-icon.icon-folder {
+  background-color: var(--folder-icon-color);
+  -webkit-mask-image: url("../Images/folder_folded.png");
+  -webkit-mask-size: 100%;
+}
+
+file-body-icon.icon-file-scene {
+  background-image: url("../Images/file_scene.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-ui {
+  background-image: url("../Images/file_ui.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-animation {
+  background-image: url("../Images/file_animation.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-particle {
+  background-image: url("../Images/file_particle.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-actor {
+  background-image: url("../Images/file_actor.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-cube {
+  background-image: url("../Images/file_cube.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-trigger {
+  background-image: url("../Images/file_trigger.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-tileset {
+  background-image: url("../Images/file_tileset.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-font {
+  background-image: url("../Images/file_font.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-event {
+  font-family: var(--font-family-bold);
+/*  font-weight: bold;*/
+  text-align: center;
+  color: green;
+  background-image: url("../Images/file_other.png");
+  opacity: 0.8;
+}
+
+file-body-icon.icon-file-event.disabled {
+  opacity: 0.25;
+}
+
+file-body-icon.icon-file-script {
+  color: #004080;
+}
+
+file-body-icon.icon-file-audio {
+  font-family: var(--font-family-symbol);
+  color: #008080;
+}
+
+file-body-icon.icon-file-video {
+  font-family: var(--font-family-symbol);
+  color: #000000;
+}
+
+file-body-icon.icon-file-other {
+  font-family: var(--font-family-bold);
+/*  font-weight: bold;*/
+  text-align: center;
+  color: #404040;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  background-image: url("../Images/file_other.png");
+}
+
+/* 当字号与行高是某些相等的值
+ * 底部会出现部分第三行的文本
+ * 可能是文本垂直偏移造成
+ * 设置 15px 的行高可以解决
+ */
+file-body-name {
+  display: -webkit-box;
+  height: 30px;
+  overflow: hidden;
+  white-space: break-spaces;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.file-body-text-box {
+  display: inline-block;
+  position: static;
+  width: 100%;
+  text-indent: 0;
+  border-color: var(--input-border-color) !important;
+}
+
+.file-body-text-box-input {
+  position: static;
+  padding: 2px;
+  text-align: inherit;
+  vertical-align: top;
+  color: var(--text-color-rename);
+}
+
+file-body-content.list {
+  display: grid;
+  padding: 4px 0;
+  text-align: left;
+  grid-auto-flow: column;
+  align-content: space-between;
+  grid-column-gap: 2px;
+  grid-template-columns: repeat(auto-fill, 240px);
+  grid-template-rows: repeat(auto-fill, 20px);
+  /* width: 100%; */
+  height: 100%;
+  font-size: 1em;
+  line-height: 20px;
+  /* background-color: green; */
+}
+
+file-body-content.list > file-body-item {
+  width: 240px;
+  height: 20px;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+}
+
+file-body-content.list > file-body-item > file-body-icon {
+  display: inline-block;
+  vertical-align: top;
+  margin: 2px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  image-rendering: auto !important;
+  /* background: green; */
+  /* pointer-events: none; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  /* background-size: 100%; */
+}
+
+file-body-content.list > file-body-item > file-body-icon.icon-file-event {
+  padding-top: 1px;
+  font-size: 0.5em;
+}
+
+file-body-content.list > file-body-item > file-body-icon.icon-file-other {
+  padding-top: 1px;
+  font-size: 0.4em;
+}
+
+file-body-content.list > file-body-item > file-body-name {
+  display: inline-block;
+  vertical-align: top;
+  width: 220px;
+  height: 20px;
+  white-space: pre;
+  /* background-color: red; */
+}
+
+file-body-content.small {
+  display: grid;
+  padding: 0 4px;
+  text-align: center;
+  justify-content: space-evenly;
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+  grid-template-columns: repeat(auto-fill, 40px);
+  grid-template-rows: repeat(auto-fill, 72px);
+  font-size: 0.9em;
+  line-height: 15px;
+}
+
+/* 必须指定file-body-item的宽高, 否则可能少2px高度 */
+file-body-content.small > file-body-item {
+  width: 40px;
+  height: 72px;
+}
+
+file-body-content.small > file-body-item > file-body-icon {
+  margin: 4px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+
+file-body-content.small > file-body-item > file-body-icon.icon-file-event {
+  padding-top: 2px;
+  font-size: 1em;
+}
+
+file-body-content.small > file-body-item > file-body-icon.icon-file-other {
+  padding-top: 2px;
+  font-size: 0.8em;
+}
+
+file-body-content.medium {
+  display: grid;
+  padding: 0 4px;
+  text-align: center;
+  justify-content: space-evenly;
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+  grid-template-columns: repeat(auto-fill, 72px);
+  grid-template-rows: repeat(auto-fill, 104px);
+  font-size: 1em;
+  line-height: 15px;
+}
+
+file-body-content.medium > file-body-item {
+  width: 72px;
+  height: 104px;
+}
+
+file-body-content.medium > file-body-item > file-body-icon {
+  margin: 4px;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+}
+
+file-body-content.medium > file-body-item > file-body-icon.icon-file-event {
+  padding-top: 4px;
+  font-size: 2em;
+}
+
+file-body-content.medium > file-body-item > file-body-icon.icon-file-other {
+  padding-top: 4px;
+  font-size: 1.6em;
+}
+
+file-body-content.large {
+  display: grid;
+  padding: 0 4px;
+  text-align: center;
+  justify-content: space-evenly;
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+  grid-template-columns: repeat(auto-fill, 136px);
+  grid-template-rows: repeat(auto-fill, 168px);
+  font-size: 1em;
+  line-height: 15px;
+}
+
+file-body-content.large > file-body-item {
+  width: 136px;
+  height: 168px;
+}
+
+file-body-content.large > file-body-item > file-body-icon {
+  margin: 4px;
+  width: 128px;
+  height: 128px;
+  line-height: 128px;
+}
+
+file-body-content.large > file-body-item > file-body-icon.icon-file-event {
+  padding-top: 8px;
+  font-size: 4em;
+}
+
+file-body-content.large > file-body-item > file-body-icon.icon-file-other {
+  padding-top: 8px;
+  font-size: 3.2em;
+}
+
+file-body-content.huge {
+  display: grid;
+  padding: 0 4px;
+  text-align: center;
+  justify-content: space-evenly;
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+  grid-template-columns: repeat(auto-fill, 264px);
+  grid-template-rows: repeat(auto-fill, 296px);
+  font-size: 1em;
+  line-height: 15px;
+}
+
+file-body-content.huge > file-body-item {
+  width: 264px;
+  height: 296px;
+}
+
+file-body-content.huge > file-body-item > file-body-icon {
+  margin: 4px;
+  width: 256px;
+  height: 256px;
+  line-height: 256px;
+}
+
+file-body-content.huge > file-body-item > file-body-icon.icon-file-event {
+  padding-top: 16px;
+  font-size: 8em;
+}
+
+file-body-content.huge > file-body-item > file-body-icon.icon-file-other {
+  padding-top: 16px;
+  font-size: 6.4em;
+}

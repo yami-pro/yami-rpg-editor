@@ -1,5 +1,6 @@
 'use strict'
 
+import './attribute.css'
 import { createElement } from './vhtml/index.js'
 
 const AttributeView = ()=>(

@@ -1,0 +1,37 @@
+/* --------------------------------
+ * 移动场景
+ * --------------------------------
+ */
+#scene-shift {
+  width: 324px;
+  height: 122px;
+}
+
+#scene-shift-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#scene-shift-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 默认对象文件夹
+ * --------------------------------
+ */
+#object-folder {
+  width: 324px;
+  height: 242px;
+}
+
+#object-folder-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#object-folder-cancel {
+  right: 10px;
+  bottom: 10px;
+}

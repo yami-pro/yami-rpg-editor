@@ -1,5 +1,6 @@
 'use strict'
 
+import './log.css'
 import { createElement } from './vhtml/index.js'
 
 const LogView = ()=>(

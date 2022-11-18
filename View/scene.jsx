@@ -1,5 +1,6 @@
 'use strict'
 
+import './scene.css'
 import { createElement } from './vhtml/index.js'
 
 const SceneView = ()=>(

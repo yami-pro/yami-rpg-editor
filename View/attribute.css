@@ -1,0 +1,87 @@
+/* --------------------------------
+ * 属性窗口
+ * --------------------------------
+ */
+#attribute {
+  width: 572px;
+  height: 700px;
+}
+
+#attribute-list-fieldset {
+  left: 10px;
+  top: 10px;
+  width: 320px;
+  height: 622px;
+}
+
+#attribute-list {
+  font-family: var(--font-family-mono);
+}
+
+.attribute-item {
+  padding-right: 20px;
+}
+
+.attribute-init-text {
+  pointer-events: none;
+  color: var(--text-color-variable-init);
+}
+
+.selected > .attribute-init-text {
+  color: var(--text-color-accelerator-selected);
+}
+
+node-icon.icon-note {
+  position: absolute;
+  margin: 2px;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  color: var(--text-color-variable-init);
+}
+
+.selected > node-icon.icon-note {
+  color: var(--text-color-accelerator-selected);
+}
+
+#attribute-properties-fieldset {
+  left: 340px;
+  top: 10px;
+  width: 222px;
+  height: 622px;
+}
+
+#attribute-properties-flex {
+  flex-direction: column;
+}
+
+#attribute-enum-box {
+  height: 188px;
+}
+
+#attribute-note {
+  height: 196px;
+}
+
+#attribute-searcher {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 258px;
+}
+
+#attribute-confirm {
+  right: 206px;
+  bottom: 10px;
+}
+
+#attribute-cancel {
+  right: 108px;
+  bottom: 10px;
+}
+
+#attribute-apply {
+  right: 10px;
+  bottom: 10px;
+}

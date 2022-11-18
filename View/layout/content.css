@@ -1,0 +1,216 @@
+/* --------------------------------
+ * 布局内容
+ * --------------------------------
+ */
+#layout-content {
+  display: none;
+}
+
+/* --------------------------------
+ * 项目窗口
+ * --------------------------------
+ */
+#project-browser {
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------
+ * 场景
+ * --------------------------------
+ */
+#scene-head {
+  display: flex;
+  position: absolute;
+  flex: 1 0 auto;
+  justify-content: space-between;
+  top: -25px;
+  right: 0;
+  height: 24px;
+  overflow: hidden;
+  background-color: var(--group-head-background);
+}
+
+/* 这里不能写成flex: 0 0 144px; */
+#scene-head-start {
+  display: flex;
+  flex: 0 0 auto;
+  width: 115px;
+  /* background: yellow; */
+}
+
+#scene-head-start > .toolbar-item::after {
+  content: '';
+  display: block;
+  margin: 4px 6px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--text-color);
+}
+
+#scene-switch-grid::after {
+  -webkit-mask-image: url("../Images/scene_view.png");
+  -webkit-mask-size: 100% 400%;
+  -webkit-mask-position: 0 0;
+}
+
+#scene-switch-light::after {
+  -webkit-mask-image: url("../Images/scene_view.png");
+  -webkit-mask-size: 100% 400%;
+  -webkit-mask-position: 0 -100%;
+}
+
+#scene-switch-animation::after {
+  -webkit-mask-image: url("../Images/scene_view.png");
+  -webkit-mask-size: 100% 400%;
+  -webkit-mask-position: 0 -300%;
+}
+
+#scene-switch-settings::after {
+  -webkit-mask-image: url("../Images/common_settings.png");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-position: 0 0;
+}
+
+#scene-head-center {
+  display: flex;
+  flex: 0 0 auto;
+  /* background: green; */
+  border-left: var(--toolbar-item-border);
+}
+
+#scene-layer,
+#scene-brush {
+  display: flex;
+}
+
+#scene-layer > .toolbar-item::after,
+#scene-brush > .toolbar-item::after {
+  content: '';
+  display: block;
+  margin: 4px 6px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url("../Images/scene_tilemap.png");
+  -webkit-mask-size: 100% 1300%;
+}
+
+#scene-layer > .toolbar-item.selected::after,
+#scene-brush > .toolbar-item.selected::after {
+  background-color: var(--toolbar-item-color-highlight);
+}
+
+#scene-layer-object::after {
+  -webkit-mask-position: 0 0;
+}
+
+#scene-layer-tilemap-1::after {
+  -webkit-mask-position: 0 -100%;
+}
+
+#scene-layer-tilemap-2::after {
+  -webkit-mask-position: 0 -200%;
+}
+
+#scene-layer-tilemap-3::after {
+  -webkit-mask-position: 0 -300%;
+}
+
+#scene-layer-tilemap-4::after {
+  -webkit-mask-position: 0 -400%;
+}
+
+#scene-layer-tilemap-5::after {
+  -webkit-mask-position: 0 -500%;
+}
+
+#scene-layer-tilemap-6::after {
+  -webkit-mask-position: 0 -600%;
+}
+
+#scene-layer-terrain::after {
+  -webkit-mask-position: 0 -700%;
+}
+
+#scene-brush-eraser::after {
+  -webkit-mask-position: 0 -800%;
+}
+
+#scene-brush-pencil::after {
+  -webkit-mask-position: 0 -900%;
+}
+
+#scene-brush-rect::after {
+  -webkit-mask-position: 0 -1000%;
+}
+
+#scene-brush-oval::after {
+  -webkit-mask-position: 0 -1100%;
+}
+
+#scene-brush-fill::after {
+  -webkit-mask-position: 0 -1200%;
+}
+
+#scene-head-end {
+  flex: 0 0 auto;
+  /* background: blue; */
+}
+
+#scene-zoom {
+  margin: 2px 4px;
+  right: 0;
+  width: 80px;
+}
+
+#scene-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#scene-info {
+  position: absolute;
+  padding: 0 4px;
+  line-height: 20px;
+  color: white;
+  overflow: hidden;
+  white-space: pre;
+  text-overflow: ellipsis;
+  text-shadow: var(--stage-info-text-shadow);
+  pointer-events: none;
+}
+
+#scene-list-head {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  height: 24px;
+  overflow: hidden;
+  background-color: var(--group-head-background);
+}
+
+#scene-searcher {
+  margin: 2px;
+  width: calc(100% - 4px);
+}
+
+#scene-list {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------
+ * 对象窗口
+ * --------------------------------
+ */
+#scene-object,
+#ui-element,
+#animation-motion {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

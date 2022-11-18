@@ -1,10 +1,11 @@
 'use strict'
 
+import './title.css'
 import { createElement } from './vhtml/index.js'
 
 const TitleView = ()=>(
   <>
-    {/*标题栏*/}
+    {/*标签栏*/}
     <box id="title">
       <box id="menu">
         <item id="menu-file" class="menu-item" value="file">File</item>

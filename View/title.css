@@ -1,0 +1,284 @@
+/* --------------------------------
+ * 应用标题栏
+ * --------------------------------
+ */
+#title {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 28px;
+  justify-content: flex-end;
+  background-color: var(--title-background);
+  overflow: hidden;
+}
+
+#menu {
+  flex: 0 1 320px;
+  display: flex;
+  height: 28px;
+  line-height: 28px;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#menu.visible {
+  visibility: visible;
+}
+
+.menu-item {
+  padding: 0 10px;
+  height: 28px;
+  font-family: var(--font-family-title);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-app-region: no-drag;
+}
+
+.menu-item:hover {
+  background-color: var(--list-item-background-hover);
+}
+
+.menu-item.selected {
+  color: white;
+  background-color: var(--selected-background);
+}
+
+#title-buttons {
+  flex: 0 1 320px;
+  display: flex;
+  height: 28px;
+  justify-content: flex-end;
+}
+
+#title-play {
+  width: 44px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  /* font-size: 10px; */
+  font-family: var(--font-family-symbol);
+}
+
+#title-play:hover {
+  background-color: var(--titlebar-button-background-hover);
+}
+
+#title-play:active {
+  background-color: var(--titlebar-button-background-active);
+}
+
+#title-play.selected {
+  color: var(--toolbar-item-color-highlight);
+}
+
+#title-play,
+#title-minimize,
+#title-maximize,
+#title-close {
+  position: static;
+  right: auto;
+  -webkit-app-region: no-drag;
+}
+
+body.maximized > #title > #title-buttons > #title-maximize::after {
+  -webkit-mask-position: 0 -200%;
+}
+
+/* --------------------------------
+ * 标签栏
+ * --------------------------------
+ */
+#title-tabBar {
+  flex-grow: 1;
+  display: flex;
+  width: 240px;
+  height: 28px;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#title-tabBar.visible {
+  visibility: visible;
+}
+
+tab-bar.dragging {
+  -webkit-app-region: no-drag;
+}
+
+tab-item {
+  display: flex;
+  width: 200px;
+  line-height: 28px;
+  font-family: var(--font-family-symbol), var(--font-family-title);
+  justify-content: space-between;
+  background-color: var(--tab-item-background);
+  border-right: var(--tab-item-border);
+  -webkit-app-region: no-drag;
+}
+
+tab-text {
+  flex-grow: 1;
+  width: 0;
+  text-indent: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+tab-item:first-child {
+  border-left: var(--tab-item-border);
+}
+
+tab-item:not(.selected):hover {
+  background-color: var(--tab-item-background-hover);
+}
+
+tab-item.selected {
+  color: var(--toolbar-item-color-highlight);
+  background-color: var(--tab-item-background-selected);
+}
+
+tab-close {
+  margin: 4px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  font-size: 10px;
+  text-align: center;
+  color: var(--tab-close-color);
+  /* background-color: green; */
+  border-radius: 50%;
+}
+
+tab-close:hover {
+  color: var(--tab-close-color-hover);
+  background-color: var(--titlebar-button-background-hover);
+}
+
+tab-close:active {
+  color: var(--tab-close-color-active);
+  background-color: var(--titlebar-button-background-active);
+}
+
+/* --------------------------------
+ * 新建项目窗口
+ * --------------------------------
+ */
+#newProject {
+  width: 448px;
+  height: 122px;
+}
+
+#newProject-folder {
+  width: 324px;
+}
+
+#newProject-location {
+  width: 300px;
+}
+
+#newProject-choose {
+  position: static;
+  width: 20px;
+}
+
+#newProject-warning {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  line-height: 20px;
+  white-space: nowrap;
+  background-color: var(--selected-background);
+}
+
+#newProject-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#newProject-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 部署项目窗口
+ * --------------------------------
+ */
+#deployment {
+  width: 448px;
+  height: 146px;
+}
+
+#deployment-folder {
+  width: 324px;
+}
+
+#deployment-location {
+  width: 300px;
+}
+
+#deployment-choose {
+  position: static;
+  width: 20px;
+}
+
+#deployment-warning {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  line-height: 20px;
+  white-space: nowrap;
+  background-color: var(--selected-background);
+}
+
+#deployment-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#deployment-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 复制进度窗口
+ * --------------------------------
+ */
+#copyProgress {
+  width: 380px;
+  height: 116px;
+}
+
+#copyProgress-flex {
+  margin: 10px;
+  flex-direction: column;
+}
+
+#copyProgress-box {
+  display: block;
+  height: 20px;
+  background-color: var(--input-background);
+  border: var(--input-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+#copyProgress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--selected-background);
+}
+
+/* --------------------------------
+ * 关于窗口
+ * --------------------------------
+ */
+#about {
+  width: 280px;
+  height: 212px;
+}

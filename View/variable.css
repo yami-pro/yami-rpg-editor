@@ -1,0 +1,125 @@
+/* --------------------------------
+ * 变量窗口
+ * --------------------------------
+ */
+#variable {
+  width: 572px;
+  height: 700px;
+}
+
+#variable-list-fieldset {
+  left: 10px;
+  top: 10px;
+  width: 320px;
+  height: 622px;
+}
+
+#variable-list {
+  font-family: var(--font-family-mono);
+}
+
+.variable-item {
+  padding-right: 20px;
+}
+
+node-icon.icon-boolean,
+node-icon.icon-number,
+node-icon.icon-string,
+node-icon.icon-object {
+  margin: 6px 6px 6px 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.shared-variable {
+  color: var(--shared-variable-color);
+}
+
+.temporary-variable {
+  color: var(--temporary-variable-color);
+}
+
+node-icon.icon-boolean {
+  background-color: var(--command-color-variable);
+}
+
+node-icon.icon-number {
+  background-color: var(--command-color-audio);
+}
+
+node-icon.icon-string {
+  background-color: var(--command-color-flow);
+}
+
+node-icon.icon-object {
+  background-color: var(--command-color-skill);
+}
+
+.variable-init-text {
+  pointer-events: none;
+  color: var(--text-color-variable-init);
+}
+
+.selected > .variable-init-text {
+  color: var(--text-color-accelerator-selected);
+}
+
+node-icon.icon-note {
+  position: absolute;
+  margin: 2px;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  color: var(--text-color-variable-init);
+}
+
+.selected > node-icon.icon-note {
+  color: var(--text-color-accelerator-selected);
+}
+
+#variable-properties-fieldset {
+  left: 340px;
+  top: 10px;
+  width: 222px;
+  height: 622px;
+}
+
+#variable-properties-flex {
+  flex-direction: column;
+}
+
+#variable-value-box {
+  height: 148px;
+}
+
+#variable-value-string {
+  height: 128px;
+}
+
+#variable-note {
+  height: 196px;
+}
+
+#variable-searcher {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 258px;
+}
+
+#variable-confirm {
+  right: 206px;
+  bottom: 10px;
+}
+
+#variable-cancel {
+  right: 108px;
+  bottom: 10px;
+}
+
+#variable-apply {
+  right: 10px;
+  bottom: 10px;
+}

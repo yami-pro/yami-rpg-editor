@@ -1,0 +1,69 @@
+/* --------------------------------
+ * 日志窗口
+ * --------------------------------
+ */
+#log {
+  width: 800px;
+  height: 404px;
+}
+
+#log-list {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  background-color: var(--input-background);
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+#log-list > :not(.selected).error {
+  color: var(--text-color-error);
+}
+
+error-counter {
+  display: inline-block;
+  vertical-align: top;
+  margin: 1px 0 1px 4px;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  font-size: 0.8em;
+  font-family: sans-serif;
+  color: var(--text-color);
+  background-color: var(--node-bubble-background);
+  border-radius: 25%;
+  pointer-events: none;
+}
+
+/* --------------------------------
+ * 错误消息
+ * --------------------------------
+ */
+#error-message {
+  display: none;
+  position: absolute;
+  padding: 0 4px;
+  left: 0;
+  bottom: 0;
+  height: 16px;
+  line-height: 16px;
+  color: var(--text-color-error);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.75);
+  background-color: var(--error-message-background);
+  pointer-events: none;
+  z-index: 10;
+}
+
+#error-message.visible {
+  display: block;
+}
+
+#error-message.fadeout {
+  opacity: 0;
+  transition-property: opacity;
+  transition-delay: 5s;
+  transition-duration: 1s;
+}

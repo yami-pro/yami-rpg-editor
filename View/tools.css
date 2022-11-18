@@ -1,0 +1,640 @@
+/* --------------------------------
+ * 窗口环境
+ * --------------------------------
+ */
+#window-ambient {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#window-ambient.open {
+  display: block;
+}
+
+/* --------------------------------
+ * 鼠标指针样式
+ * --------------------------------
+ */
+#cursor-region {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#cursor-region.cursor-col-resize {
+  cursor: col-resize;
+  pointer-events: auto;
+}
+
+#cursor-region.cursor-row-resize {
+  cursor: row-resize;
+  pointer-events: auto;
+}
+
+#cursor-region.cursor-grab {
+  cursor: grab;
+  pointer-events: auto;
+}
+
+#cursor-region.cursor-wait {
+  cursor: wait;
+  pointer-events: auto;
+}
+
+/* --------------------------------
+ * 确认窗口
+ * --------------------------------
+ */
+#confirmation {
+  width: 304px;
+  height: 98px;
+}
+
+#confirmation-message {
+  display: block;
+  margin: 10px;
+  line-height: 20px;
+  white-space: pre;
+}
+
+#confirmation-button-frame {
+  display: flex;
+  column-gap: 10px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+#confirmation-button-0,
+#confirmation-button-1,
+#confirmation-button-2 {
+  position: static;
+}
+
+/* --------------------------------
+ * 对象属性窗口
+ * --------------------------------
+ */
+#object-attribute {
+  width: 324px;
+  height: 194px;
+}
+
+#object-attribute-string-value {
+  height: 92px;
+}
+
+#object-attribute-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#object-attribute-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 预设对象窗口
+ * --------------------------------
+ */
+#presetObject {
+  width: 340px;
+  height: 504px;
+}
+
+#presetObject-searcher {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 320px;
+}
+
+#presetObject-list {
+  position: absolute;
+  left: 10px;
+  top: 34px;
+  width: 320px;
+  height: 402px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+}
+
+#presetObject-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#presetObject-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 预设元素窗口
+ * --------------------------------
+ */
+#presetElement {
+  width: 340px;
+  height: 504px;
+}
+
+#presetElement-uiId {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 320px;
+}
+
+#presetElement-list {
+  position: absolute;
+  left: 10px;
+  top: 34px;
+  width: 320px;
+  height: 402px;
+  background-color: var(--input-background);
+  border-top: var(--input-border-dark);
+  border-left: var(--input-border-light);
+  border-right: var(--input-border-light);
+  border-bottom: var(--input-border-light);
+  border-radius: 2px;
+}
+
+#presetElement-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#presetElement-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 图像剪辑窗口
+ * --------------------------------
+ */
+#imageClip {
+  width: 1080px;
+  height: 700px;
+}
+
+#imageClip-screen {
+  position: absolute;
+  top: 0;
+  bottom: 40px;
+  width: 100%;
+  overflow: auto;
+  background-color: var(--viewer-background);
+  border-bottom: var(--input-border);
+}
+
+#imageClip-image {
+  position: absolute;
+  background-image: var(--grid-background);
+  background-size: var(--16dpx);
+}
+
+#imageClip-marquee > selection {
+  background-color: var(--marquee-background);
+  border: var(--marquee-border);
+  animation: marquee-flash 0.25s linear infinite alternate;
+}
+
+#imageClip-flex {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 206px;
+  right: 206px;
+  bottom: 10px;
+  max-width: 412px;
+}
+
+#imageClip-x,
+#imageClip-y,
+#imageClip-width,
+#imageClip-height {
+  width: 100px;
+}
+
+#imageClip-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#imageClip-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 拾色器窗口
+ * --------------------------------
+ */
+#color {
+  width: 410px;
+  height: 306px;
+}
+
+#color-palette-canvas {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+#color-palette-frame {
+  position: absolute;
+  left: 11px;
+  top: 11px;
+  width: 256px;
+  height: 194px;
+  overflow: hidden;
+}
+
+#color-palette-cursor {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#color-index-grid {
+  display: grid;
+  position: absolute;
+  grid-template-columns: repeat(8, 1fr);
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  height: 52px;
+}
+
+[name=color-index] {
+  display: block;
+  padding: 1px;
+  width: 24px;
+  height: 24px;
+  background-clip: content-box;
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+[name=color-index].selected {
+  padding: 0;
+  border: 2px solid var(--indexed-color-border-color-selected);
+}
+
+#color-pillar-canvas {
+  position: absolute;
+  left: 278px;
+  top: 10px;
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+#color-pillar-frame {
+  position: absolute;
+  left: 270px;
+  top: 8px;
+  width: 38px;
+  height: 262px;
+  z-index: 1;
+}
+
+#color-pillar-cursor {
+  position: absolute;
+  width: 100%;
+  height: 7px;
+  pointer-events: none;
+}
+
+#color-pillar-cursor::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  border-left: 6px solid var(--folder-mark-color);
+}
+
+#color-pillar-cursor::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  border-right: 6px solid var(--folder-mark-color);
+}
+
+#color-viewer-frame {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 90px;
+  height: 34px;
+  background-clip: content-box;
+  background-image: var(--grid-background);
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+#color-viewer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#color-rgba-grid {
+  position: absolute;
+  left: auto;
+  right: 0;
+  top: 44px;
+  grid-template-columns: 14px 1fr;
+}
+
+#color-hex,
+#color-r,
+#color-g,
+#color-b,
+#color-a {
+  width: 72px;
+  font-family: var(--font-family-mono)
+}
+
+#color-confirm {
+  width: 90px;
+  right: 10px;
+  bottom: 34px;
+}
+
+#color-cancel {
+  width: 90px;
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置字体窗口
+ * --------------------------------
+ */
+#font {
+  width: 324px;
+  height: 98px;
+}
+
+#font-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#font-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置字体大小窗口
+ * --------------------------------
+ */
+#fontSize {
+  width: 324px;
+  height: 98px;
+}
+
+#fontSize-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#fontSize-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置文字位置窗口
+ * --------------------------------
+ */
+#textPosition {
+  width: 324px;
+  height: 146px;
+}
+
+#textPosition-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#textPosition-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置文字效果窗口
+ * --------------------------------
+ */
+#textEffect {
+  width: 324px;
+  height: 170px;
+}
+
+#textEffect-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#textEffect-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置本地变量窗口
+ * --------------------------------
+ */
+#localVariable {
+  width: 324px;
+  height: 98px;
+}
+
+#localVariable-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#localVariable-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 缩放窗口
+ * --------------------------------
+ */
+#zoom {
+  width: 324px;
+  height: 98px;
+}
+
+#zoom-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#zoom-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 重命名窗口
+ * --------------------------------
+ */
+#rename {
+  width: 324px;
+  height: 98px;
+}
+
+#rename-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#rename-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置键窗口
+ * --------------------------------
+ */
+#setKey {
+  width: 324px;
+  height: 98px;
+}
+
+#setKey-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#setKey-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 设置数量窗口
+ * --------------------------------
+ */
+#setQuantity {
+  width: 324px;
+  height: 98px;
+}
+
+#setQuantity-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#setQuantity-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 数组窗口
+ * --------------------------------
+ */
+#arrayList {
+  width: 340px;
+  height: 480px;
+}
+
+#arrayList-list {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 320px;
+  height: 402px;
+}
+
+#arrayList-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#arrayList-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 数组窗口 - 数值
+ * --------------------------------
+ */
+#arrayList-number {
+  width: 300px;
+  height: 98px;
+}
+
+#arrayList-number-value {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 280px;
+}
+
+#arrayList-number-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#arrayList-number-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 数组窗口 - 字符串
+ * --------------------------------
+ */
+#arrayList-string {
+  width: 300px;
+  height: 122px;
+}
+
+#arrayList-string-value {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 280px;
+  height: 44px;
+}
+
+#arrayList-string-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#arrayList-string-cancel {
+  right: 10px;
+  bottom: 10px;
+}

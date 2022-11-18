@@ -1,0 +1,43 @@
+/* --------------------------------
+ * 资源选择器
+ * --------------------------------
+ */
+#selector {
+  width: 1080px;
+  height: 700px;
+}
+
+#selector-browser {
+  top: 24px;
+  bottom: 40px;
+  width: 100%;
+  background-color: var(--selector-browser-background);
+  border-top: var(--selector-browser-border);
+  border-bottom: var(--selector-browser-border);
+}
+
+#selector-browser > file-nav-pane {
+  width: 240px;
+  border-right: var(--selector-browser-border);
+}
+
+#selector-browser > file-head-pane {
+  padding-left: 240px;
+  left: 0;
+  /* right: 44px; */
+  /* background-color: transparent; */
+}
+
+#selector-browser > file-body-pane {
+  left: 240px;
+}
+
+#selector-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#selector-cancel {
+  right: 10px;
+  bottom: 10px;
+}

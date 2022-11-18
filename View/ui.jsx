@@ -1,5 +1,6 @@
 'use strict'
 
+import './ui.css'
 import { createElement } from './vhtml/index.js'
 
 const UIView = ()=>(
