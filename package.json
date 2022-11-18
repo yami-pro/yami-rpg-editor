@@ -35,15 +35,14 @@
     ],
     "extraFiles": [],
     "files": [
+      "Build",
       "Fonts",
       "Images",
       "Locales",
       "Templates",
-      "Script/yami.min.js",
       "commands.json",
       "default.json",
-      "index.css",
-      "index.html",
+      "next-index.html",
       "main.js",
       "package.json",
       "README.md"
@@ -59,6 +58,8 @@
         "github"
       ]
     },
-    "mac": {}
+    "mac": {
+      "icon": "_electron/resources/app/icon.png"
+    }
   }
 }

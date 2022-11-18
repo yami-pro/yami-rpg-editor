@@ -10,14 +10,16 @@ npm install
 
 ## Run 
 ```shell
-# rm -r Dist/
-esbuild View/index.jsx --jsx-factory=createElement --jsx-fragment=null --bundle --external:*.png --external:*.woff2 --outdir=Dist
-# esbuild index.js --jsx-factory=createElement --jsx-fragment=null --bundle --platform=node --external:electron --outfile=Dist/script.js
+esbuild View/index.jsx --jsx-factory=createElement --jsx-fragment=null --bundle --external:*.png --external:*.woff2 --outdir=Build
 npm run start
 ```
 
 ## Packing 
 ```shell
+rm -r Build/
+esbuild View/index.jsx --jsx-factory=createElement --jsx-fragment=null --bundle --external:*.png --external:*.woff2 --outdir=Build
+esbuild index.js --jsx-factory=createElement --jsx-fragment=null --bundle --platform=node --external:electron --outfile=Build/script.js
+
 # windows
 npm run pack-win
 
