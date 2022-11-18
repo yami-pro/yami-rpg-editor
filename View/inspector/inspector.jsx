@@ -1,8 +1,8 @@
 'use strict'
 
 import './inspector.css'
-import { createElement } from './vhtml/index.js'
-import { SpriteView } from './sprite.jsx'
+import { createElement } from '../vhtml/index.js'
+import { SpriteView } from '../sprite/sprite.jsx'
 
 const InspectorView = ()=>(
   <>

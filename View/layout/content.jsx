@@ -2,10 +2,10 @@
 
 import './content.css'
 import { createElement } from '../vhtml/index.js'
-import { AnimationView } from '../animation.jsx'
-import { InspectorView } from '../inspector.jsx'
-import { UIView } from '../ui.jsx'
-import { ParticleView } from '../particle.jsx'
+import { AnimationView } from '../animation/animation.jsx'
+import { InspectorView } from '../inspector/inspector.jsx'
+import { UIView } from '../ui/ui.jsx'
+import { ParticleView } from '../particle/particle.jsx'
 
 const LayoutContentView = ()=>(
   <>

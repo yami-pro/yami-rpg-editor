@@ -1,7 +1,7 @@
 'use strict'
 
 import './command.css'
-import { createElement } from './vhtml/index.js'
+import { createElement } from '../vhtml/index.js'
 
 const CommandView = ()=>(
   <>

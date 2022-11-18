@@ -1,7 +1,7 @@
 'use strict'
 
 import './title.css'
-import { createElement } from './vhtml/index.js'
+import { createElement } from '../vhtml/index.js'
 
 const TitleView = ()=>(
   <>

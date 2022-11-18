@@ -1,7 +1,7 @@
 'use strict'
 
 import './enum.css'
-import { createElement } from './vhtml/index.js'
+import { createElement } from '../vhtml/index.js'
 
 const EnumView = ()=>(
   <>
