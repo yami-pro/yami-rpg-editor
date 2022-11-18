@@ -55,7 +55,9 @@ const createEditorWindow = function () {
     height: 800,
     useContentSize: true,
     backgroundColor: 'white',
-    frame: true,
+    frame: false,
+    roundedCorners: false, // 关闭macOS上窗口圆角
+    hasShadow: false, // 关闭窗口阴影
     show: false,
     webPreferences: {
       nodeIntegration: true,
