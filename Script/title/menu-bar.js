@@ -272,6 +272,7 @@ Menubar.popupViewMenu = function (target) {
         target.removeClass('selected')
       },
     }, [{
+      getter: get,
       label: get('fullscreen'),
       accelerator: 'F11',
       checked: isFullScreen,

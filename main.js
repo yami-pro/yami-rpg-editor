@@ -18,9 +18,25 @@ app.on('window-all-closed', () => {
 
 // ******************************** 创建编辑器菜单栏 ********************************
 
+const removeFullScreenMenu = function (template) {
+  for (let i = 0; i < template.length; i++) {
+    let item = template[i]
+    if (item.label === 'Menu') {
+      for (let j = 0; j < item.submenu.length; j++) {
+        const subItem = item.submenu[j]
+        if (process.platform === 'darwin' && subItem.label === 'FullScreen') {
+          item.submenu.splice(j, j)
+          return template
+        }
+      }
+    }
+  }
+  return template
+}
+
 const createEditorMenu = function () {
   // 创建模板
-  const template = [
+  let template = [
     {
       label: 'Menu',
       submenu: [
@@ -39,6 +55,10 @@ const createEditorMenu = function () {
       ],
     }
   ]
+
+  // 关闭macOS上窗口圆角, 进入全屏模式会crash
+  // macOS下取消全屏模式选项
+  template = removeFullScreenMenu(template)
 
   // 设置菜单
   const menu = Menu.buildFromTemplate(template)

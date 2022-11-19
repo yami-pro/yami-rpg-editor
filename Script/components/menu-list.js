@@ -57,7 +57,17 @@ class MenuList extends HTMLElement {
     this.parent = options.parent ?? null
     this.minWidth = options.minWidth ?? 180
     for (let i = 0; i < items.length; i++) {
-      this.appendChild(this.createItem(items[i]))
+      const item = items[i]
+
+      // 关闭macOS上窗口圆角, 进入全屏模式会crash
+      // macOS下取消全屏模式选项
+      const label = item.label
+      if (process.platform === 'darwin' && item.getter !== undefined) {
+        if (label === item.getter('fullscreen')) {
+          continue
+        }
+      }
+      this.appendChild(this.createItem(item))
     }
 
     document.body.appendChild(this)
