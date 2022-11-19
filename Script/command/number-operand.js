@@ -6,7 +6,8 @@ import {
   getElementWriter,
   Local,
   VariableGetter,
-  Window
+  Window,
+  Enum
 } from '../yami.js'
 
 // ******************************** 设置数值 - 操作数窗口 ********************************
