@@ -83,9 +83,8 @@
  */
 :root {
   --font-size-normal: 12px;
-  --font-family-normal: system-ui, Microsoft YaHei UI;
-/*  --font-family-bold: Inter Bold, Microsoft YaHei UI;*/
-  --font-family-bold: var(--font-family-normal);
+  --font-family-normal: -apple-system, BlinkMacSystemFont, Inter, Microsoft YaHei UI;
+  --font-family-bold: -apple-system, BlinkMacSystemFont, Inter Bold, Microsoft YaHei UI;
   --font-family-mono: Consolas, Microsoft YaHei UI;
   --font-family-title: Arial, Microsoft YaHei UI;
   --font-family-accelerator: Segoe UI;
