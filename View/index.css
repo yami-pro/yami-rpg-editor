@@ -83,7 +83,7 @@
  */
 :root {
   --font-size-normal: 12px;
-  --font-family-normal: Inter, Microsoft YaHei UI;
+  --font-family-normal: system-ui, Microsoft YaHei UI;
 /*  --font-family-bold: Inter Bold, Microsoft YaHei UI;*/
   --font-family-bold: var(--font-family-normal);
   --font-family-mono: Consolas, Microsoft YaHei UI;
