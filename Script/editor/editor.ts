@@ -53,7 +53,7 @@ import {
 
 // ******************************** 编辑器对象 ********************************
 
-class Editor {
+class YMEditor {
   state = 'closed'
   config = null
   project = null
@@ -449,8 +449,8 @@ class Editor {
   }
 }
 
-const editor = new Editor()
+const Editor = new YMEditor()
 
 // ******************************** 编辑器对象导出 ********************************
 
-export { editor as Editor }
+export { Editor }
