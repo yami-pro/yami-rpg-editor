@@ -1,6 +1,6 @@
 'use strict'
 
-export { Particle } from './particle.js'
-export { ParticleElement } from './particle-element.js'
-export { ParticleEmitter } from './particle-emitter.js'
-export { ParticleLayer } from './particle-layer.js'
+export { Particle } from './particle'
+export { ParticleElement } from './particle-element'
+export { ParticleEmitter } from './particle-emitter'
+export { ParticleLayer } from './particle-layer'

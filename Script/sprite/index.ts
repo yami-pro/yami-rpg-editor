@@ -1,3 +1,3 @@
 'use strict'
 
-export { Sprite } from './sprite.js'
+export { Sprite } from './sprite'

@@ -1,11 +1,11 @@
 'use strict'
 
 import './content.css'
-import { createElement } from '../vhtml/index.js'
-import { AnimationView } from '../animation/animation.jsx'
-import { InspectorView } from '../inspector/inspector.jsx'
-import { UIView } from '../ui/ui.jsx'
-import { ParticleView } from '../particle/particle.jsx'
+import { createElement } from '../vhtml/index'
+import { AnimationView } from '../animation/animation'
+import { InspectorView } from '../inspector/inspector'
+import { UIView } from '../ui/ui'
+import { ParticleView } from '../particle/particle'
 
 const LayoutContentView = ()=>(
   <>

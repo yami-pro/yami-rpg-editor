@@ -1,7 +1,7 @@
 'use strict'
 
 import './workspace.css'
-import { createElement } from '../vhtml/index.js'
+import { createElement } from '../vhtml/index'
 
 const LayoutWorkspaceView = ()=>(
   <>

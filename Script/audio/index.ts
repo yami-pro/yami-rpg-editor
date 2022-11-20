@@ -1,5 +1,5 @@
 'use strict'
 
-export { Reverb } from './reverb.js'
-export { AudioPlayer } from './audio-player.js'
-export { AudioManager } from './audio-manager.js'
+export { Reverb } from './reverb'
+export { AudioPlayer } from './audio-player'
+export { AudioManager } from './audio-manager'

@@ -1,3 +1,3 @@
 'use strict'
 
-export { Printer } from './printer.js'
+export { Printer } from './printer'

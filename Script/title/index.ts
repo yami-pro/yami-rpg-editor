@@ -1,7 +1,7 @@
 'use strict'
 
-export { Deployment } from './deployment.js'
-export { Home } from './home.js'
-export { Menubar } from './menu-bar.js'
-export { NewProject } from './new-project.js'
-export { Title } from './title.js'
+export { Deployment } from './deployment'
+export { Home } from './home'
+export { Menubar } from './menu-bar'
+export { NewProject } from './new-project'
+export { Title } from './title'

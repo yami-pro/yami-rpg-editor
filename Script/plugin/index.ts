@@ -1,3 +1,3 @@
 'use strict'
 
-export { PluginManager } from './plugin.js'
+export { PluginManager } from './plugin'

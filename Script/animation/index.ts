@@ -1,5 +1,5 @@
 'use strict'
 
-export { AnimationPlayer } from './animation-player.js'
-export { Animation } from './animation.js'
-export { Curve } from './curve.js'
+export { AnimationPlayer } from './animation-player'
+export { Animation } from './animation'
+export { Curve } from './curve'

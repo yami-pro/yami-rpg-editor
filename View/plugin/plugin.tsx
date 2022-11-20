@@ -1,7 +1,7 @@
 'use strict'
 
 import './plugin.css'
-import { createElement } from '../vhtml/index.js'
+import { createElement } from '../vhtml/index'
 
 const PluginView = ()=>(
   <>

@@ -1,3 +1,3 @@
 'use strict'
 
-export { Codec } from './codec.js'
+export { Codec } from './codec'

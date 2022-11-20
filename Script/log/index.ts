@@ -1,3 +1,3 @@
 'use strict'
 
-export { Log } from './log.js'
+export { Log } from './log'

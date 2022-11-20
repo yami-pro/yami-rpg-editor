@@ -1,3 +1,3 @@
 'use strict'
 
-import './config.js'
+import './config'

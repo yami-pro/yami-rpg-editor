@@ -1,3 +1,3 @@
 'use strict'
 
-export { Variable } from './variable.js'
+export { Variable } from './variable'

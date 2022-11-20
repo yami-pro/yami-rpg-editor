@@ -1,7 +1,7 @@
 'use strict'
 
 import './tools.css'
-import { createElement } from '../vhtml/index.js'
+import { createElement } from '../vhtml/index'
 
 const ToolsView = ()=>(
   <>
