@@ -53,35 +53,14 @@ import {
 
 // ******************************** 编辑器对象 ********************************
 
-type Editor = {
-  // properties
-  state: string,
-  config: any,
-  project: any,
-  promises: Array<any>,
-  // methods
-  initialize: () => void,
-  open: (path: any) => void,
-  close: (save: boolean) => void,
-  quit: () => void,
-  updatePath: (path: any) => void,
-  switchHotkey: (enabled: any) => void,
-  protectPromise: (promise: any) => void,
-  saveConfig: () => void,
-  loadConfig: () => void,
-  saveProject: () => void,
-  loadProject: () => void,
-  saveManifest: () => void,
-}
-
-const editor: Editor = {
-  state: 'closed',
-  config: null,
-  project: null,
-  promises: [],
+class Editor {
+  state = 'closed'
+  config = null
+  project = null
+  promises = []
 
   // 初始化
-  initialize: async function () {
+  async initialize() {
     // 关闭快捷键
     this.switchHotkey(false)
 
@@ -151,10 +130,10 @@ const editor: Editor = {
         label: 'Confirm',
       }])
     }
-  },
+  }
 
   // 打开项目
-  open: async function (path) {
+  async open(path: any) {
     // 规范化路径分隔符
     path = Path.slash(path ?? this.config.project)
 
@@ -247,10 +226,10 @@ const editor: Editor = {
 
     // 更新标题名称
     Title.updateTitleName()
-  },
+  }
 
   // 关闭项目
-  close: function (save = true) {
+  close(save = true) {
     Layout.manager.switch(null)
     if (this.state === 'open') {
       this.state = 'closed'
@@ -278,10 +257,10 @@ const editor: Editor = {
       )
     }
     return Promise.resolve()
-  },
+  }
 
   // 退出应用
-  quit: function () {
+  quit() {
     this.saveConfig()
     this.saveProject()
     this.saveManifest()
@@ -292,10 +271,10 @@ const editor: Editor = {
       .ipcRenderer
       .send('close-window-force')
     })
-  },
+  }
 
   // 更新路径
-  updatePath: function (path) {
+  updatePath(path: any) {
     const {config} = this
 
     // 设置打开的项目路径
@@ -320,10 +299,10 @@ const editor: Editor = {
         items.pop()
       }
     }
-  },
+  }
 
   // 开关快捷键
-  switchHotkey: function IIFE() {
+  switchHotkey = function IIFE() {
     const keydown = function (event) {
       if (event.cmdOrCtrlKey) {
         switch (event.code) {
@@ -351,20 +330,20 @@ const editor: Editor = {
           break
       }
     }
-  }(),
+  }()
 
   // 保护承诺对象
-  protectPromise: function (promise) {
+  protectPromise(promise: any) {
     const {promises} = this
     promises.push(promise)
     promise.finally(() => {
       promises.remove(promise)
     })
     return promise
-  },
+  }
 
   // 保存配置文件
-  saveConfig: function () {
+  saveConfig() {
     const {config} = this
     if (!config) {
       return
@@ -396,10 +375,10 @@ const editor: Editor = {
       Log.throw(error)
       return console.error(error)
     }
-  },
+  }
 
   // 加载配置文件
-  loadConfig: function () {
+  loadConfig() {
     const {config} = this
     Title.loadFromConfig(config)
     Layout.loadFromConfig(config)
@@ -407,10 +386,10 @@ const editor: Editor = {
     UI.loadFromConfig(config)
     Animation.loadFromConfig(config)
     Particle.loadFromConfig(config)
-  },
+  }
 
   // 保存项目文件
-  saveProject: function () {
+  saveProject() {
     const {project} = this
     if (!project) {
       return
@@ -446,11 +425,11 @@ const editor: Editor = {
       Log.throw(error)
       return console.error(error)
     }
-  },
+  }
 
   // 加载项目文件
   // 标签的加载安排到最后
-  loadProject: function () {
+  loadProject() {
     const {project} = this
     Scene.loadFromProject(project)
     UI.loadFromProject(project)
@@ -462,13 +441,15 @@ const editor: Editor = {
     Selector.loadFromProject(project)
     PluginManager.loadFromProject(project)
     Title.loadFromProject(project)
-  },
+  }
 
   // 保存元数据清单文件
-  saveManifest: function () {
+  saveManifest() {
     return Data.saveManifest()
   }
 }
+
+const editor = new Editor()
 
 // ******************************** 编辑器对象导出 ********************************
 
