@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Local,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 事件编辑器 ********************************
 

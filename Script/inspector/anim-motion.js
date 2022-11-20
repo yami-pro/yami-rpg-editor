@@ -4,7 +4,7 @@ import {
   Animation,
   getElementWriter,
   Inspector
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 动画 - 动作页面 ********************************
 

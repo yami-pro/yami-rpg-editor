@@ -1,6 +1,6 @@
 'use strict'
 
-import { HistoryTimer } from '../yami.js'
+import { HistoryTimer } from '../yami'
 
 // ******************************** 数值操作历史 ********************************
 

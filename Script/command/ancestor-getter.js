@@ -5,7 +5,7 @@ import {
   PresetElement,
   VariableGetter,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 祖先元素访问器窗口 ********************************
 

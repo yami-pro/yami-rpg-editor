@@ -14,7 +14,7 @@ import {
   ScriptListInterface,
   Selector,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 自定义指令窗口 ********************************
 

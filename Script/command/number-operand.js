@@ -8,7 +8,7 @@ import {
   VariableGetter,
   Window,
   Enum
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 设置数值 - 操作数窗口 ********************************
 

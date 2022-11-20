@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Inspector,
   Sprite
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 动画 - 精灵帧页面 ********************************
 

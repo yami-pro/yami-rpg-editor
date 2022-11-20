@@ -9,7 +9,7 @@ import {
   SelectBox,
   TextBox,
   WindowFrame
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 本地化对象 ********************************
 

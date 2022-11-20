@@ -1,6 +1,6 @@
 'use strict'
 
-import { Particle } from '../yami.js'
+import { Particle } from '../yami'
 
 // ******************************** 粒子发射器类 ********************************
 

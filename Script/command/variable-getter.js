@@ -7,7 +7,7 @@ import {
   getElementWriter,
   SelectBox,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 变量访问器窗口 ********************************
 

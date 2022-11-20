@@ -23,7 +23,7 @@ import {
   TriggerGetter,
   Variable,
   VariableGetter
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 自定义框 ********************************
 

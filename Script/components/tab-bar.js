@@ -1,6 +1,6 @@
 'use strict'
 
-import { Title } from '../yami.js'
+import { Title } from '../yami'
 
 // ******************************** 标签栏 ********************************
 

@@ -4,7 +4,7 @@ import {
   AudioManager,
   File,
   Reverb
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 音频播放器类 ********************************
 

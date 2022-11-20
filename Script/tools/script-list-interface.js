@@ -8,7 +8,7 @@ import {
   TreeList,
   PluginManager,
   Selector
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 脚本列表接口 ********************************
 

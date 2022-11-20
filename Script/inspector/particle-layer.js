@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Inspector,
   Particle
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 粒子 - 图层页面 ********************************
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { Local } from '../yami.js'
+import { Local } from '../yami'
 
 // ******************************** 枚举上下文类 ********************************
 

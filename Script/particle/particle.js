@@ -19,7 +19,7 @@ import {
   StageColor,
   Timer,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 粒子窗口 ********************************
 

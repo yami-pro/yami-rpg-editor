@@ -6,7 +6,7 @@ import {
   Inspector,
   ScriptListInterface,
   UI
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 元素页面 ********************************
 

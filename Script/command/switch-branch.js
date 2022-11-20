@@ -4,7 +4,7 @@ import {
   Command,
   SwitchCondition,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 匹配 - 分支窗口 ********************************
 

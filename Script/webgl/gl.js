@@ -8,7 +8,7 @@ import {
   Matrix,
   Texture,
   TextureManager
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** WebGL ********************************
 

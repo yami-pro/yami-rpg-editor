@@ -8,7 +8,7 @@ import {
   MarqueeArea,
   ParamHistory,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 检查器 ********************************
 

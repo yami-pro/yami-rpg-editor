@@ -1,6 +1,6 @@
 'use strict'
 
-import { Inspector } from '../yami.js'
+import { Inspector } from '../yami'
 
 // ******************************** 动画 - 关节层页面 ********************************
 

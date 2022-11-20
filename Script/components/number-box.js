@@ -3,7 +3,7 @@
 import {
   measureText,
   NumberHistory
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 数字框 ********************************
 

@@ -6,7 +6,7 @@ import {
   Inspector,
   Local,
   TreeList
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 事件列表接口类 ********************************
 

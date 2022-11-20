@@ -8,7 +8,7 @@ import {
   getElementWriter,
   Inspector,
   ScriptListInterface
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 文件 - 装备页面 ********************************
 

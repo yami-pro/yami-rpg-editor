@@ -10,7 +10,7 @@ import {
   Log,
   Manifest,
   PluginManager
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 数据对象 ********************************
 

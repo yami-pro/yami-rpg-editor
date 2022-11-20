@@ -8,7 +8,7 @@ import {
   Inspector,
   Scene,
   ScriptListInterface
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 场景 - 角色页面 ********************************
 

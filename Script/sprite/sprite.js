@@ -6,7 +6,7 @@ import {
   Inspector,
   Palette,
   Timer
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 精灵窗口 ********************************
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { Select } from '../yami.js'
+import { Select } from '../yami'
 
 // ******************************** 选择框 ********************************
 

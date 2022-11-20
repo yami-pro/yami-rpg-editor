@@ -9,7 +9,7 @@ import {
   Scene,
   ScriptListInterface,
   SelectBox
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 场景 - 瓦片地图页面 ********************************
 

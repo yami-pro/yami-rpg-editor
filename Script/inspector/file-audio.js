@@ -7,7 +7,7 @@ import {
   getElementReader,
   Inspector,
   Timer
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 文件 - 音频页面 ********************************
 

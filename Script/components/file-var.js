@@ -1,6 +1,6 @@
 'use strict'
 
-import { CustomBox } from '../yami.js'
+import { CustomBox } from '../yami'
 
 // ******************************** 文件变量框 ********************************
 

@@ -19,7 +19,7 @@ import {
   SetQuantity,
   TileFrame,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 自动图块 ********************************
 

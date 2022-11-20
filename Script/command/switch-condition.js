@@ -8,7 +8,7 @@ import {
   Local,
   VariableGetter,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 匹配 - 条件窗口 ********************************
 

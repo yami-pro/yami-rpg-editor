@@ -17,7 +17,7 @@ import {
   Select,
   SelectBox,
   TextBox
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 脚本参数面板 ********************************
 

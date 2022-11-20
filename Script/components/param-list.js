@@ -8,7 +8,7 @@ import {
   Menu,
   ParamHistory,
   WindowFrame
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 参数列表 ********************************
 

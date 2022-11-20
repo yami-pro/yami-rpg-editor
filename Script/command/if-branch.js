@@ -4,7 +4,7 @@ import {
   Command,
   IfCondition,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 条件分支 - 分支窗口 ********************************
 

@@ -5,7 +5,7 @@ import {
   getElementReader,
   getElementWriter,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 默认对象文件夹 ********************************
 

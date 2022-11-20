@@ -1,6 +1,6 @@
 'use strict'
 
-import { Color } from '../yami.js'
+import { Color } from '../yami'
 
 // ******************************** 颜色框 ********************************
 

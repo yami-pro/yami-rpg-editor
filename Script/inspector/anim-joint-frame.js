@@ -5,7 +5,7 @@ import {
   Curve,
   getElementWriter,
   Inspector
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 动画 - 关节帧页面 ********************************
 

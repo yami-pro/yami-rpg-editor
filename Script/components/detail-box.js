@@ -1,6 +1,6 @@
 'use strict'
 
-import { DetailSummary } from '../yami.js'
+import { DetailSummary } from '../yami'
 
 // ******************************** 细节框 ********************************
 

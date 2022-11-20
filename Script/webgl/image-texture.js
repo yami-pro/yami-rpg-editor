@@ -4,7 +4,7 @@ import {
   BaseTexture,
   GL,
   Texture
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 图像纹理类 ********************************
 

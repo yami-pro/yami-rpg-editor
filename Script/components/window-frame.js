@@ -4,7 +4,7 @@ import {
   Layout,
   TitleBar,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 窗口框架 ********************************
 

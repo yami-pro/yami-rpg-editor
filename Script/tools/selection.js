@@ -8,7 +8,7 @@ import {
   Printer,
   Variable,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 选取文本 ********************************
 

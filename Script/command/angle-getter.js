@@ -3,7 +3,7 @@
 import {
   getElementReader,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 角度访问器窗口 ********************************
 

@@ -5,7 +5,7 @@ import {
   getElementWriter,
   Inspector,
   UI
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 文件 - 界面页面 ********************************
 

@@ -7,7 +7,7 @@ import {
   Inspector,
   Scene,
   ScriptListInterface
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 场景 - 光源页面 ********************************
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { DetailBox } from '../yami.js'
+import { DetailBox } from '../yami'
 
 // ******************************** 细节概要 ********************************
 

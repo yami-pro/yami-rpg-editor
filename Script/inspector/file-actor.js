@@ -15,7 +15,7 @@ import {
   Scene,
   ScriptListInterface,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 文件 - 角色页面 ********************************
 

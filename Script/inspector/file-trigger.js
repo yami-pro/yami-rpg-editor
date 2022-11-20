@@ -9,7 +9,7 @@ import {
   getElementWriter,
   Inspector,
   ScriptListInterface
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 文件 - 触发器页面 ********************************
 

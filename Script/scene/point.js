@@ -1,6 +1,6 @@
 'use strict'
 
-import { Scene } from '../yami.js'
+import { Scene } from '../yami'
 
 // ******************************** 坐标点类 ********************************
 

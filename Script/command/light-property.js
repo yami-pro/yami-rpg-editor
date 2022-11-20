@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Local,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 移动光源 - 属性窗口 ********************************
 

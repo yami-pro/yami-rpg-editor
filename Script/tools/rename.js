@@ -1,6 +1,6 @@
 'use strict'
 
-import { Window } from '../yami.js'
+import { Window } from '../yami'
 
 // ******************************** 重命名窗口 ********************************
 

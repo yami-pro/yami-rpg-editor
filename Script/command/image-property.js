@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Local,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 设置图像 - 属性窗口 ********************************
 

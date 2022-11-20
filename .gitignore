@@ -16,7 +16,6 @@ _electron/LICENSE
 _electron/LICENSES.chromium.html
 *.bin
 _electron/version
-*.json
 
 Build/
 Dist/

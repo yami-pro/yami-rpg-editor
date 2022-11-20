@@ -1,6 +1,6 @@
 'use strict'
 
-import { NumberBox } from '../yami.js'
+import { NumberBox } from '../yami'
 
 // ******************************** 滑动框 ********************************
 

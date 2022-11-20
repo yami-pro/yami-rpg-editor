@@ -1,6 +1,6 @@
 'use strict'
 
-import { Scene } from '../yami.js'
+import { Scene } from '../yami'
 
 // ******************************** 瓦片地图快捷方式列表类 ********************************
 

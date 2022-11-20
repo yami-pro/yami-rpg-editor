@@ -7,7 +7,7 @@ import {
   File,
   getElementWriter,
   Inspector
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 文件 - 事件页面 ********************************
 

@@ -22,7 +22,7 @@ import {
   // TextElement,
   Timer,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** UI 窗口 ********************************
 

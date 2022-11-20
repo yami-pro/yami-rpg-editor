@@ -6,7 +6,7 @@ import {
   File,
   Inspector,
   PluginManager
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 文件 - 脚本页面 ********************************
 

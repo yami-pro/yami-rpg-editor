@@ -43,7 +43,7 @@ import {
   TriggerGetter,
   VariableGetter,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 指令对象 ********************************
 

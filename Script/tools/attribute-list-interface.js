@@ -9,7 +9,7 @@ import {
   Inspector,
   SelectBox,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 属性列表接口 ********************************
 

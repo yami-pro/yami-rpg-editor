@@ -1,6 +1,6 @@
 'use strict'
 
-import { Timer } from '../yami.js'
+import { Timer } from '../yami'
 
 // ******************************** 滚动条 ********************************
 

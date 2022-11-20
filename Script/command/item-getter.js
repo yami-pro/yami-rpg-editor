@@ -5,7 +5,7 @@ import {
   getElementReader,
   VariableGetter,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 物品访问器窗口 ********************************
 

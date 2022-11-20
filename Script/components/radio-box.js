@@ -1,6 +1,6 @@
 'use strict'
 
-import { RadioProxy } from '../yami.js'
+import { RadioProxy } from '../yami'
 
 // ******************************** 单选框 ********************************
 

@@ -5,7 +5,7 @@ import {
   PresetObject,
   VariableGetter,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 光源访问器窗口 ********************************
 

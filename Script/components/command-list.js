@@ -8,7 +8,7 @@ import {
   Local,
   Menu,
   WindowFrame
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 指令列表 ********************************
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { Window } from '../yami.js'
+import { Window } from '../yami'
 
 // ******************************** 设置数量窗口 ********************************
 

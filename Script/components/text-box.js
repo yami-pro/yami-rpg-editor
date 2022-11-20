@@ -1,6 +1,6 @@
 'use strict'
 
-import { TextHistory } from '../yami.js'
+import { TextHistory } from '../yami'
 
 // ******************************** 文本框 ********************************
 

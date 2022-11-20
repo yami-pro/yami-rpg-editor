@@ -4,7 +4,7 @@ import {
   getElementReader,
   PresetObject,
   Window
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 位置访问器窗口 ********************************
 

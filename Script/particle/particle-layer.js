@@ -5,7 +5,7 @@ import {
   GL,
   ImageTexture,
   Particle
-} from '../yami.js'
+} from '../yami'
 
 // ******************************** 粒子图层类 ********************************
 
