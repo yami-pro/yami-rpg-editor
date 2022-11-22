@@ -31,7 +31,8 @@ import {
   TilemapShortcuts,
   Timer,
   Vector,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 场景窗口 ********************************

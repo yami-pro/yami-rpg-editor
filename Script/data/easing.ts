@@ -13,7 +13,8 @@ import {
   TreeList,
   SetKey,
   Timer,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 过渡窗口 ********************************

@@ -14,7 +14,8 @@ import {
   TileFrame,
   TileNode,
   Timer,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 调色板 ********************************

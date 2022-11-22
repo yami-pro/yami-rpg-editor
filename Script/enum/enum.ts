@@ -8,7 +8,8 @@ import {
   History,
   Local,
   Menu,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 枚举窗口 ********************************

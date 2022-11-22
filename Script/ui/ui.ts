@@ -21,7 +21,8 @@ import {
   // TextBoxElement,
   // TextElement,
   Timer,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** UI 窗口 ********************************

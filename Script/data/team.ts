@@ -11,7 +11,8 @@ import {
   GUID,
   Local,
   Menu,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 队伍窗口 ********************************

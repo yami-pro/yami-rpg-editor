@@ -25,7 +25,8 @@ import {
   StageColor,
   Timer,
   UI,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************
@@ -35,7 +36,7 @@ const Animation = {
   state: 'closed',
   page: $('#animation'),
   head: $('#animation-head'),
-  body: $('#animation-body').hide(),
+  body: (<HTMLElement>$('#animation-body')).hide(),
   screen: $('#animation-screen'),
   marquee: $('#animation-marquee'),
   dirList: $('#animation-dirList'),

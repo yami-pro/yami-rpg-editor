@@ -7,7 +7,8 @@ import {
   Local,
   Menu,
   ParamHistory,
-  WindowFrame
+  WindowFrame,
+  Clipboard
 } from '../yami'
 
 // ******************************** 参数列表 ********************************

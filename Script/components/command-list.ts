@@ -7,7 +7,8 @@ import {
   ctrl,
   Local,
   Menu,
-  WindowFrame
+  WindowFrame,
+  Clipboard
 } from '../yami'
 
 // ******************************** 指令列表 ********************************

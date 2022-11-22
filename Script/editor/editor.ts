@@ -55,8 +55,8 @@ import {
 
 class YMEditor {
   state = 'closed'
-  config = null
-  project = null
+  config: any
+  project: any
   promises = []
 
   // 初始化

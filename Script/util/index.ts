@@ -2,7 +2,7 @@
 
 import './array'
 import './canvas-rendering-context2D'
-import './clipboard'
+// import './clipboard'
 import './css'
 import './data-transfer'
 import './event-target'
@@ -27,3 +27,4 @@ export { measureText } from './util'
 export { getElementReader } from './util'
 export { getElementWriter } from './util'
 export { INTRGBA } from './util'
+export { Clipboard } from './clipboard'

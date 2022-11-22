@@ -13,7 +13,8 @@ import {
   PluginManager,
   ScriptListInterface,
   Selector,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 自定义指令窗口 ********************************

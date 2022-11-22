@@ -24,7 +24,8 @@ import {
   UI,
   Variable,
   Window,
-  Zoom
+  Zoom,
+  Clipboard
 } from '../yami'
 
 // ******************************** 菜单栏对象 ********************************

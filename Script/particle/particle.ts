@@ -18,7 +18,8 @@ import {
   Scene,
   StageColor,
   Timer,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 粒子窗口 ********************************

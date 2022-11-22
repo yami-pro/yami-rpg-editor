@@ -13,7 +13,8 @@ import {
   TreeList,
   ScriptListInterface,
   Selector,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 插件窗口 ********************************

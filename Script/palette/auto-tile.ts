@@ -18,7 +18,8 @@ import {
   SceneShift,
   SetQuantity,
   TileFrame,
-  Window
+  Window,
+  Clipboard
 } from '../yami'
 
 // ******************************** 自动图块 ********************************
