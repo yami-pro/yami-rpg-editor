@@ -2,8 +2,10 @@
 
 // ******************************** 剪贴板对象 ********************************
 
+class IClipboard implements Clipboard {
+  // 构造
+  constructor() {}
 
-class YMClipboard extends EventTarget {
   // 检查缓冲区
   has(format: any) {
     const {clipboard} = require('electron')
@@ -12,7 +14,8 @@ class YMClipboard extends EventTarget {
   }
 
   // 读取缓冲区
-  read(format: any) {
+  read(...args: any[]) {
+    const [format] = args
     const {clipboard} = require('electron')
     const buffer = clipboard.readBuffer(format)
     const string = buffer.toString()
@@ -20,14 +23,21 @@ class YMClipboard extends EventTarget {
   }
 
   // 写入缓冲区
-  write(format: any, object: any) {
+  write(...args: any[]): any {
+    const [format, object] = args
     const {clipboard} = require('electron')
     const string = JSON.stringify(object)
     const buffer = Buffer.from(string)
     clipboard.writeBuffer(format, buffer)
   }
+
+  readText(): any {}
+  writeText(): any {}
+  addEventListener(): any {}
+  dispatchEvent(): any {}
+  removeEventListener(): any {}
 }
 
-const Clipboard = new YMClipboard()
+const YMClipboard = new IClipboard()
 
-export { Clipboard }
+export { YMClipboard as Clipboard }
