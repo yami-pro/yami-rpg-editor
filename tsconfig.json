@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./Types"],
+    "typeRoots": ["./@types", "./node_modules/@types"],
     "noImplicitAny": true,
     "strictNullChecks": true
   }
