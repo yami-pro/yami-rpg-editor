@@ -26,3 +26,8 @@ interface HTMLElement {
   dispatchUpdateEvent: () => void
   listenDraggingScrollbarEvent: (pointerdown: (event: any) => void, options: any) => void
 }
+
+interface WebGLRenderingContext {
+  _bufferData(...args: any[]): any
+  bufferData(...args: any[]): any
+}
