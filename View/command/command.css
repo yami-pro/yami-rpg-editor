@@ -137,7 +137,7 @@
   margin: 4px;
   padding: 4px 10px;
   width: calc(100% - 8px);
-  /* font-family: var(--font-family-mono); */
+  /*font-family: var(--font-family-mono);*/
   user-select: text;
   overflow: hidden;
   white-space: pre-wrap;
@@ -174,9 +174,9 @@
   height: 700px;
 }
 
-/* #event.maximized > #event-title {
+/*#event.maximized > #event-title {
   background-color: var(--window-background);
-} */
+}*/
 
 #event-commands-fieldset {
   left: 10px;
@@ -212,12 +212,12 @@
   pointer-events: none;
 }
 
-/* 32px的静态宽度最多适配4位数的宽度 */
+/*32px的静态宽度最多适配4位数的宽度*/
 #event-commands-gutter-inner {
   display: flex;
   flex-direction: column;
   position: absolute;
-  /* margin-top: -20px; */
+  /*margin-top: -20px;*/
   width: 32px;
 }
 
@@ -260,7 +260,7 @@
   height: 20px;
   box-shadow: none;
   outline: none;
-  /* outline-color: var(--input-border-color-focus); */
+  /*outline-color: var(--input-border-color-focus);*/
 }
 
 #command-searcher {
@@ -292,7 +292,7 @@
   position: fixed;
   margin-left: var(--1dpx);
   width: calc(400px - var(--2dpx));
-  /* box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5); */
+  /*box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5);*/
   background-color: var(--suggestion-widget-background);
   outline: var(--window-outline);
   pointer-events: visible;

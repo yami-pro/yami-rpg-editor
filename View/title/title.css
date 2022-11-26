@@ -56,7 +56,7 @@
   height: 28px;
   line-height: 28px;
   text-align: center;
-  /* font-size: 10px; */
+  /*font-size: 10px;*/
   font-family: var(--font-family-symbol);
 }
 
@@ -148,7 +148,7 @@ tab-close {
   font-size: 10px;
   text-align: center;
   color: var(--tab-close-color);
-  /* background-color: green; */
+  /*background-color: green;*/
   border-radius: 50%;
 }
 

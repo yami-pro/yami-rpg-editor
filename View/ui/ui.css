@@ -18,7 +18,7 @@
   display: flex;
   flex: 0 0 auto;
   width: 28px;
-  /* background: yellow; */
+  /*background: yellow;*/
 }
 
 #ui-head-start > .toolbar-item::after {
@@ -39,7 +39,7 @@
 #ui-head-center {
   display: flex;
   flex: 0 0 auto;
-  /* background: green; */
+  /*background: green;*/
   border-left: var(--toolbar-item-border);
 }
 
@@ -88,7 +88,7 @@
 
 #ui-head-end {
   flex: 0 0 auto;
-  /* background: blue; */
+  /*background: blue;*/
 }
 
 #ui-zoom {

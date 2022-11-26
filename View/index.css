@@ -260,7 +260,7 @@
   --text-color-rename: #ffffff;
   --text-color-disabled: #606060;
   --text-color-error: #ffc0cb;
-  --text-color-variable-init: rgba(255, 255, 255, 0.25); /* RGBA格式文本更粗 */
+  --text-color-variable-init: rgba(255, 255, 255, 0.25); /*RGBA格式文本更粗*/
   --text-color-accelerator-selected: rgba(255, 255, 255, 0.25);
   --error-message-background: rgba(0, 0, 0, 0.5);
   --folder-mark-color: rgba(255, 255, 255, 0.35);
@@ -571,12 +571,13 @@ scroll-corner.visible {
  * 全局样式
  * --------------------------------
  */
-/* 修改盒模型 */
+
+/*修改盒模型*/
 * {
   box-sizing: border-box;
 }
 
-/* 禁止选取文本 */
+/*禁止选取文本*/
 body {
   position: absolute;
   margin: 0;
@@ -620,9 +621,8 @@ spacing {
   display: none !important;
 }
 
-/* 选中区域颜色
- * 避免被 chrome 强制半透明
- */
+/*选中区域颜色
+避免被 chrome 强制半透明*/
 ::selection {
   color: #ffffff;
   background-color: var(--selection-background);
@@ -635,10 +635,10 @@ spacing {
 .toolbar-item {
   width: 29px;
   height: 24px;
-  /* font-size: 16px;
+  /*font-size: 16px;
   line-height: 24px;
   text-align: center;
-  font-family: var(--font-family-symbol); */
+  font-family: var(--font-family-symbol);*/
   border-right: var(--toolbar-item-border);
 }
 

@@ -20,9 +20,9 @@
   height: 100px;
 }
 
-/* nav-item[value=inspector].selected {
+/*nav-item[value=inspector].selected {
   border-bottom: var(--nav-bar-border);
-} */
+}*/
 
 /* --------------------------------
  * 文件 - 场景页面
@@ -67,7 +67,7 @@
 #palette-head-start {
   display: flex;
   flex: 0 0 auto;
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 #palette-head-start > .toolbar-item::after {
@@ -101,7 +101,7 @@
   flex: 0 0 auto;
   margin: 2px 4px;
   width: 80px;
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 #palette-body {
@@ -119,7 +119,7 @@
   outline: var(--window-outline);
 }
 
-/* overflow: hidden 可禁用滚动快捷键 */
+/*overflow: hidden 可禁用滚动快捷键*/
 #palette-screen {
   position: absolute;
   width: 100%;
@@ -397,7 +397,7 @@
   margin: 4px;
   padding: 4px 10px;
   width: calc(100% - 8px);
-  /* font-family: var(--font-family-mono); */
+  /*font-family: var(--font-family-mono);*/
   user-select: text;
   overflow: hidden;
   white-space: pre-wrap;
@@ -633,13 +633,13 @@
   white-space: pre;
   text-overflow: ellipsis;
   pointer-events: none;
-  /* background-color: blue; */
+  /*background-color: blue;*/
 }
 
 #sprite-info {
-/*  position: absolute;*/
-/*  width: 100%;*/
-/*  font-weight: bold;*/
+  /*position: absolute;
+  width: 100%;
+  font-weight: bold;*/
   font-family: var(--font-family-bold);
   text-indent: 0;
   text-align: center;
@@ -647,7 +647,7 @@
   white-space: pre;
   text-overflow: ellipsis;
   pointer-events: none;
-/*  background-color: yellow;*/
+  /*background-color: yellow;*/
 }
 
 #sprite-zoom {
@@ -655,7 +655,7 @@
   margin: 0 4px;
   width: 80px;
   text-indent: 0;
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 #sprite-body {

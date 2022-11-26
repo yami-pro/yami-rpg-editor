@@ -14,7 +14,7 @@
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 #project-grid-box {
@@ -30,7 +30,7 @@
   grid-column-start: 1;
   grid-column-end: 3;
   font-size: 1.2em;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-bold);
 }
 
@@ -118,7 +118,7 @@
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 [name=easing-scale] {
@@ -149,7 +149,7 @@
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 #easing-preview-grid {

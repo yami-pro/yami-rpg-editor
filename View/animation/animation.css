@@ -17,7 +17,7 @@
 #animation-head-start {
   display: flex;
   flex: 0 0 auto;
-/*  background: yellow;*/
+  /*background: yellow;*/
 }
 
 #animation-head-start > .toolbar-item::after {
@@ -56,7 +56,7 @@
 #animation-head-center {
   display: flex;
   flex: 0 0 auto;
-/*  background: green;*/
+  /*background: green;*/
 }
 
 #animation-speed {
@@ -66,11 +66,11 @@
 
 #animation-head-end {
   flex: 0 0 auto;
-/*  background: blue;*/
+  /*background: blue;*/
 }
 
 #animation-zoom {
-/*  position: absolute;*/
+  /*position: absolute;*/
   margin: 2px 4px;
   right: 0;
   width: 80px;
@@ -89,7 +89,7 @@
   position: absolute;
   width: 100px;
   height: 100px;
-/*  background-color: green;*/
+  /*background-color: green;*/
 }
 
 anim-dir {
@@ -135,7 +135,7 @@ anim-dir.selected {
   height: 24px;
   font-family: var(--font-family-symbol);
   overflow: hidden;
-/*  background-color: blue;*/
+  /*background-color: blue;*/
 }
 
 #animation-timeline-toolbar > .toolbar-item {
@@ -186,7 +186,7 @@ anim-dir.selected {
   top: 0;
   right: 0;
   height: 24px;
-/*  background-color: green;*/
+  /*background-color: green;*/
   overflow: hidden;
 }
 
@@ -204,7 +204,7 @@ anim-dir.selected {
   position: absolute;
   margin-left: -16px;
   height: 24px;
-/*  background-color: blue;*/
+  /*background-color: blue;*/
   background-image: var(--timeline-ruler-background);
   background-size: 16px 24px;
 }
@@ -216,10 +216,10 @@ anim-dir.selected {
   width: 80px;
   height: 24px;
   line-height: 24px;
-/*  font-size: 0.9em;*/
+  /*font-size: 0.9em;*/
   text-align: center;
   text-shadow: var(--timeline-ruler-number-shadow);
-/*  background-color: red;*/
+  /*background-color: red;*/
 }
 
 #animation-layer-list {
@@ -292,14 +292,14 @@ anim-dir.selected {
 
 #animation-timeline-list-inner {
   display: block;
-/*  width: 2000px;*/
+  /*width: 2000px;*/
 }
 
 .timeline-frames {
   display: block;
   width: 100%;
   height: 20px;
-  /* background-color: rgba(0, 0, 0, 0.1); */
+   /*background-color: rgba(0, 0, 0, 0.1); */
   background-image: var(--timeline-grid);
   background-size: 80px 20px;
   border-bottom: var(--timeline-grid-border);
@@ -363,7 +363,7 @@ anim-dir.selected {
 
 #animation-timeline-marquee {
   position: absolute;
-/*  width: 16px;*/
+  /*width: 16px;*/
   height: 20px;
   background-clip: content-box;
   background-color: var(--timeline-marquee-background);
@@ -374,7 +374,7 @@ anim-dir.selected {
 
 #animation-timeline-marquee-shift {
   position: absolute;
-/*  width: 16px;*/
+  /*width: 16px;*/
   height: 20px;
   background-clip: content-box;
   background-color: var(--timeline-marquee-shift-background);
@@ -395,7 +395,7 @@ anim-dir.selected {
   bottom: 0;
   overflow: hidden;
   pointer-events: none;
-/*  background-color: green;*/
+  /*background-color: green;*/
 }
 
 #animation-timeline-pointer-area-outer.has-horiz-scrollbar {
@@ -483,7 +483,7 @@ anim-dir.selected {
 #animation-easing-id {
   margin: 2px;
   flex: 1 1 auto;
-/*  background: blue;*/
+  /*background: blue;*/
 }
 
 #animation-easing-canvas {

@@ -24,8 +24,8 @@
 #selector-browser > file-head-pane {
   padding-left: 240px;
   left: 0;
-  /* right: 44px; */
-  /* background-color: transparent; */
+  /*right: 44px;*/
+  /*background-color: transparent;*/
 }
 
 #selector-browser > file-body-pane {

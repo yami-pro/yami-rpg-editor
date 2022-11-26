@@ -31,12 +31,12 @@
   background-color: var(--group-head-background);
 }
 
-/* 这里不能写成flex: 0 0 144px; */
+/*这里不能写成flex: 0 0 144px;*/
 #scene-head-start {
   display: flex;
   flex: 0 0 auto;
   width: 115px;
-  /* background: yellow; */
+  /*background: yellow;*/
 }
 
 #scene-head-start > .toolbar-item::after {
@@ -75,7 +75,7 @@
 #scene-head-center {
   display: flex;
   flex: 0 0 auto;
-  /* background: green; */
+  /*background: green;*/
   border-left: var(--toolbar-item-border);
 }
 
@@ -155,7 +155,7 @@
 
 #scene-head-end {
   flex: 0 0 auto;
-  /* background: blue; */
+  /*background: blue;*/
 }
 
 #scene-zoom {

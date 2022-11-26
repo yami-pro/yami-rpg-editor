@@ -29,7 +29,7 @@ detail-summary {
   height: 22px;
   line-height: 20px;
   text-indent: 16px;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-bold);
   background-color: var(--summary-background);
   border-top: var(--summary-border-dark);
@@ -130,7 +130,7 @@ legend {
   top: -7px;
   height: 7px;
   line-height: 14px;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-bold);
   border-bottom: 1px solid var(--window-background);
   z-index: 1;
@@ -176,10 +176,10 @@ grid-box > text {
  * 窗口框架
  * --------------------------------
  */
-/* 使用outline会导致文本丢失子像素渲染
- * 结合overflow: hidden可以解决此问题
- * 使用border会导致放大时背景和边框之间出现空隙
- */
+
+/*使用outline会导致文本丢失子像素渲染
+结合overflow: hidden可以解决此问题
+使用border会导致放大时背景和边框之间出现空隙*/
 window-frame {
   display: none;
   position: fixed;
@@ -360,7 +360,7 @@ button {
   padding: 0;
   width: 88px;
   height: 20px;
-  /* line-height: 18px; */
+  /*line-height: 18px;*/
   white-space: nowrap;
   font-size: 1em;
   font-family: var(--font-family-normal);
@@ -437,7 +437,7 @@ text-box:focus-within {
   font-size: 10px;
   text-align: center;
   color: var(--tab-close-color);
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 .close-button:hover {
@@ -491,7 +491,7 @@ text-area > textarea {
   border: none;
 }
 
-/* 添加 margin-top 属性避免微软输入法面板晃动 */
+/*添加 margin-top 属性避免微软输入法面板晃动*/
 text-area > textarea.inputting {
   margin-top: 4px;
   padding-top: 0;
@@ -641,7 +641,7 @@ check-box > check-mark::before {
   width: 16px;
   height: 16px;
   font-size: 1.2em;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-normal);
   text-align: center;
   color: var(--check-box-mark-color);
@@ -1015,10 +1015,9 @@ select-list {
   overflow-y: auto;
 }
 
-/* 指针在列表底部边框触发 mousemove 事件时
- * position: relative 事件目标为列表本身
- * position: static 事件目标为列表选项
- */
+/*指针在列表底部边框触发 mousemove 事件时
+position: relative 事件目标为列表本身
+position: static 事件目标为列表选项*/
 select-item {
   display: block;
   padding: 0 4px;
@@ -1087,7 +1086,7 @@ menu-checked {
   height: 16px;
   text-align: center;
   font-size: 1.2em;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-normal);
   pointer-events: none;
 }
@@ -1224,19 +1223,20 @@ filter-box {
  * 导航栏
  * --------------------------------
  */
-/* 使用本地字体让导航项目的宽度固定 */
+
+/*使用本地字体让导航项目的宽度固定*/
 nav-bar {
   display: flex;
   position: absolute;
   width: 100%;
   height: 25px;
   line-height: 24px;
-  /* font-size: 0.9em; */
+  /*font-size: 0.9em;*/
   font-family: var(--font-family-title);
   background-color: var(--nav-bar-background);
   border-bottom: var(--nav-bar-border);
-  /* border-top-right-radius: 2px; */
-  /* overflow: hidden; */
+  /*border-top-right-radius: 2px;*/
+  /*overflow: hidden;*/
 }
 
 nav-item {
@@ -1247,7 +1247,7 @@ nav-item {
   text-overflow: ellipsis;
   background-color: var(--nav-item-background);
   border-right: var(--nav-bar-border);
-  /* border-top-right-radius: 2px; */
+  /*border-top-right-radius: 2px;*/
 }
 
 nav-item:hover,
@@ -1298,7 +1298,7 @@ node-item {
   text-overflow: ellipsis;
 }
 
-/* 避免拖拽时非指针位置的列表项触发:hover样式 */
+/*避免拖拽时非指针位置的列表项触发:hover样式*/
 node-list:not(.dragging) > node-item:hover {
   background-color: var(--list-item-background-hover);
 }
@@ -1416,7 +1416,7 @@ node-icon.icon-particle-image {
   height: 14px;
   line-height: 14px;
   font-size: 10px;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: Arial, var(--font-family-symbol);
   background-color: var(--node-bubble-background);
   border-radius: 25%;
@@ -1517,10 +1517,10 @@ visibility-icon {
   width: 16px;
   height: 20px;
   text-indent: 2px;
-  /* text-align: center; */
+  /*text-align: center;*/
   font-family: var(--font-family-symbol);
   color: var(--node-icon-color);
-  /* background: gray; */
+  /*background: gray;*/
 }
 
 lock-icon {
@@ -1529,10 +1529,10 @@ lock-icon {
   width: 16px;
   height: 20px;
   text-indent: 2px;
-  /* text-align: center; */
+  /*text-align: center;*/
   font-family: var(--font-family-symbol);
   color: var(--node-icon-color);
-  /* background: green; */
+  /*background: green;*/
 }
 
 .node-icon-highlight {
@@ -1658,7 +1658,7 @@ param-item.selected {
   background-color: var(--selected-background);
 }
 
-/* display: flex 无法显示省略号 */
+/*display: flex 无法显示省略号*/
 param-item.one-column {
   display: block;
   overflow: hidden;
@@ -1726,7 +1726,7 @@ param-item.weak.selected,
   color: var(--text-color-rename);
 }
 
-/* field-set > param-list {
+/*field-set > param-list {
   position: absolute;
   padding: 10px 0;
   width: 100%;
@@ -1734,7 +1734,7 @@ param-item.weak.selected,
   background-color: transparent;
   border: none;
   border-radius: 0;
-} */
+}*/
 
 /* --------------------------------
  * 指令列表
@@ -1744,7 +1744,7 @@ command-list {
   display: block;
   overflow-x: hidden;
   overflow-y: auto;
-  /* font-size: 14px; */
+  /*font-size: 14px;*/
   font-family: var(--font-family-mono);
 }
 
@@ -1845,13 +1845,13 @@ command-item:not(.selected) > .invalid {
 
 command-mark-major {
   letter-spacing: 2px;
-  /* background: green; */
+  /*background: green;*/
 }
 
 command-mark-minor {
   letter-spacing: 2px;
   color: var(--command-color-mark-minor);
-  /* background: green; */
+  /*background: green;*/
 }
 
 command-item.selected > command-mark-minor {
@@ -1873,9 +1873,8 @@ file-browser {
   position: absolute;
 }
 
-/* 如果设置了nav背景色而未设置body背景色
- * 在nav垂直溢出时会导致body丢失子像素渲染
- */
+/*如果设置了nav背景色而未设置body背景色
+在nav垂直溢出时会导致body丢失子像素渲染*/
 file-nav-pane {
   position: absolute;
   width: 18%;
@@ -1970,13 +1969,13 @@ file-head-address {
   margin: 2px 0;
   height: 20px;
   line-height: 20px;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
   text-indent: 2px;
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 file-head-address::before {
@@ -1993,7 +1992,7 @@ file-head-address-folder {
   vertical-align: top;
   padding: 0 2px;
   text-indent: 0;
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 file-head-address-arrow {
@@ -2003,7 +2002,7 @@ file-head-address-arrow {
   height: 20px;
   text-indent: 0;
   border-color: var(--folder-mark-color);
-  /* background-color: red; */
+  /*background-color: red;*/
 }
 
 file-head-address-link {
@@ -2014,7 +2013,7 @@ file-head-address-link {
   height: 20px;
   text-indent: 0;
   color: var(--folder-mark-color);
-  /* background-color: red; */
+  /*background-color: red;*/
 }
 
 file-head-address-text {
@@ -2024,7 +2023,7 @@ file-head-address-text {
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
-  /* background-color: red; */
+  /*background-color: red;*/
 }
 
 file-head-address-folder.drop-target {
@@ -2054,7 +2053,7 @@ file-head-address-arrow::before {
   border-left-width: 6px;
   border-left-style: solid;
   border-left-color: inherit;
-  /* background-color: blue; */
+  /*background-color: blue;*/
 }
 
 .upper-level-directory {
@@ -2086,7 +2085,7 @@ file-head-address-arrow::before {
 .file-head-view {
   flex: 0 1 80px;
   margin: 2px 4px 2px 2px;
-  /* background-color: red; */
+  /*background-color: red;*/
 }
 
 file-body-pane {
@@ -2193,7 +2192,7 @@ file-body-icon.icon-file-font {
 
 file-body-icon.icon-file-event {
   font-family: var(--font-family-bold);
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   text-align: center;
   color: green;
   background-image: url("../Images/file_other.png");
@@ -2220,7 +2219,7 @@ file-body-icon.icon-file-video {
 
 file-body-icon.icon-file-other {
   font-family: var(--font-family-bold);
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   text-align: center;
   color: #404040;
   overflow: hidden;
@@ -2229,11 +2228,10 @@ file-body-icon.icon-file-other {
   background-image: url("../Images/file_other.png");
 }
 
-/* 当字号与行高是某些相等的值
- * 底部会出现部分第三行的文本
- * 可能是文本垂直偏移造成
- * 设置 15px 的行高可以解决
- */
+/*当字号与行高是某些相等的值
+底部会出现部分第三行的文本
+可能是文本垂直偏移造成
+设置 15px 的行高可以解决*/
 file-body-name {
   display: -webkit-box;
   height: 30px;
@@ -2270,11 +2268,11 @@ file-body-content.list {
   grid-column-gap: 2px;
   grid-template-columns: repeat(auto-fill, 240px);
   grid-template-rows: repeat(auto-fill, 20px);
-  /* width: 100%; */
+  /*width: 100%;*/
   height: 100%;
   font-size: 1em;
   line-height: 20px;
-  /* background-color: green; */
+  /*background-color: green;*/
 }
 
 file-body-content.list > file-body-item {
@@ -2293,11 +2291,11 @@ file-body-content.list > file-body-item > file-body-icon {
   height: 16px;
   line-height: 16px;
   image-rendering: auto !important;
-  /* background: green; */
-  /* pointer-events: none; */
-  /* background-position: center; */
-  /* background-repeat: no-repeat; */
-  /* background-size: 100%; */
+  /*background: green;
+  pointer-events: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;*/
 }
 
 file-body-content.list > file-body-item > file-body-icon.icon-file-event {
@@ -2316,7 +2314,7 @@ file-body-content.list > file-body-item > file-body-name {
   width: 220px;
   height: 20px;
   white-space: pre;
-  /* background-color: red; */
+  /*background-color: red;*/
 }
 
 file-body-content.small {
@@ -2332,7 +2330,7 @@ file-body-content.small {
   line-height: 15px;
 }
 
-/* 必须指定file-body-item的宽高, 否则可能少2px高度 */
+/*必须指定file-body-item的宽高, 否则可能少2px高度*/
 file-body-content.small > file-body-item {
   width: 40px;
   height: 72px;

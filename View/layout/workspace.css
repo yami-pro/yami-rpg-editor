@@ -99,7 +99,7 @@ group-info {
   top: 25px;
   max-width: 100%;
   line-height: 20px;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-bold);
   overflow: hidden;
   white-space: pre;
@@ -150,7 +150,7 @@ group-info {
   height: 20px;
   line-height: 20px;
   font-size: 1.2em;
-/*  font-weight: bold;*/
+  /*font-weight: bold;*/
   font-family: var(--font-family-bold);
 }
 

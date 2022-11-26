@@ -18,7 +18,7 @@
   display: flex;
   flex: 0 0 auto;
   width: 57px;
-  /* background: yellow; */
+  /*background: yellow;*/
 }
 
 #particle-head-start > .toolbar-item::after {
@@ -43,7 +43,7 @@
 #particle-head-center {
   display: flex;
   flex: 0 0 auto;
-  /* background: green; */
+  /*background: green;*/
   border-left: var(--toolbar-item-border);
 }
 
@@ -87,11 +87,11 @@
 
 #particle-head-end {
   flex: 0 0 auto;
-  /* background: blue; */
+  /*background: blue;*/
 }
 
 #particle-zoom {
-  /* position: absolute; */
+  /*position: absolute;*/
   margin: 2px 4px;
   right: 0;
   width: 80px;
