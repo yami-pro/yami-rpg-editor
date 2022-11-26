@@ -28,6 +28,6 @@ interface HTMLElement {
 }
 
 interface WebGLRenderingContext {
-  _bufferData(...args: any[]): any
+  _bufferData(target: number, size: number, usage: number): void
   bufferData(...args: any[]): any
 }

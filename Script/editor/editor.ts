@@ -449,8 +449,8 @@ class YMEditor {
   }
 }
 
-const Editor = new YMEditor()
+const _YMEditor = new YMEditor()
 
 // ******************************** 编辑器对象导出 ********************************
 
-export { Editor }
+export { _YMEditor as Editor }

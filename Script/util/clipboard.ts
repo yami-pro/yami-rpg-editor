@@ -6,14 +6,14 @@ class YMClipboard {
   constructor() {}
 
   // 检查缓冲区
-  has(format: any) {
+  static has(format: any) {
     const {clipboard} = require('electron')
     const buffer = clipboard.readBuffer(format)
     return buffer.length !== 0
   }
 
   // 读取缓冲区
-  read(format: any) {
+  static read(format: any) {
     const {clipboard} = require('electron')
     const buffer = clipboard.readBuffer(format)
     const string = buffer.toString()
@@ -21,7 +21,7 @@ class YMClipboard {
   }
 
   // 写入缓冲区
-  write(format: any, object: any) {
+  static write(format: any, object: any) {
     const {clipboard} = require('electron')
     const string = JSON.stringify(object)
     const buffer = Buffer.from(string)
@@ -29,9 +29,7 @@ class YMClipboard {
   }
 }
 
-const _YMClipboard = new YMClipboard()
-
 // 修改原型对象
-Object.setPrototypeOf(_YMClipboard, Clipboard)
+Object.setPrototypeOf(YMClipboard, Clipboard)
 
-export { _YMClipboard as Clipboard }
+export { YMClipboard as Clipboard }

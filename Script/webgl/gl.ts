@@ -85,12 +85,13 @@ let GL
     // 重写更新缓冲数据方法
     const prototype = WebGLRenderingContext.prototype
     prototype._bufferData = prototype.bufferData
-    prototype.bufferData = function (target, data, usage, offset, length) {
+    prototype.bufferData = function (...args: any[]) {
+      let [target, data, usage, offset, length] = args
       if (length !== undefined) {
         length *= data.BYTES_PER_ELEMENT
         data = new Uint8Array(data.buffer, offset, length)
       }
-      return this._bufferData(target, data, usage)
+      return prototype._bufferData(target, data, usage)
     }
   }
 
