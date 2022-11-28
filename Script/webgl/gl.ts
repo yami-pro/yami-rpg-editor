@@ -12,10 +12,65 @@ import {
 
 // ******************************** WebGL ********************************
 
-/**
- * @type {WebGLRenderingContext}
- */
-let GL
+interface IGL {
+  restore(): void
+  initialize(): void
+  createProgramWithShaders(vshader, fshader): any
+  loadShader(type, source): any
+  createImageProgram(): any
+  createTileProgram(): any
+  createTextProgram(): any
+  createSpriteProgram(): any
+  createParticleProgram(): any
+  createLightProgram(): any
+  createGraphicProgram(): any
+  createDashedLineProgram(): any
+  reset(): void
+  updateMasking(): void
+  createBlendingUpdater(): any
+  setContrast(contrast): void
+  setAmbientLight({red, green, blue}): void
+  resizeLightmap(): void
+  updateLightTexSize(): void
+  updateSamplerNum(samplerNum): void
+  bindFBO(fbo): void
+  unbindFBO(): void
+  setViewport(x, y, width, height): void
+  resetViewport(): void
+  resize(width, height): void
+  drawImage: (texture, dx, dy, dw, dh, tint: Uint8Array) => void
+  drawSliceImage(texture, dx, dy, dw, dh, clip, border, tint): void
+  drawText(texture, dx, dy, dw, dh, color): void
+  fillRect(dx, dy, dw, dh, color): void
+  createContext2D(): any
+  fillTextWithOutline: (text, x, y, color, shadow) => void
+  createNormalTexture(options): any
+  createImageTexture(image, options): any
+  createTextureFBO(texture): any
+}
+
+interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {
+  WEBGL_lose_context: WEBGL_lose_context
+  BACKGROUND_RED: number
+  BACKGROUND_GREEN: number
+  BACKGROUND_BLUE: number
+}
+
+interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
+  createVertexArray: WebGLVertexArrayObjectOES
+  deleteVertexArray: WebGLVertexArrayObjectOES
+  isVertexArray: WebGLVertexArrayObjectOES
+  bindVertexArray: WebGLVertexArrayObjectOES
+  MIN: GLenum
+  MAX: GLenum
+  WEBGL_lose_context: WEBGL_lose_context
+  BACKGROUND_RED: number
+  BACKGROUND_GREEN: number
+  BACKGROUND_BLUE: number
+}
+
+let GL: IWebGL2RenderingContext | IWebGLRenderingContext
+
 {
   // 创建画布元素
   const canvas = document.createElement('canvas')
@@ -26,7 +81,7 @@ let GL
   canvas.style.height = '100%'
 
   // 主题画布背景颜色
-  const background = {
+  const background: any = {
     light: {r: 0xc8, g: 0xc8, b: 0xc8},
     dark: {r: 0x20, g: 0x20, b: 0x20},
   }
@@ -51,7 +106,7 @@ let GL
   })
 
   // WebGL上下文选项
-  const options = {
+  const options: WebGLContextAttributes = {
     antialias: false,
     alpha: false,
     depth: true,
@@ -62,25 +117,29 @@ let GL
   }
 
   // 优先使用WebGL2(Win10 DirectX11)
-  GL = canvas.getContext('webgl2', options)
+  GL = <IWebGL2RenderingContext>canvas.getContext('webgl2', options)
   if (GL instanceof WebGL2RenderingContext) {} else {
     // 回退到WebGL1(Win7 DirectX9以及旧移动设备)
-    GL = canvas.getContext('webgl', options)
+    GL = <IWebGLRenderingContext>canvas.getContext('webgl', options)
 
     // 获取元素索引 32 位无符号整数扩展
     const element_index_uint = GL.getExtension('OES_element_index_uint')
 
     // 获取顶点数组对象扩展
     const vertex_array_object = GL.getExtension('OES_vertex_array_object')
-    GL.createVertexArray = vertex_array_object.createVertexArrayOES.bind(vertex_array_object)
-    GL.deleteVertexArray = vertex_array_object.deleteVertexArrayOES.bind(vertex_array_object)
-    GL.isVertexArray = vertex_array_object.isVertexArrayOES.bind(vertex_array_object)
-    GL.bindVertexArray = vertex_array_object.bindVertexArrayOES.bind(vertex_array_object)
+    if (vertex_array_object !== null) {
+      GL.createVertexArray = vertex_array_object.createVertexArrayOES.bind(vertex_array_object)
+      GL.deleteVertexArray = vertex_array_object.deleteVertexArrayOES.bind(vertex_array_object)
+      GL.isVertexArray = vertex_array_object.isVertexArrayOES.bind(vertex_array_object)
+      GL.bindVertexArray = vertex_array_object.bindVertexArrayOES.bind(vertex_array_object)
+    }
 
     // 获取最小和最大混合模式扩展
     const blend_minmax = GL.getExtension('EXT_blend_minmax')
-    GL.MIN = blend_minmax.MIN_EXT
-    GL.MAX = blend_minmax.MAX_EXT
+    if (blend_minmax !== null) {
+      GL.MIN = blend_minmax.MIN_EXT
+      GL.MAX = blend_minmax.MAX_EXT
+    }
 
     // 重写更新缓冲数据方法
     const prototype = WebGLRenderingContext.prototype
@@ -96,7 +155,10 @@ let GL
   }
 
   // 获取失去上下文扩展
-  GL.WEBGL_lose_context = GL.getExtension('WEBGL_lose_context')
+  const lose_context = GL.getExtension('WEBGL_lose_context')
+  if (lose_context !== null) {
+    GL.WEBGL_lose_context = lose_context
+  }
 }
 
 // ******************************** WebGL方法加载 ********************************
