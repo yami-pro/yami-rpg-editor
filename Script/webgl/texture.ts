@@ -5,13 +5,13 @@ import { GL } from '../yami'
 // ******************************** 纹理类 ********************************
 
 class Texture {
-  complete  //:boolean
+  complete: boolean
   base      //:object
   gl        //:object
-  x         //:number
-  y         //:number
-  width     //:number
-  height    //:number
+  x: number
+  y: number
+  width: number
+  height: number
 
   constructor(options = {}) {
     if (new.target !== Texture) {

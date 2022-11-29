@@ -13,9 +13,44 @@ import {
 // ******************************** WebGL ********************************
 
 interface IGL {
+  contrast: number
+  ambient: RGB
+  flip: number
+  alpha: number
+  blend: string
+  matrix: Matrix
+  width: number
+  height: number
+  program: any
+  binding: any
+  masking: boolean
+  depthTest: boolean
+  maxTexUnits: number
+  lightmap: Texture
+  stencilTexture: Texture
+  maskTexture: Texture
+  textureManager: TextureManager
+  layers: Uint32Array
+  zeros: Uint32Array
+  arrays: any
+  batchRenderer: BatchRenderer
+  updateBlending: () => () => void
+  frameBuffer: WebGLFramebuffer | null
+  vertexBuffer: WebGLBuffer | null
+  elementBuffer: WebGLBuffer | null
+  context2d: CanvasRenderingContext2D | null
+  imageProgram: IWebGLProgram | null
+  tileProgram: IWebGLProgram | null
+  textProgram: IWebGLProgram | null
+  spriteProgram: IWebGLProgram | null
+  particleProgram: IWebGLProgram | null
+  lightProgram: IWebGLProgram | null
+  graphicProgram: IWebGLProgram | null
+  dashedLineProgram: IWebGLProgram | null
+
   restore(): void
   initialize(): void
-  createProgramWithShaders(vshader, fshader): any
+  createProgramWithShaders(vshader, fshader): IWebGLProgram | null
   loadShader(type, source): any
   createImageProgram(): any
   createTileProgram(): any
@@ -68,6 +103,20 @@ interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
   BACKGROUND_GREEN: number
   BACKGROUND_BLUE: number
 }
+
+interface ICanvasRenderingContext2D extends CanvasRenderingContext2D {
+  resize(width: number, height: number): void
+}
+
+interface IWebGLProgram extends WebGLProgram {
+  use(): IWebGLProgram
+  alpha: number
+  a_Position: number
+  a_Color: number
+  u_Matrix: WebGLUniformLocation | null
+}
+
+type RGB = {red: number, green: number, blue: number}
 
 let GL: IWebGL2RenderingContext | IWebGLRenderingContext
 
@@ -297,7 +346,7 @@ GL.initialize = function () {
 }
 
 // WebGL上下文方法 - 创建程序对象
-GL.createProgramWithShaders = function (vshader, fshader) {
+GL.createProgramWithShaders = function (vshader, fshader): IWebGLProgram | null {
   const vertexShader = this.loadShader(this.VERTEX_SHADER, vshader)
   const fragmentShader = this.loadShader(this.FRAGMENT_SHADER, fshader)
   if (!vertexShader || !fragmentShader) {
@@ -321,7 +370,7 @@ GL.createProgramWithShaders = function (vshader, fshader) {
     this.deleteShader(vertexShader)
     return null
   }
-  return program
+  return <IWebGLProgram>program
 }
 
 // WebGL上下文方法 - 加载着色器
@@ -440,79 +489,83 @@ GL.createImageProgram = function () {
     }
     `,
   )
-  this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
-  const u_Flip = this.getUniformLocation(program, 'u_Flip')
-  const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
-  const u_Ambient = this.getUniformLocation(program, 'u_Ambient')
-  const u_Contrast = this.getUniformLocation(program, 'u_Contrast')
-  const u_LightMode = this.getUniformLocation(program, 'u_LightMode')
-  const u_LightCoord = this.getUniformLocation(program, 'u_LightCoord')
-  const u_LightTexSize = this.getUniformLocation(program, 'u_LightTexSize')
-  this.uniform1i(this.getUniformLocation(program, 'u_LightSampler'), this.maxTexUnits - 1)
+  if (program !== null) {
+    this.useProgram(program)
 
-  // 片元着色器属性
-  const u_Viewport = this.getUniformLocation(program, 'u_Viewport')
-  const u_Masking = this.getUniformLocation(program, 'u_Masking')
-  const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
-  const u_ColorMode = this.getUniformLocation(program, 'u_ColorMode')
-  const u_Color = this.getUniformLocation(program, 'u_Color')
-  const u_Tint = this.getUniformLocation(program, 'u_Tint')
-  const u_Repeat = this.getUniformLocation(program, 'u_Repeat')
-  const u_MaskSampler = this.getUniformLocation(program, 'u_MaskSampler')
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
+    const u_Flip = this.getUniformLocation(program, 'u_Flip')
+    const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
+    const u_Ambient = this.getUniformLocation(program, 'u_Ambient')
+    const u_Contrast = this.getUniformLocation(program, 'u_Contrast')
+    const u_LightMode = this.getUniformLocation(program, 'u_LightMode')
+    const u_LightCoord = this.getUniformLocation(program, 'u_LightCoord')
+    const u_LightTexSize = this.getUniformLocation(program, 'u_LightTexSize')
+    this.uniform1i(this.getUniformLocation(program, 'u_LightSampler'), this.maxTexUnits - 1)
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_TexCoord)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 16, 0)
-  this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 16, 8)
-  this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+    // 片元着色器属性
+    const u_Viewport = this.getUniformLocation(program, 'u_Viewport')
+    const u_Masking = this.getUniformLocation(program, 'u_Masking')
+    const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
+    const u_ColorMode = this.getUniformLocation(program, 'u_ColorMode')
+    const u_Color = this.getUniformLocation(program, 'u_Color')
+    const u_Tint = this.getUniformLocation(program, 'u_Tint')
+    const u_Repeat = this.getUniformLocation(program, 'u_Repeat')
+    const u_MaskSampler = this.getUniformLocation(program, 'u_MaskSampler')
 
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_TexCoord)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 16, 0)
+    this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 16, 8)
+    this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      if (program.flip !== this.flip) {
+        program.flip = this.flip
+        this.uniform1f(u_Flip, program.flip)
+      }
+      if (program.alpha !== this.alpha) {
+        program.alpha = this.alpha
+        this.uniform1f(u_Alpha, program.alpha)
+      }
+      this.updateMasking()
+      this.updateBlending()
+      return program
     }
-    if (program.flip !== this.flip) {
-      program.flip = this.flip
-      this.uniform1f(u_Flip, program.flip)
-    }
-    if (program.alpha !== this.alpha) {
-      program.alpha = this.alpha
-      this.uniform1f(u_Alpha, program.alpha)
-    }
-    this.updateMasking()
-    this.updateBlending()
-    return program
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.alpha = 0
+    program.masking = false
+    program.a_Position = a_Position
+    program.a_TexCoord = a_TexCoord
+    program.u_Matrix = u_Matrix
+    program.u_Ambient = u_Ambient
+    program.u_Contrast = u_Contrast
+    program.u_LightMode = u_LightMode
+    program.u_LightCoord = u_LightCoord
+    program.u_LightTexSize = u_LightTexSize
+    program.u_Viewport = u_Viewport
+    program.u_Masking = u_Masking
+    program.u_MaskSampler = u_MaskSampler
+    program.u_ColorMode = u_ColorMode
+    program.u_Color = u_Color
+    program.u_Tint = u_Tint
+    program.u_Repeat = u_Repeat
   }
-
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.alpha = 0
-  program.masking = false
-  program.a_Position = a_Position
-  program.a_TexCoord = a_TexCoord
-  program.u_Matrix = u_Matrix
-  program.u_Ambient = u_Ambient
-  program.u_Contrast = u_Contrast
-  program.u_LightMode = u_LightMode
-  program.u_LightCoord = u_LightCoord
-  program.u_LightTexSize = u_LightTexSize
-  program.u_Viewport = u_Viewport
-  program.u_Masking = u_Masking
-  program.u_MaskSampler = u_MaskSampler
-  program.u_ColorMode = u_ColorMode
-  program.u_Color = u_Color
-  program.u_Tint = u_Tint
-  program.u_Repeat = u_Repeat
+  
   return program
 }
 
@@ -596,76 +649,80 @@ GL.createTileProgram = function () {
     }
     `,
   )
-  this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
-  const a_TexIndex = this.getAttribLocation(program, 'a_TexIndex')
-  const u_Flip = this.getUniformLocation(program, 'u_Flip')
-  const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
-  const u_Ambient = this.getUniformLocation(program, 'u_Ambient')
-  const u_Contrast = this.getUniformLocation(program, 'u_Contrast')
-  const u_LightMode = this.getUniformLocation(program, 'u_LightMode')
-  const u_LightTexSize = this.getUniformLocation(program, 'u_LightTexSize')
-  this.uniform1i(this.getUniformLocation(program, 'u_LightSampler'), this.maxTexUnits - 1)
+  if (program !== null) {
+    this.useProgram(program)
 
-  // 片元着色器属性
-  const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
-  const u_TintMode = this.getUniformLocation(program, 'u_TintMode')
-  const u_Tint = this.getUniformLocation(program, 'u_Tint')
-  const u_SamplerLength = this.maxTexUnits - 1
-  const u_Samplers = []
-  for (let i = 0; i < u_SamplerLength; i++) {
-    u_Samplers.push(this.getUniformLocation(program, `u_Samplers[${i}]`))
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
+    const a_TexIndex = this.getAttribLocation(program, 'a_TexIndex')
+    const u_Flip = this.getUniformLocation(program, 'u_Flip')
+    const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
+    const u_Ambient = this.getUniformLocation(program, 'u_Ambient')
+    const u_Contrast = this.getUniformLocation(program, 'u_Contrast')
+    const u_LightMode = this.getUniformLocation(program, 'u_LightMode')
+    const u_LightTexSize = this.getUniformLocation(program, 'u_LightTexSize')
+    this.uniform1i(this.getUniformLocation(program, 'u_LightSampler'), this.maxTexUnits - 1)
+
+    // 片元着色器属性
+    const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
+    const u_TintMode = this.getUniformLocation(program, 'u_TintMode')
+    const u_Tint = this.getUniformLocation(program, 'u_Tint')
+    const u_SamplerLength = this.maxTexUnits - 1
+    const u_Samplers = []
+    for (let i = 0; i < u_SamplerLength; i++) {
+      u_Samplers.push(this.getUniformLocation(program, `u_Samplers[${i}]`))
+    }
+
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_TexCoord)
+    this.enableVertexAttribArray(a_TexIndex)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 20, 0)
+    this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 20, 8)
+    this.vertexAttribPointer(a_TexIndex, 1, this.FLOAT, false, 20, 16)
+    this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      if (program.flip !== this.flip) {
+        program.flip = this.flip
+        this.uniform1f(u_Flip, program.flip)
+      }
+      if (program.alpha !== this.alpha) {
+        program.alpha = this.alpha
+        this.uniform1f(u_Alpha, program.alpha)
+      }
+      return program
+    }
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.flip = null
+    program.alpha = 0
+    program.samplerNum = 1
+    program.a_Position = a_Position
+    program.a_TexCoord = a_TexCoord
+    program.a_TexIndex = a_TexIndex
+    program.u_Matrix = u_Matrix
+    program.u_Ambient = u_Ambient
+    program.u_Contrast = u_Contrast
+    program.u_LightMode = u_LightMode
+    program.u_LightTexSize = u_LightTexSize
+    program.u_TintMode = u_TintMode
+    program.u_Tint = u_Tint
+    program.u_Samplers = u_Samplers
   }
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_TexCoord)
-  this.enableVertexAttribArray(a_TexIndex)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 20, 0)
-  this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 20, 8)
-  this.vertexAttribPointer(a_TexIndex, 1, this.FLOAT, false, 20, 16)
-  this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
-
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
-    }
-    if (program.flip !== this.flip) {
-      program.flip = this.flip
-      this.uniform1f(u_Flip, program.flip)
-    }
-    if (program.alpha !== this.alpha) {
-      program.alpha = this.alpha
-      this.uniform1f(u_Alpha, program.alpha)
-    }
-    return program
-  }
-
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.flip = null
-  program.alpha = 0
-  program.samplerNum = 1
-  program.a_Position = a_Position
-  program.a_TexCoord = a_TexCoord
-  program.a_TexIndex = a_TexIndex
-  program.u_Matrix = u_Matrix
-  program.u_Ambient = u_Ambient
-  program.u_Contrast = u_Contrast
-  program.u_LightMode = u_LightMode
-  program.u_LightTexSize = u_LightTexSize
-  program.u_TintMode = u_TintMode
-  program.u_Tint = u_Tint
-  program.u_Samplers = u_Samplers
   return program
 }
 
@@ -705,51 +762,55 @@ GL.createTextProgram = function () {
     }
     `,
   )
-  this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
-  const a_TextColor = this.getAttribLocation(program, 'a_TextColor')
+  if (program !== null) {
+    this.useProgram(program)
 
-  // 片元着色器属性
-  const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
-  const u_Threshold = this.getUniformLocation(program, 'u_Threshold')
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
+    const a_TextColor = this.getAttribLocation(program, 'a_TextColor')
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_TexCoord)
-  this.enableVertexAttribArray(a_TextColor)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 20, 0)
-  this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 20, 8)
-  this.vertexAttribPointer(a_TextColor, 4, this.UNSIGNED_BYTE, true, 20, 16)
-  this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+    // 片元着色器属性
+    const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
+    const u_Threshold = this.getUniformLocation(program, 'u_Threshold')
 
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_TexCoord)
+    this.enableVertexAttribArray(a_TextColor)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 20, 0)
+    this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 20, 8)
+    this.vertexAttribPointer(a_TextColor, 4, this.UNSIGNED_BYTE, true, 20, 16)
+    this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      if (program.alpha !== this.alpha) {
+        program.alpha = this.alpha
+        this.uniform1f(u_Alpha, program.alpha)
+      }
+      this.updateBlending()
+      return program
     }
-    if (program.alpha !== this.alpha) {
-      program.alpha = this.alpha
-      this.uniform1f(u_Alpha, program.alpha)
-    }
-    this.updateBlending()
-    return program
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.alpha = 0
+    program.a_Position = a_Position
+    program.a_TexCoord = a_TexCoord
+    program.a_TextColor = a_TextColor
+    program.u_Threshold = u_Threshold
   }
 
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.alpha = 0
-  program.a_Position = a_Position
-  program.a_TexCoord = a_TexCoord
-  program.a_TextColor = a_TextColor
-  program.u_Threshold = u_Threshold
   return program
 }
 
@@ -839,78 +900,82 @@ GL.createSpriteProgram = function () {
     }
     `,
   )
+
+  if (program !== null) {
   this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
-  const a_TexParam = this.getAttribLocation(program, 'a_TexParam')
-  const a_Tint = this.getAttribLocation(program, 'a_Tint')
-  const a_LightCoord = this.getAttribLocation(program, 'a_LightCoord')
-  const u_Flip = this.getUniformLocation(program, 'u_Flip')
-  const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
-  const u_Contrast = this.getUniformLocation(program, 'u_Contrast')
-  const u_LightTexSize = this.getUniformLocation(program, 'u_LightTexSize')
-  this.uniform1i(this.getUniformLocation(program, 'u_LightSampler'), this.maxTexUnits - 1)
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
+    const a_TexParam = this.getAttribLocation(program, 'a_TexParam')
+    const a_Tint = this.getAttribLocation(program, 'a_Tint')
+    const a_LightCoord = this.getAttribLocation(program, 'a_LightCoord')
+    const u_Flip = this.getUniformLocation(program, 'u_Flip')
+    const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
+    const u_Contrast = this.getUniformLocation(program, 'u_Contrast')
+    const u_LightTexSize = this.getUniformLocation(program, 'u_LightTexSize')
+    this.uniform1i(this.getUniformLocation(program, 'u_LightSampler'), this.maxTexUnits - 1)
 
-  // 片元着色器属性
-  const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
-  const u_Tint = this.getUniformLocation(program, 'u_Tint')
-  const u_SamplerLength = this.maxTexUnits - 1
-  const u_Samplers = []
-  for (let i = 0; i < u_SamplerLength; i++) {
-    u_Samplers.push(this.getUniformLocation(program, `u_Samplers[${i}]`))
+    // 片元着色器属性
+    const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
+    const u_Tint = this.getUniformLocation(program, 'u_Tint')
+    const u_SamplerLength = this.maxTexUnits - 1
+    const u_Samplers = []
+    for (let i = 0; i < u_SamplerLength; i++) {
+      u_Samplers.push(this.getUniformLocation(program, `u_Samplers[${i}]`))
+    }
+
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_TexCoord)
+    this.enableVertexAttribArray(a_TexParam)
+    this.enableVertexAttribArray(a_Tint)
+    this.enableVertexAttribArray(a_LightCoord)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 32, 0)
+    this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 32, 8)
+    this.vertexAttribPointer(a_TexParam, 3, this.UNSIGNED_BYTE, false, 32, 16)
+    this.vertexAttribPointer(a_Tint, 4, this.UNSIGNED_SHORT, false, 32, 20)
+    this.vertexAttribPointer(a_LightCoord, 2, this.UNSIGNED_SHORT, true, 32, 28)
+    this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      if (program.flip !== this.flip) {
+        program.flip = this.flip
+        this.uniform1f(u_Flip, program.flip)
+      }
+      if (program.alpha !== this.alpha) {
+        program.alpha = this.alpha
+        this.uniform1f(u_Alpha, program.alpha)
+      }
+      return program
+    }
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.flip = null
+    program.alpha = 0
+    program.samplerNum = 1
+    program.a_Position = a_Position
+    program.a_TexCoord = a_TexCoord
+    program.a_TexParam = a_TexParam
+    program.a_Tint = a_Tint
+    program.a_LightCoord = a_LightCoord
+    program.u_Matrix = u_Matrix
+    program.u_Contrast = u_Contrast
+    program.u_LightTexSize = u_LightTexSize
+    program.u_Tint = u_Tint
+    program.u_Samplers = u_Samplers
   }
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_TexCoord)
-  this.enableVertexAttribArray(a_TexParam)
-  this.enableVertexAttribArray(a_Tint)
-  this.enableVertexAttribArray(a_LightCoord)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 32, 0)
-  this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 32, 8)
-  this.vertexAttribPointer(a_TexParam, 3, this.UNSIGNED_BYTE, false, 32, 16)
-  this.vertexAttribPointer(a_Tint, 4, this.UNSIGNED_SHORT, false, 32, 20)
-  this.vertexAttribPointer(a_LightCoord, 2, this.UNSIGNED_SHORT, true, 32, 28)
-  this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
-
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
-    }
-    if (program.flip !== this.flip) {
-      program.flip = this.flip
-      this.uniform1f(u_Flip, program.flip)
-    }
-    if (program.alpha !== this.alpha) {
-      program.alpha = this.alpha
-      this.uniform1f(u_Alpha, program.alpha)
-    }
-    return program
-  }
-
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.flip = null
-  program.alpha = 0
-  program.samplerNum = 1
-  program.a_Position = a_Position
-  program.a_TexCoord = a_TexCoord
-  program.a_TexParam = a_TexParam
-  program.a_Tint = a_Tint
-  program.a_LightCoord = a_LightCoord
-  program.u_Matrix = u_Matrix
-  program.u_Contrast = u_Contrast
-  program.u_LightTexSize = u_LightTexSize
-  program.u_Tint = u_Tint
-  program.u_Samplers = u_Samplers
   return program
 }
 
@@ -963,55 +1028,59 @@ GL.createParticleProgram = function () {
     }
     `,
   )
+
+  if (program !== null) {
   this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
-  const a_Color = this.getAttribLocation(program, 'a_Color')
-  const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_TexCoord = this.getAttribLocation(program, 'a_TexCoord')
+    const a_Color = this.getAttribLocation(program, 'a_Color')
+    const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
 
-  // 片元着色器属性
-  const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
-  const u_Mode = this.getUniformLocation(program, 'u_Mode')
-  const u_Tint = this.getUniformLocation(program, 'u_Tint')
+    // 片元着色器属性
+    const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
+    const u_Mode = this.getUniformLocation(program, 'u_Mode')
+    const u_Tint = this.getUniformLocation(program, 'u_Tint')
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_TexCoord)
-  this.enableVertexAttribArray(a_Color)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 20, 0)
-  this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 20, 8)
-  this.vertexAttribPointer(a_Color, 4, this.UNSIGNED_BYTE, true, 20, 16)
-  this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_TexCoord)
+    this.enableVertexAttribArray(a_Color)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 20, 0)
+    this.vertexAttribPointer(a_TexCoord, 2, this.FLOAT, false, 20, 8)
+    this.vertexAttribPointer(a_Color, 4, this.UNSIGNED_BYTE, true, 20, 16)
+    this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
 
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      if (program.alpha !== this.alpha) {
+        program.alpha = this.alpha
+        this.uniform1f(u_Alpha, program.alpha)
+      }
+      this.updateBlending()
+      return program
     }
-    if (program.alpha !== this.alpha) {
-      program.alpha = this.alpha
-      this.uniform1f(u_Alpha, program.alpha)
-    }
-    this.updateBlending()
-    return program
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.alpha = 0
+    program.a_Position = a_Position
+    program.a_TexCoord = a_TexCoord
+    program.a_Color = a_Color
+    program.u_Matrix = u_Matrix
+    program.u_Mode = u_Mode
+    program.u_Tint = u_Tint
   }
 
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.alpha = 0
-  program.a_Position = a_Position
-  program.a_TexCoord = a_TexCoord
-  program.a_Color = a_Color
-  program.u_Matrix = u_Matrix
-  program.u_Mode = u_Mode
-  program.u_Tint = u_Tint
   return program
 }
 
@@ -1067,50 +1136,54 @@ GL.createLightProgram = function () {
     }
     `,
   )
-  this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_LightCoord = this.getAttribLocation(program, 'a_LightCoord')
-  const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
+  if (program !== null) {
+    this.useProgram(program)
 
-  // 片元着色器属性
-  const u_LightMode = this.getUniformLocation(program, 'u_LightMode')
-  const u_LightColor = this.getUniformLocation(program, 'u_LightColor')
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_LightCoord = this.getAttribLocation(program, 'a_LightCoord')
+    const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_LightCoord)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 16, 0)
-  this.vertexAttribPointer(a_LightCoord, 2, this.FLOAT, false, 16, 8)
+    // 片元着色器属性
+    const u_LightMode = this.getUniformLocation(program, 'u_LightMode')
+    const u_LightColor = this.getUniformLocation(program, 'u_LightColor')
 
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_LightCoord)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 16, 0)
+    this.vertexAttribPointer(a_LightCoord, 2, this.FLOAT, false, 16, 8)
+
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      this.updateBlending()
+      return program
     }
-    this.updateBlending()
-    return program
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.a_Position = a_Position
+    program.a_LightCoord = a_LightCoord
+    program.u_Matrix = u_Matrix
+    program.u_LightMode = u_LightMode
+    program.u_LightColor = u_LightColor
   }
 
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.a_Position = a_Position
-  program.a_LightCoord = a_LightCoord
-  program.u_Matrix = u_Matrix
-  program.u_LightMode = u_LightMode
-  program.u_LightColor = u_LightColor
   return program
 }
 
 // WebGL上下文方法 - 创建图形程序
 GL.createGraphicProgram = function () {
-  const program = this.createProgramWithShaders(
+  const program = <IWebGLProgram>this.createProgramWithShaders(
     `
     attribute   vec2        a_Position;
     attribute   vec4        a_Color;
@@ -1133,55 +1206,59 @@ GL.createGraphicProgram = function () {
     }
     `,
   )
+
+  if (program !== null) {
   this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_Color = this.getAttribLocation(program, 'a_Color')
-  const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_Color = this.getAttribLocation(program, 'a_Color')
+    const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
 
-  // 片元着色器属性
-  const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
+    // 片元着色器属性
+    const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_Color)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 12, 0)
-  this.vertexAttribPointer(a_Color, 4, this.UNSIGNED_BYTE, true, 12, 8)
-  this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_Color)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 12, 0)
+    this.vertexAttribPointer(a_Color, 4, this.UNSIGNED_BYTE, true, 12, 8)
+    this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
 
-  // 创建顶点数组对象 - 属性[10]
-  vao.a10 = this.createVertexArray()
-  this.bindVertexArray(vao.a10)
-  this.enableVertexAttribArray(a_Position)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 0, 0)
-  this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
+    // 创建顶点数组对象 - 属性[10]
+    vao.a10 = this.createVertexArray()
+    this.bindVertexArray(vao.a10)
+    this.enableVertexAttribArray(a_Position)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 0, 0)
+    this.bindBuffer(this.ELEMENT_ARRAY_BUFFER, this.elementBuffer)
 
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      if (program.alpha !== this.alpha) {
+        program.alpha = this.alpha
+        this.uniform1f(u_Alpha, program.alpha)
+      }
+      this.updateBlending()
+      return program
     }
-    if (program.alpha !== this.alpha) {
-      program.alpha = this.alpha
-      this.uniform1f(u_Alpha, program.alpha)
-    }
-    this.updateBlending()
-    return program
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.alpha = 0
+    program.a_Position = a_Position
+    program.a_Color = a_Color
+    program.u_Matrix = u_Matrix
   }
 
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.alpha = 0
-  program.a_Position = a_Position
-  program.a_Color = a_Color
-  program.u_Matrix = u_Matrix
   return program
 }
 
@@ -1213,48 +1290,52 @@ GL.createDashedLineProgram = function () {
     }
     `,
   )
+
+  if (program !== null) {
   this.useProgram(program)
 
-  // 顶点着色器属性
-  const a_Position = this.getAttribLocation(program, 'a_Position')
-  const a_Distance = this.getAttribLocation(program, 'a_Distance')
-  const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
+    // 顶点着色器属性
+    const a_Position = this.getAttribLocation(program, 'a_Position')
+    const a_Distance = this.getAttribLocation(program, 'a_Distance')
+    const u_Matrix = this.getUniformLocation(program, 'u_Matrix')
 
-  // 片元着色器属性
-  const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
-  const u_Color = this.getUniformLocation(program, 'u_Color')
+    // 片元着色器属性
+    const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
+    const u_Color = this.getUniformLocation(program, 'u_Color')
 
-  // 创建顶点数组对象
-  const vao = this.createVertexArray()
-  this.bindVertexArray(vao)
-  this.enableVertexAttribArray(a_Position)
-  this.enableVertexAttribArray(a_Distance)
-  this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
-  this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 12, 0)
-  this.vertexAttribPointer(a_Distance, 1, this.FLOAT, false, 12, 8)
+    // 创建顶点数组对象
+    const vao = this.createVertexArray()
+    this.bindVertexArray(vao)
+    this.enableVertexAttribArray(a_Position)
+    this.enableVertexAttribArray(a_Distance)
+    this.bindBuffer(this.ARRAY_BUFFER, this.vertexBuffer)
+    this.vertexAttribPointer(a_Position, 2, this.FLOAT, false, 12, 0)
+    this.vertexAttribPointer(a_Distance, 1, this.FLOAT, false, 12, 8)
 
-  // 使用程序对象
-  const use = () => {
-    if (this.program !== program) {
-      this.program = program
-      this.useProgram(program)
+    // 使用程序对象
+    const use = () => {
+      if (this.program !== program) {
+        this.program = program
+        this.useProgram(program)
+      }
+      if (program.alpha !== this.alpha) {
+        program.alpha = this.alpha
+        this.uniform1f(u_Alpha, program.alpha)
+      }
+      this.updateBlending()
+      return program
     }
-    if (program.alpha !== this.alpha) {
-      program.alpha = this.alpha
-      this.uniform1f(u_Alpha, program.alpha)
-    }
-    this.updateBlending()
-    return program
+
+    // 保存程序对象
+    program.use = use
+    program.vao = vao
+    program.alpha = 0
+    program.a_Position = a_Position
+    program.a_Distance = a_Distance
+    program.u_Matrix = u_Matrix
+    program.u_Color = u_Color
   }
 
-  // 保存程序对象
-  program.use = use
-  program.vao = vao
-  program.alpha = 0
-  program.a_Position = a_Position
-  program.a_Distance = a_Distance
-  program.u_Matrix = u_Matrix
-  program.u_Color = u_Color
   return program
 }
 
@@ -1714,7 +1795,7 @@ GL.drawText = function (texture, dx, dy, dw, dh, color) {
 
 // WebGL上下文方法 - 填充矩形
 GL.fillRect = function (dx, dy, dw, dh, color) {
-  const program = this.graphicProgram.use()
+  const program = this.graphicProgram?.use()
   const vertices = this.arrays[0].float32
   const colors = this.arrays[0].uint32
 
@@ -1755,19 +1836,21 @@ GL.createContext2D = function () {
   const canvas = document.createElement('canvas')
   canvas.width = 0
   canvas.height = 0
-  const context = canvas.getContext('2d')
+  const context = <ICanvasRenderingContext2D>canvas.getContext('2d')
 
-  // 扩展方法 - 调整画布大小
-  context.resize = function (width, height) {
-    if (canvas.width === width &&
-      canvas.height === height) {
-      canvas.width = width
-    } else {
-      if (canvas.width !== width) {
+  if (context !== null) {
+    // 扩展方法 - 调整画布大小
+    context.resize = function (width: number, height: number) {
+      if (canvas.width === width &&
+        canvas.height === height) {
         canvas.width = width
-      }
-      if (canvas.height !== height) {
-        canvas.height = height
+      } else {
+        if (canvas.width !== width) {
+          canvas.width = width
+        }
+        if (canvas.height !== height) {
+          canvas.height = height
+        }
       }
     }
   }
@@ -1941,7 +2024,7 @@ GL.createTextureFBO = function (texture) {
   texture.depthStencilBuffer = depthStencilBuffer
 
   // 重写纹理方法 - 调整大小
-  texture.resize = (width, height) => {
+  texture.resize = (width: number, height: number) => {
     Texture.prototype.resize.call(texture, width, height)
 
     // 调整深度模板缓冲区大小
