@@ -57,10 +57,10 @@ interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {
 }
 
 interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
-  createVertexArray: WebGLVertexArrayObjectOES
-  deleteVertexArray: WebGLVertexArrayObjectOES
-  isVertexArray: WebGLVertexArrayObjectOES
-  bindVertexArray: WebGLVertexArrayObjectOES
+  createVertexArray(): WebGLVertexArrayObjectOES
+  deleteVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
+  isVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): GLboolean
+  bindVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
   MIN: GLenum
   MAX: GLenum
   WEBGL_lose_context: WEBGL_lose_context
