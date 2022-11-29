@@ -92,6 +92,8 @@ interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {
 }
 
 interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
+  _bufferData(target: number, size: number, usage: number): void
+  bufferData(...args: any[]): any
   createVertexArray(): WebGLVertexArrayObjectOES
   deleteVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
   isVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): GLboolean
@@ -191,10 +193,9 @@ let GL: IWebGL2RenderingContext | IWebGLRenderingContext
     }
 
     // 重写更新缓冲数据方法
-    const prototype = WebGLRenderingContext.prototype
+    const prototype = <IWebGLRenderingContext>WebGLRenderingContext.prototype
     prototype._bufferData = prototype.bufferData
-    prototype.bufferData = function (...args: any[]) {
-      let [target, data, usage, offset, length] = args
+    prototype.bufferData = function (target, data, usage, offset, length) {
       if (length !== undefined) {
         length *= data.BYTES_PER_ELEMENT
         data = new Uint8Array(data.buffer, offset, length)
