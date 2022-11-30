@@ -7,54 +7,53 @@ import {
 
 // ******************************** 声明 ********************************
 
-declare global {
-  interface HTMLElement {
-    dataValue: any
+interface IHTMLElement extends HTMLElement {
+  dataValue: any
 
-    top: number
-    left: number
-    width: number
-    height: number
-    visible: boolean
+  top: number
+  left: number
+  width: number
+  height: number
+  visible: boolean
 
-    read(): void
-    write(value: any): void
-    clear(): void
-    enable(): void
-    disable(): void
-    hasClass(className: string): void
-    addClass(className: string): void
-    removeClass(className: string): void
-    seek(tagName: string, count: number): void
-    css(): void
-    rect(): DOMRect
-    hide(): void
-    show(): void
-    hideChildNodes(): void
-    showChildNodes(): void
-    getFocus(mode: any): void
-    setTooltip: (tip: any) => void
-    addScrollbars(): void
-    addSetScrollMethod(): void
-    hasScrollBar(): void
-    isInContent(event: any): void
-    dispatchChangeEvent: (index: number) => void
-    dispatchResizeEvent: () => void
-    dispatchUpdateEvent: () => void
-    listenDraggingScrollbarEvent: (pointerdown: (event: any) => void, options: any) => void
+  read(): void
+  write(value: any): void
+  clear(): void
+  enable(): void
+  disable(): void
+  hasClass(className: string): void
+  addClass(className: string): void
+  removeClass(className: string): void
+  seek(tagName: string, count: number): void
+  css(): void
+  rect(): DOMRect
+  hide(): void
+  show(): void
+  hideChildNodes(): void
+  showChildNodes(): void
+  getFocus(mode: any): void
+  setTooltip: (tip: any) => void
+  addScrollbars(): void
+  addSetScrollMethod(): void
+  hasScrollBar(): void
+  isInContent(event: any): void
+  dispatchChangeEvent: (index: number) => void
+  dispatchResizeEvent: () => void
+  dispatchUpdateEvent: () => void
+  listenDraggingScrollbarEvent: (pointerdown: (event: any) => void, options: any) => void
 
-    beginScrolling(): void
-    endScrolling(): void
-    setScroll(left: number, top: number): void
-    setScrollLeft(left: number): void
-    setScrollTop(top: number):void
-    updateScrollbars(): void
-  }
+  beginScrolling(): void
+  endScrolling(): void
+  setScroll(left: number, top: number): void
+  setScrollLeft(left: number): void
+  setScrollTop(top: number):void
+  updateScrollbars(): void
 }
 
 // ******************************** 元素方法 ********************************
 
-const prototype = HTMLElement.prototype
+const prototypeObject = <Object>HTMLElement.prototype
+const prototype = <IHTMLElement>prototypeObject
 
 // 元素方法 - 读取数据
 prototype.read = function () {
@@ -525,3 +524,5 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
     this.on('pointerdown', pointerdown, options)
   }
 }()
+
+export { IHTMLElement }

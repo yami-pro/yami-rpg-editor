@@ -26,7 +26,8 @@ import {
   Timer,
   UI,
   Window,
-  Clipboard
+  Clipboard,
+  IHTMLElement
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************
@@ -36,7 +37,7 @@ const Animation = {
   state: 'closed',
   page: $('#animation'),
   head: $('#animation-head'),
-  body: (<HTMLElement>$('#animation-body')).hide(),
+  body: (<IHTMLElement>$('#animation-body')).hide(),
   screen: $('#animation-screen'),
   marquee: $('#animation-marquee'),
   dirList: $('#animation-dirList'),
@@ -51,7 +52,7 @@ const Animation = {
   innerTimelineList: $('#animation-timeline-list-inner'),
   timelineCursor: $('#animation-timeline-cursor').hide(),
   timelineMarquee: $('#animation-timeline-marquee').hide(),
-  timelineMarqueeShift: $('#animation-timeline-marquee-shift').hide(),
+  timelineMarqueeShift: (<IHTMLElement>$('#animation-timeline-marquee-shift')).hide(),
   outerPointerArea: $('#animation-timeline-pointer-area-outer'),
   innerPointerArea: $('#animation-timeline-pointer-area-inner'),
   pointer: $('#animation-timeline-pointer'),
