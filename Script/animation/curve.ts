@@ -285,7 +285,7 @@ Curve.drawCurve = function () {
 // 请求渲染
 Curve.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('sharedRendering2', this.renderingFunction)
+    Timer.instance.appendUpdater('sharedRendering2', this.renderingFunction)
   }
 }
 
@@ -296,7 +296,7 @@ Curve.renderingFunction = function () {
 
 // 停止渲染
 Curve.stopRendering = function () {
-  Timer.removeUpdater('sharedRendering2', this.renderingFunction)
+  Timer.instance.removeUpdater('sharedRendering2', this.renderingFunction)
 }
 
 // 窗口 - 调整大小事件

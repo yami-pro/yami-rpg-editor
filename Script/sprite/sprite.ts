@@ -499,7 +499,7 @@ Sprite.scrollToSelection = function () {
 // 请求渲染
 Sprite.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.instance.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -510,7 +510,7 @@ Sprite.renderingFunction = function () {
 
 // 停止渲染
 Sprite.stopRendering = function () {
-  Timer.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.instance.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 保存状态到项目文件

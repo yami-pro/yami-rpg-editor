@@ -80,7 +80,7 @@ class YMEditor {
       Menubar.initialize()
       Home.initialize()
       Layout.initialize()
-      Timer.initialize()
+      Timer.instance.initialize()
       Scene.initialize()
       UI.initialize()
       Animation.initialize()

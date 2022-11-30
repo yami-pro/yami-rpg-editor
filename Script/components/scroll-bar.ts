@@ -1,16 +1,15 @@
 'use strict'
 
 import {
-  IHTMLElement,
   Timer
 } from '../yami'
 
 // ******************************** 滚动条 ********************************
 
-class ScrollBar extends IHTMLElement {
-  target: IHTMLElement | null
+class ScrollBar extends HTMLElement {
+  target: HTMLElement | null
   type: string | null
-  thumb: IHTMLElement | null
+  thumb: HTMLElement | null
   timer: Timer | null
   dragging: any
   windowPointerup: (event: any) => void
@@ -35,7 +34,7 @@ class ScrollBar extends IHTMLElement {
   // 绑定目标元素
   bind(target, type) {
     this.appendChild(this.thumb =
-      <IHTMLElement>document.createElement('scroll-thumb')
+      document.createElement('scroll-thumb')
     )
     this.thumb.appendChild(
       document.createElement('scroll-thumb-inner')

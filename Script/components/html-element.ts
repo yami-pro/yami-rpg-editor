@@ -5,51 +5,56 @@ import {
   Timer
 } from '../yami'
 
-// ******************************** 元素方法 ********************************
+// ******************************** 声明 ********************************
 
-interface IHTMLElement extends HTMLElement {
-  dataValue: any
-  top: number
-  left: number
-  width: number
-  height: number
-  visible: boolean
+declare global {
+  interface HTMLElement {
+    dataValue: any
 
-  read(): void
-  write(value: any): void
-  clear(): void
-  enable(): void
-  disable(): void
-  hasClass(className: string): void
-  addClass(className: string): void
-  removeClass(className: string): void
-  seek(tagName: string, count: number): void
-  css(): void
-  rect(): DOMRect
-  hide(): void
-  show(): void
-  hideChildNodes(): void
-  showChildNodes(): void
-  getFocus(mode: any): void
-  setTooltip: (tip: any) => void
-  addScrollbars(): void
-  addSetScrollMethod(): void
-  hasScrollBar(): void
-  isInContent(event: any): void
-  dispatchChangeEvent: (index: number) => void
-  dispatchResizeEvent: () => void
-  dispatchUpdateEvent: () => void
-  listenDraggingScrollbarEvent: (pointerdown: (event: any) => void, options: any) => void
+    top: number
+    left: number
+    width: number
+    height: number
+    visible: boolean
 
-  beginScrolling(): void
-  endScrolling(): void
-  setScroll(left: number, top: number): void
-  setScrollLeft(left: number): void
-  setScrollTop(top: number):void
-  updateScrollbars(): void
+    read(): void
+    write(value: any): void
+    clear(): void
+    enable(): void
+    disable(): void
+    hasClass(className: string): void
+    addClass(className: string): void
+    removeClass(className: string): void
+    seek(tagName: string, count: number): void
+    css(): void
+    rect(): DOMRect
+    hide(): void
+    show(): void
+    hideChildNodes(): void
+    showChildNodes(): void
+    getFocus(mode: any): void
+    setTooltip: (tip: any) => void
+    addScrollbars(): void
+    addSetScrollMethod(): void
+    hasScrollBar(): void
+    isInContent(event: any): void
+    dispatchChangeEvent: (index: number) => void
+    dispatchResizeEvent: () => void
+    dispatchUpdateEvent: () => void
+    listenDraggingScrollbarEvent: (pointerdown: (event: any) => void, options: any) => void
+
+    beginScrolling(): void
+    endScrolling(): void
+    setScroll(left: number, top: number): void
+    setScrollLeft(left: number): void
+    setScrollTop(top: number):void
+    updateScrollbars(): void
+  }
 }
 
-const prototype = <IHTMLElement>HTMLElement.prototype
+// ******************************** 元素方法 ********************************
+
+const prototype = HTMLElement.prototype
 
 // 元素方法 - 读取数据
 prototype.read = function () {
@@ -106,7 +111,7 @@ prototype.seek = function (tagName, count = 1) {
   while (count-- > 0) {
     if (element.tagName !== tagName.toUpperCase() &&
       element.parentNode instanceof HTMLElement) {
-      element = <IHTMLElement>element.parentNode
+      element = element.parentNode
       continue
     }
     break
@@ -300,9 +305,9 @@ prototype.setTooltip = function IIFE() {
 
 // 元素方法 - 添加滚动条
 prototype.addScrollbars = function () {
-  const hBar = <IHTMLElement>document.createElement('scroll-bar')
-  const vBar = <IHTMLElement>document.createElement('scroll-bar')
-  const corner = <IHTMLElement>document.createElement('scroll-corner')
+  const hBar = document.createElement('scroll-bar')
+  const vBar = document.createElement('scroll-bar')
+  const corner = document.createElement('scroll-corner')
   const parent = this.parentNode
   const next = this.nextSibling
   if (parent) {
@@ -520,10 +525,3 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
     this.on('pointerdown', pointerdown, options)
   }
 }()
-
-var IHTMLElement: {
-    prototype: IHTMLElement;
-    new(): IHTMLElement;
-};
-
-export { IHTMLElement }

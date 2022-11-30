@@ -276,7 +276,7 @@ UI.initialize = function () {
       if (this.state === 'open' &&
         this.dragging === null) {
         const key = this.translationKey
-        const step = Timer.deltaTime * 1.5 / this.scale
+        const step = Timer.instance.deltaTime * 1.5 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -1691,7 +1691,7 @@ UI.selectObject = function IIFE() {
 // 请求渲染
 UI.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.appendUpdater('stageRendering', this.renderingFunction)
+    Timer.instance.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
@@ -1710,7 +1710,7 @@ UI.renderingFunction = function () {
 
 // 停止渲染
 UI.stopRendering = function () {
-  Timer.removeUpdater('stageRendering', this.renderingFunction)
+  Timer.instance.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 开关设置

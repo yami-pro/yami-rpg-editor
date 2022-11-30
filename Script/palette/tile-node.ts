@@ -194,7 +194,7 @@ TileNode.drawNodes = function () {
 // 请求渲染
 TileNode.requestRendering = function () {
   if (this.nodes !== null) {
-    Timer.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.instance.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -205,7 +205,7 @@ TileNode.renderingFunction = function () {
 
 // 停止渲染
 TileNode.stopRendering = function () {
-  Timer.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.instance.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 滚动到选中位置
