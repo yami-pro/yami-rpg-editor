@@ -8,7 +8,7 @@ interface IClipboard {
   write(format: any, object: any): void
 }
 
-const Clipboard: IClipboard = <IClipboard>{}
+const Clipboard = <IClipboard>new Object()
 
 Clipboard.has = function (format: any) {
   const {clipboard} = require('electron')

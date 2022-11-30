@@ -1,6 +1,6 @@
 'use strict'
 
-// ******************************** 计时器工具类 ********************************
+// ******************************** 计时器类 ********************************
 
 interface ITimer {
   timers: any
@@ -21,18 +21,21 @@ interface ITimer {
   removeUpdater(key: any, updater: any): void
 }
 
-// ******************************** 计时器类 ********************************
+type updateFunc = ((timer: Timer) => boolean) | null
+type callbackFunc = ((timer: Timer) => boolean) | null
 
 class Timer {
+  // 工具类
   static utils = <ITimer>new Object()
 
-  playbackRate  //:number
-  elapsed       //:number
-  duration      //:number
-  update        //:function
-  callback      //:function
+  playbackRate: number
+  elapsed: number
+  duration: number
+  update: updateFunc
+  callback: callbackFunc
 
-  constructor({duration, update, callback}) {
+  constructor(params: {duration: number, update: updateFunc, callback: callbackFunc}) {
+    const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
     this.duration = duration

@@ -425,10 +425,12 @@ Animation.initialize = function () {
           this.requestRendering()
           this.marquee.resize()
         }
+        return true
       } else {
         return false
       }
-    }
+    },
+    callback: null
   })
 
   // 创建缩放计时器
