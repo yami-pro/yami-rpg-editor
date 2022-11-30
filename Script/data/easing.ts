@@ -740,7 +740,7 @@ Easing.createPreviewImage = function () {
 // 请求渲染
 Easing.requestRendering = function () {
   if (this.data !== null) {
-    Timer.instance.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.utils.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -751,7 +751,7 @@ Easing.renderingFunction = function () {
 
 // 停止渲染
 Easing.stopRendering = function () {
-  Timer.instance.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.utils.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 窗口 - 关闭事件

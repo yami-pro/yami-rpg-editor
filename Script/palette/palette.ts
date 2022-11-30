@@ -1184,7 +1184,7 @@ Palette.scrollToSelection = function (shiftKey) {
 // 请求渲染
 Palette.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.instance.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.utils.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -1195,7 +1195,7 @@ Palette.renderingFunction = function () {
 
 // 停止渲染
 Palette.stopRendering = function () {
-  Timer.instance.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.utils.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 跳过滚动事件

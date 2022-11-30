@@ -253,7 +253,7 @@ FileAudio.formatTime = function (time) {
 // 请求动画
 FileAudio.requestAnimation = function () {
   if (this.target !== null) {
-    Timer.instance.appendUpdater('sharedAnimation', this.updateAnimation)
+    Timer.utils.appendUpdater('sharedAnimation', this.updateAnimation)
   }
 }
 
@@ -392,7 +392,7 @@ FileAudio.updateAnimation = function (deltaTime) {
 
 // 停止更新动画
 FileAudio.stopAnimation = function () {
-  Timer.instance.removeUpdater('sharedAnimation', this.updateAnimation)
+  Timer.utils.removeUpdater('sharedAnimation', this.updateAnimation)
 }
 
 // 主题改变事件

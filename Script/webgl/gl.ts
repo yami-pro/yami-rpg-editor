@@ -82,14 +82,14 @@ interface IGL {
   createNormalTexture(options): any
   createImageTexture(image, options): any
   createTextureFBO(texture): any
-}
 
-interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {
   WEBGL_lose_context: WEBGL_lose_context
   BACKGROUND_RED: number
   BACKGROUND_GREEN: number
   BACKGROUND_BLUE: number
 }
+
+interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {}
 
 interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
   _bufferData(target: number, size: number, usage: number): void
@@ -100,10 +100,6 @@ interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
   bindVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
   MIN: GLenum
   MAX: GLenum
-  WEBGL_lose_context: WEBGL_lose_context
-  BACKGROUND_RED: number
-  BACKGROUND_GREEN: number
-  BACKGROUND_BLUE: number
 }
 
 interface ICanvasRenderingContext2D extends CanvasRenderingContext2D {

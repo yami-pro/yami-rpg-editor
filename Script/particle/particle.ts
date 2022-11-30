@@ -179,7 +179,7 @@ Particle.initialize = function () {
       if (this.state === 'open' &&
         this.dragging === null) {
         const key = this.translationKey
-        const step = Timer.instance.deltaTime * 1.5 / this.scale
+        const step = Timer.utils.deltaTime * 1.5 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -1058,7 +1058,7 @@ Particle.selectEmitter = function (x, y) {
 // 请求更新动画
 Particle.requestAnimation = function () {
   if (this.state === 'open' && !this.paused) {
-    Timer.instance.appendUpdater('stageAnimation', this.updateAnimation)
+    Timer.utils.appendUpdater('stageAnimation', this.updateAnimation)
   }
 }
 
@@ -1066,20 +1066,20 @@ Particle.requestAnimation = function () {
 Particle.updateAnimation = function (deltaTime) {
   Particle.updateElements(deltaTime)
   Particle.updateParticleInfo()
-  if (Timer.instance.updaters.stageRendering !== Particle.renderingFunction) {
+  if (Timer.utils.updaters.stageRendering !== Particle.renderingFunction) {
     Particle.renderingFunction()
   }
 }
 
 // 停止更新动画
 Particle.stopAnimation = function () {
-  Timer.instance.removeUpdater('stageAnimation', this.updateAnimation)
+  Timer.utils.removeUpdater('stageAnimation', this.updateAnimation)
 }
 
 // 请求渲染
 Particle.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.instance.appendUpdater('stageRendering', this.renderingFunction)
+    Timer.utils.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
@@ -1099,7 +1099,7 @@ Particle.renderingFunction = function () {
 
 // 停止渲染
 Particle.stopRendering = function () {
-  Timer.instance.removeUpdater('stageRendering', this.renderingFunction)
+  Timer.utils.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 开关线框
