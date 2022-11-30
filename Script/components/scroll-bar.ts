@@ -1,17 +1,20 @@
 'use strict'
 
-import { Timer } from '../yami'
+import {
+  IHTMLElement,
+  Timer
+} from '../yami'
 
 // ******************************** 滚动条 ********************************
 
-class ScrollBar extends HTMLElement {
-  target            //:element
-  type              //:string
-  thumb             //:element
-  timer             //:object
-  dragging          //:event
-  windowPointerup   //:function
-  windowPointermove //:function
+class ScrollBar extends IHTMLElement {
+  target: IHTMLElement | null
+  type: string | null
+  thumb: IHTMLElement | null
+  timer: Timer | null
+  dragging: any
+  windowPointerup: (event: any) => void
+  windowPointermove: (event: any) => void
 
   constructor() {
     super()
@@ -32,7 +35,7 @@ class ScrollBar extends HTMLElement {
   // 绑定目标元素
   bind(target, type) {
     this.appendChild(this.thumb =
-      document.createElement('scroll-thumb')
+      <IHTMLElement>document.createElement('scroll-thumb')
     )
     this.thumb.appendChild(
       document.createElement('scroll-thumb-inner')
@@ -85,11 +88,11 @@ class ScrollBar extends HTMLElement {
   // 更新水平滑块
   updateHorizontalThumb(left, width) {
     const thumb = this.thumb
-    if (thumb.left !== left) {
+    if (thumb && thumb.left !== left) {
       thumb.left = left
       thumb.style.left = `${left}%`
     }
-    if (thumb.width !== width) {
+    if (thumb && thumb.width !== width) {
       thumb.width = width
       thumb.style.width = `${width}%`
     }
@@ -98,18 +101,18 @@ class ScrollBar extends HTMLElement {
   // 更新垂直滑块
   updateVerticalThumb(top, height) {
     const thumb = this.thumb
-    if (thumb.top !== top) {
+    if (thumb && thumb.top !== top) {
       thumb.top = top
       thumb.style.top = `${top}%`
     }
-    if (thumb.height !== height) {
+    if (thumb && thumb.height !== height) {
       thumb.height = height
       thumb.style.height = `${height}%`
     }
   }
 
   // 更新显示状态
-  updateDisplay(state) {
+  updateDisplay(state: boolean) {
     if (this.visible !== state) {
       this.visible = state
       switch (state) {
@@ -141,9 +144,9 @@ class ScrollBar extends HTMLElement {
                 break
               }
               const type = this.type
-              const rect = this.thumb.rect()
+              const rect = this.thumb?.rect()
               const offset = timer.offset
-              if (type === 'horizontal') {
+              if (rect && type === 'horizontal') {
                 const {clientX} = dragging
                 const {left, right} = rect
                 if (offset < 0 && clientX < left ||
@@ -152,7 +155,7 @@ class ScrollBar extends HTMLElement {
                   break
                 }
               }
-              if (type === 'vertical') {
+              if (rect && type === 'vertical') {
                 const {clientY} = dragging
                 const {top, bottom} = rect
                 if (offset < 0 && clientY < top ||
@@ -173,7 +176,7 @@ class ScrollBar extends HTMLElement {
               const {start, end, offset} = timer
               const time = elapsed / duration
               const value = start * (1 - time) + end * time
-              let max
+              let max: number
               switch (this.type) {
                 case 'horizontal':
                   max = target.scrollWidth
@@ -196,7 +199,7 @@ class ScrollBar extends HTMLElement {
               break
           }
         },
-        callback: timer => {
+        callback: (timer: Timer) => {
           if (this.dragging) {
             switch (timer.state) {
               case 'first':

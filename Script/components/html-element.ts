@@ -9,7 +9,12 @@ import {
 
 interface IHTMLElement extends HTMLElement {
   dataValue: any
-  
+  top: number
+  left: number
+  width: number
+  height: number
+  visible: boolean
+
   read(): void
   write(value: any): void
   clear(): void
@@ -20,7 +25,7 @@ interface IHTMLElement extends HTMLElement {
   removeClass(className: string): void
   seek(tagName: string, count: number): void
   css(): void
-  rect(): void
+  rect(): DOMRect
   hide(): void
   show(): void
   hideChildNodes(): void
@@ -35,6 +40,13 @@ interface IHTMLElement extends HTMLElement {
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
   listenDraggingScrollbarEvent: (pointerdown: (event: any) => void, options: any) => void
+
+  beginScrolling(): void
+  endScrolling(): void
+  setScroll(left: number, top: number): void
+  setScrollLeft(left: number): void
+  setScrollTop(top: number):void
+  updateScrollbars(): void
 }
 
 const prototype = <IHTMLElement>HTMLElement.prototype
@@ -94,7 +106,7 @@ prototype.seek = function (tagName, count = 1) {
   while (count-- > 0) {
     if (element.tagName !== tagName.toUpperCase() &&
       element.parentNode instanceof HTMLElement) {
-      element = element.parentNode
+      element = <IHTMLElement>element.parentNode
       continue
     }
     break
@@ -167,6 +179,7 @@ prototype.setTooltip = function IIFE() {
   const capture = {capture: true}
   const timer = new Timer({
     duration: 0,
+    update: null,
     callback: () => {
       if (state === 'waiting') {
         const {tip} = target
@@ -287,19 +300,21 @@ prototype.setTooltip = function IIFE() {
 
 // 元素方法 - 添加滚动条
 prototype.addScrollbars = function () {
-  const hBar = document.createElement('scroll-bar')
-  const vBar = document.createElement('scroll-bar')
-  const corner = document.createElement('scroll-corner')
+  const hBar = <IHTMLElement>document.createElement('scroll-bar')
+  const vBar = <IHTMLElement>document.createElement('scroll-bar')
+  const corner = <IHTMLElement>document.createElement('scroll-corner')
   const parent = this.parentNode
   const next = this.nextSibling
-  if (next) {
-    parent.insertBefore(hBar, next)
-    parent.insertBefore(vBar, next)
-    parent.insertBefore(corner, next)
-  } else {
-    parent.appendChild(hBar)
-    parent.appendChild(vBar)
-    parent.appendChild(corner)
+  if (parent) {
+    if (next) {
+      parent.insertBefore(hBar, next)
+      parent.insertBefore(vBar, next)
+      parent.insertBefore(corner, next)
+    } else {
+      parent.appendChild(hBar)
+      parent.appendChild(vBar)
+      parent.appendChild(corner)
+    }
   }
   hBar.bind(this, 'horizontal')
   vBar.bind(this, 'vertical')
@@ -505,3 +520,10 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
     this.on('pointerdown', pointerdown, options)
   }
 }()
+
+var IHTMLElement: {
+    prototype: IHTMLElement;
+    new(): IHTMLElement;
+};
+
+export { IHTMLElement }
