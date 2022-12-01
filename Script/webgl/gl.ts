@@ -21,8 +21,8 @@ interface IGL {
   matrix: Matrix
   width: number
   height: number
-  program: any
-  binding: any
+  program: IWebGLProgram | null
+  binding: WebGLFramebuffer | null
   masking: boolean
   depthTest: boolean
   maxTexUnits: number
@@ -32,7 +32,7 @@ interface IGL {
   textureManager: TextureManager
   layers: Uint32Array
   zeros: Uint32Array
-  arrays: any
+  arrays: { [index: number]: any }
   batchRenderer: BatchRenderer
   updateBlending: () => () => void
   frameBuffer: WebGLFramebuffer | null
@@ -50,8 +50,8 @@ interface IGL {
 
   restore(): void
   initialize(): void
-  createProgramWithShaders(vshader, fshader): IWebGLProgram | null
-  loadShader(type, source): any
+  createProgramWithShaders(vshader: string, fshader: string): IWebGLProgram | null
+  loadShader(type: number, source: string): any
   createImageProgram(): any
   createTileProgram(): any
   createTextProgram(): any
@@ -112,6 +112,45 @@ interface IWebGLProgram extends WebGLProgram {
   a_Position: number
   a_Color: number
   u_Matrix: WebGLUniformLocation | null
+  flip: number | null
+  vao: WebGLVertexArrayObject | null
+  masking: boolean
+
+  a_TexCoord: number
+  u_Ambient: WebGLUniformLocation | null
+  u_Contrast: WebGLUniformLocation | null
+  u_LightMode: WebGLUniformLocation | null
+  u_LightCoord: WebGLUniformLocation | null
+  u_LightTexSize: WebGLUniformLocation | null
+  u_Viewport: WebGLUniformLocation | null
+  u_Masking: WebGLUniformLocation | null
+  u_MaskSampler: WebGLUniformLocation | null
+  u_ColorMode: WebGLUniformLocation | null
+  u_Color: WebGLUniformLocation | null
+  u_Tint: WebGLUniformLocation | null
+  u_Repeat: WebGLUniformLocation | null
+
+  samplerNum: number
+  a_TexIndex: number
+  u_TintMode: WebGLUniformLocation | null
+  u_Samplers: WebGLUniformLocation[]
+  
+  a_TextColor: number
+  u_Threshold: WebGLUniformLocation | null
+
+  a_TexParam: number
+  a_Tint: number
+  a_LightCoord: number
+
+  u_Mode: WebGLUniformLocation | null
+
+  u_LightColor: WebGLUniformLocation | null
+
+  a_Distance: number
+}
+
+interface IWebGLVertexArrayObject extends WebGLVertexArrayObject {
+  a10: WebGLVertexArrayObject | null
 }
 
 type RGB = {red: number, green: number, blue: number}
@@ -134,7 +173,7 @@ let GL: IWebGL2RenderingContext
   }
 
   // 侦听主题改变事件
-  window.on('themechange', function (event) {
+  window.on('themechange', function (event: Event) {
     const {r, g, b} = background[event.value]
     GL.BACKGROUND_RED = r / 255
     GL.BACKGROUND_GREEN = g / 255
@@ -142,13 +181,13 @@ let GL: IWebGL2RenderingContext
   })
 
   // 侦听WebGL上下文丢失事件
-  canvas.on('webglcontextlost', function (event) {
+  canvas.on('webglcontextlost', function (event: Event) {
     event.preventDefault()
     setTimeout(() => GL.WEBGL_lose_context.restoreContext())
   })
 
   // 侦听WebGL上下文恢复事件
-  canvas.on('webglcontextrestored', function (event) {
+  canvas.on('webglcontextrestored', function (event: Event) {
     GL.restore()
   })
 
@@ -671,9 +710,12 @@ GL.createTileProgram = function () {
     const u_TintMode = this.getUniformLocation(program, 'u_TintMode')
     const u_Tint = this.getUniformLocation(program, 'u_Tint')
     const u_SamplerLength = this.maxTexUnits - 1
-    const u_Samplers = []
+    const u_Samplers: WebGLUniformLocation[] = []
     for (let i = 0; i < u_SamplerLength; i++) {
-      u_Samplers.push(this.getUniformLocation(program, `u_Samplers[${i}]`))
+      const sampler = this.getUniformLocation(program, `u_Samplers[${i}]`)
+      if (sampler) {
+        u_Samplers.push(sampler)
+      }
     }
 
     // 创建顶点数组对象
@@ -921,9 +963,12 @@ GL.createSpriteProgram = function () {
     const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
     const u_Tint = this.getUniformLocation(program, 'u_Tint')
     const u_SamplerLength = this.maxTexUnits - 1
-    const u_Samplers = []
+    const u_Samplers: WebGLUniformLocation[] = []
     for (let i = 0; i < u_SamplerLength; i++) {
-      u_Samplers.push(this.getUniformLocation(program, `u_Samplers[${i}]`))
+      const sampler = this.getUniformLocation(program, `u_Samplers[${i}]`)
+      if (sampler) {
+        u_Samplers.push(sampler)
+      }
     }
 
     // 创建顶点数组对象
@@ -1220,7 +1265,7 @@ GL.createGraphicProgram = function () {
     const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
 
     // 创建顶点数组对象
-    const vao = this.createVertexArray()
+    const vao = <IWebGLVertexArrayObject>this.createVertexArray()
     this.bindVertexArray(vao)
     this.enableVertexAttribArray(a_Position)
     this.enableVertexAttribArray(a_Color)
@@ -1349,6 +1394,8 @@ GL.reset = function () {
 
 // WebGL上下文方法 - 更新遮罩模式
 GL.updateMasking = function () {
+  if (!this.program)
+    return
   if (this.program.masking !== this.masking) {
     this.program.masking = this.masking
     if (this.masking) {
@@ -1455,6 +1502,8 @@ GL.setContrast = function (contrast) {
       this.tileProgram,
       this.spriteProgram,
     ]) {
+      if (!program)
+        return
       this.useProgram(program)
       this.uniform1f(program.u_Contrast, contrast)
     }
@@ -1479,6 +1528,8 @@ GL.setAmbientLight = function ({red, green, blue}) {
       this.imageProgram,
       this.tileProgram,
     ]) {
+      if (!program)
+        return
       this.useProgram(program)
       this.uniform3f(program.u_Ambient, r, g, b)
     }
@@ -1532,6 +1583,8 @@ GL.updateLightTexSize = function () {
     this.tileProgram,
     this.spriteProgram,
   ]) {
+    if (!program)
+      return
     this.useProgram(program)
     this.uniform4f(program.u_LightTexSize, sizeX, sizeY, centerX, centerY)
   }
@@ -1542,6 +1595,8 @@ GL.updateLightTexSize = function () {
 // 避免chrome 69未绑定纹理警告
 GL.updateSamplerNum = function (samplerNum) {
   const program = this.program
+  if (!program)
+    return
   const lastNum = program.samplerNum
   if (lastNum !== samplerNum) {
     const u_Samplers = program.u_Samplers
@@ -1608,7 +1663,7 @@ GL.resize = function (width, height) {
 }
 
 // WebGL上下文方法 - 绘制图像
-GL.drawImage = function drawImage() {
+GL.drawImage = function IIFE() {
   const defTint = new Uint8Array(4)
   return function (texture, dx, dy, dw, dh, tint = defTint) {
     if (!texture.complete) return
@@ -1705,7 +1760,9 @@ GL.drawSliceImage = function (texture, dx, dy, dw, dh, clip, border, tint) {
   const gray = tint[3] / 255
 
   // 绘制图像
-  const program = this.imageProgram.use()
+  const program = this.imageProgram?.use()
+  if (!program)
+    return
   const vertices = texture.sliceVertices
   const thresholds = texture.sliceThresholds
   const count = texture.sliceCount
@@ -1733,7 +1790,9 @@ GL.drawSliceImage = function (texture, dx, dy, dw, dh, clip, border, tint) {
 GL.drawText = function (texture, dx, dy, dw, dh, color) {
   if (!texture.complete) return
 
-  const program = this.textProgram.use()
+  const program = this.textProgram?.use()
+  if (!program)
+    return
   const vertices = this.arrays[0].float32
   const colors = this.arrays[0].uint32
   const base = texture.base
@@ -1797,6 +1856,8 @@ GL.drawText = function (texture, dx, dy, dw, dh, color) {
 // WebGL上下文方法 - 填充矩形
 GL.fillRect = function (dx, dy, dw, dh, color) {
   const program = this.graphicProgram?.use()
+  if (!program)
+    return
   const vertices = this.arrays[0].float32
   const colors = this.arrays[0].uint32
 
@@ -1860,7 +1921,7 @@ GL.createContext2D = function () {
 }
 
 // WebGL上下文方法 - 填充描边文字
-GL.fillTextWithOutline = function fillTextWithOutline() {
+GL.fillTextWithOutline = function IIFE() {
   const offsets = [
     {ox: -1, oy:  0, rgba: 0},
     {ox:  1, oy:  0, rgba: 0},

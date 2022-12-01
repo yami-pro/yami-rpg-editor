@@ -5,6 +5,14 @@ import { GL } from '../yami'
 // ******************************** 基础纹理类 ********************************
 
 class BaseTexture {
+  width: number
+  height: number
+  
+  magFilter: number
+  minFilter: number
+  format: number
+  glTexture: WebGLTexture | null
+
   constructor() {
     this.glTexture = GL.createTexture()
     this.width = 0

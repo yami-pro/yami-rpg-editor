@@ -13,6 +13,16 @@ class Texture {
   width: number
   height: number
 
+  fbo: WebGLFramebuffer
+  innerWidth: number
+  innerHeight: number
+  paddingLeft: number
+  paddingTop: number
+  paddingRight: number
+  paddingBottom: number
+  scaleX: number
+  scaleY: number
+
   constructor(options = {}) {
     if (new.target !== Texture) {
       return
