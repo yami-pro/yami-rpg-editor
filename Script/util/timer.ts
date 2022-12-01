@@ -1,19 +1,27 @@
 'use strict'
 
 import {
-  Function
+  Function,
+  emptyFunc,
+  IArray
 } from '../yami'
 
 // ******************************** 计时器管理类 ********************************
 
 interface ITimer {
-  timers: any
-  updaters: any
+  timers: Timer[]
+  updaters: {
+    stageAnimation: updaterFunc | null
+    stageRendering: updaterFunc | null
+    sharedAnimation: updaterFunc | null
+    sharedRendering: updaterFunc | null
+    sharedRendering2: updaterFunc | null
+  }
   timestamp: number
   deltaTime: number
   frameCount: number
   frameTime: number
-  tpf: any
+  tpf: number
   animationIndex: number
   animationWaiting: number
 
@@ -21,12 +29,12 @@ interface ITimer {
   start(timestamp: number): void
   update(timestamp: number): void
   play(): void
-  appendUpdater(key: any, updater: any): void
-  removeUpdater(key: any, updater: any): void
+  appendUpdater(key: updaterKey, updater: updaterFunc): void
+  removeUpdater(key: updaterKey, updater: updaterFunc): void
 }
 
-type updateFunc = ((timer: Timer) => boolean) | null
-type callbackFunc = ((timer: Timer) => boolean) | null
+type updateFunc = (timer: Timer) => boolean
+type callbackFunc = (timer: Timer) => boolean
 
 const TimerManager = <ITimer>new Object()
 
@@ -36,10 +44,10 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: updateFunc
-  callback: callbackFunc
+  update: updateFunc | emptyFunc
+  callback: callbackFunc | emptyFunc
 
-  constructor(params: {duration: number, update: updateFunc, callback: callbackFunc}) {
+  constructor(params: {duration: number, update: updateFunc | emptyFunc, callback: callbackFunc | emptyFunc}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
@@ -71,7 +79,7 @@ class Timer {
 
   // 添加到列表
   add() {
-    if (TimerManager.timers.append(this)) {
+    if ((<IArray>TimerManager.timers).append(this)) {
       TimerManager.play()
     }
     return this
@@ -79,10 +87,17 @@ class Timer {
 
   // 从列表中删除
   remove() {
-    TimerManager.timers.remove(this)
+    (<IArray>TimerManager.timers).remove(this)
     return this
   }
 }
+
+type updaterFunc = (deltaTime: number) => void
+type updaterKey = 'stageAnimation' |
+                  'stageRendering' |
+                  'sharedAnimation' |
+                  'sharedRendering' |
+                  'sharedRendering2'
 
 // properties
 TimerManager.timers = []
@@ -218,7 +233,7 @@ TimerManager.play = function () {
 
 // 添加更新器
 TimerManager.appendUpdater = function (key, updater) {
-  const updaters = this.updaters
+  const {updaters} = this
   if (updaters[key] === null) {
     updaters[key] = updater
     this.play()
@@ -227,7 +242,7 @@ TimerManager.appendUpdater = function (key, updater) {
 
 // 移除更新器
 TimerManager.removeUpdater = function (key, updater) {
-  const updaters = this.updaters
+  const {updaters} = this
   if (updaters[key] === updater) {
     updaters[key] = null
   }

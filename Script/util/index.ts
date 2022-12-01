@@ -1,6 +1,6 @@
 'use strict'
 
-import './array'
+// import './array'
 import './canvas-rendering-context2D'
 // import './clipboard'
 import './css'
@@ -20,7 +20,8 @@ import './string'
 import './undo-redo'
 import './util'
 
-export { Function } from './function'
+export { Array, IArray } from './array'
+export { Function, emptyFunc } from './function'
 export { Timer, TimerManager } from './timer'
 export { StageColor } from './stage-color'
 export { ctrl } from './ctrl'

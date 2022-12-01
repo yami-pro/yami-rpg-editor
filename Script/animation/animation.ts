@@ -432,7 +432,7 @@ Animation.initialize = function () {
         return false
       }
     },
-    callback: null
+    callback: () => {}
   })
 
   // 创建缩放计时器
@@ -445,11 +445,13 @@ Animation.initialize = function () {
         this.scale = start * (1 - time) + end * time
         this.resize()
         this.requestRendering()
+        return true
       } else {
         this.scale = timer.end
         return false
       }
-    }
+    },
+    callback: () => {}
   })
 
   // 设置方向标签
