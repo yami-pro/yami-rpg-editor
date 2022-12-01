@@ -2,6 +2,14 @@
 
 // ******************************** 事件访问器 ********************************
 
+interface IEvent extends Event {
+  value: 'light' | 'dark'
+}
+
+const prototype = <IEvent>Event.prototype
+
+prototype.value = 'dark'
+
 Object.defineProperties(Event.prototype, {
   dragKey: {
     get: function () {
@@ -14,3 +22,5 @@ Object.defineProperties(Event.prototype, {
     : function () {return this.ctrlKey}
   },
 })
+
+export { IEvent }

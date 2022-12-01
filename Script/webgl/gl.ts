@@ -9,14 +9,15 @@ import {
   Texture,
   TextureManager,
   IHTMLImageElement,
-  ImageTexture
+  ImageTexture,
+  IEvent
 } from '../yami'
 
 // ******************************** WebGL ********************************
 
 interface IGL {
   contrast: number
-  ambient: RGB
+  ambient: rgbColor
   flip: number
   alpha: number
   blend: string
@@ -36,7 +37,7 @@ interface IGL {
   zeros: Uint32Array
   arrays: { [index: number]: any }
   batchRenderer: BatchRenderer
-  updateBlending: () => () => void
+  updateBlending: () => void
   frameBuffer: WebGLFramebuffer | null
   vertexBuffer: WebGLBuffer | null
   elementBuffer: WebGLBuffer | null
@@ -64,9 +65,9 @@ interface IGL {
   createDashedLineProgram(): IWebGLProgram | null
   reset(): void
   updateMasking(): void
-  createBlendingUpdater(): any
+  createBlendingUpdater(): () => void
   setContrast(contrast: number): void
-  setAmbientLight(rgb: RGB): void
+  setAmbientLight(rgb: rgbColor): void
   resizeLightmap(): void
   updateLightTexSize(): void
   updateSamplerNum(samplerNum: number): void
@@ -79,7 +80,7 @@ interface IGL {
   drawSliceImage(texture: ImageTexture, dx: number, dy: number, dw: number, dh: number, clip: Uint32Array, border: number, tint: Uint8Array): void
   drawText(texture: Texture, dx: number, dy: number, dw: number, dh: number, color: number): void
   fillRect(dx: number, dy: number, dw: number, dh: number, color: number): void
-  createContext2D(): any
+  createContext2D(): ICanvasRenderingContext2D
   fillTextWithOutline: (text: string, x: number, y: number, color: number, shadow: number) => void
   createNormalTexture(options: {magFilter?: number, minFilter?: number, format?: number}): BaseTexture | null
   createImageTexture(image: IHTMLImageElement, options: {magFilter?: number, minFilter?: number}): ImageTexture | null
@@ -95,7 +96,7 @@ interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {}
 
 interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
   _bufferData(target: number, size: number, usage: number): void
-  bufferData(...args: any[]): any
+  bufferData(...args: any[]): void
   createVertexArray(): WebGLVertexArrayObjectOES
   deleteVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
   isVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): boolean
@@ -107,7 +108,7 @@ interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
 interface ICanvasRenderingContext2D extends CanvasRenderingContext2D {
   size: number
   paddingItalic: number
-  
+
   resize(width: number, height: number): void
 }
 
@@ -158,7 +159,7 @@ interface IWebGLVertexArrayObject extends WebGLVertexArrayObject {
   a10: WebGLVertexArrayObject | null
 }
 
-type RGB = {red: number, green: number, blue: number}
+type rgbColor = {red: number, green: number, blue: number}
 
 let GL: IWebGL2RenderingContext
 
@@ -172,27 +173,27 @@ let GL: IWebGL2RenderingContext
   canvas.style.height = '100%'
 
   // 主题画布背景颜色
-  const background: any = {
-    light: {r: 0xc8, g: 0xc8, b: 0xc8},
-    dark: {r: 0x20, g: 0x20, b: 0x20},
+  const background: { light: rgbColor, dark: rgbColor } = {
+    light: {red: 0xc8, green: 0xc8, blue: 0xc8},
+    dark: {red: 0x20, green: 0x20, blue: 0x20},
   }
 
   // 侦听主题改变事件
-  window.on('themechange', function (event: Event) {
-    const {r, g, b} = background[event.value]
-    GL.BACKGROUND_RED = r / 255
-    GL.BACKGROUND_GREEN = g / 255
-    GL.BACKGROUND_BLUE = b / 255
+  window.on('themechange', function (event: IEvent) {
+    const {red, green, blue} = background[event.value]
+    GL.BACKGROUND_RED = red / 255
+    GL.BACKGROUND_GREEN = green / 255
+    GL.BACKGROUND_BLUE = blue / 255
   })
 
   // 侦听WebGL上下文丢失事件
-  canvas.on('webglcontextlost', function (event: Event) {
+  canvas.on('webglcontextlost', function (event: IEvent) {
     event.preventDefault()
     setTimeout(() => GL.WEBGL_lose_context.restoreContext())
   })
 
   // 侦听WebGL上下文恢复事件
-  canvas.on('webglcontextrestored', function (event: Event) {
+  canvas.on('webglcontextrestored', function (event: IEvent) {
     GL.restore()
   })
 
