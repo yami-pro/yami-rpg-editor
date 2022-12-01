@@ -20,7 +20,7 @@ import './string'
 import './undo-redo'
 import './util'
 
-export { Timer } from './timer'
+export { Timer, TimerManager } from './timer'
 export { StageColor } from './stage-color'
 export { ctrl } from './ctrl'
 export { measureText } from './util'

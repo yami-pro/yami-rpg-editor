@@ -1,6 +1,9 @@
 'use strict'
 
-import { Timer } from '../yami'
+import {
+  Timer,
+  TimerManager
+} from '../yami'
 
 // ******************************** 滚动侦听器 ********************************
 
@@ -14,7 +17,7 @@ import { Timer } from '../yami'
 
   // 计算滚动距离
   const computeScrollDelta = speed => {
-    let delta = speed * Timer.utils.deltaTime
+    let delta = speed * TimerManager.deltaTime
     const dpr = window.devicePixelRatio
     const tolerance = 0.0001
     // 修正数值让正反方向每帧的滚动距离相等

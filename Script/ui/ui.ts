@@ -21,6 +21,7 @@ import {
   // TextBoxElement,
   // TextElement,
   Timer,
+  TimerManager,
   Window,
   Clipboard
 } from '../yami'
@@ -276,7 +277,7 @@ UI.initialize = function () {
       if (this.state === 'open' &&
         this.dragging === null) {
         const key = this.translationKey
-        const step = Timer.utils.deltaTime * 1.5 / this.scale
+        const step = TimerManager.deltaTime * 1.5 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -1691,7 +1692,7 @@ UI.selectObject = function IIFE() {
 // 请求渲染
 UI.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.utils.appendUpdater('stageRendering', this.renderingFunction)
+    TimerManager.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
@@ -1710,7 +1711,7 @@ UI.renderingFunction = function () {
 
 // 停止渲染
 UI.stopRendering = function () {
-  Timer.utils.removeUpdater('stageRendering', this.renderingFunction)
+  TimerManager.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 开关设置

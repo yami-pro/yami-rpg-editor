@@ -43,7 +43,7 @@ import {
   SetQuantity,
   Sprite,
   Team,
-  Timer,
+  TimerManager,
   Title,
   UI,
   Variable,
@@ -80,7 +80,7 @@ class YMEditor {
       Menubar.initialize()
       Home.initialize()
       Layout.initialize()
-      Timer.utils.initialize()
+      TimerManager.initialize()
       Scene.initialize()
       UI.initialize()
       Animation.initialize()

@@ -1,6 +1,6 @@
 'use strict'
 
-// ******************************** 计时器类 ********************************
+// ******************************** 计时器管理类 ********************************
 
 interface ITimer {
   timers: any
@@ -24,10 +24,11 @@ interface ITimer {
 type updateFunc = ((timer: Timer) => boolean) | null
 type callbackFunc = ((timer: Timer) => boolean) | null
 
-class Timer {
-  // 工具类
-  static utils = <ITimer>new Object()
+const TimerManager = <ITimer>new Object()
 
+// ******************************** 计时器类 ********************************
+
+class Timer {
   playbackRate: number
   elapsed: number
   duration: number
@@ -66,38 +67,38 @@ class Timer {
 
   // 添加到列表
   add() {
-    if (Timer.utils.timers.append(this)) {
-      Timer.utils.play()
+    if (TimerManager.timers.append(this)) {
+      TimerManager.play()
     }
     return this
   }
 
   // 从列表中删除
   remove() {
-    Timer.utils.timers.remove(this)
+    TimerManager.timers.remove(this)
     return this
   }
 }
 
 // properties
-Timer.utils.timers = []
-Timer.utils.updaters = {
+TimerManager.timers = []
+TimerManager.updaters = {
   stageAnimation: null,
   stageRendering: null,
   sharedAnimation: null,
   sharedRendering: null,
   sharedRendering2: null,
 }
-Timer.utils.timestamp = 0
-Timer.utils.deltaTime = 0
-Timer.utils.frameCount = 0
-Timer.utils.frameTime = 0
-Timer.utils.tpf = Infinity
-Timer.utils.animationIndex = -1
-Timer.utils.animationWaiting = 0
+TimerManager.timestamp = 0
+TimerManager.deltaTime = 0
+TimerManager.frameCount = 0
+TimerManager.frameTime = 0
+TimerManager.tpf = Infinity
+TimerManager.animationIndex = -1
+TimerManager.animationWaiting = 0
 
 // 初始化
-Timer.utils.initialize = function () {
+TimerManager.initialize = function () {
   // 设置初始参数
   this.timestamp = 0
   this.deltaTime = 0
@@ -131,33 +132,33 @@ Timer.utils.initialize = function () {
 }
 
 // 开始动画
-Timer.utils.start = function (timestamp) {
-  Timer.utils.timestamp = timestamp - Timer.utils.deltaTime
-  Timer.utils.update(timestamp)
+TimerManager.start = function (timestamp) {
+  TimerManager.timestamp = timestamp - TimerManager.deltaTime
+  TimerManager.update(timestamp)
 }
 
 // 更新动画
-Timer.utils.update = function (timestamp) {
-  let deltaTime = timestamp - Timer.utils.timestamp
+TimerManager.update = function (timestamp) {
+  let deltaTime = timestamp - TimerManager.timestamp
 
   // 计算FPS相关数据
-  Timer.utils.frameCount++
-  Timer.utils.frameTime += deltaTime
-  if (Timer.utils.frameTime > 995) {
-    Timer.utils.tpf = Timer.utils.frameTime / Timer.utils.frameCount
-    Timer.utils.frameCount = 0
-    Timer.utils.frameTime = 0
+  TimerManager.frameCount++
+  TimerManager.frameTime += deltaTime
+  if (TimerManager.frameTime > 995) {
+    TimerManager.tpf = TimerManager.frameTime / TimerManager.frameCount
+    TimerManager.frameCount = 0
+    TimerManager.frameTime = 0
   }
 
   // 修正间隔 - 减少跳帧视觉差异
-  deltaTime = Math.min(deltaTime, Timer.utils.tpf + 1, 35)
+  deltaTime = Math.min(deltaTime, TimerManager.tpf + 1, 35)
 
   // 更新属性
-  Timer.utils.timestamp = timestamp
-  Timer.utils.deltaTime = deltaTime
+  TimerManager.timestamp = timestamp
+  TimerManager.deltaTime = deltaTime
 
   // 更新计时器
-  const {timers} = Timer.utils
+  const {timers} = TimerManager
   let i = timers.length
   while (--i >= 0) {
     timers[i].tick(deltaTime)
@@ -165,10 +166,10 @@ Timer.utils.update = function (timestamp) {
 
   // 更新更新器
   // 逐个获取更新器以便中途插入更新器
-  const updaters = Timer.utils.updaters
+  const updaters = TimerManager.updaters
   const {stageAnimation} = updaters
   if (stageAnimation !== null &&
-    Timer.utils.animationWaiting === 0 &&
+    TimerManager.animationWaiting === 0 &&
     document.hasFocus()) {
     stageAnimation(deltaTime)
   }
@@ -179,7 +180,7 @@ Timer.utils.update = function (timestamp) {
   }
   const {sharedAnimation} = updaters
   if (sharedAnimation !== null &&
-    Timer.utils.animationWaiting === 0 &&
+    TimerManager.animationWaiting === 0 &&
     document.hasFocus()) {
     sharedAnimation(deltaTime)
   }
@@ -195,24 +196,24 @@ Timer.utils.update = function (timestamp) {
   }
 
   // 继续或结束动画
-  if (Timer.utils.timers.length > 0 ||
+  if (TimerManager.timers.length > 0 ||
     stageAnimation !== null ||
     sharedAnimation !== null) {
-    Timer.utils.animationIndex = requestAnimationFrame(Timer.utils.update)
+    TimerManager.animationIndex = requestAnimationFrame(TimerManager.update)
   } else {
-    Timer.utils.animationIndex = -1
+    TimerManager.animationIndex = -1
   }
 }
 
 // 播放动画
-Timer.utils.play = function () {
+TimerManager.play = function () {
   if (this.animationIndex === -1) {
     this.animationIndex = requestAnimationFrame(this.start)
   }
 }
 
 // 添加更新器
-Timer.utils.appendUpdater = function (key, updater) {
+TimerManager.appendUpdater = function (key, updater) {
   const updaters = this.updaters
   if (updaters[key] === null) {
     updaters[key] = updater
@@ -221,7 +222,7 @@ Timer.utils.appendUpdater = function (key, updater) {
 }
 
 // 移除更新器
-Timer.utils.removeUpdater = function (key, updater) {
+TimerManager.removeUpdater = function (key, updater) {
   const updaters = this.updaters
   if (updaters[key] === updater) {
     updaters[key] = null
@@ -230,4 +231,4 @@ Timer.utils.removeUpdater = function (key, updater) {
 
 // ******************************** 计时器类导出 ********************************
 
-export { Timer }
+export { Timer, TimerManager }

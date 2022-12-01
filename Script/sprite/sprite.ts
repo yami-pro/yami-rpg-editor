@@ -5,7 +5,8 @@ import {
   Cursor,
   Inspector,
   Palette,
-  Timer
+  Timer,
+  TimerManager
 } from '../yami'
 
 // ******************************** 精灵窗口 ********************************
@@ -499,7 +500,7 @@ Sprite.scrollToSelection = function () {
 // 请求渲染
 Sprite.requestRendering = function () {
   if (this.state === 'open') {
-    Timer.utils.appendUpdater('sharedRendering', this.renderingFunction)
+    TimerManager.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -510,7 +511,7 @@ Sprite.renderingFunction = function () {
 
 // 停止渲染
 Sprite.stopRendering = function () {
-  Timer.utils.removeUpdater('sharedRendering', this.renderingFunction)
+  TimerManager.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 保存状态到项目文件
