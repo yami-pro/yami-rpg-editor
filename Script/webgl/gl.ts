@@ -96,10 +96,10 @@ interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
   bufferData(...args: any[]): any
   createVertexArray(): WebGLVertexArrayObjectOES
   deleteVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
-  isVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): GLboolean
+  isVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): boolean
   bindVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
-  MIN: GLenum
-  MAX: GLenum
+  MIN: number
+  MAX: number
 }
 
 interface ICanvasRenderingContext2D extends CanvasRenderingContext2D {
@@ -116,7 +116,7 @@ interface IWebGLProgram extends WebGLProgram {
 
 type RGB = {red: number, green: number, blue: number}
 
-let GL: IWebGL2RenderingContext | IWebGLRenderingContext
+let GL: IWebGL2RenderingContext
 
 {
   // 创建画布元素
@@ -167,25 +167,25 @@ let GL: IWebGL2RenderingContext | IWebGLRenderingContext
   GL = <IWebGL2RenderingContext>canvas.getContext('webgl2', options)
   if (GL instanceof WebGL2RenderingContext) {} else {
     // 回退到WebGL1(Win7 DirectX9以及旧移动设备)
-    GL = <IWebGLRenderingContext>canvas.getContext('webgl', options)
+    const GL1 = <IWebGLRenderingContext>canvas.getContext('webgl', options)
 
     // 获取元素索引 32 位无符号整数扩展
-    const element_index_uint = GL.getExtension('OES_element_index_uint')
+    const element_index_uint = GL1.getExtension('OES_element_index_uint')
 
     // 获取顶点数组对象扩展
-    const vertex_array_object = GL.getExtension('OES_vertex_array_object')
+    const vertex_array_object = GL1.getExtension('OES_vertex_array_object')
     if (vertex_array_object !== null) {
-      GL.createVertexArray = vertex_array_object.createVertexArrayOES.bind(vertex_array_object)
-      GL.deleteVertexArray = vertex_array_object.deleteVertexArrayOES.bind(vertex_array_object)
-      GL.isVertexArray = vertex_array_object.isVertexArrayOES.bind(vertex_array_object)
-      GL.bindVertexArray = vertex_array_object.bindVertexArrayOES.bind(vertex_array_object)
+      GL1.createVertexArray = vertex_array_object.createVertexArrayOES.bind(vertex_array_object)
+      GL1.deleteVertexArray = vertex_array_object.deleteVertexArrayOES.bind(vertex_array_object)
+      GL1.isVertexArray = vertex_array_object.isVertexArrayOES.bind(vertex_array_object)
+      GL1.bindVertexArray = vertex_array_object.bindVertexArrayOES.bind(vertex_array_object)
     }
 
     // 获取最小和最大混合模式扩展
-    const blend_minmax = GL.getExtension('EXT_blend_minmax')
+    const blend_minmax = GL1.getExtension('EXT_blend_minmax')
     if (blend_minmax !== null) {
-      GL.MIN = blend_minmax.MIN_EXT
-      GL.MAX = blend_minmax.MAX_EXT
+      GL1.MIN = blend_minmax.MIN_EXT
+      GL1.MAX = blend_minmax.MAX_EXT
     }
 
     // 重写更新缓冲数据方法
@@ -198,6 +198,10 @@ let GL: IWebGL2RenderingContext | IWebGLRenderingContext
       }
       return prototype._bufferData(target, data, usage)
     }
+
+    // 转换到WebGL2
+    const GL1Object = <Object>GL1
+    GL = <IWebGL2RenderingContext>GL1Object
   }
 
   // 获取失去上下文扩展
