@@ -3,7 +3,8 @@
 import {
   Function,
   emptyFunc,
-  IArray
+  IArray,
+  IHTMLElement
 } from '../yami'
 
 // ******************************** 计时器管理类 ********************************
@@ -127,20 +128,22 @@ TimerManager.initialize = function () {
 
   // 监测其他窗口的状态
   // 在最大化时停止播放动画
-  const windowOpen = event => {
-    if (event.target.hasClass('maximized')) {
+  const windowOpen = (event: Event) => {
+    const target = event.target
+    if (target && (<IHTMLElement>target).hasClass('maximized')) {
       this.animationWaiting++
     }
   }
-  const windowClosed = event => {
-    if (event.target.hasClass('maximized')) {
+  const windowClosed = (event: Event) => {
+    const target = event.target
+    if (target && (<IHTMLElement>target).hasClass('maximized')) {
       this.animationWaiting--
     }
   }
-  const windowMaximize = event => {
+  const windowMaximize = (event: Event) => {
     this.animationWaiting++
   }
-  const windowUnmaximize = event => {
+  const windowUnmaximize = (event: Event) => {
     this.animationWaiting--
   }
   const windows = $('#event, #selector, #imageClip')

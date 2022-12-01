@@ -21,7 +21,7 @@ interface IHTMLElement extends HTMLElement {
   clear(): void
   enable(): void
   disable(): void
-  hasClass(className: string): void
+  hasClass(className: string): boolean
   addClass(className: string): void
   removeClass(className: string): void
   seek(tagName: string, count: number): void
