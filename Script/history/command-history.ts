@@ -1,5 +1,9 @@
 'use strict'
 
+import {
+  Function
+} from '../yami'
+
 // ******************************** 指令操作历史 ********************************
 
 class CommandHistory {

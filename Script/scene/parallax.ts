@@ -3,7 +3,8 @@
 import {
   GL,
   ImageTexture,
-  Scene
+  Scene,
+  Function
 } from '../yami'
 
 // ******************************** 视差图类 ********************************

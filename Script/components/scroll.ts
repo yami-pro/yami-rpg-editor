@@ -2,7 +2,8 @@
 
 import {
   Timer,
-  TimerManager
+  TimerManager,
+  Function
 } from '../yami'
 
 // ******************************** 滚动侦听器 ********************************

@@ -5,7 +5,8 @@ import {
   INTRGBA,
   Printer,
   Texture,
-  UI
+  UI,
+  Function
 } from '../yami'
 
 // ******************************** 文本框元素 ********************************

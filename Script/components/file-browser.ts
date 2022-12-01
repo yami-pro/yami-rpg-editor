@@ -9,7 +9,8 @@ import {
   FolderItem,
   Local,
   Menu,
-  Path
+  Path,
+  Function
 } from '../yami'
 
 // ******************************** 文件浏览器 ********************************

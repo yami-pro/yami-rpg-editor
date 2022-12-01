@@ -1,6 +1,9 @@
 'use strict'
 
-import { Title } from '../yami'
+import {
+  Title,
+  Function
+} from '../yami'
 
 // ******************************** 标签栏 ********************************
 

@@ -12,7 +12,8 @@ import {
   Particle,
   Scene,
   Title,
-  UI
+  UI,
+  Function
 } from '../yami'
 
 // ******************************** 布局对象 ********************************

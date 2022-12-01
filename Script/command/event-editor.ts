@@ -5,7 +5,8 @@ import {
   getElementReader,
   getElementWriter,
   Local,
-  Window
+  Window,
+  Function
 } from '../yami'
 
 // ******************************** 事件编辑器 ********************************

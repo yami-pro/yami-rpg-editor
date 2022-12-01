@@ -1,5 +1,9 @@
 'use strict'
 
+import {
+  Function
+} from '../yami'
+
 // ******************************** 计时器管理类 ********************************
 
 interface ITimer {

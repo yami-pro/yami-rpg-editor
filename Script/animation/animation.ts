@@ -28,7 +28,8 @@ import {
   UI,
   Window,
   Clipboard,
-  IHTMLElement
+  IHTMLElement,
+  Function
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************

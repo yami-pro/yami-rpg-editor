@@ -11,7 +11,8 @@ import {
   Log,
   Meta,
   Path,
-  Window
+  Window,
+  Function
 } from '../yami'
 
 // ******************************** 目录 ********************************

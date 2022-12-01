@@ -8,7 +8,8 @@ import {
   Menu,
   ParamHistory,
   WindowFrame,
-  Clipboard
+  Clipboard,
+  Function
 } from '../yami'
 
 // ******************************** 参数列表 ********************************

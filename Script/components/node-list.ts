@@ -4,7 +4,8 @@ import {
   CommonList,
   Menu,
   TextBox,
-  Timer
+  Timer,
+  Function
 } from '../yami'
 
 // ******************************** 树状列表 ********************************

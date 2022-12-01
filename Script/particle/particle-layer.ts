@@ -4,7 +4,8 @@ import {
   Easing,
   GL,
   ImageTexture,
-  Particle
+  Particle,
+  Function
 } from '../yami'
 
 // ******************************** 粒子图层类 ********************************
