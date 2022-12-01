@@ -234,7 +234,7 @@ prototype.setTooltip = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (event) {
+  const pointermove = function (this: IHTMLElement, event) {
     // 两个重叠元素时执行最上层的那个
     if (timeStamp === event.timeStamp) {
       return
@@ -287,7 +287,7 @@ prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (tip) {
+  return function (this: IHTMLElement, tip) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)
@@ -308,9 +308,9 @@ prototype.setTooltip = function IIFE() {
 
 // 元素方法 - 添加滚动条
 prototype.addScrollbars = function () {
-  const hBar = document.createElement('scroll-bar')
-  const vBar = document.createElement('scroll-bar')
-  const corner = document.createElement('scroll-corner')
+  const hBar = <IHTMLElement>document.createElement('scroll-bar')
+  const vBar = <IHTMLElement>document.createElement('scroll-bar')
+  const corner = <IHTMLElement>document.createElement('scroll-corner')
   const parent = this.parentNode
   const next = this.nextSibling
   if (parent) {
@@ -449,7 +449,7 @@ prototype.dispatchChangeEvent = function IIFE() {
     new Event('change', {bubbles: true}),
     new Event('change', {bubbles: true}),
   ]
-  return function (index = 0) {
+  return function (this: IHTMLElement, index = 0) {
     this.dispatchEvent(changes[index])
   }
 }()
@@ -457,7 +457,7 @@ prototype.dispatchChangeEvent = function IIFE() {
 // 元素方法 - 发送调整事件
 prototype.dispatchResizeEvent = function IIFE() {
   const resize = new Event('resize')
-  return function () {
+  return function (this: IHTMLElement) {
     this.dispatchEvent(resize)
   }
 }()
@@ -465,7 +465,7 @@ prototype.dispatchResizeEvent = function IIFE() {
 // 元素方法 - 发送更新事件
 prototype.dispatchUpdateEvent = function IIFE() {
   const update = new Event('update')
-  return function () {
+  return function (this: IHTMLElement) {
     this.dispatchEvent(update)
   }
 }()
@@ -473,7 +473,7 @@ prototype.dispatchUpdateEvent = function IIFE() {
 // 元素方法 - 侦听拖拽滚动条事件
 prototype.listenDraggingScrollbarEvent = function IIFE() {
   // 默认指针按下事件
-  const defaultPointerdown = function (event) {
+  const defaultPointerdown = function (this: IHTMLElement, event) {
     if (this.dragging) {
       return
     }
@@ -495,7 +495,7 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针弹起事件
-  const pointerup = function (event) {
+  const pointerup = function (this: IHTMLElement, event) {
     const {dragging} = this
     if (dragging.relate(event)) {
       switch (dragging.mode) {
@@ -510,7 +510,7 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (event) {
+  const pointermove = function (this: IHTMLElement, event) {
     const {dragging} = this
     if (dragging.relate(event)) {
       switch (dragging.mode) {
@@ -522,7 +522,7 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
     }
   }
 
-  return function (pointerdown = defaultPointerdown, options) {
+  return function (this: IHTMLElement, pointerdown = defaultPointerdown, options) {
     this.scrollPointerup = pointerup.bind(this)
     this.scrollPointermove = pointermove.bind(this)
     this.on('pointerdown', pointerdown, options)

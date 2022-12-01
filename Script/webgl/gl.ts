@@ -40,7 +40,7 @@ interface IGL {
   frameBuffer: WebGLFramebuffer | null
   vertexBuffer: WebGLBuffer | null
   elementBuffer: WebGLBuffer | null
-  context2d: CanvasRenderingContext2D | null
+  context2d: ICanvasRenderingContext2D | null
   imageProgram: IWebGLProgram | null
   tileProgram: IWebGLProgram | null
   textProgram: IWebGLProgram | null
@@ -105,6 +105,9 @@ interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
 }
 
 interface ICanvasRenderingContext2D extends CanvasRenderingContext2D {
+  size: number
+  paddingItalic: number
+  
   resize(width: number, height: number): void
 }
 
