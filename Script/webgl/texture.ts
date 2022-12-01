@@ -1,19 +1,22 @@
 'use strict'
 
-import { GL } from '../yami'
+import {
+  GL,
+  BaseTexture
+} from '../yami'
 
 // ******************************** 纹理类 ********************************
 
 class Texture {
   complete: boolean
-  base      //:object
-  gl        //:object
+  base: BaseTexture | null
+  gl
   x: number
   y: number
   width: number
   height: number
 
-  fbo: WebGLFramebuffer
+  fbo: WebGLFramebuffer | null
   innerWidth: number
   innerHeight: number
   paddingLeft: number
@@ -22,6 +25,8 @@ class Texture {
   paddingBottom: number
   scaleX: number
   scaleY: number
+
+  depthStencilBuffer: WebGLRenderbuffer | null
 
   constructor(options = {}) {
     if (new.target !== Texture) {
@@ -58,7 +63,7 @@ class Texture {
   }
 
   // 调整大小
-  resize(width, height) {
+  resize(width: number, height: number) {
     const {gl, base} = this
     const {format} = base
     base.width = width

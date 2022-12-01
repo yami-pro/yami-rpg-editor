@@ -7,7 +7,9 @@ import {
   File,
   Matrix,
   Texture,
-  TextureManager
+  TextureManager,
+  IHTMLImageElement,
+  ImageTexture
 } from '../yami'
 
 // ******************************** WebGL ********************************
@@ -51,37 +53,37 @@ interface IGL {
   restore(): void
   initialize(): void
   createProgramWithShaders(vshader: string, fshader: string): IWebGLProgram | null
-  loadShader(type: number, source: string): any
-  createImageProgram(): any
-  createTileProgram(): any
-  createTextProgram(): any
-  createSpriteProgram(): any
-  createParticleProgram(): any
-  createLightProgram(): any
-  createGraphicProgram(): any
-  createDashedLineProgram(): any
+  loadShader(type: number, source: string): WebGLShader | null
+  createImageProgram(): IWebGLProgram | null
+  createTileProgram(): IWebGLProgram | null
+  createTextProgram(): IWebGLProgram | null
+  createSpriteProgram(): IWebGLProgram | null
+  createParticleProgram(): IWebGLProgram | null
+  createLightProgram(): IWebGLProgram | null
+  createGraphicProgram(): IWebGLProgram | null
+  createDashedLineProgram(): IWebGLProgram | null
   reset(): void
   updateMasking(): void
   createBlendingUpdater(): any
-  setContrast(contrast): void
-  setAmbientLight({red, green, blue}): void
+  setContrast(contrast: number): void
+  setAmbientLight(rgb: RGB): void
   resizeLightmap(): void
   updateLightTexSize(): void
-  updateSamplerNum(samplerNum): void
-  bindFBO(fbo): void
+  updateSamplerNum(samplerNum: number): void
+  bindFBO(fbo: WebGLFramebuffer): void
   unbindFBO(): void
-  setViewport(x, y, width, height): void
+  setViewport(x: number, y: number, width: number, height: number): void
   resetViewport(): void
-  resize(width, height): void
-  drawImage: (texture, dx, dy, dw, dh, tint: Uint8Array) => void
-  drawSliceImage(texture, dx, dy, dw, dh, clip, border, tint): void
-  drawText(texture, dx, dy, dw, dh, color): void
-  fillRect(dx, dy, dw, dh, color): void
+  resize(width: number, height: number): void
+  drawImage: (texture: ImageTexture, dx: number, dy: number, dw: number, dh: number, tint: Uint8Array) => void
+  drawSliceImage(texture: ImageTexture, dx: number, dy: number, dw: number, dh: number, clip: Uint32Array, border: number, tint: Uint8Array): void
+  drawText(texture: Texture, dx: number, dy: number, dw: number, dh: number, color: number): void
+  fillRect(dx: number, dy: number, dw: number, dh: number, color: number): void
   createContext2D(): any
-  fillTextWithOutline: (text, x, y, color, shadow) => void
-  createNormalTexture(options): any
-  createImageTexture(image, options): any
-  createTextureFBO(texture): any
+  fillTextWithOutline: (text: string, x: number, y: number, color: number, shadow: number) => void
+  createNormalTexture(options: {magFilter?: number, minFilter?: number, format?: number}): BaseTexture | null
+  createImageTexture(image: IHTMLImageElement, options: {magFilter?: number, minFilter?: number}): ImageTexture | null
+  createTextureFBO(texture: Texture): WebGLFramebuffer | null
 
   WEBGL_lose_context: WEBGL_lose_context
   BACKGROUND_RED: number
@@ -294,16 +296,22 @@ GL.initialize = function () {
     magFilter: this.LINEAR,
     minFilter: this.LINEAR,
   })
-  this.lightmap.base.protected = true
-  this.lightmap.fbo = this.createTextureFBO(this.lightmap)
-  this.activeTexture(this.TEXTURE0 + this.maxTexUnits - 1)
-  this.bindTexture(this.TEXTURE_2D, this.lightmap.base.glTexture)
-  this.activeTexture(this.TEXTURE0)
+
+  if (this.lightmap.base) {
+    this.lightmap.base.protected = true
+    this.lightmap.fbo = this.createTextureFBO(this.lightmap)
+    this.activeTexture(this.TEXTURE0 + this.maxTexUnits - 1)
+    this.bindTexture(this.TEXTURE_2D, this.lightmap.base.glTexture)
+    this.activeTexture(this.TEXTURE0)
+  }
+
 
   // 创建模板纹理
   this.stencilTexture = this.stencilTexture ?? new Texture({format: this.ALPHA})
-  this.stencilTexture.base.protected = true
-
+  if (this.stencilTexture.base) {
+    this.stencilTexture.base.protected = true
+  }
+  
   // 创建遮罩纹理
   this.maskTexture = this.maskTexture ?? new Texture({format: this.RGBA})
   this.maskTexture.fbo = this.createTextureFBO(this.maskTexture)
@@ -1398,7 +1406,7 @@ GL.updateMasking = function () {
     return
   if (this.program.masking !== this.masking) {
     this.program.masking = this.masking
-    if (this.masking) {
+    if (this.masking && this.maskTexture.base) {
       this.uniform1i(this.program.u_Masking, 1)
       this.uniform1i(this.program.u_MaskSampler, 1)
       this.activeTexture(this.TEXTURE1)
@@ -1417,13 +1425,15 @@ GL.updateMasking = function () {
   }
 }
 
+type mappingTable = { [index: string]: any }
+
 // WebGL上下文方法 - 创建混合模式更新器
 GL.createBlendingUpdater = function () {
   // 开启混合功能
   this.enable(this.BLEND)
 
   // 更新器映射表(启用混合时)
-  const A = {
+  const A: mappingTable = {
     // 正常模式
     normal: () => {
       this.blendEquation(this.FUNC_ADD)
@@ -1472,7 +1482,7 @@ GL.createBlendingUpdater = function () {
   }
 
   // 更新器映射表(禁用混合时)
-  const B = {
+  const B: mappingTable = {
     normal: resume,
     screen: resume,
     additive: resume,
@@ -1665,12 +1675,17 @@ GL.resize = function (width, height) {
 // WebGL上下文方法 - 绘制图像
 GL.drawImage = function IIFE() {
   const defTint = new Uint8Array(4)
-  return function (texture, dx, dy, dw, dh, tint = defTint) {
-    if (!texture.complete) return
+  return function (this: IWebGL2RenderingContext, texture, dx, dy, dw, dh, tint = defTint) {
+    if (!texture.complete)
+      return
 
-    const program = this.imageProgram.use()
+    const program = this.imageProgram?.use()
+    if (!program)
+      return
     const vertices = this.arrays[0].float32
     const base = texture.base
+    if (!base)
+      return
     const sx = texture.x
     const sy = texture.y
     const sw = texture.width
@@ -1731,7 +1746,10 @@ GL.drawImage = function IIFE() {
 
 // WebGL上下文方法 - 绘制切片图像
 GL.drawSliceImage = function (texture, dx, dy, dw, dh, clip, border, tint) {
-  if (!texture.complete) return
+  if (!texture)
+    return
+  if (!texture.complete || !texture.base)
+    return
 
   // 计算变换矩阵
   const matrix = Matrix.instance.project(
@@ -1788,14 +1806,16 @@ GL.drawSliceImage = function (texture, dx, dy, dw, dh, clip, border, tint) {
 
 // WebGL上下文方法 - 绘制文字
 GL.drawText = function (texture, dx, dy, dw, dh, color) {
-  if (!texture.complete) return
-
+  if (!texture.complete)
+    return
   const program = this.textProgram?.use()
   if (!program)
     return
   const vertices = this.arrays[0].float32
   const colors = this.arrays[0].uint32
   const base = texture.base
+  if (!base)
+    return
   const sx = texture.x
   const sy = texture.y
   const sw = texture.width
@@ -1929,8 +1949,10 @@ GL.fillTextWithOutline = function IIFE() {
     {ox:  0, oy:  1, rgba: 0},
     {ox:  0, oy:  0, rgba: 0},
   ]
-  return function (text, x, y, color, shadow) {
+  return function (this: IWebGL2RenderingContext, text, x, y, color, shadow) {
     const context = this.context2d
+    if (!context)
+      return
     const size = context.size
     const measureWidth = context.measureText(text).width
     x -= measureWidth / 2
@@ -1954,7 +1976,9 @@ GL.fillTextWithOutline = function IIFE() {
       offsets[2].rgba = shadow
       offsets[3].rgba = shadow
       offsets[4].rgba = color
-      const program = this.textProgram.use()
+      const program = this.textProgram?.use()
+      if (!program)
+        return
       const vertices = this.arrays[0].float32
       const colors = this.arrays[0].uint32
       const matrix = this.matrix.project(
@@ -2026,10 +2050,12 @@ GL.createNormalTexture = function (options = {}) {
 }
 
 // WebGL上下文方法 - 创建图像纹理
-GL.createImageTexture = function (image, options = {}) {
+GL.createImageTexture = function (image: IHTMLImageElement, options = {}) {
   const magFilter = options.magFilter ?? this.NEAREST
   const minFilter = options.minFilter ?? this.LINEAR
   const guid = image instanceof Image ? image.guid : image
+  if (!guid)
+    return
   const manager = this.textureManager
   let texture = manager.images[guid]
   if (!texture) {
@@ -2041,7 +2067,7 @@ GL.createImageTexture = function (image, options = {}) {
     texture.minFilter = minFilter
     manager.append(texture)
     manager.images[guid] = texture
-    const initialize = image => {
+    const initialize = (image: IHTMLImageElement) => {
       if (manager.images[guid] === texture && image) {
         texture.image = image
         texture.width = image.naturalWidth
@@ -2073,27 +2099,30 @@ GL.createTextureFBO = function (texture) {
   const fbo = this.createFramebuffer()
   this.bindFramebuffer(this.FRAMEBUFFER, fbo)
 
-  // 绑定纹理到颜色缓冲区
-  this.framebufferTexture2D(this.FRAMEBUFFER, this.COLOR_ATTACHMENT0, this.TEXTURE_2D, texture.base.glTexture, 0)
+  if (texture && texture.base) {
+    // 绑定纹理到颜色缓冲区
+    this.framebufferTexture2D(this.FRAMEBUFFER, this.COLOR_ATTACHMENT0, this.TEXTURE_2D, texture.base.glTexture, 0)
 
-  // 创建深度模板缓冲区
-  const depthStencilBuffer = this.createRenderbuffer()
-  this.bindRenderbuffer(this.RENDERBUFFER, depthStencilBuffer)
-  this.framebufferRenderbuffer(this.FRAMEBUFFER, this.DEPTH_STENCIL_ATTACHMENT, this.RENDERBUFFER, depthStencilBuffer)
-  this.renderbufferStorage(this.RENDERBUFFER, this.DEPTH_STENCIL, texture.base.width, texture.base.height)
-  this.bindRenderbuffer(this.RENDERBUFFER, null)
-  this.bindFramebuffer(this.FRAMEBUFFER, null)
-  texture.depthStencilBuffer = depthStencilBuffer
-
-  // 重写纹理方法 - 调整大小
-  texture.resize = (width: number, height: number) => {
-    Texture.prototype.resize.call(texture, width, height)
-
-    // 调整深度模板缓冲区大小
+    // 创建深度模板缓冲区
+    const depthStencilBuffer = this.createRenderbuffer()
     this.bindRenderbuffer(this.RENDERBUFFER, depthStencilBuffer)
-    this.renderbufferStorage(this.RENDERBUFFER, this.DEPTH_STENCIL, width, height)
+    this.framebufferRenderbuffer(this.FRAMEBUFFER, this.DEPTH_STENCIL_ATTACHMENT, this.RENDERBUFFER, depthStencilBuffer)
+    this.renderbufferStorage(this.RENDERBUFFER, this.DEPTH_STENCIL, texture.base.width, texture.base.height)
     this.bindRenderbuffer(this.RENDERBUFFER, null)
+    this.bindFramebuffer(this.FRAMEBUFFER, null)
+    texture.depthStencilBuffer = depthStencilBuffer
+
+    // 重写纹理方法 - 调整大小
+    texture.resize = (width: number, height: number): any => {
+      Texture.prototype.resize.call(texture, width, height)
+
+      // 调整深度模板缓冲区大小
+      this.bindRenderbuffer(this.RENDERBUFFER, depthStencilBuffer)
+      this.renderbufferStorage(this.RENDERBUFFER, this.DEPTH_STENCIL, width, height)
+      this.bindRenderbuffer(this.RENDERBUFFER, null)
+    }
   }
+
   // 还需要一个方法来恢复
   return fbo
 }

@@ -5,7 +5,7 @@ import './html-button-element'
 import './object'
 import './scroll'
 
-export { IHTMLElement } from './html-element'
+export { IHTMLElement, IHTMLImageElement } from './html-element'
 export { CheckBox } from './check-box'
 export { ColorBox } from './color-box'
 export { CommonList } from './common-list'

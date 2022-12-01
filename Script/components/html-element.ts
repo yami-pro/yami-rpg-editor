@@ -50,6 +50,10 @@ interface IHTMLElement extends HTMLElement {
   updateScrollbars(): void
 }
 
+interface IHTMLImageElement extends HTMLImageElement {
+  guid: string | null
+}
+
 // ******************************** 元素方法 ********************************
 
 const prototypeObject = <Object>HTMLElement.prototype
@@ -525,4 +529,10 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 }()
 
-export { IHTMLElement }
+
+const imagePrototype = <IHTMLImageElement>HTMLImageElement.prototype
+
+// 元素方法 - 唯一标识符
+imagePrototype.guid = null
+
+export { IHTMLElement, IHTMLImageElement }

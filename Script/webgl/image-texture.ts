@@ -9,6 +9,15 @@ import {
 // ******************************** 图像纹理类 ********************************
 
 class ImageTexture extends Texture {
+  sliceClip: Uint32Array
+  sliceWidth: number
+  sliceHeight: number
+  sliceBorder: number
+  sliceCount: number
+  sliceVertices: Float32Array
+  sliceThresholds: Float32Array
+
+
   constructor(image, options = {}) {
     super(options)
 

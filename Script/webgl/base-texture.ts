@@ -12,6 +12,7 @@ class BaseTexture {
   minFilter: number
   format: number
   glTexture: WebGLTexture | null
+  protected: boolean
 
   constructor() {
     this.glTexture = GL.createTexture()

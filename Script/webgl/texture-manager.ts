@@ -11,7 +11,7 @@ import {
 class TextureManager {
   gl      //:object
   map     //:object
-  images  //:object
+  images: { [index: string]: any }
   pointer //:number
   count   //:number
 
