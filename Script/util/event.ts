@@ -14,11 +14,11 @@ interface IEvent extends Event {
   ctrlKey: string
 
   dragKey: {
-    get: () => string
+    get: (this: IEvent) => string
   }
 
   cmdOrCtrlKey: {
-    get: () => string
+    get: (this: IEvent) => string
   }
 }
 
@@ -30,16 +30,17 @@ const prototype = <IEvent>Event.prototype
 
 prototype.value = 'dark'
 
-prototype.dragKey = {
-  get: function (this: IEvent) {
-    return this.spaceKey || this.altKey
-  }
-}
-
-prototype.cmdOrCtrlKey = {
-  get: (<INavigator>navigator).userAgentData.platform === 'macOS'
-  ? function (this: IEvent) {return this.metaKey}
-  : function (this: IEvent) {return this.ctrlKey}
-}
+Object.defineProperties(prototype, {
+  dragKey: {
+    get: function (this: IEvent) {
+      return this.spaceKey || this.altKey
+    }
+  },
+  cmdOrCtrlKey: {
+    get: (<INavigator>navigator).userAgentData.platform === 'macOS'
+    ? function (this: IEvent) {return this.metaKey}
+    : function (this: IEvent) {return this.ctrlKey}
+  },
+})
 
 export { IEvent, IDragEvent }

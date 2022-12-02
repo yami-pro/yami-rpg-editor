@@ -38,22 +38,30 @@ const prototypeObject = <Object>Array.prototype
 const prototype = <IArray>prototypeObject
 
 // 数组方法 - 添加
-prototype.append = function (value) {
-  if (this.indexOf(value) === -1) {
-    this.push(value)
-    return true
+Object.defineProperty(prototype, 'append', {
+  enumerable: false,
+  value: function (this: IArray, value: any) {
+    if (this.indexOf(value) === -1) {
+      this.push(value)
+      return true
+    }
+    return false
   }
-  return false
-}
+})
 
 // 数组方法 - 移除
-prototype.remove = function (value) {
-  const index = this.indexOf(value)
-  if (index !== -1) {
-    this.splice(index, 1)
-    return true
+Object.defineProperty(
+  prototype, 'remove', {
+    enumerable: false,
+    value: function (this: IArray, value: any) {
+      const index = this.indexOf(value)
+      if (index !== -1) {
+        this.splice(index, 1)
+        return true
+      }
+      return false
+    }
   }
-  return false
-}
+)
 
 export { IArray }
