@@ -10,7 +10,8 @@ import {
   Local,
   Menu,
   Path,
-  Function
+  Function,
+  IDragEvent
 } from '../yami'
 
 // ******************************** 文件浏览器 ********************************
@@ -212,7 +213,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽开始事件
-  dragstart(event) {
+  dragstart(event: IDragEvent) {
     const page = this.getActivePage(event)
     if (page && !this.dragging) {
       if (page.pressing) {
@@ -240,16 +241,18 @@ class FileBrowser extends HTMLElement {
             this.dragend()
           }
         })
-        event.dataTransfer.effectAllowed = 'copyMove'
-        event.dataTransfer.hideDragImage()
-        this.on('dragenter', this.dragover)
-        this.on('dragleave', this.dragleave)
-        this.on('dragover', this.dragover)
-        this.on('drop', this.drop)
-        if (files.length === 1 && files[0] instanceof FileItem) {
-          event.dataTransfer.setData('DownloadURL',
-            `application/octet-stream:${files[0].name}:${aPaths[0]}`
-          )
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = 'copyMove'
+          event.dataTransfer.hideDragImage()
+          this.on('dragenter', this.dragover)
+          this.on('dragleave', this.dragleave)
+          this.on('dragover', this.dragover)
+          this.on('drop', this.drop)
+          if (files.length === 1 && files[0] instanceof FileItem) {
+            event.dataTransfer.setData('DownloadURL',
+              `application/octet-stream:${files[0].name}:${aPaths[0]}`
+            )
+          }
         }
       }
     }
