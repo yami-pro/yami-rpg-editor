@@ -14,7 +14,7 @@ import {
   TextBox,
   Timer,
   Window,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** 文件主体面板 ********************************
@@ -555,7 +555,7 @@ class FileBodyPane extends HTMLElement {
       case 'image': {
         const version = file.stats.mtimeMs
         const path = `${file.path}?ver=${version}`
-        icon.style.backgroundImage = CSSManager.encodeURL(File.route(path))
+        icon.style.backgroundImage = ICSS.encodeURL(File.route(path))
         File.getImageResolution(path).then(({width, height}) => {
           if (width <= 128 && height <= 128) {
             icon.style.imageRendering = 'pixelated'
@@ -637,7 +637,7 @@ class FileBodyPane extends HTMLElement {
       const sy = height / size
       const px = sx !== 1 ? cx / size / (sx - 1) : 0
       const py = sy !== 1 ? cy / size / (sy - 1) : 0
-      icon.style.backgroundImage = CSSManager.encodeURL(File.route(path))
+      icon.style.backgroundImage = ICSS.encodeURL(File.route(path))
       icon.style.backgroundPosition = `${px * 100}% ${py * 100}%`
       icon.style.backgroundSize = `${sx * 100}% ${sy * 100}%`
       if (size <= 128) {

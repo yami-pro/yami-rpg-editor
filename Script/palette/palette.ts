@@ -17,7 +17,7 @@ import {
   TimerManager,
   Window,
   Clipboard,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** 调色板 ********************************
@@ -495,7 +495,7 @@ Palette.resize = function () {
     const scaledTileHeight = Math.round(tileset.tileHeight * scale)
     const innerWidth = tileset.width * scaledTileWidth
     const innerHeight = tileset.height * scaledTileHeight
-    const screenBox = CSSManager.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const paddingLeft = Math.max(screenWidth - innerWidth >> 1, 0)

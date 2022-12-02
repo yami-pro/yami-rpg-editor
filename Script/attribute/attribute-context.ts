@@ -2,7 +2,7 @@
 
 import {
   Local,
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 属性上下文类 ********************************
@@ -54,7 +54,7 @@ class AttributeContext {
         groupMap[key] = {
           groupName: '',
           itemMap: Object.empty,
-          itemList: ArrayManager.empty,
+          itemList: IArray.empty,
         }
       }
     }

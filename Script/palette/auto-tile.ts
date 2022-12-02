@@ -20,7 +20,7 @@ import {
   TileFrame,
   Window,
   Clipboard,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** 自动图块 ********************************
@@ -517,7 +517,7 @@ AutoTile.updateFrameItem = function () {
 // 更新画布
 AutoTile.updateCanvas = function () {
   const canvas = this.canvas
-  const {width, height} = CSSManager.getDevicePixelContentBoxSize(canvas)
+  const {width, height} = ICSS.getDevicePixelContentBoxSize(canvas)
   if (canvas.width !== width) {
     canvas.width = width
   }

@@ -3,7 +3,7 @@
 import {
   Scene,
   Window,
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 场景预设对象窗口 ********************************
@@ -61,7 +61,7 @@ PresetObject.open = function (target) {
   const {searcher, list} = this
   const objects = Scene.objects
   const presetId = target.read() || (Scene.target?.presetId ?? '')
-  const nodes = objects ? PresetObject.buildNodes(objects, target.filter) : ArrayManager.empty
+  const nodes = objects ? PresetObject.buildNodes(objects, target.filter) : IArray.empty
   this.nodes = nodes
   this.list.update()
   searcher.getFocus()

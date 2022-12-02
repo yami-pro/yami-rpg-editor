@@ -30,8 +30,8 @@ import {
   Clipboard,
   IHTMLElement,
   Function,
-  ArrayManager,
-  CSSManager
+  IArray,
+  ICSS
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************
@@ -1744,7 +1744,7 @@ Animation.resize = function () {
   if (this.state === 'open' &&
     this.screen.clientWidth !== 0) {
     const scale = this.scale
-    const screenBox = CSSManager.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const stageWidth = screenWidth + this.padding
@@ -4947,7 +4947,7 @@ Animation.listPopup = function (event) {
     pastable = Clipboard.has('yami.animation.object')
     deletable = false
   }
-  let headItems = ArrayManager.empty
+  let headItems = IArray.empty
   if (item) {
     headItems = [{
       label: get('edit'),

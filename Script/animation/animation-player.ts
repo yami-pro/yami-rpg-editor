@@ -8,7 +8,7 @@ import {
   Matrix,
   Particle,
   Scene,
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 动画播放器类 ********************************
@@ -42,7 +42,7 @@ class AnimationPlayer {
     this.anchorY = 0
     this.mirror = false
     this.data = animation
-    this.dirMap = ArrayManager.empty
+    this.dirMap = IArray.empty
     this.dirCases = null
     this.angle = 0
     this.direction = -1

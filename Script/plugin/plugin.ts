@@ -15,7 +15,7 @@ import {
   Selector,
   Window,
   Clipboard,
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 插件窗口 ********************************
@@ -878,7 +878,7 @@ PluginManager.parseMeta = function IIFE() {
           active = owner.value
         }
       }
-      const actives = map[active] ?? ArrayManager.empty
+      const actives = map[active] ?? IArray.empty
       for (const option of options) {
         const keys = map[option]
         if (keys === undefined) continue

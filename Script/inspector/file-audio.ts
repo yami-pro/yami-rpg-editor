@@ -7,7 +7,7 @@ import {
   getElementReader,
   Inspector,
   TimerManager,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** 文件 - 音频页面 ********************************
@@ -223,12 +223,12 @@ FileAudio.updateCanvas = function () {
     canvas.style.width = '100%'
     canvas.style.height = '0'
     const dpr = window.devicePixelRatio
-    const height = CSSManager.getDevicePixelContentBoxSize(canvas).width
+    const height = ICSS.getDevicePixelContentBoxSize(canvas).width
     if (canvas.height !== height) {
       canvas.height = height
     }
     canvas.style.height = `${height / dpr}px`
-    const width = CSSManager.getDevicePixelContentBoxSize(canvas).width
+    const width = ICSS.getDevicePixelContentBoxSize(canvas).width
     if (canvas.width !== width) {
       canvas.width = width
     }

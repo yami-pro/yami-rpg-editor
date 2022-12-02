@@ -1,7 +1,7 @@
 'use strict'
 
 import {
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 单选框代理 ********************************
@@ -121,7 +121,7 @@ class RadioProxy extends HTMLElement {
             }
           } else {
             for (const element of selection
-            ? ArrayManager.subtract(entry.targets, selection.targets)
+            ? IArray.subtract(entry.targets, selection.targets)
             : entry.targets) {
               element.disable()
             }

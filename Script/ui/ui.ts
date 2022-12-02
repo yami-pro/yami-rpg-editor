@@ -24,7 +24,7 @@ import {
   TimerManager,
   Window,
   Clipboard,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** UI 窗口 ********************************
@@ -1282,7 +1282,7 @@ UI.resize = function () {
     const scaledPadding = Math.round(this.padding * scale)
     const innerWidth = Math.round(this.width * scale / 2) * 2
     const innerHeight = Math.round(this.height * scale / 2) * 2
-    const screenBox = CSSManager.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const paddingLeft = Math.max(screenWidth - innerWidth >> 1, scaledPadding)

@@ -21,7 +21,7 @@ import {
   TimerManager,
   Window,
   Clipboard,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** 粒子窗口 ********************************
@@ -543,7 +543,7 @@ Particle.resize = function () {
   if (this.state === 'open' &&
     this.screen.clientWidth !== 0) {
     const scale = this.scale
-    const screenBox = CSSManager.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const stageWidth = screenWidth + this.padding

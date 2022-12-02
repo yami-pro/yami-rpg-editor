@@ -2,7 +2,7 @@
 
 import {
   Local,
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 枚举上下文类 ********************************
@@ -54,7 +54,7 @@ class EnumerationContext {
         groupMap[key] = {
           groupName: '',
           itemMap: Object.empty,
-          itemList: ArrayManager.empty,
+          itemList: IArray.empty,
         }
       }
     }

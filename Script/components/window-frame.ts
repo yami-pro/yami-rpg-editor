@@ -4,7 +4,7 @@ import {
   Layout,
   TitleBar,
   Window,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** 窗口框架 ********************************
@@ -172,16 +172,16 @@ class WindowFrame extends HTMLElement {
   // 居中位置
   center() {
     const rect = this.rect()
-    const x = CSSManager.rasterize((window.innerWidth - rect.width) / 2)
-    const y = CSSManager.rasterize((window.innerHeight - rect.height) / 2)
+    const x = ICSS.rasterize((window.innerWidth - rect.width) / 2)
+    const y = ICSS.rasterize((window.innerHeight - rect.height) / 2)
     this.setPosition(x, y, rect)
   }
 
   // 绝对位置
   absolute(left, top) {
     const rect = this.rect()
-    const x = CSSManager.rasterize(left)
-    const y = CSSManager.rasterize(top)
+    const x = ICSS.rasterize(left)
+    const y = ICSS.rasterize(top)
     this.setPosition(x, y, rect)
   }
 
@@ -189,8 +189,8 @@ class WindowFrame extends HTMLElement {
   overlap(parent) {
     const rect = this.rect()
     const {left, top} = parent.style
-    const x = CSSManager.rasterize(parseFloat(left) + 24)
-    const y = CSSManager.rasterize(parseFloat(top) + 24)
+    const x = ICSS.rasterize(parseFloat(left) + 24)
+    const y = ICSS.rasterize(parseFloat(top) + 24)
     this.setPosition(x, y, rect)
   }
 

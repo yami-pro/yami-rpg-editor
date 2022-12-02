@@ -16,7 +16,7 @@ import {
   TimerManager,
   Window,
   Clipboard,
-  CSSManager
+  ICSS
 } from '../yami'
 
 // ******************************** 过渡窗口 ********************************
@@ -424,7 +424,7 @@ Easing.updateCanvases = function () {
   // 更新曲线画布
   const {curve} = this
   const {width: cWidth, height: cHeight} =
-  CSSManager.getDevicePixelContentBoxSize(curve)
+  ICSS.getDevicePixelContentBoxSize(curve)
   if (curve.width !== cWidth ||
     curve.height !== cHeight) {
     if (curve.width !== cWidth) {
@@ -442,7 +442,7 @@ Easing.updateCanvases = function () {
   // 更新预览画布
   const {preview} = this
   const {width: pWidth, height: pHeight} =
-  CSSManager.getDevicePixelContentBoxSize(preview)
+  ICSS.getDevicePixelContentBoxSize(preview)
   if (preview.width !== pWidth) {
     preview.width = pWidth
   }

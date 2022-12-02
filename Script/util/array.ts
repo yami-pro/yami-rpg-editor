@@ -1,8 +1,9 @@
 'use strict'
 
-// ******************************** 数组声明 ********************************
+// ******************************** 声明 ********************************
 
 interface IArray extends Array<any> {
+  // 静态数组方法扩展
   empty: any[]
   subtract(a: any[], b: any[]): any[]
 
@@ -11,15 +12,16 @@ interface IArray extends Array<any> {
   remove(value: any): boolean
 }
 
-// ******************************** 数组管理对象 ********************************
+// ******************************** 静态数组方法 ********************************
 
-const ArrayManager = <IArray>new Object()
+const arrayObject = <Object>Array
+const IArray = <IArray>arrayObject
 
 // 空数组
-ArrayManager.empty = []
+IArray.empty = []
 
 // 减法
-ArrayManager.subtract = function (a, b) {
+IArray.subtract = function (a, b) {
   const differences = []
   const length = a.length
   for (let i = 0; i < length; i++) {
@@ -54,4 +56,4 @@ prototype.remove = function (value) {
   return false
 }
 
-export { IArray, ArrayManager }
+export { IArray }

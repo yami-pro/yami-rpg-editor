@@ -2,7 +2,7 @@
 
 import {
   Select,
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 选择框 ********************************
@@ -224,7 +224,7 @@ class SelectBox extends HTMLElement {
             deferredList.push(entry)
           } else {
             for (const element of selection
-            ? ArrayManager.subtract(entry.targets, selection.targets)
+            ? IArray.subtract(entry.targets, selection.targets)
             : entry.targets) {
               this.disableElement(element)
             }

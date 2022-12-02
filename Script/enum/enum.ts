@@ -10,7 +10,7 @@ import {
   Menu,
   Window,
   Clipboard,
-  ArrayManager
+  IArray
 } from '../yami'
 
 // ******************************** 枚举窗口 ********************************
@@ -592,8 +592,8 @@ Enum.listPopup = function (event) {
   const undoable = Enum.history.canUndo()
   const redoable = Enum.history.canRedo()
   const get = Local.createGetter('menuEnumList')
-  let headItems = ArrayManager.empty
-  let footItems = ArrayManager.empty
+  let headItems = IArray.empty
+  let footItems = IArray.empty
   if (selected) {
     headItems = [{
       label: `ID: ${item.id}`,

@@ -1,6 +1,14 @@
 'use strict'
 
-// CSS 选择器
+// ******************************** 声明 ********************************
+
+type SelectorVar = (selector: string) => Element | NodeListOf<Element> | null
+
+interface IWindow extends Window {
+  $: SelectorVar
+}
+
+// CSS选择器
 const $ = function IIFE() {
   const regexp = /^#(\w|-)+$/
   return function (selector: string) {
@@ -12,17 +20,6 @@ const $ = function IIFE() {
   }
 }()
 
-interface IWindow extends Window {
-  $: (selector: string) => Element | NodeListOf<Element> | null
-}
-
-// window对象添加dom查询器
-if (window) {
-  const WinObject = <Object>window
-  const Win = <IWindow>WinObject
-  Win.$ = $
-}
-
 // ******************************** CSS静态方法 ********************************
 
 interface ICSS {
@@ -31,11 +28,10 @@ interface ICSS {
   getDevicePixelContentBoxSize: (element: Element) => {width: number, height: number}
 }
 
-const CSSObject = <Object>CSS
-const CSSManager = <ICSS>CSSObject
+const ICSS = <ICSS>new Object()
 
 // 编码字符串为URL
-CSSManager.encodeURL = function IIFE() {
+ICSS.encodeURL = function IIFE() {
   const regexp = /([()])/g
   return function (str) {
     return `url(${encodeURI(str).replace(regexp, '\\$1')})`
@@ -43,7 +39,7 @@ CSSManager.encodeURL = function IIFE() {
 }()
 
 // 光栅化 CSS 像素坐标使其对齐到设备像素
-CSSManager.rasterize = function (csspx) {
+ICSS.rasterize = function (csspx) {
   const dpr = window.devicePixelRatio
   return Math.round(csspx * dpr) / dpr
 }
@@ -51,7 +47,7 @@ CSSManager.rasterize = function (csspx) {
 // 获取设备像素内容框大小
 // 在四舍五入时有精度导致的误差
 // 因此暂时用 offset 来解决问题
-CSSManager.getDevicePixelContentBoxSize = function (element) {
+ICSS.getDevicePixelContentBoxSize = function (element) {
   const rect = element.getBoundingClientRect()
   const dpr = window.devicePixelRatio
   const left = Math.round(rect.left * dpr + 1e-5)
@@ -63,4 +59,16 @@ CSSManager.getDevicePixelContentBoxSize = function (element) {
   return {width, height}
 }
 
-export { CSSManager }
+// ******************************** 绑定到全局对象 ********************************
+
+// 全局声明 CSS选择器
+declare global { var $: SelectorVar }
+
+// window对象添加dom查询器
+if (window) {
+  const windowObject = <Object>window
+  const IWindow = <IWindow>windowObject
+  IWindow.$ = $
+}
+
+export { ICSS }
