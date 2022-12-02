@@ -50,18 +50,16 @@ Object.defineProperty(prototype, 'append', {
 })
 
 // 数组方法 - 移除
-Object.defineProperty(
-  prototype, 'remove', {
-    enumerable: false,
-    value: function (this: IArray, value: any) {
-      const index = this.indexOf(value)
-      if (index !== -1) {
-        this.splice(index, 1)
-        return true
-      }
-      return false
+Object.defineProperty(prototype, 'remove', {
+  enumerable: false,
+  value: function (this: IArray, value: any) {
+    const index = this.indexOf(value)
+    if (index !== -1) {
+      this.splice(index, 1)
+      return true
     }
+    return false
   }
-)
+})
 
 export { IArray }
