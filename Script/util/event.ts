@@ -7,6 +7,19 @@ import { INavigator } from './ctrl'
 
 interface IEvent extends Event {
   value: 'light' | 'dark'
+
+  spaceKey: string
+  altKey: string
+  metaKey: string
+  ctrlKey: string
+
+  dragKey: {
+    get: () => string
+  }
+
+  cmdOrCtrlKey: {
+    get: () => string
+  }
 }
 
 interface IDragEvent extends DragEvent {
@@ -17,17 +30,16 @@ const prototype = <IEvent>Event.prototype
 
 prototype.value = 'dark'
 
-Object.defineProperties(Event.prototype, {
-  dragKey: {
-    get: function () {
-      return this.spaceKey || this.altKey
-    }
-  },
-  cmdOrCtrlKey: {
-    get: (<INavigator>navigator).userAgentData.platform === 'macOS'
-    ? function () {return this.metaKey}
-    : function () {return this.ctrlKey}
-  },
-})
+prototype.dragKey = {
+  get: function (this: IEvent) {
+    return this.spaceKey || this.altKey
+  }
+}
+
+prototype.cmdOrCtrlKey = {
+  get: (<INavigator>navigator).userAgentData.platform === 'macOS'
+  ? function (this: IEvent) {return this.metaKey}
+  : function (this: IEvent) {return this.ctrlKey}
+}
 
 export { IEvent, IDragEvent }
