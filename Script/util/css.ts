@@ -3,7 +3,7 @@
 // CSS 选择器
 const $ = function IIFE() {
   const regexp = /^#(\w|-)+$/
-  return function (selector) {
+  return function (selector: string) {
     if (regexp.test(selector)) {
       return document.querySelector(selector)
     } else {
@@ -11,7 +11,17 @@ const $ = function IIFE() {
     }
   }
 }()
-window.$ = $
+
+interface IWindow extends Window {
+  $: (selector: string) => Element | NodeListOf<Element> | null
+}
+
+// window对象添加dom查询器
+if (window) {
+  const WinObject = <Object>window
+  const Win = <IWindow>WinObject
+  Win.$ = $
+}
 
 // ******************************** CSS静态方法 ********************************
 

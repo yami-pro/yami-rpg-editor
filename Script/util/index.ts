@@ -1,13 +1,8 @@
 'use strict'
 
-// import './array'
-import './canvas-rendering-context2D'
-// import './clipboard'
 import './css'
 import './data-transfer'
 import './event-target'
-// import './event'
-// import './function'
 import './ctrl'
 import './math'
 import './mouse-event'
