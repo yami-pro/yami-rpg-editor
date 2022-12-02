@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Local,
   Window,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 事件编辑器 ********************************
@@ -199,7 +199,7 @@ EventEditor.initialize = function () {
 
 // 打开数据
 EventEditor.open = function (filter, event, callback) {
-  this.callback = callback ?? Function.empty
+  this.callback = callback ?? IFunction.empty
   Window.open('event')
 
   // 创建类型选项

@@ -1,7 +1,7 @@
 'use strict'
 
 import {
-  Function,
+  IFunction,
   emptyFunc,
   IArray,
   IHTMLElement
@@ -53,8 +53,8 @@ class Timer {
     this.playbackRate = 1
     this.elapsed = 0
     this.duration = duration
-    this.update = update ?? Function.empty
-    this.callback = callback ?? Function.empty
+    this.update = update ?? IFunction.empty
+    this.callback = callback ?? IFunction.empty
   }
 
   // 执行周期函数

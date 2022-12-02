@@ -5,7 +5,7 @@ import {
   Menu,
   TextBox,
   Timer,
-  Function,
+  IFunction,
   IArray
 } from '../yami'
 
@@ -1289,7 +1289,7 @@ class TreeList extends HTMLElement {
       )) {
       this.dragging = event
       Object.defineProperty(event, 'offsetY', {writable: true})
-      event.preventDefault = Function.empty
+      event.preventDefault = IFunction.empty
       event.dataTransfer.hideDragImage()
       event.hint = document.createElement('drag-and-drop-hint')
       event.hint.addClass('for-list')

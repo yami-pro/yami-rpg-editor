@@ -3,7 +3,7 @@
 import {
   GL,
   Particle,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 粒子元素类 ********************************
@@ -216,11 +216,11 @@ class ParticleElement {
     switch (color.mode) {
       case 'fixed':
         this.setStartColor = this.setStartColorFixed
-        this.updateColor = Function.empty
+        this.updateColor = IFunction.empty
         break
       case 'random':
         this.setStartColor = this.setStartColorRandom
-        this.updateColor = Function.empty
+        this.updateColor = IFunction.empty
         break
       case 'easing':
         if (this.color.start === undefined) {
@@ -232,7 +232,7 @@ class ParticleElement {
         break
       case 'texture':
         this.setStartColor = this.setStartColorTexture
-        this.updateColor = Function.empty
+        this.updateColor = IFunction.empty
         break
     }
   }

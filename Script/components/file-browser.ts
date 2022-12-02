@@ -10,7 +10,7 @@ import {
   Local,
   Menu,
   Path,
-  Function,
+  IFunction,
   IDragEvent
 } from '../yami'
 
@@ -226,7 +226,7 @@ class FileBrowser extends HTMLElement {
         const aPaths = rPaths.map(path => File.route(path))
         this.dragging = event
         event.mode = 'drag'
-        event.preventDefault = Function.empty
+        event.preventDefault = IFunction.empty
         event.allowMove = false
         event.allowCopy = false
         event.dropTarget = null

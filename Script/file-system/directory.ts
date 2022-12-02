@@ -12,7 +12,7 @@ import {
   Meta,
   Path,
   Window,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 目录 ********************************
@@ -414,7 +414,7 @@ Directory.copyFiles = function IIFE() {
             }
           }
         },
-        Function.empty,
+        IFunction.empty,
       ).finally(() => {
         const {children} = file
         if (children) {

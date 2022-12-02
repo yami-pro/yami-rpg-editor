@@ -6,7 +6,7 @@ import {
   Printer,
   Texture,
   UI,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 文本框元素 ********************************
@@ -197,7 +197,7 @@ class TextBoxElement extends UI.Element {
     if (printer === null) {
       const texture = new Texture()
       printer = new Printer(texture)
-      printer.matchTag = Function.empty
+      printer.matchTag = IFunction.empty
       printer.sizes[0] = this.size
       printer.fonts[0] = this.font || Printer.font
       printer.colors[0] = 0xffffffff

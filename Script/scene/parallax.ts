@@ -4,7 +4,7 @@ import {
   GL,
   ImageTexture,
   Scene,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 视差图类 ********************************
@@ -157,8 +157,8 @@ class Parallax {
       if (texture.complete) {
         return texture
       }
-      this.update = Function.empty
-      this.draw = Function.empty
+      this.update = IFunction.empty
+      this.draw = IFunction.empty
       texture.on('load', () => {
         Scene.requestRendering()
         delete this.update

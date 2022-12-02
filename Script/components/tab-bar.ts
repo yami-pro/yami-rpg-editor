@@ -2,7 +2,7 @@
 
 import {
   Title,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 标签栏 ********************************
@@ -269,7 +269,7 @@ class TabBar extends HTMLElement {
     if (!this.dragging) {
       this.dragging = event
       Object.defineProperty(event, 'offsetX', {writable: true})
-      event.preventDefault = Function.empty
+      event.preventDefault = IFunction.empty
       event.dataTransfer.hideDragImage()
       event.hint = document.createElement('drag-and-drop-hint')
       event.hint.addClass('for-tab')

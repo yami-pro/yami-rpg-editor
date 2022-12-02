@@ -29,7 +29,7 @@ import {
   Window,
   Clipboard,
   IHTMLElement,
-  Function,
+  IFunction,
   IArray,
   ICSS
 } from '../yami'
@@ -3641,9 +3641,9 @@ Animation.dragAndDropFrame = function () {
       const layers = [sLayer]
       layers.append(dLayer)
       this.saveFrames(layers, sMarquee, dMarquee)
-      this.updateTimeline = Function.empty
-      this.openFrame = Function.empty
-      this.saveFrames = Function.empty
+      this.updateTimeline = IFunction.empty
+      this.openFrame = IFunction.empty
+      this.saveFrames = IFunction.empty
       this.deleteFrame()
       this.pasteFrame(data, this.timelineMarqueeShift)
       this.updateTimeline = updateTimeline
@@ -3752,9 +3752,9 @@ Animation.shiftSelectedFrames = function (mode) {
       const layers = [sLayer]
       layers.append(dLayer)
       this.saveFrames(layers, sMarquee, dMarquee)
-      this.updateTimeline = Function.empty
-      this.openFrame = Function.empty
-      this.saveFrames = Function.empty
+      this.updateTimeline = IFunction.empty
+      this.openFrame = IFunction.empty
+      this.saveFrames = IFunction.empty
       this.deleteFrame()
       this.pasteFrame(data, destination)
       this.updateTimeline = updateTimeline
@@ -5884,7 +5884,7 @@ Animation.layerList.delete = function (item) {
 // 图层列表 - 恢复动作对象
 Animation.layerList.restoreMotion = function (motion, direction) {
   const {update} = this
-  this.update = Function.empty
+  this.update = IFunction.empty
   Animation.setMotion(motion)
   Animation.setDirection(direction)
   this.update = update
@@ -5951,7 +5951,7 @@ Animation.timeline.updateHead = function () {
 // 时间轴列表 - 恢复动作和图层对象
 Animation.outerTimelineList.restoreMotionAndLayer = function (motion, direction, layer) {
   const {updateTimeline} = Animation
-  Animation.updateTimeline = Function.empty
+  Animation.updateTimeline = IFunction.empty
   Animation.setMotion(motion)
   Animation.setDirection(direction)
   Animation.layerList.expandToItem(layer)

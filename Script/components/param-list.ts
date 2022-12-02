@@ -9,7 +9,7 @@ import {
   ParamHistory,
   WindowFrame,
   Clipboard,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 参数列表 ********************************
@@ -92,7 +92,7 @@ class ParamList extends HTMLElement {
   // 绑定数据
   bind(object) {
     object.initialize(this)
-    object.initialize = Function.empty
+    object.initialize = IFunction.empty
     this.object = object
     this.type = `yami.${object.type ?? this.id}`
     this.history = object.history ?? new ParamHistory(this)

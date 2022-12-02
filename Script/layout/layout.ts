@@ -13,7 +13,7 @@ import {
   Scene,
   Title,
   UI,
-  Function,
+  IFunction,
   ICSS
 } from '../yami'
 
@@ -840,7 +840,7 @@ Layout.navDragstart = function (event) {
     Layout.dragging = event
     Object.defineProperty(event, 'clientX', {writable: true})
     Object.defineProperty(event, 'clientY', {writable: true})
-    event.preventDefault = Function.empty
+    event.preventDefault = IFunction.empty
     event.dataTransfer.hideDragImage()
     event.group = this.parentNode
     event.hint = document.createElement('drag-and-drop-hint')

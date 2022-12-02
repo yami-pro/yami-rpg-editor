@@ -9,9 +9,9 @@ interface IFunction extends Function {
 type emptyFunc = (() => void)
 
 // 函数静态方法 - 空函数
-const FuncObject = <Object>Function
-const Func = <IFunction>FuncObject
+const functionObject = <Object>Function
+const IFunction = <IFunction>functionObject
 
-Func.empty = () => {}
+IFunction.empty = () => {}
 
-export { Func as Function, emptyFunc }
+export { IFunction, emptyFunc }

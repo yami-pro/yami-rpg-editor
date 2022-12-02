@@ -1,7 +1,7 @@
 'use strict'
 
 import {
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 指令操作历史 ********************************
@@ -180,9 +180,9 @@ class CommandHistory {
     if (Math.abs(steps) <= this.capacity) {
       // 禁用不必要的列表方法
       const list = this.list
-      list.update = Function.empty
-      list.select = Function.empty
-      list.scrollToSelection = Function.empty
+      list.update = IFunction.empty
+      list.select = IFunction.empty
+      list.scrollToSelection = IFunction.empty
       while (steps < 0) {
         this.restore('undo')
         steps++

@@ -3,7 +3,7 @@
 import {
   Timer,
   TimerManager,
-  Function
+  IFunction
 } from '../yami'
 
 // ******************************** 滚动侦听器 ********************************
@@ -107,7 +107,7 @@ import {
     }
     highSpeed = speed
     lowSpeed = shift ? speed / 4 : speed
-    scrollUpdater = updater ?? Function.empty
+    scrollUpdater = updater ?? IFunction.empty
     window.on('pointermove', pointermove)
   }
 
