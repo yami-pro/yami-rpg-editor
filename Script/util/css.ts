@@ -8,7 +8,8 @@ interface IWindow extends Window {
   $: SelectorVar
 }
 
-// CSS选择器
+// ******************************** CSS选择器 ********************************
+
 const $ = function IIFE() {
   const regexp = /^#(\w|-)+$/
   return function (selector: string) {
