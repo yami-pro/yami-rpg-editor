@@ -1,6 +1,6 @@
 'use strict'
 
-import './css'
+// import './css'
 import './data-transfer'
 import './event-target'
 import './ctrl'
@@ -15,6 +15,7 @@ import './string'
 import './undo-redo'
 import './util'
 
+export { CSSManager } from './css'
 export { IArray, ArrayManager } from './array'
 export { IEvent } from './event'
 export { Function, emptyFunc } from './function'

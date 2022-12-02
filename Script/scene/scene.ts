@@ -33,7 +33,8 @@ import {
   TimerManager,
   Vector,
   Window,
-  Clipboard
+  Clipboard,
+  CSSManager
 } from '../yami'
 
 // ******************************** 场景窗口 ********************************
@@ -1649,7 +1650,7 @@ Scene.resize = function () {
     const scaledTileHeight = Math.round(this.tileHeight * scale)
     const innerWidth = this.width * scaledTileWidth
     const innerHeight = this.height * scaledTileHeight
-    const screenBox = CSS.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = CSSManager.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const paddingLeft = Math.max(screenWidth - innerWidth >> 1, scaledPadding)
@@ -7684,7 +7685,7 @@ Scene.list.createIcon = function IIFE() {
       const path = File.getPath(parallax.image)
       if (path) {
         icon.addClass('icon-scene-parallax')
-        icon.style.backgroundImage = CSS.encodeURL(File.route(path))
+        icon.style.backgroundImage = CSSManager.encodeURL(File.route(path))
       } else {
         icon.textContent = '\uf1c5'
       }

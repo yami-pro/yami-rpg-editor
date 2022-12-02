@@ -6,7 +6,8 @@ import {
   Inspector,
   Palette,
   Timer,
-  TimerManager
+  TimerManager,
+  CSSManager
 } from '../yami'
 
 // ******************************** 精灵窗口 ********************************
@@ -256,7 +257,7 @@ Sprite.resize = function () {
     const scaledUnitHeight = Math.round(this.unitHeight * scale)
     const innerWidth = this.hframes * scaledUnitWidth
     const innerHeight = this.vframes * scaledUnitHeight
-    const screenBox = CSS.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = CSSManager.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const paddingLeft = Math.max(screenWidth - innerWidth >> 1, 0)

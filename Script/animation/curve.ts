@@ -5,7 +5,8 @@ import {
   Data,
   Easing,
   Layout,
-  TimerManager
+  TimerManager,
+  CSSManager
 } from '../yami'
 
 // ******************************** 曲线窗口 ********************************
@@ -172,7 +173,7 @@ Curve.updateTimeline = function (target) {
 // 调整大小
 Curve.resize = function () {
   if (this.state === 'open') {
-    const screenBox = CSS.getDevicePixelContentBoxSize(this.page)
+    const screenBox = CSSManager.getDevicePixelContentBoxSize(this.page)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
 

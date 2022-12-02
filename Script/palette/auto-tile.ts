@@ -19,7 +19,8 @@ import {
   SetQuantity,
   TileFrame,
   Window,
-  Clipboard
+  Clipboard,
+  CSSManager
 } from '../yami'
 
 // ******************************** 自动图块 ********************************
@@ -516,7 +517,7 @@ AutoTile.updateFrameItem = function () {
 // 更新画布
 AutoTile.updateCanvas = function () {
   const canvas = this.canvas
-  const {width, height} = CSS.getDevicePixelContentBoxSize(canvas)
+  const {width, height} = CSSManager.getDevicePixelContentBoxSize(canvas)
   if (canvas.width !== width) {
     canvas.width = width
   }

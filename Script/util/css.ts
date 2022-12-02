@@ -32,10 +32,10 @@ interface ICSS {
 }
 
 const CSSObject = <Object>CSS
-const YMCSS = <ICSS>CSSObject
+const CSSManager = <ICSS>CSSObject
 
 // 编码字符串为URL
-YMCSS.encodeURL = function IIFE() {
+CSSManager.encodeURL = function IIFE() {
   const regexp = /([()])/g
   return function (str) {
     return `url(${encodeURI(str).replace(regexp, '\\$1')})`
@@ -43,7 +43,7 @@ YMCSS.encodeURL = function IIFE() {
 }()
 
 // 光栅化 CSS 像素坐标使其对齐到设备像素
-YMCSS.rasterize = function (csspx) {
+CSSManager.rasterize = function (csspx) {
   const dpr = window.devicePixelRatio
   return Math.round(csspx * dpr) / dpr
 }
@@ -51,7 +51,7 @@ YMCSS.rasterize = function (csspx) {
 // 获取设备像素内容框大小
 // 在四舍五入时有精度导致的误差
 // 因此暂时用 offset 来解决问题
-YMCSS.getDevicePixelContentBoxSize = function (element) {
+CSSManager.getDevicePixelContentBoxSize = function (element) {
   const rect = element.getBoundingClientRect()
   const dpr = window.devicePixelRatio
   const left = Math.round(rect.left * dpr + 1e-5)
@@ -62,3 +62,5 @@ YMCSS.getDevicePixelContentBoxSize = function (element) {
   const height = bottom - top
   return {width, height}
 }
+
+export { CSSManager }

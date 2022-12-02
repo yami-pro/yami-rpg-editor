@@ -13,7 +13,8 @@ import {
   Scene,
   Title,
   UI,
-  Function
+  Function,
+  CSSManager
 } from '../yami'
 
 // ******************************** 布局对象 ********************************
@@ -190,8 +191,8 @@ Layout.updateGroups = function IIFE() {
       case 'horizontal': {
         const pn = group.parentNode
         const pw = pn.clientWidth
-        const sl = CSS.rasterize(pw * start)
-        const sr = CSS.rasterize(pw * end)
+        const sl = CSSManager.rasterize(pw * start)
+        const sr = CSSManager.rasterize(pw * end)
         style.left = `${sl}px`
         style.top = '0'
         style.width = `${sr - sl}px`
@@ -201,8 +202,8 @@ Layout.updateGroups = function IIFE() {
       case 'vertical': {
         const pn = group.parentNode
         const ph = pn.clientHeight
-        const st = CSS.rasterize(ph * start)
-        const sb = CSS.rasterize(ph * end)
+        const st = CSSManager.rasterize(ph * start)
+        const sb = CSSManager.rasterize(ph * end)
         style.left = '0'
         style.top = `${st}px`
         style.width = '100%'
@@ -275,7 +276,7 @@ Layout.updateGroupTabs = function (group) {
 // 更新群组信息
 Layout.updateGroupInfo = function () {
   for (const info of this.resizing.infos) {
-    const box = CSS.getDevicePixelContentBoxSize(info.manager)
+    const box = CSSManager.getDevicePixelContentBoxSize(info.manager)
     info.textContent = `${box.width} x ${box.height}`
   }
 }
