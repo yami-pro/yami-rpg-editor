@@ -1,5 +1,9 @@
 'use strict'
 
+import {
+  ArrayManager
+} from '../yami'
+
 // ******************************** 单选框代理 ********************************
 
 class RadioProxy extends HTMLElement {
@@ -117,7 +121,7 @@ class RadioProxy extends HTMLElement {
             }
           } else {
             for (const element of selection
-            ? Array.subtract(entry.targets, selection.targets)
+            ? ArrayManager.subtract(entry.targets, selection.targets)
             : entry.targets) {
               element.disable()
             }

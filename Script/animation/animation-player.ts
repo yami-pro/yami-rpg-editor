@@ -7,7 +7,8 @@ import {
   ImageTexture,
   Matrix,
   Particle,
-  Scene
+  Scene,
+  ArrayManager
 } from '../yami'
 
 // ******************************** 动画播放器类 ********************************
@@ -41,7 +42,7 @@ class AnimationPlayer {
     this.anchorY = 0
     this.mirror = false
     this.data = animation
-    this.dirMap = Array.empty
+    this.dirMap = ArrayManager.empty
     this.dirCases = null
     this.angle = 0
     this.direction = -1

@@ -5,7 +5,8 @@ import {
   Menu,
   TextBox,
   Timer,
-  Function
+  Function,
+  ArrayManager
 } from '../yami'
 
 // ******************************** 树状列表 ********************************
@@ -669,7 +670,7 @@ class TreeList extends HTMLElement {
     // 处于搜索模式则清空搜索结果
     // 避免重复更新和选项位置错乱
     if (this.display === 'search') {
-      this.searchResults = Array.empty
+      this.searchResults = ArrayManager.empty
     }
     switch (response.type) {
       case 'rename': {
@@ -806,7 +807,7 @@ class TreeList extends HTMLElement {
 
   // 取消选择
   unselect(item) {
-    let selections = Array.empty
+    let selections = ArrayManager.empty
     if (item === undefined) {
       selections = this.selections
     } if (this.selections.includes(item)) {

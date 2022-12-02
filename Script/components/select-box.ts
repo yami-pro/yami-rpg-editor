@@ -1,6 +1,9 @@
 'use strict'
 
-import { Select } from '../yami'
+import {
+  Select,
+  ArrayManager
+} from '../yami'
 
 // ******************************** 选择框 ********************************
 
@@ -221,7 +224,7 @@ class SelectBox extends HTMLElement {
             deferredList.push(entry)
           } else {
             for (const element of selection
-            ? Array.subtract(entry.targets, selection.targets)
+            ? ArrayManager.subtract(entry.targets, selection.targets)
             : entry.targets) {
               this.disableElement(element)
             }

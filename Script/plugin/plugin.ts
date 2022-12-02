@@ -14,7 +14,8 @@ import {
   ScriptListInterface,
   Selector,
   Window,
-  Clipboard
+  Clipboard,
+  ArrayManager
 } from '../yami'
 
 // ******************************** 插件窗口 ********************************
@@ -877,7 +878,7 @@ PluginManager.parseMeta = function IIFE() {
           active = owner.value
         }
       }
-      const actives = map[active] ?? Array.empty
+      const actives = map[active] ?? ArrayManager.empty
       for (const option of options) {
         const keys = map[option]
         if (keys === undefined) continue

@@ -5,7 +5,8 @@ import {
   FileItem,
   FSP,
   Meta,
-  Path
+  Path,
+  ArrayManager
 } from '../yami'
 
 // ******************************** 文件夹项目 ********************************
@@ -24,8 +25,8 @@ class FolderItem {
     this.path = path
     this.stats = null
     this.parent = parent
-    this.children = Array.empty
-    this.subfolders = Array.empty
+    this.children = ArrayManager.empty
+    this.subfolders = ArrayManager.empty
     this.contexts = null
   }
 

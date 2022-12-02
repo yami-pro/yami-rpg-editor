@@ -25,16 +25,25 @@ if (window) {
 
 // ******************************** CSS静态方法 ********************************
 
+interface ICSS {
+  encodeURL: (str: string) => string
+  rasterize: (csspx: number) => number
+  getDevicePixelContentBoxSize: (element: Element) => {width: number, height: number}
+}
+
+const CSSObject = <Object>CSS
+const YMCSS = <ICSS>CSSObject
+
 // 编码字符串为URL
-CSS.encodeURL = function IIFE() {
+YMCSS.encodeURL = function IIFE() {
   const regexp = /([()])/g
-  return function (string) {
-    return `url(${encodeURI(string).replace(regexp, '\\$1')})`
+  return function (str) {
+    return `url(${encodeURI(str).replace(regexp, '\\$1')})`
   }
 }()
 
 // 光栅化 CSS 像素坐标使其对齐到设备像素
-CSS.rasterize = function (csspx) {
+YMCSS.rasterize = function (csspx) {
   const dpr = window.devicePixelRatio
   return Math.round(csspx * dpr) / dpr
 }
@@ -42,7 +51,7 @@ CSS.rasterize = function (csspx) {
 // 获取设备像素内容框大小
 // 在四舍五入时有精度导致的误差
 // 因此暂时用 offset 来解决问题
-CSS.getDevicePixelContentBoxSize = function (element) {
+YMCSS.getDevicePixelContentBoxSize = function (element) {
   const rect = element.getBoundingClientRect()
   const dpr = window.devicePixelRatio
   const left = Math.round(rect.left * dpr + 1e-5)

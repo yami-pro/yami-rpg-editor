@@ -1,9 +1,8 @@
 'use strict'
 
-// ******************************** 数组静态方法 ********************************
+// ******************************** 数组声明 ********************************
 
 interface IArray extends Array<any> {
-  // 数组静态方法扩展
   empty: any[]
   subtract(a: any[], b: any[]): any[]
 
@@ -12,14 +11,15 @@ interface IArray extends Array<any> {
   remove(value: any): boolean
 }
 
-const ArrObject = <Object>Array
-const Arr = <IArray>ArrObject
+// ******************************** 数组管理对象 ********************************
 
-// 数组静态属性 - 空数组
-Arr.empty = []
+const ArrayManager = <IArray>new Object()
 
-// 数组静态方法 - 减法
-Arr.subtract = function (a: any[], b: any[]) {
+// 空数组
+ArrayManager.empty = []
+
+// 减法
+ArrayManager.subtract = function (a, b) {
   const differences = []
   const length = a.length
   for (let i = 0; i < length; i++) {
@@ -36,7 +36,7 @@ const prototypeObject = <Object>Array.prototype
 const prototype = <IArray>prototypeObject
 
 // 数组方法 - 添加
-prototype.append = function (value: any) {
+prototype.append = function (value) {
   if (this.indexOf(value) === -1) {
     this.push(value)
     return true
@@ -45,7 +45,7 @@ prototype.append = function (value: any) {
 }
 
 // 数组方法 - 移除
-prototype.remove = function (value: any) {
+prototype.remove = function (value) {
   const index = this.indexOf(value)
   if (index !== -1) {
     this.splice(index, 1)
@@ -54,4 +54,4 @@ prototype.remove = function (value: any) {
   return false
 }
 
-export { Arr as Array, IArray }
+export { IArray, ArrayManager }

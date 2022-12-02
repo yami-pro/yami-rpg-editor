@@ -8,7 +8,8 @@ import {
   Local,
   Menu,
   WindowFrame,
-  Clipboard
+  Clipboard,
+  ArrayManager
 } from '../yami'
 
 // ******************************** 指令列表 ********************************
@@ -361,7 +362,7 @@ class CommandList extends HTMLElement {
       blank = document.createElement('command-item')
 
       // 设置元素属性
-      blank.contents = Array.empty
+      blank.contents = ArrayManager.empty
       blank.enabled = true
       blank.dataKey = true
       blank.dataList = commands

@@ -1,6 +1,9 @@
 'use strict'
 
-import { Local } from '../yami'
+import {
+  Local,
+  ArrayManager
+} from '../yami'
 
 // ******************************** 属性上下文类 ********************************
 
@@ -51,7 +54,7 @@ class AttributeContext {
         groupMap[key] = {
           groupName: '',
           itemMap: Object.empty,
-          itemList: Array.empty,
+          itemList: ArrayManager.empty,
         }
       }
     }

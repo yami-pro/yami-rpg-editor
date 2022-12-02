@@ -9,7 +9,8 @@ import {
   Local,
   Menu,
   Window,
-  Clipboard
+  Clipboard,
+  ArrayManager
 } from '../yami'
 
 // ******************************** 属性窗口 ********************************
@@ -629,8 +630,8 @@ Attribute.listPopup = function (event) {
   const undoable = Attribute.history.canUndo()
   const redoable = Attribute.history.canRedo()
   const get = Local.createGetter('menuAttributeList')
-  let headItems = Array.empty
-  let footItems = Array.empty
+  let headItems = ArrayManager.empty
+  let footItems = ArrayManager.empty
   if (selected) {
     headItems = [{
       label: `ID: ${item.id}`,

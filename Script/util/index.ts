@@ -15,7 +15,7 @@ import './string'
 import './undo-redo'
 import './util'
 
-export { Array, IArray } from './array'
+export { IArray, ArrayManager } from './array'
 export { IEvent } from './event'
 export { Function, emptyFunc } from './function'
 export { Timer, TimerManager } from './timer'
