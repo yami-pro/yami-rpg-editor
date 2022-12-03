@@ -36,7 +36,7 @@ interface IHTMLElement extends HTMLElement {
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): void
-  isInContent(event: any): void
+  isInContent(event: any): boolean
   dispatchChangeEvent: (index: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
