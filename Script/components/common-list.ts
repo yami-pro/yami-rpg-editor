@@ -1,5 +1,9 @@
 'use strict'
 
+import {
+  IMath as Math
+} from '../yami'
+
 // ******************************** 普通列表 ********************************
 
 class CommonList extends HTMLElement {

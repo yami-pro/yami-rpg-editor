@@ -3,7 +3,8 @@
 import {
   AudioManager,
   File,
-  Reverb
+  Reverb,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 音频播放器类 ********************************

@@ -14,7 +14,8 @@ import {
   TextBox,
   Timer,
   Window,
-  ICSS
+  ICSS,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 文件主体面板 ********************************

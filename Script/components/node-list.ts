@@ -6,7 +6,8 @@ import {
   TextBox,
   Timer,
   IFunction,
-  IArray
+  IArray,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 树状列表 ********************************

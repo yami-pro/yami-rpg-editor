@@ -1,6 +1,9 @@
 'use strict'
 
-import { TextHistory } from '../yami'
+import {
+  TextHistory,
+  IMath as Math
+} from '../yami'
 
 // ******************************** 文本框 ********************************
 

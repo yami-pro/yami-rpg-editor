@@ -9,7 +9,8 @@ import {
   Menu,
   Rename,
   UI,
-  Window
+  Window,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 拾色器窗口 ********************************

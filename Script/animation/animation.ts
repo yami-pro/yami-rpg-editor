@@ -31,7 +31,8 @@ import {
   IHTMLElement,
   IFunction,
   IArray,
-  ICSS
+  ICSS,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************

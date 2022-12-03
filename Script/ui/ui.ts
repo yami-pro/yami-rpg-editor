@@ -24,7 +24,8 @@ import {
   TimerManager,
   Window,
   Clipboard,
-  ICSS
+  ICSS,
+  IMath as Math
 } from '../yami'
 
 // ******************************** UI 窗口 ********************************

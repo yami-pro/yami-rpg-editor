@@ -3,7 +3,8 @@
 import {
   GL,
   ImageTexture,
-  UI
+  UI,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 进度条元素 ********************************

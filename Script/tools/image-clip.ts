@@ -7,7 +7,8 @@ import {
   getElementWriter,
   Local,
   Path,
-  Window
+  Window,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 图像剪辑窗口 ********************************

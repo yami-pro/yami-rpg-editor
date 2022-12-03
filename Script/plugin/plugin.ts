@@ -15,7 +15,8 @@ import {
   Selector,
   Window,
   Clipboard,
-  IArray
+  IArray,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 插件窗口 ********************************

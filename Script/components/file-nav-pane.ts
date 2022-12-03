@@ -9,7 +9,8 @@ import {
   Menu,
   Path,
   TextBox,
-  Timer
+  Timer,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 文件导航面板 ********************************

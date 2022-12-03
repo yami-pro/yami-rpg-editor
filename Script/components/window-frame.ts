@@ -4,7 +4,8 @@ import {
   Layout,
   TitleBar,
   Window,
-  ICSS
+  ICSS,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 窗口框架 ********************************

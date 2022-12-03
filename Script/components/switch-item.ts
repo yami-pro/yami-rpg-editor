@@ -1,5 +1,9 @@
 'use strict'
 
+import {
+  IMath as Math
+} from "../yami"
+
 // ******************************** 开关选项 ********************************
 
 class SwitchItem extends HTMLElement {

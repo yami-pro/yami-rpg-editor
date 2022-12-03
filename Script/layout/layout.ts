@@ -14,7 +14,8 @@ import {
   Title,
   UI,
   IFunction,
-  ICSS
+  ICSS,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 布局对象 ********************************

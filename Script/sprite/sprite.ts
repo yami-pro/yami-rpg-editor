@@ -7,7 +7,8 @@ import {
   Palette,
   Timer,
   TimerManager,
-  ICSS
+  ICSS,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 精灵窗口 ********************************

@@ -5,7 +5,8 @@ import {
   Palette,
   Scene,
   TimerManager,
-  Window
+  Window,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 图块节点窗口 ********************************

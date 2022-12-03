@@ -9,7 +9,8 @@ import {
   Menu,
   WindowFrame,
   Clipboard,
-  IArray
+  IArray,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 指令列表 ********************************

@@ -4,7 +4,8 @@ import {
   AutoTile,
   Cursor,
   Palette,
-  Window
+  Window,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 图块帧索引窗口 ********************************

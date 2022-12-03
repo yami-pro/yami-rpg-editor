@@ -2,7 +2,8 @@
 
 import {
   measureText,
-  NumberHistory
+  NumberHistory,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 数字框 ********************************

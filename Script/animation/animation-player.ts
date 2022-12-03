@@ -8,7 +8,8 @@ import {
   Matrix,
   Particle,
   Scene,
-  IArray
+  IArray,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 动画播放器类 ********************************

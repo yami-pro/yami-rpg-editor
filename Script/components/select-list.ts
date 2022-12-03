@@ -2,7 +2,8 @@
 
 import {
   CommonList,
-  Window
+  Window,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 选择列表 ********************************

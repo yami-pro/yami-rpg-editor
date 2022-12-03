@@ -70,3 +70,5 @@ prototype.off = function (type, listener, options) {
       break
   }
 }
+
+export { IEventTarget }

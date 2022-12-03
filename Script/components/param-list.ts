@@ -9,7 +9,8 @@ import {
   ParamHistory,
   WindowFrame,
   Clipboard,
-  IFunction
+  IFunction,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 参数列表 ********************************

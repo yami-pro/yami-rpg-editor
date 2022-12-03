@@ -34,7 +34,8 @@ import {
   Vector,
   Window,
   Clipboard,
-  ICSS
+  ICSS,
+  IMath as Math
 } from '../yami'
 
 // ******************************** 场景窗口 ********************************
