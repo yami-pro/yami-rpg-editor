@@ -24,6 +24,9 @@ const $ = function IIFE() {
 // ******************************** CSS静态方法 ********************************
 
 interface ICSS {
+  escape(ident: string): string
+  supports(property: string, value: string): boolean
+
   encodeURL: (str: string) => string
   rasterize: (csspx: number) => number
   getDevicePixelContentBoxSize: (element: Element) => {width: number, height: number}
@@ -59,6 +62,9 @@ ICSS.getDevicePixelContentBoxSize = function (element) {
   const height = bottom - top
   return {width, height}
 }
+
+ICSS.escape = CSS.escape
+ICSS.supports = CSS.supports
 
 // ******************************** 绑定到全局对象 ********************************
 
