@@ -3,7 +3,8 @@
 import {
   Command,
   Local,
-  Window
+  Window,
+  INumber
 } from '../yami'
 
 // ******************************** 数组窗口 ********************************
@@ -115,7 +116,7 @@ ArrayList.interface = {
     // 创建索引文本
     const indexText = document.createElement('text')
     indexText.addClass('array-index')
-    indexText.textContent = Number.padZero(index, data.length, ' ') + ':'
+    indexText.textContent = INumber.padZero(index, data.length, ' ') + ':'
 
     // 创建值文本
     const valueText = document.createElement('text')

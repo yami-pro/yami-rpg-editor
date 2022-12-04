@@ -20,7 +20,8 @@ import {
   TileFrame,
   Window,
   Clipboard,
-  ICSS
+  ICSS,
+  INumber
 } from '../yami'
 
 // ******************************** 自动图块 ********************************
@@ -368,7 +369,7 @@ AutoTile.createNodeItems = function (id = this.nodeIndex) {
   const cover = this.template.cover
   const nodes = this.nodes
   const length = nodes.length
-  const digits = Number.computeIndexDigits(length)
+  const digits = INumber.computeIndexDigits(length)
   for (let i = 0; i < length; i++) {
     const element = document.createElement('common-item')
     const index = i.toString().padStart(digits, '0')
@@ -486,7 +487,7 @@ AutoTile.createFrameItems = function (id = this.frameIndex) {
   const list = this.frameList.reload()
   const frames = this.frames
   const length = frames.length
-  const digits = Number.computeIndexDigits(length)
+  const digits = INumber.computeIndexDigits(length)
   for (let i = 0; i < length; i++) {
     const frame = frames[i]
     const x = frame & 0xff
@@ -507,7 +508,7 @@ AutoTile.updateFrameItem = function () {
   const index = this.frameIndex
   const length = frames.length
   const frame = frames[index]
-  const prefix = Number.padZero(index, length)
+  const prefix = INumber.padZero(index, length)
   const x = frame & 0xff
   const y = frame >> 8
   this.frameList.selection.textContent = `#${prefix}: ${x},${y}`

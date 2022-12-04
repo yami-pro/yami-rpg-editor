@@ -7,7 +7,8 @@ import {
   getElementReader,
   Inspector,
   TimerManager,
-  ICSS
+  ICSS,
+  INumber
 } from '../yami'
 
 // ******************************** 文件 - 音频页面 ********************************
@@ -241,7 +242,7 @@ FileAudio.updateCanvas = function () {
 
 // 格式化时间
 FileAudio.formatTime = function (time) {
-  const pad = Number.padZero
+  const pad = INumber.padZero
   const length = Math.floor(time)
   const hours = Math.floor(length / 3600)
   const minutes = Math.floor(length / 60) % 60

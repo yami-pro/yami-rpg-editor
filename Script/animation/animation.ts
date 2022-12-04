@@ -32,7 +32,8 @@ import {
   IFunction,
   IArray,
   ICSS,
-  IMath
+  IMath,
+  INumber
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************
@@ -1888,7 +1889,7 @@ Animation.getSpriteListItems = function (animationId) {
   let items = sprites.listItems
   if (items === undefined) {
     const length = sprites.length
-    const digits = Number.computeIndexDigits(length)
+    const digits = INumber.computeIndexDigits(length)
     items = new Array(length + 1)
     items[0] = {name: 'No Image', value: ''}
     for (let i = 0; i < length; i++) {

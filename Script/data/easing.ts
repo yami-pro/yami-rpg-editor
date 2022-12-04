@@ -17,7 +17,8 @@ import {
   Window,
   Clipboard,
   ICSS,
-  IMath
+  IMath,
+  INumber
 } from '../yami'
 
 // ******************************** 过渡窗口 ********************************
@@ -1346,7 +1347,7 @@ Easing.list.updateTextNode = function (item) {
   const items = item.parent.children
   const index = items.indexOf(item)
   const length = items.length
-  const digits = Number.computeIndexDigits(length)
+  const digits = INumber.computeIndexDigits(length)
   const sn = index.toString().padStart(digits, '0')
   const text = `${sn}:${item.name}`
   if (textNode.nodeValue !== text) {
