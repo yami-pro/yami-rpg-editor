@@ -10,7 +10,7 @@ import {
   Rename,
   UI,
   Window,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 拾色器窗口 ********************************
@@ -186,8 +186,8 @@ Color.setPillarCursor = function (y) {
 
 // 从调色板中获取颜色分量
 Color.getRGBFromPalette = function () {
-  const x = Math.round(this.paletteX)
-  const y = Math.round(this.paletteY)
+  const x = IMath.round(this.paletteX)
+  const y = IMath.round(this.paletteY)
   const canvas = $('#color-palette-canvas')
   const context = canvas.getContext('2d')
   const [r, g, b, a] = context.getImageData(x, y, 1, 1).data
@@ -196,7 +196,7 @@ Color.getRGBFromPalette = function () {
 
 // 从色柱中获取颜色分量
 Color.getRGBFromPillar = function () {
-  const y = Math.round(this.pillarY)
+  const y = IMath.round(this.pillarY)
   const canvas = $('#color-pillar-canvas')
   const context = canvas.getContext('2d')
   const [r, g, b, a] = context.getImageData(0, y, 1, 1).data
@@ -291,8 +291,8 @@ Color.palettePointerdown = function (event) {
       }
       const canvas = $('#color-palette-canvas')
       const coords = event.getRelativeCoords(canvas)
-      const x = Math.clamp(coords.x, 0, 255)
-      const y = Math.clamp(coords.y, 0, 193)
+      const x = IMath.clamp(coords.x, 0, 255)
+      const y = IMath.clamp(coords.y, 0, 193)
       this.setPaletteCursor(x, y)
 
       const rgb = this.getRGBFromPalette()
@@ -320,7 +320,7 @@ Color.pillarPointerdown = function (event) {
       }
       const canvas = $('#color-pillar-canvas')
       const coords = event.getRelativeCoords(canvas)
-      const y = Math.clamp(coords.y, 0, 255)
+      const y = IMath.clamp(coords.y, 0, 255)
       this.setPillarCursor(y)
 
       const rgb = this.getRGBFromPillar()

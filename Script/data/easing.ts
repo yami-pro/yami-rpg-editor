@@ -17,7 +17,7 @@ import {
   Window,
   Clipboard,
   ICSS,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 过渡窗口 ********************************
@@ -366,7 +366,7 @@ Easing.delete = function (item) {
         const index = items.indexOf(item)
         this.list.deleteNode(item)
         const last = items.length - 1
-        this.list.select(items[Math.min(index, last)])
+        this.list.select(items[IMath.min(index, last)])
       },
     }, {
       label: get('no'),
@@ -437,7 +437,7 @@ Easing.updateCanvases = function () {
     curve.centerX = cWidth >> 1
     curve.centerY = cHeight >> 1
     // 间隔设置为偶数可保证50%缩放率时原点是整数
-    curve.spacing = Math.floor(Math.max(cWidth / 12, 20) / 2) * 2
+    curve.spacing = IMath.floor(IMath.max(cWidth / 12, 20) / 2) * 2
   }
 
   // 更新预览画布
@@ -508,7 +508,7 @@ Easing.drawCurve = function () {
   context.fillStyle = canvas.textColor
   context.fillText('TIME', originX + 4, originY + 4)
   context.translate(originX, originY)
-  context.rotate(Math.PI * 3 / 2)
+  context.rotate(IMath.PI * 3 / 2)
   context.fillText('PROGRESSION', 4, -12)
   context.setTransform(1, 0, 0, 1, 0, 0)
 
@@ -531,7 +531,7 @@ Easing.drawCurve = function () {
   const easingMap = this.easingMap
   const ratio = easingMap.length - 1
   const time = this.elapsed / this.duration
-  const length = Math.ceil(ratio * time) + 1
+  const length = IMath.ceil(ratio * time) + 1
   for (let i = 1; i < length; i++) {
     context.lineTo(originX + i * fullSize / ratio + 0.5, originY - easingMap[i] * fullSize + 0.5)
   }
@@ -555,10 +555,10 @@ Easing.drawCurve = function () {
         continue
     }
     const point = points[i]
-    const sx = originX + Math.round(point.x * fullSize)
-    const sy = originY - Math.round(point.y * fullSize)
-    const dx = originX + Math.round(linkPoint.x * fullSize)
-    const dy = originY - Math.round(linkPoint.y * fullSize)
+    const sx = originX + IMath.round(point.x * fullSize)
+    const sy = originY - IMath.round(point.y * fullSize)
+    const dx = originX + IMath.round(linkPoint.x * fullSize)
+    const dy = originY - IMath.round(linkPoint.y * fullSize)
     const isActive = active === point
     context.strokeStyle = isActive ? canvas.linkColorActive : canvas.axisColor
     context.beginPath()
@@ -572,8 +572,8 @@ Easing.drawCurve = function () {
   if (image === null) return
   for (let i = 0; i < pLength; i++) {
     const point = points[i]
-    const x = originX + Math.round(point.x * fullSize)
-    const y = originY - Math.round(point.y * fullSize)
+    const x = originX + IMath.round(point.x * fullSize)
+    const y = originY - IMath.round(point.y * fullSize)
     const sx = i * 3
     const isActive = active === point
     if (y - 3 < 0) {
@@ -597,8 +597,8 @@ Easing.drawPreview = function () {
   const image = this.previewImage
   const size = image.height
   const halfsize = size / 2
-  const spacingX = Math.floor((width - size * 4) / 5)
-  const spacingY = Math.floor(height / 2)
+  const spacingX = IMath.floor((width - size * 4) / 5)
+  const spacingY = IMath.floor(height / 2)
   const time = this.easingMap.map(this.elapsed / this.duration)
   const dpr = window.devicePixelRatio
 
@@ -611,7 +611,7 @@ Easing.drawPreview = function () {
 
   // 绘制位移元素
   {
-    const offset = Math.round(60 * dpr)
+    const offset = IMath.round(60 * dpr)
     const y0 = spacingY - halfsize + offset
     const y1 = spacingY - halfsize - offset
     const dx = spacingX
@@ -634,7 +634,7 @@ Easing.drawPreview = function () {
 
   // 绘制旋转元素
   {
-    const angle = time * Math.PI * 2
+    const angle = time * IMath.PI * 2
     const ox = spacingX * 3 + halfsize * 5
     const oy = spacingY + 20
     context.translate(ox, oy)
@@ -688,12 +688,12 @@ Easing.selectPointByCoords = function (mouseX, mouseY) {
   const points = this.points
   for (let i = points.length - 1; i >= 0; i--) {
     const point = points[i]
-    const distX = Math.abs(point.x - x)
-    const distY = Math.abs(point.y - y)
+    const distX = IMath.abs(point.x - x)
+    const distY = IMath.abs(point.y - y)
     if (distX <= 0.1 && distY <= 0.1 ||
       ifSelectUpper && distX <= 0.1 && point.y > borderY ||
       ifSelectLower && distX <= 0.1 && point.y < borderY) {
-      const w = -Math.hypot(distX, distY)
+      const w = -IMath.hypot(distX, distY)
       if (target === null || weight < w) {
         target = point
         weight = w
@@ -1119,10 +1119,10 @@ Easing.pointermove = function (event) {
     const point = this.activePoint
     const index = this.points.indexOf(point)
     const fullSize = this.curve.spacing * this.scale * 10
-    const transX = Math.roundTo((event.clientX - dragging.clientX) / fullSize, 2)
-    const transY = Math.roundTo((dragging.clientY - event.clientY) / fullSize, 2)
-    const pointX = Math.clamp(Math.roundTo(dragging.pointStartX + transX, 2), 0, 1)
-    const pointY = Math.clamp(Math.roundTo(dragging.pointStartY + transY, 2), -5, 5)
+    const transX = IMath.roundTo((event.clientX - dragging.clientX) / fullSize, 2)
+    const transY = IMath.roundTo((dragging.clientY - event.clientY) / fullSize, 2)
+    const pointX = IMath.clamp(IMath.roundTo(dragging.pointStartX + transX, 2), 0, 1)
+    const pointY = IMath.clamp(IMath.roundTo(dragging.pointStartY + transY, 2), -5, 5)
     const xInput = $(`#easing-points-${index}-x`)
     const yInput = $(`#easing-points-${index}-y`)
     xInput.write(pointX)
@@ -1213,14 +1213,14 @@ Easing.CurveMap = class CurveMap extends Float64Array {
         this[offset + i * 2 + 1] = y
       }
     }
-    this.count = Math.floor(points.length / 3) * 2000 + 2
+    this.count = IMath.floor(points.length / 3) * 2000 + 2
   }
 }
 
 // 过渡映射表类
 Easing.EasingMap = function IIFE() {
   const SCALE = 1000
-  const round = Math.round
+  const round = IMath.round
   return class EasingMap extends Float32Array {
     constructor() {
       super(SCALE + 1)

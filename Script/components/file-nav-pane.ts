@@ -10,7 +10,7 @@ import {
   Path,
   TextBox,
   Timer,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 文件导航面板 ********************************
@@ -272,16 +272,16 @@ class FileNavPane extends HTMLElement {
         const {element} = file.getContext(this)
         const index = elements.indexOf(element)
         if (index !== -1) {
-          start = Math.min(start, index)
-          end = Math.max(end, index)
+          start = IMath.min(start, index)
+          end = IMath.max(end, index)
         }
       }
       switch (direction) {
         case 'up':
-          index = Math.clamp(start - 1, 0, last)
+          index = IMath.clamp(start - 1, 0, last)
           break
         case 'down':
-          index = Math.clamp(end + 1, 0, last)
+          index = IMath.clamp(end + 1, 0, last)
           break
       }
       const file = elements[index]?.file
@@ -305,14 +305,14 @@ class FileNavPane extends HTMLElement {
           let scrollTop
           switch (mode) {
             case 'active':
-              scrollTop = Math.clamp(
+              scrollTop = IMath.clamp(
                 this.scrollTop,
                 i * 20 + 20 - this.innerHeight,
                 i * 20,
               )
               break
             case 'middle':
-              scrollTop = Math.round((
+              scrollTop = IMath.round((
                 i * 20 + 10
               - this.innerHeight / 2)
               / 20) * 20
@@ -522,8 +522,8 @@ class FileNavPane extends HTMLElement {
                 const {element} = file.getContext(this)
                 const index = elements.indexOf(element)
                 if (index !== -1) {
-                  start = Math.min(start, index)
-                  end = Math.max(end, index)
+                  start = IMath.min(start, index)
+                  end = IMath.max(end, index)
                 }
               }
               if (start !== -1) {

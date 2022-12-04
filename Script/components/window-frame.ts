@@ -5,7 +5,7 @@ import {
   TitleBar,
   Window,
   ICSS,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 窗口框架 ********************************
@@ -205,8 +205,8 @@ class WindowFrame extends HTMLElement {
     }
     const xMax = window.innerWidth - rect.width
     const yMax = window.innerHeight - rect.height
-    this.style.left = `${Math.clamp(x, 0, xMax)}px`
-    this.style.top = `${Math.clamp(y, 0, yMax)}px`
+    this.style.left = `${IMath.clamp(x, 0, xMax)}px`
+    this.style.top = `${IMath.clamp(y, 0, yMax)}px`
   }
 
   // 设置标题

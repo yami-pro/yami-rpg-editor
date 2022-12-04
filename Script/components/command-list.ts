@@ -10,7 +10,7 @@ import {
   WindowFrame,
   Clipboard,
   IArray,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 指令列表 ********************************
@@ -418,8 +418,8 @@ class CommandList extends HTMLElement {
     // 限制范围
     const elements = this.elements
     const count = elements.count
-    start = Math.clamp(start, 0, count - 1)
-    end = Math.clamp(end, 0, count - 1)
+    start = IMath.clamp(start, 0, count - 1)
+    end = IMath.clamp(end, 0, count - 1)
     let indent = Infinity
     for (let i = start; i <= end; i++) {
       const {dataIndent} = elements[i]
@@ -470,7 +470,7 @@ class CommandList extends HTMLElement {
     const origin = this.origin
     this.select(origin, active)
     this.origin = origin
-    this.active = Math.clamp(
+    this.active = IMath.clamp(
       active,
       this.start,
       this.end,
@@ -574,14 +574,14 @@ class CommandList extends HTMLElement {
       anchor = this.active
     }
     if (anchor !== null) {
-      const scrollLines = Math.floor(this.innerHeight / 20) - 1
-      const scrollTop = Math.max(this.scrollTop - scrollLines * 20, 0)
+      const scrollLines = IMath.floor(this.innerHeight / 20) - 1
+      const scrollTop = IMath.max(this.scrollTop - scrollLines * 20, 0)
       if (select) {
         const bottom = this.scrollTop + this.innerHeight
-        const bottomIndex = Math.floor(bottom / 20) - 1
-        const targetIndex = Math.min(anchor, bottomIndex) - scrollLines
+        const bottomIndex = IMath.floor(bottom / 20) - 1
+        const targetIndex = IMath.min(anchor, bottomIndex) - scrollLines
         this.select(targetIndex)
-        this.anchor = Math.max(targetIndex, this.start)
+        this.anchor = IMath.max(targetIndex, this.start)
       }
       this.scroll(0, scrollTop)
     }
@@ -595,18 +595,18 @@ class CommandList extends HTMLElement {
     }
     if (anchor !== null) {
       const top = this.scrollTop
-      const scrollLines = Math.floor(this.innerHeight / 20) - 1
+      const scrollLines = IMath.floor(this.innerHeight / 20) - 1
       let scrollTop = top + scrollLines * 20
       if (select) {
-        const topIndex = Math.floor(top / 20)
-        const targetIndex = Math.max(anchor, topIndex) + scrollLines
+        const topIndex = IMath.floor(top / 20)
+        const targetIndex = IMath.max(anchor, topIndex) + scrollLines
         const scrollBottom = this.elements.count * 20
         const scrollTopMax = scrollBottom - this.innerHeight
         this.select(targetIndex)
-        this.anchor = Math.min(targetIndex, this.end)
-        scrollTop = Math.min(scrollTop, scrollTopMax)
+        this.anchor = IMath.min(targetIndex, this.end)
+        scrollTop = IMath.min(scrollTop, scrollTopMax)
       }
-      this.scroll(0, Math.max(top, scrollTop))
+      this.scroll(0, IMath.max(top, scrollTop))
     }
   }
 
@@ -743,8 +743,8 @@ class CommandList extends HTMLElement {
           const min = range[1] * 20 + 20 - this.innerHeight
           scrollTop = (
             this.active <= this.origin
-          ? Math.min(Math.max(top, min), max)
-          : Math.max(Math.min(top, max), min)
+          ? IMath.min(IMath.max(top, min), max)
+          : IMath.max(IMath.min(top, max), min)
           )
           break
         }
@@ -752,14 +752,14 @@ class CommandList extends HTMLElement {
           const top = this.scrollTop
           const max = this.active * 20
           const min = this.active * 20 + 20 - this.innerHeight
-          scrollTop = Math.max(Math.min(top, max), min)
+          scrollTop = IMath.max(IMath.min(top, max), min)
           break
         }
         case 'restore': {
           const top = this.scrollTop
           const max = this.start * 20
           const min = this.end * 20 + 20 - this.innerHeight
-          scrollTop = Math.min(Math.max(top, min), max)
+          scrollTop = IMath.min(IMath.max(top, min), max)
           break
         }
         default:
@@ -1260,7 +1260,7 @@ class CommandList extends HTMLElement {
           event.preventDefault()
           const scrollBottom = this.elements.count * 20
           const scrollTop = scrollBottom - this.innerHeight
-          this.scroll(0, Math.max(this.scrollTop, scrollTop))
+          this.scroll(0, IMath.max(this.scrollTop, scrollTop))
           this.select(Infinity)
           break
         }
@@ -1501,8 +1501,8 @@ class CommandList extends HTMLElement {
             const pt = this.paddingTop
             const {itemHeight} = dragging
             const {y} = event.getRelativeCoords(this)
-            const line = Math.floor((y - pt) / itemHeight)
-            const index = Math.clamp(line, 0, count - 1)
+            const line = IMath.floor((y - pt) / itemHeight)
+            const index = IMath.clamp(line, 0, count - 1)
             if (dragging.itemIndex !== index) {
               dragging.itemIndex = index
               this.selectMultipleTo(index)

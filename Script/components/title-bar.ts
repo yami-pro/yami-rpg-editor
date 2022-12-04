@@ -3,7 +3,7 @@
 import {
   Window,
   ICSS,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 标题栏 ********************************
@@ -48,8 +48,8 @@ class TitleBar extends HTMLElement {
               }
               const x = ICSS.rasterize(left - startX + event.clientX)
               const y = ICSS.rasterize(top - startY + event.clientY)
-              windowFrame.style.left = `${Math.clamp(x, 0, right)}px`
-              windowFrame.style.top = `${Math.clamp(y, 0, bottom)}px`
+              windowFrame.style.left = `${IMath.clamp(x, 0, right)}px`
+              windowFrame.style.top = `${IMath.clamp(y, 0, bottom)}px`
             }
           }
           const pointerup = event => {

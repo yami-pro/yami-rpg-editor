@@ -3,7 +3,7 @@
 import {
   measureText,
   NumberHistory,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 数字框 ********************************
@@ -70,8 +70,8 @@ class NumberBox extends HTMLElement {
     const min = parseFloat(this.input.min)
     const max = parseFloat(this.input.max)
     let value = parseFloat(this.input.value) || 0
-    value = Math.clamp(value, min, max)
-    value = Math.roundTo(value, this.decimals)
+    value = IMath.clamp(value, min, max)
+    value = IMath.roundTo(value, this.decimals)
     return value
   }
 

@@ -1,7 +1,7 @@
 'use strict'
 
 import {
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 普通列表 ********************************
@@ -127,7 +127,7 @@ class CommonList extends HTMLElement {
 
   // 滚动到项目
   scrollToItem(index) {
-    const scrollTop = Math.clamp(
+    const scrollTop = IMath.clamp(
       this.scrollTop,
       index * 20 + 20 - this.innerHeight,
       index * 20,
@@ -151,14 +151,14 @@ class CommonList extends HTMLElement {
       switch (direction) {
         case 'up':
           if (index !== -1) {
-            index = Math.max(index - 1, 0)
+            index = IMath.max(index - 1, 0)
           } else {
             index = last
           }
           break
         case 'down':
           if (index !== -1) {
-            index = Math.min(index + 1, last)
+            index = IMath.min(index + 1, last)
           } else {
             index = 0
           }
@@ -290,9 +290,9 @@ class CommonList extends HTMLElement {
       self.textContent = ''
       return
     }
-    const start = Math.min(Math.floor(st / 20), count - 1)
-    const length = Math.ceil(ch / 20) + 1
-    const end = Math.min(start + length, count)
+    const start = IMath.min(IMath.floor(st / 20), count - 1)
+    const length = IMath.ceil(ch / 20) + 1
+    const end = IMath.min(start + length, count)
     if (elements.start !== start ||
       elements.end !== end) {
       elements.start = start

@@ -2,7 +2,7 @@
 
 import {
   TextHistory,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 文本框 ********************************
@@ -83,7 +83,7 @@ class TextBox extends HTMLElement {
   fitContent() {
     const parent = this.parentNode
     this.style.width = '0'
-    this.style.width = `${Math.clamp(
+    this.style.width = `${IMath.clamp(
       this.input.scrollWidth + 2, 0,
       parent.rect().right
     - this.rect().left,

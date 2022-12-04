@@ -15,7 +15,7 @@ import {
   Timer,
   Window,
   ICSS,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 文件主体面板 ********************************
@@ -100,7 +100,7 @@ class FileBodyPane extends HTMLElement {
 
   // 设置视图索引
   setViewIndex(viewIndex) {
-    viewIndex = Math.clamp(viewIndex, 0, 4)
+    viewIndex = IMath.clamp(viewIndex, 0, 4)
     if (this.viewIndex !== viewIndex) {
       const {head} = this.links
       this.viewIndex = viewIndex
@@ -261,14 +261,14 @@ class FileBodyPane extends HTMLElement {
     const rect = this.rect()
     const cw = rect.width
     const ch = rect.height
-    const ow = Math.max(cw - PADDING * 2 + GAP, 0)
-    const oh = Math.max(ch - PADDING * 2, 0)
+    const ow = IMath.max(cw - PADDING * 2 + GAP, 0)
+    const oh = IMath.max(ch - PADDING * 2, 0)
     const iw = WIDTH + GAP
     const ih = HEIGHT
-    const visibleLines = Math.ceil((cw + GAP) / iw) + 1
-    const normalCountPerLine = Math.max(Math.floor(oh / ih), 1)
-    const scrollCountPerLine = Math.max(Math.floor((oh - SCROLLBAR_HEIGHT) / ih), 1)
-    const scrollCount = Math.floor(ow / iw) * normalCountPerLine + 1
+    const visibleLines = IMath.ceil((cw + GAP) / iw) + 1
+    const normalCountPerLine = IMath.max(IMath.floor(oh / ih), 1)
+    const scrollCountPerLine = IMath.max(IMath.floor((oh - SCROLLBAR_HEIGHT) / ih), 1)
+    const scrollCount = IMath.floor(ow / iw) * normalCountPerLine + 1
     content.itemSize = iw
     content.visibleLines = visibleLines
     content.normalCountPerLine = normalCountPerLine
@@ -285,14 +285,14 @@ class FileBodyPane extends HTMLElement {
     const rect = this.rect()
     const cw = rect.width
     const ch = rect.height
-    const ow = Math.max(cw - PADDING * 2 + GAP, 0)
-    const oh = Math.max(ch - PADDING * 2 + GAP, 0)
+    const ow = IMath.max(cw - PADDING * 2 + GAP, 0)
+    const oh = IMath.max(ch - PADDING * 2 + GAP, 0)
     const iw = width + GAP
     const ih = height + GAP
-    const visibleLines = Math.ceil((ch + GAP) / ih) + 1
-    const normalCountPerLine = Math.max(Math.floor(ow / iw), 1)
-    const scrollCountPerLine = Math.max(Math.floor((ow - SCROLLBAR_WIDTH) / iw), 1)
-    const scrollCount = Math.floor(oh / ih) * normalCountPerLine + 1
+    const visibleLines = IMath.ceil((ch + GAP) / ih) + 1
+    const normalCountPerLine = IMath.max(IMath.floor(ow / iw), 1)
+    const scrollCountPerLine = IMath.max(IMath.floor((ow - SCROLLBAR_WIDTH) / iw), 1)
+    const scrollCount = IMath.floor(oh / ih) * normalCountPerLine + 1
     content.itemSize = ih
     content.visibleLines = visibleLines
     content.normalCountPerLine = normalCountPerLine
@@ -305,14 +305,14 @@ class FileBodyPane extends HTMLElement {
     const {range} = this.content
     const {count} = this.elements
     const scroll = this.viewMode === 'list'
-    ? Math.max(this.scrollLeft - 4, 0)
-    : Math.max(this.scrollTop - 4, 0)
+    ? IMath.max(this.scrollLeft - 4, 0)
+    : IMath.max(this.scrollTop - 4, 0)
     const {countPerLine, itemSize, visibleLines} = this.content
-    const lines = Math.ceil(count / countPerLine)
-    const sLine = Math.clamp(Math.floor(scroll / itemSize), 0, lines - 1)
+    const lines = IMath.ceil(count / countPerLine)
+    const sLine = IMath.clamp(IMath.floor(scroll / itemSize), 0, lines - 1)
     const start = countPerLine * sLine
     const length = countPerLine * visibleLines
-    const end = Math.min(start + length, count)
+    const end = IMath.min(start + length, count)
     range[0] = start
     range[1] = end
     return range
@@ -328,8 +328,8 @@ class FileBodyPane extends HTMLElement {
       const PADDING = 4
       const GAP = 2
       const {style, countPerLine, itemSize} = content
-      const lines = Math.ceil(count / countPerLine)
-      const length = Math.max(lines * itemSize - GAP, 0) + PADDING * 2
+      const lines = IMath.ceil(count / countPerLine)
+      const length = IMath.max(lines * itemSize - GAP, 0) + PADDING * 2
       if (this.viewMode === 'list') {
         style.width = `${length}px`
       } else {
@@ -612,8 +612,8 @@ class FileBodyPane extends HTMLElement {
     File.getImageResolution(path).then(({width, height}) => {
       // 当cw和ch为负数时为划分模式
       if (cw < 0) {
-        cw = Math.floor(width / -cw)
-        ch = Math.floor(height / -ch)
+        cw = IMath.floor(width / -cw)
+        ch = IMath.floor(height / -ch)
         if (cw * ch === 0) {
           return
         }
@@ -633,7 +633,7 @@ class FileBodyPane extends HTMLElement {
           icon.style.clipPath = `polygon(${l}% 0, ${r}% 0, ${r}% 100%, ${l}% 100%)`
         }
       }
-      const size = Math.max(cw, ch)
+      const size = IMath.max(cw, ch)
       const sx = width / size
       const sy = height / size
       const px = sx !== 1 ? cx / size / (sx - 1) : 0
@@ -737,8 +737,8 @@ class FileBodyPane extends HTMLElement {
         const {element} = file.getContext(this)
         const index = elements.indexOf(element)
         if (index !== -1) {
-          start = Math.min(start, index)
-          end = Math.max(end, index)
+          start = IMath.min(start, index)
+          end = IMath.max(end, index)
         }
       }
       if (start === Infinity) {
@@ -767,7 +767,7 @@ class FileBodyPane extends HTMLElement {
           case 'next-line':
             index = end + countPerLine
             if (index >= count) {
-              const line = Math.floor(index / countPerLine)
+              const line = IMath.floor(index / countPerLine)
               const head = line * countPerLine
               if (count > head) {
                 index = count - 1
@@ -797,7 +797,7 @@ class FileBodyPane extends HTMLElement {
         if (elements[i].file === selection) {
           const size = this.content.itemSize
           const apl = this.content.countPerLine
-          const pos = Math.floor(i / apl) * size
+          const pos = IMath.floor(i / apl) * size
           const PADDING = 4
           const GAP = 2
           let property
@@ -815,7 +815,7 @@ class FileBodyPane extends HTMLElement {
           let scroll = this[property]
           switch (mode) {
             case 'active':
-              scroll = Math.clamp(
+              scroll = IMath.clamp(
                 scroll,
                 pos + size + PADDING * 2 - GAP - clientSize,
                 pos,
@@ -1286,8 +1286,8 @@ class FileBodyPane extends HTMLElement {
                 const {element} = selections[i].getContext(this)
                 const index = elements.indexOf(element)
                 if (index !== -1) {
-                  start = Math.min(start, index)
-                  end = Math.max(end, index)
+                  start = IMath.min(start, index)
+                  end = IMath.max(end, index)
                 }
               }
               if (start !== -1) {
@@ -1378,7 +1378,7 @@ class FileBodyPane extends HTMLElement {
       if (event.cmdOrCtrlKey) {
         event.preventDefault()
         const index = this.viewIndex
-        const delta = Math.sign(-deltaY)
+        const delta = IMath.sign(-deltaY)
         return this.setViewIndex(index + delta)
       }
       if (this.viewMode === 'list' &&

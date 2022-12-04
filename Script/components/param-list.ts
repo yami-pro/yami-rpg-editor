@@ -10,7 +10,7 @@ import {
   WindowFrame,
   Clipboard,
   IFunction,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 参数列表 ********************************
@@ -230,7 +230,7 @@ class ParamList extends HTMLElement {
   updateFlexibleHeight() {
     if (this.flexible) {
       const count = this.elements.count
-      const height = Math.min(count * 20, 500) + 2
+      const height = IMath.min(count * 20, 500) + 2
       if (this.height !== height) {
         this.height = height
         this.style.height = `${height}px`
@@ -267,8 +267,8 @@ class ParamList extends HTMLElement {
     // 限制范围
     const elements = this.elements
     const count = elements.count
-    start = Math.clamp(start, 0, count - 1)
-    end = Math.clamp(end, 0, count - 1)
+    start = IMath.clamp(start, 0, count - 1)
+    end = IMath.clamp(end, 0, count - 1)
     if (start !== end) {
       const element = elements[end]
       if (!element.dataItem) {
@@ -294,7 +294,7 @@ class ParamList extends HTMLElement {
     const origin = this.origin
     this.select(origin, active)
     this.origin = origin
-    this.active = Math.clamp(
+    this.active = IMath.clamp(
       active,
       this.start,
       this.end,
@@ -394,7 +394,7 @@ class ParamList extends HTMLElement {
   // 滚动到选中项
   scrollToSelection() {
     if (this.start !== null) {
-      const scrollTop = Math.clamp(
+      const scrollTop = IMath.clamp(
         this.scrollTop,
         this.active * 20 + 20 - this.innerHeight,
         this.active * 20,
@@ -939,8 +939,8 @@ class ParamList extends HTMLElement {
             const pt = this.paddingTop
             const {itemHeight} = dragging
             const {y} = event.getRelativeCoords(this)
-            const line = Math.floor((y - pt) / itemHeight)
-            const index = Math.clamp(line, 0, count - 1)
+            const line = IMath.floor((y - pt) / itemHeight)
+            const index = IMath.clamp(line, 0, count - 1)
             if (dragging.itemIndex !== index) {
               dragging.itemIndex = index
               this.selectMultiple(index)

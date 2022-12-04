@@ -8,7 +8,7 @@ import {
   Timer,
   TimerManager,
   ICSS,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 精灵窗口 ********************************
@@ -254,17 +254,17 @@ Sprite.updateTargetInfo = function () {
 Sprite.resize = function () {
   if (this.state === 'open') {
     const scale = this.scale
-    const scaledUnitWidth = Math.round(this.unitWidth * scale)
-    const scaledUnitHeight = Math.round(this.unitHeight * scale)
+    const scaledUnitWidth = IMath.round(this.unitWidth * scale)
+    const scaledUnitHeight = IMath.round(this.unitHeight * scale)
     const innerWidth = this.hframes * scaledUnitWidth
     const innerHeight = this.vframes * scaledUnitHeight
     const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
-    const paddingLeft = Math.max(screenWidth - innerWidth >> 1, 0)
-    const paddingTop = Math.max(screenHeight - innerHeight >> 1, 0)
-    const outerWidth = Math.max(innerWidth, screenWidth)
-    const outerHeight = Math.max(innerHeight, screenHeight)
+    const paddingLeft = IMath.max(screenWidth - innerWidth >> 1, 0)
+    const paddingTop = IMath.max(screenHeight - innerHeight >> 1, 0)
+    const outerWidth = IMath.max(innerWidth, screenWidth)
+    const outerHeight = IMath.max(innerHeight, screenHeight)
     const dpr = window.devicePixelRatio
     this.scaleX = scaledUnitWidth / this.unitWidth
     this.scaleY = scaledUnitHeight / this.unitHeight
@@ -301,8 +301,8 @@ Sprite.resize = function () {
     }
 
     // 调整画布
-    const canvasWidth = Math.min(innerWidth, screenWidth)
-    const canvasHeight = Math.min(innerHeight, screenHeight)
+    const canvasWidth = IMath.min(innerWidth, screenWidth)
+    const canvasHeight = IMath.min(innerHeight, screenHeight)
     this.canvas.style.left = `${paddingLeft / dpr}px`
     this.canvas.style.top = `${paddingTop / dpr}px`
     if (this.canvas.dpr !== dpr ||
@@ -329,8 +329,8 @@ Sprite.getUnitCoords = function IIFE() {
     const suw = this.scaledUnitWidth
     const suh = this.scaledUnitHeight
     const dpr = window.devicePixelRatio
-    point.x = Math.clamp(Math.floor(coords.x * dpr / suw), 0, this.hframes - 1)
-    point.y = Math.clamp(Math.floor(coords.y * dpr / suh), 0, this.vframes - 1)
+    point.x = IMath.clamp(IMath.floor(coords.x * dpr / suw), 0, this.hframes - 1)
+    point.y = IMath.clamp(IMath.floor(coords.y * dpr / suh), 0, this.vframes - 1)
     return point
   }
 }()
@@ -343,8 +343,8 @@ Sprite.updateCamera = function (x = this.centerX, y = this.centerY) {
   const scrollY = y * this.scaledUnitHeight + this.paddingTop
   const toleranceX = this.scaledUnitWidth * 0.0001
   const toleranceY = this.scaledUnitHeight * 0.0001
-  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - this.screenWidth) / dpr
-  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - this.screenHeight) / dpr
+  screen.rawScrollLeft = IMath.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - this.screenWidth) / dpr
+  screen.rawScrollTop = IMath.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - this.screenHeight) / dpr
   screen.scrollLeft = (scrollX - (this.screenWidth >> 1) + toleranceX) / dpr
   screen.scrollTop = (scrollY - (this.screenHeight >> 1) + toleranceY) / dpr
 }
@@ -354,8 +354,8 @@ Sprite.updateCamera = function (x = this.centerX, y = this.centerY) {
 Sprite.updateTransform = function () {
   const dpr = window.devicePixelRatio
   const screen = this.screen
-  const left = Math.roundTo(screen.scrollLeft * dpr, 4)
-  const top = Math.roundTo(screen.scrollTop * dpr, 4)
+  const left = IMath.roundTo(screen.scrollLeft * dpr, 4)
+  const top = IMath.roundTo(screen.scrollTop * dpr, 4)
   const right = left + this.canvas.width
   const bottom = top + this.canvas.height
   this.scrollLeft = left
@@ -365,8 +365,8 @@ Sprite.updateTransform = function () {
   this.context.setTransform(1, 0, 0, 1, -left, -top)
   const scrollX = screen.rawScrollLeft * dpr + this.centerOffsetX
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
-  this.centerX = Math.roundTo((scrollX - this.paddingLeft) / this.scaledUnitWidth, 4)
-  this.centerY = Math.roundTo((scrollY - this.paddingTop) / this.scaledUnitHeight, 4)
+  this.centerX = IMath.roundTo((scrollX - this.paddingLeft) / this.scaledUnitWidth, 4)
+  this.centerY = IMath.roundTo((scrollY - this.paddingTop) / this.scaledUnitHeight, 4)
 }
 
 // 更新背景图像
@@ -418,10 +418,10 @@ Sprite.drawGridLayer = function () {
     const sb = this.scrollBottom
     const uw = this.scaledUnitWidth
     const uh = this.scaledUnitHeight
-    const bx = Math.floor(sl / uw + 1) * uw
-    const by = Math.floor(st / uh + 1) * uh
-    const ex = Math.ceil(sr / uw) * uw
-    const ey = Math.ceil(sb / uh) * uh
+    const bx = IMath.floor(sl / uw + 1) * uw
+    const by = IMath.floor(st / uh + 1) * uh
+    const ex = IMath.ceil(sr / uw) * uw
+    const ey = IMath.ceil(sb / uh) * uh
     context.beginPath()
     for (let y = by; y < ey; y += uh) {
       context.moveTo(sl, y + 0.5)
@@ -488,8 +488,8 @@ Sprite.scrollToSelection = function () {
     const x2 = mx + wh - toleranceX
     const y1 = mb - hh + toleranceY
     const y2 = my + hh - toleranceY
-    const x = Math.min(Math.max(this.centerX, x1), x2)
-    const y = Math.min(Math.max(this.centerY, y1), y2)
+    const x = IMath.min(IMath.max(this.centerX, x1), x2)
+    const y = IMath.min(IMath.max(this.centerY, y1), y2)
     if (this.centerX !== x || this.centerY !== y) {
       this.updateCamera(x, y)
       this.updateTransform()
@@ -589,8 +589,8 @@ Sprite.screenKeydown = function (event) {
           case 'ArrowDown':  offsetY = +1; break
         }
         const marquee = Sprite.marquee
-        const x = Math.clamp(marquee.x + offsetX, 0, Sprite.hframes - 1)
-        const y = Math.clamp(marquee.y + offsetY, 0, Sprite.vframes - 1)
+        const x = IMath.clamp(marquee.x + offsetX, 0, Sprite.hframes - 1)
+        const y = IMath.clamp(marquee.y + offsetY, 0, Sprite.vframes - 1)
         if (marquee.x !== x || marquee.y !== y) {
           Sprite.selectSprite(x, y)
           Sprite.scrollToSelection()

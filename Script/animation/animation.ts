@@ -32,7 +32,7 @@ import {
   IFunction,
   IArray,
   ICSS,
-  IMath as Math
+  IMath
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************
@@ -421,8 +421,8 @@ Animation.initialize = function () {
         const screen = this.screen
         const sl = screen.scrollLeft
         const st = screen.scrollTop
-        const cx = Math.roundTo(this.centerX + x, 4)
-        const cy = Math.roundTo(this.centerY + y, 4)
+        const cx = IMath.roundTo(this.centerX + x, 4)
+        const cy = IMath.roundTo(this.centerY + y, 4)
         this.updateCamera(cx, cy)
         this.updateTransform()
         if (screen.scrollLeft !== sl ||
@@ -903,7 +903,7 @@ Animation.play = function () {
 Animation.stop = function () {
   if (this.playing) {
     this.playing = false
-    this.loadFrames(Math.floor(this.animIndex))
+    this.loadFrames(IMath.floor(this.animIndex))
     $('#animation-timeline-play').removeClass('playing')
   }
 }
@@ -1028,7 +1028,7 @@ Animation.previousKeyFrame = function () {
       const {frames} = contexts[i].layer
       for (const frame of frames) {
         if (frame.start < index) {
-          x = Math.max(x, frame.start)
+          x = IMath.max(x, frame.start)
         } else {
           break
         }
@@ -1038,7 +1038,7 @@ Animation.previousKeyFrame = function () {
       for (let i = 0; i < count; i++) {
         const {frames} = contexts[i].layer
         if (frames.length !== 0) {
-          x = Math.max(x, frames[frames.length - 1].start)
+          x = IMath.max(x, frames[frames.length - 1].start)
         }
       }
     }
@@ -1078,7 +1078,7 @@ Animation.nextKeyFrame = function () {
       const {frames} = contexts[i].layer
       for (const frame of frames) {
         if (frame.start > index) {
-          x = Math.min(x, frame.start)
+          x = IMath.min(x, frame.start)
           break
         }
       }
@@ -1087,7 +1087,7 @@ Animation.nextKeyFrame = function () {
       for (let i = 0; i < count; i++) {
         const {frames} = contexts[i].layer
         if (frames.length !== 0) {
-          x = Math.min(x, frames[0].start)
+          x = IMath.min(x, frames[0].start)
         }
       }
     }
@@ -1200,7 +1200,7 @@ Animation.setMotionMode = function (mode) {
 Animation.setDirection = function (direction) {
   if (!this.motion) return
   const dirCases = this.motion.dirCases
-  const dirIndex = Math.min(direction, dirCases.length - 1)
+  const dirIndex = IMath.min(direction, dirCases.length - 1)
   const dirCase = this.motion.dirCases[dirIndex]
   this.direction = dirIndex
   this.layers = dirCase.layers
@@ -1318,8 +1318,8 @@ Animation.revealTarget = function IIFE() {
       const toleranceY = 0.5 / this.scaleY
       const {centerX, centerY} = this
       // 目标和摄像机的位置不一定相等
-      if (Math.abs(x - centerX) > toleranceX ||
-        Math.abs(y - centerY) > toleranceY) {
+      if (IMath.abs(x - centerX) > toleranceX ||
+        IMath.abs(y - centerY) > toleranceY) {
         timer.target = target
         timer.startX = centerX
         timer.startY = centerY
@@ -1479,7 +1479,7 @@ Animation.setControlPoint = function (point) {
       case points.rectResize.TR:
       case points.rectResize.BL:
       case points.rectResize.BR: {
-        const angle = Math.modDegrees(point.angle + this.controlPointRotation, 180)
+        const angle = IMath.modDegrees(point.angle + this.controlPointRotation, 180)
         if (angle < 22.5 || angle >= 157.5) {
           cursor = 'ew-resize'
         } else if (angle < 67.5) {
@@ -1614,16 +1614,16 @@ Animation.updateControlPoints = function (context) {
           }
           switch (area.type) {
             case 'rectangle':
-              L = Math.min(L, area.width * -0.5)
-              T = Math.min(T, area.height * -0.5)
-              R = Math.max(R, area.width * +0.5)
-              B = Math.max(B, area.height * +0.5)
+              L = IMath.min(L, area.width * -0.5)
+              T = IMath.min(T, area.height * -0.5)
+              R = IMath.max(R, area.width * +0.5)
+              B = IMath.max(B, area.height * +0.5)
               continue
             case 'circle':
-              L = Math.min(L, -area.radius)
-              T = Math.min(T, -area.radius)
-              R = Math.max(R, +area.radius)
-              B = Math.max(B, +area.radius)
+              L = IMath.min(L, -area.radius)
+              T = IMath.min(T, -area.radius)
+              R = IMath.max(R, +area.radius)
+              B = IMath.max(B, +area.radius)
               continue
           }
         }
@@ -1656,18 +1656,18 @@ Animation.updateControlPoints = function (context) {
   const y3 = b * R + d * B + f
   const x4 = a * R + c * T + e
   const y4 = b * R + d * T + f
-  const angle1 = Math.atan2(y1 - y2, x1 - x2)
-  const angle2 = Math.atan2(y2 - y3, x2 - x3)
-  const angle3 = Math.atan2(y3 - y4, x3 - x4)
-  const angle4 = Math.atan2(y4 - y1, x4 - x1)
-  const ox1 = -Math.cos(angle3) * POINT_RADIUS
-  const oy1 = Math.sin(angle1) * POINT_RADIUS
-  const ox2 = -Math.cos(angle4) * POINT_RADIUS
-  const oy2 = Math.sin(angle2) * POINT_RADIUS
-  const ox3 = Math.cos(angle3) * POINT_RADIUS
-  const oy3 = Math.sin(angle3) * POINT_RADIUS
-  const ox4 = Math.cos(angle4) * POINT_RADIUS
-  const oy4 = Math.sin(angle4) * POINT_RADIUS
+  const angle1 = IMath.atan2(y1 - y2, x1 - x2)
+  const angle2 = IMath.atan2(y2 - y3, x2 - x3)
+  const angle3 = IMath.atan2(y3 - y4, x3 - x4)
+  const angle4 = IMath.atan2(y4 - y1, x4 - x1)
+  const ox1 = -IMath.cos(angle3) * POINT_RADIUS
+  const oy1 = IMath.sin(angle1) * POINT_RADIUS
+  const ox2 = -IMath.cos(angle4) * POINT_RADIUS
+  const oy2 = IMath.sin(angle2) * POINT_RADIUS
+  const ox3 = IMath.cos(angle3) * POINT_RADIUS
+  const oy3 = IMath.sin(angle3) * POINT_RADIUS
+  const ox4 = IMath.cos(angle4) * POINT_RADIUS
+  const oy4 = IMath.sin(angle4) * POINT_RADIUS
 
   // 旋转控制点: 左上|右上|左下|右下
   const {rectRotate} = points
@@ -1734,7 +1734,7 @@ Animation.updateHead = function () {
       const eRect = end.rect()
       const spacing = eRect.left - sRect.right - cRect.width
       const difference = sRect.right - nRect.left - eRect.width
-      const margin = Math.min(spacing, difference)
+      const margin = IMath.min(spacing, difference)
       end.style.marginLeft = `${margin}px`
     }
   }
@@ -1750,10 +1750,10 @@ Animation.resize = function () {
     const screenHeight = screenBox.height
     const stageWidth = screenWidth + this.padding
     const stageHeight = screenHeight + this.padding
-    const innerWidth = Math.round(stageWidth * scale)
-    const innerHeight = Math.round(stageHeight * scale)
-    const outerWidth = Math.max(screenWidth, innerWidth)
-    const outerHeight = Math.max(screenHeight, innerHeight)
+    const innerWidth = IMath.round(stageWidth * scale)
+    const innerHeight = IMath.round(stageHeight * scale)
+    const outerWidth = IMath.max(screenWidth, innerWidth)
+    const outerHeight = IMath.max(screenHeight, innerHeight)
     const dpr = window.devicePixelRatio
     this.outerWidth = outerWidth
     this.outerHeight = outerHeight
@@ -1791,16 +1791,16 @@ Animation.getFrameCoords = function IIFE() {
   return function (event, clamp = false) {
     const list = this.outerTimelineList
     const coords = event.getRelativeCoords(list)
-    let x = Math.floor(coords.x / 16)
-    let y = Math.floor(coords.y / 20)
+    let x = IMath.floor(coords.x / 16)
+    let y = IMath.floor(coords.y / 20)
     // 限定在列表框内
     if (clamp) {
       const sl = list.scrollLeft / 16
       const st = list.scrollTop / 20
       const sr = list.clientWidth / 16 + sl
       const sb = list.clientHeight / 20 + st
-      x = Math.clamp(x, Math.floor(sl), Math.ceil(sr) - 1)
-      y = Math.clamp(y, Math.floor(st), Math.ceil(sb) - 1)
+      x = IMath.clamp(x, IMath.floor(sl), IMath.ceil(sr) - 1)
+      y = IMath.clamp(y, IMath.floor(st), IMath.ceil(sb) - 1)
     }
     point.x = x
     point.y = y
@@ -1911,8 +1911,8 @@ Animation.updateCamera = function (x = this.centerX, y = this.centerY) {
   const scrollX = x * this.scaleX + this.outerWidth / 2
   const scrollY = y * this.scaleY + this.outerHeight / 2
   const toleranceForDPR = 0.0001
-  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
-  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
+  screen.rawScrollLeft = IMath.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
+  screen.rawScrollTop = IMath.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
   screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceForDPR) / dpr
   screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceForDPR) / dpr
 }
@@ -1921,8 +1921,8 @@ Animation.updateCamera = function (x = this.centerX, y = this.centerY) {
 Animation.updateTransform = function () {
   const screen = this.screen
   const dpr = window.devicePixelRatio
-  const left = Math.roundTo(screen.scrollLeft * dpr - (this.outerWidth >> 1), 4)
-  const top = Math.roundTo(screen.scrollTop * dpr - (this.outerHeight >> 1), 4)
+  const left = IMath.roundTo(screen.scrollLeft * dpr - (this.outerWidth >> 1), 4)
+  const top = IMath.roundTo(screen.scrollTop * dpr - (this.outerHeight >> 1), 4)
   const right = left + GL.width
   const bottom = top + GL.height
   this.scrollLeft = left / this.scaleX
@@ -1932,8 +1932,8 @@ Animation.updateTransform = function () {
   this.updateMatrix()
   const scrollX = screen.rawScrollLeft * dpr + this.centerOffsetX
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
-  this.centerX = Math.roundTo((scrollX - this.outerWidth / 2) / this.scaleX, 4)
-  this.centerY = Math.roundTo((scrollY - this.outerHeight / 2) / this.scaleY, 4)
+  this.centerX = IMath.roundTo((scrollX - this.outerWidth / 2) / this.scaleX, 4)
+  this.centerY = IMath.roundTo((scrollY - this.outerHeight / 2) / this.scaleY, 4)
 }
 
 // 更新矩阵
@@ -1951,7 +1951,7 @@ Animation.updateRuler = function () {
   const {outerRuler, innerRuler} = this
   const width = outerRuler.clientWidth
   if (width !== 0) {
-    const length = Math.ceil((width + 16) / 80) + 1
+    const length = IMath.ceil((width + 16) / 80) + 1
     const nodes = innerRuler.childNodes
     let i = nodes.length
     if (i !== length) {
@@ -1997,7 +1997,7 @@ Animation.updateTimeline = function () {
 Animation.updateTimelineLength = function () {
   this.player.computeLength()
   const end = this.player.length
-  const max = Math.floor(end / 100 + 1) * 100
+  const max = IMath.floor(end / 100 + 1) * 100
   if (this.frameMax !== max) {
     this.frameMax = max
     this.innerTimelineList.style.width =
@@ -2021,7 +2021,7 @@ Animation.updatePointerArea = function () {
 
 // 更新指针位置
 Animation.updatePointer = function () {
-  const x = Math.floor(this.player.index)
+  const x = IMath.floor(this.player.index)
   const {pointer} = this
   if (pointer.x !== x) {
     pointer.x = x
@@ -2164,9 +2164,9 @@ Animation.scrollToMarquee = function (shiftKey) {
     const max = x * 16
     const scrollLeft =
       shiftKey && x === origin && length > 1
-    ? Math.max(Math.min(left, max), min)
-    : Math.min(Math.max(left, min), max)
-    const scrollTop = Math.clamp(
+    ? IMath.max(IMath.min(left, max), min)
+    : IMath.min(IMath.max(left, min), max)
+    const scrollTop = IMath.clamp(
       list.scrollTop,
       y * 20 + 20 - list.clientHeight,
       y * 20,
@@ -2212,7 +2212,7 @@ Animation.selectFrameRelative = function (direction) {
       x = length > 1 ? x : x - 1
       break
     case 'up':
-      y = Math.max(y - 1, 0)
+      y = IMath.max(y - 1, 0)
       break
     case 'right':
       x = length > 1 ? x + length - 1 : x + 1
@@ -2220,7 +2220,7 @@ Animation.selectFrameRelative = function (direction) {
     case 'down': {
       const list = this.innerTimelineList
       const ey = list.childNodes.length
-      y = Math.min(y + 1, ey - 1)
+      y = IMath.min(y + 1, ey - 1)
       break
     }
   }
@@ -2339,8 +2339,8 @@ Animation.multiSelectFramesToHomeEnd = function (direction) {
       }
       break
   }
-  const mx = Math.min(x, origin)
-  const mw = Math.abs(x - origin) + 1
+  const mx = IMath.min(x, origin)
+  const mw = IMath.abs(x - origin) + 1
   this.selectMarquee(mx, y, mw, origin)
   this.scrollToMarquee(true)
   this.loadFrames(x)
@@ -2435,7 +2435,7 @@ Animation.loadTextures = function () {
 Animation.loadFrames = function (index, forceReload = false) {
   const player = this.player
   const fe = player.length
-  const fi = Math.min(Math.max(index, 0), fe - 1)
+  const fi = IMath.min(IMath.max(index, 0), fe - 1)
   if (player.index !== fi || forceReload) {
     player.index = fi
 
@@ -2527,20 +2527,20 @@ Animation.drawEmitters = function () {
       let vi = 0
       const x = matrix[6]
       const y = matrix[7]
-      const scale = Math.min(this.scale, 1)
+      const scale = IMath.min(this.scale, 1)
       const innerRadius = 6 * scale
       const outerRadius = 20 * scale
       const angleCount = 8
-      const step = Math.PI * 2 / angleCount
+      const step = IMath.PI * 2 / angleCount
       vertices[vi++] = x
       vertices[vi++] = y
       for (let i = 0; i < angleCount; i++) {
-        const angle1 = i * step - Math.PI / 2
+        const angle1 = i * step - IMath.PI / 2
         const angle2 = angle1 + step / 2
-        vertices[vi    ] = x + outerRadius * Math.cos(angle1)
-        vertices[vi + 1] = y + outerRadius * Math.sin(angle1)
-        vertices[vi + 2] = x + innerRadius * Math.cos(angle2)
-        vertices[vi + 3] = y + innerRadius * Math.sin(angle2)
+        vertices[vi    ] = x + outerRadius * IMath.cos(angle1)
+        vertices[vi + 1] = y + outerRadius * IMath.sin(angle1)
+        vertices[vi + 2] = x + innerRadius * IMath.cos(angle2)
+        vertices[vi + 3] = y + innerRadius * IMath.sin(angle2)
         vi += 4
       }
       vertices[vi++] = vertices[2]
@@ -2590,7 +2590,7 @@ Animation.emitParticles = function (deltaTime) {
             const {matrix} = context
             const a = matrix[0]
             const b = matrix[1]
-            emitter.angle = Math.atan2(b, a)
+            emitter.angle = IMath.atan2(b, a)
             break
           }
         }
@@ -2657,13 +2657,13 @@ Animation.drawCoordinateAxes = function () {
   vertices[2] = 0
   vertices[3] = x2
   vertices[4] = y2 + 0.5
-  vertices[5] = Math.dist(x1, y1, x2, y2)
+  vertices[5] = IMath.dist(x1, y1, x2, y2)
   vertices[6] = x3 + 0.5
   vertices[7] = y3
   vertices[8] = 0
   vertices[9] = x4 + 0.5
   vertices[10] = y4
-  vertices[11] = Math.dist(x3, y3, x4, y4)
+  vertices[11] = IMath.dist(x3, y3, x4, y4)
   matrix.project(
     gl.flip,
     gl.width,
@@ -2699,16 +2699,16 @@ Animation.drawJointNodes = function () {
       let vi = 0
       const x = matrix[6]
       const y = matrix[7]
-      const scale = Math.min(this.scale, 1)
+      const scale = IMath.min(this.scale, 1)
       const radius = 5.5 * scale
       const offset = 1.5 * scale
       const segments = 40
-      const step = Math.PI * 2 / segments
+      const step = IMath.PI * 2 / segments
       for (let i = 0, j = 1; i < segments; i++, j = -j) {
         const angle = i * step
         const or = j * offset
-        vertices[vi    ] = x + (radius + or) * Math.cos(angle)
-        vertices[vi + 1] = y + (radius + or) * Math.sin(angle)
+        vertices[vi    ] = x + (radius + or) * IMath.cos(angle)
+        vertices[vi + 1] = y + (radius + or) * IMath.sin(angle)
         vi += 2
       }
       vertices[vi    ] = vertices[0]
@@ -2771,27 +2771,27 @@ Animation.drawJointArrows = function () {
         continue
       }
       let vi = 0
-      const scale = Math.min(this.scale, 1)
+      const scale = IMath.min(this.scale, 1)
       const jointRadius = 5.5 * scale
       const smallRadius = 0.5 * scale
       const largeRadius = 9 * scale
-      const angle = Math.atan2(dy - sy, dx - sx)
-      const sAngle1 = angle + Math.PI / 2
-      const eAngle1 = angle - Math.PI / 2
-      const sAngle2 = angle + Math.PI / 4
-      const eAngle2 = angle - Math.PI / 4
-      const x = sx + jointRadius * Math.cos(angle)
-      const y = sy + jointRadius * Math.sin(angle)
+      const angle = IMath.atan2(dy - sy, dx - sx)
+      const sAngle1 = angle + IMath.PI / 2
+      const eAngle1 = angle - IMath.PI / 2
+      const sAngle2 = angle + IMath.PI / 4
+      const eAngle2 = angle - IMath.PI / 4
+      const x = sx + jointRadius * IMath.cos(angle)
+      const y = sy + jointRadius * IMath.sin(angle)
       vertices[vi    ] = x
       vertices[vi + 1] = y
-      vertices[vi + 2] = x + largeRadius * Math.cos(eAngle2)
-      vertices[vi + 3] = y + largeRadius * Math.sin(eAngle2)
-      vertices[vi + 4] = dx + smallRadius * Math.cos(eAngle1)
-      vertices[vi + 5] = dy + smallRadius * Math.sin(eAngle1)
-      vertices[vi + 6] = dx + smallRadius * Math.cos(sAngle1)
-      vertices[vi + 7] = dy + smallRadius * Math.sin(sAngle1)
-      vertices[vi + 8] = x + largeRadius * Math.cos(sAngle2)
-      vertices[vi + 9] = y + largeRadius * Math.sin(sAngle2)
+      vertices[vi + 2] = x + largeRadius * IMath.cos(eAngle2)
+      vertices[vi + 3] = y + largeRadius * IMath.sin(eAngle2)
+      vertices[vi + 4] = dx + smallRadius * IMath.cos(eAngle1)
+      vertices[vi + 5] = dy + smallRadius * IMath.sin(eAngle1)
+      vertices[vi + 6] = dx + smallRadius * IMath.cos(sAngle1)
+      vertices[vi + 7] = dy + smallRadius * IMath.sin(sAngle1)
+      vertices[vi + 8] = x + largeRadius * IMath.cos(sAngle2)
+      vertices[vi + 9] = y + largeRadius * IMath.sin(sAngle2)
       vi += 10
       const program = gl.graphicProgram.use()
       matrix.project(
@@ -2834,16 +2834,16 @@ Animation.drawJointSpinner = function () {
     let vi = 0
     const x = matrix[6]
     const y = matrix[7]
-    const scale = Math.min(this.scale, 1)
+    const scale = IMath.min(this.scale, 1)
     const radius = 12 * scale
     const offset = 2 * scale
     const segments = 40
-    const step = Math.PI * 2 / segments
+    const step = IMath.PI * 2 / segments
     for (let i = 0, j = 1; i < segments; i++, j = -j) {
       const angle = i * step
       const or = j * offset
-      vertices[vi    ] = x + (radius + or) * Math.cos(angle)
-      vertices[vi + 1] = y + (radius + or) * Math.sin(angle)
+      vertices[vi    ] = x + (radius + or) * IMath.cos(angle)
+      vertices[vi + 1] = y + (radius + or) * IMath.sin(angle)
       vi += 2
     }
     vertices[vi    ] = vertices[0]
@@ -2862,18 +2862,18 @@ Animation.drawJointSpinner = function () {
         rotation += frame.rotation
       }
     }
-    const angle = Math.radians(rotation)
-    const sAngle = angle - Math.PI / 12
-    const eAngle = angle + Math.PI / 12
+    const angle = IMath.radians(rotation)
+    const sAngle = angle - IMath.PI / 12
+    const eAngle = angle + IMath.PI / 12
     const arrowSegments = 5
-    vertices[vi    ] = x + outerRadius * Math.cos(angle)
-    vertices[vi + 1] = y + outerRadius * Math.sin(angle)
+    vertices[vi    ] = x + outerRadius * IMath.cos(angle)
+    vertices[vi + 1] = y + outerRadius * IMath.sin(angle)
     vi += 2
     for (let i = 0; i <= arrowSegments; i++) {
       const ratio = i / arrowSegments
       const angle = sAngle * (1 - ratio) + eAngle * ratio
-      vertices[vi    ] = x + innerRadius * Math.cos(angle)
-      vertices[vi + 1] = y + innerRadius * Math.sin(angle)
+      vertices[vi    ] = x + innerRadius * IMath.cos(angle)
+      vertices[vi + 1] = y + innerRadius * IMath.sin(angle)
       vi += 2
     }
     const program = gl.graphicProgram.use()
@@ -2964,18 +2964,18 @@ Animation.drawSpriteWireframe = function (context, color) {
   const y3 = b * R + d * B + f
   const x4 = a * R + c * T + e
   const y4 = b * R + d * T + f
-  const angle1 = Math.atan2(y1 - y2, x1 - x2)
-  const angle2 = Math.atan2(y2 - y3, x2 - x3)
-  const angle3 = Math.atan2(y3 - y4, x3 - x4)
-  const angle4 = Math.atan2(y4 - y1, x4 - x1)
-  const ox1 = Math.cos(angle1) * 0.5
-  const oy1 = Math.sin(angle1) * 0.5
-  const ox2 = Math.cos(angle2) * 0.5
-  const oy2 = Math.sin(angle2) * 0.5
-  const ox3 = Math.cos(angle3) * 0.5
-  const oy3 = Math.sin(angle3) * 0.5
-  const ox4 = Math.cos(angle4) * 0.5
-  const oy4 = Math.sin(angle4) * 0.5
+  const angle1 = IMath.atan2(y1 - y2, x1 - x2)
+  const angle2 = IMath.atan2(y2 - y3, x2 - x3)
+  const angle3 = IMath.atan2(y3 - y4, x3 - x4)
+  const angle4 = IMath.atan2(y4 - y1, x4 - x1)
+  const ox1 = IMath.cos(angle1) * 0.5
+  const oy1 = IMath.sin(angle1) * 0.5
+  const ox2 = IMath.cos(angle2) * 0.5
+  const oy2 = IMath.sin(angle2) * 0.5
+  const ox3 = IMath.cos(angle3) * 0.5
+  const oy3 = IMath.sin(angle3) * 0.5
+  const ox4 = IMath.cos(angle4) * 0.5
+  const oy4 = IMath.sin(angle4) * 0.5
   const bx1 = x1 + ox4 - ox1
   const by1 = y1 + oy4 - oy1
   const bx2 = x2 + ox1 - ox2
@@ -3047,18 +3047,18 @@ Animation.drawEmitterWireframe = function (context, color) {
         const y3 = b * R + d * B + f
         const x4 = a * R + c * T + e
         const y4 = b * R + d * T + f
-        const angle1 = Math.atan2(y1 - y2, x1 - x2)
-        const angle2 = Math.atan2(y2 - y3, x2 - x3)
-        const angle3 = Math.atan2(y3 - y4, x3 - x4)
-        const angle4 = Math.atan2(y4 - y1, x4 - x1)
-        const ox1 = Math.cos(angle1) * 0.5
-        const oy1 = Math.sin(angle1) * 0.5
-        const ox2 = Math.cos(angle2) * 0.5
-        const oy2 = Math.sin(angle2) * 0.5
-        const ox3 = Math.cos(angle3) * 0.5
-        const oy3 = Math.sin(angle3) * 0.5
-        const ox4 = Math.cos(angle4) * 0.5
-        const oy4 = Math.sin(angle4) * 0.5
+        const angle1 = IMath.atan2(y1 - y2, x1 - x2)
+        const angle2 = IMath.atan2(y2 - y3, x2 - x3)
+        const angle3 = IMath.atan2(y3 - y4, x3 - x4)
+        const angle4 = IMath.atan2(y4 - y1, x4 - x1)
+        const ox1 = IMath.cos(angle1) * 0.5
+        const oy1 = IMath.sin(angle1) * 0.5
+        const ox2 = IMath.cos(angle2) * 0.5
+        const oy2 = IMath.sin(angle2) * 0.5
+        const ox3 = IMath.cos(angle3) * 0.5
+        const oy3 = IMath.sin(angle3) * 0.5
+        const ox4 = IMath.cos(angle4) * 0.5
+        const oy4 = IMath.sin(angle4) * 0.5
         const bx1 = x1 + ox4 - ox1
         const by1 = y1 + oy4 - oy1
         const bx2 = x2 + ox1 - ox2
@@ -3085,11 +3085,11 @@ Animation.drawEmitterWireframe = function (context, color) {
       case 'circle': {
         const ar = area.radius
         const segments = 100
-        const step = Math.PI * 2 / segments
+        const step = IMath.PI * 2 / segments
         for (let i = 0; i < segments; i++) {
           const angle = i * step
-          const x = ar * Math.cos(angle)
-          const y = ar * Math.sin(angle)
+          const x = ar * IMath.cos(angle)
+          const y = ar * IMath.sin(angle)
           vertices[vi    ] = a * x + c * y + e
           vertices[vi + 1] = b * x + d * y + f
           colors  [vi + 2] = color
@@ -3366,7 +3366,7 @@ Animation.insertFrame = function () {
       //   this.shiftFrames(frames, i + 1, ex - next.start)
       // }
       insert.start = x
-      insert.end = Math.max(ex, end)
+      insert.end = IMath.max(ex, end)
       this.cloneFrame(frames, i).end = x
       frames.splice(i + 1, 0, insert)
     } else if (x === start) {
@@ -3479,7 +3479,7 @@ Animation.deleteFrame = function (shrink = false) {
         if (x <= start) {
           // 计算删除关键帧后的偏移值
           const end = frame.end
-          const extra = Math.max(end - ex, 0)
+          const extra = IMath.max(end - ex, 0)
           this.shiftFrames(frames, ++i, -length - extra)
         } else {
           // 直接偏移
@@ -3501,7 +3501,7 @@ Animation.deleteFrame = function (shrink = false) {
       frames.splice(i, 1)
     } else {
       // 裁剪关键帧
-      this.cloneFrame(frames, i).end = x + Math.max(end - ex, 0)
+      this.cloneFrame(frames, i).end = x + IMath.max(end - ex, 0)
     }
   }
   this.updateTimeline()
@@ -3537,9 +3537,9 @@ Animation.copyFrame = function (returnData = false) {
     // 否则裁剪尾部关键帧
     const last = copies[copies.length - 1]
     if (last.start >= 0) {
-      length = Math.max(last.end, length)
+      length = IMath.max(last.end, length)
     } else {
-      last.end = Math.min(last.end, length)
+      last.end = IMath.min(last.end, length)
     }
     // 裁剪头部关键帧
     const first = copies[0]
@@ -3778,11 +3778,11 @@ Animation.selectControlPoint = function (x, y) {
     const points = this.controlPoints
     switch (context.layer.class) {
       case 'joint': {
-        const radius = 10 / Math.max(this.scale, 1)
+        const radius = 10 / IMath.max(this.scale, 1)
         if (target === this.selectObject(x, y)) {
           const ox = context.matrix[6]
           const oy = context.matrix[7]
-          if (Math.dist(ox, oy, x, y) > radius) {
+          if (IMath.dist(ox, oy, x, y) > radius) {
             return points.jointRotate
           }
         }
@@ -3824,7 +3824,7 @@ Animation.selectObject = function (x, y) {
   // 选择关节对象 - 节点
   if (this.showMark && target === null) {
     const active = this.targetContext
-    const scale = Math.max(this.scale, 1)
+    const scale = IMath.max(this.scale, 1)
     const jointRadius = 16 / scale
     for (let i = last; i >= 0; i--) {
       const context = contexts[i]
@@ -3836,7 +3836,7 @@ Animation.selectObject = function (x, y) {
         !layer.locked) {
         const ox = context.matrix[6]
         const oy = context.matrix[7]
-        const dist = Math.dist(ox, oy, x, y)
+        const dist = IMath.dist(ox, oy, x, y)
         if (dist <= jointRadius) {
           // 选中时提高优先级来激活控制点
           const w = active === context
@@ -3853,7 +3853,7 @@ Animation.selectObject = function (x, y) {
 
   // 选择粒子发射器对象 - 锚点
   if (this.showMark && target === null) {
-    const scale = Math.max(this.scale, 1)
+    const scale = IMath.max(this.scale, 1)
     const anchorRadius = 32 / scale
     for (let i = last; i >= 0; i--) {
       const context = contexts[i]
@@ -3865,7 +3865,7 @@ Animation.selectObject = function (x, y) {
         !layer.locked) {
         const ox = context.matrix[6]
         const oy = context.matrix[7]
-        const dist = Math.dist(ox, oy, x, y)
+        const dist = IMath.dist(ox, oy, x, y)
         if (dist <= anchorRadius) {
           const w = anchorRadius - dist
           if (target === null || weight < w) {
@@ -3880,7 +3880,7 @@ Animation.selectObject = function (x, y) {
   // 选择关节对象 - 手臂
   if (this.showMark && target === null) {
     const active = this.targetContext
-    const scale = Math.max(this.scale, 1)
+    const scale = IMath.max(this.scale, 1)
     const armWidth = 12 / scale
     for (let i = last; i >= 0; i--) {
       const context = contexts[i]
@@ -3902,16 +3902,16 @@ Animation.selectObject = function (x, y) {
         const sy = parent.matrix[7]
         const dx = context.matrix[6]
         const dy = context.matrix[7]
-        const dist = Math.dist(sx, sy, dx, dy)
+        const dist = IMath.dist(sx, sy, dx, dy)
         if (dist > 4) {
-          const angle = Math.atan2(dy - sy, dx - sx)
-          const cos = Math.cos(-angle)
-          const sin = Math.sin(-angle)
+          const angle = IMath.atan2(dy - sy, dx - sx)
+          const cos = IMath.cos(-angle)
+          const sin = IMath.sin(-angle)
           const rx = x - sx
           const ry = y - sy
           const px = rx * cos - ry * sin
           const py = rx * sin + ry * cos
-          const offset = Math.abs(py)
+          const offset = IMath.abs(py)
           const tolerance = armWidth / 2
           if (px >= 0 && px < dist && offset <= tolerance) {
             const w = active === parent
@@ -3993,7 +3993,7 @@ Animation.getAnimationRange = function IIFE() {
       const {x, length} = marquee
       range.start = x < end - 1 ? x : 0
       range.end = length === 1 ? end
-      : Math.min(x + length, end)
+      : IMath.min(x + length, end)
     } else {
       range.start = 0
       range.end = end
@@ -4030,7 +4030,7 @@ Animation.updateAnimation = function (deltaTime) {
   if (Animation.playing) {
     const {start, end} = Animation.getAnimationRange()
     const offset = deltaTime / Animation.Player.step
-    let index = Math.max(Animation.animIndex + offset, start)
+    let index = IMath.max(Animation.animIndex + offset, start)
     if (index >= end) {
       if (Animation.loop) {
         do {index += start - end}
@@ -4414,8 +4414,8 @@ Animation.screenKeydown = function (event) {
             offsetX *= 10
             offsetY *= 10
           }
-          const x = Math.roundTo(target.x + offsetX, 4)
-          const y = Math.roundTo(target.y + offsetY, 4)
+          const x = IMath.roundTo(target.x + offsetX, 4)
+          const y = IMath.roundTo(target.y + offsetY, 4)
           this.shiftTarget(x, y)
         }
         break
@@ -4531,7 +4531,7 @@ Animation.marqueePointerdown = function (event) {
             event.mode = 'object-rotate'
             event.absoluteAnchorX = aax
             event.absoluteAnchorY = aay
-            event.lastAngle = Math.atan2(y - aay, x - aax)
+            event.lastAngle = IMath.atan2(y - aay, x - aax)
             event.rotationRadians = 0
             event.startRotation = rotation
             break
@@ -4671,13 +4671,13 @@ Animation.pointermove = function (event) {
           const {x, y} = event.getRelativeCoords(GL.canvas)
           const distX = x - dragging.absoluteAnchorX
           const distY = y - dragging.absoluteAnchorY
-          const currentAngle = Math.atan2(distY, distX)
-          const angle = Math.modRadians(currentAngle - dragging.lastAngle)
-          const increment = angle < Math.PI ? angle : angle - Math.PI * 2
+          const currentAngle = IMath.atan2(distY, distX)
+          const angle = IMath.modRadians(currentAngle - dragging.lastAngle)
+          const increment = angle < IMath.PI ? angle : angle - IMath.PI * 2
           dragging.rotationRadians += Animation.mirror ? -increment : increment
-          let rotation = Math.round(dragging.startRotation + Math.degrees(dragging.rotationRadians))
+          let rotation = IMath.round(dragging.startRotation + IMath.degrees(dragging.rotationRadians))
           if (event.shiftKey) {
-            rotation = Math.round(rotation / 15) * 15
+            rotation = IMath.round(rotation / 15) * 15
           }
           if (Animation.target.rotation !== rotation) {
             Animation.rotateTarget(rotation)
@@ -4689,11 +4689,11 @@ Animation.pointermove = function (event) {
         if (Animation.target) {
           const points = Animation.controlPoints
           const point = Animation.controlPointActive
-          const angle = Math.radians(point.angle + Animation.controlPointRotation)
+          const angle = IMath.radians(point.angle + Animation.controlPointRotation)
           const distX = (event.clientX - dragging.clientX) / Animation.scaleX
           const distY = (event.clientY - dragging.clientY) / Animation.scaleY
-          const dist = Math.sqrt(distX ** 2 + distY ** 2)
-          const distAngle = Math.atan2(distY, Animation.mirror ? -distX : distX)
+          const dist = IMath.sqrt(distX ** 2 + distY ** 2)
+          const distAngle = IMath.atan2(distY, Animation.mirror ? -distX : distX)
           let width = undefined
           let height = undefined
           switch (point) {
@@ -4701,7 +4701,7 @@ Animation.pointermove = function (event) {
             case points.rectResize.L:
             case points.rectResize.R:
             case points.rectResize.B: {
-              const offset = dist * Math.cos(distAngle - angle)
+              const offset = dist * IMath.cos(distAngle - angle)
               switch (point) {
                 case points.rectResize.T:
                 case points.rectResize.B:
@@ -4722,29 +4722,29 @@ Animation.pointermove = function (event) {
               if (event.shiftKey) {
                 const rectWidth = dragging.startWidth * dragging.startScaleX
                 const rectHeight = dragging.startHeight * dragging.startScaleY
-                const aspectAngle = Math.atan2(rectHeight, rectWidth)
+                const aspectAngle = IMath.atan2(rectHeight, rectWidth)
                 let startAngle
                 switch (point) {
                   case points.rectResize.TL:
                   case points.rectResize.BR:
-                    startAngle = angle - Math.PI / 4 + aspectAngle
+                    startAngle = angle - IMath.PI / 4 + aspectAngle
                     break
                   case points.rectResize.TR:
                   case points.rectResize.BL:
-                    startAngle = angle + Math.PI / 4 - aspectAngle
+                    startAngle = angle + IMath.PI / 4 - aspectAngle
                     break
                 }
                 const includedAngle = distAngle - startAngle
-                const offset = dist * Math.cos(includedAngle)
-                const offsetX = offset * Math.cos(aspectAngle)
-                const offsetY = offset * Math.sin(aspectAngle)
+                const offset = dist * IMath.cos(includedAngle)
+                const offsetX = offset * IMath.cos(aspectAngle)
+                const offsetY = offset * IMath.sin(aspectAngle)
                 width = offsetX
                 height = offsetY
               } else {
-                const startAngle = angle - Math.PI / 4
+                const startAngle = angle - IMath.PI / 4
                 const includedAngle = distAngle - startAngle
-                const offsetX = dist * Math.cos(includedAngle)
-                const offsetY = dist * Math.sin(includedAngle)
+                const offsetX = dist * IMath.cos(includedAngle)
+                const offsetY = dist * IMath.sin(includedAngle)
                 switch (point) {
                   case points.rectResize.TL:
                   case points.rectResize.BR:
@@ -4764,11 +4764,11 @@ Animation.pointermove = function (event) {
           let scaleY = undefined
           if (width !== undefined) {
             scaleX = width / dragging.startWidth
-            scaleX = Math.roundTo(dragging.startScaleX + scaleX, 2)
+            scaleX = IMath.roundTo(dragging.startScaleX + scaleX, 2)
           }
           if (height !== undefined) {
             scaleY = height / dragging.startHeight
-            scaleY = Math.roundTo(dragging.startScaleY + scaleY, 2)
+            scaleY = IMath.roundTo(dragging.startScaleY + scaleY, 2)
           }
           if (scaleX !== undefined && Animation.target.scaleX !== scaleX ||
             scaleY !== undefined && Animation.target.scaleY !== scaleY) {
@@ -4780,7 +4780,7 @@ Animation.pointermove = function (event) {
         if (!dragging.enabled) {
           const distX = event.clientX - dragging.clientX
           const distY = event.clientY - dragging.clientY
-          if (Math.sqrt(distX ** 2 + distY ** 2) > 4 ||
+          if (IMath.sqrt(distX ** 2 + distY ** 2) > 4 ||
             event.timeStamp - dragging.timeStamp >= 500) {
             dragging.enabled = true
           } else {
@@ -4795,23 +4795,23 @@ Animation.pointermove = function (event) {
           let x
           let y
           if (event.shiftKey) {
-            const angle = Math.atan2(distY, distX)
+            const angle = IMath.atan2(distY, distX)
             const directions = 4
-            const proportion = Math.modRadians(angle) / (Math.PI * 2)
+            const proportion = IMath.modRadians(angle) / (IMath.PI * 2)
             const section = (proportion * directions + 0.5) % directions
-            switch (Math.floor(section)) {
+            switch (IMath.floor(section)) {
               case 0: case 2:
-                x = Math.round(dragging.startX + distX)
+                x = IMath.round(dragging.startX + distX)
                 y = dragging.startY
                 break
               case 1: case 3:
                 x = dragging.startX
-                y = Math.round(dragging.startY + distY)
+                y = IMath.round(dragging.startY + distY)
                 break
             }
           } else {
-            x = Math.round(dragging.startX + distX)
-            y = Math.round(dragging.startY + distY)
+            x = IMath.round(dragging.startX + distX)
+            y = IMath.round(dragging.startY + distY)
           }
           if (target.x !== x || target.y !== y) {
             Animation.shiftTarget(x, y)
@@ -4825,7 +4825,7 @@ Animation.pointermove = function (event) {
           dragging.scrollLeft - distX,
           dragging.scrollTop - distY,
         )
-        if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
+        if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
           Cursor.open('cursor-grab')
         }
@@ -5377,7 +5377,7 @@ Animation.outerTimelineListScroll = function (event) {
   if (this.lastScrollLeft !== scrollLeft) {
     this.lastScrollLeft = scrollLeft
     const {outerRuler, innerRuler, outerPointerArea} = Animation
-    const start = Math.floor(scrollLeft / 80)
+    const start = IMath.floor(scrollLeft / 80)
     if (innerRuler.start !== start) {
       innerRuler.start = start
       let number = start * 5
@@ -5434,8 +5434,8 @@ Animation.outerTimelineListPointerdown = function (event) {
         if (event.shiftKey) {
           const {y: my, origin: mo} = marquee
           if (y === my) {
-            length = Math.abs(x - mo) + 1
-            x = Math.min(x, mo)
+            length = IMath.abs(x - mo) + 1
+            x = IMath.min(x, mo)
             origin = mo
           }
         } else {
@@ -5612,14 +5612,14 @@ Animation.outerTimelineListPointermove = function (event) {
         if (dragging.enableDblclickEvent) {
           const distX = event.clientX - dragging.clientX
           const distY = event.clientY - dragging.clientY
-          if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
+          if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
             dragging.enableDblclickEvent = false
           }
         }
         const coords = Animation.getFrameCoords(event, true)
-        const x = Math.clamp(coords.x, 0, Animation.frameMax - 1)
-        const mx = Math.min(x, dragging.pointerdownX)
-        const mw = Math.abs(x - dragging.pointerdownX) + 1
+        const x = IMath.clamp(coords.x, 0, Animation.frameMax - 1)
+        const mx = IMath.min(x, dragging.pointerdownX)
+        const mw = IMath.abs(x - dragging.pointerdownX) + 1
         Animation.selectMarquee(mx, dragging.pointerdownY, mw)
         Animation.loadFrames(x)
         break
@@ -5629,7 +5629,7 @@ Animation.outerTimelineListPointermove = function (event) {
         if (dragging.enableDblclickEvent) {
           const distX = event.clientX - dragging.clientX
           const distY = event.clientY - dragging.clientY
-          if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
+          if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
             dragging.enableDblclickEvent = false
           }
         }
@@ -5637,8 +5637,8 @@ Animation.outerTimelineListPointermove = function (event) {
         const marquee = Animation.timelineMarqueeShift
         const right = Animation.frameMax - marquee.length
         const bottom = Animation.innerTimelineList.childNodes.length - 1
-        const x = Math.clamp(coords.x, 0, right)
-        const y = Math.clamp(coords.y, 0, bottom)
+        const x = IMath.clamp(coords.x, 0, right)
+        const y = IMath.clamp(coords.y, 0, bottom)
         Animation.updateMarqueeShift(x, y)
         // 更新转移选框的样式
         dragging.layer.class === marquee.layer?.class
@@ -5653,7 +5653,7 @@ Animation.outerTimelineListPointermove = function (event) {
           dragging.scrollLeft - distX,
           dragging.scrollTop - distY,
         )
-        if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
+        if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
           Cursor.open('cursor-grab')
         }
@@ -5938,7 +5938,7 @@ Animation.timeline.updateHead = function () {
       head.style.left = `${left}px`
     }
     const bRect = Animation.outerTimelineList.rect()
-    const padding = Math.max(bRect.left - iRect.right, 0)
+    const padding = IMath.max(bRect.left - iRect.right, 0)
     if (head.padding !== padding) {
       head.padding = padding
       Animation.toolbar.style.width = `${padding}px`
