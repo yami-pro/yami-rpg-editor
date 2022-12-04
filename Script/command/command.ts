@@ -42,7 +42,8 @@ import {
   TransformProperty,
   TriggerGetter,
   VariableGetter,
-  Window
+  Window,
+  IObject
 } from '../yami'
 
 // ******************************** 指令对象 ********************************
@@ -8042,7 +8043,7 @@ Command.custom = {
   // 加载自定义指令
   load: function (id, parameters) {
     this.script.id = id
-    this.script.parameters = Object.clone(parameters)
+    this.script.parameters = IObject.clone(parameters)
     this.windowX = Window.absolutePos.x
     this.windowY = Window.absolutePos.y
     this.parameterPane.update()

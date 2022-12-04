@@ -21,7 +21,8 @@ import {
   Window,
   Clipboard,
   ICSS,
-  INumber
+  INumber,
+  IObject
 } from '../yami'
 
 // ******************************** 自动图块 ********************************
@@ -154,7 +155,7 @@ AutoTile.open = function ({template, image, x, y}) {
   $('#autoTile-image').write(image)
   $('#autoTile-x').write(x)
   $('#autoTile-y').write(y)
-  this.templates = Object.clone(Data.autotiles)
+  this.templates = IObject.clone(Data.autotiles)
   this.nodeIndex = 0
   this.frameIndex = 0
   this.imageId = image

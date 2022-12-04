@@ -16,7 +16,8 @@ import {
   Window,
   Clipboard,
   IArray,
-  IMath
+  IMath,
+  IObject
 } from '../yami'
 
 // ******************************** 插件窗口 ********************************
@@ -119,7 +120,7 @@ PluginManager.open = function () {
   Window.open('plugin')
 
   // 创建数据副本
-  this.data = Object.clone(Data.plugins)
+  this.data = IObject.clone(Data.plugins)
 
   // 更新列表项目
   this.list.restoreSelection()
@@ -1504,7 +1505,7 @@ PluginManager.apply = function (event) {
     // 保存变量数据
     let plugins = this.data
     if (event instanceof Event) {
-      plugins = Object.clone(plugins)
+      plugins = IObject.clone(plugins)
     } else {
       TreeList.deleteCaches(plugins)
     }

@@ -35,7 +35,8 @@ import {
   Window,
   Clipboard,
   ICSS,
-  IMath
+  IMath,
+  IObject
 } from '../yami'
 
 // ******************************** 场景窗口 ********************************
@@ -5715,7 +5716,7 @@ Scene.createDefaultAnimation = function IIFE() {
       frames[0].y = -8
       frames[0].scaleX = 0.25
       frames[0].scaleY = 0.25
-      frames[1] = Object.clone(frames[0])
+      frames[1] = IObject.clone(frames[0])
       frames[1].start = 1
       frames[1].end = 2
       frames[1].spriteY = 1

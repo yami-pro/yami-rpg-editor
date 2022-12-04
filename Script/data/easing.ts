@@ -18,7 +18,8 @@ import {
   Clipboard,
   ICSS,
   IMath,
-  INumber
+  INumber,
+  IObject
 } from '../yami'
 
 // ******************************** 过渡窗口 ********************************
@@ -281,7 +282,7 @@ Easing.open = function () {
   Window.open('easing')
 
   // 创建数据副本
-  this.data = Object.clone(Data.easings)
+  this.data = IObject.clone(Data.easings)
 
   // 创建映射表
   this.curveMap = new Easing.CurveMap()

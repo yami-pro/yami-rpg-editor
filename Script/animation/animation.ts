@@ -33,7 +33,8 @@ import {
   IArray,
   ICSS,
   IMath,
-  INumber
+  INumber,
+  IObject
 } from '../yami'
 
 // ******************************** 动画窗口 ********************************
@@ -3336,7 +3337,7 @@ Animation.saveFrames = function (layers, sMarquee, dMarquee = sMarquee) {
 // 克隆关键帧
 Animation.cloneFrame = function (frames, index) {
   const frame = frames[index]
-  const clone = frames[index] = Object.clone(frame)
+  const clone = frames[index] = IObject.clone(frame)
   return Object.defineProperty(clone, 'key', {
     configurable: true,
     value: frame.key,
@@ -3361,7 +3362,7 @@ Animation.insertFrame = function () {
     if (x >= end) continue
     if (x > start) {
       // 插入到关键帧中间
-      const insert = Object.clone(frame)
+      const insert = IObject.clone(frame)
       // const next = frames[i + 1]
       // if (next && ex > next.start) {
       //   this.shiftFrames(frames, i + 1, ex - next.start)
@@ -3373,7 +3374,7 @@ Animation.insertFrame = function () {
     } else if (x === start) {
       // 插入到关键帧之前
       const proto = frames[i - 1] ?? frame
-      const insert = Object.clone(proto)
+      const insert = IObject.clone(proto)
       // this.shiftFrames(frames, i, length)
       insert.start = x
       insert.end = ex
@@ -3383,7 +3384,7 @@ Animation.insertFrame = function () {
       if (i !== 0) {
         this.cloneFrame(frames, i - 1).end = x
       }
-      const insert = Object.clone(frame)
+      const insert = IObject.clone(frame)
       // if (ex > start) {
       //   this.shiftFrames(frames, i, ex - start)
       // }
@@ -3400,7 +3401,7 @@ Animation.insertFrame = function () {
   const last = frames[fLength - 1]
   let insert = last
   if (last) {
-    insert = Object.clone(last)
+    insert = IObject.clone(last)
   } else {
     const map = this.inspectorTypeMap
     const key = map[layer.class]
@@ -3526,7 +3527,7 @@ Animation.copyFrame = function (returnData = false) {
     const end = frame.end
     if (x >= end) continue
     if (ex <= start) break
-    copies.push(Object.clone(frame))
+    copies.push(IObject.clone(frame))
   }
   if (copies.length !== 0) {
     // 重置关键帧位置

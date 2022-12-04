@@ -5,7 +5,8 @@ import {
   File,
   GL,
   INTRGBA,
-  UI
+  UI,
+  IObject
 } from '../yami'
 
 // ******************************** 打印机类 ********************************
@@ -882,7 +883,7 @@ class Printer {
 
   // 解析文字效果
   static parseEffect(effect) {
-    const copy = Object.clone(effect)
+    const copy = IObject.clone(effect)
     if (copy.color !== undefined) {
       copy.color = INTRGBA(copy.color)
     }

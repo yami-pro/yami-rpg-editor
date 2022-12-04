@@ -2,7 +2,8 @@
 
 import {
   Local,
-  IArray
+  IArray,
+  IObject
 } from '../yami'
 
 // ******************************** 属性上下文类 ********************************
@@ -53,7 +54,7 @@ class AttributeContext {
         }
         groupMap[key] = {
           groupName: '',
-          itemMap: Object.empty,
+          itemMap: IObject.empty,
           itemList: IArray.empty,
         }
       }

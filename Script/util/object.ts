@@ -2,14 +2,22 @@
 
 // ******************************** 对象静态方法 ********************************
 
+interface IObject extends Object {
+  empty: {}
+  clone: (object: any) => any
+}
+
+const object = <Object>Object
+const IObject = <IObject>object
+
 // 对象静态属性 - 空对象
-Object.empty = {}
+IObject.empty = {}
 
 // 对象静态方法 - 克隆对象
-Object.clone = function IIFE() {
+IObject.clone = function IIFE() {
   const {isArray} = Array
-  const clone = object => {
-    let copy
+  const clone = (object: any) => {
+    let copy: any
     if (isArray(object)) {
       const length = object.length
       copy = new Array(length)
@@ -32,3 +40,5 @@ Object.clone = function IIFE() {
     return clone(object)
   }
 }()
+
+export { IObject }
