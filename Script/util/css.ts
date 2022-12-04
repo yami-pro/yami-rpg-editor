@@ -2,7 +2,7 @@
 
 // ******************************** 声明 ********************************
 
-type SelectorVar = (selector: string) => Element | NodeListOf<Element> | null
+type SelectorVar = (selector: string) => Element | NodeList | null
 
 interface IWindow extends Window {
   $: SelectorVar

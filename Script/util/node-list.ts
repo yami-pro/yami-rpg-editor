@@ -2,24 +2,35 @@
 
 // ******************************** 节点列表方法 ********************************
 
+interface INodeList extends NodeList {
+  on: (type: string, listener: any, options?: any) => NodeList
+  enable: () => void
+  disable: () => void
+}
+
+const prototypeObject = <Object>NodeList.prototype
+const prototype = <INodeList>prototypeObject
+
 // 节点列表 - 添加事件
-NodeList.prototype.on = function (type, listener, options) {
-  for (const element of this) {
+prototype.on = function (this: NodeList, type, listener, options) {
+  this.forEach( element => {
     element.on(type, listener, options)
-  }
+  })
   return this
 }
 
 // 节点列表 - 启用元素
-NodeList.prototype.enable = function () {
-  for (const element of this) {
+prototype.enable = function (this: NodeList) {
+  this.forEach( element => {
     element.enable()
-  }
+  })
 }
 
 // 节点列表 - 禁用元素
-NodeList.prototype.disable = function () {
-  for (const element of this) {
+prototype.disable = function (this: NodeList) {
+  this.forEach( element => {
     element.disable()
-  }
+  })
 }
+
+export { INodeList }

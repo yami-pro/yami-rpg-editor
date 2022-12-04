@@ -4,7 +4,8 @@ import {
   IFunction,
   emptyFunc,
   IArray,
-  IHTMLElement
+  IHTMLElement,
+  INodeList
 } from '../yami'
 
 // ******************************** 计时器管理类 ********************************
@@ -146,11 +147,13 @@ TimerManager.initialize = function () {
   const windowUnmaximize = (event: Event) => {
     this.animationWaiting--
   }
-  const windows = $('#event, #selector, #imageClip')
-  windows.on('open', windowOpen)
-  windows.on('closed', windowClosed)
-  windows.on('maximize', windowMaximize)
-  windows.on('unmaximize', windowUnmaximize)
+  const windows = <INodeList>$('#event, #selector, #imageClip')
+  if (windows) {
+    windows.on('open', windowOpen)
+    windows.on('closed', windowClosed)
+    windows.on('maximize', windowMaximize)
+    windows.on('unmaximize', windowUnmaximize)
+  }
 }
 
 // 开始动画
