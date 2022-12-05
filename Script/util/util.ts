@@ -1,5 +1,8 @@
 'use strict'
 
+import { IEventTarget } from "./event"
+import { IHTMLElement } from "./element"
+
 // ******************************** 其他 ********************************
 
 // 测量文本大小
@@ -10,7 +13,7 @@ const measureText = function IIFE() {
   let usedFont = ''
   let lineHeight = 0
   container.style.whiteSpace = 'pre'
-  return function (text, font = '') {
+  return function (text: string, font = '') {
     if (appended === false) {
       appended = true
       document.body.appendChild(container)
@@ -48,98 +51,101 @@ const measureText = function IIFE() {
 //   }
 // }()
 
+const windowObject = <Object>window
+const target = <IEventTarget>windowObject
+
 {
   // 拖拽状态
   let dragging = false
   let osdragging = false
 
   // 拖拽开始事件 - 阻止拖拽元素
-  const dragstart = function (event) {
+  const dragstart = function (event: MouseEvent) {
     dragging = true
     event.preventDefault()
-    window.on('pointerup', pointerup)
+    target.on('pointerup', pointerup)
   }
 
   // 拖拽结束事件 - 比指针弹起事件优先执行
-  const dragend = function (event) {
+  const dragend = function (event: MouseEvent) {
     if (dragging) {
       dragging = false
-      window.off('pointerup', pointerup)
+      target.off('pointerup', pointerup)
     }
   }
 
   // 指针弹起事件 - 拖拽被阻止时的备用方案
-  const pointerup = function (event) {
+  const pointerup = function (event: MouseEvent) {
     if (dragging) {
       dragging = false
-      window.off('pointerup', pointerup)
+      target.off('pointerup', pointerup)
     }
   }
 
   // 拖拽进入事件
-  const dragenter = function (event) {
+  const dragenter = function (event: MouseEvent) {
     if (!dragging &&
       !osdragging &&
       !event.relatedTarget) {
       osdragging = true
-      window.dispatchEvent(
+      target.dispatchEvent(
         new DragEvent('os-dragstart')
       )
-      window.on('dragleave', dragleave)
-      window.on('dragover', dragover)
-      window.on('drop', drop)
+      target.on('dragleave', dragleave)
+      target.on('dragover', dragover)
+      target.on('drop', drop)
     }
   }
 
   // 拖拽离开事件
-  const dragleave = function (event) {
+  const dragleave = function (event: MouseEvent) {
     if (osdragging &&
       !event.relatedTarget) {
       osdragging = false
-      window.dispatchEvent(
+      target.dispatchEvent(
         new DragEvent('os-dragend')
       )
-      window.off('dragleave', dragleave)
-      window.off('dragover', dragover)
-      window.off('drop', drop)
+      target.off('dragleave', dragleave)
+      target.off('dragover', dragover)
+      target.off('drop', drop)
     }
   }
 
   // 拖拽悬停事件
-  const dragover = function (event) {
+  const dragover = function (event: MouseEvent) {
     event.preventDefault()
   }
 
   // 拖拽释放事件
   // 停止冒泡会拦截该事件
-  const drop = function (event) {
+  const drop = function (event: MouseEvent) {
     if (osdragging) {
       osdragging = false
-      window.dispatchEvent(
+      target.dispatchEvent(
         new DragEvent('os-dragend')
       )
-      window.off('dragleave', dragleave)
-      window.off('dragover', dragover)
-      window.off('drop', drop)
+      target.off('dragleave', dragleave)
+      target.off('dragover', dragover)
+      target.off('drop', drop)
     }
   }
 
   // 初始化
-  window.on('dragstart', dragstart)
-  window.on('dragend', dragend)
-  window.on('dragenter', dragenter)
+  target.on('dragstart', dragstart)
+  target.on('dragend', dragend)
+  target.on('dragenter', dragenter)
 }
 
 // 获取元素读取器
-const getElementReader = function (prefix) {
-  return function (suffix) {
-    return $(`#${prefix}-${suffix}`).read()
+const getElementReader = function (prefix: string) {
+  return function (suffix: string) {
+    return (<IHTMLElement>$(`#${prefix}-${suffix}`)).read()
   }
 }
 
 // 获取元素写入器
-const getElementWriter = function (prefix, bindingObject) {
-  return function (suffix, value) {
+const getElementWriter = function (prefix: string, bindingObject: any) {
+  return function (suffix: string, value: any) {
     if (value === undefined) {
       const nodes = typeof suffix === 'string'
                   ? suffix.split('-')
@@ -149,12 +155,12 @@ const getElementWriter = function (prefix, bindingObject) {
         value = value[node]
       }
     }
-    $(`#${prefix}-${suffix}`).write(value)
+    (<IHTMLElement>$(`#${prefix}-${suffix}`)).write(value)
   }
 }
 
 // 生成整数颜色
-const INTRGBA = function (hex) {
+const INTRGBA = function (hex: string) {
   const r = parseInt(hex.slice(0, 2), 16)
   const g = parseInt(hex.slice(2, 4), 16)
   const b = parseInt(hex.slice(4, 6), 16)
@@ -165,19 +171,21 @@ const INTRGBA = function (hex) {
 // ******************************** 检测设备像素比例 ********************************
 
 // 侦听像素比率改变事件
-window.on('resize', function IIFE() {
+target.on('resize', function IIFE() {
   let dpr = window.devicePixelRatio
   return event => {
     if (dpr !== window.devicePixelRatio) {
       dpr = window.devicePixelRatio
-      window.dispatchEvent(new Event('dprchange'))
+      target.dispatchEvent(new Event('dprchange'))
     }
   }
 }())
 
 // ******************************** 其他导出 ********************************
 
-export { measureText }
-export { getElementReader }
-export { getElementWriter }
-export { INTRGBA }
+export {
+  measureText,
+  getElementReader,
+  getElementWriter,
+  INTRGBA
+}
