@@ -1,11 +1,14 @@
 'use strict'
 
+import { IHTMLElement } from "./element"
+import { INodeList } from "./node-list"
+
 // ******************************** 声明 ********************************
 
-type SelectorVar = (selector: string) => Element | NodeList | null
+type selectorVar = IHTMLElement | INodeList | null
 
 interface IWindow extends Window {
-  $: SelectorVar
+  $: (selector: string) => selectorVar
 }
 
 // ******************************** CSS选择器 ********************************
@@ -14,9 +17,10 @@ const $ = function IIFE() {
   const regexp = /^#(\w|-)+$/
   return function (selector: string) {
     if (regexp.test(selector)) {
-      return document.querySelector(selector)
+      return <IHTMLElement>document.querySelector(selector)
     } else {
-      return document.querySelectorAll(selector)
+      const nodeListObject = <Object>document.querySelectorAll(selector)
+      return <INodeList>nodeListObject
     }
   }
 }()
@@ -69,7 +73,7 @@ ICSS.supports = CSS.supports
 // ******************************** 绑定到全局对象 ********************************
 
 // 全局声明 CSS选择器
-declare global { var $: SelectorVar }
+declare global { var $: (selector: string) => selectorVar }
 
 // window对象添加dom查询器
 if (window) {
@@ -78,4 +82,4 @@ if (window) {
   IWindow.$ = $
 }
 
-export { ICSS }
+export { ICSS, selectorVar }

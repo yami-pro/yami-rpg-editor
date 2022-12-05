@@ -1,6 +1,6 @@
 'use strict'
 
-export { ICSS } from './css'
+export { ICSS, selectorVar } from './css'
 export { ctrl } from './ctrl'
 export { IMath } from './math'
 export { INodeList } from './node-list'
