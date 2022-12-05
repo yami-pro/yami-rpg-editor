@@ -1,9 +1,7 @@
 'use strict'
 
-import {
-  GL,
-  INTRGBA
-} from '../yami'
+import { GL } from '../webgl/index'
+import { INTRGBA } from './util'
 
 // ******************************** 舞台颜色类 ********************************
 

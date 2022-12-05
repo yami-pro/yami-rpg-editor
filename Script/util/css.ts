@@ -78,8 +78,8 @@ declare global { var $: (selector: string) => selectorVar }
 // window对象添加dom查询器
 if (window) {
   const windowObject = <Object>window
-  const IWindow = <IWindow>windowObject
-  IWindow.$ = $
+  const target = <IWindow>windowObject
+  target.$ = $
 }
 
 export { ICSS, selectorVar }

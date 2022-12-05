@@ -1,8 +1,16 @@
 'use strict'
 
+import {
+  IEventTarget,
+  IMouseKeyboardEvent
+} from "./event/index"
+
 // ******************************** 禁用撤销和重做 ********************************
 
-window.on('keydown', function (event) {
+const windowObject = <Object>window
+const target = <IEventTarget>windowObject
+
+target.on('keydown', function (event: IMouseKeyboardEvent) {
   if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyZ':
@@ -24,16 +32,16 @@ window.on('keydown', function (event) {
   // 监听空格键的按下状态
   switch (event.code) {
     case 'Space':
-      Event.prototype.spaceKey = true
+      (<IMouseKeyboardEvent>Event.prototype).spaceKey = true
       break
   }
 }, {capture: true})
 
-window.on('keyup', function (event) {
+target.on('keyup', function (event: IMouseKeyboardEvent) {
   // 监听空格键的弹起状态
   switch (event.code) {
     case 'Space':
-      Event.prototype.spaceKey = false
+      (<IMouseKeyboardEvent>Event.prototype).spaceKey = false
       break
   }
 }, {capture: true})
