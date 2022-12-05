@@ -7,15 +7,17 @@ import {
 
 // ******************************** 舞台颜色类 ********************************
 
-class StageColor {
-  hex       //:string
-  red       //:number
-  green     //:number
-  blue      //:number
-  alpha     //:number
-  onchange  //:function
+type onchangeFunc = () => any
 
-  constructor(hex, onchange) {
+class StageColor {
+  hex: string
+  red: number
+  green: number
+  blue: number
+  alpha: number
+  onchange: onchangeFunc
+
+  constructor(hex: string, onchange: onchangeFunc) {
     this.input(hex)
     this.onchange = onchange
   }
@@ -26,7 +28,7 @@ class StageColor {
   }
 
   // 输入颜色
-  input(hex) {
+  input(hex: string) {
     if (this.hex !== hex) {
       this.hex = hex
       this.red = parseInt(hex.slice(0, 2), 16) / 255
