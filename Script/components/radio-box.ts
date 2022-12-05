@@ -1,6 +1,6 @@
 'use strict'
 
-import { RadioProxy } from '../yami'
+import { RadioProxy, IRegExp } from '../yami'
 
 // ******************************** 单选框 ********************************
 
@@ -22,7 +22,7 @@ class RadioBox extends HTMLElement {
     }
 
     const string = this.getAttribute('value')
-    const isNumber = RegExp.number.test(string)
+    const isNumber = IRegExp.number.test(string)
     const value = (
       isNumber            ? parseFloat(string)
     : string === 'false'  ? false

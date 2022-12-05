@@ -6,7 +6,6 @@ export { IMath } from './math'
 export { INodeList } from './node-list'
 export { INumber } from './number'
 export { IObject } from './object'
-
 export {
   IEventTarget,
   IEvent,
@@ -22,7 +21,7 @@ export {
   IHTMLImageElement
 } from './element/index'
 
-import './reg-exp'
+export { IRegExp } from './reg-exp'
 import './string'
 import './undo-redo'
 import './util'
