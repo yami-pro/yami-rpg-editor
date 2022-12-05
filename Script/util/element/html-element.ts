@@ -1,13 +1,22 @@
 'use strict'
 
-import {
-  Cursor,
-  Timer
-} from '../yami'
+import { Cursor } from '../cursor'
+import { Timer, TimerManager } from '../timer'
+import { IFunction } from '../function'
 
 // ******************************** 声明 ********************************
 
-interface IHTMLElement extends HTMLElement {
+interface HTMLElement_object_ext {
+  name: { get: () => any, set: (value: any) => void }
+  innerHeight: { get: () => number }
+}
+
+interface HTMLElement_scroll_ext {
+  addScrollListener: (mode: any, speed: any, shift: any, updater: any) => void
+  removeScrollListener: () => void
+}
+
+interface HTMLElement_ext {
   dataValue: any
 
   top: number
@@ -50,11 +59,9 @@ interface IHTMLElement extends HTMLElement {
   updateScrollbars(): void
 }
 
-interface IHTMLImageElement extends HTMLImageElement {
-  guid: string | null
-}
+interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext {}
 
-// ******************************** 元素方法 ********************************
+// ******************************** 元素扩展 ********************************
 
 const prototypeObject = <Object>HTMLElement.prototype
 const prototype = <IHTMLElement>prototypeObject
@@ -529,10 +536,155 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 }()
 
+// ******************************** 元素访问器 ********************************
 
-const imagePrototype = <IHTMLImageElement>HTMLImageElement.prototype
+// 元素访问器 - 名称
+Object.defineProperty(
+  prototype, 'name', {
+    get: function () {
+      return this.getAttribute('name')
+    },
+    set: function (value) {
+      this.setAttribute('name', value)
+    },
+  }
+)
 
-// 元素方法 - 唯一标识符
-imagePrototype.guid = null
+// 元素访问器 - 内部高度
+Object.defineProperty(
+  prototype, 'innerHeight', {
+    get: function () {
+      let padding = this._padding
+      if (padding === undefined) {
+        const css = this.css()
+        const pt = parseInt(css.paddingTop)
+        const pb = parseInt(css.paddingBottom)
+        padding = this._padding = pt + pb
+      }
+      const outerHeight = this.clientHeight
+      const innerHeight = outerHeight - padding
+      return Math.max(innerHeight, 0)
+    }
+  }
+)
 
-export { IHTMLElement, IHTMLImageElement }
+// ******************************** 滚动侦听器 ********************************
+
+{
+  let target = null
+  let highSpeed = 0
+  let lowSpeed = 0
+  let scrollHorizontal = false
+  let scrollVertical = false
+  let scrollUpdater = null
+
+  // 计算滚动距离
+  const computeScrollDelta = speed => {
+    let delta = speed * TimerManager.deltaTime
+    const dpr = window.devicePixelRatio
+    const tolerance = 0.0001
+    // 修正数值让正反方向每帧的滚动距离相等
+    if (delta > 0) {
+      return Math.max(Math.floor(delta), 1) / dpr + tolerance
+    }
+    if (delta < 0) {
+      return Math.min(Math.ceil(delta), -1) / dpr + tolerance
+    }
+    return 0
+  }
+
+  // 滚动检测计时器
+  const timer = new Timer({
+    duration: Infinity,
+    update: timer => {
+      const {speedX, speedY} = timer
+      const {scrollLeft, scrollTop} = target
+      if (speedX !== 0) {
+        target.scrollLeft += computeScrollDelta(speedX)
+      }
+      if (speedY !== 0) {
+        target.scrollTop += computeScrollDelta(speedY)
+      }
+      if (target.scrollLeft !== scrollLeft ||
+        target.scrollTop !== scrollTop) {
+        scrollUpdater()
+      }
+    }
+  })
+
+  // 指针移动事件
+  const pointermove = event => {
+    const dpr = window.devicePixelRatio
+    const rect = target.rect()
+    const x = event.clientX
+    const y = event.clientY
+    const l = rect.left
+    const t = rect.top
+    const cr = target.clientWidth + l
+    const cb = target.clientHeight + t
+    // 对于非100%像素分辨率cr和cb偏大
+    const r = Math.min(rect.right, cr) - dpr
+    const b = Math.min(rect.bottom, cb) - dpr
+    const scrollSpeedX = scrollHorizontal
+    ? x <= l ? l - x < 100 / dpr ? -lowSpeed : -highSpeed
+    : x >= r ? x - r < 100 / dpr ? +lowSpeed : +highSpeed
+    : 0
+    : 0
+    const scrollSpeedY = scrollVertical
+    ? y <= t ? t - y < 100 / dpr ? -lowSpeed : -highSpeed
+    : y >= b ? y - b < 100 / dpr ? +lowSpeed : +highSpeed
+    : 0
+    : 0
+    if (scrollSpeedX !== 0 || scrollSpeedY !== 0) {
+      if (timer.speedX !== scrollSpeedX ||
+        timer.speedY !== scrollSpeedY) {
+        timer.speedX = scrollSpeedX
+        timer.speedY = scrollSpeedY
+        timer.add()
+      }
+    } else if (timer) {
+      timer.speedX = 0
+      timer.speedY = 0
+      timer.remove()
+    }
+  }
+
+  // 添加滚动侦听器
+  prototype.addScrollListener = function (mode, speed, shift, updater) {
+    target?.removeScrollListener()
+    target = this
+    switch (mode) {
+      case 'horizontal':
+        scrollHorizontal = true
+        scrollVertical = false
+        break
+      case 'vertical':
+        scrollHorizontal = false
+        scrollVertical = true
+        break
+      case 'both':
+        scrollHorizontal = true
+        scrollVertical = true
+        break
+    }
+    highSpeed = speed
+    lowSpeed = shift ? speed / 4 : speed
+    scrollUpdater = updater ?? IFunction.empty
+    window.on('pointermove', pointermove)
+  }
+
+  // 移除滚动侦听器
+  prototype.removeScrollListener = function () {
+    if (target !== this) return
+    if (timer.speedX || timer.speedY) {
+      timer.speedX = 0
+      timer.speedY = 0
+      timer.remove()
+    }
+    target = null
+    scrollUpdater = null
+    window.off('pointermove', pointermove)
+  }
+}
+
+export { IHTMLElement, HTMLElement_ext, HTMLElement_scroll_ext }

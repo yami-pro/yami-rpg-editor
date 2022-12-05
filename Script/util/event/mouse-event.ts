@@ -1,11 +1,11 @@
 'use strict'
 
 import { INavigator } from '../navigator'
-import { IUIEvent } from './ui-event'
+import { UIEvent_ext } from './ui-event'
 
 // ******************************** 鼠标事件方法 ********************************
 
-interface IMouseEvent extends MouseEvent, IUIEvent {
+interface MouseEvent_ext extends UIEvent_ext {
   doubleclickProcessed: boolean
   spaceKey: boolean
 
@@ -13,6 +13,8 @@ interface IMouseEvent extends MouseEvent, IUIEvent {
   dragKey: { get: (this: IMouseEvent) => boolean }
   cmdOrCtrlKey: { get: (this: IMouseEvent) => boolean }
 }
+
+interface IMouseEvent extends MouseEvent, MouseEvent_ext {}
 
 // 加入Event原型生效, MouseEvent原型不生效?
 const prototype = <IMouseEvent>Event.prototype
@@ -51,4 +53,4 @@ prototype.getRelativeCoords = function IIFE() {
   }
 }()
 
-export { IMouseEvent }
+export { IMouseEvent, MouseEvent_ext }

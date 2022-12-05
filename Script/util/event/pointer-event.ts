@@ -1,13 +1,15 @@
 'use strict'
 
-import { IMouseEvent } from './mouse-event'
+import { MouseEvent_ext } from './mouse-event'
 
 // ******************************** 指针事件方法 ********************************
 
-interface IPointerEvent extends PointerEvent, IMouseEvent {
+interface PointerEventExt extends MouseEvent_ext {
   relate: (event: any) => boolean
   isMouseType: () => boolean
 }
+
+interface IPointerEvent extends PointerEvent, PointerEventExt {}
 
 const prototypeObject = <Object>PointerEvent.prototype
 const prototype = <IPointerEvent>prototypeObject

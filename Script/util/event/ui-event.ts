@@ -1,10 +1,11 @@
 'use strict'
 
-import { IEvent } from "./event"
+import { Event_ext } from "./event"
 
 // ******************************** UI事件访问器 ********************************
 
-interface IUIEvent extends UIEvent, IEvent {
-}
+interface UIEvent_ext extends Event_ext {}
 
-export { IUIEvent }
+interface IUIEvent extends UIEvent, UIEvent_ext {}
+
+export { IUIEvent, UIEvent_ext }

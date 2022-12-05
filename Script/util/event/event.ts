@@ -2,13 +2,15 @@
 
 // ******************************** 事件访问器 ********************************
 
-interface IEvent extends Event {
+interface Event_ext {
   mode: string
   value: 'light' | 'dark'
 }
+
+interface IEvent extends Event, Event_ext {}
 
 const prototype = <IEvent>Event.prototype
 prototype.value = 'dark'
 prototype.mode = ''
 
-export { IEvent }
+export { IEvent, Event_ext }
