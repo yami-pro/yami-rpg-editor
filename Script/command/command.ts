@@ -43,7 +43,8 @@ import {
   TriggerGetter,
   VariableGetter,
   Window,
-  IObject
+  IObject,
+  IString
 } from '../yami'
 
 // ******************************** 指令对象 ********************************
@@ -8095,7 +8096,7 @@ Command.custom = {
         value: id,
         name: name,
         keywords: command.keywords,
-        unspacedName: String.compress(name),
+        unspacedName: IString.compress(name),
       })
     }
     this.customFolder.children = commands

@@ -22,7 +22,7 @@ export {
 } from './element/index'
 
 export { IRegExp } from './reg-exp'
-import './string'
+export { IString } from './string'
 import './undo-redo'
 import './util'
 
