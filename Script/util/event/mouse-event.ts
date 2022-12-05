@@ -39,15 +39,15 @@ prototype.getRelativeCoords = function IIFE() {
     const rect = element.getBoundingClientRect()
     point.x = (
       this.clientX
-    - rect.left
-    - element.clientLeft
-    + element.scrollLeft
+      - rect.left
+      - element.clientLeft
+      + element.scrollLeft
     )
     point.y = (
       this.clientY
-    - rect.top
-    - element.clientTop
-    + element.scrollTop
+      - rect.top
+      - element.clientTop
+      + element.scrollTop
     )
     return point
   }

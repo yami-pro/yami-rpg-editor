@@ -5,10 +5,12 @@ import { IHTMLElement } from "../element/index"
 
 // ******************************** 事件目标方法 ********************************
 
-interface IEventTarget extends EventTarget {
+interface EventTarget_ext {
   on(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void
   off(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void
 }
+
+interface IEventTarget extends EventTarget, EventTarget_ext {}
 
 let last: IMouseEvent | null = null
 
@@ -71,4 +73,4 @@ prototype.off = function (type, listener, options) {
   }
 }
 
-export { IEventTarget }
+export { IEventTarget, EventTarget_ext }
