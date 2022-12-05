@@ -10,7 +10,8 @@ import {
   WindowFrame,
   Clipboard,
   IArray,
-  IMath
+  IMath,
+  IPointerEvent
 } from '../yami'
 
 // ******************************** 指令列表 ********************************
@@ -26,7 +27,7 @@ class CommandList extends HTMLElement {
   anchor            //:number
   inserting         //:boolean
   focusing          //:boolean
-  dragging          //:event
+  dragging: IPointerEvent | null
   windowPointerup   //:function
   windowPointermove //:function
 
@@ -1474,9 +1475,9 @@ class CommandList extends HTMLElement {
   static alphabetCode = /^Key[A-Z]$/
 
   // 窗口 - 指针弹起事件
-  static windowPointerup(event) {
+  static windowPointerup(this: CommandList, event) {
     const {dragging} = this
-    if (dragging.relate(event)) {
+    if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
         case 'select':
           this.removeScrollListener()
@@ -1489,9 +1490,9 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 指针移动事件
-  static windowPointermove(event) {
+  static windowPointermove(this: CommandList, event) {
     const {dragging} = this
-    if (dragging.relate(event)) {
+    if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
         case 'select': {
           dragging.latest = event
@@ -1515,7 +1516,7 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 变量改变事件
-  static windowVariableChange(event) {
+  static windowVariableChange(this: CommandList, event) {
     for (const element of this.childNodes) {
       const {updaters} = element
       if (updaters !== undefined) {

@@ -1,21 +1,18 @@
 'use strict'
 
+export * from './event/index'
+
 export { ICSS } from './css'
-export { IDataTransfer } from './data-transfer'
-export { IEventTarget } from './event-target'
-export { ctrl, INavigator } from './ctrl'
+export { ctrl } from './ctrl'
 export { IMath } from './math'
-export { IEvent, IDragEvent } from './event'
-export { IMouseEvent } from './mouse-event'
 export { INodeList } from './node-list'
 export { INumber } from './number'
 export { IObject } from './object'
-import './pointer-event'
+
 import './reg-exp'
 import './string'
 import './undo-redo'
 import './util'
-
 
 export { IArray } from './array'
 export { IFunction, emptyFunc } from './function'

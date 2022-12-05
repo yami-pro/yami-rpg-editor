@@ -1,13 +1,13 @@
 'use strict'
 
 import { IMouseEvent } from "./mouse-event"
-import { IHTMLElement } from "../components"
+import { IHTMLElement } from "../../components/index"
 
 // ******************************** 事件目标方法 ********************************
 
 interface IEventTarget extends EventTarget {
-  on(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions | undefined): void
-  off(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions | undefined): void
+  on(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void
+  off(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void
 }
 
 let last: IMouseEvent | null = null

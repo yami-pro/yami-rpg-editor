@@ -1,11 +1,8 @@
 'use strict'
 
-// ******************************** 组合键访问器 ********************************
+import { INavigator } from './navigator'
 
-// Chromium系的浏览器支持
-interface INavigator extends Navigator {
-  userAgentData: { platform: string }
-}
+// ******************************** 组合键访问器 ********************************
 
 // 获取Ctrl组合键名称
 const ctrl = (<INavigator>navigator).userAgentData.platform === 'macOS'
@@ -14,4 +11,4 @@ const ctrl = (<INavigator>navigator).userAgentData.platform === 'macOS'
 
 // ******************************** 组合键访问器导出 ********************************
 
-export { ctrl, INavigator }
+export { ctrl }

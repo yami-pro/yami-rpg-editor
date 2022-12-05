@@ -1,10 +1,11 @@
 'use strict'
 
-import { INavigator } from './ctrl'
+import { INavigator } from '../navigator'
+import { IUIEvent } from './ui-event'
 
 // ******************************** 鼠标事件方法 ********************************
 
-interface IMouseEvent extends MouseEvent {
+interface IMouseEvent extends MouseEvent, IUIEvent {
   doubleclickProcessed: boolean
   spaceKey: boolean
 
