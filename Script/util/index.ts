@@ -6,6 +6,7 @@ export { IMath } from './math'
 export { INodeList } from './node-list'
 export { INumber } from './number'
 export { IObject } from './object'
+
 export {
   IEventTarget,
   IEvent,
@@ -23,16 +24,19 @@ export {
 
 export { IRegExp } from './reg-exp'
 export { IString } from './string'
-import './undo-redo'
-import './util'
-
 export { Cursor } from './cursor'
 export { IArray } from './array'
 export { IFunction, emptyFunc } from './function'
 export { Timer, TimerManager } from './timer'
 export { StageColor } from './stage-color'
-export { measureText } from './util'
-export { getElementReader } from './util'
-export { getElementWriter } from './util'
-export { INTRGBA } from './util'
+
+export {
+  measureText,
+  getElementReader,
+  getElementWriter,
+  INTRGBA
+} from './util'
+
 export { Clipboard } from './clipboard'
+
+import './undo-redo'
