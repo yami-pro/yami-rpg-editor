@@ -509,7 +509,7 @@ type scrollUpdaterVar = (() => void) | null
   })
 
   // 指针移动事件
-  const pointermove = event => {
+  const pointermove = (event: PointerEvent) => {
     if (!target)
       return
     const dpr = window.devicePixelRatio

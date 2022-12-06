@@ -1,7 +1,7 @@
 'use strict'
 
 export { ICSS, selectorVar } from './css'
-export { IWindow } from './global'
+export { window } from './global'
 export { ctrl } from './ctrl'
 export { IMath } from './math'
 export { INodeList } from './node-list'
