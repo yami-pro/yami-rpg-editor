@@ -10,9 +10,12 @@ import { ScrollBarManager } from '../../components/component-managers'
 
 // ******************************** 声明 ********************************
 
+type tipFunc = (...args: any[]) => any
+
 interface HTMLElement_object_ext {
   name: { get: () => any, set: (value: any) => void }
   innerHeight: { get: () => number }
+  tip: { get: () => any }
 }
 
 interface HTMLElement_scroll_ext {
@@ -24,7 +27,7 @@ interface HTMLElement_ext {
   dragging: IPointerEvent | null
   dataValue: any
 
-  tip: string
+  tip: string | tipFunc
   top: number
   left: number
   width: number
@@ -46,16 +49,16 @@ interface HTMLElement_ext {
   show(): void
   hideChildNodes(): void
   showChildNodes(): void
-  getFocus(mode: any): void
-  setTooltip: (tip: any) => void
+  getFocus(mode: string): void
+  setTooltip: (tip: string | tipFunc) => void
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): void
-  isInContent(event: any): boolean
+  isInContent(event: IPointerEvent): boolean
   dispatchChangeEvent: (index: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
-  listenDraggingScrollbarEvent: (pointerdown: (event: any) => void, options: any) => void
+  listenDraggingScrollbarEvent: (pointerdown: (event: IPointerEvent) => void, options: any) => void
 
   beginScrolling(): void
   endScrolling(): void
@@ -64,8 +67,8 @@ interface HTMLElement_ext {
   setScrollTop(top: number):void
   updateScrollbars(): void
 
-  scrollPointerup(this: IHTMLElement, event: any): void
-  scrollPointermove(this: IHTMLElement, event: any): void
+  scrollPointerup(this: IHTMLElement, event: IPointerEvent): void
+  scrollPointermove(this: IHTMLElement, event: IPointerEvent): void
 }
 
 interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, EventTarget_ext {}
@@ -200,7 +203,7 @@ prototype.setTooltip = function IIFE() {
         }
         state = 'open'
         tooltip.addClass('open')
-        tooltip.textContent = target.tip
+        tooltip.textContent = <string>target.tip
         const {width, height} = tooltip.rect()
         const right = window.innerWidth - width
         const bottom = window.innerHeight - height
@@ -282,7 +285,7 @@ prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (this: IHTMLElement, tip: boolean) {
+  return function (this: IHTMLElement, tip: string | tipFunc) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)
