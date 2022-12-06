@@ -5,6 +5,9 @@ import { MouseEvent_ext } from './mouse-event'
 // ******************************** 指针事件方法 ********************************
 
 interface PointerEventExt extends MouseEvent_ext {
+  scrollLeft: number
+  scrollTop: number
+
   relate: (event: any) => boolean
   isMouseType: () => boolean
 }
@@ -13,6 +16,8 @@ interface IPointerEvent extends PointerEvent, PointerEventExt {}
 
 const prototypeObject = <Object>PointerEvent.prototype
 const prototype = <IPointerEvent>prototypeObject
+prototype.scrollLeft = 0
+prototype.scrollTop = 0
 
 // 指针事件方法 - 判断是否为鼠标类型
 prototype.isMouseType = function () {

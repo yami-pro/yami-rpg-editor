@@ -7,10 +7,6 @@ import { INodeList } from "./node-list"
 
 type selectorVar = IHTMLElement | INodeList | null
 
-interface IWindow extends Window {
-  $: (selector: string) => selectorVar
-}
-
 // ******************************** CSS选择器 ********************************
 
 const $ = function IIFE() {
@@ -70,16 +66,7 @@ ICSS.getDevicePixelContentBoxSize = function (element) {
 ICSS.escape = CSS.escape
 ICSS.supports = CSS.supports
 
-// ******************************** 绑定到全局对象 ********************************
-
 // 全局声明 CSS选择器
 declare global { var $: (selector: string) => selectorVar }
 
-// window对象添加dom查询器
-if (window) {
-  const windowObject = <Object>window
-  const target = <IWindow>windowObject
-  target.$ = $
-}
-
-export { ICSS, selectorVar }
+export { $, ICSS, selectorVar }

@@ -1,5 +1,7 @@
 'use strict'
 
+import { window } from '../global'
+import { IPointerEvent } from '../event/pointer-event'
 import { EventTarget_ext } from '../event/event-target'
 import { Cursor } from '../cursor'
 import { Timer, TimerManager } from '../timer'
@@ -14,13 +16,15 @@ interface HTMLElement_object_ext {
 }
 
 interface HTMLElement_scroll_ext {
-  addScrollListener: (mode: any, speed: any, shift: any, updater: any) => void
+  addScrollListener: (mode: string, speed: number, shift: boolean, updater: () => void) => void
   removeScrollListener: () => void
 }
 
 interface HTMLElement_ext {
+  dragging: IPointerEvent | null
   dataValue: any
 
+  tip: string
   top: number
   left: number
   width: number
@@ -59,6 +63,9 @@ interface HTMLElement_ext {
   setScrollLeft(left: number): void
   setScrollTop(top: number):void
   updateScrollbars(): void
+
+  scrollPointerup(this: IHTMLElement, event: any): void
+  scrollPointermove(this: IHTMLElement, event: any): void
 }
 
 interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, EventTarget_ext {}
@@ -169,13 +176,21 @@ prototype.showChildNodes = function () {
 
 // 元素方法 - 设置工具提示
 prototype.setTooltip = function IIFE() {
-  const tooltip = $('#tooltip')
+  const tooltip = <IHTMLElement>$('#tooltip')
   const capture = {capture: true}
+
+  let state = 'closed'
+  let target: IHTMLElement | null = null
+  let rect: DOMRect | null = null
+  let timeStamp = 0
+  let clientX = 0
+  let clientY = 0
+
   const timer = new Timer({
     duration: 0,
-    update: null,
+    update: IFunction.empty,
     callback: () => {
-      if (state === 'waiting') {
+      if (state === 'waiting' && target) {
         const {tip} = target
         if (!tip) {
           state = 'closed'
@@ -197,12 +212,6 @@ prototype.setTooltip = function IIFE() {
       }
     }
   })
-  let state = 'closed'
-  let target = null
-  let rect = null
-  let timeStamp = 0
-  let clientX = 0
-  let clientY = 0
 
   // 关闭
   const close = function () {
@@ -220,7 +229,7 @@ prototype.setTooltip = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: IHTMLElement, event) {
+  const pointermove = function (this: IHTMLElement, event: MouseEvent) {
     // 两个重叠元素时执行最上层的那个
     if (timeStamp === event.timeStamp) {
       return
@@ -250,7 +259,7 @@ prototype.setTooltip = function IIFE() {
         }
         break
       case 'open':
-        if (target === this) {
+        if (target === this && event && rect) {
           const x = event.clientX
           const y = event.clientY
           const l = rect.left
@@ -268,12 +277,12 @@ prototype.setTooltip = function IIFE() {
   }
 
   // 指针离开事件
-  const pointerleave = function (event) {
+  const pointerleave = function (event: MouseEvent) {
     target = null
     close()
   }
 
-  return function (this: IHTMLElement, tip) {
+  return function (this: IHTMLElement, tip: boolean) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)
@@ -361,7 +370,7 @@ prototype.dispatchUpdateEvent = function IIFE() {
 // 元素方法 - 侦听拖拽滚动条事件
 prototype.listenDraggingScrollbarEvent = function IIFE() {
   // 默认指针按下事件
-  const defaultPointerdown = function (this: IHTMLElement, event) {
+  const defaultPointerdown = function (this: IHTMLElement, event: IPointerEvent) {
     if (this.dragging) {
       return
     }
@@ -383,9 +392,9 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针弹起事件
-  const pointerup = function (this: IHTMLElement, event) {
+  const pointerup = function (this: IHTMLElement, event: IPointerEvent) {
     const {dragging} = this
-    if (dragging.relate(event)) {
+    if (dragging?.relate(event)) {
       switch (dragging.mode) {
         case 'scroll':
           Cursor.close('cursor-grab')
@@ -398,9 +407,9 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: IHTMLElement, event) {
+  const pointermove = function (this: IHTMLElement, event: IPointerEvent) {
     const {dragging} = this
-    if (dragging.relate(event)) {
+    if (dragging?.relate(event)) {
       switch (dragging.mode) {
         case 'scroll':
           this.scrollLeft = dragging.scrollLeft + dragging.clientX - event.clientX
@@ -451,16 +460,17 @@ Object.defineProperty(
 
 // ******************************** 滚动侦听器 ********************************
 
+type scrollUpdaterVar = (() => void) | null
 {
-  let target = null
+  let target: IHTMLElement | null = null
   let highSpeed = 0
   let lowSpeed = 0
   let scrollHorizontal = false
   let scrollVertical = false
-  let scrollUpdater = null
+  let scrollUpdater: scrollUpdaterVar = null
 
   // 计算滚动距离
-  const computeScrollDelta = speed => {
+  const computeScrollDelta = (speed: number) => {
     let delta = speed * TimerManager.deltaTime
     const dpr = window.devicePixelRatio
     const tolerance = 0.0001
@@ -477,7 +487,10 @@ Object.defineProperty(
   // 滚动检测计时器
   const timer = new Timer({
     duration: Infinity,
+    callback: IFunction.empty,
     update: timer => {
+      if (!target)
+        return false
       const {speedX, speedY} = timer
       const {scrollLeft, scrollTop} = target
       if (speedX !== 0) {
@@ -488,13 +501,17 @@ Object.defineProperty(
       }
       if (target.scrollLeft !== scrollLeft ||
         target.scrollTop !== scrollTop) {
-        scrollUpdater()
+        if (scrollUpdater)
+          scrollUpdater()
       }
+      return true
     }
   })
 
   // 指针移动事件
   const pointermove = event => {
+    if (!target)
+      return
     const dpr = window.devicePixelRatio
     const rect = target.rect()
     const x = event.clientX

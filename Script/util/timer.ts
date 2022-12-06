@@ -43,6 +43,8 @@ const TimerManager = <ITimer>new Object()
 // ******************************** 计时器类 ********************************
 
 class Timer {
+  speedX: number
+  speedY: number
   playbackRate: number
   elapsed: number
   duration: number
