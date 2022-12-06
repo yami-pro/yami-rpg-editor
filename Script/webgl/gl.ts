@@ -98,7 +98,7 @@ interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {}
 
 interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
   _bufferData(target: number, size: number, usage: number): void
-  bufferData(...args: any[]): void
+  bufferData(...params: any[]): void
   createVertexArray(): WebGLVertexArrayObjectOES
   deleteVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
   isVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): boolean

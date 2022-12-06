@@ -11,11 +11,11 @@ import { ScrollBarManager } from '../../components/component-managers'
 
 // ******************************** 声明 ********************************
 
-type tipVar = (...args: any[]) => any | { get: () => any }
+type tipVar = (...params: any[]) => any | {get: () => any}
 
 interface HTMLElement_object_ext {
-  name: { get: () => any, set: (value: any) => void }
-  innerHeight: { get: () => number }
+  name: {get: () => any, set: (value: any) => void}
+  innerHeight: {get: () => number}
 }
 
 interface HTMLElement_scroll_ext {

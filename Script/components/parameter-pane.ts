@@ -70,8 +70,8 @@ class ParameterPane extends HTMLElement {
       const {object} = scriptList
       const {update} = object
       this.getData = () => scriptList.data
-      object.update = (...args) => {
-        update.apply(object, args)
+      object.update = (...params) => {
+        update.apply(object, params)
         this.update()
       }
     }

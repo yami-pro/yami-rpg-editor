@@ -3,7 +3,7 @@
 import emptyTags from "./empty-tags";
 
 type mapVar = {[index: string]: any}
-type nameVar = (...args: any[]) => any | string
+type nameVar = (...params: any[]) => any | string
 
 // escape an attribute
 let esc = (str: any) => String(str).replace(/[&<>"']/g, s=>`&${map[s]};`);
