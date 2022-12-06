@@ -1,24 +1,29 @@
 'use strict'
 
-import { Color } from '../yami'
+import {
+  Color,
+  IEvent,
+  IHTMLElement,
+  IMouseKeyboardEvent
+} from '../yami'
 
 // ******************************** 颜色框 ********************************
 
-class ColorBox extends HTMLElement {
-  dataValue         //:string
-  foreground        //:element
-  inputEventEnabled //:boolean
+class ColorBox extends IHTMLElement {
+  dataValue: string
+  foreground: IHTMLElement
+  inputEventEnabled: boolean
 
   constructor() {
     super()
 
     // 创建背景区域
-    const background = document.createElement('box')
+    const background = <IHTMLElement>document.createElement('box')
     background.addClass('color-box-background')
     this.appendChild(background)
 
     // 创建前景区域
-    const foreground = document.createElement('box')
+    const foreground = <IHTMLElement>document.createElement('box')
     foreground.addClass('color-box-foreground')
     this.appendChild(foreground)
 
@@ -39,7 +44,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 写入数据
-  write(color) {
+  write(color: string) {
     this.dataValue = color
 
     // 更新样式
@@ -51,11 +56,11 @@ class ColorBox extends HTMLElement {
   }
 
   // 输入数据
-  input(color) {
+  input(color: string) {
     if (this.dataValue !== color) {
       this.write(color)
       if (this.inputEventEnabled) {
-        const input = new Event('input')
+        const input = <IEvent>new Event('input')
         input.value = this.dataValue
         this.dispatchEvent(input)
       }
@@ -78,7 +83,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 添加事件
-  on(type, listener, options) {
+  on(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) {
     super.on(type, listener, options)
     switch (type) {
       case 'input':
@@ -88,7 +93,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event) {
+  keydown(event: IMouseKeyboardEvent) {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
@@ -101,7 +106,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 鼠标点击事件
-  mouseclick(event) {
+  mouseclick(event: IMouseKeyboardEvent) {
     Color.open(this)
   }
 }

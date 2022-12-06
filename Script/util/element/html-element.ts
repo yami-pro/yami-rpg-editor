@@ -40,8 +40,8 @@ interface HTMLElement_ext {
   enable(): void
   disable(): void
   hasClass(className: string): boolean
-  addClass(className: string): void
-  removeClass(className: string): void
+  addClass(className: string): boolean
+  removeClass(className: string): boolean
   seek(tagName: string, count: number): void
   css(): void
   rect(): DOMRect
@@ -55,7 +55,7 @@ interface HTMLElement_ext {
   addSetScrollMethod(): void
   hasScrollBar(): void
   isInContent(event: IMouseEvent): boolean
-  dispatchChangeEvent: (index: number) => void
+  dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
   listenDraggingScrollbarEvent: (pointerdown: (event: IPointerEvent) => void, options: any) => void

@@ -59,7 +59,7 @@ class DetailBox extends HTMLElement {
   }
 
   // 添加事件
-  on(type, listener, options) {
+  on(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) {
     super.on(type, listener, options)
     switch (type) {
       case 'toggle':

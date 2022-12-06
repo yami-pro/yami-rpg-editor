@@ -1,14 +1,20 @@
 'use strict'
 
+import {
+  IEvent,
+  IHTMLElement,
+  IMouseKeyboardEvent
+} from '../yami'
+
 // ******************************** 复选框 ********************************
 
-class CheckBox extends HTMLElement {
-  dataValue         //:boolean
-  relations         //:array
-  writeEventEnabled //:boolean
-  inputEventEnabled //:boolean
+class CheckBox extends IHTMLElement {
+  dataValue: boolean
+  relations: IHTMLElement[]
+  writeEventEnabled: boolean
+  inputEventEnabled: boolean
 
-  constructor(standard) {
+  constructor(standard: boolean) {
     super()
 
     // 设置属性
@@ -41,7 +47,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 写入数据
-  write(value) {
+  write(value: boolean) {
     this.dataValue = !!value
     this.dataValue
     ? this.addClass('selected')
@@ -50,18 +56,18 @@ class CheckBox extends HTMLElement {
       this.toggleRelatedElements()
     }
     if (this.writeEventEnabled) {
-      const write = new Event('write')
+      const write = <IEvent>new Event('write')
       write.value = this.dataValue
       this.dispatchEvent(write)
     }
   }
 
   // 输入数据
-  input(value) {
+  input(value: boolean) {
     if (this.dataValue !== value) {
       this.write(value)
       if (this.inputEventEnabled) {
-        const input = new Event('input', {
+        const input = <IEvent>new Event('input', {
           bubbles: true,
         })
         input.value = this.dataValue
@@ -86,7 +92,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 添加相关元素
-  relate(elements) {
+  relate(elements: IHTMLElement[]) {
     this.relations = elements
   }
 
@@ -104,7 +110,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 添加事件
-  on(type, listener, options) {
+  on(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) {
     super.on(type, listener, options)
     switch (type) {
       case 'write':
@@ -117,7 +123,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event) {
+  keydown(event: IMouseKeyboardEvent) {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
@@ -131,11 +137,11 @@ class CheckBox extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event) {
+  pointerdown(event: IMouseKeyboardEvent) {
     switch (event.button) {
       case 0:
         if (document.activeElement !== document.body) {
-          document.activeElement.blur()
+          (<IHTMLElement>document.activeElement).blur()
         }
         this.input(!this.read())
         break
@@ -143,7 +149,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 鼠标点击事件
-  mouseclick(event) {
+  mouseclick(event: IMouseKeyboardEvent) {
     this.input(!this.read())
   }
 }

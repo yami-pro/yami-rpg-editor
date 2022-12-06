@@ -72,7 +72,7 @@ type elementEnableVar =
 type elementDisableVar = elementEnableVar
 
 interface INodeList extends NodeList {
-  on: (type: string, listener: any, options?: any) => NodeList
+  on: (type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) => NodeList
   enable: () => void
   disable: () => void
 }
