@@ -1,7 +1,7 @@
 'use strict'
 
 import { IMouseEvent } from "./mouse-event"
-import { IHTMLElement } from "../element/index"
+import { IHTMLElement } from "../element/html-element"
 
 // ******************************** 事件目标方法 ********************************
 

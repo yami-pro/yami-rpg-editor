@@ -1,18 +1,23 @@
-import emptyTags from './empty-tags.js';
+'use strict'
+
+import emptyTags from "./empty-tags";
+
+type mapVar = {[index: string]: any}
+type nameVar = (...args: any[]) => any | string
 
 // escape an attribute
-let esc = str => String(str).replace(/[&<>"']/g, s=>`&${map[s]};`);
-let map = {'&':'amp','<':'lt','>':'gt','"':'quot',"'":'apos'};
+let esc = (str: any) => String(str).replace(/[&<>"']/g, s=>`&${map[s]};`);
+let map: mapVar = {'&':'amp','<':'lt','>':'gt','"':'quot',"'":'apos'};
 let setInnerHTMLAttr = 'dangerouslySetInnerHTML';
-let DOMAttributeNames = {
+let DOMAttributeNames: mapVar = {
 	className: 'class',
 	htmlFor: 'for'
 };
 
-let sanitized = {};
+let sanitized: mapVar = {};
 
 /** Hyperscript reviver that constructs a sanitized HTML string. */
-function createElement(name, attrs) {
+function createElement(name: nameVar, attrs: mapVar) {
 	let stack=[], s = '';
 	attrs = attrs || {};
 	for (let i=arguments.length; i-- > 2; ) {
@@ -51,7 +56,6 @@ function createElement(name, attrs) {
 				}
 			}
 		}
-
 		s += name ? `</${name}>` : '';
 	}
 

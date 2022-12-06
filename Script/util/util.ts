@@ -1,7 +1,6 @@
 'use strict'
 
 import { window } from "./global"
-import { IEventTarget } from "./event"
 import { IHTMLElement } from "./element"
 
 // ******************************** 其他 ********************************
