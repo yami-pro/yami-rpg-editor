@@ -9,7 +9,6 @@ export { INumber } from './number'
 export { IObject } from './object'
 
 export {
-  IEventTarget,
   IEvent,
   IUIEvent,
   IMouseEvent,

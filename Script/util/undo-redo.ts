@@ -1,16 +1,11 @@
 'use strict'
 
-import {
-  IEventTarget,
-  IMouseKeyboardEvent
-} from "./event/index"
+import { IMouseKeyboardEvent } from "./event/mouse-keyboard-event"
+import { window } from "./global"
 
 // ******************************** 禁用撤销和重做 ********************************
 
-const windowObject = <Object>window
-const target = <IEventTarget>windowObject
-
-target.on('keydown', function (event: IMouseKeyboardEvent) {
+window.on('keydown', function (event: IMouseKeyboardEvent) {
   if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyZ':
@@ -37,7 +32,7 @@ target.on('keydown', function (event: IMouseKeyboardEvent) {
   }
 }, {capture: true})
 
-target.on('keyup', function (event: IMouseKeyboardEvent) {
+window.on('keyup', function (event: IMouseKeyboardEvent) {
   // 监听空格键的弹起状态
   switch (event.code) {
     case 'Space':

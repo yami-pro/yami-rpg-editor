@@ -3,6 +3,7 @@
 import { window } from '../global'
 import { IPointerEvent } from '../event/pointer-event'
 import { EventTarget_ext } from '../event/event-target'
+import { IMouseEvent } from '../event/mouse-event'
 import { Cursor } from '../cursor'
 import { Timer, TimerManager } from '../timer'
 import { IFunction } from '../function'
@@ -10,12 +11,11 @@ import { ScrollBarManager } from '../../components/component-managers'
 
 // ******************************** 声明 ********************************
 
-type tipFunc = (...args: any[]) => any
+type tipVar = (...args: any[]) => any | { get: () => any }
 
 interface HTMLElement_object_ext {
   name: { get: () => any, set: (value: any) => void }
   innerHeight: { get: () => number }
-  tip: { get: () => any }
 }
 
 interface HTMLElement_scroll_ext {
@@ -27,7 +27,7 @@ interface HTMLElement_ext {
   dragging: IPointerEvent | null
   dataValue: any
 
-  tip: string | tipFunc
+  tip: string | tipVar
   top: number
   left: number
   width: number
@@ -50,11 +50,11 @@ interface HTMLElement_ext {
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode: string): void
-  setTooltip: (tip: string | tipFunc) => void
+  setTooltip: (tip: string | tipVar) => void
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): void
-  isInContent(event: IPointerEvent): boolean
+  isInContent(event: IMouseEvent): boolean
   dispatchChangeEvent: (index: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
@@ -285,7 +285,7 @@ prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (this: IHTMLElement, tip: string | tipFunc) {
+  return function (this: IHTMLElement, tip: string | tipVar) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)

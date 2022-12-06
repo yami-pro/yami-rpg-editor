@@ -1,5 +1,6 @@
 'use strict'
 
+import { window } from "./global"
 import { IEventTarget } from "./event"
 import { IHTMLElement } from "./element"
 
@@ -51,9 +52,6 @@ const measureText = function IIFE() {
 //   }
 // }()
 
-const windowObject = <Object>window
-const target = <IEventTarget>windowObject
-
 {
   // 拖拽状态
   let dragging = false
@@ -63,14 +61,14 @@ const target = <IEventTarget>windowObject
   const dragstart = function (event: MouseEvent) {
     dragging = true
     event.preventDefault()
-    target.on('pointerup', pointerup)
+    window.on('pointerup', pointerup)
   }
 
   // 拖拽结束事件 - 比指针弹起事件优先执行
   const dragend = function (event: MouseEvent) {
     if (dragging) {
       dragging = false
-      target.off('pointerup', pointerup)
+      window.off('pointerup', pointerup)
     }
   }
 
@@ -78,7 +76,7 @@ const target = <IEventTarget>windowObject
   const pointerup = function (event: MouseEvent) {
     if (dragging) {
       dragging = false
-      target.off('pointerup', pointerup)
+      window.off('pointerup', pointerup)
     }
   }
 
@@ -88,12 +86,12 @@ const target = <IEventTarget>windowObject
       !osdragging &&
       !event.relatedTarget) {
       osdragging = true
-      target.dispatchEvent(
+      window.dispatchEvent(
         new DragEvent('os-dragstart')
       )
-      target.on('dragleave', dragleave)
-      target.on('dragover', dragover)
-      target.on('drop', drop)
+      window.on('dragleave', dragleave)
+      window.on('dragover', dragover)
+      window.on('drop', drop)
     }
   }
 
@@ -102,12 +100,12 @@ const target = <IEventTarget>windowObject
     if (osdragging &&
       !event.relatedTarget) {
       osdragging = false
-      target.dispatchEvent(
+      window.dispatchEvent(
         new DragEvent('os-dragend')
       )
-      target.off('dragleave', dragleave)
-      target.off('dragover', dragover)
-      target.off('drop', drop)
+      window.off('dragleave', dragleave)
+      window.off('dragover', dragover)
+      window.off('drop', drop)
     }
   }
 
@@ -121,19 +119,19 @@ const target = <IEventTarget>windowObject
   const drop = function (event: MouseEvent) {
     if (osdragging) {
       osdragging = false
-      target.dispatchEvent(
+      window.dispatchEvent(
         new DragEvent('os-dragend')
       )
-      target.off('dragleave', dragleave)
-      target.off('dragover', dragover)
-      target.off('drop', drop)
+      window.off('dragleave', dragleave)
+      window.off('dragover', dragover)
+      window.off('drop', drop)
     }
   }
 
   // 初始化
-  target.on('dragstart', dragstart)
-  target.on('dragend', dragend)
-  target.on('dragenter', dragenter)
+  window.on('dragstart', dragstart)
+  window.on('dragend', dragend)
+  window.on('dragenter', dragenter)
 }
 
 // 获取元素读取器
@@ -171,12 +169,12 @@ const INTRGBA = function (hex: string) {
 // ******************************** 检测设备像素比例 ********************************
 
 // 侦听像素比率改变事件
-target.on('resize', function IIFE() {
+window.on('resize', function IIFE() {
   let dpr = window.devicePixelRatio
   return event => {
     if (dpr !== window.devicePixelRatio) {
       dpr = window.devicePixelRatio
-      target.dispatchEvent(new Event('dprchange'))
+      window.dispatchEvent(new Event('dprchange'))
     }
   }
 }())
