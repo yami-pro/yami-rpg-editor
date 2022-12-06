@@ -1,8 +1,10 @@
 'use strict'
 
+import { EventTarget_ext } from '../event/event-target'
 import { Cursor } from '../cursor'
 import { Timer, TimerManager } from '../timer'
 import { IFunction } from '../function'
+import { ScrollBarManager } from '../../components/component-managers'
 
 // ******************************** 声明 ********************************
 
@@ -59,7 +61,7 @@ interface HTMLElement_ext {
   updateScrollbars(): void
 }
 
-interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext {}
+interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, EventTarget_ext {}
 
 // ******************************** 元素扩展 ********************************
 
@@ -292,105 +294,7 @@ prototype.setTooltip = function IIFE() {
 
 // 元素方法 - 添加滚动条
 prototype.addScrollbars = function () {
-  const hBar = <IHTMLElement>document.createElement('scroll-bar')
-  const vBar = <IHTMLElement>document.createElement('scroll-bar')
-  const corner = <IHTMLElement>document.createElement('scroll-corner')
-  const parent = this.parentNode
-  const next = this.nextSibling
-  if (parent) {
-    if (next) {
-      parent.insertBefore(hBar, next)
-      parent.insertBefore(vBar, next)
-      parent.insertBefore(corner, next)
-    } else {
-      parent.appendChild(hBar)
-      parent.appendChild(vBar)
-      parent.appendChild(corner)
-    }
-  }
-  hBar.bind(this, 'horizontal')
-  vBar.bind(this, 'vertical')
-
-  // 鼠标滚轮事件
-  const wheel = event => {
-    this.dispatchEvent(
-      new WheelEvent('wheel', event)
-    )
-  }
-  hBar.on('wheel', wheel)
-  vBar.on('wheel', wheel)
-  corner.on('wheel', wheel)
-
-  // 用户滚动事件
-  // 使用自定义的userscroll代替内置的scroll有以下原因:
-  // scroll是异步的, 触发时机是在Promise后Animation前
-  // 如果在Animation中滚动会推迟到下一帧触发事件
-  // userscroll由于手动调用可以避免不需要触发的情况
-  const userscroll = new Event('userscroll')
-
-  // 添加方法 - 开始滚动
-  this.beginScrolling = function () {
-    hBar.addClass('dragging')
-    vBar.addClass('dragging')
-  }
-
-  // 添加方法 - 结束滚动
-  this.endScrolling = function () {
-    hBar.removeClass('dragging')
-    vBar.removeClass('dragging')
-  }
-
-  // 添加方法 - 设置滚动条位置
-  this.setScroll = function (left, top) {
-    const sl = this.scrollLeft
-    const st = this.scrollTop
-    this.scroll(left, top)
-    if (this.scrollLeft !== sl ||
-      this.scrollTop !== st) {
-      this.dispatchEvent(userscroll)
-    }
-  }
-
-  // 添加方法 - 设置滚动条左侧位置
-  this.setScrollLeft = function (left) {
-    const sl = this.scrollLeft
-    this.scrollLeft = left
-    if (this.scrollLeft !== sl) {
-      this.dispatchEvent(userscroll)
-    }
-  }
-
-  // 添加方法 - 设置滚动条顶部位置
-  this.setScrollTop = function (top) {
-    const st = this.scrollTop
-    this.scrollTop = top
-    if (this.scrollTop !== st) {
-      this.dispatchEvent(userscroll)
-    }
-  }
-
-  // 添加方法 - 更新滚动条
-  let withCorner = false
-  this.updateScrollbars = function () {
-    if (this.clientWidth < this.scrollWidth &&
-      this.clientHeight < this.scrollHeight) {
-      if (!withCorner) {
-        withCorner = true
-        hBar.addClass('with-corner')
-        vBar.addClass('with-corner')
-        corner.addClass('visible')
-      }
-    } else {
-      if (withCorner) {
-        withCorner = false
-        hBar.removeClass('with-corner')
-        vBar.removeClass('with-corner')
-        corner.removeClass('visible')
-      }
-    }
-    hBar.updateHorizontalBar()
-    vBar.updateVerticalBar()
-  }
+  ScrollBarManager.addScrollbars(this)
 }
 
 // 元素方法 - 添加设置滚动方法
