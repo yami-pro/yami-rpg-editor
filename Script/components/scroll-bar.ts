@@ -1,12 +1,13 @@
 'use strict'
 
 import {
-  Timer
+  Timer,
+  IHTMLElement
 } from '../yami'
 
 // ******************************** 滚动条 ********************************
 
-class ScrollBar extends HTMLElement {
+class ScrollBar extends IHTMLElement {
   target: HTMLElement | null
   type: string | null
   thumb: HTMLElement | null

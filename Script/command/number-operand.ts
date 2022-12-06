@@ -106,7 +106,7 @@ NumberOperand.initialize = function () {
     ]},
   ])
 
-  // 设置类型写入事件，切换变量输入框的过滤器
+  // 设置类型写入事件, 切换变量输入框的过滤器
   $('#setNumber-operand-type').on('write', event => {
     let filter = 'all'
     switch (event.value) {

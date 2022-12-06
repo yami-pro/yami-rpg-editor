@@ -1526,7 +1526,7 @@ Palette.marqueePointerdown = function (event) {
   }
   switch (event.button) {
     case 0: {
-      // 如果正在修改图块组宽高，让它立即生效
+      // 如果正在修改图块组宽高, 让它立即生效
       document.activeElement.blur()
       if (event.dragKey) {
         this.dragging = event

@@ -117,7 +117,7 @@ VariableGetter.open = function (target) {
       $('#variableGetter-global-key').filter = filter
       break
     case 'object':
-      // 如果已经打开了变量访问器窗口，避免冲突使用新窗口
+      // 如果已经打开了变量访问器窗口, 避免冲突使用新窗口
       if (Window.isWindowOpen('variableGetter')) {
         return ObjectGetter.open(target)
       }
@@ -261,7 +261,7 @@ VariableGetter.typeInput = function (event) {
       const attrName = keyBox.textContent
       keyBox.write(keyBox.read())
       if (keyBox.invalid) {
-        // 如果是无效数据，则写入同名属性或第一项作为默认值
+        // 如果是无效数据, 则写入同名属性或第一项作为默认值
         let defValue = keyBox.dataItems[0]?.value
         for (const item of keyBox.dataItems) {
           if (item.name === attrName) {

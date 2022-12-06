@@ -6,7 +6,7 @@ import {
 } from '../yami'
 
 // ******************************** 编解码器 ********************************
-// undefined按位运算等价于0，因此不会产生NaN
+// undefined按位运算等价于0, 因此不会产生NaN
 
 const Codec = {
   // properties
@@ -29,7 +29,7 @@ const Codec = {
 }
 
 // ******************************** 编解码器加载 ********************************
-// undefined按位运算等价于0，因此不会产生NaN
+// undefined按位运算等价于0, 因此不会产生NaN
 
 // 编码场景
 Codec.encodeScene = function (scene) {
@@ -225,7 +225,7 @@ Codec.decodeTiles = function (code, width, height) {
   return TILES
 }
 
-// 编码地形，最多可存放4位数据(目前仅使用了2位)
+// 编码地形, 最多可存放4位数据(目前仅使用了2位)
 Codec.encodeTerrains = function (terrains) {
   const {encodeClone} = this
   const TERRAINS = terrains

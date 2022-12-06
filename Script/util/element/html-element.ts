@@ -121,7 +121,7 @@ prototype.seek = function (tagName, count = 1) {
   while (count-- > 0) {
     if (element.tagName !== tagName.toUpperCase() &&
       element.parentNode instanceof HTMLElement) {
-      element = element.parentNode
+      element = <IHTMLElement>element.parentNode
       continue
     }
     break
@@ -153,39 +153,16 @@ prototype.show = function () {
 
 // 元素方法 - 隐藏子元素
 prototype.hideChildNodes = function () {
-  for (const childNode of this.childNodes) {
-    childNode.hide()
-  }
+  this.childNodes.forEach(
+    childNode => (<IHTMLElement>childNode).hide()
+  )
 }
 
 // 元素方法 - 显示子元素
 prototype.showChildNodes = function () {
-  for (const childNode of this.childNodes) {
-    childNode.show()
-  }
-}
-
-// 元素方法 - 获得焦点
-// 异步执行可以避免与指针按下行为起冲突
-prototype.getFocus = function (mode = null) {
-  setTimeout(() => {
-    this.focus()
-    switch (mode) {
-      case 'all':
-        if (this.select) {
-          this.select()
-          this.scrollLeft = 0
-        }
-        break
-      case 'end':
-        if (typeof this.selectionStart === 'number') {
-          const endIndex = this.value.length
-          this.selectionStart = endIndex
-          this.selectionEnd = endIndex
-        }
-        break
-    }
-  })
+  this.childNodes.forEach(
+    childNode => (<IHTMLElement>childNode).show()
+  )
 }
 
 // 元素方法 - 设置工具提示
@@ -346,7 +323,7 @@ prototype.addScrollbars = function () {
 
   // 用户滚动事件
   // 使用自定义的userscroll代替内置的scroll有以下原因:
-  // scroll是异步的，触发时机是在Promise后Animation前
+  // scroll是异步的, 触发时机是在Promise后Animation前
   // 如果在Animation中滚动会推迟到下一帧触发事件
   // userscroll由于手动调用可以避免不需要触发的情况
   const userscroll = new Event('userscroll')
@@ -686,5 +663,8 @@ Object.defineProperty(
     window.off('pointermove', pointermove)
   }
 }
+
+const elementObject = <Object>HTMLElement
+const IHTMLElement =<{prototype: IHTMLElement; new(): IHTMLElement}>elementObject
 
 export { IHTMLElement, HTMLElement_ext, HTMLElement_scroll_ext }

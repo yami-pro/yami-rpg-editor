@@ -108,7 +108,7 @@ class ScriptListInterface {
       if (event.button === 0 &&
         event.target.tagName === 'BOX') {
         element = event.target
-        // 自动过滤重复侦听器，无需额外检查
+        // 自动过滤重复侦听器, 无需额外检查
         window.on('pointerup', pointerup, once)
       }
     }

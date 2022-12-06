@@ -1166,7 +1166,7 @@ Command.cases.setBoolean = {
       ]},
     ])
 
-    // 设置类型写入事件，切换变量输入框的过滤器
+    // 设置类型写入事件, 切换变量输入框的过滤器
     $('#setBoolean-operand-type').on('write', event => {
       let filter = 'all'
       switch (event.value) {
@@ -1437,7 +1437,7 @@ Command.cases.setString = {
       ]},
     ])
 
-    // 设置类型写入事件，切换变量输入框的过滤器
+    // 设置类型写入事件, 切换变量输入框的过滤器
     $('#setString-operand-type').on('write', event => {
       let filter = 'all'
       switch (event.value) {
@@ -7899,7 +7899,7 @@ Command.custom = {
     this.parameterPane.onResize = () => {
       const height = grid.clientHeight
       this.windowFrame.style.height = `${height + 78}px`
-      // 如果窗口被拖动过会重置位置，不过影响不大
+      // 如果窗口被拖动过会重置位置, 不过影响不大
       this.windowFrame.absolute(this.windowX, this.windowY)
     }
 
@@ -7939,7 +7939,7 @@ Command.custom = {
 
   // 解析自定义指令
   parse: function (id, parameters) {
-    // 如果不存在脚本，则返回ID名称
+    // 如果不存在脚本, 则返回ID名称
     const meta = Data.scripts[id]
     const name = this.commandNameMap[id]
     if (meta === undefined || name === undefined) {
@@ -7958,7 +7958,7 @@ Command.custom = {
     // 获取重构后的参数
     parameters = script.parameters
     script.parameters = null
-    // 如果不带参数，直接返回指令名称
+    // 如果不带参数, 直接返回指令名称
     const mParameters = meta.parameters
     if (mParameters.length === 0) {
       return [

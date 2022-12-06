@@ -441,7 +441,7 @@ Directory.sortFiles = function IIFE() {
   const sorter = (a, b) => {
     if (a instanceof FileItem) {
       if (b instanceof FileItem) {
-        // 优先比较基本名称，相同时再比较扩展名称
+        // 优先比较基本名称, 相同时再比较扩展名称
         const r1 = a.basename.localeCompare(b.basename)
         if (r1 !== 0) return r1
         const r2 = a.extname.localeCompare(b.extname)

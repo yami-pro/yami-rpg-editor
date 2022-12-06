@@ -104,7 +104,7 @@ IfCondition.initialize = function () {
     ]},
   ])
 
-  // 设置类型写入事件，切换变量输入框的过滤器
+  // 设置类型写入事件, 切换变量输入框的过滤器
   $('#if-condition-type').on('write', event => {
     let filter1 = 'all'
     let filter2 = 'all'

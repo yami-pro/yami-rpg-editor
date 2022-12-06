@@ -550,7 +550,7 @@ class Printer {
     } else {
       this.height = Math.max(this.height - letterSpacing, 0)
     }
-    // 调整打印机纹理大小，限制最大宽高为16384(超过会报错)
+    // 调整打印机纹理大小, 限制最大宽高为16384(超过会报错)
     const width = Math.ceil(this.width + this.paddingLeft + this.paddingRight)
     const height = Math.ceil(this.height + this.paddingTop + this.paddingBottom)
     this.texture.resize(Math.min(width, 16384), Math.min(height, 16384))

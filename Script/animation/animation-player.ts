@@ -66,7 +66,7 @@ class AnimationPlayer {
       this.motion !== motion) {
       this.motion = motion
       this.dirCases = motion.dirCases
-      // 如果方向模式发生变化，重新计算方向
+      // 如果方向模式发生变化, 重新计算方向
       const dirMap = AnimationPlayer.dirMaps[motion.mode]
       if (this.dirMap !== dirMap) {
         this.dirMap = dirMap
@@ -558,7 +558,7 @@ class AnimationPlayer {
   static loadContexts(animation, contexts) {
     contexts.count = 0
     if (animation.layers !== null) {
-      // 如果动画已设置动作，加载所有图层上下文
+      // 如果动画已设置动作, 加载所有图层上下文
       this.#loadContext(animation, animation.layers, null, contexts)
     }
   }

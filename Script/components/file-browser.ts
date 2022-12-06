@@ -205,7 +205,7 @@ class FileBrowser extends HTMLElement {
 
   // 指针按下事件
   pointerdown(event) {
-    // 如果丢失dragend事件，手动结束
+    // 如果丢失dragend事件, 手动结束
     switch (this.dragging?.mode) {
       case 'drag': return this.dragend()
       case 'os-drag': return this.osDragend()

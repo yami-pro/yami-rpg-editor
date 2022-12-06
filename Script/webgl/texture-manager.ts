@@ -20,7 +20,7 @@ class TextureManager {
     this.map = {}
     this.images = {}
     this.pointer = 0
-    // count属性未使用，可在devTools中查看纹理数量
+    // count属性未使用, 可在devTools中查看纹理数量
     this.count = 0
   }
 

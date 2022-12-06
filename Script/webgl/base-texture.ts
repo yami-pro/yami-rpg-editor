@@ -49,18 +49,18 @@ class BaseTexture {
    * @param {function} callback 回调函数
    */
   on(type, callback) {
-    // 如果已加载完成，立即执行回调
+    // 如果已加载完成, 立即执行回调
     let cache = this[BaseTexture.CALLBACK]
     if (cache === type) {
       callback(this)
       return
     }
-    // 首次调用，创建加载回调缓存
+    // 首次调用, 创建加载回调缓存
     if (cache === undefined) {
       cache = this[BaseTexture.CALLBACK] =
       {load: [], error: []}
     }
-    // 如果未加载完成，添加回调到缓存中
+    // 如果未加载完成, 添加回调到缓存中
     if (typeof cache === 'object') {
       cache[type].push(callback)
     }

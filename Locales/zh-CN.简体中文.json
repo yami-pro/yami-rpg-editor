@@ -1149,7 +1149,7 @@
       "closeUnsavedTiles": "放弃图块的更改?",
       "closeUnsavedEvent": "放弃事件的更改?",
       "closeUnsavedData": "放弃数据的更改?",
-      "compileError": "编译时发生错误，是否继续?",
+      "compileError": "编译时发生错误, 是否继续?",
       "yes": "是",
       "no": "否",
       "confirm": "确定",

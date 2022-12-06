@@ -663,7 +663,7 @@ Variable.sortInput = function (event) {
     sort: item.sort,
     value: item.value,
   })
-  // 如果从临时变量对象类型切换到其他分类，修改变量的值为布尔值
+  // 如果从临时变量对象类型切换到其他分类, 修改变量的值为布尔值
   if (item.value === null) {
     item.value = Variable.inputs.boolean.read()
     Variable.inputs.type.write('boolean')
@@ -957,7 +957,7 @@ Variable.list.createInitText = function (item) {
     initText.addClass('variable-init-text')
     element.appendChild(initText)
     element.initText = initText
-    // 对象变量的初始值是null，避免冲突
+    // 对象变量的初始值是null, 避免冲突
     element.initValue = undefined
   }
 }

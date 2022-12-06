@@ -50,7 +50,7 @@ class Manifest {
     let i = metaList.length
     while (--i >= 0) {
       const meta = metaList[i]
-      // 如果版本ID不一致，表示文件已被删除
+      // 如果版本ID不一致, 表示文件已被删除
       if (meta.versionId !== versionId) {
         const {guid, path} = meta
         metaList.splice(i, 1)

@@ -1225,7 +1225,7 @@ Animation.createDirItems = function () {
   const dirList = this.dirList
   const motion = this.motion
   const mode = motion?.mode ?? 'none'
-  // 当动作模式发生变化时，更新方向选项
+  // 当动作模式发生变化时, 更新方向选项
   if (dirList.mode !== mode) {
     dirList.mode = mode
     dirList.clear()

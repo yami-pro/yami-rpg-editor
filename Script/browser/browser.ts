@@ -296,7 +296,7 @@ Browser.bodyUnselect = function (event) {
   if (Inspector.meta !== null) {
     const meta = Inspector.meta
     const files = event.value
-    // meta有可能从映射表中删除，因此对比路径
+    // meta有可能从映射表中删除, 因此对比路径
     if (files.length === 1 &&
       files[0].path === meta.path) {
       Inspector.close()
