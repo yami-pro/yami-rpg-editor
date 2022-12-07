@@ -1,6 +1,7 @@
 'use strict'
 
-import { IFunction, emptyFunc } from './function'
+import { IFunction } from './function'
+import { emptyFunc } from './function'
 import { IHTMLElement } from './element/html-element'
 import { INodeList } from './node-list'
 import { IArray } from './array'

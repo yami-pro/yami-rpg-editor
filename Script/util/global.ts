@@ -1,6 +1,7 @@
 'use strict'
 
-import { $, selectorVar } from "./css"
+import { $ } from "./css"
+import { selectorVar } from "./css"
 import { EventTarget_ext } from "./event/event-target"
 
 // ******************************** 全局对象 ********************************

@@ -1,19 +1,32 @@
 'use strict'
 
-import {
-  BaseTexture,
-  BatchRenderer,
-  Data,
-  File,
-  Matrix,
-  Texture,
-  TextureManager,
-  IHTMLImageElement,
-  ImageTexture,
-  IEvent,
-  window,
-  IHTMLCanvasElement
-} from '../yami'
+import { BaseTexture } from "./base-texture"
+import { BatchRenderer } from "./batch-renderer"
+import { Data } from "../data/data"
+import { File } from "../file-system/file"
+import { Matrix } from "./matrix"
+import { Texture } from "./texture"
+import { TextureManager } from "./texture-manager"
+import { IHTMLImageElement } from "../util/index"
+import { ImageTexture } from "./image-texture"
+import { IEvent } from "../util/event/event"
+import { window } from "../util/global"
+import { IHTMLCanvasElement } from "../util/element/html-canvas-element"
+
+// import {
+//   BaseTexture,
+//   BatchRenderer,
+//   Data,
+//   File,
+//   Matrix,
+//   Texture,
+//   TextureManager,
+//   IHTMLImageElement,
+//   ImageTexture,
+//   IEvent,
+//   window,
+//   IHTMLCanvasElement
+// } from '../yami'
 
 // ******************************** 声明 ********************************
 

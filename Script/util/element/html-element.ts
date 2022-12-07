@@ -5,11 +5,12 @@ import { IPointerEvent } from '../event/pointer-event'
 import { EventTarget_ext } from '../event/event-target'
 import { IMouseEvent } from '../event/mouse-event'
 import { Cursor } from '../cursor'
-import { Timer, TimerManager } from '../timer'
+import { Timer } from '../timer'
+import { TimerManager } from '../timer'
 import { IFunction } from '../function'
 import { ScrollBarManager } from '../../components/component-managers'
-import { commandsData, IArray } from '../array'
-
+import { commandsData } from '../array'
+import { IArray } from '../array'
 
 // ******************************** 声明 ********************************
 
