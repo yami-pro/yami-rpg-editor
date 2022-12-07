@@ -10,7 +10,9 @@ import {
   TextureManager,
   IHTMLImageElement,
   ImageTexture,
-  IEvent
+  IEvent,
+  window,
+  IHTMLCanvasElement
 } from '../yami'
 
 // ******************************** 声明 ********************************
@@ -196,7 +198,7 @@ let GL: IWebGL2RenderingContext
 
 {
   // 创建画布元素
-  const canvas = document.createElement('canvas')
+  const canvas = <IHTMLCanvasElement>document.createElement('canvas')
   canvas.width = 0
   canvas.height = 0
   canvas.style.position = 'absolute'
@@ -204,17 +206,19 @@ let GL: IWebGL2RenderingContext
   canvas.style.height = '100%'
 
   // 主题画布背景颜色
-  const background: { light: rgbColor, dark: rgbColor } = {
+  const background: { [index: string]: rgbColor } = {
     light: {red: 0xc8, green: 0xc8, blue: 0xc8},
     dark: {red: 0x20, green: 0x20, blue: 0x20},
   }
 
   // 侦听主题改变事件
   window.on('themechange', function (event: IEvent) {
-    const {red, green, blue} = background[event.value]
-    GL.BACKGROUND_RED = red / 255
-    GL.BACKGROUND_GREEN = green / 255
-    GL.BACKGROUND_BLUE = blue / 255
+    if (typeof event?.value === 'string') {
+      const {red, green, blue} = background[event.value]
+      GL.BACKGROUND_RED = red / 255
+      GL.BACKGROUND_GREEN = green / 255
+      GL.BACKGROUND_BLUE = blue / 255
+    }
   })
 
   // 侦听WebGL上下文丢失事件

@@ -22,6 +22,7 @@ export { IHTMLElement } from './element/html-element'
 export { IHTMLInputElement } from './element/html-input-element'
 export { IHTMLButtonElement } from './element/html-button-element'
 export { IHTMLImageElement } from './element/html-image-element'
+export { IHTMLCanvasElement } from './element/html-canvas-element'
 
 export { IRegExp } from './reg-exp'
 export { IString } from './string'
