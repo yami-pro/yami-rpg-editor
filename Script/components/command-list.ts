@@ -1,21 +1,19 @@
 'use strict'
 
 import { commandsData } from '../util/array'
-import {
-  window,
-  Command,
-  CommandHistory,
-  CommonList,
-  ctrl,
-  Local,
-  Menu,
-  WindowFrame,
-  Clipboard,
-  IArray,
-  IMath,
-  IHTMLElement,
-  IMouseKeyboardEvent
-} from '../yami'
+import { window } from '../util/global'
+import { Command } from '../command/command'
+import { CommandHistory } from '../history/command-history'
+import { CommonList } from './common-list'
+import { ctrl } from '../util/ctrl'
+import { Local } from '../tools/local'
+import { Menu } from './menu-list'
+import { WindowFrame } from './window-frame'
+import { Clipboard } from '../util/clipboard'
+import { IArray } from '../util/array'
+import { IMath } from '../util/math'
+import { IHTMLElement } from '../util/element/html-element'
+import { IMouseKeyboardEvent } from '../util/event/mouse-keyboard-event'
 
 // ******************************** 指令列表 ********************************
 

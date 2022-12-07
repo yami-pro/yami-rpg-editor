@@ -27,7 +27,7 @@ export { IHTMLCanvasElement } from './element/html-canvas-element'
 export { IRegExp } from './reg-exp'
 export { IString } from './string'
 export { Cursor } from './cursor'
-export { IArray } from './array'
+export { IArray, commandsData } from './array'
 export { IFunction, emptyFunc } from './function'
 export { Timer, TimerManager } from './timer'
 
