@@ -41,6 +41,7 @@ interface HTMLElement_ext {
   dragging: IPointerEvent | null
   dataValue: any
 
+  _padding: number
   tip: string | tipVar
   top: number
   left: number
@@ -448,10 +449,10 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
 // 元素访问器 - 名称
 Object.defineProperty(
   prototype, 'name', {
-    get: function () {
+    get: function (this: IHTMLElement) {
       return this.getAttribute('name')
     },
-    set: function (value) {
+    set: function (this: IHTMLElement, value: string) {
       this.setAttribute('name', value)
     },
   }
@@ -460,7 +461,7 @@ Object.defineProperty(
 // 元素访问器 - 内部高度
 Object.defineProperty(
   prototype, 'innerHeight', {
-    get: function () {
+    get: function (this: IHTMLElement) {
       let padding = this._padding
       if (padding === undefined) {
         const css = this.css()
