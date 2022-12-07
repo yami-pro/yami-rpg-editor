@@ -1,5 +1,6 @@
 'use strict'
 
+import { commandsData } from '../util/array'
 import {
   window,
   Command,
@@ -12,7 +13,6 @@ import {
   Clipboard,
   IArray,
   IMath,
-  IPointerEvent,
   IHTMLElement,
   IMouseKeyboardEvent
 } from '../yami'
@@ -20,7 +20,7 @@ import {
 // ******************************** 指令列表 ********************************
 
 class CommandList extends IHTMLElement {
-  data: any[] | null
+  data: IArray<commandsData>
   elements: IArray<IHTMLElement>
   selections: IArray<IHTMLElement>
   start: number | null
@@ -30,7 +30,7 @@ class CommandList extends IHTMLElement {
   anchor: number | null
   inserting: boolean | null
   focusing: boolean | null
-  dragging: IPointerEvent | null
+  dragging: IMouseKeyboardEvent | null
   windowPointerup: (this: CommandList, event: any) => void
   windowPointermove: (this: CommandList, event: any) => void
   windowVariableChange: (this: CommandList, event: any) => void
@@ -42,7 +42,7 @@ class CommandList extends IHTMLElement {
 
     // 设置属性
     this.tabIndex = 0
-    this.data = null
+    this.data = IArray.empty()
     this.elements = IArray.empty()
     this.elements.versionId = 0
     this.elements.count = 0
@@ -78,7 +78,7 @@ class CommandList extends IHTMLElement {
 
   // 读取操作历史
   get history() {
-    return this.data.history
+    return this.data?.history ?? null
   }
 
   // 读取上边距
@@ -97,7 +97,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 写入数据
-  write(data) {
+  write(data: IArray<commandsData>) {
     this.data = data
     this.textContent = ''
     this.update()
@@ -164,7 +164,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建项目
-  createItems(commands, indent: number) {
+  createItems(commands: IArray<commandsData>, indent: number) {
     const elements = this.elements
     const length = commands.length
     for (let i = 0; i < length; i++) {
@@ -176,7 +176,7 @@ class CommandList extends IHTMLElement {
           continue
         }
         if (target instanceof Array) {
-          this.createItems(target, indent + 1)
+          this.createItems(<IArray<commandsData>>target, indent + 1)
           continue
         }
       }
@@ -188,7 +188,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建指令缓冲区
-  createCommandBuffer(commands, index: number, indent: number) {
+  createCommandBuffer(commands: IArray<commandsData>, index: number, indent: number) {
     const command = commands[index]
     let buffer = command.buffer
     if (buffer === undefined) {
@@ -205,7 +205,7 @@ class CommandList extends IHTMLElement {
       let li
       let color
       li = <IHTMLElement>document.createElement('command-item')
-      li.contents = []
+      li.contents = IArray.empty()
       li.dataKey = true
       li.dataList = commands
       li.dataItem = command
@@ -222,7 +222,7 @@ class CommandList extends IHTMLElement {
         // 保存内容
         if (content.text !== undefined) {
           content.color = color
-          li.contents.push(content)
+          li.contents?.push(content)
         }
 
         // 改变颜色
@@ -234,7 +234,7 @@ class CommandList extends IHTMLElement {
         // 换行
         if (content.break !== undefined) {
           li = <IHTMLElement>document.createElement('command-item')
-          li.contents = []
+          li.contents = IArray.empty()
           li.dataKey = false
           li.dataList = commands
           li.dataItem = command
@@ -261,7 +261,7 @@ class CommandList extends IHTMLElement {
 
           if (i < length) {
             li = <IHTMLElement>document.createElement('command-item')
-            li.contents = []
+            li.contents = IArray.empty()
             li.dataKey = false
             li.dataList = commands
             li.dataItem = command
@@ -322,6 +322,8 @@ class CommandList extends IHTMLElement {
     }
 
     // 创建内容元素
+    if (element.contents === null)
+      return
     for (const content of element.contents) {
       // 创建文本
       if (content.text !== undefined) {
@@ -332,7 +334,7 @@ class CommandList extends IHTMLElement {
           // 则创建更新器用来即时更新变量名
           let updaters = element.updaters
           if (updaters === undefined) {
-            updaters = element.updaters = []
+            updaters = element.updaters = IArray.empty()
           }
           updaters.push(updater)
           updater.update()
@@ -349,13 +351,13 @@ class CommandList extends IHTMLElement {
   }
 
   // 删除指令缓冲区
-  deleteCommandBuffers(commands) {
+  deleteCommandBuffers(commands: IArray<commandsData>) {
     for (const command of commands) {
       const {buffer} = command
       if (!buffer) continue
       for (const item of buffer) {
         if (item instanceof Array) {
-          this.deleteCommandBuffers(item)
+          this.deleteCommandBuffers(<IArray<commandsData>>item)
         }
       }
       delete command.buffer
@@ -363,11 +365,11 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建空项目
-  createBlankElement(commands, index: number, indent: number) {
+  createBlankElement(commands: IArray<commandsData>, index: number, indent: number) {
     let blank = commands.blank
-    if (blank === undefined) {
+    if (blank === undefined || blank === null) {
       // 创建列表项
-      blank = document.createElement('command-item')
+      blank = <IHTMLElement>document.createElement('command-item')
 
       // 设置元素属性
       blank.contents = IArray.empty()
@@ -417,7 +419,9 @@ class CommandList extends IHTMLElement {
   }
 
   // 选择项目
-  select(start: number, end: number = start) {
+  select(start: number | null, end: number | null = start) {
+    if (start === null || end === null)
+      return
     if (start > end) {
       [start, end] = [end, start]
     }
@@ -477,17 +481,21 @@ class CommandList extends IHTMLElement {
     const origin = this.origin
     this.select(origin, active)
     this.origin = origin
-    this.active = IMath.clamp(
-      active,
-      this.start,
-      this.end,
-    )
+    if (this.start !== null && this.end !== null) {
+      this.active = IMath.clamp(
+        active,
+        this.start,
+        this.end,
+      )
+    }
   }
 
   // 选择全部项目
   selectAll() {
     this.select(0, Infinity)
-    this.active = this.getRangeByIndex(this.end)[0]
+    if (this.end !== null) {
+      this.active = this.getRangeByIndex(this.end)[0]
+    }
   }
 
   // 取消选择
@@ -509,7 +517,8 @@ class CommandList extends IHTMLElement {
   // 重新选择
   reselect() {
     if (this.focusing &&
-      this.start !== null) {
+      this.start !== null &&
+      this.end !== null) {
       const {selections} = this
       const elements = this.elements
       const start = this.start
@@ -526,7 +535,7 @@ class CommandList extends IHTMLElement {
 
   // 向上选择项目
   selectUp() {
-    if (this.start !== null) {
+    if (this.start !== null && this.end !== null) {
       const elements = this.elements
       const sData = elements[this.start].dataItem
       const eData = elements[this.end].dataItem
@@ -545,7 +554,7 @@ class CommandList extends IHTMLElement {
 
   // 向下选择
   selectDown() {
-    if (this.end !== null) {
+    if (this.start !== null && this.end !== null) {
       const elements = this.elements
       const sData = elements[this.start].dataItem
       const eData = elements[this.end].dataItem
@@ -575,7 +584,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 向上翻页
-  pageUp(select) {
+  pageUp(select: boolean) {
     let anchor = this.anchor
     if (anchor === null) {
       anchor = this.active
@@ -583,7 +592,7 @@ class CommandList extends IHTMLElement {
     if (anchor !== null) {
       const scrollLines = IMath.floor(this.innerHeight / 20) - 1
       const scrollTop = IMath.max(this.scrollTop - scrollLines * 20, 0)
-      if (select) {
+      if (select && this.start !== null) {
         const bottom = this.scrollTop + this.innerHeight
         const bottomIndex = IMath.floor(bottom / 20) - 1
         const targetIndex = IMath.min(anchor, bottomIndex) - scrollLines
@@ -595,7 +604,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 向下翻页
-  pageDown(select) {
+  pageDown(select: boolean) {
     let anchor = this.anchor
     if (anchor === null) {
       anchor = this.active
@@ -604,7 +613,7 @@ class CommandList extends IHTMLElement {
       const top = this.scrollTop
       const scrollLines = IMath.floor(this.innerHeight / 20) - 1
       let scrollTop = top + scrollLines * 20
-      if (select) {
+      if (select && this.end !== null) {
         const topIndex = IMath.floor(top / 20)
         const targetIndex = IMath.max(anchor, topIndex) + scrollLines
         const scrollBottom = this.elements.count * 20
@@ -619,7 +628,7 @@ class CommandList extends IHTMLElement {
 
   // 选择指定位置的多个项目
   selectMultipleTo(index: number) {
-    if (this.start !== null) {
+    if (this.start !== null && this.active !== null) {
       this.selectMultiple(index)
       const elements = this.elements
       const sElement = elements[this.start]
@@ -639,7 +648,8 @@ class CommandList extends IHTMLElement {
         
       }
       const range = this.getRangeByIndex(n)
-      if (this.origin < this.active &&
+      if (this.origin !== null &&
+        this.origin < this.active &&
         this.origin > range[0] &&
         this.origin < range[1]) {
         this.active = range[1]
@@ -651,48 +661,52 @@ class CommandList extends IHTMLElement {
 
   // 向上选择多个项目
   selectMultipleUp() {
-    if (this.start !== null) {
-      const elements = this.elements
-      if (this.active <= this.origin) {
-        const sElement = elements[this.start]
-        const indent = sElement.dataIndent
-        let i = this.start
-        while (--i >= 0) {
-          const element = elements[i]
-          if (element.dataIndent <= indent &&
-            element.dataKey === true) {
-            this.selectMultiple(i)
-            break
+    if (this.start !== null &&
+      this.active !== null &&
+      this.origin !== null) {
+        const elements = this.elements
+        if (this.active <= this.origin) {
+          const sElement = elements[this.start]
+          const indent = sElement.dataIndent
+          let i = this.start
+          while (--i >= 0) {
+            const element = elements[i]
+            if (element.dataIndent <= indent &&
+              element.dataKey === true) {
+              this.selectMultiple(i)
+              break
+            }
           }
-        }
-      } else {
-        const eElement = elements[this.end]
-        const data = eElement.dataItem
-        const end = this.end
-        let indent = Infinity
-        let n = this.origin
-        for (let i = n; i < end; i++) {
-          const element = elements[i]
-          if (element.dataIndent < indent) {
-            indent = element.dataIndent
-          }
-          if (element.dataIndent === indent &&
-            element.dataItem !== data &&
-            element.dataItem !== null) {
-            n = i
-          }
-        }
-        const range = this.getRangeByIndex(n)
-        if (this.origin < n &&
-          this.origin > range[0] &&
-          this.origin < range[1]) {
-          n = range[1]
         } else {
-          n = range[0]
+          if (this.end !== null) {
+            const eElement = elements[this.end]
+            const data = eElement.dataItem
+            const end = this.end
+            let indent = Infinity
+            let n = this.origin
+            for (let i = n; i < end; i++) {
+              const element = elements[i]
+              if (element.dataIndent < indent) {
+                indent = element.dataIndent
+              }
+              if (element.dataIndent === indent &&
+                element.dataItem !== data &&
+                element.dataItem !== null) {
+                n = i
+              }
+            }
+            const range = this.getRangeByIndex(n)
+            if (this.origin < n &&
+              this.origin > range[0] &&
+              this.origin < range[1]) {
+              n = range[1]
+            } else {
+              n = range[0]
+            }
+            this.selectMultiple(n)
+          }
         }
-        this.selectMultiple(n)
-      }
-      this.scrollToSelection()
+        this.scrollToSelection()
     }
   }
 
@@ -700,39 +714,44 @@ class CommandList extends IHTMLElement {
   selectMultipleDown() {
     if (this.end !== null) {
       const elements = this.elements
-      if (this.active >= this.origin) {
-        const eElement = elements[this.end]
-        const indent = eElement.dataIndent
-        const count = elements.count
-        let i = this.end
-        while (++i < count) {
-          const element = elements[i]
-          if (element.dataIndent < indent) {
-            i = this.getRangeByIndex(i)[1]
-            break
+      if (this.active !== null &&
+        this.origin !== null &&
+        this.active >= this.origin) {
+          const eElement = elements[this.end]
+          const indent = eElement.dataIndent
+          const count = elements.count
+          let i = this.end
+          while (++i < count) {
+            const element = elements[i]
+            if (element.dataIndent < indent) {
+              i = this.getRangeByIndex(i)[1]
+              break
+            }
+            if (element.dataIndent === indent &&
+              element.dataKey === true &&
+              element.dataItem !== null) {
+              break
+            }
           }
-          if (element.dataIndent === indent &&
-            element.dataKey === true &&
-            element.dataItem !== null) {
-            break
-          }
-        }
-        this.selectMultiple(i)
+          this.selectMultiple(i)
       } else {
-        const start = this.start
-        let indent = Infinity
-        let n = this.origin
-        for (let i = n; i > start; i--) {
-          const element = elements[i]
-          if (element.dataIndent < indent) {
-            indent = element.dataIndent
+        if (this.start !== null &&
+          this.origin !== null) {
+          const start = this.start
+          let indent = Infinity
+          let n = this.origin
+          for (let i = n; i > start; i--) {
+            const element = elements[i]
+            if (element.dataIndent < indent) {
+              indent = element.dataIndent
+            }
+            if (element.dataIndent === indent &&
+              element.dataKey === true) {
+              n = i
+            }
           }
-          if (element.dataIndent === indent &&
-            element.dataKey === true) {
-            n = i
-          }
+          this.selectMultiple(n)
         }
-        this.selectMultiple(n)
       }
       this.scrollToSelection()
     }
@@ -744,36 +763,44 @@ class CommandList extends IHTMLElement {
       let scrollTop
       switch (mode) {
         case 'active': {
-          const range = this.getRangeByIndex(this.active)
-          const top = this.scrollTop
-          const max = range[0] * 20
-          const min = range[1] * 20 + 20 - this.innerHeight
-          scrollTop = (
-            this.active <= this.origin
-          ? IMath.min(IMath.max(top, min), max)
-          : IMath.max(IMath.min(top, max), min)
-          )
+          if (this.active !== null &&
+            this.origin !== null) {
+            const range = this.getRangeByIndex(this.active)
+            const top = this.scrollTop
+            const max = range[0] * 20
+            const min = range[1] * 20 + 20 - this.innerHeight
+            scrollTop = (
+              this.active <= this.origin
+            ? IMath.min(IMath.max(top, min), max)
+            : IMath.max(IMath.min(top, max), min)
+            )
+          }
           break
         }
         case 'alter': {
-          const top = this.scrollTop
-          const max = this.active * 20
-          const min = this.active * 20 + 20 - this.innerHeight
-          scrollTop = IMath.max(IMath.min(top, max), min)
+          if (this.active !== null) {
+            const top = this.scrollTop
+            const max = this.active * 20
+            const min = this.active * 20 + 20 - this.innerHeight
+            scrollTop = IMath.max(IMath.min(top, max), min)
+          }
           break
         }
         case 'restore': {
-          const top = this.scrollTop
-          const max = this.start * 20
-          const min = this.end * 20 + 20 - this.innerHeight
-          scrollTop = IMath.min(IMath.max(top, min), max)
+          if (this.end !== null) {
+            const top = this.scrollTop
+            const max = this.start * 20
+            const min = this.end * 20 + 20 - this.innerHeight
+            scrollTop = IMath.min(IMath.max(top, min), max)
+          }
           break
         }
         default:
           return
       }
-      if (this.scrollTop !== scrollTop) {
-        this.scrollTop = scrollTop
+      if (this.scrollTop !== scrollTop &&
+        scrollTop !== undefined) {
+          this.scrollTop = scrollTop
       }
     }
   }
@@ -833,11 +860,12 @@ class CommandList extends IHTMLElement {
     }
     for (let i = start + 1; i < count; i++) {
       const element = elements[i]
-      if (element.dataIndent < indent ||
+      if (indent !== undefined &&
+        element.dataIndent < indent ||
         element.dataIndent === indent &&
         element.dataKey === true) {
-        end = i - 1
-        break
+          end = i - 1
+          break
       }
     }
     return [start, end]
@@ -845,7 +873,7 @@ class CommandList extends IHTMLElement {
 
   // 判断列表项父对象是否启用
   isParentEnabled(element: IHTMLElement) {
-    return element.dataList.parent?.buffer.enabled ?? true
+    return element.dataList?.parent?.buffer.enabled ?? true
   }
 
   // 插入指令
@@ -893,8 +921,10 @@ class CommandList extends IHTMLElement {
       if (!this.isParentEnabled(element)) {
         return
       }
+      if (end === null)
+        return
       let method = 'disable'
-      const commands = []
+      const commands = IArray.empty<commandsData>()
       for (let i = start; i <= end; i++) {
         const element = elements[i]
         if (element.dataKey) {
@@ -938,7 +968,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 启用项目
-  enableItems(commands) {
+  enableItems(commands: IArray<commandsData>) {
     for (const command of commands) {
       if (command.id[0] === '!') {
         command.id = command.id.slice(1)
@@ -947,7 +977,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 禁用项目
-  disableItems(commands) {
+  disableItems(commands: IArray<commandsData>) {
     for (const command of commands) {
       if (command.id[0] !== '!') {
         command.id = '!' + command.id
@@ -957,17 +987,18 @@ class CommandList extends IHTMLElement {
 
   // 复制项目
   copy() {
-    if (this.start !== null) {
-      const elements = this.elements
-      const sElement = elements[this.start]
-      const eElement = elements[this.end]
-      const list = sElement.dataList
-      const start = sElement.dataIndex
-      const end = eElement.dataIndex + 1
-      const copies = list.slice(start, end)
-      if (copies.length > 0) {
-        Clipboard.write('yami.commands', copies)
-      }
+    if (this.start !== null &&
+      this.end !== null) {
+        const elements = this.elements
+        const sElement = elements[this.start]
+        const eElement = elements[this.end]
+        const list = sElement.dataList
+        const start = sElement.dataIndex
+        const end = eElement.dataIndex + 1
+        const copies = list?.slice(start, end)
+        if (copies !== undefined && copies.length > 0) {
+          Clipboard.write('yami.commands', copies)
+        }
     }
   }
 
@@ -990,7 +1021,7 @@ class CommandList extends IHTMLElement {
           index: start,
           commands: copies,
         })
-        list.splice(start, 0, ...copies)
+        list?.splice(start, 0, ...copies)
         this.update()
         this.select(this.start + elements.count - count)
         this.scrollToSelection('alter')
@@ -1001,27 +1032,28 @@ class CommandList extends IHTMLElement {
 
   // 删除项目
   delete() {
-    if (this.start !== null) {
-      const elements = this.elements
-      const sElement = elements[this.start]
-      const eElement = elements[this.end]
-      const list = sElement.dataList
-      const start = sElement.dataIndex
-      const end = eElement.dataIndex + 1
-      const commands = list.slice(start, end)
-      if (commands.length > 0) {
-        this.history.save({
-          type: 'delete',
-          array: list,
-          index: start,
-          commands: commands,
-        })
-        list.splice(start, end - start)
-        this.update()
-        this.select(this.start)
-        this.scrollToSelection('alter')
-        this.dispatchChangeEvent()
-      }
+    if (this.start !== null &&
+      this.end !== null) {
+        const elements = this.elements
+        const sElement = elements[this.start]
+        const eElement = elements[this.end]
+        const list = sElement.dataList
+        const start = sElement.dataIndex
+        const end = eElement.dataIndex + 1
+        const commands = list?.slice(start, end)
+        if (commands !== undefined && commands.length > 0) {
+          this.history.save({
+            type: 'delete',
+            array: list,
+            index: start,
+            commands: commands,
+          })
+          list?.splice(start, end - start)
+          this.update()
+          this.select(this.start)
+          this.scrollToSelection('alter')
+          this.dispatchChangeEvent()
+        }
     }
   }
 
@@ -1042,11 +1074,13 @@ class CommandList extends IHTMLElement {
   }
 
   // 保存指令
-  save(command) {
+  save(command: commandsData) {
     if (this.start !== null) {
       const elements = this.elements
       const element = elements[this.start]
       const list = element.dataList
+      if (list === null)
+        return
       const index = element.dataIndex
       switch (this.inserting) {
         case true:
@@ -1057,7 +1091,7 @@ class CommandList extends IHTMLElement {
             commands: [command],
           })
           this.end = this.start
-          list.splice(index, 0, command)
+          list?.splice(index, 0, command)
           this.update()
           this.selectDown()
           break
@@ -1090,10 +1124,10 @@ class CommandList extends IHTMLElement {
     if (!element.parentNode) {
       return null
     }
-    let x = element.childNodes[0].rect().left
+    let x = (<IHTMLElement>element.childNodes[0]).rect().left
     let y = element.rect().top
     // 应用窗口带边框需要减去1px的margin
-    if (document.body.hasClass('border')) {
+    if ((<IHTMLElement>document.body).hasClass('border')) {
       const dpx = 1 / window.devicePixelRatio
       x -= dpx
       y -= dpx
@@ -1102,7 +1136,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 清除元素
-  clearElements(start) {
+  clearElements(start: number) {
     return CommonList.clearElements(this, start)
   }
 
@@ -1110,7 +1144,7 @@ class CommandList extends IHTMLElement {
   clear() {
     this.unselect()
     this.textContent = ''
-    this.data = null
+    this.data = IArray.empty()
     this.start = null
     this.end = null
     this.origin = null
@@ -1140,8 +1174,8 @@ class CommandList extends IHTMLElement {
       this.windowPointerup(this.dragging)
     }
     if (this.focusing) {
-      let element = this
-      while (element = element.parentNode) {
+      let element: IHTMLElement | null = this
+      while (element = <IHTMLElement>element.parentNode) {
         if (element instanceof WindowFrame) {
           if (element.hasClass('blur')) {
             return
@@ -1228,14 +1262,15 @@ class CommandList extends IHTMLElement {
           return
         case 'Enter':
         case 'NumpadEnter':
-          if (this.start !== null) {
-            event.stopPropagation()
-            const elements = this.elements
-            const sData = elements[this.start].dataItem
-            const eData = elements[this.end].dataItem
-            if (sData === eData) {
-              this.edit()
-            }
+          if (this.start !== null &&
+            this.end !== null) {
+              event.stopPropagation()
+              const elements = this.elements
+              const sData = elements[this.start].dataItem
+              const eData = elements[this.end].dataItem
+              if (sData === eData) {
+                this.edit()
+              }
           }
           break
         case 'Insert':
@@ -1297,7 +1332,7 @@ class CommandList extends IHTMLElement {
     }
     switch (event.button) {
       case 0: {
-        let element = event.target
+        let element = <IHTMLElement>event.target
         let index
         if (element === this) {
           if (element.isInContent(event)) {
@@ -1330,7 +1365,7 @@ class CommandList extends IHTMLElement {
         break
       }
       case 2: {
-        let element = event.target
+        let element = <IHTMLElement>event.target
         let index
         if (element === this) {
           if (element.isInContent(event)) {
@@ -1361,105 +1396,106 @@ class CommandList extends IHTMLElement {
     switch (event.button) {
       case 2:
         if (this.start !== null &&
+          this.end !== null &&
           document.activeElement === this) {
-          const elements = this.elements
-          const sElement = elements[this.start]
-          const dElement = elements[this.end]
-          const sData = sElement.dataItem
-          const eData = dElement.dataItem
-          const valid = !!sData
-          const pEnabled = this.isParentEnabled(sElement)
-          const sEnabled = valid ? sData.buffer.enabled : pEnabled
-          const editable = sEnabled && sData === eData
-          const pastable = pEnabled && Clipboard.has('yami.commands')
-          const allSelectable = this.data.length > 0
-          const undoable = this.history.canUndo()
-          const redoable = this.history.canRedo()
-          const get = Local.createGetter('menuCommandList')
-          Menu.popup({
-            x: event.clientX,
-            y: event.clientY,
-          }, [{
-            label: get('edit'),
-            accelerator: 'Enter',
-            enabled: editable,
-            click: () => {
-              this.edit()
-            },
-          }, {
-            label: get('insert'),
-            accelerator: 'Insert',
-            enabled: pEnabled,
-            click: () => {
-              this.insert()
-            },
-          }, {
-            label: get('toggle'),
-            accelerator: '/',
-            enabled: pEnabled && valid,
-            click: () => {
-              this.toggle()
-            },
-          }, {
-            label: get('script'),
-            accelerator: '\\',
-            enabled: pEnabled,
-            click: () => {
-              this.insert('script')
-            },
-          }, {
-            type: 'separator',
-          }, {
-            label: get('cut'),
-            accelerator: ctrl('X'),
-            enabled: valid,
-            click: () => {
-              this.copy()
-              this.delete()
-            },
-          }, {
-            label: get('copy'),
-            accelerator: ctrl('C'),
-            enabled: valid,
-            click: () => {
-              this.copy()
-            },
-          }, {
-            label: get('paste'),
-            accelerator: ctrl('V'),
-            enabled: pastable,
-            click: () => {
-              this.paste()
-            },
-          }, {
-            label: get('delete'),
-            accelerator: 'Delete',
-            enabled: valid,
-            click: () => {
-              this.delete()
-            },
-          }, {
-            label: get('selectAll'),
-            accelerator: ctrl('A'),
-            enabled: allSelectable,
-            click: () => {
-              this.select(0, Infinity)
-            },
-          }, {
-            label: get('undo'),
-            accelerator: ctrl('Z'),
-            enabled: undoable,
-            click: () => {
-              this.undo()
-            },
-          }, {
-            label: get('redo'),
-            accelerator: ctrl('Y'),
-            enabled: redoable,
-            click: () => {
-              this.redo()
-            },
-          }])
+            const elements = this.elements
+            const sElement = elements[this.start]
+            const dElement = elements[this.end]
+            const sData = sElement.dataItem
+            const eData = dElement.dataItem
+            const valid = !!sData
+            const pEnabled = this.isParentEnabled(sElement)
+            const sEnabled = valid ? sData.buffer.enabled : pEnabled
+            const editable = sEnabled && sData === eData
+            const pastable = pEnabled && Clipboard.has('yami.commands')
+            const allSelectable = this.data.length > 0
+            const undoable = this.history.canUndo()
+            const redoable = this.history.canRedo()
+            const get = Local.createGetter('menuCommandList')
+            Menu.popup({
+              x: event.clientX,
+              y: event.clientY,
+            }, [{
+              label: get('edit'),
+              accelerator: 'Enter',
+              enabled: editable,
+              click: () => {
+                this.edit()
+              },
+            }, {
+              label: get('insert'),
+              accelerator: 'Insert',
+              enabled: pEnabled,
+              click: () => {
+                this.insert()
+              },
+            }, {
+              label: get('toggle'),
+              accelerator: '/',
+              enabled: pEnabled && valid,
+              click: () => {
+                this.toggle()
+              },
+            }, {
+              label: get('script'),
+              accelerator: '\\',
+              enabled: pEnabled,
+              click: () => {
+                this.insert('script')
+              },
+            }, {
+              type: 'separator',
+            }, {
+              label: get('cut'),
+              accelerator: ctrl('X'),
+              enabled: valid,
+              click: () => {
+                this.copy()
+                this.delete()
+              },
+            }, {
+              label: get('copy'),
+              accelerator: ctrl('C'),
+              enabled: valid,
+              click: () => {
+                this.copy()
+              },
+            }, {
+              label: get('paste'),
+              accelerator: ctrl('V'),
+              enabled: pastable,
+              click: () => {
+                this.paste()
+              },
+            }, {
+              label: get('delete'),
+              accelerator: 'Delete',
+              enabled: valid,
+              click: () => {
+                this.delete()
+              },
+            }, {
+              label: get('selectAll'),
+              accelerator: ctrl('A'),
+              enabled: allSelectable,
+              click: () => {
+                this.select(0, Infinity)
+              },
+            }, {
+              label: get('undo'),
+              accelerator: ctrl('Z'),
+              enabled: undoable,
+              click: () => {
+                this.undo()
+              },
+            }, {
+              label: get('redo'),
+              accelerator: ctrl('Y'),
+              enabled: redoable,
+              click: () => {
+                this.redo()
+              },
+            }])
         }
         break
     }
@@ -1467,13 +1503,15 @@ class CommandList extends IHTMLElement {
 
   // 鼠标双击事件
   doubleclick(event: IMouseKeyboardEvent) {
-    if (this.start !== null) {
-      const elements = this.elements
-      const sData = elements[this.start].dataItem
-      const eData = elements[this.end].dataItem
-      if (sData === eData) {
-        this.edit(sData)
-      }
+    if (this.start !== null &&
+      this.end !== null) {
+        const elements = this.elements
+        const sData = elements[this.start].dataItem
+        const eData = elements[this.end].dataItem
+        if (sData === eData) {
+          // edit方法是无参?
+          this.edit(sData)
+        }
     }
   }
 
@@ -1524,7 +1562,7 @@ class CommandList extends IHTMLElement {
   // 窗口 - 变量改变事件
   static windowVariableChange(this: CommandList, event: IMouseKeyboardEvent) {
     this.childNodes.forEach(element => {
-      const {updaters} = element
+      const {updaters} = <IHTMLElement>element
       if (updaters !== undefined) {
         for (const updater of updaters) {
           updater.update()

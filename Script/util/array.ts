@@ -1,8 +1,11 @@
 'use strict'
 
 import { IHTMLElement } from "./element/html-element"
+import { CommandHistory } from '../history/command-history'
 
 // ******************************** 声明 ********************************
+
+type commandsData = {[index: string]: any}
 
 interface Array_ext {
   // 静态数组方法扩展
@@ -20,6 +23,9 @@ interface Array_ext {
   end: number
   head: IHTMLElement | null
   foot: IHTMLElement | null
+  history: CommandHistory
+  blank: IHTMLElement | null
+  parent: commandsData
 }
 
 interface IArray<T> extends Array<T>, Array_ext {}
@@ -76,4 +82,4 @@ Object.defineProperty(prototype, 'remove', {
   }
 })
 
-export { IArray }
+export { IArray, commandsData }

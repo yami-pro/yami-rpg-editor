@@ -1,6 +1,6 @@
 'use strict'
 
-import { IHTMLElement } from "../util"
+import { IHTMLElement } from "../util/element/html-element"
 import { ScrollBar } from "./scroll-bar"
 
 // ******************************** 组件管理类 ********************************

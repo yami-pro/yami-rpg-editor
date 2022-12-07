@@ -4,7 +4,11 @@ import { Event_ext } from "./event"
 
 // ******************************** UI事件访问器 ********************************
 
-interface UIEvent_ext extends Event_ext {}
+interface UIEvent_ext extends Event_ext {
+  latest: UIEvent
+  itemHeight: number
+  itemIndex: number
+}
 
 interface IUIEvent extends UIEvent, UIEvent_ext {}
 

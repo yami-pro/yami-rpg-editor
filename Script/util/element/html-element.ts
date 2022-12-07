@@ -8,23 +8,28 @@ import { Cursor } from '../cursor'
 import { Timer, TimerManager } from '../timer'
 import { IFunction } from '../function'
 import { ScrollBarManager } from '../../components/component-managers'
+import { commandsData, IArray } from '../array'
+
 
 // ******************************** 声明 ********************************
 
 type tipVar = (...params: any[]) => any | {get: () => any}
 
 interface HTMLElement_components_ext {
-  contents: any[] | null
+  contents: IArray<any> | null
   dataKey: boolean
-  dataList: any[] | null
+  dataList: IArray<commandsData> | null
   dataItem: any
   dataIndex: number
   dataIndent: number
+  enabled: boolean
+
+  updaters: IArray<any>
 }
 
 interface HTMLElement_object_ext {
   name: {get: () => any, set: (value: any) => void}
-  innerHeight: {get: () => number}
+  innerHeight: number
 }
 
 interface HTMLElement_scroll_ext {
@@ -43,7 +48,7 @@ interface HTMLElement_ext {
   height: number
   visible: boolean
 
-  read(): void
+  read(): any
   write(value: any): void
   clear(): void
   enable(): void
@@ -51,7 +56,7 @@ interface HTMLElement_ext {
   hasClass(className: string): boolean
   addClass(className: string): boolean
   removeClass(className: string): boolean
-  seek(tagName: string, count: number): void
+  seek(tagName: string, count?: number): IHTMLElement
   css(): CSSStyleDeclaration
   rect(): DOMRect
   hide(): void
