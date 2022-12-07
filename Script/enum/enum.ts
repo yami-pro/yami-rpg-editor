@@ -593,8 +593,8 @@ Enum.listPopup = function (event) {
   const undoable = Enum.history.canUndo()
   const redoable = Enum.history.canRedo()
   const get = Local.createGetter('menuEnumList')
-  let headItems = IArray.empty
-  let footItems = IArray.empty
+  let headItems = IArray.empty()
+  let footItems = IArray.empty()
   if (selected) {
     headItems = [{
       label: `ID: ${item.id}`,

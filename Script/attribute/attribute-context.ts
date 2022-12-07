@@ -55,7 +55,7 @@ class AttributeContext {
         groupMap[key] = {
           groupName: '',
           itemMap: IObject.empty,
-          itemList: IArray.empty,
+          itemList: IArray.empty(),
         }
       }
     }

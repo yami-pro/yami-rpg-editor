@@ -4950,7 +4950,7 @@ Animation.listPopup = function (event) {
     pastable = Clipboard.has('yami.animation.object')
     deletable = false
   }
-  let headItems = IArray.empty
+  let headItems = IArray.empty()
   if (item) {
     headItems = [{
       label: get('edit'),

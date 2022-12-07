@@ -1,6 +1,7 @@
 'use strict'
 
 import {
+  window,
   Command,
   CommandHistory,
   CommonList,
@@ -11,25 +12,30 @@ import {
   Clipboard,
   IArray,
   IMath,
-  IPointerEvent
+  IPointerEvent,
+  IHTMLElement,
+  IMouseKeyboardEvent
 } from '../yami'
 
 // ******************************** 指令列表 ********************************
 
-class CommandList extends HTMLElement {
-  data              //:array
-  elements          //:array
-  selections        //:array
-  start             //:number
-  end               //:number
-  origin            //:number
-  active            //:number
-  anchor            //:number
-  inserting         //:boolean
-  focusing          //:boolean
+class CommandList extends IHTMLElement {
+  data: any[] | null
+  elements: IHTMLElement[] | null
+  selections: IHTMLElement[] | null
+  start: number | null
+  end: number | null
+  origin: number | null
+  active: number | null
+  anchor: number | null
+  inserting: boolean | null
+  focusing: boolean | null
   dragging: IPointerEvent | null
-  windowPointerup   //:function
-  windowPointermove //:function
+  windowPointerup: (this: CommandList, event: any) => void
+  windowPointermove: (this: CommandList, event: any) => void
+  windowVariableChange: (this: CommandList, event: any) => void
+
+  _paddingTop: number
 
   constructor() {
     super()
@@ -144,7 +150,7 @@ class CommandList extends HTMLElement {
   }
 
   // 在重新调整时更新
-  updateOnResize(element) {
+  updateOnResize(element: IHTMLElement) {
     if (element.contents !== null) {
       this.updateCommandElement(element)
     }
@@ -300,7 +306,7 @@ class CommandList extends HTMLElement {
   }
 
   // 更新指令元素
-  updateCommandElement(element) {
+  updateCommandElement(element: IHTMLElement) {
     // 设置文本缩进
     element.style.textIndent = this.computeTextIndent(element.dataIndent)
 
@@ -364,7 +370,7 @@ class CommandList extends HTMLElement {
       blank = document.createElement('command-item')
 
       // 设置元素属性
-      blank.contents = IArray.empty
+      blank.contents = IArray.empty()
       blank.enabled = true
       blank.dataKey = true
       blank.dataList = commands
@@ -1119,7 +1125,7 @@ class CommandList extends HTMLElement {
   }
 
   // 获得焦点事件
-  listFocus(event) {
+  listFocus(event: IMouseKeyboardEvent) {
     if (!this.focusing) {
       this.focusing = true
       this.start !== null
@@ -1129,7 +1135,7 @@ class CommandList extends HTMLElement {
   }
 
   // 失去焦点事件
-  listBlur(event) {
+  listBlur(event: IMouseKeyboardEvent) {
     if (this.dragging) {
       this.windowPointerup(this.dragging)
     }
@@ -1150,7 +1156,7 @@ class CommandList extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event) {
+  keydown(event: IMouseKeyboardEvent) {
     if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'KeyX':
@@ -1285,7 +1291,7 @@ class CommandList extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event) {
+  pointerdown(event: IMouseKeyboardEvent) {
     if (this.dragging) {
       return
     }
@@ -1348,7 +1354,7 @@ class CommandList extends HTMLElement {
   }
 
   // 指针弹起事件
-  pointerup(event) {
+  pointerup(event: IMouseKeyboardEvent) {
     if (this.dragging) {
       return
     }
@@ -1460,7 +1466,7 @@ class CommandList extends HTMLElement {
   }
 
   // 鼠标双击事件
-  doubleclick(event) {
+  doubleclick(event: IMouseKeyboardEvent) {
     if (this.start !== null) {
       const elements = this.elements
       const sData = elements[this.start].dataItem
@@ -1475,7 +1481,7 @@ class CommandList extends HTMLElement {
   static alphabetCode = /^Key[A-Z]$/
 
   // 窗口 - 指针弹起事件
-  static windowPointerup(this: CommandList, event) {
+  static windowPointerup(this: CommandList, event: IMouseKeyboardEvent) {
     const {dragging} = this
     if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
@@ -1490,7 +1496,7 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 指针移动事件
-  static windowPointermove(this: CommandList, event) {
+  static windowPointermove(this: CommandList, event: IMouseKeyboardEvent) {
     const {dragging} = this
     if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
@@ -1516,15 +1522,15 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 变量改变事件
-  static windowVariableChange(this: CommandList, event) {
-    for (const element of this.childNodes) {
+  static windowVariableChange(this: CommandList, event: IMouseKeyboardEvent) {
+    this.childNodes.forEach(element => {
       const {updaters} = element
       if (updaters !== undefined) {
         for (const updater of updaters) {
           updater.update()
         }
       }
-    }
+    })
   }
 }
 

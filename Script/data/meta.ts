@@ -50,7 +50,7 @@ const Meta = function IIFE() {
           this.y = 0
           break
         case 'script':
-          this.parameters = IArray.empty
+          this.parameters = IArray.empty()
           break
       }
 

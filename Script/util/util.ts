@@ -1,7 +1,7 @@
 'use strict'
 
 import { window } from "./global"
-import { IHTMLElement } from "./element"
+import { IHTMLElement } from "./element/html-element"
 
 // ******************************** 其他 ********************************
 

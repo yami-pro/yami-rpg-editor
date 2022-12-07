@@ -2,26 +2,30 @@
 
 // ******************************** 声明 ********************************
 
-interface IArray extends Array<any> {
+interface Array_ext {
   // 静态数组方法扩展
-  empty: any[]
-  subtract(a: any[], b: any[]): any[]
+  empty: <T>() => IArray<T>
+  subtract: <T>(a: T[], b: T[]) => IArray<T>
 
   // 数组方法扩展
-  append(value: any): boolean
-  remove(value: any): boolean
+  append: <T>(value: T) => boolean
+  remove: <T>(value: T) => boolean
 }
+
+interface IArray<T> extends Array<T>, Array_ext {}
 
 // ******************************** 静态数组方法 ********************************
 
 const arrayObject = <Object>Array
-const IArray = <IArray>arrayObject
+const IArray = <Array_ext>arrayObject
 
 // 空数组
-IArray.empty = []
+IArray.empty = function <T>() {
+  return <IArray<T>>new Array<T>()
+}
 
 // 减法
-IArray.subtract = function (a, b) {
+IArray.subtract = function <T>(a: T[], b: T[]) {
   const differences = []
   const length = a.length
   for (let i = 0; i < length; i++) {
@@ -29,18 +33,18 @@ IArray.subtract = function (a, b) {
       differences.push(a[i])
     }
   }
-  return differences
+  return <IArray<T>>differences
 }
 
 // ******************************** 数组方法 ********************************
 
 const prototypeObject = <Object>Array.prototype
-const prototype = <IArray>prototypeObject
+const prototype = <Array_ext>prototypeObject
 
 // 数组方法 - 添加
 Object.defineProperty(prototype, 'append', {
   enumerable: false,
-  value: function (this: IArray, value: any) {
+  value: function <T>(this: IArray<T>, value: T) {
     if (this.indexOf(value) === -1) {
       this.push(value)
       return true
@@ -52,7 +56,7 @@ Object.defineProperty(prototype, 'append', {
 // 数组方法 - 移除
 Object.defineProperty(prototype, 'remove', {
   enumerable: false,
-  value: function (this: IArray, value: any) {
+  value: function <T>(this: IArray<T>, value: T) {
     const index = this.indexOf(value)
     if (index !== -1) {
       this.splice(index, 1)

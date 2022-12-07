@@ -671,7 +671,7 @@ class TreeList extends HTMLElement {
     // 处于搜索模式则清空搜索结果
     // 避免重复更新和选项位置错乱
     if (this.display === 'search') {
-      this.searchResults = IArray.empty
+      this.searchResults = IArray.empty()
     }
     switch (response.type) {
       case 'rename': {
@@ -808,7 +808,7 @@ class TreeList extends HTMLElement {
 
   // 取消选择
   unselect(item) {
-    let selections = IArray.empty
+    let selections = IArray.empty()
     if (item === undefined) {
       selections = this.selections
     } if (this.selections.includes(item)) {

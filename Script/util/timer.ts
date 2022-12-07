@@ -1,17 +1,14 @@
 'use strict'
 
-import {
-  IFunction,
-  emptyFunc,
-  IArray,
-  IHTMLElement,
-  INodeList
-} from '../yami'
+import { IFunction, emptyFunc } from './function'
+import { IHTMLElement } from './element/html-element'
+import { INodeList } from './node-list'
+import { IArray } from './array'
 
 // ******************************** 计时器管理类 ********************************
 
 interface ITimer {
-  timers: Timer[]
+  timers: IArray<Timer>
   updaters: {
     stageAnimation: updaterFunc | null
     stageRendering: updaterFunc | null
@@ -83,7 +80,7 @@ class Timer {
 
   // 添加到列表
   add() {
-    if ((<IArray>TimerManager.timers).append(this)) {
+    if (TimerManager.timers.append(this)) {
       TimerManager.play()
     }
     return this
@@ -91,7 +88,7 @@ class Timer {
 
   // 从列表中删除
   remove() {
-    (<IArray>TimerManager.timers).remove(this)
+    TimerManager.timers.remove(this)
     return this
   }
 }
@@ -104,7 +101,7 @@ type updaterKey = 'stageAnimation' |
                   'sharedRendering2'
 
 // properties
-TimerManager.timers = []
+TimerManager.timers = IArray.empty()
 TimerManager.updaters = {
   stageAnimation: null,
   stageRendering: null,

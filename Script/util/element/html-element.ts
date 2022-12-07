@@ -43,7 +43,7 @@ interface HTMLElement_ext {
   addClass(className: string): boolean
   removeClass(className: string): boolean
   seek(tagName: string, count: number): void
-  css(): void
+  css(): CSSStyleDeclaration
   rect(): DOMRect
   hide(): void
   show(): void
@@ -58,7 +58,7 @@ interface HTMLElement_ext {
   dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
-  listenDraggingScrollbarEvent: (pointerdown: (event: IPointerEvent) => void, options: any) => void
+  listenDraggingScrollbarEvent: (pointerdown?: (event: IPointerEvent) => void, options?: any) => void
 
   beginScrolling(): void
   endScrolling(): void

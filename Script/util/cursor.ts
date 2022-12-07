@@ -1,6 +1,6 @@
 'use strict'
 
-import { IHTMLElement } from "./element"
+import { IHTMLElement } from "./element/html-element"
 
 // ******************************** 指针对象 ********************************
 
