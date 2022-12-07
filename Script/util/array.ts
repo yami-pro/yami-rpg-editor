@@ -1,5 +1,7 @@
 'use strict'
 
+import { IHTMLElement } from "./element/html-element"
+
 // ******************************** 声明 ********************************
 
 interface Array_ext {
@@ -10,6 +12,14 @@ interface Array_ext {
   // 数组方法扩展
   append: <T>(value: T) => boolean
   remove: <T>(value: T) => boolean
+
+  // 属性扩展
+  versionId: number
+  count: number
+  start: number
+  end: number
+  head: IHTMLElement | null
+  foot: IHTMLElement | null
 }
 
 interface IArray<T> extends Array<T>, Array_ext {}

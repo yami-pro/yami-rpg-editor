@@ -21,8 +21,8 @@ import {
 
 class CommandList extends IHTMLElement {
   data: any[] | null
-  elements: IHTMLElement[] | null
-  selections: IHTMLElement[] | null
+  elements: IArray<IHTMLElement>
+  selections: IArray<IHTMLElement>
   start: number | null
   end: number | null
   origin: number | null
@@ -43,14 +43,14 @@ class CommandList extends IHTMLElement {
     // 设置属性
     this.tabIndex = 0
     this.data = null
-    this.elements = []
+    this.elements = IArray.empty()
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1
     this.elements.end = -1
     this.elements.head = null
     this.elements.foot = null
-    this.selections = []
+    this.selections = IArray.empty()
     this.selections.count = 0
     this.start = null
     this.end = null
@@ -164,7 +164,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建项目
-  createItems(commands, indent) {
+  createItems(commands, indent: number) {
     const elements = this.elements
     const length = commands.length
     for (let i = 0; i < length; i++) {
@@ -172,7 +172,7 @@ class CommandList extends IHTMLElement {
         commands, i, indent,
       )) {
         if (target instanceof HTMLElement) {
-          elements[elements.count++] = target
+          elements[elements.count++] = <IHTMLElement>target
           continue
         }
         if (target instanceof Array) {
@@ -188,7 +188,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建指令缓冲区
-  createCommandBuffer(commands, index, indent) {
+  createCommandBuffer(commands, index: number, indent: number) {
     const command = commands[index]
     let buffer = command.buffer
     if (buffer === undefined) {
@@ -204,7 +204,7 @@ class CommandList extends IHTMLElement {
       // 创建列表项
       let li
       let color
-      li = document.createElement('command-item')
+      li = <IHTMLElement>document.createElement('command-item')
       li.contents = []
       li.dataKey = true
       li.dataList = commands
@@ -233,7 +233,7 @@ class CommandList extends IHTMLElement {
 
         // 换行
         if (content.break !== undefined) {
-          li = document.createElement('command-item')
+          li = <IHTMLElement>document.createElement('command-item')
           li.contents = []
           li.dataKey = false
           li.dataList = commands
@@ -260,7 +260,7 @@ class CommandList extends IHTMLElement {
           buffer.push(children)
 
           if (i < length) {
-            li = document.createElement('command-item')
+            li = <IHTMLElement>document.createElement('command-item')
             li.contents = []
             li.dataKey = false
             li.dataList = commands
@@ -278,7 +278,7 @@ class CommandList extends IHTMLElement {
     if (buffer[0].dataIndex !== index) {
       for (const target of buffer) {
         if (target instanceof HTMLElement) {
-          target.dataIndex = index
+          (<IHTMLElement>target).dataIndex = index
         }
       }
     }
@@ -290,13 +290,13 @@ class CommandList extends IHTMLElement {
       if (enabled) {
         for (const target of buffer) {
           if (target instanceof HTMLElement) {
-            target.removeClass('disabled')
+            (<IHTMLElement>target).removeClass('disabled')
           }
         }
       } else {
         for (const target of buffer) {
           if (target instanceof HTMLElement) {
-            target.addClass('disabled')
+            (<IHTMLElement>target).addClass('disabled')
           }
         }
       }
@@ -340,7 +340,7 @@ class CommandList extends IHTMLElement {
           // 如果不存在全局变量格式
           text.textContent = content.text
         }
-        text.addClass(content.color)
+        (<IHTMLElement>text).addClass(content.color)
         element.appendChild(text)
         continue
       }
@@ -363,7 +363,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建空项目
-  createBlankElement(commands, index, indent) {
+  createBlankElement(commands, index: number, indent: number) {
     let blank = commands.blank
     if (blank === undefined) {
       // 创建列表项
@@ -407,7 +407,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 计算文本缩进
-  computeTextIndent(indent) {
+  computeTextIndent(indent: number) {
     switch (Local.language) {
       case 'en-US':
         return indent * 2 + 'ch'
@@ -417,7 +417,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 选择项目
-  select(start, end = start) {
+  select(start: number, end: number = start) {
     if (start > end) {
       [start, end] = [end, start]
     }
@@ -473,7 +473,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 选择多个项目
-  selectMultiple(active) {
+  selectMultiple(active: number) {
     const origin = this.origin
     this.select(origin, active)
     this.origin = origin
@@ -618,7 +618,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 选择指定位置的多个项目
-  selectMultipleTo(index) {
+  selectMultipleTo(index: number) {
     if (this.start !== null) {
       this.selectMultiple(index)
       const elements = this.elements
@@ -788,7 +788,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 获取指定索引的项目范围
-  getRangeByIndex(index) {
+  getRangeByIndex(index: number) {
     const elements = this.elements
     const count = elements.count
     const element = elements[index]
@@ -844,7 +844,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 判断列表项父对象是否启用
-  isParentEnabled(element) {
+  isParentEnabled(element: IHTMLElement) {
     return element.dataList.parent?.buffer.enabled ?? true
   }
 

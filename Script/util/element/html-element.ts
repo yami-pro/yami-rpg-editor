@@ -13,6 +13,15 @@ import { ScrollBarManager } from '../../components/component-managers'
 
 type tipVar = (...params: any[]) => any | {get: () => any}
 
+interface HTMLElement_components_ext {
+  contents: any[] | null
+  dataKey: boolean
+  dataList: any[] | null
+  dataItem: any
+  dataIndex: number
+  dataIndent: number
+}
+
 interface HTMLElement_object_ext {
   name: {get: () => any, set: (value: any) => void}
   innerHeight: {get: () => number}
@@ -71,7 +80,7 @@ interface HTMLElement_ext {
   scrollPointermove(this: IHTMLElement, event: IPointerEvent): void
 }
 
-interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, EventTarget_ext {}
+interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, HTMLElement_components_ext, EventTarget_ext {}
 
 // ******************************** 元素扩展 ********************************
 
