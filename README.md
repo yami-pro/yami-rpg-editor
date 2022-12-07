@@ -13,7 +13,7 @@ npm install
 # 启动tsx的文件监听
 esbuild View/index.tsx --jsx-factory=createElement --jsx-fragment=null --bundle --external:*.png --external:*.woff2 --outdir=Build --watch
 # 启动ts的文件监听
-esbuild index.ts --bundle --platform=node --external:electron --sourcemap=inline --outfile=Build/script.js --watch
+esbuild index.ts --bundle --platform=node --external:electron --sourcemap --outfile=Build/script.js --watch
 # 启动
 npm run start
 ```
