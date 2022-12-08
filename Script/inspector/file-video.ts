@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   AudioManager,
   Browser,
   File,
   Inspector
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 视频页面 ********************************
 

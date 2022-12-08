@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   Timer,
   UI,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 窗口元素 ********************************
 

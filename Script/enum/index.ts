@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
-export { EnumerationContext } from './enumeration-context'
-export { Enum } from './enum'
+export * from "./enumeration-context"
+export * from "./enum"

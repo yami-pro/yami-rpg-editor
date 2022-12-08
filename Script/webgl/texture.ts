@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   BaseTexture
-} from '../yami'
+} from "../yami"
 
 // ******************************** 纹理类 ********************************
 

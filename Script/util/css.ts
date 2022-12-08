@@ -1,7 +1,9 @@
-'use strict'
+"use strict"
 
-import { IHTMLElement } from "./element/html-element"
-import { INodeList } from "./node-list"
+import {
+  IHTMLElement,
+  INodeList
+} from "../yami"
 
 // ******************************** 声明 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Editor,
@@ -9,7 +9,7 @@ import {
   SelectBox,
   TextBox,
   WindowFrame
-} from '../yami'
+} from "../yami"
 
 // ******************************** 本地化对象 ********************************
 

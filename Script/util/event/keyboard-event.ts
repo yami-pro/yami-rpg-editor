@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { UIEvent_ext } from './ui-event'
+import { UIEvent_ext } from "../../yami"
 
 // ******************************** 键盘事件访问器 ********************************
 

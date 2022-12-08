@@ -1,3 +1,3 @@
-'use strict'
+"use strict"
 
-export { Variable } from './variable'
+export * from "./variable"

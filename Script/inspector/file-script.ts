@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Browser,
@@ -6,7 +6,7 @@ import {
   File,
   Inspector,
   PluginManager
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 脚本页面 ********************************
 

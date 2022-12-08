@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -23,7 +23,7 @@ import {
   Clipboard,
   ICSS,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 粒子窗口 ********************************
 

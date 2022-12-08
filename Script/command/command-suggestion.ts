@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -6,7 +6,7 @@ import {
   Local,
   Window,
   IString
-} from '../yami'
+} from "../yami"
 
 // ******************************** 指令提示框 ********************************
 

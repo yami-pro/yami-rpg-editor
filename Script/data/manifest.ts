@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Data,
   File,
   Meta,
   Title
-} from '../yami'
+} from "../yami"
 
 // ******************************** 元数据清单类 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   EventListInterface,
@@ -6,7 +6,7 @@ import {
   Inspector,
   ScriptListInterface,
   UI
-} from '../yami'
+} from "../yami"
 
 // ******************************** 元素页面 ********************************
 

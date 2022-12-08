@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -11,7 +11,7 @@ import {
   Path,
   Timer,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 部署项目窗口 ********************************
 

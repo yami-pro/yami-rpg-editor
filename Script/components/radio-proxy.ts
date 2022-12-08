@@ -1,8 +1,6 @@
-'use strict'
+"use strict"
 
-import {
-  IArray
-} from '../yami'
+import { IArray } from "../yami"
 
 // ******************************** 单选框代理 ********************************
 

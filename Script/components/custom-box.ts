@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   ActorGetter,
@@ -23,7 +23,7 @@ import {
   TriggerGetter,
   Variable,
   VariableGetter
-} from '../yami'
+} from "../yami"
 
 // ******************************** 自定义框 ********************************
 

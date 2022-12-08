@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   Command,
   IfCondition,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 条件分支 - 分支窗口 ********************************
 

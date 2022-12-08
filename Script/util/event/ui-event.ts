@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Event_ext } from "./event"
+import { Event_ext } from "../../yami"
 
 // ******************************** UI事件访问器 ********************************
 

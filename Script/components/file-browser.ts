@@ -1,32 +1,40 @@
-'use strict'
+"use strict"
 
 import {
+  Menu,
+  FileHeadPane,
+  FileNavPane,
+  FileBodyPane,
   Directory,
   File,
-  FileBodyPane,
   FileItem,
-  FileNavPane,
   FolderItem,
-  Local,
-  Menu,
   Path,
+  Local,
+  document,
+  window,
+  IHTMLElement,
+  IArray,
   IFunction,
-  IDragEvent
-} from '../yami'
+  IMouseKeyboardEvent
+} from "../yami"
 
 // ******************************** 文件浏览器 ********************************
 
-class FileBrowser extends HTMLElement {
-  display       //:string
-  directory     //:array
-  dragging      //:event
-  filters       //:array
-  backupFolders //:array
-  searchResults //:array
-  nav           //:element
-  head          //:element
-  body          //:element
-  links         //:array
+type browserLinks = {[index: string]: FileBrowser | FileNavPane | FileHeadPane | FileBodyPane}
+
+class FileBrowser extends IHTMLElement {
+  display: string
+  directory: IArray<IHTMLElement> | null
+  dragging: IMouseKeyboardEvent | null
+  filters: IArray<IHTMLElement> | null
+  backupFolders: IArray<IHTMLElement>
+  searchResults: IArray<IHTMLElement>
+  nav: FileNavPane
+  head: FileHeadPane
+  body: FileBodyPane
+  links: browserLinks
+  keyword: RegExp | string | null
 
   constructor() {
     super()
@@ -37,8 +45,8 @@ class FileBrowser extends HTMLElement {
     this.dragging = null
     this.filters = null
     this.keyword = null
-    this.backupFolders = []
-    this.searchResults = []
+    this.backupFolders = IArray.empty()
+    this.searchResults = IArray.empty()
     this.nav = document.createElement('file-nav-pane')
     this.head = document.createElement('file-head-pane')
     this.body = document.createElement('file-body-pane')
@@ -52,7 +60,7 @@ class FileBrowser extends HTMLElement {
       const nav = this.nav
       const head = this.head
       const body = this.body
-      const links = {
+      const links: browserLinks = {
         browser,
         nav,
         head,
@@ -80,7 +88,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 搜索文件: regexp or string
-  searchFiles(keyword) {
+  searchFiles(keyword: RegExp | string) {
     const {nav} = this
     if (keyword instanceof RegExp || keyword.length !== 0) {
       if (this.display === 'normal') {
@@ -96,7 +104,7 @@ class FileBrowser extends HTMLElement {
         this.filters,
         this.keyword = keyword,
         this.directory,
-        this.searchResults = [],
+        this.searchResults = IArray.empty(),
       )
       this.update()
     } else {
@@ -104,8 +112,8 @@ class FileBrowser extends HTMLElement {
         this.display = 'normal'
         nav.load(...this.backupFolders)
         this.keyword = null
-        this.backupFolders = []
-        this.searchResults = []
+        this.backupFolders = IArray.empty()
+        this.searchResults = IArray.empty()
       }
     }
   }
@@ -117,8 +125,8 @@ class FileBrowser extends HTMLElement {
         break
       case 'search':
         this.display = 'normal'
-        this.backupFolders = []
-        this.searchResults = []
+        this.backupFolders = IArray.empty()
+        this.searchResults = IArray.empty()
         this.head.searcher.write('')
         break
     }
@@ -142,7 +150,7 @@ class FileBrowser extends HTMLElement {
         break
       }
       case 'search': {
-        const active = document.activeElement
+        const active = <IHTMLElement>document.activeElement
         this.head.searcher.deleteInputContent()
         active.focus()
         break
@@ -151,12 +159,14 @@ class FileBrowser extends HTMLElement {
   }
 
   // 目录改变事件
-  dirchange(event) {
+  dirchange(event: IMouseKeyboardEvent) {
     switch (this.display) {
       case 'normal':
         break
       case 'search':
-        this.searchFiles(this.keyword)
+        if (this.keyword !== null) {
+          this.searchFiles(this.keyword)
+        }
         break
     }
     const body = this.body
@@ -196,15 +206,15 @@ class FileBrowser extends HTMLElement {
   }
 
   // 获取活动页面
-  getActivePage(event) {
+  getActivePage(event: IMouseKeyboardEvent) {
     const {nav, body} = this
-    return nav.contains(event.target)  ? nav
-         : body.contains(event.target) ? body
+    return nav.contains(<Node>event.target)  ? nav
+         : body.contains(<Node>event.target) ? body
          : null
   }
 
   // 指针按下事件
-  pointerdown(event) {
+  pointerdown(event: IMouseKeyboardEvent) {
     // 如果丢失dragend事件, 手动结束
     switch (this.dragging?.mode) {
       case 'drag': return this.dragend()
@@ -213,7 +223,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽开始事件
-  dragstart(event: IDragEvent) {
+  dragstart(event: IMouseKeyboardEvent) {
     const page = this.getActivePage(event)
     if (page && !this.dragging) {
       if (page.pressing) {
@@ -259,7 +269,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽结束事件
-  dragend(event) {
+  dragend() {
     if (this.dragging) {
       const {dropTarget} = this.dragging
       if (dropTarget instanceof HTMLElement) {
@@ -274,23 +284,23 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽离开事件
-  dragleave(event) {
+  dragleave(event: IMouseKeyboardEvent) {
     const {dragging} = this
     if (dragging?.dropTarget &&
-      !this.contains(event.relatedTarget)) {
+      !this.contains(<Node>event.relatedTarget)) {
       dragging.dropTarget.removeClass('drop-target')
       dragging.dropTarget = null
     }
   }
 
   // 拖拽悬停事件
-  dragover(event) {
+  dragover(event: IMouseKeyboardEvent) {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
-      let element = event.target
+      let element = <IHTMLElement>event.target
       if (!dragging.allowCopy &&
-        !dragging.target.contains(element)) {
+        !(<Node>dragging.target).contains(<Node>element)) {
         dragging.allowCopy = true
       }
       while (!(
@@ -298,7 +308,7 @@ class FileBrowser extends HTMLElement {
         element instanceof FileNavPane ||
         element instanceof FileBodyPane ||
         element.file instanceof FolderItem)) {
-        element = element.parentNode
+        element = <IHTMLElement>element.parentNode
       }
       if (dropTarget !== element) {
         if (dropTarget instanceof HTMLElement) {
@@ -358,7 +368,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽释放事件
-  drop(event) {
+  drop(event: IMouseKeyboardEvent) {
     const {dragging} = this
     if (dragging) {
       event.stopPropagation()
@@ -409,7 +419,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽开始事件
-  osDragstart(event) {
+  osDragstart(event: IMouseKeyboardEvent) {
     if (!this.dragging) {
       this.dragging = event
       event.mode = 'os-drag'
@@ -423,7 +433,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽结束事件
-  osDragend(event) {
+  osDragend(event?: IMouseKeyboardEvent) {
     if (this.dragging) {
       const {dropTarget} = this.dragging
       if (dropTarget instanceof HTMLElement) {
@@ -438,22 +448,22 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽离开事件
-  osDragleave(event) {
+  osDragleave(event: IMouseKeyboardEvent) {
     return this.dragleave(event)
   }
 
   // 操作系统 - 拖拽悬停事件
-  osDragover(event) {
+  osDragover(event: IMouseKeyboardEvent) {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
-      let element = event.target
+      let element = <IHTMLElement>event.target
       while (!(
         element instanceof FileBrowser ||
         element instanceof FileNavPane ||
         element instanceof FileBodyPane ||
         element.file instanceof FolderItem)) {
-        element = element.parentNode
+        element = <IHTMLElement>element.parentNode
       }
       if (dropTarget !== element) {
         if (dropTarget instanceof HTMLElement) {
@@ -483,7 +493,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽释放事件
-  osDrop(event) {
+  osDrop(event: IMouseKeyboardEvent) {
     const {files} = event.dataTransfer
     if (files.length === 0) {
       return
@@ -508,4 +518,4 @@ customElements.define('file-browser', FileBrowser)
 
 // ******************************** 文件浏览器导出 ********************************
 
-export { FileBrowser }
+export { FileBrowser, browserLinks }

@@ -1,11 +1,12 @@
-'use strict'
+"use strict"
 
 import {
-  Color,
+  document,
   IEvent,
   IHTMLElement,
-  IMouseKeyboardEvent
-} from '../yami'
+  IMouseKeyboardEvent,
+  Color
+} from "../yami"
 
 // ******************************** 颜色框 ********************************
 
@@ -18,12 +19,12 @@ class ColorBox extends IHTMLElement {
     super()
 
     // 创建背景区域
-    const background = <IHTMLElement>document.createElement('box')
+    const background = document.createElement('box')
     background.addClass('color-box-background')
     this.appendChild(background)
 
     // 创建前景区域
-    const foreground = <IHTMLElement>document.createElement('box')
+    const foreground = document.createElement('box')
     foreground.addClass('color-box-foreground')
     this.appendChild(foreground)
 

@@ -1,6 +1,9 @@
-'use strict'
+"use strict"
 
-import { RadioProxy, IRegExp } from '../yami'
+import {
+  RadioProxy,
+  IRegExp
+} from "../yami"
 
 // ******************************** 单选框 ********************************
 

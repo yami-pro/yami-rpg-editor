@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
-export { FolderItem } from './folder-item'
-export { FileItem } from './file-item'
-export { GUID } from './guid'
-export { Directory } from './directory'
-export { FS } from './file-system'
-export { FSP } from './file-system'
-export { File } from './file'
-export { Path } from './path'
+export * from "./folder-item"
+export * from "./file-item"
+export * from "./guid"
+export * from "./directory"
+export * from "./file-system"
+export * from "./file-system"
+export * from "./file"
+export * from "./path"

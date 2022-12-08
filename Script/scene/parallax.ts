@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   ImageTexture,
   Scene,
   IFunction
-} from '../yami'
+} from "../yami"
 
 // ******************************** 视差图类 ********************************
 

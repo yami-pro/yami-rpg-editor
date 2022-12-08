@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
   Curve,
   getElementWriter,
   Inspector
-} from '../yami'
+} from "../yami"
 
 // ******************************** 动画 - 粒子帧页面 ********************************
 

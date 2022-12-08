@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   CustomBox,
   SelectBox
-} from '../yami'
+} from "../yami"
 
 // ******************************** 选择变量框 ********************************
 

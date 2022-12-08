@@ -1,7 +1,9 @@
-'use strict'
+"use strict"
 
-import { INavigator } from '../navigator'
-import { UIEvent_ext } from './ui-event'
+import {
+  INavigator,
+  UIEvent_ext
+} from "../../yami"
 
 // ******************************** 鼠标事件方法 ********************************
 

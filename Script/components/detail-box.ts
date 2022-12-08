@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { DetailSummary } from '../yami'
+import { DetailSummary } from "../yami"
 
 // ******************************** 细节框 ********************************
 

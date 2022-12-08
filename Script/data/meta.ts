@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Data,
   File,
   FileItem,
   IArray
-} from '../yami'
+} from "../yami"
 
 // ******************************** 元数据类 ********************************
 

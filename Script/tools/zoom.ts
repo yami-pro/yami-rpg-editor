@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   Editor,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 缩放窗口 ********************************
 

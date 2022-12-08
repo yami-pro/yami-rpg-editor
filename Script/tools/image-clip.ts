@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Cursor,
@@ -9,7 +9,7 @@ import {
   Path,
   Window,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 图像剪辑窗口 ********************************
 

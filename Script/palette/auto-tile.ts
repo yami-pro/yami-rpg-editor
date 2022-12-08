@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   ctrl,
@@ -23,7 +23,7 @@ import {
   ICSS,
   INumber,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 自动图块 ********************************
 

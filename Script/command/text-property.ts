@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Color,
@@ -7,7 +7,7 @@ import {
   getElementWriter,
   Local,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 设置文本 - 属性窗口 ********************************
 

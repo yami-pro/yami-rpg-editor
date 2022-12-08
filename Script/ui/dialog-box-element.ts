@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { UI } from '../yami'
+import { UI } from "../yami"
 
 // ******************************** 对话框元素 ********************************
 

@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { HistoryTimer } from '../yami'
+import { HistoryTimer } from "../yami"
 
 // ******************************** 文本操作历史 ********************************
 

@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { CustomBox } from '../yami'
+import { CustomBox } from "../yami"
 
 // ******************************** 文件变量框 ********************************
 

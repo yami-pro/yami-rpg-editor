@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
-export { Scene } from './scene'
-export { Light } from './light'
-export { Parallax } from './parallax'
-export { Point } from './point'
-export { Textures } from './textures'
-export { TilemapShortcuts } from './tilemap-shortcuts'
-export { ObjectFolder } from './object-folder'
-export { SceneShift } from './scene-shift'
+export * from "./scene"
+export * from "./light"
+export * from "./parallax"
+export * from "./point"
+export * from "./textures"
+export * from "./tilemap-shortcuts"
+export * from "./object-folder"
+export * from "./scene-shift"

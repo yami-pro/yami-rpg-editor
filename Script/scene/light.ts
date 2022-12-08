@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   Scene
-} from '../yami'
+} from "../yami"
 
 // ******************************** 光源类 ********************************
 

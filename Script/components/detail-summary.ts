@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { DetailBox } from '../yami'
+import { DetailBox } from "../yami"
 
 // ******************************** 细节概要 ********************************
 

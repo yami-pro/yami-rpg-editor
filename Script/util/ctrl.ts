@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { INavigator } from './navigator'
+import { INavigator } from "../yami"
 
 // ******************************** 组合键访问器 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -19,7 +19,7 @@ import {
   Scene,
   UI,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 标题栏对象 ********************************
 

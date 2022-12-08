@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Color,
@@ -8,7 +8,7 @@ import {
   Printer,
   Variable,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 选取文本 ********************************
 

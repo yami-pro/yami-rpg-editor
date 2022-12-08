@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   getElementReader,
   PresetObject,
   VariableGetter,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 光源访问器窗口 ********************************
 

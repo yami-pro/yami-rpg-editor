@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -9,7 +9,7 @@ import {
   Local,
   TreeList,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 条件列表接口类 ********************************
 

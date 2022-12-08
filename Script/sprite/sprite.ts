@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -9,7 +9,7 @@ import {
   TimerManager,
   ICSS,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 精灵窗口 ********************************
 

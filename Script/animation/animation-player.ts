@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -10,7 +10,7 @@ import {
   Scene,
   IArray,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 动画播放器类 ********************************
 

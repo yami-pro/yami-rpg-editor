@@ -1,10 +1,12 @@
-'use strict'
+"use strict"
 
-import { IFunction } from './function'
-import { emptyFunc } from './function'
-import { IHTMLElement } from './element/html-element'
-import { INodeList } from './node-list'
-import { IArray } from './array'
+import {
+  IFunction,
+  emptyFunc,
+  IHTMLElement,
+  INodeList,
+  IArray
+} from "../yami"
 
 // ******************************** 计时器管理类 ********************************
 
@@ -48,6 +50,8 @@ class Timer {
   duration: number
   update: updateFunc | emptyFunc
   callback: callbackFunc | emptyFunc
+  target: IHTMLElement | null
+  running: boolean
 
   constructor(params: {duration: number, update: updateFunc | emptyFunc, callback: callbackFunc | emptyFunc}) {
     const {duration, update, callback} = params

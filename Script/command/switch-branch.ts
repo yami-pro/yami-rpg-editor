@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   Command,
   SwitchCondition,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 匹配 - 分支窗口 ********************************
 

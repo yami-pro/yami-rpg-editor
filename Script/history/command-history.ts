@@ -1,8 +1,6 @@
-'use strict'
+"use strict"
 
-import {
-  IFunction
-} from '../yami'
+import { IFunction } from "../yami"
 
 // ******************************** 指令操作历史 ********************************
 

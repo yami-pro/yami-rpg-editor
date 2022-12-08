@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   getElementReader,
@@ -6,7 +6,7 @@ import {
   Inspector,
   UI,
   UIElement
-} from '../yami'
+} from "../yami"
 
 // ******************************** 元素 - 对话框页面 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   AnimationPlayer,
@@ -35,7 +35,7 @@ import {
   IMath,
   INumber,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 动画窗口 ********************************
 

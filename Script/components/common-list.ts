@@ -1,8 +1,6 @@
-'use strict'
+"use strict"
 
-import {
-  IMath
-} from '../yami'
+import { IMath } from "../yami"
 
 // ******************************** 普通列表 ********************************
 

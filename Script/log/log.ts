@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   Editor,
   Timer
-} from '../yami'
+} from "../yami"
 
 // ******************************** 日志窗口 ********************************
 

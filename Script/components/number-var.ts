@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   CustomBox,
   NumberBox
-} from '../yami'
+} from "../yami"
 
 // ******************************** 数字变量框 ********************************
 

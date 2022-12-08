@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { IHTMLElement } from "./element/html-element"
+import { IHTMLElement } from "../yami"
 
 // ******************************** 指针对象 ********************************
 

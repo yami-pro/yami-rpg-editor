@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   AudioManager,
@@ -9,7 +9,7 @@ import {
   TimerManager,
   ICSS,
   INumber
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 音频页面 ********************************
 

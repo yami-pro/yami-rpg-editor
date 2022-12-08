@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   AttributeListInterface,
@@ -8,7 +8,7 @@ import {
   getElementWriter,
   Inspector,
   ScriptListInterface
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 物品页面 ********************************
 

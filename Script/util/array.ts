@@ -1,7 +1,9 @@
-'use strict'
+"use strict"
 
-import { IHTMLElement } from "./element/html-element"
-import { CommandHistory } from '../history/command-history'
+import {
+  IHTMLElement,
+  CommandHistory
+} from "../yami"
 
 // ******************************** 声明 ********************************
 

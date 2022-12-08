@@ -1,46 +1,44 @@
-'use strict'
+"use strict"
 
-export { Inspector } from './inspector'
-
-import './anim-joint-frame'
-import './anim-joint-layer'
-import './anim-motion'
-import './anim-particle-frame'
-import './anim-particle-layer'
-import './anim-sprite-frame'
-import './anim-sprite-layer'
-import './file-actor'
-import './file-animation'
-import './file-audio'
-import './file-equipment'
-import './file-event'
-import './file-font'
-import './file-image'
-import './file-item'
-import './file-particle'
-import './file-scene'
-import './file-script'
-import './file-skill'
-import './file-state'
-import './file-tileset'
-import './file-trigger'
-import './file-ui'
-import './file-video'
-import './particle-layer'
-import './scene-actor'
-import './scene-animation'
-import './scene-light'
-import './scene-parallax'
-import './scene-particle'
-import './scene-region'
-import './scene-tilemap'
-import './ui-container'
-import './ui-dialog-box'
-import './ui-image'
-import './ui-progress-bar'
-import './ui-text-box'
-import './ui-text'
-import './ui-video'
-import './ui-window'
-
-export { UIElement } from './ui-element'
+export * from "./inspector"
+export * from "./anim-joint-frame"
+export * from "./anim-joint-layer"
+export * from "./anim-motion"
+export * from "./anim-particle-frame"
+export * from "./anim-particle-layer"
+export * from "./anim-sprite-frame"
+export * from "./anim-sprite-layer"
+export * from "./file-actor"
+export * from "./file-animation"
+export * from "./file-audio"
+export * from "./file-equipment"
+export * from "./file-event"
+export * from "./file-font"
+export * from "./file-image"
+export * from "./file-item"
+export * from "./file-particle"
+export * from "./file-scene"
+export * from "./file-script"
+export * from "./file-skill"
+export * from "./file-state"
+export * from "./file-tileset"
+export * from "./file-trigger"
+export * from "./file-ui"
+export * from "./file-video"
+export * from "./particle-layer"
+export * from "./scene-actor"
+export * from "./scene-animation"
+export * from "./scene-light"
+export * from "./scene-parallax"
+export * from "./scene-particle"
+export * from "./scene-region"
+export * from "./scene-tilemap"
+export * from "./ui-container"
+export * from "./ui-dialog-box"
+export * from "./ui-image"
+export * from "./ui-progress-bar"
+export * from "./ui-text-box"
+export * from "./ui-text"
+export * from "./ui-video"
+export * from "./ui-window"
+export * from "./ui-element"

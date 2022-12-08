@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Layout,
@@ -6,7 +6,7 @@ import {
   Window,
   ICSS,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 窗口框架 ********************************
 

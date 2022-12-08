@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Command,
   Local,
   Window,
   INumber
-} from '../yami'
+} from "../yami"
 
 // ******************************** 数组窗口 ********************************
 

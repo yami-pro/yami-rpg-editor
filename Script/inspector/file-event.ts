@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Browser,
@@ -7,7 +7,7 @@ import {
   File,
   getElementWriter,
   Inspector
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 事件页面 ********************************
 

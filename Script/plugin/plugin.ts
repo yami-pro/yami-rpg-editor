@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Attribute,
@@ -18,7 +18,7 @@ import {
   IArray,
   IMath,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 插件窗口 ********************************
 

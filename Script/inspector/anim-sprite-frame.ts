@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Inspector,
   Sprite
-} from '../yami'
+} from "../yami"
 
 // ******************************** 动画 - 精灵帧页面 ********************************
 

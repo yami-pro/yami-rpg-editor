@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   Timer,
   IHTMLElement
-} from '../yami'
+} from "../yami"
 
 // ******************************** 滚动条 ********************************
 

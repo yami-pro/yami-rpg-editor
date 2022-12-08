@@ -1,8 +1,8 @@
-'use strict'
+"use strict"
 
-export { CommandHistory } from './command-history'
-export { History } from './history'
-export { NumberHistory } from './number-history'
-export { ParamHistory } from './param-history'
-export { TextHistory } from './text-history'
-export { HistoryTimer } from './history-timer'
+export * from "./command-history"
+export * from "./history"
+export * from "./number-history"
+export * from "./param-history"
+export * from "./text-history"
+export * from "./history-timer"

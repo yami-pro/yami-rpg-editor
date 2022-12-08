@@ -1,7 +1,9 @@
-'use strict'
+"use strict"
 
-import { window } from "./global"
-import { IHTMLElement } from "./element/html-element"
+import {
+  window,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 其他 ********************************
 

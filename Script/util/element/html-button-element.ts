@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { HTMLElement_ext } from './html-element'
+import { HTMLElement_ext } from "../../yami"
 
 // ******************************** 按钮扩展 ********************************
 

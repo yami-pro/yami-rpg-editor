@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   ctrl,
@@ -12,7 +12,7 @@ import {
   Clipboard,
   IArray,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 枚举窗口 ********************************
 

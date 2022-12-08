@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   Local,
   IArray,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 属性上下文类 ********************************
 

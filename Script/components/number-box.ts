@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   measureText,
   NumberHistory,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 数字框 ********************************
 

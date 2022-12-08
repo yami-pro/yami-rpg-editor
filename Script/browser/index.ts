@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
-export { Browser } from './browser'
-export { Selector } from './selector'
+export * from "./browser"
+export * from "./selector"

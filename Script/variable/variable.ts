@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -13,7 +13,7 @@ import {
   Clipboard,
   IArray,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 变量窗口 ********************************
 

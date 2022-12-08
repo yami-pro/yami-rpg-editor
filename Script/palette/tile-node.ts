@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Cursor,
@@ -7,7 +7,7 @@ import {
   TimerManager,
   Window,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 图块节点窗口 ********************************
 

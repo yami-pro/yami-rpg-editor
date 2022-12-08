@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -10,7 +10,7 @@ import {
   Log,
   Meta,
   Path
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件项目 ********************************
 

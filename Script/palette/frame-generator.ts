@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Window } from '../yami'
+import { Window } from "../yami"
 
 // ******************************** 图块帧生成器窗口 ********************************
 

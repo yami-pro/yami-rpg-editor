@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import './inspector.css'
 import { createElement } from '../vhtml/index'

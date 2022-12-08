@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   AutoTile,
@@ -19,7 +19,7 @@ import {
   Clipboard,
   ICSS,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 调色板 ********************************
 

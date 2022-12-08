@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   CustomBox,
   TextBox
-} from '../yami'
+} from "../yami"
 
 // ******************************** 字符串变量框 ********************************
 

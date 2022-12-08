@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   getElementWriter,
   Inspector,
   UI,
   UIElement
-} from '../yami'
+} from "../yami"
 
 // ******************************** 元素 - 文本框页面 ********************************
 

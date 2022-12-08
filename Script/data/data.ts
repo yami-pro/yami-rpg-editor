@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   AttributeContext,
@@ -11,7 +11,7 @@ import {
   Manifest,
   PluginManager,
   INumber
-} from '../yami'
+} from "../yami"
 
 // ******************************** 数据对象 ********************************
 

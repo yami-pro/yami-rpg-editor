@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   Window,
   ICSS,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 标题栏 ********************************
 

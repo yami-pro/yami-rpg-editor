@@ -1,7 +1,9 @@
-'use strict'
+"use strict"
 
-import { IHTMLElement } from "../util/element/html-element"
-import { ScrollBar } from "./scroll-bar"
+import {
+  document,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 组件管理类 ********************************
 
@@ -13,9 +15,9 @@ const ScrollBarManager = <IScrollBar>new Object()
 
 // 添加滚动条
 ScrollBarManager.addScrollbars = function (element: IHTMLElement) {
-  const hBar = <ScrollBar>document.createElement('scroll-bar')
-  const vBar = <ScrollBar>document.createElement('scroll-bar')
-  const corner = <ScrollBar>document.createElement('scroll-corner')
+  const hBar = document.createElement('scroll-bar')
+  const vBar = document.createElement('scroll-bar')
+  const corner = document.createElement('scroll-corner')
   const parent = element.parentNode
   const next = element.nextSibling
   if (parent) {

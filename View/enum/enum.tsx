@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import './enum.css'
 import { createElement } from '../vhtml/index'

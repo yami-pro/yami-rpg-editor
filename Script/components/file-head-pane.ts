@@ -1,18 +1,23 @@
-'use strict'
+"use strict"
 
 import {
-  FolderItem,
   Menu,
   SliderBox,
-  TextBox
-} from '../yami'
+  TextBox,
+  browserLinks,
+  FolderItem,
+  document,
+  window,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 文件头部面板 ********************************
 
-class FileHeadPane extends HTMLElement {
-  address   //:element
-  searcher  //:element
-  view      //:element
+class FileHeadPane extends IHTMLElement {
+  address: IHTMLElement
+  searcher: TextBox
+  view: IHTMLElement
+  links: browserLinks
 
   constructor() {
     super()

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Codec,
@@ -9,7 +9,7 @@ import {
   Scene,
   ScriptListInterface,
   SelectBox
-} from '../yami'
+} from "../yami"
 
 // ******************************** 场景 - 瓦片地图页面 ********************************
 

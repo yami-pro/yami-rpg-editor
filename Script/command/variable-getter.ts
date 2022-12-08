@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Attribute,
@@ -7,7 +7,7 @@ import {
   getElementWriter,
   SelectBox,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 变量访问器窗口 ********************************
 

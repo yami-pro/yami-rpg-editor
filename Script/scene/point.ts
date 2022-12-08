@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Scene } from '../yami'
+import { Scene } from "../yami"
 
 // ******************************** 坐标点类 ********************************
 

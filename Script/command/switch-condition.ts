@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -8,7 +8,7 @@ import {
   Local,
   VariableGetter,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 匹配 - 条件窗口 ********************************
 

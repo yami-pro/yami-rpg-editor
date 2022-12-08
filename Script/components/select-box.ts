@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   Select,
   IArray
-} from '../yami'
+} from "../yami"
 
 // ******************************** 选择框 ********************************
 

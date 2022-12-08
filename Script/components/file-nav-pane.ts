@@ -1,27 +1,33 @@
-'use strict'
+"use strict"
 
 import {
+  Menu,
   CommonList,
+  TextBox,
+  browserLinks,
   Directory,
   File,
   FS,
   FSP,
-  Menu,
   Path,
-  TextBox,
+  document,
+  window,
+  IHTMLElement,
+  IArray,
   Timer,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件导航面板 ********************************
 
-class FileNavPane extends HTMLElement {
-  timer               //:object
-  elements            //:array
-  selections          //:array
-  pressing            //:function
-  selectEventEnabled  //:boolean
-  textBox             //:element
+class FileNavPane extends IHTMLElement {
+  timer: Timer
+  elements: IArray<IHTMLElement>
+  selections: IArray<IHTMLElement>
+  pressing: ((event: any) => void) | null
+  selectEventEnabled: boolean
+  textBox: TextBox
+  links: browserLinks
 
   constructor() {
     super()

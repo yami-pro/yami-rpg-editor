@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   CommonList,
@@ -11,7 +11,7 @@ import {
   Clipboard,
   IFunction,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 参数列表 ********************************
 

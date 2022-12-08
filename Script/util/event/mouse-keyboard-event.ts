@@ -1,10 +1,13 @@
-'use strict'
+"use strict"
 
-import { IKeyboardEvent } from "./keyboard-event"
-import { IPointerEvent } from "./pointer-event"
+import {
+  IKeyboardEvent,
+  IPointerEvent,
+  IDragEvent
+} from "../../yami"
 
 // ******************************** 键盘事件访问器 ********************************
 
-interface IMouseKeyboardEvent extends IPointerEvent, IKeyboardEvent {}
+interface IMouseKeyboardEvent extends IPointerEvent, IKeyboardEvent, IDragEvent {}
 
 export { IMouseKeyboardEvent }

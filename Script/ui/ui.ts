@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   ctrl,
   Cursor,
   Data,
-  // DialogBoxElement,
+  DialogBoxElement,
   Easing,
   File,
   GL,
@@ -18,15 +18,15 @@ import {
   Menu,
   Scene,
   StageColor,
-  // TextBoxElement,
-  // TextElement,
+  TextBoxElement,
+  TextElement,
   Timer,
   TimerManager,
   Window,
   Clipboard,
   ICSS,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** UI 窗口 ********************************
 

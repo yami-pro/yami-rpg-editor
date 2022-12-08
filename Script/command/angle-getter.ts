@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   getElementReader,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 角度访问器窗口 ********************************
 

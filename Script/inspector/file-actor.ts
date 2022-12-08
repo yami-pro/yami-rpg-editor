@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -15,7 +15,7 @@ import {
   Scene,
   ScriptListInterface,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 角色页面 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -9,7 +9,7 @@ import {
   Local,
   Menu,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 资源选择器 ********************************
 

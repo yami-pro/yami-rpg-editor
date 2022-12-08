@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Enum,
@@ -8,7 +8,7 @@ import {
   Window,
   IFunction,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 事件编辑器 ********************************
 

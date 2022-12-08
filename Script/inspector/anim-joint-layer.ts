@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Inspector } from '../yami'
+import { Inspector } from "../yami"
 
 // ******************************** 动画 - 关节层页面 ********************************
 

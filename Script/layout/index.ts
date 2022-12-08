@@ -1,3 +1,3 @@
-'use strict'
+"use strict"
 
-export { Layout } from './layout'
+export * from "./layout"

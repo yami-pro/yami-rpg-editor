@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -7,7 +7,7 @@ import {
   INTRGBA,
   UI,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 打印机类 ********************************
 

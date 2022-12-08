@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   VariableGetter,
@@ -6,7 +6,7 @@ import {
   getElementReader,
   getElementWriter,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 对象变量访问器窗口 ********************************
 

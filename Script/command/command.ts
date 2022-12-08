@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   ActorGetter,
@@ -45,7 +45,7 @@ import {
   Window,
   IObject,
   IString
-} from '../yami'
+} from "../yami"
 
 // ******************************** 指令对象 ********************************
 

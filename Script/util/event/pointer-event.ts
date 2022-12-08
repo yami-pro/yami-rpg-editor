@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { MouseEvent_ext } from './mouse-event'
+import { MouseEvent_ext } from "../../yami"
 
 // ******************************** 指针事件方法 ********************************
 

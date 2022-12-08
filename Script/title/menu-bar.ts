@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -26,7 +26,7 @@ import {
   Window,
   Zoom,
   Clipboard
-} from '../yami'
+} from "../yami"
 
 // ******************************** 菜单栏对象 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Easing,
@@ -6,7 +6,7 @@ import {
   ImageTexture,
   Particle,
   IFunction
-} from '../yami'
+} from "../yami"
 
 // ******************************** 粒子图层类 ********************************
 

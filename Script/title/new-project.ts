@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Editor,
@@ -12,7 +12,7 @@ import {
   Path,
   Timer,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 新建项目窗口 ********************************
 

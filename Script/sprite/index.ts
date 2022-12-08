@@ -1,3 +1,3 @@
-'use strict'
+"use strict"
 
-export { Sprite } from './sprite'
+export * from "./sprite"

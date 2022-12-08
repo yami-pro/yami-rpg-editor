@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { GL } from '../yami'
+import { GL } from "../yami"
 
 // ******************************** 基础纹理类 ********************************
 

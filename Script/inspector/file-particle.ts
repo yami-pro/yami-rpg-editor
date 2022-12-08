@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Inspector } from '../yami'
+import { Inspector } from "../yami"
 
 // ******************************** 文件 - 粒子页面 ********************************
 

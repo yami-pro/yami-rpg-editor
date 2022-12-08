@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Codec,
@@ -13,7 +13,7 @@ import {
   Menu,
   Window,
   Clipboard
-} from '../yami'
+} from "../yami"
 
 // ******************************** 队伍窗口 ********************************
 

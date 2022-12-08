@@ -1,3 +1,3 @@
-'use strict'
+"use strict"
 
-export { PluginManager } from './plugin'
+export * from "./plugin"

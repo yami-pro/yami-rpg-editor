@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -6,7 +6,7 @@ import {
   Inspector,
   Local,
   TreeList
-} from '../yami'
+} from "../yami"
 
 // ******************************** 事件列表接口类 ********************************
 

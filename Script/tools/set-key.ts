@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Window } from '../yami'
+import { Window } from "../yami"
 
 // ******************************** 设置键窗口 ********************************
 

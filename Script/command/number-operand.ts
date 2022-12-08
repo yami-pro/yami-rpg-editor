@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -8,7 +8,7 @@ import {
   VariableGetter,
   Window,
   Enum
-} from '../yami'
+} from "../yami"
 
 // ******************************** 设置数值 - 操作数窗口 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
-export { AttributeContext } from './attribute-context'
-export { Attribute } from './attribute'
+export * from "./attribute-context"
+export * from "./attribute"

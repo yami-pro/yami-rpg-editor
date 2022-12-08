@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   AttributeListInterface,
@@ -12,7 +12,7 @@ import {
   Title,
   Window,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 项目设置窗口 ********************************
 

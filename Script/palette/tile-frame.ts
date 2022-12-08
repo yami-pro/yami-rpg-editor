@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   AutoTile,
@@ -6,7 +6,7 @@ import {
   Palette,
   Window,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 图块帧索引窗口 ********************************
 

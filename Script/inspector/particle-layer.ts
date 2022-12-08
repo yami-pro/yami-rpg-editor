@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Inspector,
   Particle
-} from '../yami'
+} from "../yami"
 
 // ******************************** 粒子 - 图层页面 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -16,7 +16,7 @@ import {
   Menu,
   Path,
   Title
-} from '../yami'
+} from "../yami"
 
 // ******************************** 项目浏览器 ********************************
 

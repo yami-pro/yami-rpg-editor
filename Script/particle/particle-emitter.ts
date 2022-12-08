@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Particle } from '../yami'
+import { Particle } from "../yami"
 
 // ******************************** 粒子发射器类 ********************************
 

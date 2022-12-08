@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Data,
   UI,
   Window,
   IArray
-} from '../yami'
+} from "../yami"
 
 // ******************************** 预设元素窗口 ********************************
 

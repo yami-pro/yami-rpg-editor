@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Timer } from '../yami'
+import { Timer } from "../yami"
 
 // ******************************** 历史操作计时器 ********************************
 

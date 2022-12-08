@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   AudioManager,
   File,
   Reverb,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 音频播放器类 ********************************
 

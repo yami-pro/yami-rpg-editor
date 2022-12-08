@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   ctrl,
@@ -20,7 +20,7 @@ import {
   IMath,
   INumber,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 过渡窗口 ********************************
 

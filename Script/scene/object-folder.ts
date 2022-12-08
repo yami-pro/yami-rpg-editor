@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Editor,
   getElementReader,
   getElementWriter,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 默认对象文件夹 ********************************
 

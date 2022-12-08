@@ -1,8 +1,8 @@
-'use strict'
+"use strict"
 
-export { Data } from './data'
-export { Easing } from './easing'
-export { Meta } from './meta'
-export { Project } from './project'
-export { Team } from './team'
-export { Manifest } from './manifest'
+export * from "./data"
+export * from "./easing"
+export * from "./meta"
+export * from "./project"
+export * from "./team"
+export * from "./manifest"

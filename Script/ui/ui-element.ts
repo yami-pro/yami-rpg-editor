@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   Matrix,
   UI
-} from '../yami'
+} from "../yami"
 
 // ******************************** 元素基类 ********************************
 

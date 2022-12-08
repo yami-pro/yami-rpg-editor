@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import './variable.css'
 import { createElement } from '../vhtml/index'

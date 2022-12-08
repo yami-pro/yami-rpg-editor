@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { EventTarget_ext } from '../event/event-target'
+import { EventTarget_ext } from "../../yami"
 
 // ******************************** Canvas元素扩展 ********************************
 

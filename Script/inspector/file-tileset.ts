@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Browser,
@@ -7,7 +7,7 @@ import {
   Inspector,
   Palette,
   Scene
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 图块组页面 ********************************
 

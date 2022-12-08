@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   File,
@@ -7,7 +7,7 @@ import {
   Meta,
   Path,
   IArray
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件夹项目 ********************************
 

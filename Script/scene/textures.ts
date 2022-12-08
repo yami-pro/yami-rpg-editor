@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   ImageTexture,
   Scene
-} from '../yami'
+} from "../yami"
 
 // ******************************** 纹理集合类 ********************************
 

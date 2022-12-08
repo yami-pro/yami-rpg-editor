@@ -1,3 +1,3 @@
-'use strict'
+"use strict"
 
-export { Editor } from './editor'
+export * from "./editor"

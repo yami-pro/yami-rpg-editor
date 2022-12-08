@@ -1,5 +1,5 @@
-'use strict'
+"use strict"
 
-export { AnimationPlayer } from './animation-player'
-export { Animation } from './animation'
-export { Curve } from './curve'
+export * from "./animation-player"
+export * from "./animation"
+export * from "./curve"

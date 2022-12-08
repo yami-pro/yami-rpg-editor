@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Browser,
   File,
   Inspector,
   ICSS
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 图像页面 ********************************
 

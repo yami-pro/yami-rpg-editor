@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { NumberBox } from '../yami'
+import { NumberBox } from "../yami"
 
 // ******************************** 滑动框 ********************************
 

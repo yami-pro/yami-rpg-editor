@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -13,7 +13,7 @@ import {
   Path,
   Window,
   IFunction
-} from '../yami'
+} from "../yami"
 
 // ******************************** 目录 ********************************
 

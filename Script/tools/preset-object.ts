@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   Scene,
   Window,
   IArray
-} from '../yami'
+} from "../yami"
 
 // ******************************** 场景预设对象窗口 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   GL,
@@ -7,7 +7,7 @@ import {
   Texture,
   UI,
   IFunction
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文本框元素 ********************************
 

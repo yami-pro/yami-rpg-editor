@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -9,7 +9,7 @@ import {
   getElementWriter,
   Inspector,
   ScriptListInterface
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 触发器页面 ********************************
 

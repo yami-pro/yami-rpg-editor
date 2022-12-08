@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   ImageTexture,
   UI,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 进度条元素 ********************************
 

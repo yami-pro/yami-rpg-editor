@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { Window } from '../yami'
+import { Window } from "../yami"
 
 // ******************************** 重命名窗口 ********************************
 

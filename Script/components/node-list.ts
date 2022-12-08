@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   CommonList,
@@ -8,7 +8,7 @@ import {
   IFunction,
   IArray,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 树状列表 ********************************
 

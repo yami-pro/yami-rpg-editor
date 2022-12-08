@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -6,7 +6,7 @@ import {
   getElementWriter,
   Local,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 设置进度条 - 属性窗口 ********************************
 

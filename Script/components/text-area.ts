@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   TextHistory,
   Timer
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文本区域 ********************************
 

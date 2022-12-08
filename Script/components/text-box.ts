@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   TextHistory,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文本框 ********************************
 

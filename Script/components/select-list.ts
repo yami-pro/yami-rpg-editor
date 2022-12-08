@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   CommonList,
   Window,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 选择列表 ********************************
 

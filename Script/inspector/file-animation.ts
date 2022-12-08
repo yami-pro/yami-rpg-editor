@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -9,7 +9,7 @@ import {
   Inspector,
   Window,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 动画页面 ********************************
 

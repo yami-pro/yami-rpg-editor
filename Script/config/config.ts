@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   File,
   Path
-} from '../yami'
+} from "../yami"
 
 // ******************************** 读取配置文件 ********************************
 

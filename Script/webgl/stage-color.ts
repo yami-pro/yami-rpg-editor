@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   INTRGBA
-} from '../yami'
+} from "../yami"
 
 // ******************************** 舞台颜色类 ********************************
 

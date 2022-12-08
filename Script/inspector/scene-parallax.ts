@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   ConditionListInterface,
@@ -7,7 +7,7 @@ import {
   Inspector,
   Scene,
   ScriptListInterface
-} from '../yami'
+} from "../yami"
 
 // ******************************** 场景 - 视差图页面 ********************************
 

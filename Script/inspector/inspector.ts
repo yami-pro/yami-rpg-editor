@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -8,7 +8,7 @@ import {
   MarqueeArea,
   ParamHistory,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 检查器 ********************************
 

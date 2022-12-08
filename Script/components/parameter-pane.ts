@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Attribute,
@@ -17,7 +17,7 @@ import {
   Select,
   SelectBox,
   TextBox
-} from '../yami'
+} from "../yami"
 
 // ******************************** 脚本参数面板 ********************************
 

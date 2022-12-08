@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -8,7 +8,7 @@ import {
   Inspector,
   Scene,
   ScriptListInterface
-} from '../yami'
+} from "../yami"
 
 // ******************************** 场景 - 动画页面 ********************************
 

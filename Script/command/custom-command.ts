@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Command,
@@ -16,7 +16,7 @@ import {
   Window,
   Clipboard,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 自定义指令窗口 ********************************
 

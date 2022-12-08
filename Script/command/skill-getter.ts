@@ -1,11 +1,11 @@
-'use strict'
+"use strict"
 
 import {
   Enum,
   getElementReader,
   VariableGetter,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 技能访问器窗口 ********************************
 

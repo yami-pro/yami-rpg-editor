@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   Timer,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 菜单列表 ********************************
 

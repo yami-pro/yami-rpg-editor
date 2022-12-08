@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   IEvent,
   IHTMLElement,
   IMouseKeyboardEvent
-} from '../yami'
+} from "../yami"
 
 // ******************************** 复选框 ********************************
 

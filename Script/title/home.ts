@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Editor,
@@ -10,7 +10,7 @@ import {
   Menu,
   Path,
   Title
-} from '../yami'
+} from "../yami"
 
 // ******************************** 主页面对象 ********************************
 

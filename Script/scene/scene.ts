@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Animation,
@@ -37,7 +37,7 @@ import {
   ICSS,
   IMath,
   IObject
-} from '../yami'
+} from "../yami"
 
 // ******************************** 场景窗口 ********************************
 

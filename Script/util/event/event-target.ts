@@ -1,7 +1,9 @@
-'use strict'
+"use strict"
 
-import { IMouseEvent } from "./mouse-event"
-import { IHTMLElement } from "../element/html-element"
+import {
+  IMouseEvent,
+  IHTMLElement
+} from "../../yami"
 
 // ******************************** 事件目标方法 ********************************
 

@@ -1,3 +1,3 @@
-'use strict'
+"use strict"
 
-import './config'
+export * from "./config"

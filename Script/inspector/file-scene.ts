@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Codec,
@@ -9,7 +9,7 @@ import {
   Inspector,
   Scene,
   ScriptListInterface
-} from '../yami'
+} from "../yami"
 
 // ******************************** 文件 - 场景页面 ********************************
 

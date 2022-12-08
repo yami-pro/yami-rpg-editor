@@ -1,6 +1,6 @@
-'use strict'
+"use strict"
 
-import { AudioManager } from '../yami'
+import { AudioManager } from "../yami"
 
 // ******************************** 混响类 ********************************
 

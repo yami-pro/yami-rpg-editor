@@ -1,16 +1,19 @@
-'use strict'
+"use strict"
 
-import { window } from '../global'
-import { IPointerEvent } from '../event/pointer-event'
-import { EventTarget_ext } from '../event/event-target'
-import { IMouseEvent } from '../event/mouse-event'
-import { Cursor } from '../cursor'
-import { Timer } from '../timer'
-import { TimerManager } from '../timer'
-import { IFunction } from '../function'
-import { ScrollBarManager } from '../../components/component-managers'
-import { commandsData } from '../array'
-import { IArray } from '../array'
+import {
+  window,
+  IPointerEvent,
+  EventTarget_ext,
+  IMouseEvent,
+  Cursor,
+  Timer,
+  TimerManager,
+  IFunction,
+  commandsData,
+  IArray,
+  ScrollBarManager,
+  FolderItem
+} from "../../yami"
 
 // ******************************** 声明 ********************************
 
@@ -26,6 +29,24 @@ interface HTMLElement_components_ext {
   enabled: boolean
 
   updaters: IArray<any>
+
+  range: Uint32Array
+  path: string
+  file: FolderItem
+  versionId: number
+  count: number
+  itemSize: number
+  visibleLines: number
+  normalCountPerLine: number
+  scrollCountPerLine: number
+  scrollCount: number
+  countPerLine: number
+  changed: boolean
+
+  fileIcon: IHTMLElement
+  nameBox: IHTMLElement
+
+  isImageChanged: () => boolean
 }
 
 interface HTMLElement_object_ext {

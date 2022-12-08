@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Data,
@@ -11,7 +11,7 @@ import {
   UI,
   Window,
   IMath
-} from '../yami'
+} from "../yami"
 
 // ******************************** 拾色器窗口 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Attribute,
@@ -9,7 +9,7 @@ import {
   Inspector,
   SelectBox,
   Window
-} from '../yami'
+} from "../yami"
 
 // ******************************** 属性列表接口 ********************************
 

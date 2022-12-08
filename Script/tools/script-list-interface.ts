@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import {
   Browser,
@@ -8,7 +8,7 @@ import {
   TreeList,
   PluginManager,
   Selector
-} from '../yami'
+} from "../yami"
 
 // ******************************** 脚本列表接口 ********************************
 

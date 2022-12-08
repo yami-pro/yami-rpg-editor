@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   ImageTexture,
   UI
-} from '../yami'
+} from "../yami"
 
 // ******************************** 图像元素 ********************************
 

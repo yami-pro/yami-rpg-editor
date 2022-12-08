@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   Scene
-} from '../yami'
+} from "../yami"
 
 // ******************************** 编解码器 ********************************
 // undefined按位运算等价于0, 因此不会产生NaN

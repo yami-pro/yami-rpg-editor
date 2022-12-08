@@ -1,19 +1,22 @@
-'use strict'
+"use strict"
 
-import { commandsData } from '../util/array'
-import { window } from '../util/global'
-import { Command } from '../command/command'
-import { CommandHistory } from '../history/command-history'
-import { CommonList } from './common-list'
-import { ctrl } from '../util/ctrl'
-import { Local } from '../tools/local'
-import { Menu } from './menu-list'
-import { WindowFrame } from './window-frame'
-import { Clipboard } from '../util/clipboard'
-import { IArray } from '../util/array'
-import { IMath } from '../util/math'
-import { IHTMLElement } from '../util/element/html-element'
-import { IMouseKeyboardEvent } from '../util/event/mouse-keyboard-event'
+import {
+  CommonList,
+  Menu,
+  WindowFrame,
+  window,
+  document,
+  commandsData,
+  ctrl,
+  Clipboard,
+  IArray,
+  IMath,
+  IHTMLElement,
+  IMouseKeyboardEvent,
+  Command,
+  CommandHistory,
+  Local
+} from "../yami"
 
 // ******************************** 指令列表 ********************************
 
@@ -202,7 +205,7 @@ class CommandList extends IHTMLElement {
       // 创建列表项
       let li
       let color
-      li = <IHTMLElement>document.createElement('command-item')
+      li = document.createElement('command-item')
       li.contents = IArray.empty()
       li.dataKey = true
       li.dataList = commands
@@ -231,7 +234,7 @@ class CommandList extends IHTMLElement {
 
         // 换行
         if (content.break !== undefined) {
-          li = <IHTMLElement>document.createElement('command-item')
+          li = document.createElement('command-item')
           li.contents = IArray.empty()
           li.dataKey = false
           li.dataList = commands
@@ -258,7 +261,7 @@ class CommandList extends IHTMLElement {
           buffer.push(children)
 
           if (i < length) {
-            li = <IHTMLElement>document.createElement('command-item')
+            li = document.createElement('command-item')
             li.contents = IArray.empty()
             li.dataKey = false
             li.dataList = commands
@@ -367,7 +370,7 @@ class CommandList extends IHTMLElement {
     let blank = commands.blank
     if (blank === undefined || blank === null) {
       // 创建列表项
-      blank = <IHTMLElement>document.createElement('command-item')
+      blank = document.createElement('command-item')
 
       // 设置元素属性
       blank.contents = IArray.empty()

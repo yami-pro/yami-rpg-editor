@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   Title,
   IFunction
-} from '../yami'
+} from "../yami"
 
 // ******************************** 标签栏 ********************************
 

@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 import './animation.css'
 import { createElement } from '../vhtml/index'

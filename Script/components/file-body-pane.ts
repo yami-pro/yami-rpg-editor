@@ -1,38 +1,47 @@
-'use strict'
+"use strict"
 
 import {
+  Menu,
+  TextBox,
+  browserLinks,
+  FileBrowser,
+  FileHeadPane,
+  FileNavPane,
   Data,
   Directory,
-  Editor,
   File,
   FileItem,
   FolderItem,
   FSP,
-  Local,
-  Menu,
   Path,
-  TextBox,
-  Timer,
+  Editor,
+  Local,
   Window,
+  document,
+  Timer,
   ICSS,
-  IMath
-} from '../yami'
+  IMath,
+  IHTMLElement,
+  IArray,
+  IFunction
+} from "../yami"
 
 // ******************************** 文件主体面板 ********************************
 
-class FileBodyPane extends HTMLElement {
-  viewIndex             //:number
-  viewMode              //:string
-  timer                 //:object
-  elements              //:array
-  selections            //:array
-  content               //:element
-  pressing              //:function
-  openEventEnabled      //:boolean
-  selectEventEnabled    //:boolean
-  unselectEventEnabled  //:boolean
-  popupEventEnabled     //:boolean
-  textBox               //:element
+class FileBodyPane extends IHTMLElement {
+  viewIndex: number | null
+  viewMode: string | null
+  timer: Timer
+  elements: IArray<IHTMLElement>
+  selections: IArray<IHTMLElement>
+  content: IHTMLElement
+  pressing: ((event: any) => void) | null
+  openEventEnabled: boolean
+  selectEventEnabled: boolean
+  unselectEventEnabled: boolean
+  popupEventEnabled: boolean
+  textBox: TextBox
+  links: browserLinks
 
   constructor() {
     super()
@@ -40,6 +49,7 @@ class FileBodyPane extends HTMLElement {
     // 创建重命名计时器
     const timer = new Timer({
       duration: 500,
+      update: IFunction.empty,
       callback: timer => {
         const files = this.selections
         if (files.length === 1) {
@@ -53,6 +63,7 @@ class FileBodyPane extends HTMLElement {
         }
         timer.target = null
         timer.running = false
+        return true
       },
     })
 
@@ -60,12 +71,12 @@ class FileBodyPane extends HTMLElement {
     this.viewIndex = null
     this.viewMode = null
     this.timer = timer
-    this.elements = []
+    this.elements = IArray.empty()
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1
     this.elements.end = -1
-    this.selections = []
+    this.selections = IArray.empty()
     this.content = document.createElement('file-body-content')
     this.content.tabIndex = 0
     this.content.range = new Uint32Array(2)
@@ -99,12 +110,12 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 设置视图索引
-  setViewIndex(viewIndex) {
+  setViewIndex(viewIndex: number) {
     viewIndex = IMath.clamp(viewIndex, 0, 4)
     if (this.viewIndex !== viewIndex) {
       const {head} = this.links
-      this.viewIndex = viewIndex
-      head.view.write(viewIndex)
+      this.viewIndex = viewIndex;
+      (<FileHeadPane>head).view.write(viewIndex)
       this.updateViewMode()
     }
   }
@@ -121,8 +132,8 @@ class FileBodyPane extends HTMLElement {
     }
     if (this.viewMode !== viewMode) {
       viewMode === 'list'
-      ? this.addClass('horizontal')
-      : this.removeClass('horizontal')
+        ? this.addClass('horizontal')
+        : this.removeClass('horizontal')
       this.content.removeClass(this.viewMode)
       this.content.addClass(viewMode)
       this.resetContentStyle()
@@ -136,8 +147,8 @@ class FileBodyPane extends HTMLElement {
   // 获取文件
   getFiles() {
     const {browser, nav} = this.links
-    const folders = nav.selections
-    const filters = browser.filters
+    const folders = (<FileNavPane>nav).selections
+    const filters = (<FileBrowser>browser).filters
     if (!filters) {
       let length = 0
       for (const folder of folders) {
@@ -171,7 +182,7 @@ class FileBodyPane extends HTMLElement {
     elements.count = 0
 
     // 创建列表项目
-    const {browser} = this.links
+    const browser = <FileBrowser>this.links.browser
     switch (browser.display) {
       case 'normal':
         this.createFlatItems(this.getFiles())
@@ -213,7 +224,7 @@ class FileBodyPane extends HTMLElement {
       const nodes = content.childNodes
       const last = nodes.length - 1
       for (let i = last; i >= 0; i--) {
-        const element = nodes[i]
+        const element = <IHTMLElement>nodes[i]
         if (element.versionId !== versionId) {
           element.remove()
         }
@@ -277,7 +288,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 计算平铺网格属性
-  computeTileGridProperties(width, height) {
+  computeTileGridProperties(width: number, height: number) {
     const {content} = this
     const PADDING = 4
     const GAP = 2
@@ -368,7 +379,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 在重新调整时更新
-  updateOnResize(element) {
+  updateOnResize(element: IHTMLElement) {
     if (element.changed) {
       element.changed = false
       const {file} = element
@@ -426,7 +437,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 更新文件夹元素
-  updateFolderElement(element) {
+  updateFolderElement(element: IHTMLElement) {
     if (!element.nameBox) {
       // 创建文件夹图标
       const fileIcon = document.createElement('file-body-icon')
@@ -461,7 +472,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 更新文件元素
-  updateFileElement(element) {
+  updateFileElement(element: IHTMLElement) {
     const {file} = element
     if (!element.nameBox) {
       // 创建文件图标
@@ -594,7 +605,7 @@ class FileBodyPane extends HTMLElement {
         icon.textContent = file.extname.slice(1)
         break
     }
-    return icon
+    return <IHTMLElement>icon
   }
 
   // 更新图标

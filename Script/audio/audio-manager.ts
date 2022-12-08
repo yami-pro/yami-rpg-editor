@@ -1,9 +1,9 @@
-'use strict'
+"use strict"
 
 import {
   File,
   AudioPlayer
-} from '../yami'
+} from "../yami"
 
 // ******************************** 音频管理器 ********************************
 

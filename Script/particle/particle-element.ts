@@ -1,10 +1,10 @@
-'use strict'
+"use strict"
 
 import {
   GL,
   Particle,
   IFunction
-} from '../yami'
+} from "../yami"
 
 // ******************************** 粒子元素类 ********************************
 
