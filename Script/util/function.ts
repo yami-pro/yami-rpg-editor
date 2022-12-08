@@ -14,4 +14,7 @@ const IFunction = <IFunction>functionObject
 
 IFunction.empty = () => {}
 
-export { IFunction, emptyFunc }
+export {
+  IFunction,
+  emptyFunc
+}

@@ -27,4 +27,7 @@ prototype.disable = function () {
   }
 }
 
-export { IHTMLButtonElement, HTMLButtonElement_ext }
+export {
+  IHTMLButtonElement,
+  HTMLButtonElement_ext
+}

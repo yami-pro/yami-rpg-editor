@@ -71,4 +71,8 @@ ICSS.supports = CSS.supports
 // 全局声明 CSS选择器
 declare global { var $: (selector: string) => selectorVar }
 
-export { $, ICSS, selectorVar }
+export {
+  $,
+  ICSS,
+  selectorVar
+}

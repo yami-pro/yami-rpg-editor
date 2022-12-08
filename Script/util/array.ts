@@ -84,4 +84,7 @@ Object.defineProperty(prototype, 'remove', {
   }
 })
 
-export { IArray, commandsData }
+export {
+  IArray,
+  commandsData
+}

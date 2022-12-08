@@ -518,4 +518,7 @@ customElements.define('file-browser', FileBrowser)
 
 // ******************************** 文件浏览器导出 ********************************
 
-export { FileBrowser, browserLinks }
+export {
+  FileBrowser,
+  browserLinks
+}

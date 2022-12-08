@@ -367,5 +367,7 @@ const Select = new SelectList()
 
 // ******************************** 选择列表导出 ********************************
 
-export { SelectList }
-export { Select }
+export {
+  SelectList,
+  Select
+}

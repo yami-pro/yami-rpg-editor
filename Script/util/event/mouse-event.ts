@@ -55,4 +55,7 @@ prototype.getRelativeCoords = function IIFE() {
   }
 }()
 
-export { IMouseEvent, MouseEvent_ext }
+export {
+  IMouseEvent,
+  MouseEvent_ext
+}

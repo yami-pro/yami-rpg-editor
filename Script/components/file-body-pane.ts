@@ -134,8 +134,12 @@ class FileBodyPane extends IHTMLElement {
       viewMode === 'list'
         ? this.addClass('horizontal')
         : this.removeClass('horizontal')
-      this.content.removeClass(this.viewMode)
-      this.content.addClass(viewMode)
+      if (this.viewMode !== null) {
+        this.content.removeClass(this.viewMode)
+      }
+      if (viewMode !== null) {
+        this.content.addClass(viewMode)
+      }
       this.resetContentStyle()
       this.viewMode = viewMode
       this.computeGridProperties()

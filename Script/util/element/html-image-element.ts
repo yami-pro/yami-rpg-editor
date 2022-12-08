@@ -15,4 +15,7 @@ const imagePrototype = <IHTMLImageElement>HTMLImageElement.prototype
 // 元素方法 - 唯一标识符
 imagePrototype.guid = null
 
-export { IHTMLImageElement, HTMLImageElement_ext }
+export {
+  IHTMLImageElement,
+  HTMLImageElement_ext
+}

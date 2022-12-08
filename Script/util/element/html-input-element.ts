@@ -36,4 +36,7 @@ inputPrototype.getFocus = function (mode = null) {
   })
 }
 
-export { IHTMLInputElement, HTMLInputElement_ext }
+export {
+  IHTMLInputElement,
+  HTMLInputElement_ext
+}

@@ -628,4 +628,8 @@ type scrollUpdaterVar = (() => void) | null
 const elementObject = <Object>HTMLElement
 const IHTMLElement =<{prototype: IHTMLElement; new(): IHTMLElement}>elementObject
 
-export { IHTMLElement, HTMLElement_ext, HTMLElement_scroll_ext }
+export {
+  IHTMLElement,
+  HTMLElement_ext,
+  HTMLElement_scroll_ext
+}

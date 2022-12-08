@@ -75,4 +75,7 @@ prototype.off = function (type, listener, options) {
   }
 }
 
-export { IEventTarget, EventTarget_ext }
+export {
+  IEventTarget,
+  EventTarget_ext
+}

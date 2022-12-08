@@ -13,4 +13,7 @@ const prototype = <IEvent>Event.prototype
 prototype.value = null
 prototype.mode = null
 
-export { IEvent, Event_ext }
+export {
+  IEvent,
+  Event_ext
+}

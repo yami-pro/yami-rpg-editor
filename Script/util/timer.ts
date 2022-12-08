@@ -260,4 +260,7 @@ TimerManager.removeUpdater = function (key, updater) {
 
 // ******************************** 计时器类导出 ********************************
 
-export { Timer, TimerManager }
+export {
+  Timer,
+  TimerManager
+}
