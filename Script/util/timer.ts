@@ -12,11 +12,11 @@ import {
 interface ITimer {
   timers: IArray<Timer>
   updaters: {
-    stageAnimation: updaterFunc | null
-    stageRendering: updaterFunc | null
-    sharedAnimation: updaterFunc | null
-    sharedRendering: updaterFunc | null
-    sharedRendering2: updaterFunc | null
+    stageAnimation: Timer_updater_func | null
+    stageRendering: Timer_updater_func | null
+    sharedAnimation: Timer_updater_func | null
+    sharedRendering: Timer_updater_func | null
+    sharedRendering2: Timer_updater_func | null
   }
   timestamp: number
   deltaTime: number
@@ -30,8 +30,8 @@ interface ITimer {
   start(timestamp: number): void
   update(timestamp: number): void
   play(): void
-  appendUpdater(key: updaterKey, updater: updaterFunc): void
-  removeUpdater(key: updaterKey, updater: updaterFunc): void
+  appendUpdater(key: Timer_updater_key, updater: Timer_updater_func): void
+  removeUpdater(key: Timer_updater_key, updater: Timer_updater_func): void
 }
 
 type Timer_update_func = (timer: Timer) => boolean
@@ -97,8 +97,8 @@ class Timer {
   }
 }
 
-type updaterFunc = (deltaTime: number) => void
-type updaterKey = 'stageAnimation' |
+type Timer_updater_func = (deltaTime: number) => void
+type Timer_updater_key = 'stageAnimation' |
                   'stageRendering' |
                   'sharedAnimation' |
                   'sharedRendering' |
