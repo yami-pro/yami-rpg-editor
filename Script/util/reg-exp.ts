@@ -6,8 +6,8 @@ interface IRegExp extends RegExp {
   number: IRegExp
 }
 
-const regExpObject = <Object>RegExp
-const IRegExp = <IRegExp>regExpObject
+const RegExp_as_obj = <Object>RegExp
+const IRegExp = <IRegExp>RegExp_as_obj
 
 // 静态属性 - 数字表达式
 IRegExp.number = <IRegExp>/^-?\d+(?:\.\d+)?$/

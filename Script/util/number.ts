@@ -7,8 +7,8 @@ interface INumber extends Number {
   padZero: (number: number, length: number, padString?: string | undefined) => string
 }
 
-const numberObject = <Object>Number
-const INumber = <INumber>numberObject
+const Number_as_obj = <Object>Number
+const INumber = <INumber>Number_as_obj
 
 // 数字静态方法 - 计算索引位数
 INumber.computeIndexDigits = function (length) {

@@ -34,8 +34,8 @@ interface IArray<T> extends Array<T>, Array_ext {}
 
 // ******************************** 静态数组方法 ********************************
 
-const arrayObject = <Object>Array
-const IArray = <Array_ext>arrayObject
+const Array_as_obj = <Object>Array
+const IArray = <Array_ext>Array_as_obj
 
 // 空数组
 IArray.empty = function <T>() {
@@ -56,8 +56,8 @@ IArray.subtract = function <T>(a: T[], b: T[]) {
 
 // ******************************** 数组方法 ********************************
 
-const prototypeObject = <Object>Array.prototype
-const prototype = <Array_ext>prototypeObject
+const prototype_as_obj = <Object>Array.prototype
+const prototype = <Array_ext>prototype_as_obj
 
 // 数组方法 - 添加
 Object.defineProperty(prototype, 'append', {

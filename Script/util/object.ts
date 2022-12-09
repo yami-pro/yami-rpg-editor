@@ -7,8 +7,8 @@ interface IObject extends Object {
   clone(object: any): any
 }
 
-const object = <Object>Object
-const IObject = <IObject>object
+const Object_as_obj = <Object>Object
+const IObject = <IObject>Object_as_obj
 
 // 对象静态属性 - 空对象
 IObject.empty = () => { return {} }

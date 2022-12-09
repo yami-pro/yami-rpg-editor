@@ -110,8 +110,8 @@ interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_
 
 // ******************************** 元素扩展 ********************************
 
-const prototypeObject = <Object>HTMLElement.prototype
-const prototype = <IHTMLElement>prototypeObject
+const prototype_as_obj = <Object>HTMLElement.prototype
+const prototype = <IHTMLElement>prototype_as_obj
 
 // 元素方法 - 读取数据
 prototype.read = function () {
@@ -616,8 +616,8 @@ type scrollUpdaterVar = (() => void) | null
   }
 }
 
-const elementObject = <Object>HTMLElement
-const IHTMLElement =<{prototype: IHTMLElement; new(): IHTMLElement}>elementObject
+const HTMLElement_as_obj = <Object>HTMLElement
+const IHTMLElement =<{prototype: IHTMLElement; new(): IHTMLElement}>HTMLElement_as_obj
 
 export {
   IHTMLElement,

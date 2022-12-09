@@ -14,8 +14,8 @@ interface PointerEventExt extends MouseEvent_ext {
 
 interface IPointerEvent extends PointerEvent, PointerEventExt {}
 
-const prototypeObject = <Object>PointerEvent.prototype
-const prototype = <IPointerEvent>prototypeObject
+const prototype_as_obj = <Object>PointerEvent.prototype
+const prototype = <IPointerEvent>prototype_as_obj
 prototype.scrollLeft = 0
 prototype.scrollTop = 0
 

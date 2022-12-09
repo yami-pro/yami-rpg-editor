@@ -79,8 +79,8 @@ interface NodeList_ext {
 
 interface INodeList extends NodeList, NodeList_ext {}
 
-const prototypeObject = <Object>NodeList.prototype
-const prototype = <INodeList>prototypeObject
+const prototype_as_obj = <Object>NodeList.prototype
+const prototype = <INodeList>prototype_as_obj
 
 // 节点列表 - 添加事件
 prototype.on = function (this: INodeList, type, listener, options) {

@@ -278,8 +278,8 @@ let GL: IWebGL2RenderingContext
     }
 
     // 转换到WebGL2
-    const GL1Object = <Object>GL1
-    GL = <IWebGL2RenderingContext>GL1Object
+    const GL1_as_obj = <Object>GL1
+    GL = <IWebGL2RenderingContext>GL1_as_obj
   }
 
   // 获取失去上下文扩展
