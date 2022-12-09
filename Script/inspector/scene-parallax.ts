@@ -90,7 +90,7 @@ SceneParallax.initialize = function () {
   elements.on('blur', Inspector.inputBlur(this, Scene))
   sliders.on('focus', Inspector.sliderFocus)
   sliders.on('blur', Inspector.sliderBlur)
-  $('#sceneParallax-conditions, #sceneParallax-events, #sceneParallax-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#sceneParallax-conditions, #sceneParallax-events, #sceneParallax-scripts').on('change', Scene.listChange)
 }
 
 // 创建视差图

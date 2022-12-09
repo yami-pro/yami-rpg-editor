@@ -87,11 +87,11 @@ UIText.initialize = function () {
   ])
 
   // 侦听事件
-  const elements = $(`#uiText-direction, #uiText-horizontalAlign, #uiText-verticalAlign,
+  const elements = document.querySelectorAll(`#uiText-direction, #uiText-horizontalAlign, #uiText-verticalAlign,
     #uiText-content, #uiText-size, #uiText-lineSpacing, #uiText-letterSpacing, #uiText-color, #uiText-font,
     #uiText-typeface, #uiText-effect-type, #uiText-effect-shadowOffsetX, #uiText-effect-shadowOffsetY,
     #uiText-effect-strokeWidth, #uiText-effect-color, #uiText-overflow, #uiText-blend`)
-  const sliders = $('#uiText-size-slider, #uiText-lineSpacing-slider, #uiText-letterSpacing-slider')
+  const sliders = document.querySelectorAll('#uiText-size-slider, #uiText-lineSpacing-slider, #uiText-letterSpacing-slider')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, UI))

@@ -56,7 +56,7 @@ ImageClip.initialize = function () {
   this.screen.on('keydown', this.screenKeydown)
   this.marquee.on('pointerdown', this.marqueePointerdown)
   this.marquee.on('doubleclick', this.marqueeDoubleclick)
-  $('#imageClip-x, #imageClip-y, #imageClip-width, #imageClip-height').on('input', this.paramInput)
+  document.querySelectorAll('#imageClip-x, #imageClip-y, #imageClip-width, #imageClip-height').on('input', this.paramInput)
   $('#imageClip-confirm').on('click', this.confirm)
 }
 

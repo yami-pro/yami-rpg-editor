@@ -40,7 +40,7 @@ Home.initialize = function () {
 
 // 解析最近的项目
 Home.parseRecentProjects = function () {
-  const nodes = $('.home-recent-item')
+  const nodes = document.querySelectorAll('.home-recent-item')
   const items = Editor.config.recent
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i].clear()
@@ -178,7 +178,7 @@ Home.parseRecentProjects = function () {
 
 // 移除最近的项目
 Home.removeRecentProject = function (index) {
-  const nodes = $('.home-recent-item')
+  const nodes = document.querySelectorAll('.home-recent-item')
   const items = Editor.config.recent
   const item = items[index]
   const node = nodes[index]

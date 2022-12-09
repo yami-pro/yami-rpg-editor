@@ -111,7 +111,7 @@ Project.initialize = function () {
   $('#project-settings').on('closed', this.windowClosed)
   $('#project-settings').on('change', this.dataChange)
   $('#project-confirm').on('click', this.confirm)
-  $(`#config-window-title, #config-window-width, #config-window-height,
+  document.querySelectorAll(`#config-window-title, #config-window-width, #config-window-height,
     #config-window-display, #config-resolution-width, #config-resolution-height,
     #config-scene-padding, #config-scene-animationInterval,
     #config-tileArea-expansionTop, #config-tileArea-expansionLeft,

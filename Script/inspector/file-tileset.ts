@@ -29,10 +29,10 @@ const FileTileset = {
 // 初始化
 FileTileset.initialize = function () {
   // 侦听事件
-  $(`#fileTileset-image, #fileTileset-tileWidth, #fileTileset-tileHeight,
+  document.querySelectorAll(`#fileTileset-image, #fileTileset-tileWidth, #fileTileset-tileHeight,
     #fileTileset-globalOffsetX, #fileTileset-globalOffsetY,
     #fileTileset-globalPriority`).on('input', this.paramInput)
-  $('#fileTileset-width, #fileTileset-height').on('change', this.paramInput)
+  document.querySelectorAll('#fileTileset-width, #fileTileset-height').on('change', this.paramInput)
 
   // 初始化调色板
   Palette.initialize()

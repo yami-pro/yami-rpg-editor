@@ -102,7 +102,7 @@ SceneLight.initialize = function () {
   elements.on('blur', Inspector.inputBlur(this, Scene))
   sliders.on('focus', Inspector.sliderFocus)
   sliders.on('blur', Inspector.sliderBlur)
-  $('#sceneLight-conditions, #sceneLight-events, #sceneLight-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#sceneLight-conditions, #sceneLight-events, #sceneLight-scripts').on('change', Scene.listChange)
 }
 
 // 创建光源

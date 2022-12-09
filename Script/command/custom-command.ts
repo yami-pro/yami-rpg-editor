@@ -91,7 +91,7 @@ CustomCommand.initialize = function () {
   list.on('popup', this.listPopup)
   list.on('open', this.listOpen)
   list.on('pointerdown', ScriptListInterface.listPointerdown)
-  $('#command-alias, #command-keywords').on('input', this.paramInput)
+  document.querySelectorAll('#command-alias, #command-keywords').on('input', this.paramInput)
   $('#command-confirm').on('click', this.confirm)
   $('#command-apply').on('click', this.apply)
 }

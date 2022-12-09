@@ -28,7 +28,7 @@ const AnimJointFrame = {
 // 初始化
 AnimJointFrame.initialize = function () {
   // 侦听事件
-  const elements = $(`#animJointFrame-x, #animJointFrame-y, #animJointFrame-rotation,
+  const elements = document.querySelectorAll(`#animJointFrame-x, #animJointFrame-y, #animJointFrame-rotation,
     #animJointFrame-scaleX, #animJointFrame-scaleY, #animJointFrame-opacity`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)

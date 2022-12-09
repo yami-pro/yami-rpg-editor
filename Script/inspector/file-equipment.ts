@@ -43,8 +43,8 @@ FileEquipment.initialize = function () {
   $('#fileEquipment-parameter-pane').bind($('#fileEquipment-scripts'))
 
   // 侦听事件
-  $('#fileEquipment-icon, #fileEquipment-clip').on('input', this.paramInput)
-  $('#fileEquipment-attributes, #fileEquipment-events, #fileEquipment-scripts').on('change', this.listChange)
+  document.querySelectorAll('#fileEquipment-icon, #fileEquipment-clip').on('input', this.paramInput)
+  document.querySelectorAll('#fileEquipment-attributes, #fileEquipment-events, #fileEquipment-scripts').on('change', this.listChange)
 }
 
 // 创建装备

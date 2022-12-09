@@ -265,7 +265,7 @@ Title.askWhetherToSave = function (callback) {
 
 // 更新标题名称
 Title.updateTitleName = function IIFE() {
-  const title = $('title')[0]
+  const title = document.querySelectorAll('title')[0]
   return function () {
     let text = 'Yami RPG Editor'
     if (Editor.state === 'open') {

@@ -32,7 +32,7 @@ AnimParticleLayer.initialize = function () {
   ])
 
   // 侦听事件
-  const elements = $('#animParticleLayer-particleId, #animParticleLayer-angle')
+  const elements = document.querySelectorAll('#animParticleLayer-particleId, #animParticleLayer-angle')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(

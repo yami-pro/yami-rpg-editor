@@ -72,11 +72,11 @@ UIDialogBox.initialize = function () {
   ])
 
   // 侦听事件
-  const elements = $(`#uiDialogBox-content, #uiDialogBox-interval, #uiDialogBox-size,
+  const elements = document.querySelectorAll(`#uiDialogBox-content, #uiDialogBox-interval, #uiDialogBox-size,
     #uiDialogBox-lineSpacing, #uiDialogBox-letterSpacing, #uiDialogBox-color, #uiDialogBox-font,
     #uiDialogBox-typeface, #uiDialogBox-effect-type, #uiDialogBox-effect-shadowOffsetX, #uiDialogBox-effect-shadowOffsetY,
     #uiDialogBox-effect-strokeWidth, #uiDialogBox-effect-color, #uiDialogBox-blend`)
-  const sliders = $('#uiDialogBox-size-slider, #uiDialogBox-lineSpacing-slider, #uiDialogBox-letterSpacing-slider')
+  const sliders = document.querySelectorAll('#uiDialogBox-size-slider, #uiDialogBox-lineSpacing-slider, #uiDialogBox-letterSpacing-slider')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, UI))

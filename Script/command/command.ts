@@ -3466,7 +3466,7 @@ Command.cases.tintImage = {
     })
 
     // 写入滤镜框 - 色调输入框输入事件
-    $('#tintImage-mode, #tintImage-tint-0, #tintImage-tint-1, #tintImage-tint-2, #tintImage-tint-3')
+    document.querySelectorAll('#tintImage-mode, #tintImage-tint-0, #tintImage-tint-1, #tintImage-tint-2, #tintImage-tint-3')
     .on('input', function (event) {
       const tint = [0, 0, 0, 0]
       const read = getElementReader('tintImage')
@@ -7572,7 +7572,7 @@ Command.cases.tintScreen = {
     })
 
     // 写入滤镜框 - 色调输入框输入事件
-    $('#tintScreen-tint-0, #tintScreen-tint-1, #tintScreen-tint-2, #tintScreen-tint-3')
+    document.querySelectorAll('#tintScreen-tint-0, #tintScreen-tint-1, #tintScreen-tint-2, #tintScreen-tint-3')
     .on('input', function (event) {
       $('#tintScreen-filter').write([
         $('#tintScreen-tint-0').read(),

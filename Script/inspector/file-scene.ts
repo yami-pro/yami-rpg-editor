@@ -63,17 +63,17 @@ FileScene.initialize = function () {
   $('#fileScene-parameter-pane').bind($('#fileScene-scripts'))
 
   // 侦听事件
-  const elements = $(`#fileScene-tileWidth, #fileScene-tileHeight, #fileScene-contrast,
+  const elements = document.querySelectorAll(`#fileScene-tileWidth, #fileScene-tileHeight, #fileScene-contrast,
     #fileScene-ambient-red, #fileScene-ambient-green, #fileScene-ambient-blue`)
-  const sliders = $(`#fileScene-contrast-slider, #fileScene-ambient-red-slider,
+  const sliders = document.querySelectorAll(`#fileScene-contrast-slider, #fileScene-ambient-red-slider,
     #fileScene-ambient-green-slider, #fileScene-ambient-blue-slider`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, this.owner))
   sliders.on('focus', Inspector.sliderFocus)
   sliders.on('blur', Inspector.sliderBlur)
-  $('#fileScene-width, #fileScene-height').on('change', this.paramInput)
-  $('#fileScene-events, #fileScene-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#fileScene-width, #fileScene-height').on('change', this.paramInput)
+  document.querySelectorAll('#fileScene-events, #fileScene-scripts').on('change', Scene.listChange)
 }
 
 // 创建场景

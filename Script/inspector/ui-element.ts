@@ -52,8 +52,8 @@ UIElement.initialize = function () {
 
   // 侦听事件
   Inspector.manager.on('switch', this.pageSwitch)
-  const alignElements = $('.uiElement-transform-align')
-  const otherElements = $(`#uiElement-name, #uiElement-transform-anchorX, #uiElement-transform-anchorY,
+  const alignElements = document.querySelectorAll('.uiElement-transform-align')
+  const otherElements = document.querySelectorAll(`#uiElement-name, #uiElement-transform-anchorX, #uiElement-transform-anchorY,
     #uiElement-transform-x, #uiElement-transform-x2, #uiElement-transform-y, #uiElement-transform-y2,
     #uiElement-transform-width, #uiElement-transform-width2, #uiElement-transform-height, #uiElement-transform-height2,
     #uiElement-transform-rotation, #uiElement-transform-scaleX, #uiElement-transform-scaleY,
@@ -62,7 +62,7 @@ UIElement.initialize = function () {
   otherElements.on('input', this.paramInput)
   otherElements.on('focus', Inspector.inputFocus)
   otherElements.on('blur', Inspector.inputBlur(this, UI))
-  $('#uiElement-events, #uiElement-scripts').on('change', UI.listChange)
+  document.querySelectorAll('#uiElement-events, #uiElement-scripts').on('change', UI.listChange)
 }
 
 // 创建变换参数

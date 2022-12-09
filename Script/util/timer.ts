@@ -151,7 +151,7 @@ TimerManager.initialize = function () {
   const windowUnmaximize = (event: Event) => {
     this.animationWaiting--
   }
-  const windows = <INodeList>$('#event, #selector, #imageClip')
+  const windows = document.querySelectorAll('#event, #selector, #imageClip')
   if (windows) {
     windows.on('open', windowOpen)
     windows.on('closed', windowClosed)

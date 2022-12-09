@@ -43,8 +43,8 @@ FileState.initialize = function () {
   $('#fileState-parameter-pane').bind($('#fileState-scripts'))
 
   // 侦听事件
-  $('#fileState-icon, #fileState-clip').on('input', this.paramInput)
-  $('#fileState-attributes, #fileState-events, #fileState-scripts').on('change', this.listChange)
+  document.querySelectorAll('#fileState-icon, #fileState-clip').on('input', this.paramInput)
+  document.querySelectorAll('#fileState-attributes, #fileState-events, #fileState-scripts').on('change', this.listChange)
 }
 
 // 创建状态

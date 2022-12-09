@@ -137,7 +137,7 @@ AutoTile.initialize = function () {
   this.nodeList.on('write', this.nodesWrite)
   this.nodeList.on('popup', this.nodesPopup)
   this.nodeList.on('keydown', this.nodesKeydown)
-  $('.autoTile-neighbor').on('input', this.ruleNeighborInput)
+  document.querySelectorAll('.autoTile-neighbor').on('input', this.ruleNeighborInput)
   this.frameList.on('write', this.framesWrite)
   this.frameList.on('popup', this.framesPopup)
   this.frameList.on('keydown', this.framesKeydown)

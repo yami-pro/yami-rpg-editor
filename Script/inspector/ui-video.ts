@@ -48,7 +48,7 @@ UIVideo.initialize = function () {
   ])
 
   // 侦听事件
-  const elements = $('#uiVideo-video, #uiVideo-loop, #uiVideo-flip, #uiVideo-blend')
+  const elements = document.querySelectorAll('#uiVideo-video, #uiVideo-loop, #uiVideo-flip, #uiVideo-blend')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, UI))

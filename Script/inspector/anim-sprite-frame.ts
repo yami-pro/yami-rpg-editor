@@ -35,7 +35,7 @@ AnimSpriteFrame.initialize = function () {
   $('#animSpriteFrame-tint-3-slider').synchronize($('#animSpriteFrame-tint-3'))
 
   // 侦听事件
-  const elements = $(`#animSpriteFrame-x, #animSpriteFrame-y, #animSpriteFrame-rotation,
+  const elements = document.querySelectorAll(`#animSpriteFrame-x, #animSpriteFrame-y, #animSpriteFrame-rotation,
     #animSpriteFrame-scaleX, #animSpriteFrame-scaleY, #animSpriteFrame-opacity,
     #animSpriteFrame-tint-0, #animSpriteFrame-tint-1, #animSpriteFrame-tint-2, #animSpriteFrame-tint-3`)
   const sliders = $(`

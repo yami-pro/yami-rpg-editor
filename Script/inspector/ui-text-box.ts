@@ -54,7 +54,7 @@ UITextBox.initialize = function () {
   ])
 
   // 侦听事件
-  const elements = $(`#uiTextBox-type, #uiTextBox-align, #uiTextBox-text,
+  const elements = document.querySelectorAll(`#uiTextBox-type, #uiTextBox-align, #uiTextBox-text,
     #uiTextBox-maxLength, #uiTextBox-number, #uiTextBox-min, #uiTextBox-max,
     #uiTextBox-decimals, #uiTextBox-padding, #uiTextBox-size, #uiTextBox-font,
     #uiTextBox-color, #uiTextBox-selectionColor, #uiTextBox-selectionBgColor`)

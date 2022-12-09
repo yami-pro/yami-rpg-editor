@@ -15,7 +15,7 @@ interface ICursor {
 // 同时解决了一些元素无法继承指针样式的问题
 
 const Cursor = <ICursor>new Object()
-Cursor.region = <IHTMLElement>$('#cursor-region')
+Cursor.region = $('#cursor-region')
 
 // 打开指针样式
 Cursor.open = function (className) {

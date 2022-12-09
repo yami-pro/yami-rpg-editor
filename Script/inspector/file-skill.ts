@@ -43,8 +43,8 @@ FileSkill.initialize = function () {
   $('#fileSkill-parameter-pane').bind($('#fileSkill-scripts'))
 
   // 侦听事件
-  $('#fileSkill-icon, #fileSkill-clip').on('input', this.paramInput)
-  $('#fileSkill-attributes, #fileSkill-events, #fileSkill-scripts').on('change', this.listChange)
+  document.querySelectorAll('#fileSkill-icon, #fileSkill-clip').on('input', this.paramInput)
+  document.querySelectorAll('#fileSkill-attributes, #fileSkill-events, #fileSkill-scripts').on('change', this.listChange)
 }
 
 // 创建技能

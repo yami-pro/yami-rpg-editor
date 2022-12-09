@@ -30,7 +30,7 @@ const FileFont = {
 // 初始化
 FileFont.initialize = function () {
   // 获取预览文本元素
-  this.previews = $('.fileFont-preview')
+  this.previews = document.querySelectorAll('.fileFont-preview')
 
   // 获取输入框并设置内容
   this.input = $('#fileFont-content')

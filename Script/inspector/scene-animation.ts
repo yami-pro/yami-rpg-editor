@@ -53,7 +53,7 @@ SceneAnimation.initialize = function () {
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, Scene))
-  $('#sceneAnimation-conditions, #sceneAnimation-events, #sceneAnimation-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#sceneAnimation-conditions, #sceneAnimation-events, #sceneAnimation-scripts').on('change', Scene.listChange)
 }
 
 // 创建动画

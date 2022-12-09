@@ -43,12 +43,12 @@ SceneRegion.initialize = function () {
   $('#sceneRegion-parameter-pane').bind($('#sceneRegion-scripts'))
 
   // 侦听事件
-  const elements = $(`#sceneRegion-name, #sceneRegion-color,
+  const elements = document.querySelectorAll(`#sceneRegion-name, #sceneRegion-color,
     #sceneRegion-x, #sceneRegion-y, #sceneRegion-width, #sceneRegion-height`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, Scene))
-  $('#sceneRegion-conditions, #sceneRegion-events, #sceneRegion-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#sceneRegion-conditions, #sceneRegion-events, #sceneRegion-scripts').on('change', Scene.listChange)
 }
 
 // 创建区域

@@ -43,8 +43,8 @@ FileItem.initialize = function () {
   $('#fileItem-parameter-pane').bind($('#fileItem-scripts'))
 
   // 侦听事件
-  $('#fileItem-icon, #fileItem-clip').on('input', this.paramInput)
-  $('#fileItem-attributes, #fileItem-events, #fileItem-scripts').on('change', this.listChange)
+  document.querySelectorAll('#fileItem-icon, #fileItem-clip').on('input', this.paramInput)
+  document.querySelectorAll('#fileItem-attributes, #fileItem-events, #fileItem-scripts').on('change', this.listChange)
 }
 
 // 创建物品

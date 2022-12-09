@@ -57,7 +57,7 @@ Selection.initialize = function () {
     'color-hex': true,
     'command-searcher': true,
   }
-  for (const textbox of $('text-box')) {
+  for (const textbox of document.querySelectorAll('text-box')) {
     if (exclusions[textbox.id]) {
       continue
     }
@@ -69,7 +69,7 @@ Selection.initialize = function () {
   }
 
   // 侦听文本区域事件
-  for (const textarea of $('textarea')) {
+  for (const textarea of document.querySelectorAll('textarea')) {
     textarea.on('keydown', this.inputKeydown)
     textarea.on('keyup', this.inputKeyup)
     textarea.on('pointerdown', this.inputPointerdown)

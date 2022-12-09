@@ -109,7 +109,7 @@ FileTrigger.initialize = function () {
 
   // 侦听事件
   $('#fileTrigger-animationId').on('write', this.animationIdWrite)
-  $(`#fileTrigger-selector, #fileTrigger-onHitWalls, #fileTrigger-onHitActors,
+  document.querySelectorAll(`#fileTrigger-selector, #fileTrigger-onHitWalls, #fileTrigger-onHitActors,
     #fileTrigger-shape-type, #fileTrigger-shape-width, #fileTrigger-shape-height,
     #fileTrigger-shape-anchor, #fileTrigger-shape-radius, #fileTrigger-shape-centralAngle,
     #fileTrigger-speed, #fileTrigger-hitMode, #fileTrigger-hitInterval,
@@ -117,7 +117,7 @@ FileTrigger.initialize = function () {
     #fileTrigger-animationId, #fileTrigger-motion,
     #fileTrigger-priority, #fileTrigger-offsetY, #fileTrigger-rotatable
   `).on('input', this.paramInput)
-  $('#fileTrigger-events, #fileTrigger-scripts').on('change', this.listChange)
+  document.querySelectorAll('#fileTrigger-events, #fileTrigger-scripts').on('change', this.listChange)
 }
 
 // 创建技能

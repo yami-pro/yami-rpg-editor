@@ -40,7 +40,7 @@ AnimSpriteLayer.initialize = function () {
   ])
 
   // 侦听事件
-  const elements = $('#animSpriteLayer-sprite, #animSpriteLayer-blend, #animSpriteLayer-light')
+  const elements = document.querySelectorAll('#animSpriteLayer-sprite, #animSpriteLayer-blend, #animSpriteLayer-light')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(

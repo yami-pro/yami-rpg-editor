@@ -51,7 +51,7 @@ AnimMotion.initialize = function () {
 
   // 侦听事件
   const elMode = $('#animMotion-mode')
-  const elements = $('#animMotion-loop, #animMotion-loopStart')
+  const elements = document.querySelectorAll('#animMotion-loop, #animMotion-loopStart')
   elMode.on('input', this.paramInput)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)

@@ -46,12 +46,12 @@ SceneActor.initialize = function () {
 
   // 侦听事件
   window.on('datachange', this.datachange)
-  const elements = $(`#sceneActor-name, #sceneActor-actorId,
+  const elements = document.querySelectorAll(`#sceneActor-name, #sceneActor-actorId,
     #sceneActor-teamId, #sceneActor-x, #sceneActor-y, #sceneActor-angle`)
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, Scene))
-  $('#sceneActor-conditions, #sceneActor-events, #sceneActor-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#sceneActor-conditions, #sceneActor-events, #sceneActor-scripts').on('change', Scene.listChange)
 }
 
 // 创建角色

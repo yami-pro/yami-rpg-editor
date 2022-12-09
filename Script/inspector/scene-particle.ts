@@ -49,7 +49,7 @@ SceneParticle.initialize = function () {
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, Scene))
-  $('#sceneParticle-conditions, #sceneParticle-events, #sceneParticle-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#sceneParticle-conditions, #sceneParticle-events, #sceneParticle-scripts').on('change', Scene.listChange)
 }
 
 // 创建粒子

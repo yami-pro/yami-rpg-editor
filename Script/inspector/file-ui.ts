@@ -43,7 +43,7 @@ FileUI.initialize = function () {
   }
 
   // 侦听事件
-  const elements = $('#fileUI-width, #fileUI-height')
+  const elements = document.querySelectorAll('#fileUI-width, #fileUI-height')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(this, this.owner))

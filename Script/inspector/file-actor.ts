@@ -64,10 +64,10 @@ FileActor.initialize = function () {
 
   // 侦听事件
   $('#fileActor-animationId').on('write', this.animationIdWrite)
-  $(`#fileActor-portrait, #fileActor-clip, #fileActor-animationId,
+  document.querySelectorAll(`#fileActor-portrait, #fileActor-clip, #fileActor-animationId,
     #fileActor-idleMotion, #fileActor-moveMotion, #fileActor-speed,
     #fileActor-size, #fileActor-weight`).on('input', this.paramInput)
-  $(`#fileActor-sprites, #fileActor-attributes, #fileActor-skills, #fileActor-equipments,
+  document.querySelectorAll(`#fileActor-sprites, #fileActor-attributes, #fileActor-skills, #fileActor-equipments,
     #fileActor-events, #fileActor-scripts
   `).on('change', this.listChange)
 }

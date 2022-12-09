@@ -224,7 +224,7 @@ Easing.initialize = function () {
   list.on('open', this.listOpen)
   list.on('popup', this.listPopup)
   $('#easing-mode').on('input', this.modeSelect)
-  $(`#easing-points-0-x, #easing-points-0-y, #easing-points-1-x, #easing-points-1-y,
+  document.querySelectorAll(`#easing-points-0-x, #easing-points-0-y, #easing-points-1-x, #easing-points-1-y,
     #easing-points-2-x, #easing-points-2-y, #easing-points-3-x, #easing-points-3-y,
     #easing-points-4-x, #easing-points-4-y, #easing-points-5-x, #easing-points-5-y,
     #easing-points-6-x, #easing-points-6-y, #easing-points-7-x, #easing-points-7-y`

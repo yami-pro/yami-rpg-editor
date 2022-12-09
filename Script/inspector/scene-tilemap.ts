@@ -86,7 +86,7 @@ SceneTilemap.initialize = function () {
   $('#sceneTilemap-parameter-pane').bind($('#sceneTilemap-scripts'))
 
   // 侦听事件
-  const elements = $(`#sceneTilemap-name, #sceneTilemap-layer, #sceneTilemap-order,
+  const elements = document.querySelectorAll(`#sceneTilemap-name, #sceneTilemap-layer, #sceneTilemap-order,
     #sceneTilemap-light, #sceneTilemap-blend, #sceneTilemap-x, #sceneTilemap-y,
     #sceneTilemap-anchorX, #sceneTilemap-anchorY, #sceneTilemap-offsetX, #sceneTilemap-offsetY,
     #sceneTilemap-parallaxFactorX, #sceneTilemap-parallaxFactorY, #sceneTilemap-opacity`)
@@ -95,8 +95,8 @@ SceneTilemap.initialize = function () {
   elements.on('blur', Inspector.inputBlur(this, Scene))
   $('#sceneTilemap-layer').on('write', this.layerWrite)
   $('#sceneTilemap-layer').on('input', this.layerInput)
-  $('#sceneTilemap-width, #sceneTilemap-height').on('change', this.paramInput)
-  $('#sceneTilemap-conditions, #sceneTilemap-events, #sceneTilemap-scripts').on('change', Scene.listChange)
+  document.querySelectorAll('#sceneTilemap-width, #sceneTilemap-height').on('change', this.paramInput)
+  document.querySelectorAll('#sceneTilemap-conditions, #sceneTilemap-events, #sceneTilemap-scripts').on('change', Scene.listChange)
 }
 
 // 创建瓦片地图
