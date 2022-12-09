@@ -11,8 +11,6 @@ import {
   FolderItem,
   Path,
   Local,
-  document,
-  window,
   IHTMLElement,
   IArray,
   IFunction,

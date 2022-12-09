@@ -1,7 +1,6 @@
 "use strict"
 
 import {
-  document,
   IEvent,
   IHTMLElement,
   IMouseKeyboardEvent,

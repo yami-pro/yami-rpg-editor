@@ -1,8 +1,6 @@
 "use strict"
 
 import {
-  window,
-  document,
   BaseTexture,
   BatchRenderer,
   Data,

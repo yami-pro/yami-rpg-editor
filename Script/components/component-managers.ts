@@ -1,9 +1,6 @@
 "use strict"
 
-import {
-  document,
-  IHTMLElement
-} from "../yami"
+import { IHTMLElement } from "../yami"
 
 // ******************************** 组件管理类 ********************************
 

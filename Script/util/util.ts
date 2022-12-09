@@ -1,9 +1,6 @@
 "use strict"
 
-import {
-  window,
-  IHTMLElement
-} from "../yami"
+import { IHTMLElement } from "../yami"
 
 // ******************************** 其他 ********************************
 

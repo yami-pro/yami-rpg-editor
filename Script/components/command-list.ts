@@ -4,8 +4,6 @@ import {
   CommonList,
   Menu,
   WindowFrame,
-  window,
-  document,
   commandsData,
   ctrl,
   Clipboard,

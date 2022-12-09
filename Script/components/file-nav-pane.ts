@@ -10,8 +10,6 @@ import {
   FS,
   FSP,
   Path,
-  document,
-  window,
   IHTMLElement,
   IArray,
   Timer,

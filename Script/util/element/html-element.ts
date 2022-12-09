@@ -1,7 +1,6 @@
 "use strict"
 
 import {
-  window,
   IPointerEvent,
   EventTarget_ext,
   Element_ext,
@@ -215,7 +214,7 @@ prototype.showChildNodes = function () {
 
 // 元素方法 - 设置工具提示
 prototype.setTooltip = function IIFE() {
-  const tooltip = <IHTMLElement>$('#tooltip')
+  const tooltip = $('#tooltip')
   const capture = {capture: true}
 
   let state = 'closed'

@@ -6,8 +6,6 @@ import {
   TextBox,
   browserLinks,
   FolderItem,
-  document,
-  window,
   IHTMLElement
 } from "../yami"
 

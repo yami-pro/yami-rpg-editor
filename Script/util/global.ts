@@ -155,19 +155,10 @@ interface INodeListOf<T extends Node> extends NodeListOf<T>, NodeList_ext {}
 interface ISVGElementTagNameMap extends SVGElementTagNameMap {}
 
 interface IDocument extends Document {
-  // Creates an instance of the element for the specified tag
-  createElement<K extends keyof IHTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): IHTMLElementTagNameMap[K]
-  createElement(tagName: string, options?: ElementCreationOptions): IHTMLElement
-
   // Returns the first element that is a descendant of node that matches selectors
   querySelector<K extends keyof IHTMLElementTagNameMap>(selectors: K): IHTMLElementTagNameMap[K] | null
   querySelector<K extends keyof ISVGElementTagNameMap>(selectors: K): ISVGElementTagNameMap[K] | null
   querySelector<E extends IHTMLElement = IHTMLElement>(selectors: string): E | null;
-
-  // Returns all element descendants of node that match selectors
-  querySelectorAll<K extends keyof IHTMLElementTagNameMap>(selectors: K): INodeListOf<IHTMLElementTagNameMap[K]>
-  querySelectorAll<K extends keyof ISVGElementTagNameMap>(selectors: K): INodeListOf<ISVGElementTagNameMap[K]>
-  querySelectorAll<E extends IHTMLElement = IHTMLElement>(selectors: string): INodeListOf<E>
 }
 
 // ******************************** CSS选择器 ********************************
@@ -195,6 +186,11 @@ declare global {
     // Creates an instance of the element for the specified tag
     createElement<K extends keyof IHTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): IHTMLElementTagNameMap[K]
     createElement(tagName: string, options?: ElementCreationOptions): IHTMLElement
+
+    // Returns all element descendants of node that match selectors
+    querySelectorAll<K extends keyof IHTMLElementTagNameMap>(selectors: K): INodeListOf<IHTMLElementTagNameMap[K]>
+    querySelectorAll<K extends keyof ISVGElementTagNameMap>(selectors: K): INodeListOf<ISVGElementTagNameMap[K]>
+    querySelectorAll<E extends IHTMLElement = IHTMLElement>(selectors: string): INodeListOf<E>
   }
 }
 

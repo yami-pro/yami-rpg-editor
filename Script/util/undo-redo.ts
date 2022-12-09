@@ -1,9 +1,6 @@
 "use strict"
 
-import {
-  window,
-  IMouseKeyboardEvent
-} from "../yami"
+import { IMouseKeyboardEvent } from "../yami"
 
 // ******************************** 禁用撤销和重做 ********************************
 
