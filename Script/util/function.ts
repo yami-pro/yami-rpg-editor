@@ -3,10 +3,10 @@
 // ******************************** 函数静态方法 ********************************
 
 interface IFunction extends Function {
-  empty(): void
+  empty: () => void
 }
 
-type emptyFunc = (() => void)
+type IFunction_empty_func = (() => void)
 
 // 函数静态方法 - 空函数
 const functionObject = <Object>Function
@@ -16,5 +16,5 @@ IFunction.empty = () => {}
 
 export {
   IFunction,
-  emptyFunc
+  IFunction_empty_func
 }

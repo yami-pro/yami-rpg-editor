@@ -114,7 +114,7 @@ FileAnimation.sprites = {
   parse: function ({name, image, hframes, vframes}) {
     return [name, `${Command.parseFileName(image)} [${hframes}x${vframes}]`]
   },
-  createSpriteId: function (exclusions = IObject.empty) {
+  createSpriteId: function (exclusions = IObject.empty()) {
     let id
     do {id = GUID.generate64bit()}
     while (this.list.data.find(a => a.id === id) && exclusions[id])

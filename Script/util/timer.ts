@@ -2,7 +2,7 @@
 
 import {
   IFunction,
-  emptyFunc,
+  IFunction_empty_func,
   IHTMLElement,
   IArray
 } from "../yami"
@@ -34,8 +34,8 @@ interface ITimer {
   removeUpdater(key: updaterKey, updater: updaterFunc): void
 }
 
-type updateFunc = (timer: Timer) => boolean
-type callbackFunc = (timer: Timer) => boolean
+type Timer_update_func = (timer: Timer) => boolean
+type Timer_callback_func = (timer: Timer) => boolean
 
 const TimerManager = <ITimer>new Object()
 
@@ -47,12 +47,12 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: updateFunc | emptyFunc
-  callback: callbackFunc | emptyFunc
+  update: Timer_update_func | IFunction_empty_func
+  callback: Timer_callback_func | IFunction_empty_func
   target: IHTMLElement | null
   running: boolean
 
-  constructor(params: {duration: number, update: updateFunc | emptyFunc, callback: callbackFunc | emptyFunc}) {
+  constructor(params: {duration: number, update: Timer_update_func | IFunction_empty_func, callback: Timer_callback_func | IFunction_empty_func}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0

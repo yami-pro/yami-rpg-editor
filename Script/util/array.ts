@@ -11,12 +11,12 @@ type commandsData = {[index: string]: any}
 
 interface Array_ext {
   // 静态数组方法扩展
-  empty: <T>() => IArray<T>
-  subtract: <T>(a: T[], b: T[]) => IArray<T>
+  empty<T>(): IArray<T>
+  subtract<T>(a: T[], b: T[]): IArray<T>
 
   // 数组方法扩展
-  append: <T>(value: T) => boolean
-  remove: <T>(value: T) => boolean
+  append<T>(value: T): boolean
+  remove<T>(value: T): boolean
 
   // 属性扩展
   versionId: number

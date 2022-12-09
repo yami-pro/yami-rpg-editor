@@ -3,15 +3,15 @@
 // ******************************** 对象静态方法 ********************************
 
 interface IObject extends Object {
-  empty: {}
-  clone: (object: any) => any
+  empty(): void
+  clone(object: any): any
 }
 
 const object = <Object>Object
 const IObject = <IObject>object
 
 // 对象静态属性 - 空对象
-IObject.empty = {}
+IObject.empty = () => { return {} }
 
 // 对象静态方法 - 克隆对象
 IObject.clone = function IIFE() {

@@ -54,7 +54,7 @@ class EnumerationContext {
         }
         groupMap[key] = {
           groupName: '',
-          itemMap: IObject.empty,
+          itemMap: IObject.empty(),
           itemList: IArray.empty(),
         }
       }
