@@ -1,7 +1,5 @@
 "use strict"
 
-import { IHTMLElement } from "../yami"
-
 // ******************************** 其他 ********************************
 
 // 测量文本大小
@@ -135,7 +133,7 @@ const measureText = function IIFE() {
 // 获取元素读取器
 const getElementReader = function (prefix: string) {
   return function (suffix: string) {
-    return $(`#${prefix}-${suffix}`).read()
+    return $(`#${prefix}-${suffix}`)?.read()
   }
 }
 
@@ -151,7 +149,7 @@ const getElementWriter = function (prefix: string, bindingObject: any) {
         value = value[node]
       }
     }
-    $(`#${prefix}-${suffix}`).write(value)
+    $(`#${prefix}-${suffix}`)?.write(value)
   }
 }
 

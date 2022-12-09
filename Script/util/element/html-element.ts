@@ -237,16 +237,18 @@ prototype.setTooltip = function IIFE() {
           return
         }
         state = 'open'
-        tooltip.addClass('open')
-        tooltip.textContent = <string>target.tip
-        const {width, height} = tooltip.rect()
-        const right = window.innerWidth - width
-        const bottom = window.innerHeight - height
-        const x = Math.min(clientX + 10, right)
-        const y = Math.min(clientY + 15, bottom)
-        tooltip.style.left = `${x}px`
-        tooltip.style.top = `${y}px`
-        rect = tooltip.rect()
+        if (tooltip !== null) {
+          tooltip.addClass('open')
+          tooltip.textContent = <string>target.tip
+          const {width, height} = tooltip.rect()
+          const right = window.innerWidth - width
+          const bottom = window.innerHeight - height
+          const x = Math.min(clientX + 10, right)
+          const y = Math.min(clientY + 15, bottom)
+          tooltip.style.left = `${x}px`
+          tooltip.style.top = `${y}px`
+          rect = tooltip.rect()
+        }
       }
     }
   })
@@ -259,7 +261,7 @@ prototype.setTooltip = function IIFE() {
         state = 'closed'
         rect = null
         timer.remove()
-        tooltip.removeClass('open')
+        tooltip?.removeClass('open')
         window.off('keydown', close, capture)
         window.off('pointerdown', close, capture)
         break

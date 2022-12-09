@@ -4,7 +4,6 @@ import {
   IFunction,
   emptyFunc,
   IHTMLElement,
-  INodeList,
   IArray
 } from "../yami"
 
