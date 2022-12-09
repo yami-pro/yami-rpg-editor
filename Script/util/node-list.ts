@@ -30,7 +30,7 @@ import {
 
 // ******************************** 节点列表方法 ********************************
 
-type elementOnVar =
+type elementOn =
   CheckBox |
   ColorBox |
   CommonList |
@@ -53,7 +53,7 @@ type elementOnVar =
   TextArea |
   WindowFrame
 
-type elementEnableVar =
+type elementEnable =
   CheckBox |
   ColorBox |
   CustomBox |
@@ -69,37 +69,42 @@ type elementEnableVar =
   StringVar |
   TextArea
 
-type elementDisableVar = elementEnableVar
+type elementDisable = elementEnable
 
-interface INodeList extends NodeList {
-  on: (type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) => NodeList
+interface NodeList_ext {
+  on: (type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) => INodeList
   enable: () => void
   disable: () => void
 }
+
+interface INodeList extends NodeList, NodeList_ext {}
 
 const prototypeObject = <Object>NodeList.prototype
 const prototype = <INodeList>prototypeObject
 
 // 节点列表 - 添加事件
-prototype.on = function (this: NodeList, type, listener, options) {
-  this.forEach( (element: elementOnVar) => {
+prototype.on = function (this: INodeList, type, listener, options) {
+  this.forEach( (element: elementOn) => {
     element.on(type, listener, options)
   })
   return this
 }
 
 // 节点列表 - 启用元素
-prototype.enable = function (this: NodeList) {
-  this.forEach( (element: elementEnableVar) => {
+prototype.enable = function (this: INodeList) {
+  this.forEach( (element: elementEnable) => {
     element.enable()
   })
 }
 
 // 节点列表 - 禁用元素
-prototype.disable = function (this: NodeList) {
-  this.forEach( (element: elementDisableVar) => {
+prototype.disable = function (this: INodeList) {
+  this.forEach( (element: elementDisable) => {
     element.disable()
   })
 }
 
-export { INodeList }
+export {
+  INodeList,
+  NodeList_ext
+}

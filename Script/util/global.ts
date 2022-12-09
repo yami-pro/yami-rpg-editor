@@ -1,8 +1,6 @@
 "use strict"
 
 import {
-  $,
-  selectorVar,
   EventTarget_ext,
   IHTMLElement,
   IHTMLCanvasElement,
@@ -44,13 +42,14 @@ import {
   TextArea,
   TextBox,
   TitleBar,
-  WindowFrame
+  WindowFrame,
+  NodeList_ext
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
 
 interface IWindow extends Window, EventTarget_ext {
-  $: (selector: string) => selectorVar
+  $: typeof globalDocument.querySelector
 }
 
 interface IHTMLElementTagNameMap extends HTMLElementTagNameMap {
@@ -151,21 +150,61 @@ interface IHTMLElementTagNameMap extends HTMLElementTagNameMap {
   "window-frame": WindowFrame
 }
 
+interface INodeListOf<T extends Node> extends NodeListOf<T>, NodeList_ext {}
+
+interface ISVGElementTagNameMap extends SVGElementTagNameMap {}
+
 interface IDocument extends Document {
-  createElement<K extends keyof IHTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): IHTMLElementTagNameMap[K];
+  // Creates an instance of the element for the specified tag
+  createElement<K extends keyof IHTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): IHTMLElementTagNameMap[K]
+  createElement(tagName: string, options?: ElementCreationOptions): IHTMLElement
+
+  // Returns the first element that is a descendant of node that matches selectors
+  querySelector<K extends keyof IHTMLElementTagNameMap>(selectors: K): IHTMLElementTagNameMap[K] | null
+  querySelector<K extends keyof ISVGElementTagNameMap>(selectors: K): ISVGElementTagNameMap[K] | null
+  querySelector<E extends IHTMLElement = IHTMLElement>(selectors: string): E | null;
+
+  // Returns all element descendants of node that match selectors
+  querySelectorAll<K extends keyof IHTMLElementTagNameMap>(selectors: K): INodeListOf<IHTMLElementTagNameMap[K]>
+  querySelectorAll<K extends keyof ISVGElementTagNameMap>(selectors: K): INodeListOf<ISVGElementTagNameMap[K]>
+  querySelectorAll<E extends IHTMLElement = IHTMLElement>(selectors: string): INodeListOf<E>
+}
+
+// ******************************** CSS选择器 ********************************
+
+// const $ = function IIFE() {
+//   const regexp = /^#(\w|-)+$/
+//   return function (selector: string) {
+//     if (regexp.test(selector)) {
+//       return (<IDocument>document).querySelector(selector)
+//     } else {
+//       return (<IDocument>document).querySelectorAll(selector)
+//     }
+//   }
+// }()
+
+const objectDocument = <Object>document
+const globalDocument = <IDocument>objectDocument
+const $ = globalDocument.querySelector
+
+// ******************************** 全局唯一声明 ********************************
+declare global {
+  var $: typeof globalDocument.querySelector
+  interface Window extends EventTarget_ext {}
+  interface Document {
+    // Creates an instance of the element for the specified tag
+    createElement<K extends keyof IHTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): IHTMLElementTagNameMap[K]
+    createElement(tagName: string, options?: ElementCreationOptions): IHTMLElement
+  }
 }
 
 // ******************************** 绑定到全局对象 ********************************
 
-// window对象添加dom查询器
-const windowObject = <Object>window
-const iwindow = <IWindow>windowObject
-iwindow.$ = $
-
-const documentObject = <Object>document
-const idocument = <IDocument>documentObject
+const objectWindow = <Object>window
+const globalWindow = <IWindow>objectWindow
+globalWindow.$ = $
 
 export {
-  iwindow as window,
-  idocument as document
+  IWindow,
+  IDocument
 }

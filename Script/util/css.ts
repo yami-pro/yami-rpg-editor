@@ -1,28 +1,5 @@
 "use strict"
 
-import {
-  IHTMLElement,
-  INodeList
-} from "../yami"
-
-// ******************************** 声明 ********************************
-
-type selectorVar = IHTMLElement | INodeList | null
-
-// ******************************** CSS选择器 ********************************
-
-const $ = function IIFE() {
-  const regexp = /^#(\w|-)+$/
-  return function (selector: string) {
-    if (regexp.test(selector)) {
-      return <IHTMLElement>document.querySelector(selector)
-    } else {
-      const nodeListObject = <Object>document.querySelectorAll(selector)
-      return <INodeList>nodeListObject
-    }
-  }
-}()
-
 // ******************************** CSS静态方法 ********************************
 
 interface ICSS {
@@ -68,11 +45,4 @@ ICSS.getDevicePixelContentBoxSize = function (element) {
 ICSS.escape = CSS.escape
 ICSS.supports = CSS.supports
 
-// 全局声明 CSS选择器
-declare global { var $: (selector: string) => selectorVar }
-
-export {
-  $,
-  ICSS,
-  selectorVar
-}
+export { ICSS }

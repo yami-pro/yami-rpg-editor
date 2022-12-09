@@ -17,7 +17,6 @@ import {
   Editor,
   Local,
   Window,
-  document,
   Timer,
   ICSS,
   IMath,
