@@ -48,10 +48,6 @@ import {
 
 // ******************************** 全局对象 ********************************
 
-interface IWindow extends Window, EventTarget_ext {
-  $: typeof globalDocument.querySelector
-}
-
 interface IHTMLElementTagNameMap extends HTMLElementTagNameMap {
   "anim-dir": IHTMLElement
   "box": IHTMLElement
@@ -161,6 +157,12 @@ interface IDocument extends Document {
   querySelector<E extends IHTMLElement = IHTMLElement>(selectors: string): E | null;
 }
 
+const globalDocument = <IDocument>document
+
+interface IWindow extends Window, EventTarget_ext {
+  $: typeof globalDocument.querySelector
+}
+
 // ******************************** CSS选择器 ********************************
 
 // const $ = function IIFE() {
@@ -174,9 +176,9 @@ interface IDocument extends Document {
 //   }
 // }()
 
-const objectDocument = <Object>document
-const globalDocument = <IDocument>objectDocument
-const $ = globalDocument.querySelector
+const $ = function (selector: string) {
+  return (<IDocument>document).querySelector(selector)
+}
 
 // ******************************** 全局唯一声明 ********************************
 declare global {
