@@ -4,7 +4,7 @@ import {
   window,
   IPointerEvent,
   EventTarget_ext,
-  IMouseEvent,
+  Element_ext,
   Cursor,
   Timer,
   TimerManager,
@@ -59,7 +59,7 @@ interface HTMLElement_scroll_ext {
   removeScrollListener: () => void
 }
 
-interface HTMLElement_ext {
+interface HTMLElement_ext extends Element_ext {
   dragging: IPointerEvent | null
   dataValue: any
 
@@ -91,7 +91,6 @@ interface HTMLElement_ext {
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): void
-  isInContent(event: IMouseEvent): boolean
   dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
@@ -369,15 +368,6 @@ prototype.addSetScrollMethod = function () {
 prototype.hasScrollBar = function () {
   return this.clientWidth < this.scrollWidth ||
          this.clientHeight < this.scrollHeight
-}
-
-// 元素方法 - 判断事件坐标在内容区域上
-prototype.isInContent = function (event) {
-  const coords = event.getRelativeCoords(this)
-  const x = coords.x - this.scrollLeft
-  const y = coords.y - this.scrollTop
-  return x >= 0 && x < this.clientWidth &&
-         y >= 0 && y < this.clientHeight
 }
 
 // 元素方法 - 发送改变事件

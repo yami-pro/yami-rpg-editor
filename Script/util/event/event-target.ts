@@ -2,7 +2,7 @@
 
 import {
   IMouseEvent,
-  IHTMLElement
+  IElement
 } from "../../yami"
 
 // ******************************** 事件目标方法 ********************************
@@ -17,20 +17,20 @@ interface IEventTarget extends EventTarget, EventTarget_ext {}
 let last: IMouseEvent | null = null
 
 // 重写鼠标双击事件触发方式
-const pointerdown = function (this: IHTMLElement, event: IMouseEvent) {
+const pointerdown = function (this: IElement, event: IMouseEvent) {
   if (!event.cmdOrCtrlKey &&
-    !event.altKey &&
-    !event.shiftKey &&
-    !event.doubleclickProcessed) {
+      !event.altKey &&
+      !event.shiftKey &&
+      !event.doubleclickProcessed) {
     event.doubleclickProcessed = true
     switch (event.button) {
       case 0:
         if (last !== null &&
-          event.target === last.target &&
-          event.timeStamp - last.timeStamp < 500 &&
-          Math.abs(event.clientX - last.clientX) < 4 &&
-          Math.abs(event.clientY - last.clientY) < 4 &&
-          this.isInContent(event)) {
+            event.target === last.target &&
+            event.timeStamp - last.timeStamp < 500 &&
+            Math.abs(event.clientX - last.clientX) < 4 &&
+            Math.abs(event.clientY - last.clientY) < 4 &&
+            this.isInContent(event)) {
           if (event.target && !event.target.dispatchEvent(
             new PointerEvent('doubleclick', event))) {
             event.preventDefault()
