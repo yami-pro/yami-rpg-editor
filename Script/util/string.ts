@@ -2,12 +2,15 @@
 
 // ******************************** 字符串静态方法 ********************************
 
-interface IString extends String {
+interface StringConstructor_ext {
   compress(string: string): string
 }
 
-const String_as_obj = <Object>String
-const IString = <IString>String_as_obj
+interface IStringConstructor extends StringConstructor, StringConstructor_ext {}
+
+interface IString extends String {}
+
+const IString = <IStringConstructor>String
 
 // 字符串静态方法 - 压缩(过滤不可见字符)
 IString.compress = function IIFE() {

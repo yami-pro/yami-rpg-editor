@@ -2,12 +2,15 @@
 
 // ******************************** 正则表达式属性 ********************************
 
-interface IRegExp extends RegExp {
+interface RegExpConstructor_ext {
   number: IRegExp
 }
 
-const RegExp_as_obj = <Object>RegExp
-const IRegExp = <IRegExp>RegExp_as_obj
+interface IRegExpConstructor extends RegExpConstructor, RegExpConstructor_ext {}
+
+interface IRegExp extends RegExp {}
+
+const IRegExp = <IRegExpConstructor>RegExp
 
 // 静态属性 - 数字表达式
 IRegExp.number = <IRegExp>/^-?\d+(?:\.\d+)?$/

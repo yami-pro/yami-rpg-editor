@@ -2,13 +2,16 @@
 
 // ******************************** 对象静态方法 ********************************
 
-interface IObject extends Object {
+interface ObjectConstructor_ext {
   empty(): void
   clone(object: any): any
 }
 
-const Object_as_obj = <Object>Object
-const IObject = <IObject>Object_as_obj
+interface IObjectConstructor extends ObjectConstructor, ObjectConstructor_ext {}
+
+interface IObject extends Object {}
+
+const IObject = <IObjectConstructor>Object
 
 // 对象静态属性 - 空对象
 IObject.empty = () => { return {} }

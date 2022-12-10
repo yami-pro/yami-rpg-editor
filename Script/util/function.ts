@@ -9,8 +9,8 @@ interface IFunction extends Function {
 type IFunction_empty_func = (() => void)
 
 // 函数静态方法 - 空函数
-const Function_as_obj = <Object>Function
-const IFunction = <IFunction>Function_as_obj
+// Function 是混合类型接口, 先断言为Function类型, 再断言为IFunction类型
+const IFunction = (Function as Function) as IFunction
 
 IFunction.empty = () => {}
 

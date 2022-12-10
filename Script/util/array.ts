@@ -9,11 +9,15 @@ import {
 
 type commandsData = {[index: string]: any}
 
-interface Array_ext {
+interface ArrayConstructor_ext {
   // 静态数组方法扩展
   empty<T>(): IArray<T>
   subtract<T>(a: T[], b: T[]): IArray<T>
+}
 
+interface IArrayConstructor extends ArrayConstructor, ArrayConstructor_ext {}
+
+interface Array_ext {
   // 数组方法扩展
   append<T>(value: T): boolean
   remove<T>(value: T): boolean
@@ -34,8 +38,7 @@ interface IArray<T> extends Array<T>, Array_ext {}
 
 // ******************************** 静态数组方法 ********************************
 
-const Array_as_obj = <Object>Array
-const IArray = <Array_ext>Array_as_obj
+const IArray = <IArrayConstructor>Array
 
 // 空数组
 IArray.empty = function <T>() {
@@ -56,6 +59,7 @@ IArray.subtract = function <T>(a: T[], b: T[]) {
 
 // ******************************** 数组方法 ********************************
 
+// Array.prototype 是any[], 先断言到Object, 再断言到Array_ext
 const prototype_as_obj = <Object>Array.prototype
 const prototype = <Array_ext>prototype_as_obj
 
