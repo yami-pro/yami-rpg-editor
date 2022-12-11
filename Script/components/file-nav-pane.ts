@@ -708,6 +708,11 @@ class FileNavPane extends IHTMLElement {
 
 customElements.define('file-nav-pane', FileNavPane)
 
+interface JSXFileNavPane { [attributes: string]: any }
+
 // ******************************** 文件导航面板导出 ********************************
 
-export { FileNavPane }
+export {
+  FileNavPane,
+  JSXFileNavPane
+}

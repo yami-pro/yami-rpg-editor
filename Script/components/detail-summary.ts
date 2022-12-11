@@ -51,6 +51,11 @@ class DetailSummary extends HTMLElement {
 
 customElements.define('detail-summary', DetailSummary)
 
+interface JSXDetailSummary { [attributes: string]: any }
+
 // ******************************** 细节概要导出 ********************************
 
-export { DetailSummary }
+export {
+  DetailSummary,
+  JSXDetailSummary
+}

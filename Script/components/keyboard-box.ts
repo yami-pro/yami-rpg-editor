@@ -116,6 +116,11 @@ class KeyboardBox extends HTMLElement {
 
 customElements.define('keyboard-box', KeyboardBox)
 
+interface JSXKeyboardBox { [attributes: string]: any }
+
 // ******************************** 键盘按键框导出 ********************************
 
-export { KeyboardBox }
+export {
+  KeyboardBox,
+  JSXKeyboardBox
+}

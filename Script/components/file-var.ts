@@ -147,6 +147,11 @@ class FileVar extends HTMLElement {
 
 customElements.define('file-var', FileVar)
 
+interface JSXFileVar { [attributes: string]: any }
+
 // ******************************** 文件变量框导出 ********************************
 
-export { FileVar }
+export {
+  FileVar,
+  JSXFileVar
+}

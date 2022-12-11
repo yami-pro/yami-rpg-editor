@@ -137,6 +137,11 @@ class TextArea extends HTMLElement {
 
 customElements.define('text-area', TextArea)
 
+interface JSXTextArea { [attributes: string]: any }
+
 // ******************************** 文本区域导出 ********************************
 
-export { TextArea }
+export {
+  TextArea,
+  JSXTextArea
+}

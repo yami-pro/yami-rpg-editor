@@ -154,6 +154,11 @@ class NumberBox extends HTMLElement {
 
 customElements.define('number-box', NumberBox)
 
+interface JSXNumberBox { [attributes: string]: any }
+
 // ******************************** 数字框导出 ********************************
 
-export { NumberBox }
+export {
+  NumberBox,
+  JSXNumberBox
+}

@@ -212,6 +212,11 @@ class FileHeadPane extends IHTMLElement {
 
 customElements.define('file-head-pane', FileHeadPane)
 
+interface JSXFileHeadPane { [attributes: string]: any }
+
 // ******************************** 文件头部面板导出 ********************************
 
-export { FileHeadPane }
+export {
+  FileHeadPane,
+  JSXFileHeadPane
+}

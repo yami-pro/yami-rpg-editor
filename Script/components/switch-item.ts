@@ -77,6 +77,11 @@ class SwitchItem extends HTMLElement {
 
 customElements.define('switch-item', SwitchItem)
 
+interface JSXSwitchItem { [attributes: string]: any }
+
 // ******************************** 开关选项导出 ********************************
 
-export { SwitchItem }
+export {
+  SwitchItem,
+  JSXSwitchItem
+}

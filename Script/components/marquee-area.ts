@@ -96,6 +96,11 @@ class MarqueeArea extends HTMLElement {
 
 customElements.define('marquee-area', MarqueeArea)
 
+interface JSXMarqueeArea { [attributes: string]: any }
+
 // ******************************** 选框区域导出 ********************************
 
-export { MarqueeArea }
+export {
+  MarqueeArea,
+  JSXMarqueeArea
+}

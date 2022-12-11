@@ -110,6 +110,11 @@ class TitleBar extends HTMLElement {
 
 customElements.define('title-bar', TitleBar)
 
+interface JSXTitleBar { [attributes: string]: any }
+
 // ******************************** 标题栏导出 ********************************
 
-export { TitleBar }
+export {
+  TitleBar,
+  JSXTitleBar
+}

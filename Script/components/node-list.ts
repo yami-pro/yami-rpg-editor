@@ -1590,6 +1590,11 @@ class TreeList extends HTMLElement {
 
 customElements.define('node-list', TreeList)
 
+interface JSXTreeList { [attributes: string]: any }
+
 // ******************************** 树状列表导出 ********************************
 
-export { TreeList }
+export {
+  TreeList,
+  JSXTreeList
+}

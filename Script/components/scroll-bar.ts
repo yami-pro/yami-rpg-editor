@@ -334,6 +334,11 @@ class ScrollBar extends IHTMLElement {
 
 customElements.define('scroll-bar', ScrollBar)
 
+interface JSXScrollBar { [attributes: string]: any }
+
 // ******************************** 滚动条导出 ********************************
 
-export { ScrollBar }
+export {
+  ScrollBar,
+  JSXScrollBar
+}

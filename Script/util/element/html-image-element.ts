@@ -10,6 +10,8 @@ interface HTMLImageElement_ext extends HTMLElement_ext {
 
 interface IHTMLImageElement extends HTMLImageElement, HTMLImageElement_ext {}
 
+interface JSXHTMLImageElement { [attributes: string]: any }
+
 const imagePrototype = <IHTMLImageElement>HTMLImageElement.prototype
 
 // 元素方法 - 唯一标识符
@@ -17,5 +19,6 @@ imagePrototype.guid = null
 
 export {
   IHTMLImageElement,
-  HTMLImageElement_ext
+  HTMLImageElement_ext,
+  JSXHTMLImageElement
 }

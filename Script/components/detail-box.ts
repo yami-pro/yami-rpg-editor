@@ -71,6 +71,11 @@ class DetailBox extends HTMLElement {
 
 customElements.define('detail-box', DetailBox)
 
+interface JSXDetailBox { [attributes: string]: any }
+
 // ******************************** 细节框导出 ********************************
 
-export { DetailBox }
+export {
+  DetailBox,
+  JSXDetailBox
+}

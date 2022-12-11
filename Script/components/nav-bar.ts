@@ -119,6 +119,11 @@ class NavBar extends HTMLElement {
 
 customElements.define('nav-bar', NavBar)
 
+interface JSXNavBar { [attributes: string]: any }
+
 // ******************************** 导航栏导出 ********************************
 
-export { NavBar }
+export {
+  NavBar,
+  JSXNavBar
+}

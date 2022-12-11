@@ -362,6 +362,8 @@ class SelectList extends HTMLElement {
 
 customElements.define('select-list', SelectList)
 
+interface JSXSelectList { [attributes: string]: any }
+
 // 创建选择列表实例
 const Select = new SelectList()
 
@@ -369,5 +371,6 @@ const Select = new SelectList()
 
 export {
   SelectList,
+  JSXSelectList,
   Select
 }

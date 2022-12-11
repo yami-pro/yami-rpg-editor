@@ -78,6 +78,11 @@ class PageManager extends HTMLElement {
 
 customElements.define('page-manager', PageManager)
 
+interface JSXPageManager { [attributes: string]: any }
+
 // ******************************** 页面管理器导出 ********************************
 
-export { PageManager }
+export {
+  PageManager,
+  JSXPageManager
+}

@@ -444,6 +444,11 @@ class TabBar extends HTMLElement {
 
 customElements.define('tab-bar', TabBar)
 
+interface JSXTabBar { [attributes: string]: any }
+
 // ******************************** 标签栏导出 ********************************
 
-export { TabBar }
+export {
+  TabBar,
+  JSXTabBar
+}

@@ -44,7 +44,47 @@ import {
   TitleBar,
   WindowFrame,
   NodeList_ext,
-  JSXFileBrowser
+  JSXHTMLElement,
+  JSXCheckBox,
+  JSXColorBox,
+  JSXCommandList,
+  JSXCommonList,
+  JSXCustomBox,
+  JSXDetailBox,
+  JSXDetailSummary,
+  JSXDragAndDropHint,
+  JSXFileBodyPane,
+  JSXFileBrowser,
+  JSXFileHeadPane,
+  JSXFileNavPane,
+  JSXFileVar,
+  JSXFilterBox,
+  JSXKeyboardBox,
+  JSXMarqueeArea,
+  JSXMenuList,
+  JSXNavBar,
+  JSXTreeList,
+  JSXNumberBox,
+  JSXNumberVar,
+  JSXPageManager,
+  JSXParamList,
+  JSXParameterPane,
+  JSXRadioBox,
+  JSXRadioProxy,
+  JSXScrollBar,
+  JSXSelectBox,
+  JSXSelectList,
+  JSXSelectVar,
+  JSXSliderBox,
+  JSXStringVar,
+  JSXSwitchItem,
+  JSXTabBar,
+  JSXTextArea,
+  JSXTextBox,
+  JSXTitleBar,
+  JSXWindowFrame,
+  JSXHTMLCanvasElement,
+  JSXHTMLInputElement
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
@@ -198,7 +238,115 @@ declare global {
   }
   namespace JSX {
     interface IntrinsicElements {
+      "anim-dir": JSXHTMLElement
+      "box": JSXHTMLElement
+      "button": JSXHTMLElement
+      "canvas": JSXHTMLCanvasElement
+      "check-mark": JSXHTMLElement
+      "command-item": JSXHTMLElement
+      "command-mark-major": JSXHTMLElement
+      "command-mark-minor": JSXHTMLElement
+      "command-text": JSXHTMLElement
+      "common-item": JSXHTMLElement
+      "detail-grid": JSXHTMLElement
+      "empty": JSXHTMLElement
+      "error-counter": JSXHTMLElement
+      "file-body-content": JSXHTMLElement
+      "file-body-icon": JSXHTMLElement
+      "file-body-item": JSXHTMLElement
+      "file-body-name": JSXHTMLElement
+      "file-head-address": JSXHTMLElement
+      "file-head-address-arrow": JSXHTMLElement
+      "file-head-address-folder": JSXHTMLElement
+      "file-head-address-link": JSXHTMLElement
+      "file-head-address-text": JSXHTMLElement
+      "file-nav-icon": JSXHTMLElement
+      "file-nav-item": JSXHTMLElement
+      "folder-mark": JSXHTMLElement
+      "group": JSXHTMLElement
+      "group-border": JSXHTMLElement
+      "group-info": JSXHTMLElement
+      "group-region": JSXHTMLElement
+      "input": JSXHTMLInputElement
+      "item": JSXHTMLElement
+      "lock-icon": JSXHTMLElement
+      "menu-accelerator": JSXHTMLElement
+      "menu-checked": JSXHTMLElement
+      "menu-icon": JSXHTMLElement
+      "menu-item": JSXHTMLElement
+      "menu-label": JSXHTMLElement
+      "menu-separator": JSXHTMLElement
+      "menu-sub-mark": JSXHTMLElement
+      "nav-item": JSXHTMLElement
+      "no-drag-image": JSXHTMLElement
+      "node-icon": JSXHTMLElement
+      "node-item": JSXHTMLElement
+      "param-item": JSXHTMLElement
+      "radio-mark": JSXHTMLElement
+      "scroll-corner": JSXHTMLElement
+      "scroll-thumb": JSXHTMLElement
+      "scroll-thumb-inner": JSXHTMLElement
+      "select-item": JSXHTMLElement
+      "selection": JSXHTMLElement
+      "slider-bar": JSXHTMLElement
+      "slider-filler": JSXHTMLElement
+      "tab-close": JSXHTMLElement
+      "tab-item": JSXHTMLElement
+      "tab-text": JSXHTMLElement
+      "text": JSXHTMLElement
+      "visibility-icon": JSXHTMLElement
+      "page-frame": JSXHTMLElement
+      "close": JSXHTMLElement
+      "content-frame": JSXHTMLElement
+      "field-set": JSXHTMLElement
+      "flex-box": JSXHTMLElement
+      "flex-item": JSXHTMLElement
+      "maximize": JSXHTMLElement
+      "minimize": JSXHTMLElement
+      "grid-box": JSXHTMLElement
+      "video": JSXHTMLElement
+      "nav-icon": JSXHTMLElement
+      "nav-text": JSXHTMLElement
+
+      "check-box": JSXCheckBox
+      "color-box": JSXColorBox
+      "command-list": JSXCommandList
+      "common-list": JSXCommonList
+      "custom-box": JSXCustomBox
+      "detail-box": JSXDetailBox
+      "detail-summary": JSXDetailSummary
+      "drag-and-drop-hint": JSXDragAndDropHint
+      "file-body-pane": JSXFileBodyPane
       "file-browser": JSXFileBrowser
+      "file-head-pane": JSXFileHeadPane
+      "file-nav-pane": JSXFileNavPane
+      "file-var": JSXFileVar
+      "filter-box": JSXFilterBox
+      "keyboard-box": JSXKeyboardBox
+      "marquee-area": JSXMarqueeArea
+      "menu-list": JSXMenuList
+      "nav-bar": JSXNavBar
+      "node-list": JSXTreeList
+      "number-box": JSXNumberBox
+      "number-var": JSXNumberVar
+      "page-manager": JSXPageManager
+      "param-list": JSXParamList
+      "parameter-pane": JSXParameterPane
+      "radio-box": JSXRadioBox
+      "radio-proxy": JSXRadioProxy
+      "scroll-bar": JSXScrollBar
+      "select-box": JSXSelectBox
+      "select-list": JSXSelectList
+      "select-var": JSXSelectVar
+      "slider-box": JSXSliderBox
+      "string-var": JSXStringVar
+      "switch-item": JSXSwitchItem
+      "tab-bar": JSXTabBar
+      "text-area": JSXTextArea
+      "text-box": JSXTextBox
+      "title-bar": JSXTitleBar
+      "window-frame": JSXWindowFrame
+
     }
   }
 }

@@ -201,6 +201,11 @@ class SliderBox extends HTMLElement {
 
 customElements.define('slider-box', SliderBox)
 
+interface JSXSliderBox { [attributes: string]: any }
+
 // ******************************** 滑动框导出 ********************************
 
-export { SliderBox }
+export {
+  SliderBox,
+  JSXSliderBox
+}

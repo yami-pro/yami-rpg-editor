@@ -78,6 +78,11 @@ class DragAndDropHint extends HTMLElement {
 
 customElements.define('drag-and-drop-hint', DragAndDropHint)
 
+interface JSXDragAndDropHint { [attributes: string]: any }
+
 // ******************************** 拖放提示导出 ********************************
 
-export { DragAndDropHint }
+export {
+  DragAndDropHint,
+  JSXDragAndDropHint
+}

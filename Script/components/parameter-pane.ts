@@ -613,6 +613,11 @@ class ParameterPane extends HTMLElement {
 
 customElements.define('parameter-pane', ParameterPane)
 
+interface JSXParameterPane { [attributes: string]: any }
+
 // ******************************** 脚本参数面板导出 ********************************
 
-export { ParameterPane }
+export {
+  ParameterPane,
+  JSXParameterPane
+}

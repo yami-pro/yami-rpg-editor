@@ -6,4 +6,9 @@ import { EventTarget_ext } from "../../yami"
 
 interface IHTMLCanvasElement extends HTMLCanvasElement, EventTarget_ext {}
 
-export { IHTMLCanvasElement }
+interface JSXHTMLCanvasElement { [attributes: string]: any }
+
+export {
+  IHTMLCanvasElement,
+  JSXHTMLCanvasElement
+}

@@ -622,8 +622,11 @@ interface IHTMLElementConstructor {
 
 const IHTMLElement = <IHTMLElementConstructor>HTMLElement
 
+interface JSXHTMLElement { [attributes: string]: any }
+
 export {
   IHTMLElement,
   HTMLElement_ext,
-  HTMLElement_scroll_ext
+  HTMLElement_scroll_ext,
+  JSXHTMLElement
 }

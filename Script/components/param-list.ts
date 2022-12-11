@@ -955,6 +955,11 @@ class ParamList extends HTMLElement {
 
 customElements.define('param-list', ParamList)
 
+interface JSXParamList { [attributes: string]: any }
+
 // ******************************** 参数列表导出 ********************************
 
-export { ParamList }
+export {
+  ParamList,
+  JSXParamList
+}

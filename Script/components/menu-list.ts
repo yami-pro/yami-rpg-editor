@@ -479,6 +479,8 @@ class MenuList extends HTMLElement {
 
 customElements.define('menu-list', MenuList)
 
+interface JSXMenuList { [attributes: string]: any }
+
 // 创建菜单列表实例
 const Menu = new MenuList()
 
@@ -486,5 +488,6 @@ const Menu = new MenuList()
 
 export {
   MenuList,
+  JSXMenuList,
   Menu
 }

@@ -156,6 +156,11 @@ class CheckBox extends IHTMLElement {
 
 customElements.define('check-box', CheckBox)
 
+interface JSXCheckBox { [attributes: string]: any }
+
 // ******************************** 复选框导出 ********************************
 
-export { CheckBox }
+export {
+  CheckBox,
+  JSXCheckBox
+}

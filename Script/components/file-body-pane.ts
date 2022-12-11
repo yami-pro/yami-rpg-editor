@@ -1502,6 +1502,11 @@ class FileBodyPane extends IHTMLElement {
 
 customElements.define('file-body-pane', FileBodyPane)
 
+interface JSXFileBodyPane { [attributes: string]: any }
+
 // ******************************** 文件主体面板导出 ********************************
 
-export { FileBodyPane }
+export {
+  FileBodyPane,
+  JSXFileBodyPane
+}

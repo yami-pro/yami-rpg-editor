@@ -113,6 +113,11 @@ class ColorBox extends IHTMLElement {
 
 customElements.define('color-box', ColorBox)
 
+interface JSXColorBox { [attributes: string]: any }
+
 // ******************************** 颜色框导出 ********************************
 
-export { ColorBox }
+export {
+  ColorBox,
+  JSXColorBox
+}

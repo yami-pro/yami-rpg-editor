@@ -1573,6 +1573,11 @@ class CommandList extends IHTMLElement {
 
 customElements.define('command-list', CommandList)
 
+interface JSXCommandList { [attributes: string]: any }
+
 // ******************************** 指令列表导出 ********************************
 
-export { CommandList }
+export {
+  CommandList,
+  JSXCommandList
+}

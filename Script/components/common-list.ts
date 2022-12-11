@@ -360,6 +360,11 @@ class CommonList extends HTMLElement {
 
 customElements.define('common-list', CommonList)
 
+interface JSXCommonList { [attributes: string]: any }
+
 // ******************************** 普通列表导出 ********************************
 
-export { CommonList }
+export {
+  CommonList,
+  JSXCommonList
+}

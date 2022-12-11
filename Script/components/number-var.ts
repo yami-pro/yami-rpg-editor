@@ -149,6 +149,11 @@ class NumberVar extends HTMLElement {
 
 customElements.define('number-var', NumberVar)
 
+interface JSXNumberVar { [attributes: string]: any }
+
 // ******************************** 数字变量框导出 ********************************
 
-export { NumberVar }
+export {
+  NumberVar,
+  JSXNumberVar
+}

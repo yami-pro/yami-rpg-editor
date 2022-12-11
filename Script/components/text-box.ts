@@ -214,6 +214,11 @@ class TextBox extends HTMLElement {
 
 customElements.define('text-box', TextBox)
 
+interface JSXTextBox { [attributes: string]: any }
+
 // ******************************** 文本框导出 ********************************
 
-export { TextBox }
+export {
+  TextBox,
+  JSXTextBox
+}

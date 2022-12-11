@@ -401,6 +401,11 @@ class CustomBox extends HTMLElement {
 
 customElements.define('custom-box', CustomBox)
 
+interface JSXCustomBox { [attributes: string]: any }
+
 // ******************************** 自定义框导出 ********************************
 
-export { CustomBox }
+export {
+  CustomBox,
+  JSXCustomBox
+}

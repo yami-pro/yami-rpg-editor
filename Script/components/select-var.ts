@@ -153,6 +153,11 @@ class SelectVar extends HTMLElement {
 
 customElements.define('select-var', SelectVar)
 
+interface JSXSelectVar { [attributes: string]: any }
+
 // ******************************** 选择变量框导出 ********************************
 
-export { SelectVar }
+export {
+  SelectVar,
+  JSXSelectVar
+}

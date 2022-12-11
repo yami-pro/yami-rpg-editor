@@ -10,6 +10,8 @@ interface HTMLInputElement_ext extends HTMLElement_ext {
 
 interface IHTMLInputElement extends HTMLInputElement, HTMLInputElement_ext {}
 
+interface JSXHTMLInputElement { [attributes: string]: any }
+
 // 加入HTMLElement原型生效, HTMLInputElement原型不生效?
 const inputPrototype = <IHTMLInputElement>HTMLElement.prototype
 
@@ -38,5 +40,6 @@ inputPrototype.getFocus = function (mode = null) {
 
 export {
   IHTMLInputElement,
-  HTMLInputElement_ext
+  HTMLInputElement_ext,
+  JSXHTMLInputElement
 }

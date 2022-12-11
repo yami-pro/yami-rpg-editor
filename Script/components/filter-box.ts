@@ -113,6 +113,11 @@ class FilterBox extends HTMLElement {
 
 customElements.define('filter-box', FilterBox)
 
+interface JSXFilterBox { [attributes: string]: any }
+
 // ******************************** 滤镜框导出 ********************************
 
-export { FilterBox }
+export {
+  FilterBox,
+  JSXFilterBox
+}

@@ -325,6 +325,11 @@ class SelectBox extends HTMLElement {
 
 customElements.define('select-box', SelectBox)
 
+interface JSXSelectBox { [attributes: string]: any }
+
 // ******************************** 选择框导出 ********************************
 
-export { SelectBox }
+export {
+  SelectBox,
+  JSXSelectBox
+}

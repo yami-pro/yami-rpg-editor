@@ -253,6 +253,11 @@ class WindowFrame extends HTMLElement {
 
 customElements.define('window-frame', WindowFrame)
 
+interface JSXWindowFrame { [attributes: string]: any }
+
 // ******************************** 窗口框架导出 ********************************
 
-export { WindowFrame }
+export {
+  WindowFrame,
+  JSXWindowFrame
+}

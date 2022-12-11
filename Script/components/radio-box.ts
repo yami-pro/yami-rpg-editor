@@ -100,6 +100,11 @@ class RadioBox extends HTMLElement {
 
 customElements.define('radio-box', RadioBox)
 
+interface JSXRadioBox { [attributes: string]: any }
+
 // ******************************** 单选框导出 ********************************
 
-export { RadioBox }
+export {
+  RadioBox,
+  JSXRadioBox
+}
