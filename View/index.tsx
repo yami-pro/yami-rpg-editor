@@ -18,7 +18,7 @@ import { PluginView } from './plugin/plugin'
 import { LogView } from './log/log'
 import { BrowserView } from './browser/browser'
 
-const BodyView = (
+const BodyView: any = (
   <>
     <TitleView />
     <ToolsView />

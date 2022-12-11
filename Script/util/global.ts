@@ -346,7 +346,6 @@ declare global {
       "text-box": JSXTextBox
       "title-bar": JSXTitleBar
       "window-frame": JSXWindowFrame
-
     }
   }
 }
