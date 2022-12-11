@@ -43,7 +43,8 @@ import {
   TextBox,
   TitleBar,
   WindowFrame,
-  NodeList_ext
+  NodeList_ext,
+  JSXFileBrowser
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
@@ -181,6 +182,7 @@ const $ = function (selector: string) {
 }
 
 // ******************************** 全局唯一声明 ********************************
+
 declare global {
   var $: typeof globalDocument.querySelector
   interface Window extends EventTarget_ext {}
@@ -193,6 +195,11 @@ declare global {
     querySelectorAll<K extends keyof IHTMLElementTagNameMap>(selectors: K): INodeListOf<IHTMLElementTagNameMap[K]>
     querySelectorAll<K extends keyof ISVGElementTagNameMap>(selectors: K): INodeListOf<ISVGElementTagNameMap[K]>
     querySelectorAll<E extends IHTMLElement = IHTMLElement>(selectors: string): INodeListOf<E>
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "file-browser": JSXFileBrowser
+    }
   }
 }
 

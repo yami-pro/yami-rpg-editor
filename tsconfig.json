@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "target": "es6",
+    "jsx": "react",
+    "jsxFactory": "createElement",
+    "jsxFragmentFactory": "null",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true

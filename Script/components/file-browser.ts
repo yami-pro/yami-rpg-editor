@@ -514,9 +514,12 @@ class FileBrowser extends IHTMLElement {
 
 customElements.define('file-browser', FileBrowser)
 
+interface JSXFileBrowser {}
+
 // ******************************** 文件浏览器导出 ********************************
 
 export {
   FileBrowser,
+  JSXFileBrowser,
   browserLinks
 }
