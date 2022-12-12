@@ -3,13 +3,12 @@
 import {
   CommonList,
   Window,
-  IMath,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 选择列表 ********************************
 
-type Window_event_func = (event: IMouseKeyboardEvent) => void
+type Window_event_func = (event: MouseKeyboardEvent) => void
 
 class SelectList extends HTMLElement {
   state: string
@@ -177,13 +176,13 @@ class SelectList extends HTMLElement {
 
   // 向上翻页
   pageUp(select) {
-    const scrollLines = IMath.floor(this.clientHeight / 20) - 1
+    const scrollLines = Math.floor(this.clientHeight / 20) - 1
     if (select) {
       const bottom = this.scrollTop + this.clientHeight
-      const bottomIndex = IMath.floor(bottom / 20) - 1
+      const bottomIndex = Math.floor(bottom / 20) - 1
       let index = this.getElementIndexOfSelection(Infinity)
-      index = IMath.min(index, bottomIndex) - scrollLines
-      index = IMath.max(index, 0)
+      index = Math.min(index, bottomIndex) - scrollLines
+      index = Math.max(index, 0)
       this.select(this.elements[index])
     }
     this.scrollBy(0, -scrollLines * 20)
@@ -191,13 +190,13 @@ class SelectList extends HTMLElement {
 
   // 向下翻页
   pageDown(select) {
-    const scrollLines = IMath.floor(this.clientHeight / 20) - 1
+    const scrollLines = Math.floor(this.clientHeight / 20) - 1
     if (select) {
       const count = this.elements.count
-      const topIndex = IMath.floor(this.scrollTop / 20)
+      const topIndex = Math.floor(this.scrollTop / 20)
       let index = this.getElementIndexOfSelection(0)
-      index = IMath.max(index, topIndex) + scrollLines
-      index = IMath.min(index, count - 1)
+      index = Math.max(index, topIndex) + scrollLines
+      index = Math.min(index, count - 1)
       this.select(this.elements[index])
     }
     this.scrollBy(0, +scrollLines * 20)
@@ -219,7 +218,7 @@ class SelectList extends HTMLElement {
       const selection = this.selection
       const index = elements.indexOf(selection)
       if (index !== -1) {
-        const scrollTop = IMath.clamp(
+        const scrollTop = Math.clamp(
           this.scrollTop,
           index * 20 + 20 - this.innerHeight,
           index * 20,
@@ -344,11 +343,11 @@ class SelectList extends HTMLElement {
     const rw = rect.width
     const count = this.elements.count
     const space = window.innerHeight - rb
-    const below = space >= IMath.min(count, 10) * 20
+    const below = space >= Math.min(count, 10) * 20
     const capacity = below
-    ? IMath.floor(space / 20)
-    : IMath.floor(rt / 20)
-    const lines = IMath.min(count, capacity, MAX_LINES)
+    ? Math.floor(space / 20)
+    : Math.floor(rt / 20)
+    const lines = Math.min(count, capacity, MAX_LINES)
     const top = below ? rb : rt - lines * 20
     this.style.left = `${rl}px`
     this.style.top = `${top}px`

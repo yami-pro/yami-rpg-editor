@@ -9,8 +9,7 @@ import {
   Local,
   Menu,
   Window,
-  Clipboard,
-  IObject
+  Clipboard
 } from "../yami"
 
 // ******************************** 属性窗口 ********************************
@@ -314,7 +313,7 @@ Attribute.getItemById = function IIFE() {
 Attribute.setFolderGroup = function (folder, newGroup) {
   const oldGroup = folder.element.group
   if (oldGroup !== newGroup) {
-    const settings = IObject.clone(this.settings)
+    const settings = Object.clone(this.settings)
     if (oldGroup) this.settings[oldGroup] = ''
     if (newGroup) this.settings[newGroup] = folder.id
     this.history.save({
@@ -405,7 +404,7 @@ Attribute.unpackAttribute = function IIFE() {
       const item = items[i]
       Attribute.idList.push(item.id)
       if (item.class !== 'folder') {
-        copies[i] = IObject.clone(item)
+        copies[i] = Object.clone(item)
       } else {
         copies[i] = new ReferencedFolder(item)
       }
@@ -415,7 +414,7 @@ Attribute.unpackAttribute = function IIFE() {
   return function () {
     this.idList = []
     this.data = clone(Data.attribute.keys)
-    this.settings = IObject.clone(Data.attribute.settings)
+    this.settings = Object.clone(Data.attribute.settings)
     // 创建特殊分组的键列表
     if (!this.settingKeys) {
       this.settingKeys = Object.keys(this.settings)
@@ -431,7 +430,7 @@ Attribute.packAttribute = function IIFE() {
     for (let i = 0; i < length; i++) {
       const item = items[i]
       if (item.class !== 'folder') {
-        const copy = IObject.clone(item)
+        const copy = Object.clone(item)
         // 删除无效的枚举ID
         if (copy.enum !== '' &&
           copy.type !== 'enum') {
@@ -452,7 +451,7 @@ Attribute.packAttribute = function IIFE() {
   }
   return function () {
     Data.attribute.keys = clone(this.data)
-    Data.attribute.settings = IObject.clone(this.settings)
+    Data.attribute.settings = Object.clone(this.settings)
     Data.createAttributeContext()
   }
 }()

@@ -14,9 +14,7 @@ import {
   ScriptListInterface,
   Selector,
   Window,
-  Clipboard,
-  IMath,
-  IObject
+  Clipboard
 } from "../yami"
 
 // ******************************** 插件窗口 ********************************
@@ -119,7 +117,7 @@ PluginManager.open = function () {
   Window.open('plugin')
 
   // 创建数据副本
-  this.data = IObject.clone(Data.plugins)
+  this.data = Object.clone(Data.plugins)
 
   // 更新列表项目
   this.list.restoreSelection()
@@ -614,9 +612,9 @@ PluginManager.parseMeta = function IIFE() {
         if (number === null) return
         slices[i] = number
       }
-      const min = IMath.max(-1000000000, IMath.min(...slices))
-      const max = IMath.min(+1000000000, IMath.max(...slices))
-      parameter.value = IMath.clamp(parameter.value, min, max)
+      const min = Math.max(-1000000000, Math.min(...slices))
+      const max = Math.min(+1000000000, Math.max(...slices))
+      parameter.value = Math.clamp(parameter.value, min, max)
       parameter.min = min
       parameter.max = max
     }
@@ -736,7 +734,7 @@ PluginManager.parseMeta = function IIFE() {
       const lang = langMap
       const names = alias.values
       const items = parameter.dataItems
-      const length = IMath.min(items.length, names.length)
+      const length = Math.min(items.length, names.length)
       for (let i = 0; i < length; i++) {
         const name = names[i]
         if (name === '') {
@@ -814,7 +812,7 @@ PluginManager.parseMeta = function IIFE() {
         let priority = 0
         while (owner = owner.parent) {
           const {wrap} = owner
-          wrap.priority = IMath.max(
+          wrap.priority = Math.max(
             wrap.priority,
             ++priority,
           )
@@ -1103,7 +1101,7 @@ PluginManager.reconstruct = function IIFE() {
       case 'number':
         if (typeof value === type) {
           const {min, max, decimals} = parameter
-          return IMath.clamp(IMath.roundTo(value, decimals), min, max) === value
+          return Math.clamp(Math.roundTo(value, decimals), min, max) === value
         }
       case 'option':
         return parameter.options.includes(value)
@@ -1167,7 +1165,7 @@ PluginManager.reconstruct = function IIFE() {
       case 'number':
         if (typeof value === type) {
           const {min, max, decimals} = parameter
-          return IMath.clamp(IMath.roundTo(value, decimals), min, max)
+          return Math.clamp(Math.roundTo(value, decimals), min, max)
         }
         return parameter.value
       case 'option':
@@ -1504,7 +1502,7 @@ PluginManager.apply = function (event) {
     // 保存变量数据
     let plugins = this.data
     if (event instanceof Event) {
-      plugins = IObject.clone(plugins)
+      plugins = Object.clone(plugins)
     } else {
       TreeList.deleteCaches(plugins)
     }
@@ -1579,7 +1577,7 @@ PluginManager.list.delete = function (item) {
       const index = items.indexOf(item)
       this.deleteNode(item)
       const last = items.length - 1
-      this.select(items[IMath.min(index, last)])
+      this.select(items[Math.min(index, last)])
     },
   }, {
     label: get('no'),

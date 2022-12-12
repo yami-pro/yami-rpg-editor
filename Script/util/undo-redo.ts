@@ -1,10 +1,10 @@
 "use strict"
 
-import { IMouseKeyboardEvent } from "../yami"
+import { MouseKeyboardEvent } from "../yami"
 
 // ******************************** 禁用撤销和重做 ********************************
 
-window.on('keydown', function (event: IMouseKeyboardEvent) {
+window.on('keydown', function (event: MouseKeyboardEvent) {
   if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyZ':
@@ -26,16 +26,16 @@ window.on('keydown', function (event: IMouseKeyboardEvent) {
   // 监听空格键的按下状态
   switch (event.code) {
     case 'Space':
-      (<IMouseKeyboardEvent>Event.prototype).spaceKey = true
+      (<MouseKeyboardEvent>Event.prototype).spaceKey = true
       break
   }
 }, {capture: true})
 
-window.on('keyup', function (event: IMouseKeyboardEvent) {
+window.on('keyup', function (event: MouseKeyboardEvent) {
   // 监听空格键的弹起状态
   switch (event.code) {
     case 'Space':
-      (<IMouseKeyboardEvent>Event.prototype).spaceKey = false
+      (<MouseKeyboardEvent>Event.prototype).spaceKey = false
       break
   }
 }, {capture: true})

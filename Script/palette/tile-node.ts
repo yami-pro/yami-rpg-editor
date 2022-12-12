@@ -5,8 +5,7 @@ import {
   Palette,
   Scene,
   TimerManager,
-  Window,
-  IMath
+  Window
 } from "../yami"
 
 // ******************************** 图块节点窗口 ********************************
@@ -73,8 +72,8 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   const screen = this.screen
   const tileWidth = Palette.tileset.tileWidth
   const tileHeight = Palette.tileset.tileHeight
-  const hframes = IMath.min(nodes.length, 8)
-  const vframes = IMath.ceil(nodes.length / 8)
+  const hframes = Math.min(nodes.length, 8)
+  const vframes = Math.ceil(nodes.length / 8)
   const dpr = window.devicePixelRatio
   const innerWidth = tileWidth * hframes
   const innerHeight = tileHeight * vframes
@@ -102,8 +101,8 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   }
 
   // 计算窗口属性
-  contentWidth = IMath.clamp(contentWidth, MIN_CONTENT_WIDTH, MAX_CONTENT_WIDTH)
-  contentHeight = IMath.clamp(contentHeight, MIN_CONTENT_HEIGHT, MAX_CONTENT_HEIGHT)
+  contentWidth = Math.clamp(contentWidth, MIN_CONTENT_WIDTH, MAX_CONTENT_WIDTH)
+  contentHeight = Math.clamp(contentHeight, MIN_CONTENT_HEIGHT, MAX_CONTENT_HEIGHT)
   windowFrame.style.width = `${contentWidth}px`
   windowFrame.style.height = `${contentHeight + 28}px`
   window.on('keydown', this.keydown)
@@ -113,8 +112,8 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   const screenBox = this.getDevicePixelClientBoxSize(screen)
   const screenWidth = screenBox.width
   const screenHeight = screenBox.height
-  const left = IMath.max((screenWidth - innerWidth >> 1) / dpr, 0)
-  const top = IMath.max((screenHeight - innerHeight >> 1) / dpr, 0)
+  const left = Math.max((screenWidth - innerWidth >> 1) / dpr, 0)
+  const top = Math.max((screenHeight - innerHeight >> 1) / dpr, 0)
   this.marquee.style.left = `${left}px`
   this.marquee.style.top = `${top}px`
   this.marquee.style.width = `${innerWidth / dpr}px`
@@ -128,8 +127,8 @@ TileNode.open = function (nodes, image, offsetX, offsetY) {
   }
 
   // 设置画布
-  const canvasWidth = IMath.min(innerWidth, screenWidth)
-  const canvasHeight = IMath.min(innerHeight, screenHeight)
+  const canvasWidth = Math.min(innerWidth, screenWidth)
+  const canvasHeight = Math.min(innerHeight, screenHeight)
   this.canvas.style.left = `${left}px`
   this.canvas.style.top = `${top}px`
   this.canvas.width = canvasWidth
@@ -172,10 +171,10 @@ TileNode.drawNodes = function () {
   const st = this.scrollTop
   const sr = this.scrollRight
   const sb = this.scrollBottom
-  const bx = IMath.max(IMath.floor(sl / tw), 0)
-  const by = IMath.max(IMath.floor(st / th), 0)
-  const ex = IMath.min(IMath.ceil(sr / tw), this.hframes)
-  const ey = IMath.min(IMath.ceil(sb / th), this.vframes)
+  const bx = Math.max(Math.floor(sl / tw), 0)
+  const by = Math.max(Math.floor(st / th), 0)
+  const ex = Math.min(Math.ceil(sr / tw), this.hframes)
+  const ey = Math.min(Math.ceil(sb / th), this.vframes)
   context.clearRect(sl, st, sr - sl, sb - st)
   for (let y = by; y < ey; y++) {
     for (let x = bx; x < ex; x++) {
@@ -224,8 +223,8 @@ TileNode.scrollToSelection = function () {
     const ch = screen.clientHeight
     const sl = screen.scrollLeft
     const st = screen.scrollTop
-    const x = IMath.min(IMath.max(sl, mr - cw), ml)
-    const y = IMath.min(IMath.max(st, mb - ch), mt)
+    const x = Math.min(Math.max(sl, mr - cw), ml)
+    const y = Math.min(Math.max(st, mb - ch), mt)
     if (sl !== x || st !== y) {
       screen.scroll(x, y)
     }
@@ -251,10 +250,10 @@ TileNode.getDevicePixelClientBoxSize = function (element) {
     )
   }
   const dpr = window.devicePixelRatio
-  const left = IMath.round(rect.left * dpr + 1e-5)
-  const right = IMath.round(rect.right * dpr + 1e-5)
-  const top = IMath.round(rect.top * dpr + 1e-5)
-  const bottom = IMath.round(rect.bottom * dpr + 1e-5)
+  const left = Math.round(rect.left * dpr + 1e-5)
+  const right = Math.round(rect.right * dpr + 1e-5)
+  const top = Math.round(rect.top * dpr + 1e-5)
+  const bottom = Math.round(rect.bottom * dpr + 1e-5)
   const width = right - left
   const height = bottom - top
   return {width, height}
@@ -324,8 +323,8 @@ TileNode.keydown = function (event) {
         case 'ArrowDown':  offsetY = +1; break
       }
       const marquee = this.marquee
-      const x = IMath.clamp(marquee.x + offsetX, 0, this.hframes - 1)
-      const y = IMath.clamp(marquee.y + offsetY, 0, this.vframes - 1)
+      const x = Math.clamp(marquee.x + offsetX, 0, this.hframes - 1)
+      const y = Math.clamp(marquee.y + offsetY, 0, this.vframes - 1)
       if (marquee.x !== x || marquee.y !== y) {
         const index = x | y << 3
         if (index < this.nodes.length) {
@@ -365,8 +364,8 @@ TileNode.marqueePointerdown = function (event) {
       }
       const marquee = this.marquee
       const coords = event.getRelativeCoords(marquee)
-      const x = IMath.floor(coords.x / marquee.scaleX)
-      const y = IMath.floor(coords.y / marquee.scaleY)
+      const x = Math.floor(coords.x / marquee.scaleX)
+      const y = Math.floor(coords.y / marquee.scaleY)
       const index = x | y << 3
       if (index < this.nodes.length) {
         marquee.select(x, y, 1, 1)
@@ -398,8 +397,8 @@ TileNode.pointerup = function (event) {
         const marquee = this.marquee
         if (event.target === marquee) {
           const coords = event.getRelativeCoords(marquee)
-          const x = IMath.floor(coords.x / marquee.scaleX)
-          const y = IMath.floor(coords.y / marquee.scaleY)
+          const x = Math.floor(coords.x / marquee.scaleX)
+          const y = Math.floor(coords.y / marquee.scaleY)
           if (marquee.x === x && marquee.y === y) {
             const tiles = (
               Scene.marquee.key === 'tile'

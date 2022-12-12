@@ -7,13 +7,7 @@ interface Event_ext {
   value: string | number | boolean | null
 }
 
-interface IEvent extends Event, Event_ext {}
+Event.prototype.value = null
+Event.prototype.mode = null
 
-const prototype = <IEvent>Event.prototype
-prototype.value = null
-prototype.mode = null
-
-export {
-  IEvent,
-  Event_ext
-}
+export { Event_ext }

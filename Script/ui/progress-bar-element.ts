@@ -3,8 +3,7 @@
 import {
   GL,
   ImageTexture,
-  UI,
-  IMath
+  UI
 } from "../yami"
 
 // ******************************** 进度条元素 ********************************
@@ -134,7 +133,7 @@ class ProgressBarElement extends UI.Element {
   // 计算进度条顶点
   calculateProgressVertices() {
     const type = this.type
-    const progress = IMath.clamp(this.progress, 0, 1)
+    const progress = Math.clamp(this.progress, 0, 1)
     const texture = this.texture
     const x = texture.x
     const y = texture.y
@@ -150,8 +149,8 @@ class ProgressBarElement extends UI.Element {
         let sw = w * progress
         let sh = h
         if (step !== 0) {
-          sw = IMath.round(sw / step) * step
-          sw = IMath.clamp(sw, 0, w)
+          sw = Math.round(sw / step) * step
+          sw = Math.clamp(sw, 0, w)
         }
         const dl = 0
         const dt = 0
@@ -185,8 +184,8 @@ class ProgressBarElement extends UI.Element {
         let sw = w
         let sh = h * progress
         if (step !== 0) {
-          sh = IMath.round(sh / step) * step
-          sh = IMath.clamp(sh, 0, h)
+          sh = Math.round(sh / step) * step
+          sh = Math.clamp(sh, 0, h)
         }
         const dl = 0
         const dt = h - sh
@@ -223,17 +222,17 @@ class ProgressBarElement extends UI.Element {
         let centralAngle = this.centralAngle
         let currentAngle = centralAngle * progress
         if (step !== 0) {
-          currentAngle = IMath.round(currentAngle / step) * step
+          currentAngle = Math.round(currentAngle / step) * step
           currentAngle = centralAngle >= 0
-          ? IMath.min(currentAngle, centralAngle)
-          : IMath.max(currentAngle, centralAngle)
+          ? Math.min(currentAngle, centralAngle)
+          : Math.max(currentAngle, centralAngle)
         }
         if (currentAngle < 0) {
           currentAngle = -currentAngle
           startAngle -= currentAngle
         }
-        startAngle = IMath.radians(startAngle)
-        currentAngle = IMath.radians(currentAngle)
+        startAngle = Math.radians(startAngle)
+        currentAngle = Math.radians(currentAngle)
         const dl = 0
         const dt = 0
         const dr = w
@@ -248,10 +247,10 @@ class ProgressBarElement extends UI.Element {
         const st = y / th
         const sr = (x + w) / tw
         const sb = (y + h) / th
-        angles[0] = IMath.modRadians(IMath.atan2(dt - doy, dr - dox) - startAngle)
-        angles[1] = IMath.modRadians(IMath.atan2(db - doy, dr - dox) - startAngle)
-        angles[2] = IMath.modRadians(IMath.atan2(db - doy, dl - dox) - startAngle)
-        angles[3] = IMath.modRadians(IMath.atan2(dt - doy, dl - dox) - startAngle)
+        angles[0] = Math.modRadians(Math.atan2(dt - doy, dr - dox) - startAngle)
+        angles[1] = Math.modRadians(Math.atan2(db - doy, dr - dox) - startAngle)
+        angles[2] = Math.modRadians(Math.atan2(db - doy, dl - dox) - startAngle)
+        angles[3] = Math.modRadians(Math.atan2(dt - doy, dl - dox) - startAngle)
         vertices[0] = dox
         vertices[1] = doy
         vertices[2] = sox
@@ -313,7 +312,7 @@ class ProgressBarElement extends UI.Element {
           const vi = array[i + 2]
           switch (side) {
             case 0: {
-              const x = IMath.tan(angle + IMath.PI * 0.5) * doy
+              const x = Math.tan(angle + Math.PI * 0.5) * doy
               const dx = (dox + x)
               const sx = (tox + x) / tw
               vertices[vi    ] = dx
@@ -323,7 +322,7 @@ class ProgressBarElement extends UI.Element {
               break
             }
             case 1: {
-              const y = IMath.tan(angle) * (w - dox)
+              const y = Math.tan(angle) * (w - dox)
               const dy = (doy + y)
               const sy = (toy + y) / th
               vertices[vi    ] = dr
@@ -333,7 +332,7 @@ class ProgressBarElement extends UI.Element {
               break
             }
             case 2: {
-              const x = IMath.tan(angle - IMath.PI * 0.5) * (h - doy)
+              const x = Math.tan(angle - Math.PI * 0.5) * (h - doy)
               const dx = (dox - x)
               const sx = (tox - x) / tw
               vertices[vi    ] = dx
@@ -343,7 +342,7 @@ class ProgressBarElement extends UI.Element {
               break
             }
             case 3: {
-              const y = IMath.tan(angle - IMath.PI) * dox
+              const y = Math.tan(angle - Math.PI) * dox
               const dy = (doy - y)
               const sy = (toy - y) / th
               vertices[vi    ] = dl

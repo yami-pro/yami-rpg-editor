@@ -2,7 +2,7 @@
 
 // ******************************** 指针对象 ********************************
 
-interface ICursor {
+interface Cursor {
   region: HTMLElement | null
   open(className: string): void
   close(className: string): void
@@ -12,7 +12,7 @@ interface ICursor {
 // 可以避免更新所有子元素继承到指针属性, 从而提高性能
 // 同时解决了一些元素无法继承指针样式的问题
 
-const Cursor = <ICursor>new Object()
+const Cursor = <Cursor>new Object()
 Cursor.region = $('#cursor-region')
 
 // 打开指针样式

@@ -4,8 +4,7 @@ import {
   AutoTile,
   Cursor,
   Palette,
-  Window,
-  IMath
+  Window
 } from "../yami"
 
 // ******************************** 图块帧索引窗口 ********************************
@@ -72,11 +71,11 @@ TileFrame.open = function () {
   const index = frames[AutoTile.frameIndex]
   const hindex = offsetX + (index & 0xff)
   const vindex = offsetY + (index >> 8)
-  const hframes = IMath.floor(sprite.naturalWidth / tileWidth)
-  const vframes = IMath.floor(sprite.naturalHeight / tileHeight)
+  const hframes = Math.floor(sprite.naturalWidth / tileWidth)
+  const vframes = Math.floor(sprite.naturalHeight / tileHeight)
   const dpr = window.devicePixelRatio
-  const innerWidth = tileWidth * IMath.clamp(hframes, 1, 256)
-  const innerHeight = tileHeight * IMath.clamp(vframes, 1, 256)
+  const innerWidth = tileWidth * Math.clamp(hframes, 1, 256)
+  const innerHeight = tileHeight * Math.clamp(vframes, 1, 256)
   let contentWidth = innerWidth / dpr
   let contentHeight = innerHeight / dpr
   this.hframes = hframes
@@ -97,8 +96,8 @@ TileFrame.open = function () {
   }
 
   // 计算窗口属性
-  contentWidth = IMath.clamp(contentWidth, MIN_CONTENT_WIDTH, MAX_CONTENT_WIDTH)
-  contentHeight = IMath.clamp(contentHeight, MIN_CONTENT_HEIGHT, MAX_CONTENT_HEIGHT)
+  contentWidth = Math.clamp(contentWidth, MIN_CONTENT_WIDTH, MAX_CONTENT_WIDTH)
+  contentHeight = Math.clamp(contentHeight, MIN_CONTENT_HEIGHT, MAX_CONTENT_HEIGHT)
   windowFrame.style.width = `${contentWidth}px`
   windowFrame.style.height = `${contentHeight + 28}px`
   window.on('keydown', this.keydown)
@@ -108,8 +107,8 @@ TileFrame.open = function () {
   const screenBox = this.getDevicePixelClientBoxSize(screen)
   const screenWidth = screenBox.width
   const screenHeight = screenBox.height
-  const left = IMath.max((screenWidth - innerWidth >> 1) / dpr, 0)
-  const top = IMath.max((screenHeight - innerHeight >> 1) / dpr, 0)
+  const left = Math.max((screenWidth - innerWidth >> 1) / dpr, 0)
+  const top = Math.max((screenHeight - innerHeight >> 1) / dpr, 0)
   clip.style.left = `${left}px`
   clip.style.top = `${top}px`
   clip.style.width = `${innerWidth / dpr}px`
@@ -138,8 +137,8 @@ TileFrame.open = function () {
   // 跳转到选框位置
   const x = (hindex + 0.5) * tileWidth
   const y = (vindex + 0.5) * tileHeight
-  screen.scrollLeft = IMath.round(x - screenWidth / 2) / dpr
-  screen.scrollTop = IMath.round(y - screenHeight / 2) / dpr
+  screen.scrollLeft = Math.round(x - screenWidth / 2) / dpr
+  screen.scrollTop = Math.round(y - screenHeight / 2) / dpr
 }
 
 // 选择动画帧
@@ -149,7 +148,7 @@ TileFrame.selectTileFrame = function () {
   y -= AutoTile.offsetY
   if (x >= 0 && y >= 0) {
     const {frames, frameIndex} = AutoTile
-    frames[frameIndex] = IMath.min(x | y << 8, 0xffff)
+    frames[frameIndex] = Math.min(x | y << 8, 0xffff)
     AutoTile.changed = true
     AutoTile.updateFrameItem()
     Window.close('autoTile-frameIndex')
@@ -171,8 +170,8 @@ TileFrame.scrollToSelection = function () {
     const ch = screen.clientHeight
     const sl = screen.scrollLeft
     const st = screen.scrollTop
-    const x = IMath.min(IMath.max(sl, mr - cw), ml)
-    const y = IMath.min(IMath.max(st, mb - ch), mt)
+    const x = Math.min(Math.max(sl, mr - cw), ml)
+    const y = Math.min(Math.max(st, mb - ch), mt)
     if (sl !== x || st !== y) {
       screen.scroll(x, y)
     }
@@ -198,10 +197,10 @@ TileFrame.getDevicePixelClientBoxSize = function (element) {
     )
   }
   const dpr = window.devicePixelRatio
-  const left = IMath.round(rect.left * dpr + 1e-5)
-  const right = IMath.round(rect.right * dpr + 1e-5)
-  const top = IMath.round(rect.top * dpr + 1e-5)
-  const bottom = IMath.round(rect.bottom * dpr + 1e-5)
+  const left = Math.round(rect.left * dpr + 1e-5)
+  const right = Math.round(rect.right * dpr + 1e-5)
+  const top = Math.round(rect.top * dpr + 1e-5)
+  const bottom = Math.round(rect.bottom * dpr + 1e-5)
   const width = right - left
   const height = bottom - top
   return {width, height}
@@ -252,8 +251,8 @@ TileFrame.keydown = function (event) {
         case 'ArrowDown':  offsetY = +1; break
       }
       const marquee = this.marquee
-      const x = IMath.clamp(marquee.x + offsetX, 0, this.hframes - 1)
-      const y = IMath.clamp(marquee.y + offsetY, 0, this.vframes - 1)
+      const x = Math.clamp(marquee.x + offsetX, 0, this.hframes - 1)
+      const y = Math.clamp(marquee.y + offsetY, 0, this.vframes - 1)
       if (marquee.x !== x || marquee.y !== y) {
         marquee.select(x, y, 1, 1)
         this.scrollToSelection()
@@ -283,8 +282,8 @@ TileFrame.marqueePointerdown = function (event) {
       }
       const marquee = this.marquee
       const coords = event.getRelativeCoords(marquee)
-      const x = IMath.floor(coords.x / marquee.scaleX)
-      const y = IMath.floor(coords.y / marquee.scaleY)
+      const x = Math.floor(coords.x / marquee.scaleX)
+      const y = Math.floor(coords.y / marquee.scaleY)
       marquee.select(x, y, 1, 1)
       this.dragging = event
       event.mode = 'select'
@@ -309,8 +308,8 @@ TileFrame.marqueePointermove = function (event) {
   const info = this.info
   const marquee = this.marquee
   const coords = event.getRelativeCoords(marquee)
-  const x = IMath.floor(coords.x / marquee.scaleX)
-  const y = IMath.floor(coords.y / marquee.scaleY)
+  const x = Math.floor(coords.x / marquee.scaleX)
+  const y = Math.floor(coords.y / marquee.scaleY)
   if (info.x !== x || info.y !== y) {
     info.x = x
     info.y = y
@@ -335,8 +334,8 @@ TileFrame.pointerup = function (event) {
         const marquee = this.marquee
         if (event.target === marquee) {
           const coords = event.getRelativeCoords(marquee)
-          const x = IMath.floor(coords.x / marquee.scaleX)
-          const y = IMath.floor(coords.y / marquee.scaleY)
+          const x = Math.floor(coords.x / marquee.scaleX)
+          const y = Math.floor(coords.y / marquee.scaleY)
           if (marquee.x === x && marquee.y === y) {
             this.selectTileFrame()
           }

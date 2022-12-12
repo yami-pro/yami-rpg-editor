@@ -1,13 +1,8 @@
 "use strict"
 
-import {
-  IDataTransfer,
-  MouseEvent_ext
-} from "../../yami"
-
 // ******************************** 拖拽事件访问器 ********************************
 
-interface DragEvent_ext extends MouseEvent_ext {
+interface DragEvent_ext {
   dropTarget: HTMLElement | null
   allowMove: boolean
   allowCopy: boolean
@@ -18,8 +13,4 @@ interface DragEvent_ext extends MouseEvent_ext {
   promise: Promise<void>
 }
 
-interface IDragEvent extends DragEvent, DragEvent_ext {
-  dataTransfer: IDataTransfer
-}
-
-export { IDragEvent }
+export { DragEvent_ext }

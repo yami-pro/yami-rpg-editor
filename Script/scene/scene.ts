@@ -33,10 +33,7 @@ import {
   TimerManager,
   Vector,
   Window,
-  Clipboard,
-  ICSS,
-  IMath,
-  IObject
+  Clipboard
 } from "../yami"
 
 // ******************************** 场景窗口 ********************************
@@ -389,8 +386,8 @@ Scene.initialize = function () {
         const screen = this.screen
         const sl = screen.scrollLeft
         const st = screen.scrollTop
-        const cx = IMath.roundTo(meta.x + x, 4)
-        const cy = IMath.roundTo(meta.y + y, 4)
+        const cx = Math.roundTo(meta.x + x, 4)
+        const cy = Math.roundTo(meta.y + y, 4)
         this.updateCamera(cx, cy)
         this.updateTransform()
         if (screen.scrollLeft !== sl ||
@@ -676,7 +673,7 @@ Scene.initialize = function () {
     const {editor, target, angle} = data
     data.angle = target.angle
     target.angle = angle
-    target.player.setAngle(IMath.radians(angle))
+    target.player.setAngle(Math.radians(angle))
     if (editor.target === target) {
       editor.write({angle})
     }
@@ -1089,7 +1086,7 @@ Scene.computeObjectShifting = function (ox, oy) {
   for (const key of keys) {
     length += this[key].length
   }
-  const clamp = IMath.clamp
+  const clamp = Math.clamp
   const targets = new Array(length)
   const posX = new Float64Array(length)
   const posY = new Float64Array(length)
@@ -1132,8 +1129,8 @@ Scene.paste = function (x, y) {
         case 'animation':
         case 'particle':
         case 'parallax':
-          data.x = IMath.clamp(IMath.floor(x), 0, this.width - 1) + 0.5
-          data.y = IMath.clamp(IMath.floor(y), 0, this.height - 1) + 0.5
+          data.x = Math.clamp(Math.floor(x), 0, this.width - 1) + 0.5
+          data.y = Math.clamp(Math.floor(y), 0, this.height - 1) + 0.5
           break
       }
     })
@@ -1234,8 +1231,8 @@ Scene.setSize = function (width, height) {
   const dro = dTerrains.rowOffset
   const sTerrains = this.terrains
   const sro = sTerrains.rowOffset
-  const ex = IMath.min(width, this.width)
-  const ey = IMath.min(height, this.height)
+  const ex = Math.min(width, this.width)
+  const ey = Math.min(height, this.height)
   for (let y = 0; y < ey; y++) {
     for (let x = 0; x < ex; x++) {
       const si = x + y * sro
@@ -1278,8 +1275,8 @@ Scene.setTilemapSize = function (tilemap, width, height) {
   const dro = dTiles.rowOffset
   const sTiles = tilemap.tiles
   const sro = sTiles.rowOffset
-  const ex = IMath.min(width, tilemap.width)
-  const ey = IMath.min(height, tilemap.height)
+  const ex = Math.min(width, tilemap.width)
+  const ey = Math.min(height, tilemap.height)
   for (let y = 0; y < ey; y++) {
     for (let x = 0; x < ex; x++) {
       const si = x + y * sro
@@ -1408,8 +1405,8 @@ Scene.revealTarget = function IIFE() {
     const toleranceY = 1 / this.scaledTileHeight / this.scaleY
     // 目标和摄像机的位置不一定相等
     if (target && !timer.target && (
-      IMath.abs(target.x - meta.x) > toleranceX ||
-      IMath.abs(target.y - meta.y) > toleranceY)) {
+      Math.abs(target.x - meta.x) > toleranceX ||
+      Math.abs(target.y - meta.y) > toleranceY)) {
       timer.target = target
       timer.startX = meta.x
       timer.startY = meta.y
@@ -1483,7 +1480,7 @@ Scene.redirectTarget = function (angle) {
     }
     this.requestRendering()
     target.angle = angle
-    target.player.setAngle(IMath.radians(angle))
+    target.player.setAngle(Math.radians(angle))
     if (editor.target === target) {
       editor.write({angle})
     }
@@ -1514,8 +1511,8 @@ Scene.updateTargetInfo = function () {
       case 'parallax': {
         const target = this.target
         const name = target.name
-        const x = IMath.floor(target.x)
-        const y = IMath.floor(target.y)
+        const x = Math.floor(target.x)
+        const y = Math.floor(target.y)
         this.info.textContent = `${name} ${x},${y}`
         break
       }
@@ -1636,7 +1633,7 @@ Scene.updateHead = function () {
       const eRect = end.rect()
       const spacing = eRect.left - sRect.right - cRect.width
       const difference = sRect.right - nRect.left - eRect.width
-      const margin = IMath.min(spacing, difference)
+      const margin = Math.min(spacing, difference)
       end.style.marginLeft = `${margin}px`
     }
   }
@@ -1647,18 +1644,18 @@ Scene.resize = function () {
   if (this.state === 'open' &&
     this.screen.clientWidth !== 0) {
     const scale = this.scale
-    const scaledPadding = IMath.round(this.padding * scale)
-    const scaledTileWidth = IMath.round(this.tileWidth * scale)
-    const scaledTileHeight = IMath.round(this.tileHeight * scale)
+    const scaledPadding = Math.round(this.padding * scale)
+    const scaledTileWidth = Math.round(this.tileWidth * scale)
+    const scaledTileHeight = Math.round(this.tileHeight * scale)
     const innerWidth = this.width * scaledTileWidth
     const innerHeight = this.height * scaledTileHeight
-    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = CSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
-    const paddingLeft = IMath.max(screenWidth - innerWidth >> 1, scaledPadding)
-    const paddingTop = IMath.max(screenHeight - innerHeight >> 1, scaledPadding)
-    const paddingRight = IMath.max(screenWidth - innerWidth - paddingLeft, scaledPadding)
-    const paddingBottom = IMath.max(screenHeight - innerHeight - paddingTop, scaledPadding)
+    const paddingLeft = Math.max(screenWidth - innerWidth >> 1, scaledPadding)
+    const paddingTop = Math.max(screenHeight - innerHeight >> 1, scaledPadding)
+    const paddingRight = Math.max(screenWidth - innerWidth - paddingLeft, scaledPadding)
+    const paddingBottom = Math.max(screenHeight - innerHeight - paddingTop, scaledPadding)
     const outerWidth = innerWidth + paddingLeft + paddingRight
     const outerHeight = innerHeight + paddingTop + paddingBottom
     const dpr = window.devicePixelRatio
@@ -1703,8 +1700,8 @@ Scene.getTileCoords = function IIFE() {
     let x = sx / stw
     let y = sy / sth
     if (integer) {
-      x = IMath.floor(x)
-      y = IMath.floor(y)
+      x = Math.floor(x)
+      y = Math.floor(y)
     }
     point.x = x
     point.y = y
@@ -1788,8 +1785,8 @@ Scene.rasterizeScrollPosition = function IIFE() {
     const st = this.scrollTop
     const sr = this.scrollRight
     const sb = this.scrollBottom
-    scroll.left = IMath.round((sl + ox) * sx) / sx
-    scroll.top = IMath.round((st + oy) * sy) / sy
+    scroll.left = Math.round((sl + ox) * sx) / sx
+    scroll.top = Math.round((st + oy) * sy) / sy
     scroll.right = scroll.left + sr - sl
     scroll.bottom = scroll.top + sb - st
     return scroll
@@ -1838,8 +1835,8 @@ Scene.updateCamera = function (x = this.meta.x, y = this.meta.y) {
   const scrollY = y * this.scaledTileHeight + this.paddingTop
   const toleranceX = this.scaledTileWidth * 0.0001
   const toleranceY = this.scaledTileHeight * 0.0001
-  screen.rawScrollLeft = IMath.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
-  screen.rawScrollTop = IMath.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
   screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceX) / dpr
   screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceY) / dpr
 }
@@ -1848,8 +1845,8 @@ Scene.updateCamera = function (x = this.meta.x, y = this.meta.y) {
 Scene.updateTransform = function () {
   const dpr = window.devicePixelRatio
   const screen = this.screen
-  const left = IMath.roundTo(screen.scrollLeft * dpr - this.paddingLeft, 4)
-  const top = IMath.roundTo(screen.scrollTop * dpr - this.paddingTop, 4)
+  const left = Math.roundTo(screen.scrollLeft * dpr - this.paddingLeft, 4)
+  const top = Math.roundTo(screen.scrollTop * dpr - this.paddingTop, 4)
   const right = left + GL.width
   const bottom = top + GL.height
   const scaleX = this.scaleX
@@ -1870,8 +1867,8 @@ Scene.updateTransform = function () {
   .translate(-this.scrollLeft, -this.scrollTop)
   const scrollX = screen.rawScrollLeft * dpr + this.centerOffsetX
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
-  this.meta.x = IMath.roundTo((scrollX - this.paddingLeft) / this.scaledTileWidth, 4)
-  this.meta.y = IMath.roundTo((scrollY - this.paddingTop) / this.scaledTileHeight, 4)
+  this.meta.x = Math.roundTo((scrollX - this.paddingLeft) / this.scaledTileWidth, 4)
+  this.meta.y = Math.roundTo((scrollY - this.paddingTop) / this.scaledTileHeight, 4)
   Data.manifest.changed = true
 }
 
@@ -2109,7 +2106,7 @@ Scene.loadActorContext = function (actor) {
         const sprite = sprites[i]
         images[sprite.name] = sprite.image
       }
-      player.angle = IMath.radians(actor.angle)
+      player.angle = Math.radians(actor.angle)
       player.setSpriteImages(images)
       player.setMotion(data.idleMotion)
       Object.defineProperty(
@@ -2158,7 +2155,7 @@ Scene.loadAnimationContext = function (animation) {
     )
     const player = new Animation.Player(data)
     player.setMotion(animation.motion)
-    player.setAngle(IMath.radians(animation.angle))
+    player.setAngle(Math.radians(animation.angle))
     Object.defineProperty(
       animation, 'player', {
         configurable: true,
@@ -2562,10 +2559,10 @@ Scene.drawTileLayer = function (
   const tt = st - area.expansionTop
   const tr = sr + area.expansionRight
   const tb = sb + area.expansionBottom
-  const bx = IMath.max(IMath.floor(tl / tw), 0)
-  const by = IMath.max(IMath.floor(tt / th), 0)
-  const ex = IMath.min(IMath.ceil(tr / tw), width)
-  const ey = IMath.min(IMath.ceil(tb / th), height)
+  const bx = Math.max(Math.floor(tl / tw), 0)
+  const by = Math.max(Math.floor(tt / th), 0)
+  const ex = Math.min(Math.ceil(tr / tw), width)
+  const ey = Math.min(Math.ceil(tb / th), height)
   gl.batchRenderer.setAttrSize(0)
   gl.batchRenderer.setBlendMode(blend)
   for (let y = by; y < ey; y++) {
@@ -2754,14 +2751,14 @@ Scene.drawGridLayer = function () {
     const sb = scroll.bottom
     const ox = 0.5 / this.scaleX / tw
     const oy = 0.5 / this.scaleY / th
-    const bx = IMath.max(IMath.ceil(sl / tw), 0)
-    const by = IMath.max(IMath.ceil(st / th), 0)
-    const ex = IMath.min(IMath.ceil(sr / tw), width + 1)
-    const ey = IMath.min(IMath.ceil(sb / th), height + 1)
-    const left = IMath.max(IMath.floor(sl / tw), 0)
-    const top = IMath.max(IMath.floor(st / th), 0)
-    const right = IMath.min(ex, width + 1 / this.scaleX / tw)
-    const bottom = IMath.min(ey, height + 1 / this.scaleY / th)
+    const bx = Math.max(Math.ceil(sl / tw), 0)
+    const by = Math.max(Math.ceil(st / th), 0)
+    const ex = Math.min(Math.ceil(sr / tw), width + 1)
+    const ey = Math.min(Math.ceil(sb / th), height + 1)
+    const left = Math.max(Math.floor(sl / tw), 0)
+    const top = Math.max(Math.floor(st / th), 0)
+    const right = Math.min(ex, width + 1 / this.scaleX / tw)
+    const bottom = Math.min(ey, height + 1 / this.scaleY / th)
     let vi = 0
     for (let y = by; y < ey; y++) {
       vertices[vi    ] = left
@@ -3031,7 +3028,7 @@ Scene.drawObjectLayer = function () {
     const ey = min(ceil(bottom / th), height)
     let opacity = tilemap.opacity
     if (translucent && !active) opacity /= 4
-    opacity = IMath.round(opacity * 255) << 8
+    opacity = Math.round(opacity * 255) << 8
     for (let y = by; y < ey; y++) {
       for (let x = bx; x < ex; x++) {
         const i = x + y * tro
@@ -3345,10 +3342,10 @@ Scene.drawTerrainLayer = function () {
   const st = this.scrollTop
   const sr = this.scrollRight
   const sb = this.scrollBottom
-  const bx = IMath.max(IMath.floor(sl / tw), 0)
-  const by = IMath.max(IMath.floor(st / th), 0)
-  const ex = IMath.min(IMath.ceil(sr / tw), width)
-  const ey = IMath.min(IMath.ceil(sb / th), height)
+  const bx = Math.max(Math.floor(sl / tw), 0)
+  const by = Math.max(Math.floor(st / th), 0)
+  const ex = Math.min(Math.ceil(sr / tw), width)
+  const ey = Math.min(Math.ceil(sb / th), height)
   let vi = 0
   let flag = false
 
@@ -3729,8 +3726,8 @@ Scene.drawTileMarquee = function () {
     const by = marquee.y
     const ex = bx + mw
     const ey = by + mh
-    const max = IMath.max
-    const min = IMath.min
+    const max = Math.max
+    const min = Math.min
     if (ex > 0 && bx < sw && ey > 0 && by < sh) {
       const dl = max(bx, 0)
       const dt = max(by, 0)
@@ -3948,7 +3945,7 @@ Scene.drawAnimationWireframe = function () {
       const th = this.tileHeight
       const ax = target.x
       const ay = target.y
-      const as = IMath.max(data.size ?? 1, 1)
+      const as = Math.max(data.size ?? 1, 1)
       const ar = as / 2
       const ml = (ax - ar) * tw
       const mt = (ay - ar) * th
@@ -4060,7 +4057,7 @@ Scene.drawParticleEmitterWireframe = function () {
     const particle = this.target
     const emitter = particle.emitter
     if (emitter !== undefined) {
-      const angle = IMath.radians(particle.angle)
+      const angle = Math.radians(particle.angle)
       for (const {area} of emitter.data.layers) {
         switch (area.type) {
           case 'point':
@@ -4227,7 +4224,7 @@ Scene.selectObject = function (x, y) {
           continue
         }
         const size = object.data?.size ?? 1
-        const radius = IMath.max(size, 1) / 2
+        const radius = Math.max(size, 1) / 2
         const ax = object.x
         const ay = object.y
         const l = ax - radius
@@ -4235,10 +4232,10 @@ Scene.selectObject = function (x, y) {
         const t = ay - radius - 1
         const b = ay + radius
         if (x >= l && x < r && y >= t && y < b) {
-          const p = IMath.dist(x, y, ax, ay) <= radius
+          const p = Math.dist(x, y, ax, ay) <= radius
           const w = (p ? 0 : -100) + ay / 2
-          - IMath.abs(x - ax)
-          - IMath.abs(y - ay)
+          - Math.abs(x - ax)
+          - Math.abs(y - ay)
           if (target === null || weight < w) {
             if (!precise) {
               precise = p
@@ -4292,9 +4289,9 @@ Scene.selectRegion = function (x, y) {
     const rr = rl + rw
     const rb = rt + rh
     if (x >= rl && y >= rt && x < rr && y < rb) {
-      const w = -IMath.min(rw, rh)
-      - IMath.abs(x - region.x)
-      - IMath.abs(y - region.y)
+      const w = -Math.min(rw, rh)
+      - Math.abs(x - region.x)
+      - Math.abs(y - region.y)
       if (target === null || weight < w) {
         target = region
         weight = w
@@ -4321,9 +4318,9 @@ Scene.selectLight = function (x, y) {
         const ry = y - light.y
         const lr = light.range / 2
         if (rx ** 2 + ry ** 2 <= lr ** 2) {
-          const w = -IMath.PI * lr ** 2
-          - IMath.abs(rx)
-          - IMath.abs(ry)
+          const w = -Math.PI * lr ** 2
+          - Math.abs(rx)
+          - Math.abs(ry)
           if (target === null || weight < w) {
             target = light
             weight = w
@@ -4342,14 +4339,14 @@ Scene.selectLight = function (x, y) {
         const lr = ll + lw
         const lb = lt + lh
         const angle = instance.angle
-        const cos = IMath.cos(-angle)
-        const sin = IMath.sin(-angle)
+        const cos = Math.cos(-angle)
+        const sin = Math.sin(-angle)
         const px = rx * cos - ry * sin
         const py = rx * sin + ry * cos
         if (px >= ll && py >= lt && px < lr && py < lb) {
           const w = -lw * lh
-          - IMath.abs(rx)
-          - IMath.abs(ry)
+          - Math.abs(rx)
+          - Math.abs(ry)
           if (target === null || weight < w) {
             target = light
             weight = w
@@ -4387,8 +4384,8 @@ Scene.selectParticleEmitter = function (x, y) {
       const rb = particle.y + 0.5
       if (x >= rl && y >= rt && x < rr && y < rb) {
         const w =
-        - IMath.abs(x - particle.x)
-        - IMath.abs(y - particle.y)
+        - Math.abs(x - particle.x)
+        - Math.abs(y - particle.y)
         if (target === null || weight < w) {
           target = particle
           weight = w
@@ -4405,8 +4402,8 @@ Scene.selectParticleEmitter = function (x, y) {
           const rb = particle.y + 0.5
           if (x >= rl && y >= rt && x < rr && y < rb) {
             const w =
-            - IMath.abs(x - particle.x)
-            - IMath.abs(y - particle.y)
+            - Math.abs(x - particle.x)
+            - Math.abs(y - particle.y)
             if (target === null || weight < w) {
               target = particle
               weight = w
@@ -4420,19 +4417,19 @@ Scene.selectParticleEmitter = function (x, y) {
           const ry = my - point.y
           const rw = area.width
           const rh = area.height
-          const rl = -IMath.max(rw / 2, twh)
-          const rt = -IMath.max(rh / 2, thh)
+          const rl = -Math.max(rw / 2, twh)
+          const rt = -Math.max(rh / 2, thh)
           const rr = -rl
           const rb = -rt
-          const angle = IMath.radians(particle.angle)
-          const cos = IMath.cos(-angle)
-          const sin = IMath.sin(-angle)
+          const angle = Math.radians(particle.angle)
+          const cos = Math.cos(-angle)
+          const sin = Math.sin(-angle)
           const px = rx * cos - ry * sin
           const py = rx * sin + ry * cos
           if (px >= rl && py >= rt && px < rr && py < rb) {
             const w = -rw * rh
-            - IMath.abs(rx)
-            - IMath.abs(ry)
+            - Math.abs(rx)
+            - Math.abs(ry)
             if (target === null || weight < w) {
               target = particle
               weight = w
@@ -4446,11 +4443,11 @@ Scene.selectParticleEmitter = function (x, y) {
           const py = point.y
           const rx = mx - px
           const ry = my - py
-          const radius = IMath.max(area.radius, twh)
+          const radius = Math.max(area.radius, twh)
           if (rx ** 2 + ry ** 2 <= radius ** 2) {
-            const w = -IMath.PI * radius ** 2
-            - IMath.abs(rx)
-            - IMath.abs(ry)
+            const w = -Math.PI * radius ** 2
+            - Math.abs(rx)
+            - Math.abs(ry)
             if (target === null || weight < w) {
               target = particle
               weight = w
@@ -4540,17 +4537,17 @@ Scene.drawOvalWireframe = function (ox, oy, hr, vr, color) {
   const st = this.scrollTop
   const sr = this.scrollRight
   const sb = this.scrollBottom
-  const offset = IMath.max(1, 0.5 / scale)
+  const offset = Math.max(1, 0.5 / scale)
   const hmr = hr - offset
   const vmr = vr - offset
   const segments = 360
-  const step = IMath.PI * 2 / segments
+  const step = Math.PI * 2 / segments
   let vi = 0
   for (let i = 0, j = 1; i < segments; i++, j = -j) {
     const angle = i * step
     const or = j * offset
-    vertices[vi    ] = ox + (hmr + or) * IMath.cos(angle)
-    vertices[vi + 1] = oy + (vmr + or) * IMath.sin(angle)
+    vertices[vi    ] = ox + (hmr + or) * Math.cos(angle)
+    vertices[vi + 1] = oy + (vmr + or) * Math.sin(angle)
     vi += 2
   }
   vertices[vi    ] = vertices[0]
@@ -4586,7 +4583,7 @@ Scene.drawTargetAnchor = function (target, angle, color = 0xff00ff00) {
   const st = this.scrollTop
   const sr = this.scrollRight
   const sb = this.scrollBottom
-  const offset = IMath.max(1, 0.5 / scale)
+  const offset = Math.max(1, 0.5 / scale)
   const sox = scale <= 0.5 ? 0.5 : 0
   const o1 = offset
   const o4 = offset * 4
@@ -4721,7 +4718,7 @@ Scene.setRectWireframeVertices = function (vertices, dl, dt, dr, db, matrix) {
   const vector2 = vector21.normalize().add(vector23.normalize())
   const vector3 = vector32.normalize().add(vector34.normalize())
   const vector4 = vector43.normalize().add(vector41.normalize())
-  const offset = IMath.max(1, 0.5 / this.scale)
+  const offset = Math.max(1, 0.5 / this.scale)
   vector1.length = offset / vector1.sin(vector12)
   vector2.length = offset / vector2.sin(vector23)
   vector3.length = offset / vector3.sin(vector34)
@@ -4786,10 +4783,10 @@ Scene.editInPencilMode = function (x, y, width, height) {
   const sTiles = this.marquee.getTiles(true)
 
   // 设置图块
-  const bx = IMath.max(x, 0)
-  const by = IMath.max(y, 0)
-  const ex = IMath.min(x + width, mapWidth)
-  const ey = IMath.min(y + height, mapHeight)
+  const bx = Math.max(x, 0)
+  const by = Math.max(y, 0)
+  const ex = Math.min(x + width, mapWidth)
+  const ey = Math.min(y + height, mapHeight)
   for (let y = by; y < ey; y++) {
     for (let x = bx; x < ex; x++) {
       if (layer === 'terrain') {
@@ -4802,10 +4799,10 @@ Scene.editInPencilMode = function (x, y, width, height) {
 
   // 更新目标图块以及相邻的帧索引
   if (layer !== 'terrain' && !shiftKey) {
-    const bx = IMath.max(x - 1, 0)
-    const by = IMath.max(y - 1, 0)
-    const ex = IMath.min(x + width + 1, mapWidth)
-    const ey = IMath.min(y + height + 1, mapHeight)
+    const bx = Math.max(x - 1, 0)
+    const by = Math.max(y - 1, 0)
+    const ex = Math.min(x + width + 1, mapWidth)
+    const ey = Math.min(y + height + 1, mapHeight)
     for (let y = by; y < ey; y++) {
       for (let x = bx; x < ex; x++) {
         this.setTileFrame(x, y)
@@ -4829,10 +4826,10 @@ Scene.editInRectMode = function (x, y, width, height) {
   this.restoreMapData()
 
   // 设置图块
-  const bx = IMath.max(x, 0)
-  const by = IMath.max(y, 0)
-  const ex = IMath.min(x + width, mapWidth)
-  const ey = IMath.min(y + height, mapHeight)
+  const bx = Math.max(x, 0)
+  const by = Math.max(y, 0)
+  const ex = Math.min(x + width, mapWidth)
+  const ey = Math.min(y + height, mapHeight)
   for (let y = by; y < ey; y++) {
     for (let x = bx; x < ex; x++) {
       if (layer === 'terrain') {
@@ -4849,10 +4846,10 @@ Scene.editInRectMode = function (x, y, width, height) {
     const top = y + 1
     const right = x + width - 2
     const bottom = y + height - 2
-    const bx = IMath.max(x - 1, 0)
-    const by = IMath.max(y - 1, 0)
-    const ex = IMath.min(x + width + 1, mapWidth)
-    const ey = IMath.min(y + height + 1, mapHeight)
+    const bx = Math.max(x - 1, 0)
+    const by = Math.max(y - 1, 0)
+    const ex = Math.min(x + width + 1, mapWidth)
+    const ey = Math.min(y + height + 1, mapHeight)
     for (let y = by; y < ey; y++) {
       for (let x = bx; x < ex; x++) {
         if (x < left || x > right || y < top || y > bottom) {
@@ -4878,26 +4875,26 @@ Scene.editInOvalMode = function (x, y, width, height) {
   this.restoreMapData()
 
   // 设置图块
-  const rr = (IMath.max(width, height) / 2 - 0.1) ** 2
-  const scale = IMath.max(width, height) / IMath.min(width, height)
+  const rr = (Math.max(width, height) / 2 - 0.1) ** 2
+  const scale = Math.max(width, height) / Math.min(width, height)
   const ox = x + (width - 1) / 2
   const oy = y + (height - 1) / 2
   let ovalWidth
   let ovalFlags
   let edgeFlags
   if (layer !== 'terrain' && !shiftKey) {
-    const bx = IMath.max(x, 0) - 1
-    const by = IMath.max(y, 0) - 1
-    const ex = IMath.min(x + width, mapWidth) + 1
-    const ey = IMath.min(y + height, mapHeight) + 1
+    const bx = Math.max(x, 0) - 1
+    const by = Math.max(y, 0) - 1
+    const ex = Math.min(x + width, mapWidth) + 1
+    const ey = Math.min(y + height, mapHeight) + 1
     ovalWidth = ex - bx
     ovalFlags = new Uint8Array((ex - bx) * (ey - by))
     edgeFlags = new Uint8Array(ovalFlags.length)
   }
-  const bx = IMath.max(x, 0)
-  const by = IMath.max(y, 0)
-  const ex = IMath.min(x + width, mapWidth)
-  const ey = IMath.min(y + height, mapHeight)
+  const bx = Math.max(x, 0)
+  const by = Math.max(y, 0)
+  const ex = Math.min(x + width, mapWidth)
+  const ey = Math.min(y + height, mapHeight)
   for (let y = by; y < ey; y++) {
     for (let x = bx; x < ex; x++) {
       const sumOfSquares = (
@@ -4921,10 +4918,10 @@ Scene.editInOvalMode = function (x, y, width, height) {
 
   // 选取边缘区域
   if (layer !== 'terrain' && !shiftKey) {
-    const bx = IMath.max(x, 0) - 1
-    const by = IMath.max(y, 0) - 1
-    const ex = IMath.min(x + width, mapWidth) + 1
-    const ey = IMath.min(y + height, mapHeight) + 1
+    const bx = Math.max(x, 0) - 1
+    const by = Math.max(y, 0) - 1
+    const ex = Math.min(x + width, mapWidth) + 1
+    const ey = Math.min(y + height, mapHeight) + 1
     const dx = ex - 1
     const dy = ey - 1
     for (let y = by; y < dy; y++) {
@@ -5236,7 +5233,7 @@ Scene.setTileFrame = function (x, y) {
     let nodeIndex = 0
     for (let i = 0; i < length; i++) {
       const code = nodes[i].rule | neighbor
-      if (IMath.max(
+      if (Math.max(
         code       & 0b11,
         code >> 2  & 0b11,
         code >> 4  & 0b11,
@@ -5716,7 +5713,7 @@ Scene.createDefaultAnimation = function IIFE() {
       frames[0].y = -8
       frames[0].scaleX = 0.25
       frames[0].scaleY = 0.25
-      frames[1] = IObject.clone(frames[0])
+      frames[1] = Object.clone(frames[0])
       frames[1].start = 1
       frames[1].end = 2
       frames[1].spriteY = 1
@@ -6089,19 +6086,19 @@ Scene.screenKeydown = function (event) {
               case 'actor': {
                 const actor = this.target
                 const size = actor.data?.size ?? 1
-                const radius = IMath.max(size, 1) / 2
-                const x = IMath.clamp(actor.x + offsetX, radius, width - radius)
-                const y = IMath.clamp(actor.y + offsetY, radius, height - radius)
-                this.shiftTarget(IMath.roundTo(x, 4), IMath.roundTo(y, 4))
+                const radius = Math.max(size, 1) / 2
+                const x = Math.clamp(actor.x + offsetX, radius, width - radius)
+                const y = Math.clamp(actor.y + offsetY, radius, height - radius)
+                this.shiftTarget(Math.roundTo(x, 4), Math.roundTo(y, 4))
                 break
               }
               case 'region': {
                 const region = this.target
                 const rwh = region.width / 2
                 const rhh = region.height / 2
-                const x = IMath.clamp(region.x + offsetX, rwh, width - rwh)
-                const y = IMath.clamp(region.y + offsetY, rhh, height - rhh)
-                this.shiftTarget(IMath.roundTo(x, 4), IMath.roundTo(y, 4))
+                const x = Math.clamp(region.x + offsetX, rwh, width - rwh)
+                const y = Math.clamp(region.y + offsetY, rhh, height - rhh)
+                this.shiftTarget(Math.roundTo(x, 4), Math.roundTo(y, 4))
                 break
               }
               case 'tilemap':
@@ -6110,9 +6107,9 @@ Scene.screenKeydown = function (event) {
               case 'particle':
               case 'parallax': {
                 const target = this.target
-                const x = IMath.clamp(target.x + offsetX, 0, width)
-                const y = IMath.clamp(target.y + offsetY, 0, height)
-                this.shiftTarget(IMath.roundTo(x, 4), IMath.roundTo(y, 4))
+                const x = Math.clamp(target.x + offsetX, 0, width)
+                const y = Math.clamp(target.y + offsetY, 0, height)
+                this.shiftTarget(Math.roundTo(x, 4), Math.roundTo(y, 4))
                 break
               }
             }
@@ -6525,8 +6522,8 @@ Scene.pointerup = function (event) {
         const marquee = this.marquee
         const coords = this.getTileCoords(event, true)
         const context = this.tilemap ?? this
-        const x = IMath.clamp(coords.x, 0, context.width - 1)
-        const y = IMath.clamp(coords.y, 0, context.height - 1)
+        const x = Math.clamp(coords.x, 0, context.width - 1)
+        const y = Math.clamp(coords.y, 0, context.height - 1)
         marquee.offsetX = marquee.x - x
         marquee.offsetY = marquee.y - y
         if (marquee.pointerevent !== null) {
@@ -6573,22 +6570,22 @@ Scene.pointermove = function (event) {
         const oy = marquee.offsetY
         const coords = this.getTileCoords(event, true)
         const context = this.tilemap ?? this
-        const x = IMath.clamp(coords.x, 1 - ox - mw, context.width - 1 - ox)
-        const y = IMath.clamp(coords.y, 1 - oy - mh, context.height - 1 - oy)
+        const x = Math.clamp(coords.x, 1 - ox - mw, context.width - 1 - ox)
+        const y = Math.clamp(coords.y, 1 - oy - mh, context.height - 1 - oy)
         const mx = x + ox
         const my = y + oy
         if (mx !== marquee.x || my !== marquee.y) {
-          const gapX = IMath.abs(mx - marquee.x)
-          const gapY = IMath.abs(my - marquee.y)
+          const gapX = Math.abs(mx - marquee.x)
+          const gapY = Math.abs(my - marquee.y)
 
           // 绘制补间图块
           if (gapX > 1 && mw < 9 || gapY > 1 && mh < 9) {
-            const length = IMath.max(gapX, gapY)
+            const length = Math.max(gapX, gapY)
             const actorOffsetX = (mx - marquee.x) / length
             const actorOffsetY = (my - marquee.y) / length
             for (let i = 1; i < length; i++) {
-              const mx = marquee.x + IMath.round(i * actorOffsetX)
-              const my = marquee.y + IMath.round(i * actorOffsetY)
+              const mx = marquee.x + Math.round(i * actorOffsetX)
+              const my = marquee.y + Math.round(i * actorOffsetY)
               this.edit(mx, my, mw, mh)
             }
           }
@@ -6600,10 +6597,10 @@ Scene.pointermove = function (event) {
       case 'rect':
       case 'oval': {
         const coords = this.getTileCoords(event, true)
-        const mx = IMath.min(coords.x, dragging.pointerdownX)
-        const my = IMath.min(coords.y, dragging.pointerdownY)
-        const mw = IMath.abs(coords.x - dragging.pointerdownX) + 1
-        const mh = IMath.abs(coords.y - dragging.pointerdownY) + 1
+        const mx = Math.min(coords.x, dragging.pointerdownX)
+        const my = Math.min(coords.y, dragging.pointerdownY)
+        const mw = Math.abs(coords.x - dragging.pointerdownX) + 1
+        const mh = Math.abs(coords.y - dragging.pointerdownY) + 1
         if (mx !== marquee.x || my !== marquee.y || mw !== marquee.width || mh !== marquee.height) {
           marquee.selectInRectMode(mx, my, mw, mh)
           this.edit(mx, my, mw, mh)
@@ -6613,12 +6610,12 @@ Scene.pointermove = function (event) {
       case 'copy': {
         const coords = this.getTileCoords(event, true)
         const context = this.tilemap ?? this
-        const x = IMath.clamp(coords.x, 0, context.width - 1)
-        const y = IMath.clamp(coords.y, 0, context.height - 1)
-        const mx = IMath.min(x, dragging.pointerdownX)
-        const my = IMath.min(y, dragging.pointerdownY)
-        const mw = IMath.abs(x - dragging.pointerdownX) + 1
-        const mh = IMath.abs(y - dragging.pointerdownY) + 1
+        const x = Math.clamp(coords.x, 0, context.width - 1)
+        const y = Math.clamp(coords.y, 0, context.height - 1)
+        const mx = Math.min(x, dragging.pointerdownX)
+        const my = Math.min(y, dragging.pointerdownY)
+        const mw = Math.abs(x - dragging.pointerdownX) + 1
+        const mh = Math.abs(y - dragging.pointerdownY) + 1
         if (mx !== marquee.x || my !== marquee.y || mw !== marquee.width || mh !== marquee.height) {
           this.marquee.selectInCopyMode(mx, my, mw, mh)
         }
@@ -6628,7 +6625,7 @@ Scene.pointermove = function (event) {
         if (!dragging.enabled) {
           const distX = event.clientX - dragging.clientX
           const distY = event.clientY - dragging.clientY
-          if (IMath.sqrt(distX ** 2 + distY ** 2) > 4 ||
+          if (Math.sqrt(distX ** 2 + distY ** 2) > 4 ||
             event.timeStamp - dragging.timeStamp >= 500) {
             dragging.enabled = true
           } else {
@@ -6645,21 +6642,21 @@ Scene.pointermove = function (event) {
           case 'actor': {
             const actor = this.target
             const size = actor.data?.size ?? 1
-            const radius = IMath.max(size, 1) / 2
+            const radius = Math.max(size, 1) / 2
             if (this.shiftKey) {
               x = dragging.startX - dragging.pointerdownX + coords.x
               y = dragging.startY - dragging.pointerdownY + coords.y
-              x = IMath.roundTo(IMath.clamp(x, radius, width - radius), 4)
-              y = IMath.roundTo(IMath.clamp(y, radius, height - radius), 4)
+              x = Math.roundTo(Math.clamp(x, radius, width - radius), 4)
+              y = Math.roundTo(Math.clamp(y, radius, height - radius), 4)
             } else {
               x = dragging.startX
-                - IMath.floor(dragging.pointerdownX)
-                + IMath.floor(coords.x)
+                - Math.floor(dragging.pointerdownX)
+                + Math.floor(coords.x)
               y = dragging.startY
-                - IMath.floor(dragging.pointerdownY)
-                + IMath.floor(coords.y)
-              x = IMath.clamp(x, radius, width - radius)
-              y = IMath.clamp(y, radius, height - radius)
+                - Math.floor(dragging.pointerdownY)
+                + Math.floor(coords.y)
+              x = Math.clamp(x, radius, width - radius)
+              y = Math.clamp(y, radius, height - radius)
             }
             this.shiftTarget(x, y)
             break
@@ -6671,17 +6668,17 @@ Scene.pointermove = function (event) {
             if (this.shiftKey) {
               x = dragging.startX - dragging.pointerdownX + coords.x
               y = dragging.startY - dragging.pointerdownY + coords.y
-              x = IMath.roundTo(IMath.clamp(x, rwh, width - rwh), 4)
-              y = IMath.roundTo(IMath.clamp(y, rhh, height - rhh), 4)
+              x = Math.roundTo(Math.clamp(x, rwh, width - rwh), 4)
+              y = Math.roundTo(Math.clamp(y, rhh, height - rhh), 4)
             } else {
               x = dragging.startX
-                - IMath.floor(dragging.pointerdownX)
-                + IMath.floor(coords.x)
+                - Math.floor(dragging.pointerdownX)
+                + Math.floor(coords.x)
               y = dragging.startY
-                - IMath.floor(dragging.pointerdownY)
-                + IMath.floor(coords.y)
-              x = IMath.clamp(x, rwh, width - rwh)
-              y = IMath.clamp(y, rhh, height - rhh)
+                - Math.floor(dragging.pointerdownY)
+                + Math.floor(coords.y)
+              x = Math.clamp(x, rwh, width - rwh)
+              y = Math.clamp(y, rhh, height - rhh)
             }
             this.shiftTarget(x, y)
             break
@@ -6694,17 +6691,17 @@ Scene.pointermove = function (event) {
             if (this.shiftKey) {
               x = dragging.startX - dragging.pointerdownX + coords.x
               y = dragging.startY - dragging.pointerdownY + coords.y
-              x = IMath.roundTo(IMath.clamp(x, 0, width), 4)
-              y = IMath.roundTo(IMath.clamp(y, 0, height), 4)
+              x = Math.roundTo(Math.clamp(x, 0, width), 4)
+              y = Math.roundTo(Math.clamp(y, 0, height), 4)
             } else {
               x = dragging.startX
-                - IMath.floor(dragging.pointerdownX)
-                + IMath.floor(coords.x)
+                - Math.floor(dragging.pointerdownX)
+                + Math.floor(coords.x)
               y = dragging.startY
-                - IMath.floor(dragging.pointerdownY)
-                + IMath.floor(coords.y)
-              x = IMath.clamp(x, 0, width)
-              y = IMath.clamp(y, 0, height)
+                - Math.floor(dragging.pointerdownY)
+                + Math.floor(coords.y)
+              x = Math.clamp(x, 0, width)
+              y = Math.clamp(y, 0, height)
             }
             this.shiftTarget(x, y)
             break
@@ -6718,7 +6715,7 @@ Scene.pointermove = function (event) {
           dragging.scrollLeft - distX,
           dragging.scrollTop - distY,
         )
-        if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
+        if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
           Cursor.open('cursor-grab')
         }
@@ -7687,7 +7684,7 @@ Scene.list.createIcon = function IIFE() {
       const path = File.getPath(parallax.image)
       if (path) {
         icon.addClass('icon-scene-parallax')
-        icon.style.backgroundImage = ICSS.encodeURL(File.route(path))
+        icon.style.backgroundImage = CSS.encodeURL(File.route(path))
       } else {
         icon.textContent = '\uf1c5'
       }

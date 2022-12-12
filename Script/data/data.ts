@@ -9,8 +9,7 @@ import {
   FSP,
   Log,
   Manifest,
-  PluginManager,
-  INumber
+  PluginManager
 } from "../yami"
 
 // ******************************** 数据对象 ********************************
@@ -219,7 +218,7 @@ Data.createEasingItems = function () {
     items = this.easings.items = []
     const easings = this.easings
     const length = easings.length
-    const digits = INumber.computeIndexDigits(length)
+    const digits = Number.computeIndexDigits(length)
     for (let i = 0; i < length; i++) {
       const index = i.toString().padStart(digits, '0')
       const easing = easings[i]
@@ -239,7 +238,7 @@ Data.createTeamItems = function () {
     items = this.teams.list.items = []
     const teams = this.teams.list
     const length = teams.length
-    const digits = INumber.computeIndexDigits(length)
+    const digits = Number.computeIndexDigits(length)
     for (let i = 0; i < length; i++) {
       const index = i.toString().padStart(digits, '0')
       const team = teams[i]

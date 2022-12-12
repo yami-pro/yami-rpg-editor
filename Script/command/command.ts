@@ -42,9 +42,7 @@ import {
   TransformProperty,
   TriggerGetter,
   VariableGetter,
-  Window,
-  IObject,
-  IString
+  Window
 } from "../yami"
 
 // ******************************** 指令对象 ********************************
@@ -8044,7 +8042,7 @@ Command.custom = {
   // 加载自定义指令
   load: function (id, parameters) {
     this.script.id = id
-    this.script.parameters = IObject.clone(parameters)
+    this.script.parameters = Object.clone(parameters)
     this.windowX = Window.absolutePos.x
     this.windowY = Window.absolutePos.y
     this.parameterPane.update()
@@ -8096,7 +8094,7 @@ Command.custom = {
         value: id,
         name: name,
         keywords: command.keywords,
-        unspacedName: IString.compress(name),
+        unspacedName: String.compress(name),
       })
     }
     this.customFolder.children = commands

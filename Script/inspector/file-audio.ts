@@ -6,9 +6,7 @@ import {
   File,
   getElementReader,
   Inspector,
-  TimerManager,
-  ICSS,
-  INumber
+  TimerManager
 } from "../yami"
 
 // ******************************** 文件 - 音频页面 ********************************
@@ -224,12 +222,12 @@ FileAudio.updateCanvas = function () {
     canvas.style.width = '100%'
     canvas.style.height = '0'
     const dpr = window.devicePixelRatio
-    const height = ICSS.getDevicePixelContentBoxSize(canvas).width
+    const height = CSS.getDevicePixelContentBoxSize(canvas).width
     if (canvas.height !== height) {
       canvas.height = height
     }
     canvas.style.height = `${height / dpr}px`
-    const width = ICSS.getDevicePixelContentBoxSize(canvas).width
+    const width = CSS.getDevicePixelContentBoxSize(canvas).width
     if (canvas.width !== width) {
       canvas.width = width
     }
@@ -242,7 +240,7 @@ FileAudio.updateCanvas = function () {
 
 // 格式化时间
 FileAudio.formatTime = function (time) {
-  const pad = INumber.padZero
+  const pad = Number.padZero
   const length = Math.floor(time)
   const hours = Math.floor(length / 3600)
   const minutes = Math.floor(length / 60) % 60

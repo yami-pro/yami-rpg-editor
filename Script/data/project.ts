@@ -10,8 +10,7 @@ import {
   Local,
   Selector,
   Title,
-  Window,
-  IObject
+  Window
 } from "../yami"
 
 // ******************************** 项目设置窗口 ********************************
@@ -138,7 +137,7 @@ Project.open = function () {
   Window.open('project-settings')
 
   // 创建数据副本
-  this.data = IObject.clone(Data.config)
+  this.data = Object.clone(Data.config)
 
   // 创建队伍选项
   const items = Data.createTeamItems()

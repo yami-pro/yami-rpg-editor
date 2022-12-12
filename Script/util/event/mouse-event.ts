@@ -1,43 +1,36 @@
 "use strict"
 
-import {
-  INavigator,
-  UIEvent_ext
-} from "../../yami"
-
 // ******************************** 鼠标事件方法 ********************************
 
-interface MouseEvent_ext extends UIEvent_ext {
+interface MouseEvent_ext {
   doubleclickProcessed: boolean
   spaceKey: boolean
 
   getRelativeCoords: (element: any) => {x: number, y: number}
-  dragKey: { get: (this: IMouseEvent) => boolean }
-  cmdOrCtrlKey: { get: (this: IMouseEvent) => boolean }
+  dragKey: { get: (this: MouseEvent) => boolean }
+  cmdOrCtrlKey: { get: (this: MouseEvent) => boolean }
 }
 
-interface IMouseEvent extends MouseEvent, MouseEvent_ext {}
-
 // 加入Event原型生效, MouseEvent原型不生效?
-const prototype = <IMouseEvent>Event.prototype
+const MouseEvent_prototype = <MouseEvent>Event.prototype
 
-Object.defineProperties(prototype, {
+Object.defineProperties(MouseEvent_prototype, {
   dragKey: {
-    get: function (this: IMouseEvent) {
+    get: function (this: MouseEvent) {
       return this.spaceKey || this.altKey
     }
   },
   cmdOrCtrlKey: {
-    get: (<INavigator>navigator).userAgentData.platform === 'macOS'
-    ? function (this: IMouseEvent) {return this.metaKey}
-    : function (this: IMouseEvent) {return this.ctrlKey}
+    get: navigator.userAgentData.platform === 'macOS'
+    ? function (this: MouseEvent) {return this.metaKey}
+    : function (this: MouseEvent) {return this.ctrlKey}
   },
 })
 
 // 事件方法 - 返回相对于元素的坐标
-prototype.getRelativeCoords = function IIFE() {
+MouseEvent_prototype.getRelativeCoords = function IIFE() {
   const point = {x: 0, y: 0}
-  return function (this: IMouseEvent, element: Element) {
+  return function (this: MouseEvent, element: Element) {
     const rect = element.getBoundingClientRect()
     point.x = (
       this.clientX
@@ -55,7 +48,4 @@ prototype.getRelativeCoords = function IIFE() {
   }
 }()
 
-export {
-  IMouseEvent,
-  MouseEvent_ext
-}
+export { MouseEvent_ext }

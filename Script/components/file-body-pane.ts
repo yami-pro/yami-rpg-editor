@@ -18,10 +18,7 @@ import {
   Local,
   Window,
   Timer,
-  ICSS,
-  IMath,
-  IFunction,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 文件主体面板 ********************************
@@ -50,7 +47,7 @@ class FileBodyPane extends HTMLPropsElement {
   elements: HTMLElement[]
   selections: (FolderItem | FileItem)[]
   content: HTMLPropsElement
-  pressing: ((event: IMouseKeyboardEvent) => void) | null
+  pressing: ((event: MouseKeyboardEvent) => void) | null
   openEventEnabled: boolean
   selectEventEnabled: boolean
   unselectEventEnabled: boolean
@@ -64,7 +61,7 @@ class FileBodyPane extends HTMLPropsElement {
     // 创建重命名计时器
     const timer = new Timer({
       duration: 500,
-      update: IFunction.empty,
+      update: Function.empty,
       callback: timer => {
         const files = this.selections
         if (files.length === 1) {
@@ -126,7 +123,7 @@ class FileBodyPane extends HTMLPropsElement {
 
   // 设置视图索引
   setViewIndex(viewIndex: number) {
-    viewIndex = IMath.clamp(viewIndex, 0, 4)
+    viewIndex = Math.clamp(viewIndex, 0, 4)
     if (this.viewIndex !== viewIndex) {
       const {head} = this.links
       this.viewIndex = viewIndex;
@@ -292,14 +289,14 @@ class FileBodyPane extends HTMLPropsElement {
     const rect = this.rect()
     const cw = rect.width
     const ch = rect.height
-    const ow = IMath.max(cw - PADDING * 2 + GAP, 0)
-    const oh = IMath.max(ch - PADDING * 2, 0)
+    const ow = Math.max(cw - PADDING * 2 + GAP, 0)
+    const oh = Math.max(ch - PADDING * 2, 0)
     const iw = WIDTH + GAP
     const ih = HEIGHT
-    const visibleLines = IMath.ceil((cw + GAP) / iw) + 1
-    const normalCountPerLine = IMath.max(IMath.floor(oh / ih), 1)
-    const scrollCountPerLine = IMath.max(IMath.floor((oh - SCROLLBAR_HEIGHT) / ih), 1)
-    const scrollCount = IMath.floor(ow / iw) * normalCountPerLine + 1
+    const visibleLines = Math.ceil((cw + GAP) / iw) + 1
+    const normalCountPerLine = Math.max(Math.floor(oh / ih), 1)
+    const scrollCountPerLine = Math.max(Math.floor((oh - SCROLLBAR_HEIGHT) / ih), 1)
+    const scrollCount = Math.floor(ow / iw) * normalCountPerLine + 1
     content.itemSize = iw
     content.visibleLines = visibleLines
     content.normalCountPerLine = normalCountPerLine
@@ -316,14 +313,14 @@ class FileBodyPane extends HTMLPropsElement {
     const rect = this.rect()
     const cw = rect.width
     const ch = rect.height
-    const ow = IMath.max(cw - PADDING * 2 + GAP, 0)
-    const oh = IMath.max(ch - PADDING * 2 + GAP, 0)
+    const ow = Math.max(cw - PADDING * 2 + GAP, 0)
+    const oh = Math.max(ch - PADDING * 2 + GAP, 0)
     const iw = width + GAP
     const ih = height + GAP
-    const visibleLines = IMath.ceil((ch + GAP) / ih) + 1
-    const normalCountPerLine = IMath.max(IMath.floor(ow / iw), 1)
-    const scrollCountPerLine = IMath.max(IMath.floor((ow - SCROLLBAR_WIDTH) / iw), 1)
-    const scrollCount = IMath.floor(oh / ih) * normalCountPerLine + 1
+    const visibleLines = Math.ceil((ch + GAP) / ih) + 1
+    const normalCountPerLine = Math.max(Math.floor(ow / iw), 1)
+    const scrollCountPerLine = Math.max(Math.floor((ow - SCROLLBAR_WIDTH) / iw), 1)
+    const scrollCount = Math.floor(oh / ih) * normalCountPerLine + 1
     content.itemSize = ih
     content.visibleLines = visibleLines
     content.normalCountPerLine = normalCountPerLine
@@ -336,14 +333,14 @@ class FileBodyPane extends HTMLPropsElement {
     const {range} = this.content
     const {count} = this.elements
     const scroll = this.viewMode === 'list'
-    ? IMath.max(this.scrollLeft - 4, 0)
-    : IMath.max(this.scrollTop - 4, 0)
+    ? Math.max(this.scrollLeft - 4, 0)
+    : Math.max(this.scrollTop - 4, 0)
     const {countPerLine, itemSize, visibleLines} = this.content
-    const lines = IMath.ceil(count / countPerLine)
-    const sLine = IMath.clamp(IMath.floor(scroll / itemSize), 0, lines - 1)
+    const lines = Math.ceil(count / countPerLine)
+    const sLine = Math.clamp(Math.floor(scroll / itemSize), 0, lines - 1)
     const start = countPerLine * sLine
     const length = countPerLine * visibleLines
-    const end = IMath.min(start + length, count)
+    const end = Math.min(start + length, count)
     range[0] = start
     range[1] = end
     return range
@@ -359,8 +356,8 @@ class FileBodyPane extends HTMLPropsElement {
       const PADDING = 4
       const GAP = 2
       const {style, countPerLine, itemSize} = content
-      const lines = IMath.ceil(count / countPerLine)
-      const length = IMath.max(lines * itemSize - GAP, 0) + PADDING * 2
+      const lines = Math.ceil(count / countPerLine)
+      const length = Math.max(lines * itemSize - GAP, 0) + PADDING * 2
       if (this.viewMode === 'list') {
         style.width = `${length}px`
       } else {
@@ -589,7 +586,7 @@ class FileBodyPane extends HTMLPropsElement {
       case 'image': {
         const version = file.stats.mtimeMs
         const path = `${file.path}?ver=${version}`
-        icon.style.backgroundImage = ICSS.encodeURL(File.route(path))
+        icon.style.backgroundImage = CSS.encodeURL(File.route(path))
         File.getImageResolution(path).then(({width, height}) => {
           if (width <= 128 && height <= 128) {
             icon.style.imageRendering = 'pixelated'
@@ -645,8 +642,8 @@ class FileBodyPane extends HTMLPropsElement {
     File.getImageResolution(path).then(({width, height}) => {
       // 当cw和ch为负数时为划分模式
       if (cw < 0) {
-        cw = IMath.floor(width / -cw)
-        ch = IMath.floor(height / -ch)
+        cw = Math.floor(width / -cw)
+        ch = Math.floor(height / -ch)
         if (cw * ch === 0) {
           return
         }
@@ -666,12 +663,12 @@ class FileBodyPane extends HTMLPropsElement {
           icon.style.clipPath = `polygon(${l}% 0, ${r}% 0, ${r}% 100%, ${l}% 100%)`
         }
       }
-      const size = IMath.max(cw, ch)
+      const size = Math.max(cw, ch)
       const sx = width / size
       const sy = height / size
       const px = sx !== 1 ? cx / size / (sx - 1) : 0
       const py = sy !== 1 ? cy / size / (sy - 1) : 0
-      icon.style.backgroundImage = ICSS.encodeURL(File.route(path))
+      icon.style.backgroundImage = CSS.encodeURL(File.route(path))
       icon.style.backgroundPosition = `${px * 100}% ${py * 100}%`
       icon.style.backgroundSize = `${sx * 100}% ${sy * 100}%`
       if (size <= 128) {
@@ -770,8 +767,8 @@ class FileBodyPane extends HTMLPropsElement {
         const {element} = file.getContext(this)
         const index = elements.indexOf(element)
         if (index !== -1) {
-          start = IMath.min(start, index)
-          end = IMath.max(end, index)
+          start = Math.min(start, index)
+          end = Math.max(end, index)
         }
       }
       if (start === Infinity) {
@@ -800,7 +797,7 @@ class FileBodyPane extends HTMLPropsElement {
           case 'next-line':
             index = end + countPerLine
             if (index >= count) {
-              const line = IMath.floor(index / countPerLine)
+              const line = Math.floor(index / countPerLine)
               const head = line * countPerLine
               if (count > head) {
                 index = count - 1
@@ -830,7 +827,7 @@ class FileBodyPane extends HTMLPropsElement {
         if (elements[i].file === selection) {
           const size = this.content.itemSize
           const apl = this.content.countPerLine
-          const pos = IMath.floor(i / apl) * size
+          const pos = Math.floor(i / apl) * size
           const PADDING = 4
           const GAP = 2
           let property
@@ -848,7 +845,7 @@ class FileBodyPane extends HTMLPropsElement {
           let scroll = this[property]
           switch (mode) {
             case 'active':
-              scroll = IMath.clamp(
+              scroll = Math.clamp(
                 scroll,
                 pos + size + PADDING * 2 - GAP - clientSize,
                 pos,
@@ -1263,7 +1260,7 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 指针按下事件
-  pointerdown(this: FileBodyPane, event: IMouseKeyboardEvent) {
+  pointerdown(this: FileBodyPane, event: MouseKeyboardEvent) {
     this.cancelRenaming()
     switch (event.button) {
       case 0: case 2: {
@@ -1319,8 +1316,8 @@ class FileBodyPane extends HTMLPropsElement {
                 const {element} = selections[i].getContext(this)
                 const index = elements.indexOf(element)
                 if (index !== -1) {
-                  start = IMath.min(start, index)
-                  end = IMath.max(end, index)
+                  start = Math.min(start, index)
+                  end = Math.max(end, index)
                 }
               }
               if (start !== -1) {
@@ -1366,7 +1363,7 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 指针弹起事件
-  pointerup(event: IMouseKeyboardEvent) {
+  pointerup(event: MouseKeyboardEvent) {
     switch (event.button) {
       case 0:
         if (document.activeElement === this.content &&
@@ -1379,7 +1376,7 @@ class FileBodyPane extends HTMLPropsElement {
       case 2:
         if (document.activeElement === this.content &&
           this.popupEventEnabled) {
-          const popup = <IMouseKeyboardEvent>new Event('popup')
+          const popup = <MouseKeyboardEvent>new Event('popup')
           popup.raw = event
           popup.clientX = event.clientX
           popup.clientY = event.clientY
@@ -1390,7 +1387,7 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 鼠标双击事件
-  doubleclick(event: IMouseKeyboardEvent) {
+  doubleclick(event: MouseKeyboardEvent) {
     let element = <HTMLPropsElement>event.target
     if (element.tagName === 'FILE-BODY-ICON' ||
       element.tagName === 'FILE-BODY-NAME') {
@@ -1405,13 +1402,13 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 鼠标滚轮事件
-  wheel(event: IMouseKeyboardEvent) {
+  wheel(event: MouseKeyboardEvent) {
     const {deltaY} = event
     if (deltaY !== 0) {
       if (event.cmdOrCtrlKey) {
         event.preventDefault()
         const index = this.viewIndex
-        const delta = IMath.sign(-deltaY)
+        const delta = Math.sign(-deltaY)
         if (index !== null) {
           // wheel 方法返回值是void?
           return this.setViewIndex(index + delta)
@@ -1443,7 +1440,7 @@ class FileBodyPane extends HTMLPropsElement {
     textBox.input.addClass('file-body-text-box-input')
 
     // 键盘按下事件
-    textBox.on('keydown', function (this: FileBodyPane, event: IMouseKeyboardEvent) {
+    textBox.on('keydown', function (this: FileBodyPane, event: MouseKeyboardEvent) {
       event.stopPropagation()
       switch (event.code) {
         case 'Enter':
@@ -1483,7 +1480,7 @@ class FileBodyPane extends HTMLPropsElement {
     })
 
     // 失去焦点事件
-    textBox.on('blur', function (this: FileBodyPane, event: IMouseKeyboardEvent) {
+    textBox.on('blur', function (this: FileBodyPane, event: MouseKeyboardEvent) {
       const item = <HTMLPropsElement>this.parentNode
       const file = item.file
       const name = this.read().trim()

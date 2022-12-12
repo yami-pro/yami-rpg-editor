@@ -33,21 +33,6 @@ const measureText = function IIFE() {
   }
 }()
 
-// 请求执行回调函数
-// 过滤一帧内的重复事件
-// const request = function IIFE() {
-//   const keys = []
-//   return function (key, callback) {
-//     if (keys.append(key)) {
-//       requestAnimationFrame(() => {
-//         if (keys.remove(key)) {
-//           callback()
-//         }
-//       })
-//     }
-//   }
-// }()
-
 {
   // 拖拽状态
   let dragging = false

@@ -92,7 +92,22 @@ import {
   HTMLButtonElement_ext,
   HTMLCanvasElement_ext,
   HTMLImageElement_ext,
-  HTMLInputElement_ext
+  HTMLInputElement_ext,
+  DataTransfer_ext,
+  Event_ext,
+  KeyboardEvent_ext,
+  MouseEvent_ext,
+  PointerEvent_ext,
+  UIEvent_ext,
+  WheelEvent_ext,
+  Navigator_ext,
+  FunctionConstructor_ext,
+  Math_ext,
+  NumberConstructor_ext,
+  ObjectConstructor_ext,
+  RegExpConstructor_ext,
+  StringConstructor_ext,
+  NodeList_ext
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
@@ -341,6 +356,12 @@ declare global {
     }
   }
 
+  namespace CSS {
+    function encodeURL(str: string): string
+    function rasterize(csspx: number): number
+    function getDevicePixelContentBoxSize(element: Element): {width: number, height: number}
+  }
+
   // HTMLElementTagNameMap 扩展
   interface HTMLElementTagNameMap extends HTMLElementTagNameMap_ext {}
 
@@ -376,6 +397,51 @@ declare global {
 
   // HTMLInputElement 扩展
   interface HTMLInputElement extends HTMLInputElement_ext {}
+
+  // DataTransfer 扩展
+  interface DataTransfer extends DataTransfer_ext {}
+
+  // Event 扩展
+  interface Event extends Event_ext {}
+
+  // KeyboardEvent 扩展
+  interface KeyboardEvent extends KeyboardEvent_ext {}
+
+  // MouseEvent 扩展
+  interface MouseEvent extends MouseEvent_ext {}
+
+  // PointerEvent 扩展
+  interface PointerEvent extends PointerEvent_ext {}
+
+  // UIEvent 扩展
+  interface UIEvent extends UIEvent_ext {}
+
+  // WheelEvent 扩展
+  interface WheelEvent extends WheelEvent_ext {}
+
+  // Navigator 扩展
+  interface Navigator extends Navigator_ext {}
+
+  // FunctionConstructor 扩展
+  interface FunctionConstructor extends FunctionConstructor_ext {}
+
+  // Math 扩展
+  interface Math extends Math_ext {}
+
+  // NumberConstructor 扩展
+  interface NumberConstructor extends NumberConstructor_ext {}
+
+  // ObjectConstructor 扩展
+  interface ObjectConstructor extends ObjectConstructor_ext {}
+
+  // RegExpConstructor 扩展
+  interface RegExpConstructor extends RegExpConstructor_ext {}
+
+  // StringConstructor 扩展
+  interface StringConstructor extends StringConstructor_ext {}
+
+  // NodeList 扩展
+  interface NodeList extends NodeList_ext {}
 
   // Document 扩展
   interface Document {

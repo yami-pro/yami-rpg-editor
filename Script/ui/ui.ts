@@ -23,9 +23,7 @@ import {
   Timer,
   TimerManager,
   Window,
-  Clipboard,
-  ICSS,
-  IMath
+  Clipboard
 } from "../yami"
 
 // ******************************** UI 窗口 ********************************
@@ -289,8 +287,8 @@ UI.initialize = function () {
         const screen = this.screen
         const sl = screen.scrollLeft
         const st = screen.scrollTop
-        const cx = IMath.roundTo(this.centerX + x, 4)
-        const cy = IMath.roundTo(this.centerY + y, 4)
+        const cx = Math.roundTo(this.centerX + x, 4)
+        const cy = Math.roundTo(this.centerY + y, 4)
         this.updateCamera(cx, cy)
         this.updateTransform()
         if (screen.scrollLeft !== sl ||
@@ -650,9 +648,9 @@ UI.paste = function (x, y) {
     }
     this.list.paste(null, data => {
       const {transform} = data
-      transform.x = IMath.round(x)
+      transform.x = Math.round(x)
       transform.x = 0
-      transform.y = IMath.round(y)
+      transform.y = Math.round(y)
       transform.y = 0
     })
   }
@@ -830,8 +828,8 @@ UI.revealTarget = function IIFE() {
       const toleranceY = 0.5 / this.scaleY
       const {centerX, centerY} = this
       // 目标和摄像机的位置不一定相等
-      if (IMath.abs(x - centerX) > toleranceX ||
-        IMath.abs(y - centerY) > toleranceY) {
+      if (Math.abs(x - centerX) > toleranceX ||
+        Math.abs(y - centerY) > toleranceY) {
         timer.target = target
         timer.startX = centerX
         timer.startY = centerY
@@ -1024,7 +1022,7 @@ UI.setControlPoint = function (point) {
       case points.resize.TR:
       case points.resize.BL:
       case points.resize.BR: {
-        const angle = IMath.modDegrees(point.angle + this.controlPointRotation, 180)
+        const angle = Math.modDegrees(point.angle + this.controlPointRotation, 180)
         if (angle < 22.5 || angle >= 157.5) {
           cursor = 'ew-resize'
         } else if (angle < 67.5) {
@@ -1149,18 +1147,18 @@ UI.updateControlPoints = function () {
     const y3 = b * R + d * B + f
     const x4 = a * R + c * T + e
     const y4 = b * R + d * T + f
-    const angle1 = IMath.atan2(y1 - y2, x1 - x2)
-    const angle2 = IMath.atan2(y2 - y3, x2 - x3)
-    const angle3 = IMath.atan2(y3 - y4, x3 - x4)
-    const angle4 = IMath.atan2(y4 - y1, x4 - x1)
-    const ox1 = -IMath.cos(angle3) * POINT_RADIUS
-    const oy1 = IMath.sin(angle1) * POINT_RADIUS
-    const ox2 = -IMath.cos(angle4) * POINT_RADIUS
-    const oy2 = IMath.sin(angle2) * POINT_RADIUS
-    const ox3 = IMath.cos(angle3) * POINT_RADIUS
-    const oy3 = IMath.sin(angle3) * POINT_RADIUS
-    const ox4 = IMath.cos(angle4) * POINT_RADIUS
-    const oy4 = IMath.sin(angle4) * POINT_RADIUS
+    const angle1 = Math.atan2(y1 - y2, x1 - x2)
+    const angle2 = Math.atan2(y2 - y3, x2 - x3)
+    const angle3 = Math.atan2(y3 - y4, x3 - x4)
+    const angle4 = Math.atan2(y4 - y1, x4 - x1)
+    const ox1 = -Math.cos(angle3) * POINT_RADIUS
+    const oy1 = Math.sin(angle1) * POINT_RADIUS
+    const ox2 = -Math.cos(angle4) * POINT_RADIUS
+    const oy2 = Math.sin(angle2) * POINT_RADIUS
+    const ox3 = Math.cos(angle3) * POINT_RADIUS
+    const oy3 = Math.sin(angle3) * POINT_RADIUS
+    const ox4 = Math.cos(angle4) * POINT_RADIUS
+    const oy4 = Math.sin(angle4) * POINT_RADIUS
 
     // 旋转控制点: 左上|右上|左下|右下
     const {rotate} = points
@@ -1269,7 +1267,7 @@ UI.updateHead = function () {
     //   const eRect = end.rect()
     //   const spacing = eRect.left - sRect.right - cRect.width
     //   const difference = sRect.right - nRect.left - eRect.width
-    //   const margin = IMath.min(spacing, difference)
+    //   const margin = Math.min(spacing, difference)
     //   end.style.marginLeft = `${margin}px`
     // }
   }
@@ -1280,16 +1278,16 @@ UI.resize = function () {
   if (this.state === 'open' &&
     this.screen.clientWidth !== 0) {
     const scale = this.scale
-    const scaledPadding = IMath.round(this.padding * scale)
-    const innerWidth = IMath.round(this.width * scale / 2) * 2
-    const innerHeight = IMath.round(this.height * scale / 2) * 2
-    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
+    const scaledPadding = Math.round(this.padding * scale)
+    const innerWidth = Math.round(this.width * scale / 2) * 2
+    const innerHeight = Math.round(this.height * scale / 2) * 2
+    const screenBox = CSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
-    const paddingLeft = IMath.max(screenWidth - innerWidth >> 1, scaledPadding)
-    const paddingTop = IMath.max(screenHeight - innerHeight >> 1, scaledPadding)
-    const paddingRight = IMath.max(screenWidth - innerWidth - paddingLeft, scaledPadding)
-    const paddingBottom = IMath.max(screenHeight - innerHeight - paddingTop, scaledPadding)
+    const paddingLeft = Math.max(screenWidth - innerWidth >> 1, scaledPadding)
+    const paddingTop = Math.max(screenHeight - innerHeight >> 1, scaledPadding)
+    const paddingRight = Math.max(screenWidth - innerWidth - paddingLeft, scaledPadding)
+    const paddingBottom = Math.max(screenHeight - innerHeight - paddingTop, scaledPadding)
     const outerWidth = innerWidth + paddingLeft + paddingRight
     const outerHeight = innerHeight + paddingTop + paddingBottom
     const dpr = window.devicePixelRatio
@@ -1331,8 +1329,8 @@ UI.updateCamera = function (x = this.centerX, y = this.centerY) {
   const scrollX = x * this.scaleX + this.paddingLeft
   const scrollY = y * this.scaleY + this.paddingTop
   const toleranceForDPR = 0.0001
-  screen.rawScrollLeft = IMath.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
-  screen.rawScrollTop = IMath.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
   screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceForDPR) / dpr
   screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceForDPR) / dpr
 }
@@ -1341,8 +1339,8 @@ UI.updateCamera = function (x = this.centerX, y = this.centerY) {
 UI.updateTransform = function () {
   const dpr = window.devicePixelRatio
   const screen = this.screen
-  const left = IMath.roundTo(screen.scrollLeft * dpr - this.paddingLeft, 4)
-  const top = IMath.roundTo(screen.scrollTop * dpr - this.paddingTop, 4)
+  const left = Math.roundTo(screen.scrollLeft * dpr - this.paddingLeft, 4)
+  const top = Math.roundTo(screen.scrollTop * dpr - this.paddingTop, 4)
   const right = left + GL.width
   const bottom = top + GL.height
   this.scrollLeft = left / this.scaleX
@@ -1354,8 +1352,8 @@ UI.updateTransform = function () {
   .translate(-this.scrollLeft, -this.scrollTop)
   const scrollX = screen.rawScrollLeft * dpr + this.centerOffsetX
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
-  this.centerX = IMath.roundTo((scrollX - this.paddingLeft) / this.scaleX, 4)
-  this.centerY = IMath.roundTo((scrollY - this.paddingTop) / this.scaleY, 4)
+  this.centerX = Math.roundTo((scrollX - this.paddingLeft) / this.scaleX, 4)
+  this.centerY = Math.roundTo((scrollY - this.paddingTop) / this.scaleY, 4)
 }
 
 // 设置预设对象ID
@@ -1498,25 +1496,25 @@ UI.drawCoordinateAxes = function () {
     vertices[2] = 0
     vertices[3] = x2
     vertices[4] = y2 + 0.5
-    vertices[5] = IMath.dist(x1, y1, x2, y2)
+    vertices[5] = Math.dist(x1, y1, x2, y2)
     vertices[6] = x3
     vertices[7] = y3 + 0.5
     vertices[8] = 0
     vertices[9] = x4
     vertices[10] = y4 + 0.5
-    vertices[11] = IMath.dist(x3, y3, x4, y4)
+    vertices[11] = Math.dist(x3, y3, x4, y4)
     vertices[12] = x5 + 0.5
     vertices[13] = y5
     vertices[14] = 0
     vertices[15] = x6 + 0.5
     vertices[16] = y6
-    vertices[17] = IMath.dist(x5, y5, x6, y6)
+    vertices[17] = Math.dist(x5, y5, x6, y6)
     vertices[18] = x7 + 0.5
     vertices[19] = y7
     vertices[20] = 0
     vertices[21] = x8 + 0.5
     vertices[22] = y8
-    vertices[23] = IMath.dist(x7, y7, x8, y8)
+    vertices[23] = Math.dist(x7, y7, x8, y8)
     matrix.project(
       gl.flip,
       gl.width,
@@ -1958,16 +1956,16 @@ UI.screenKeydown = function (event) {
             case 'ArrowDown':  offsetY = +1; break
           }
           if (event.cmdOrCtrlKey) {
-            const ax = IMath.roundTo(transform.anchorX - offsetX * 0.5, 4)
-            const ay = IMath.roundTo(transform.anchorY - offsetY * 0.5, 4)
+            const ax = Math.roundTo(transform.anchorX - offsetX * 0.5, 4)
+            const ay = Math.roundTo(transform.anchorY - offsetY * 0.5, 4)
             return this.shiftAnchor(ax, ay)
           }
           if (event.shiftKey) {
             offsetX *= 10
             offsetY *= 10
           }
-          const x = IMath.roundTo(transform.x + offsetX, 4)
-          const y = IMath.roundTo(transform.y + offsetY, 4)
+          const x = Math.roundTo(transform.x + offsetX, 4)
+          const y = Math.roundTo(transform.y + offsetY, 4)
           this.shiftTarget(x, y)
         }
         break
@@ -2092,7 +2090,7 @@ UI.marqueePointerdown = function (event) {
             event.mode = 'object-rotate'
             event.absoluteAnchorX = ax
             event.absoluteAnchorY = ay
-            event.lastAngle = IMath.atan2(y - ay, x - ax)
+            event.lastAngle = Math.atan2(y - ay, x - ax)
             event.rotationRadians = 0
             event.startRotation = transform.rotation
             break
@@ -2220,12 +2218,12 @@ UI.pointermove = function (event) {
           const {x, y} = event.getRelativeCoords(GL.canvas)
           const distX = x - dragging.absoluteAnchorX
           const distY = y - dragging.absoluteAnchorY
-          const currentAngle = IMath.atan2(distY, distX)
-          const angle = IMath.modRadians(currentAngle - dragging.lastAngle)
-          dragging.rotationRadians += angle < IMath.PI ? angle : angle - IMath.PI * 2
-          let rotation = IMath.round(dragging.startRotation + IMath.degrees(dragging.rotationRadians))
+          const currentAngle = Math.atan2(distY, distX)
+          const angle = Math.modRadians(currentAngle - dragging.lastAngle)
+          dragging.rotationRadians += angle < Math.PI ? angle : angle - Math.PI * 2
+          let rotation = Math.round(dragging.startRotation + Math.degrees(dragging.rotationRadians))
           if (event.shiftKey) {
-            rotation = IMath.round(rotation / 15) * 15
+            rotation = Math.round(rotation / 15) * 15
           }
           const transform = this.target.transform
           if (transform.rotation !== rotation) {
@@ -2240,13 +2238,13 @@ UI.pointermove = function (event) {
           const {parent, transform} = instance
           const points = this.controlPoints
           const point = this.controlPointActive
-          const angle = IMath.radians(point.angle + this.controlPointRotation)
+          const angle = Math.radians(point.angle + this.controlPointRotation)
           const distX = (event.clientX - dragging.clientX) / this.scaleX
           const distY = (event.clientY - dragging.clientY) / this.scaleY
-          const dist = IMath.sqrt(distX ** 2 + distY ** 2)
-          const distAngle = IMath.atan2(distY, distX)
-          const scaleX = IMath.abs(transform.scaleX) || 1
-          const scaleY = IMath.abs(transform.scaleY) || 1
+          const dist = Math.sqrt(distX ** 2 + distY ** 2)
+          const distAngle = Math.atan2(distY, distX)
+          const scaleX = Math.abs(transform.scaleX) || 1
+          const scaleY = Math.abs(transform.scaleY) || 1
           let width = undefined
           let height = undefined
           switch (point) {
@@ -2254,7 +2252,7 @@ UI.pointermove = function (event) {
             case points.resize.L:
             case points.resize.R:
             case points.resize.B: {
-              const offset = dist * IMath.cos(distAngle - angle)
+              const offset = dist * Math.cos(distAngle - angle)
               switch (point) {
                 case points.resize.T:
                 case points.resize.B:
@@ -2274,29 +2272,29 @@ UI.pointermove = function (event) {
               if (event.shiftKey) {
                 const rectWidth = dragging.startWidth + parent.width * transform.width2
                 const rectHeight = dragging.startHeight + parent.height * transform.height2
-                const aspectAngle = IMath.atan2(rectHeight, rectWidth)
+                const aspectAngle = Math.atan2(rectHeight, rectWidth)
                 let startAngle
                 switch (point) {
                   case points.resize.TL:
                   case points.resize.BR:
-                    startAngle = angle - IMath.PI / 4 + aspectAngle
+                    startAngle = angle - Math.PI / 4 + aspectAngle
                     break
                   case points.resize.TR:
                   case points.resize.BL:
-                    startAngle = angle + IMath.PI / 4 - aspectAngle
+                    startAngle = angle + Math.PI / 4 - aspectAngle
                     break
                 }
                 const includedAngle = distAngle - startAngle
-                const offset = dist * IMath.cos(includedAngle)
-                const offsetX = offset * IMath.cos(aspectAngle)
-                const offsetY = offset * IMath.sin(aspectAngle)
+                const offset = dist * Math.cos(includedAngle)
+                const offsetX = offset * Math.cos(aspectAngle)
+                const offsetY = offset * Math.sin(aspectAngle)
                 width = offsetX / scaleX
                 height = offsetY / scaleY
               } else {
-                const startAngle = angle - IMath.PI / 4
+                const startAngle = angle - Math.PI / 4
                 const includedAngle = distAngle - startAngle
-                const offsetX = dist * IMath.cos(includedAngle)
-                const offsetY = dist * IMath.sin(includedAngle)
+                const offsetX = dist * Math.cos(includedAngle)
+                const offsetY = dist * Math.sin(includedAngle)
                 switch (point) {
                   case points.resize.TL:
                   case points.resize.BR:
@@ -2313,12 +2311,12 @@ UI.pointermove = function (event) {
               break
           }
           if (width !== undefined) {
-            const minWidth = -IMath.ceil(parent.width * transform.width2)
-            width = IMath.max(IMath.round(dragging.startWidth + width), minWidth)
+            const minWidth = -Math.ceil(parent.width * transform.width2)
+            width = Math.max(Math.round(dragging.startWidth + width), minWidth)
           }
           if (height !== undefined) {
-            const minHeight = -IMath.ceil(parent.height * transform.height2)
-            height = IMath.max(IMath.round(dragging.startHeight + height), minHeight)
+            const minHeight = -Math.ceil(parent.height * transform.height2)
+            height = Math.max(Math.round(dragging.startHeight + height), minHeight)
           }
           if (width !== undefined && transform.width !== width ||
             height !== undefined && transform.height !== height) {
@@ -2330,7 +2328,7 @@ UI.pointermove = function (event) {
         if (!dragging.enabled) {
           const distX = event.clientX - dragging.clientX
           const distY = event.clientY - dragging.clientY
-          if (IMath.sqrt(distX ** 2 + distY ** 2) > 4 ||
+          if (Math.sqrt(distX ** 2 + distY ** 2) > 4 ||
             event.timeStamp - dragging.timeStamp >= 500) {
             dragging.enabled = true
           } else {
@@ -2344,23 +2342,23 @@ UI.pointermove = function (event) {
           let x
           let y
           if (event.shiftKey) {
-            const angle = IMath.atan2(distY, distX)
+            const angle = Math.atan2(distY, distX)
             const directions = 4
-            const proportion = IMath.modRadians(angle) / (IMath.PI * 2)
+            const proportion = Math.modRadians(angle) / (Math.PI * 2)
             const section = (proportion * directions + 0.5) % directions
-            switch (IMath.floor(section)) {
+            switch (Math.floor(section)) {
               case 0: case 2:
-                x = IMath.round(dragging.startX + distX)
+                x = Math.round(dragging.startX + distX)
                 y = dragging.startY
                 break
               case 1: case 3:
                 x = dragging.startX
-                y = IMath.round(dragging.startY + distY)
+                y = Math.round(dragging.startY + distY)
                 break
             }
           } else {
-            x = IMath.round(dragging.startX + distX)
-            y = IMath.round(dragging.startY + distY)
+            x = Math.round(dragging.startX + distX)
+            y = Math.round(dragging.startY + distY)
           }
           if (transform.x !== x || transform.y !== y) {
             this.shiftTarget(x, y)
@@ -2374,7 +2372,7 @@ UI.pointermove = function (event) {
           dragging.scrollLeft - distX,
           dragging.scrollTop - distY,
         )
-        if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
+        if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
           Cursor.open('cursor-grab')
         }
@@ -2553,7 +2551,7 @@ UI.listPointerdown = function (event) {
           const {instance, hidden} = item
           const backups1 = this.setRecursiveStates(item, 'hidden', !hidden)
           const backups2 = this.setRecursiveStates(instance, 'visible', hidden)
-          const length = IMath.max(backups1.length, backups2.length)
+          const length = Math.max(backups1.length, backups2.length)
           for (let i = 0; i < length; i++) {
             if (backups1[i] === backups2[i]) {
               throw new Error('Failed to switch hidden state')

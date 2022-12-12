@@ -9,8 +9,7 @@ import {
   Local,
   Menu,
   Window,
-  Clipboard,
-  IObject
+  Clipboard
 } from "../yami"
 
 // ******************************** 枚举窗口 ********************************
@@ -278,7 +277,7 @@ Enum.getItemById = function IIFE() {
 Enum.setFolderGroup = function (folder, newGroup) {
   const oldGroup = folder.element.group
   if (oldGroup !== newGroup) {
-    const settings = IObject.clone(this.settings)
+    const settings = Object.clone(this.settings)
     if (oldGroup) this.settings[oldGroup] = ''
     if (newGroup) this.settings[newGroup] = folder.id
     this.history.save({
@@ -372,7 +371,7 @@ Enum.unpackEnumeration = function IIFE() {
       const item = items[i]
       Enum.idList.push(item.id)
       if (item.class !== 'folder') {
-        copies[i] = IObject.clone(item)
+        copies[i] = Object.clone(item)
       } else {
         copies[i] = new ReferencedFolder(item)
       }
@@ -382,7 +381,7 @@ Enum.unpackEnumeration = function IIFE() {
   return function () {
     this.idList = []
     this.data = clone(Data.enumeration.strings)
-    this.settings = IObject.clone(Data.enumeration.settings)
+    this.settings = Object.clone(Data.enumeration.settings)
     // 创建特殊分组的键列表
     if (!this.settingKeys) {
       this.settingKeys = Object.keys(this.settings)
@@ -398,7 +397,7 @@ Enum.packEnumeration = function IIFE() {
     for (let i = 0; i < length; i++) {
       const item = items[i]
       if (item.class !== 'folder') {
-        copies[i] = IObject.clone(item)
+        copies[i] = Object.clone(item)
       } else {
         copies[i] = {
           class: item.class,
@@ -413,7 +412,7 @@ Enum.packEnumeration = function IIFE() {
   }
   return function () {
     Data.enumeration.strings = clone(this.data)
-    Data.enumeration.settings = IObject.clone(this.settings)
+    Data.enumeration.settings = Object.clone(this.settings)
     Data.createEnumerationContext()
   }
 }()

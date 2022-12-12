@@ -3,8 +3,7 @@
 import {
   Browser,
   File,
-  Inspector,
-  ICSS
+  Inspector
 } from "../yami"
 
 // ******************************** 文件 - 字体页面 ********************************
@@ -58,7 +57,7 @@ FileFont.open = function (file, meta) {
     // 加载字体
     const previews = this.previews
     const path = File.route(file.path)
-    const url = ICSS.encodeURL(path)
+    const url = CSS.encodeURL(path)
     const font = new FontFace('preview', url)
     for (const preview of previews) {
       preview.hide()

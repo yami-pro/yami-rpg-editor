@@ -20,9 +20,7 @@ import {
   Timer,
   TimerManager,
   Window,
-  Clipboard,
-  ICSS,
-  IMath
+  Clipboard
 } from "../yami"
 
 // ******************************** 粒子窗口 ********************************
@@ -192,8 +190,8 @@ Particle.initialize = function () {
         const screen = this.screen
         const sl = screen.scrollLeft
         const st = screen.scrollTop
-        const cx = IMath.roundTo(this.centerX + x, 4)
-        const cy = IMath.roundTo(this.centerY + y, 4)
+        const cx = Math.roundTo(this.centerX + x, 4)
+        const cy = Math.roundTo(this.centerY + y, 4)
         this.updateCamera(cx, cy)
         this.updateTransform()
         if (screen.scrollLeft !== sl ||
@@ -533,7 +531,7 @@ Particle.updateHead = function () {
       const eRect = end.rect()
       const spacing = eRect.left - sRect.right - cRect.width
       const difference = sRect.right - nRect.left - eRect.width
-      const margin = IMath.min(spacing, difference)
+      const margin = Math.min(spacing, difference)
       end.style.marginLeft = `${margin}px`
     }
   }
@@ -544,15 +542,15 @@ Particle.resize = function () {
   if (this.state === 'open' &&
     this.screen.clientWidth !== 0) {
     const scale = this.scale
-    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = CSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
     const stageWidth = screenWidth + this.padding
     const stageHeight = screenHeight + this.padding
-    const innerWidth = IMath.round(stageWidth * scale)
-    const innerHeight = IMath.round(stageHeight * scale)
-    const outerWidth = IMath.max(screenWidth, innerWidth)
-    const outerHeight = IMath.max(screenHeight, innerHeight)
+    const innerWidth = Math.round(stageWidth * scale)
+    const innerHeight = Math.round(stageHeight * scale)
+    const outerWidth = Math.max(screenWidth, innerWidth)
+    const outerHeight = Math.max(screenHeight, innerHeight)
     const dpr = window.devicePixelRatio
     this.outerWidth = outerWidth
     this.outerHeight = outerHeight
@@ -587,8 +585,8 @@ Particle.updateCamera = function (x = this.centerX, y = this.centerY) {
   const scrollX = x * this.scaleX + this.outerWidth / 2
   const scrollY = y * this.scaleY + this.outerHeight / 2
   const toleranceForDPR = 0.0001
-  screen.rawScrollLeft = IMath.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
-  screen.rawScrollTop = IMath.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - GL.width) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - GL.height) / dpr
   screen.scrollLeft = (scrollX - (GL.width >> 1) + toleranceForDPR) / dpr
   screen.scrollTop = (scrollY - (GL.height >> 1) + toleranceForDPR) / dpr
 }
@@ -597,8 +595,8 @@ Particle.updateCamera = function (x = this.centerX, y = this.centerY) {
 Particle.updateTransform = function () {
   const screen = this.screen
   const dpr = window.devicePixelRatio
-  const left = IMath.roundTo(screen.scrollLeft * dpr - (this.outerWidth >> 1), 4)
-  const top = IMath.roundTo(screen.scrollTop * dpr - (this.outerHeight >> 1), 4)
+  const left = Math.roundTo(screen.scrollLeft * dpr - (this.outerWidth >> 1), 4)
+  const top = Math.roundTo(screen.scrollTop * dpr - (this.outerHeight >> 1), 4)
   const right = left + GL.width
   const bottom = top + GL.height
   this.scrollLeft = left / this.scaleX
@@ -610,8 +608,8 @@ Particle.updateTransform = function () {
   .translate(-this.scrollLeft, -this.scrollTop)
   const scrollX = screen.rawScrollLeft * dpr + this.centerOffsetX
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
-  this.centerX = IMath.roundTo((scrollX - this.outerWidth / 2) / this.scaleX, 4)
-  this.centerY = IMath.roundTo((scrollY - this.outerHeight / 2) / this.scaleY, 4)
+  this.centerX = Math.roundTo((scrollX - this.outerWidth / 2) / this.scaleX, 4)
+  this.centerY = Math.roundTo((scrollY - this.outerHeight / 2) / this.scaleY, 4)
 }
 
 // 更新元素
@@ -664,13 +662,13 @@ Particle.drawCoordinateAxes = function () {
     vertices[2] = 0
     vertices[3] = x2
     vertices[4] = y2 + 0.5
-    vertices[5] = IMath.dist(x1, y1, x2, y2)
+    vertices[5] = Math.dist(x1, y1, x2, y2)
     vertices[6] = x3 + 0.5
     vertices[7] = y3
     vertices[8] = 0
     vertices[9] = x4 + 0.5
     vertices[10] = y4
-    vertices[11] = IMath.dist(x3, y3, x4, y4)
+    vertices[11] = Math.dist(x3, y3, x4, y4)
     matrix.project(
       gl.flip,
       gl.width,
@@ -782,8 +780,8 @@ Particle.drawAreaWireframe = function () {
       const oy = 0.5 / this.scaleY
       const L = aw * -0.5 + ox
       const T = ah * -0.5 + oy
-      const R = IMath.max(L, aw * +0.5 - ox)
-      const B = IMath.max(T, ah * +0.5 - oy)
+      const R = Math.max(L, aw * +0.5 - ox)
+      const B = Math.max(T, ah * +0.5 - oy)
       vertices[0] = L
       vertices[1] = T
       vertices[2] = L
@@ -798,11 +796,11 @@ Particle.drawAreaWireframe = function () {
     case 'circle': {
       const ar = area.radius
       const segments = 100
-      const step = IMath.PI * 2 / segments
+      const step = Math.PI * 2 / segments
       for (let i = 0; i < segments; i++) {
         const angle = i * step
-        vertices[vi    ] = ar * IMath.cos(angle)
-        vertices[vi + 1] = ar * IMath.sin(angle)
+        vertices[vi    ] = ar * Math.cos(angle)
+        vertices[vi + 1] = ar * Math.sin(angle)
         vi += 2
       }
       break
@@ -863,18 +861,18 @@ Particle.drawElementWireframes = function () {
         const y3 = b * R + d * B + f
         const x4 = a * R + e
         const y4 = b * R + f
-        const angle1 = IMath.atan2(y1 - y2, x1 - x2)
-        const angle2 = IMath.atan2(y2 - y3, x2 - x3)
-        const angle3 = IMath.atan2(y3 - y4, x3 - x4)
-        const angle4 = IMath.atan2(y4 - y1, x4 - x1)
-        const ox1 = IMath.cos(angle1) * 0.5
-        const oy1 = IMath.sin(angle1) * 0.5
-        const ox2 = IMath.cos(angle2) * 0.5
-        const oy2 = IMath.sin(angle2) * 0.5
-        const ox3 = IMath.cos(angle3) * 0.5
-        const oy3 = IMath.sin(angle3) * 0.5
-        const ox4 = IMath.cos(angle4) * 0.5
-        const oy4 = IMath.sin(angle4) * 0.5
+        const angle1 = Math.atan2(y1 - y2, x1 - x2)
+        const angle2 = Math.atan2(y2 - y3, x2 - x3)
+        const angle3 = Math.atan2(y3 - y4, x3 - x4)
+        const angle4 = Math.atan2(y4 - y1, x4 - x1)
+        const ox1 = Math.cos(angle1) * 0.5
+        const oy1 = Math.sin(angle1) * 0.5
+        const ox2 = Math.cos(angle2) * 0.5
+        const oy2 = Math.sin(angle2) * 0.5
+        const ox3 = Math.cos(angle3) * 0.5
+        const oy3 = Math.sin(angle3) * 0.5
+        const ox4 = Math.cos(angle4) * 0.5
+        const oy4 = Math.sin(angle4) * 0.5
         const bx1 = x1 + ox4 - ox1
         const by1 = y1 + oy4 - oy1
         const bx2 = x2 + ox1 - ox2
@@ -1000,22 +998,22 @@ Particle.computeOuterRect = function () {
       case 'edge':
         continue
       case 'point':
-        L = IMath.min(L, area.x)
-        T = IMath.min(T, area.y)
-        R = IMath.max(R, area.x)
-        B = IMath.max(B, area.y)
+        L = Math.min(L, area.x)
+        T = Math.min(T, area.y)
+        R = Math.max(R, area.x)
+        B = Math.max(B, area.y)
         break
       case 'rectangle':
-        L = IMath.min(L, area.x - area.width * 0.5)
-        T = IMath.min(T, area.y - area.height * 0.5)
-        R = IMath.max(R, area.x + area.width * 0.5)
-        B = IMath.max(B, area.y + area.height * 0.5)
+        L = Math.min(L, area.x - area.width * 0.5)
+        T = Math.min(T, area.y - area.height * 0.5)
+        R = Math.max(R, area.x + area.width * 0.5)
+        B = Math.max(B, area.y + area.height * 0.5)
         continue
       case 'circle':
-        L = IMath.min(L, area.x - area.radius)
-        T = IMath.min(T, area.y - area.radius)
-        R = IMath.max(R, area.x + area.radius)
-        B = IMath.max(B, area.y + area.radius)
+        L = Math.min(L, area.x - area.radius)
+        T = Math.min(T, area.y - area.radius)
+        R = Math.max(R, area.x + area.radius)
+        B = Math.max(B, area.y + area.radius)
         continue
     }
   }
@@ -1478,7 +1476,7 @@ Particle.pointermove = function (event) {
         if (!dragging.enabled) {
           const distX = event.clientX - dragging.clientX
           const distY = event.clientY - dragging.clientY
-          if (IMath.sqrt(distX ** 2 + distY ** 2) > 4 ||
+          if (Math.sqrt(distX ** 2 + distY ** 2) > 4 ||
             event.timeStamp - dragging.timeStamp >= 500) {
             dragging.enabled = true
           } else {
@@ -1488,8 +1486,8 @@ Particle.pointermove = function (event) {
         const emitter = Particle.emitter
         const distX = (event.clientX - dragging.clientX) / Particle.scaleX
         const distY = (event.clientY - dragging.clientY) / Particle.scaleY
-        const x = IMath.round(dragging.startX + distX)
-        const y = IMath.round(dragging.startY + distY)
+        const x = Math.round(dragging.startX + distX)
+        const y = Math.round(dragging.startY + distY)
         if (emitter.startX !== x || emitter.startY !== y) {
           emitter.startX = x
           emitter.startY = y

@@ -1,9 +1,6 @@
 "use strict"
 
-import {
-  TextHistory,
-  IMath
-} from "../yami"
+import { TextHistory } from "../yami"
 
 // ******************************** 文本框 ********************************
 
@@ -83,7 +80,7 @@ class TextBox extends HTMLElement {
   fitContent() {
     const parent = this.parentNode
     this.style.width = '0'
-    this.style.width = `${IMath.clamp(
+    this.style.width = `${Math.clamp(
       this.input.scrollWidth + 2, 0,
       parent.rect().right
     - this.rect().left,

@@ -7,8 +7,7 @@ import {
   commandsData,
   ctrl,
   Clipboard,
-  IMath,
-  IMouseKeyboardEvent,
+  MouseKeyboardEvent,
   Command,
   CommandHistory,
   Local
@@ -27,7 +26,7 @@ class CommandList extends HTMLElement {
   anchor: number | null
   inserting: boolean | null
   focusing: boolean | null
-  dragging: IMouseKeyboardEvent | null
+  dragging: MouseKeyboardEvent | null
   windowPointerup: (this: CommandList, event: any) => void
   windowPointermove: (this: CommandList, event: any) => void
   windowVariableChange: (this: CommandList, event: any) => void
@@ -426,8 +425,8 @@ class CommandList extends HTMLElement {
     // 限制范围
     const elements = this.elements
     const count = elements.count
-    start = IMath.clamp(start, 0, count - 1)
-    end = IMath.clamp(end, 0, count - 1)
+    start = Math.clamp(start, 0, count - 1)
+    end = Math.clamp(end, 0, count - 1)
     let indent = Infinity
     for (let i = start; i <= end; i++) {
       const {dataIndent} = elements[i]
@@ -479,7 +478,7 @@ class CommandList extends HTMLElement {
     this.select(origin, active)
     this.origin = origin
     if (this.start !== null && this.end !== null) {
-      this.active = IMath.clamp(
+      this.active = Math.clamp(
         active,
         this.start,
         this.end,
@@ -587,14 +586,14 @@ class CommandList extends HTMLElement {
       anchor = this.active
     }
     if (anchor !== null) {
-      const scrollLines = IMath.floor(this.innerHeight / 20) - 1
-      const scrollTop = IMath.max(this.scrollTop - scrollLines * 20, 0)
+      const scrollLines = Math.floor(this.innerHeight / 20) - 1
+      const scrollTop = Math.max(this.scrollTop - scrollLines * 20, 0)
       if (select && this.start !== null) {
         const bottom = this.scrollTop + this.innerHeight
-        const bottomIndex = IMath.floor(bottom / 20) - 1
-        const targetIndex = IMath.min(anchor, bottomIndex) - scrollLines
+        const bottomIndex = Math.floor(bottom / 20) - 1
+        const targetIndex = Math.min(anchor, bottomIndex) - scrollLines
         this.select(targetIndex)
-        this.anchor = IMath.max(targetIndex, this.start)
+        this.anchor = Math.max(targetIndex, this.start)
       }
       this.scroll(0, scrollTop)
     }
@@ -608,18 +607,18 @@ class CommandList extends HTMLElement {
     }
     if (anchor !== null) {
       const top = this.scrollTop
-      const scrollLines = IMath.floor(this.innerHeight / 20) - 1
+      const scrollLines = Math.floor(this.innerHeight / 20) - 1
       let scrollTop = top + scrollLines * 20
       if (select && this.end !== null) {
-        const topIndex = IMath.floor(top / 20)
-        const targetIndex = IMath.max(anchor, topIndex) + scrollLines
+        const topIndex = Math.floor(top / 20)
+        const targetIndex = Math.max(anchor, topIndex) + scrollLines
         const scrollBottom = this.elements.count * 20
         const scrollTopMax = scrollBottom - this.innerHeight
         this.select(targetIndex)
-        this.anchor = IMath.min(targetIndex, this.end)
-        scrollTop = IMath.min(scrollTop, scrollTopMax)
+        this.anchor = Math.min(targetIndex, this.end)
+        scrollTop = Math.min(scrollTop, scrollTopMax)
       }
-      this.scroll(0, IMath.max(top, scrollTop))
+      this.scroll(0, Math.max(top, scrollTop))
     }
   }
 
@@ -768,8 +767,8 @@ class CommandList extends HTMLElement {
             const min = range[1] * 20 + 20 - this.innerHeight
             scrollTop = (
               this.active <= this.origin
-            ? IMath.min(IMath.max(top, min), max)
-            : IMath.max(IMath.min(top, max), min)
+            ? Math.min(Math.max(top, min), max)
+            : Math.max(Math.min(top, max), min)
             )
           }
           break
@@ -779,7 +778,7 @@ class CommandList extends HTMLElement {
             const top = this.scrollTop
             const max = this.active * 20
             const min = this.active * 20 + 20 - this.innerHeight
-            scrollTop = IMath.max(IMath.min(top, max), min)
+            scrollTop = Math.max(Math.min(top, max), min)
           }
           break
         }
@@ -788,7 +787,7 @@ class CommandList extends HTMLElement {
             const top = this.scrollTop
             const max = this.start * 20
             const min = this.end * 20 + 20 - this.innerHeight
-            scrollTop = IMath.min(IMath.max(top, min), max)
+            scrollTop = Math.min(Math.max(top, min), max)
           }
           break
         }
@@ -1156,7 +1155,7 @@ class CommandList extends HTMLElement {
   }
 
   // 获得焦点事件
-  listFocus(event: IMouseKeyboardEvent) {
+  listFocus(event: MouseKeyboardEvent) {
     if (!this.focusing) {
       this.focusing = true
       this.start !== null
@@ -1166,7 +1165,7 @@ class CommandList extends HTMLElement {
   }
 
   // 失去焦点事件
-  listBlur(event: IMouseKeyboardEvent) {
+  listBlur(event: MouseKeyboardEvent) {
     if (this.dragging) {
       this.windowPointerup(this.dragging)
     }
@@ -1187,7 +1186,7 @@ class CommandList extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: IMouseKeyboardEvent) {
+  keydown(event: MouseKeyboardEvent) {
     if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'KeyX':
@@ -1299,7 +1298,7 @@ class CommandList extends HTMLElement {
           event.preventDefault()
           const scrollBottom = this.elements.count * 20
           const scrollTop = scrollBottom - this.innerHeight
-          this.scroll(0, IMath.max(this.scrollTop, scrollTop))
+          this.scroll(0, Math.max(this.scrollTop, scrollTop))
           this.select(Infinity)
           break
         }
@@ -1323,7 +1322,7 @@ class CommandList extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event: IMouseKeyboardEvent) {
+  pointerdown(event: MouseKeyboardEvent) {
     if (this.dragging) {
       return
     }
@@ -1386,7 +1385,7 @@ class CommandList extends HTMLElement {
   }
 
   // 指针弹起事件
-  pointerup(event: IMouseKeyboardEvent) {
+  pointerup(event: MouseKeyboardEvent) {
     if (this.dragging) {
       return
     }
@@ -1499,7 +1498,7 @@ class CommandList extends HTMLElement {
   }
 
   // 鼠标双击事件
-  doubleclick(event: IMouseKeyboardEvent) {
+  doubleclick(event: MouseKeyboardEvent) {
     if (this.start !== null &&
       this.end !== null) {
         const elements = this.elements
@@ -1516,7 +1515,7 @@ class CommandList extends HTMLElement {
   static alphabetCode = /^Key[A-Z]$/
 
   // 窗口 - 指针弹起事件
-  static windowPointerup(this: CommandList, event: IMouseKeyboardEvent) {
+  static windowPointerup(this: CommandList, event: MouseKeyboardEvent) {
     const {dragging} = this
     if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
@@ -1531,7 +1530,7 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 指针移动事件
-  static windowPointermove(this: CommandList, event: IMouseKeyboardEvent) {
+  static windowPointermove(this: CommandList, event: MouseKeyboardEvent) {
     const {dragging} = this
     if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
@@ -1543,8 +1542,8 @@ class CommandList extends HTMLElement {
             const pt = this.paddingTop
             const {itemHeight} = dragging
             const {y} = event.getRelativeCoords(this)
-            const line = IMath.floor((y - pt) / itemHeight)
-            const index = IMath.clamp(line, 0, count - 1)
+            const line = Math.floor((y - pt) / itemHeight)
+            const index = Math.clamp(line, 0, count - 1)
             if (dragging.itemIndex !== index) {
               dragging.itemIndex = index
               this.selectMultipleTo(index)
@@ -1557,7 +1556,7 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 变量改变事件
-  static windowVariableChange(this: CommandList, event: IMouseKeyboardEvent) {
+  static windowVariableChange(this: CommandList, event: MouseKeyboardEvent) {
     this.childNodes.forEach(element => {
       const {updaters} = element
       if (updaters !== undefined) {

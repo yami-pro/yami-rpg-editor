@@ -7,8 +7,7 @@ import {
   ImageTexture,
   Matrix,
   Particle,
-  Scene,
-  IMath
+  Scene
 } from "../yami"
 
 // ******************************** 动画播放器类 ********************************
@@ -98,9 +97,9 @@ class AnimationPlayer {
     this.angle = angle
     const directions = this.dirMap.length
     // 将角度映射为0~方向数量的数值
-    const proportion = IMath.modRadians(angle) / (IMath.PI * 2)
+    const proportion = Math.modRadians(angle) / (Math.PI * 2)
     const section = (proportion * directions + 0.5) % directions
-    const direction = IMath.floor(section)
+    const direction = Math.floor(section)
     return this.setDirection(direction)
   }
 
@@ -228,11 +227,11 @@ class AnimationPlayer {
       const frames = contexts[i].layer.frames
       const frame = frames[frames.length - 1]
       if (frame !== undefined) {
-        length = IMath.max(length, frame.end)
+        length = Math.max(length, frame.end)
       }
     }
     this.length = length
-    this.loopStart = IMath.min(this.motion.loopStart, length - 1)
+    this.loopStart = Math.min(this.motion.loopStart, length - 1)
   }
 
   // 发射粒子
@@ -254,7 +253,7 @@ class AnimationPlayer {
               const {matrix} = context
               const a = matrix[0]
               const b = matrix[1]
-              emitter.angle = IMath.atan2(b, a)
+              emitter.angle = Math.atan2(b, a)
               break
             }
           }
@@ -351,13 +350,13 @@ class AnimationPlayer {
     }
     const vi = response[0] * 8
     const mode = AnimationPlayer.lightSamplingModes[light]
-    const alpha = IMath.round(context.opacity * 255)
+    const alpha = Math.round(context.opacity * 255)
     const param = response[1] | alpha << 8 | mode << 16
     const redGreen = tint[0] + (tint[1] << 16) + 0x00ff00ff
     const blueGray = tint[2] + (tint[3] << 16) + 0x00ff00ff
     const anchor = light !== 'anchor' ? 0 : (
-      IMath.round(IMath.clamp(this.anchorX, 0, 1) * 0xffff)
-    | IMath.round(IMath.clamp(this.anchorY, 0, 1) * 0xffff) << 16
+      Math.round(Math.clamp(this.anchorX, 0, 1) * 0xffff)
+    | Math.round(Math.clamp(this.anchorY, 0, 1) * 0xffff) << 16
     )
     vertices  [vi    ] = x1
     vertices  [vi + 1] = y1
@@ -640,7 +639,7 @@ class AnimationPlayer {
     }
     matrix
     .translate(positionX, positionY)
-    .rotate(IMath.radians(rotation))
+    .rotate(Math.radians(rotation))
     .scale(scaleX, scaleY)
     this.opacity *= opacity
     this.frame = frame
@@ -661,10 +660,10 @@ class AnimationPlayer {
     let gray = frame.tint[3]
     if (next !== undefined) {
       const reverse = 1 - time
-      red = IMath.clamp(red * reverse + next.tint[0] * time, -255, 255)
-      green = IMath.clamp(green * reverse + next.tint[1] * time, -255, 255)
-      blue = IMath.clamp(blue * reverse + next.tint[2] * time, -255, 255)
-      gray = IMath.clamp(gray * reverse + next.tint[3] * time, 0, 255)
+      red = Math.clamp(red * reverse + next.tint[0] * time, -255, 255)
+      green = Math.clamp(green * reverse + next.tint[1] * time, -255, 255)
+      blue = Math.clamp(blue * reverse + next.tint[2] * time, -255, 255)
+      gray = Math.clamp(gray * reverse + next.tint[3] * time, 0, 255)
     }
     tint[0] = red
     tint[1] = green

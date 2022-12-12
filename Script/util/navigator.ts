@@ -3,8 +3,8 @@
 // ******************************** Navigator对象 ********************************
 
 // Chromium系的浏览器支持
-interface INavigator extends Navigator {
+interface Navigator_ext {
   userAgentData: { platform: string }
 }
 
-export { INavigator }
+export { Navigator_ext }

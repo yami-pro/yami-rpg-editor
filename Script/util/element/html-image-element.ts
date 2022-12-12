@@ -1,10 +1,8 @@
 "use strict"
 
-import { HTMLElement_ext } from "../../yami"
-
 // ******************************** 图像扩展 ********************************
 
-interface HTMLImageElement_ext extends HTMLElement_ext {
+interface HTMLImageElement_ext {
   guid: string | null
 }
 

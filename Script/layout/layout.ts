@@ -12,10 +12,7 @@ import {
   Particle,
   Scene,
   Title,
-  UI,
-  IFunction,
-  ICSS,
-  IMath
+  UI
 } from "../yami"
 
 // ******************************** 布局对象 ********************************
@@ -192,8 +189,8 @@ Layout.updateGroups = function IIFE() {
       case 'horizontal': {
         const pn = group.parentNode
         const pw = pn.clientWidth
-        const sl = ICSS.rasterize(pw * start)
-        const sr = ICSS.rasterize(pw * end)
+        const sl = CSS.rasterize(pw * start)
+        const sr = CSS.rasterize(pw * end)
         style.left = `${sl}px`
         style.top = '0'
         style.width = `${sr - sl}px`
@@ -203,8 +200,8 @@ Layout.updateGroups = function IIFE() {
       case 'vertical': {
         const pn = group.parentNode
         const ph = pn.clientHeight
-        const st = ICSS.rasterize(ph * start)
-        const sb = ICSS.rasterize(ph * end)
+        const st = CSS.rasterize(ph * start)
+        const sb = CSS.rasterize(ph * end)
         style.left = '0'
         style.top = `${st}px`
         style.width = '100%'
@@ -277,7 +274,7 @@ Layout.updateGroupTabs = function (group) {
 // 更新群组信息
 Layout.updateGroupInfo = function () {
   for (const info of this.resizing.infos) {
-    const box = ICSS.getDevicePixelContentBoxSize(info.manager)
+    const box = CSS.getDevicePixelContentBoxSize(info.manager)
     info.textContent = `${box.width} x ${box.height}`
   }
 }
@@ -301,7 +298,7 @@ Layout.mergeGroups = function IIFE() {
           // 这是由于两次划分变成了一次划分
           // 而每次划分都是取得近似的整数值
           if (end !== undefined) {
-            node.end = IMath.roundTo(
+            node.end = Math.roundTo(
               gs * (1 - end)
             + ge * end
             , 6)
@@ -352,14 +349,14 @@ Layout.setGroupSize = function (group, hint, direction) {
         if (next === parent.border) {
           end = 1
         }
-        group.end = IMath.roundTo(end, 6)
+        group.end = Math.roundTo(end, 6)
         this.computeSizesBefore(group)
         this.computeSizesAfter(group)
         break
       case 'backward':
         if (prev) {
           end = group.end - end
-          prev.end = IMath.roundTo(end, 6)
+          prev.end = Math.roundTo(end, 6)
           this.computeSizesBefore(prev)
           this.computeSizesAfter(prev)
         }
@@ -383,19 +380,19 @@ Layout.computeSizesBefore = function (group) {
     const groups = Array.prototype.slice.call(nodes, 0, index + 1)
     const head = nodes[0]
     const length = groups.length
-    const min = IMath.min(0.1, 32 / space)
+    const min = Math.min(0.1, 32 / space)
     for (let i = length - 2, end = group.end; i>= 0; i--) {
       const group = groups[i]
       const pad = 2
-      end = IMath.min(group.end, end - min - pad / space)
-      end = IMath.roundTo(end, 6)
+      end = Math.min(group.end, end - min - pad / space)
+      end = Math.roundTo(end, 6)
       group.end = end
     }
     for (let i = 0, end = 0; i < length; i++) {
       const group = groups[i]
       const pad = (group === head ? 0 : 1) + 1
-      end = IMath.max(group.end, end + min + pad / space)
-      end = IMath.roundTo(end, 6)
+      end = Math.max(group.end, end + min + pad / space)
+      end = Math.roundTo(end, 6)
       group.end = end
     }
   }
@@ -416,19 +413,19 @@ Layout.computeSizesAfter = function (group) {
     const groups = Array.prototype.slice.call(nodes, index, -1)
     const foot = nodes[nodes.length - 2]
     const last = groups.length - 1
-    const min = IMath.min(0.1, 32 / space)
+    const min = Math.min(0.1, 32 / space)
     for (let i = 0, end = 0; i < last; i++) {
       const group = groups[i]
       const pad = 2
-      end = IMath.max(group.end, end + min + pad / space)
-      end = IMath.roundTo(end, 6)
+      end = Math.max(group.end, end + min + pad / space)
+      end = Math.roundTo(end, 6)
       group.end = end
     }
     for (let i = last - 1, end = 1; i>= 0; i--) {
       const group = groups[i]
       const pad = (groups[i + 1] === foot ? 0 : 1) + 1
-      end = IMath.min(group.end, end - min - pad / space)
-      end = IMath.roundTo(end, 6)
+      end = Math.min(group.end, end - min - pad / space)
+      end = Math.roundTo(end, 6)
       group.end = end
     }
   }
@@ -460,19 +457,19 @@ Layout.updateHint = function (location) {
       case 'inside':
         break
       case 'top':
-        h = IMath.min(h / 2 - 1, gh)
+        h = Math.min(h / 2 - 1, gh)
         break
       case 'bottom':
         y = y + h
-        h = IMath.min(h / 2 - 1, gh)
+        h = Math.min(h / 2 - 1, gh)
         y = y - h
         break
       case 'left':
-        w = IMath.min(w / 2 - 1, gw)
+        w = Math.min(w / 2 - 1, gw)
         break
       case 'right':
         x = x + w
-        w = IMath.min(w / 2 - 1, gw)
+        w = Math.min(w / 2 - 1, gw)
         x = x - w
         break
     }
@@ -841,7 +838,7 @@ Layout.navDragstart = function (event) {
     Layout.dragging = event
     Object.defineProperty(event, 'clientX', {writable: true})
     Object.defineProperty(event, 'clientY', {writable: true})
-    event.preventDefault = IFunction.empty
+    event.preventDefault = Function.empty
     event.dataTransfer.hideDragImage()
     event.group = this.parentNode
     event.hint = document.createElement('drag-and-drop-hint')
@@ -1164,7 +1161,7 @@ Layout.regionDragover = function (event) {
     const {x, y} = event.getRelativeCoords(this)
     const w = this.clientWidth
     const h = this.clientHeight
-    const n = IMath.min(w, h) / 4
+    const n = Math.min(w, h) / 4
     const l = n
     const t = n
     const r = w - n
@@ -1174,10 +1171,10 @@ Layout.regionDragover = function (event) {
       direction = 'center'
     }
     if (!direction && y < t) {
-      const tan1 = IMath.atan2(y, x)
-      const tan2 = IMath.atan2(y, x - w)
-      if (tan1 < IMath.PI * 0.25 &&
-        tan2 > IMath.PI * 0.75) {
+      const tan1 = Math.atan2(y, x)
+      const tan2 = Math.atan2(y, x - w)
+      if (tan1 < Math.PI * 0.25 &&
+        tan2 > Math.PI * 0.75) {
         direction = 'top'
         if (y < padding) {
           if (parent.split === 'horizontal') {
@@ -1194,10 +1191,10 @@ Layout.regionDragover = function (event) {
       }
     }
     if (!direction && y >= b) {
-      const tan1 = IMath.atan2(y - h, x)
-      const tan2 = IMath.atan2(y - h, x - w)
-      if (tan1 > -IMath.PI * 0.25 &&
-        tan2 < -IMath.PI * 0.75) {
+      const tan1 = Math.atan2(y - h, x)
+      const tan2 = Math.atan2(y - h, x - w)
+      if (tan1 > -Math.PI * 0.25 &&
+        tan2 < -Math.PI * 0.75) {
         direction = 'bottom'
         if (y >= h - padding) {
           if (parent.split === 'horizontal') {
@@ -1293,7 +1290,7 @@ Layout.borderPointerdown = function (event) {
         switch (outer.split) {
           case 'horizontal':
             event.mode = 'col-resize'
-            event.startX = IMath.round(
+            event.startX = Math.round(
               outer.clientWidth
             * group.end
             )
@@ -1301,7 +1298,7 @@ Layout.borderPointerdown = function (event) {
             break
           case 'vertical':
             event.mode = 'row-resize'
-            event.startY = IMath.round(
+            event.startY = Math.round(
               outer.clientHeight
             * group.end
             )
@@ -1374,8 +1371,8 @@ Layout.pointermove = function (event) {
       / resizing.outer.clientHeight
       break
   }
-  end = IMath.clamp(end, 0, 1)
-  end = IMath.roundTo(end, 6)
+  end = Math.clamp(end, 0, 1)
+  end = Math.roundTo(end, 6)
   if (end !== undefined) {
     const {group} = resizing
     const lastEnd = group.end

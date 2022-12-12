@@ -5,9 +5,7 @@ import {
   getElementReader,
   getElementWriter,
   Local,
-  Window,
-  IFunction,
-  IObject
+  Window
 } from "../yami"
 
 // ******************************** 事件编辑器 ********************************
@@ -200,7 +198,7 @@ EventEditor.initialize = function () {
 
 // 打开数据
 EventEditor.open = function (filter, event, callback) {
-  this.callback = callback ?? IFunction.empty
+  this.callback = callback ?? Function.empty
   Window.open('event')
 
   // 创建类型选项
@@ -227,7 +225,7 @@ EventEditor.open = function (filter, event, callback) {
 
   // 克隆指令数据
   if (!commandsClone) {
-    commandsClone = IObject.clone(commands)
+    commandsClone = Object.clone(commands)
     Object.defineProperty(commandsClone, 'symbol', {
       configurable: true,
       value: symbol,
@@ -246,7 +244,7 @@ EventEditor.open = function (filter, event, callback) {
 EventEditor.save = function () {
   const read = getElementReader('event')
   const commands = read('commands')
-  const commandsClone = IObject.clone(commands)
+  const commandsClone = Object.clone(commands)
   Object.defineProperty(commandsClone, 'symbol', {
     configurable: true,
     value: commands.symbol,

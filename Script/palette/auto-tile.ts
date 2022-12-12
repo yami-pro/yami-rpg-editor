@@ -19,10 +19,7 @@ import {
   SetQuantity,
   TileFrame,
   Window,
-  Clipboard,
-  ICSS,
-  INumber,
-  IObject
+  Clipboard
 } from "../yami"
 
 // ******************************** 自动图块 ********************************
@@ -155,7 +152,7 @@ AutoTile.open = function ({template, image, x, y}) {
   $('#autoTile-image').write(image)
   $('#autoTile-x').write(x)
   $('#autoTile-y').write(y)
-  this.templates = IObject.clone(Data.autotiles)
+  this.templates = Object.clone(Data.autotiles)
   this.nodeIndex = 0
   this.frameIndex = 0
   this.imageId = image
@@ -370,7 +367,7 @@ AutoTile.createNodeItems = function (id = this.nodeIndex) {
   const cover = this.template.cover
   const nodes = this.nodes
   const length = nodes.length
-  const digits = INumber.computeIndexDigits(length)
+  const digits = Number.computeIndexDigits(length)
   for (let i = 0; i < length; i++) {
     const element = document.createElement('common-item')
     const index = i.toString().padStart(digits, '0')
@@ -488,7 +485,7 @@ AutoTile.createFrameItems = function (id = this.frameIndex) {
   const list = this.frameList.reload()
   const frames = this.frames
   const length = frames.length
-  const digits = INumber.computeIndexDigits(length)
+  const digits = Number.computeIndexDigits(length)
   for (let i = 0; i < length; i++) {
     const frame = frames[i]
     const x = frame & 0xff
@@ -509,7 +506,7 @@ AutoTile.updateFrameItem = function () {
   const index = this.frameIndex
   const length = frames.length
   const frame = frames[index]
-  const prefix = INumber.padZero(index, length)
+  const prefix = Number.padZero(index, length)
   const x = frame & 0xff
   const y = frame >> 8
   this.frameList.selection.textContent = `#${prefix}: ${x},${y}`
@@ -519,7 +516,7 @@ AutoTile.updateFrameItem = function () {
 // 更新画布
 AutoTile.updateCanvas = function () {
   const canvas = this.canvas
-  const {width, height} = ICSS.getDevicePixelContentBoxSize(canvas)
+  const {width, height} = CSS.getDevicePixelContentBoxSize(canvas)
   if (canvas.width !== width) {
     canvas.width = width
   }

@@ -8,8 +8,7 @@ import {
   Matrix,
   Texture,
   TextureManager,
-  ImageTexture,
-  IEvent
+  ImageTexture
 } from "../yami"
 
 // ******************************** 声明 ********************************
@@ -209,7 +208,7 @@ let GL: IWebGL2RenderingContext
   }
 
   // 侦听主题改变事件
-  window.on('themechange', function (event: IEvent) {
+  window.on('themechange', function (event: Event) {
     if (typeof event?.value === 'string') {
       const {red, green, blue} = background[event.value]
       GL.BACKGROUND_RED = red / 255
@@ -219,13 +218,13 @@ let GL: IWebGL2RenderingContext
   })
 
   // 侦听WebGL上下文丢失事件
-  canvas.on('webglcontextlost', function (event: IEvent) {
+  canvas.on('webglcontextlost', function (event: Event) {
     event.preventDefault()
     setTimeout(() => GL.WEBGL_lose_context.restoreContext())
   })
 
   // 侦听WebGL上下文恢复事件
-  canvas.on('webglcontextrestored', function (event: IEvent) {
+  canvas.on('webglcontextrestored', function (event: Event) {
     GL.restore()
   })
 

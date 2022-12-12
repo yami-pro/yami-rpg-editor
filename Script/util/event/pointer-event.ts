@@ -1,10 +1,8 @@
 "use strict"
 
-import { MouseEvent_ext } from "../../yami"
-
 // ******************************** 指针事件方法 ********************************
 
-interface PointerEventExt extends MouseEvent_ext {
+interface PointerEvent_ext {
   scrollLeft: number
   scrollTop: number
 
@@ -12,20 +10,17 @@ interface PointerEventExt extends MouseEvent_ext {
   isMouseType: () => boolean
 }
 
-interface IPointerEvent extends PointerEvent, PointerEventExt {}
-
-const prototype = <IPointerEvent>PointerEvent.prototype
-prototype.scrollLeft = 0
-prototype.scrollTop = 0
+PointerEvent.prototype.scrollLeft = 0
+PointerEvent.prototype.scrollTop = 0
 
 // 指针事件方法 - 判断是否为鼠标类型
-prototype.isMouseType = function () {
+PointerEvent.prototype.isMouseType = function () {
   return this.pointerType === 'mouse'
 }
 
 // 指针事件方法 - 判断两个事件是否有关联
-prototype.relate = function (event: PointerEvent) {
+PointerEvent.prototype.relate = function (event: PointerEvent) {
   return this.pointerId === event.pointerId
 }
 
-export { IPointerEvent }
+export { PointerEvent_ext }

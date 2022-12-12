@@ -1,7 +1,5 @@
 "use strict"
 
-import { IMath } from "../yami"
-
 // ******************************** 开关选项 ********************************
 
 class SwitchItem extends HTMLElement {
@@ -13,7 +11,7 @@ class SwitchItem extends HTMLElement {
   constructor() {
     super()
 
-    const length = IMath.clamp(parseInt(this.getAttribute('length')), 1, 4)
+    const length = Math.clamp(parseInt(this.getAttribute('length')), 1, 4)
 
     // 设置属性
     this.dataValue = 0

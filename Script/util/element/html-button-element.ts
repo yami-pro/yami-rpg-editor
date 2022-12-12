@@ -1,10 +1,8 @@
 "use strict"
 
-import { HTMLElement_ext } from "../../yami"
-
 // ******************************** 按钮扩展 ********************************
 
-interface HTMLButtonElement_ext extends HTMLElement_ext {
+interface HTMLButtonElement_ext {
   enable: () => void
   disable: () => void
 }

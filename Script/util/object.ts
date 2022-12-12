@@ -7,17 +7,11 @@ interface ObjectConstructor_ext {
   clone(object: any): any
 }
 
-interface IObjectConstructor extends ObjectConstructor, ObjectConstructor_ext {}
-
-interface IObject extends Object {}
-
-const IObject = <IObjectConstructor>Object
-
 // 对象静态属性 - 空对象
-IObject.empty = () => { return {} }
+Object.empty = () => { return {} }
 
 // 对象静态方法 - 克隆对象
-IObject.clone = function IIFE() {
+Object.clone = function IIFE() {
   const {isArray} = Array
   const clone = (object: any) => {
     let copy: any
@@ -44,4 +38,4 @@ IObject.clone = function IIFE() {
   }
 }()
 
-export { IObject }
+export { ObjectConstructor_ext }

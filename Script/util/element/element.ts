@@ -1,11 +1,9 @@
 "use strict"
 
-import { IMouseEvent } from "../../yami"
-
 // ******************************** 按钮扩展 ********************************
 
 interface Element_ext {
-  isInContent(event: IMouseEvent): boolean
+  isInContent(event: MouseEvent): boolean
 }
 
 // 元素方法 - 判断事件坐标在内容区域上

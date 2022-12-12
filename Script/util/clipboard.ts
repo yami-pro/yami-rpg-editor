@@ -2,13 +2,13 @@
 
 // ******************************** 剪贴板对象 ********************************
 
-interface IClipboard {
+interface Clipboard {
   has(format: any): boolean
   read(format: any): any
   write(format: any, object: any): void
 }
 
-const Clipboard = <IClipboard>new Object()
+const Clipboard = <Clipboard>new Object()
 
 Clipboard.has = function (format: any) {
   const {clipboard} = require('electron')

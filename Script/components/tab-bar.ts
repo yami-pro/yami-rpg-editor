@@ -2,21 +2,20 @@
 
 import {
   Title,
-  IFunction,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 标签栏 ********************************
 
 class TabBar extends HTMLElement {
   data: HTMLElement[]
-  dragging: IMouseKeyboardEvent
+  dragging: MouseKeyboardEvent
   selectionIndex: number
   writeEventEnabled: boolean
   selectEventEnabled: boolean
   closedEventEnabled: boolean
   popupEventEnabled: boolean
-  windowPointerup: (event: IMouseKeyboardEvent) => void
+  windowPointerup: (event: MouseKeyboardEvent) => void
 
   constructor() {
     super()
@@ -270,7 +269,7 @@ class TabBar extends HTMLElement {
     if (!this.dragging) {
       this.dragging = event
       Object.defineProperty(event, 'offsetX', {writable: true})
-      event.preventDefault = IFunction.empty
+      event.preventDefault = Function.empty
       event.dataTransfer.hideDragImage()
       event.hint = document.createElement('drag-and-drop-hint')
       event.hint.addClass('for-tab')

@@ -1,8 +1,7 @@
 "use strict"
 
 import {
-  IEvent,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 复选框 ********************************
@@ -55,7 +54,7 @@ class CheckBox extends HTMLElement {
       this.toggleRelatedElements()
     }
     if (this.writeEventEnabled) {
-      const write = <IEvent>new Event('write')
+      const write = new Event('write')
       write.value = this.dataValue
       this.dispatchEvent(write)
     }
@@ -66,7 +65,7 @@ class CheckBox extends HTMLElement {
     if (this.dataValue !== value) {
       this.write(value)
       if (this.inputEventEnabled) {
-        const input = <IEvent>new Event('input', {
+        const input = new Event('input', {
           bubbles: true,
         })
         input.value = this.dataValue
@@ -122,7 +121,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: IMouseKeyboardEvent) {
+  keydown(event: MouseKeyboardEvent) {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
@@ -136,7 +135,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event: IMouseKeyboardEvent) {
+  pointerdown(event: MouseKeyboardEvent) {
     switch (event.button) {
       case 0:
         if (document.activeElement !== document.body) {
@@ -148,7 +147,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 鼠标点击事件
-  mouseclick(event: IMouseKeyboardEvent) {
+  mouseclick(event: MouseKeyboardEvent) {
     this.input(!this.read())
   }
 }

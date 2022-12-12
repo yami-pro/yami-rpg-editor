@@ -14,8 +14,7 @@ import {
   ScriptListInterface,
   Selector,
   Window,
-  Clipboard,
-  IObject
+  Clipboard
 } from "../yami"
 
 // ******************************** 自定义指令窗口 ********************************
@@ -101,7 +100,7 @@ CustomCommand.open = function () {
   Window.open('command')
 
   // 创建数据副本
-  this.data = IObject.clone(Data.commands)
+  this.data = Object.clone(Data.commands)
 
   // 更新列表项目
   this.list.restoreSelection()
@@ -335,7 +334,7 @@ CustomCommand.apply = function (event) {
     // 保存变量数据
     let commands = this.data
     if (event instanceof Event) {
-      commands = IObject.clone(commands)
+      commands = Object.clone(commands)
     } else {
       TreeList.deleteCaches(commands)
     }

@@ -17,7 +17,7 @@ import {
   Select,
   SelectBox,
   TextBox,
-  IMouseKeyboardEvent,
+  MouseKeyboardEvent,
   DetailBox
 } from "../yami"
 
@@ -37,8 +37,8 @@ class ParameterPane extends HTMLElement {
   colorBoxes: ColorBox[]
   customBoxes: CustomBox[]
   updateEventEnabled: boolean
-  windowLocalize: (event: IMouseKeyboardEvent) => any
-  scriptChange: (event: IMouseKeyboardEvent) => any
+  windowLocalize: (event: MouseKeyboardEvent) => any
+  scriptChange: (event: MouseKeyboardEvent) => any
 
   constructor() {
     super()

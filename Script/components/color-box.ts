@@ -1,8 +1,7 @@
 "use strict"
 
 import {
-  IEvent,
-  IMouseKeyboardEvent,
+  MouseKeyboardEvent,
   Color
 } from "../yami"
 
@@ -59,7 +58,7 @@ class ColorBox extends HTMLElement {
     if (this.dataValue !== color) {
       this.write(color)
       if (this.inputEventEnabled) {
-        const input = <IEvent>new Event('input')
+        const input = new Event('input')
         input.value = this.dataValue
         this.dispatchEvent(input)
       }
@@ -92,7 +91,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: IMouseKeyboardEvent) {
+  keydown(event: MouseKeyboardEvent) {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
@@ -105,7 +104,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 鼠标点击事件
-  mouseclick(event: IMouseKeyboardEvent) {
+  mouseclick(event: MouseKeyboardEvent) {
     Color.open(this)
   }
 }

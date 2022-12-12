@@ -4,8 +4,7 @@ import {
   Easing,
   GL,
   ImageTexture,
-  Particle,
-  IFunction
+  Particle
 } from "../yami"
 
 // ******************************** 粒子图层类 ********************************
@@ -275,7 +274,7 @@ class ParticleLayer {
         }
       })
     }
-    this.draw = IFunction.empty
+    this.draw = Function.empty
   }
 
   // 计算粒子元素大小

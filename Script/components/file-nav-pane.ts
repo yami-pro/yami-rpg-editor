@@ -11,7 +11,6 @@ import {
   FSP,
   Path,
   Timer,
-  IMath,
   FolderItem,
   FileItem
 } from "../yami"
@@ -276,16 +275,16 @@ class FileNavPane extends HTMLElement {
         const {element} = file.getContext(this)
         const index = elements.indexOf(element)
         if (index !== -1) {
-          start = IMath.min(start, index)
-          end = IMath.max(end, index)
+          start = Math.min(start, index)
+          end = Math.max(end, index)
         }
       }
       switch (direction) {
         case 'up':
-          index = IMath.clamp(start - 1, 0, last)
+          index = Math.clamp(start - 1, 0, last)
           break
         case 'down':
-          index = IMath.clamp(end + 1, 0, last)
+          index = Math.clamp(end + 1, 0, last)
           break
       }
       const file = elements[index]?.file
@@ -309,14 +308,14 @@ class FileNavPane extends HTMLElement {
           let scrollTop
           switch (mode) {
             case 'active':
-              scrollTop = IMath.clamp(
+              scrollTop = Math.clamp(
                 this.scrollTop,
                 i * 20 + 20 - this.innerHeight,
                 i * 20,
               )
               break
             case 'middle':
-              scrollTop = IMath.round((
+              scrollTop = Math.round((
                 i * 20 + 10
               - this.innerHeight / 2)
               / 20) * 20
@@ -526,8 +525,8 @@ class FileNavPane extends HTMLElement {
                 const {element} = file.getContext(this)
                 const index = elements.indexOf(element)
                 if (index !== -1) {
-                  start = IMath.min(start, index)
-                  end = IMath.max(end, index)
+                  start = Math.min(start, index)
+                  end = Math.max(end, index)
                 }
               }
               if (start !== -1) {

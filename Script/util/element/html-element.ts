@@ -1,12 +1,10 @@
 "use strict"
 
 import {
-  IPointerEvent,
   Element_ext,
   Cursor,
   Timer,
   TimerManager,
-  IFunction,
   ScrollBarManager,
 } from "../../yami"
 
@@ -55,7 +53,7 @@ interface HTMLElement_scroll_ext {
 }
 
 interface HTMLElement_ext extends Element_ext {
-  dragging: IPointerEvent | null
+  dragging: PointerEvent | null
   dataValue: any
 
   _padding: number
@@ -89,7 +87,7 @@ interface HTMLElement_ext extends Element_ext {
   dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
-  listenDraggingScrollbarEvent: (pointerdown?: (event: IPointerEvent) => void, options?: any) => void
+  listenDraggingScrollbarEvent: (pointerdown?: (event: PointerEvent) => void, options?: any) => void
 
   beginScrolling(): void
   endScrolling(): void
@@ -98,8 +96,8 @@ interface HTMLElement_ext extends Element_ext {
   setScrollTop(top: number):void
   updateScrollbars(): void
 
-  scrollPointerup(this: HTMLElement, event: IPointerEvent): void
-  scrollPointermove(this: HTMLElement, event: IPointerEvent): void
+  scrollPointerup(this: HTMLElement, event: PointerEvent): void
+  scrollPointermove(this: HTMLElement, event: PointerEvent): void
 }
 
 // ******************************** 元素扩展 ********************************
@@ -217,7 +215,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
 
   const timer = new Timer({
     duration: 0,
-    update: IFunction.empty,
+    update: Function.empty,
     callback: () => {
       if (state === 'waiting' && target) {
         const {tip} = target
@@ -392,7 +390,7 @@ HTMLElement.prototype.dispatchUpdateEvent = function IIFE() {
 // 元素方法 - 侦听拖拽滚动条事件
 HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   // 默认指针按下事件
-  const defaultPointerdown = function (this: HTMLElement, event: IPointerEvent) {
+  const defaultPointerdown = function (this: HTMLElement, event: PointerEvent) {
     if (this.dragging) {
       return
     }
@@ -414,7 +412,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针弹起事件
-  const pointerup = function (this: HTMLElement, event: IPointerEvent) {
+  const pointerup = function (this: HTMLElement, event: PointerEvent) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -429,7 +427,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: HTMLElement, event: IPointerEvent) {
+  const pointermove = function (this: HTMLElement, event: PointerEvent) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -509,7 +507,7 @@ type scrollUpdaterVar = (() => void) | null
   // 滚动检测计时器
   const timer = new Timer({
     duration: Infinity,
-    callback: IFunction.empty,
+    callback: Function.empty,
     update: timer => {
       if (!target)
         return false
@@ -589,7 +587,7 @@ type scrollUpdaterVar = (() => void) | null
     }
     highSpeed = speed
     lowSpeed = shift ? speed / 4 : speed
-    scrollUpdater = updater ?? IFunction.empty
+    scrollUpdater = updater ?? Function.empty
     window.on('pointermove', pointermove)
   }
 

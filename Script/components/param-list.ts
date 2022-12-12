@@ -9,9 +9,7 @@ import {
   ParamHistory,
   WindowFrame,
   Clipboard,
-  IFunction,
-  IMath,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 参数列表 ********************************
@@ -29,11 +27,11 @@ class ParamList extends HTMLElement {
   flexible: boolean
   inserting: boolean
   focusing: boolean
-  dragging: IMouseKeyboardEvent
+  dragging: MouseKeyboardEvent
   history: HTMLElement
   toggleable: boolean
-  windowPointerup: (event: IMouseKeyboardEvent) => void
-  windowPointermove: (event: IMouseKeyboardEvent) => void
+  windowPointerup: (event: MouseKeyboardEvent) => void
+  windowPointermove: (event: MouseKeyboardEvent) => void
 
   constructor() {
     super()
@@ -94,7 +92,7 @@ class ParamList extends HTMLElement {
   // 绑定数据
   bind(object) {
     object.initialize(this)
-    object.initialize = IFunction.empty
+    object.initialize = Function.empty
     this.object = object
     this.type = `yami.${object.type ?? this.id}`
     this.history = object.history ?? new ParamHistory(this)
@@ -231,7 +229,7 @@ class ParamList extends HTMLElement {
   updateFlexibleHeight() {
     if (this.flexible) {
       const count = this.elements.count
-      const height = IMath.min(count * 20, 500) + 2
+      const height = Math.min(count * 20, 500) + 2
       if (this.height !== height) {
         this.height = height
         this.style.height = `${height}px`
@@ -268,8 +266,8 @@ class ParamList extends HTMLElement {
     // 限制范围
     const elements = this.elements
     const count = elements.count
-    start = IMath.clamp(start, 0, count - 1)
-    end = IMath.clamp(end, 0, count - 1)
+    start = Math.clamp(start, 0, count - 1)
+    end = Math.clamp(end, 0, count - 1)
     if (start !== end) {
       const element = elements[end]
       if (!element.dataItem) {
@@ -295,7 +293,7 @@ class ParamList extends HTMLElement {
     const origin = this.origin
     this.select(origin, active)
     this.origin = origin
-    this.active = IMath.clamp(
+    this.active = Math.clamp(
       active,
       this.start,
       this.end,
@@ -395,7 +393,7 @@ class ParamList extends HTMLElement {
   // 滚动到选中项
   scrollToSelection() {
     if (this.start !== null) {
-      const scrollTop = IMath.clamp(
+      const scrollTop = Math.clamp(
         this.scrollTop,
         this.active * 20 + 20 - this.innerHeight,
         this.active * 20,
@@ -940,8 +938,8 @@ class ParamList extends HTMLElement {
             const pt = this.paddingTop
             const {itemHeight} = dragging
             const {y} = event.getRelativeCoords(this)
-            const line = IMath.floor((y - pt) / itemHeight)
-            const index = IMath.clamp(line, 0, count - 1)
+            const line = Math.floor((y - pt) / itemHeight)
+            const index = Math.clamp(line, 0, count - 1)
             if (dragging.itemIndex !== index) {
               dragging.itemIndex = index
               this.selectMultiple(index)

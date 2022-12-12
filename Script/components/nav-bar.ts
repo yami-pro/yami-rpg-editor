@@ -1,7 +1,5 @@
 "use strict"
 
-import { IRegExp } from "../yami"
-
 // ******************************** 导航栏 ********************************
 
 class NavBar extends HTMLElement {
@@ -19,7 +17,7 @@ class NavBar extends HTMLElement {
         const element = elements[i]
         if (element.tagName === 'NAV-ITEM') {
           const string = element.getAttribute('value')
-          const isNumber = IRegExp.number.test(string)
+          const isNumber = RegExp.number.test(string)
           element.dataValue = isNumber ? parseFloat(string) : string
         } else {
           this.removeChild(element)

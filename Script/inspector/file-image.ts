@@ -3,8 +3,7 @@
 import {
   Browser,
   File,
-  Inspector,
-  ICSS
+  Inspector
 } from "../yami"
 
 // ******************************** 文件 - 图像页面 ********************************
@@ -95,7 +94,7 @@ FileImage.updateImage = function () {
   // 隐藏元素避免滚动条意外出现
   const image = this.image.hide()
   const frame = image.parentNode
-  const frameBox = ICSS.getDevicePixelContentBoxSize(frame)
+  const frameBox = CSS.getDevicePixelContentBoxSize(frame)
   const cw = frameBox.width
   const ch = frameBox.height
   if (cw > 0 && ch > 0) {

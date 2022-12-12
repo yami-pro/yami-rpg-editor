@@ -1,7 +1,5 @@
 "use strict"
 
-import { IMouseEvent } from "../../yami"
-
 // ******************************** 事件目标方法 ********************************
 
 interface EventTarget_ext {
@@ -9,10 +7,10 @@ interface EventTarget_ext {
   off(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void
 }
 
-let last: IMouseEvent | null = null
+let last: MouseEvent | null = null
 
 // 重写鼠标双击事件触发方式
-const pointerdown = function (this: Element, event: IMouseEvent) {
+const pointerdown = function (this: Element, event: MouseEvent) {
   if (!event.cmdOrCtrlKey &&
       !event.altKey &&
       !event.shiftKey &&

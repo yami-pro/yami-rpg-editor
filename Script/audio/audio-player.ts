@@ -3,8 +3,7 @@
 import {
   AudioManager,
   File,
-  Reverb,
-  IMath
+  Reverb
 } from "../yami"
 
 // ******************************** 音频播放器类 ********************************
@@ -56,12 +55,12 @@ class AudioPlayer {
 
   // 设置音量
   setVolume(volume) {
-    this.audio.volume = IMath.clamp(volume, 0, 1)
+    this.audio.volume = Math.clamp(volume, 0, 1)
   }
 
   // 设置声像
   setPan(pan) {
-    this.panner.pan.value = IMath.clamp(pan, -1, 1)
+    this.panner.pan.value = Math.clamp(pan, -1, 1)
   }
 
   // 设置混响
@@ -78,10 +77,10 @@ class AudioPlayer {
   // 获取参数
   getParams() {
     return {
-      volume: IMath.roundTo(this.audio.volume, 2),
-      pan: IMath.roundTo(this.panner.pan.value, 2),
-      dry: this.reverb ? IMath.roundTo(this.reverb.dryGain.gain.value    , 2) : 1,
-      wet: this.reverb ? IMath.roundTo(this.reverb.wetGain.gain.value / 2, 2) : 0,
+      volume: Math.roundTo(this.audio.volume, 2),
+      pan: Math.roundTo(this.panner.pan.value, 2),
+      dry: this.reverb ? Math.roundTo(this.reverb.dryGain.gain.value    , 2) : 1,
+      wet: this.reverb ? Math.roundTo(this.reverb.wetGain.gain.value / 2, 2) : 0,
     }
   }
 }

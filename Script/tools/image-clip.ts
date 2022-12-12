@@ -7,8 +7,7 @@ import {
   getElementWriter,
   Local,
   Path,
-  Window,
-  IMath
+  Window
 } from "../yami"
 
 // ******************************** 图像剪辑窗口 ********************************
@@ -128,8 +127,8 @@ ImageClip.updateImage = function () {
   const dpr = window.devicePixelRatio
   const width = image.naturalWidth
   const height = image.naturalHeight
-  const left = IMath.max(screen.clientWidth * dpr - width >> 1, 0)
-  const top = IMath.max(screen.clientHeight * dpr - height >> 1, 0)
+  const left = Math.max(screen.clientWidth * dpr - width >> 1, 0)
+  const top = Math.max(screen.clientHeight * dpr - height >> 1, 0)
   image.style.left = `${left / dpr}px`
   image.style.top = `${top / dpr}px`
   image.style.width = `${width / dpr}px`
@@ -181,8 +180,8 @@ ImageClip.shiftMarquee = function (ox, oy) {
   const sy = read('y')
   const sw = read('width')
   const sh = read('height')
-  const dx = IMath.clamp(sx + ox * sw, 0, iw - sw)
-  const dy = IMath.clamp(sy + oy * sh, 0, ih - sh)
+  const dx = Math.clamp(sx + ox * sw, 0, iw - sw)
+  const dy = Math.clamp(sy + oy * sh, 0, ih - sh)
   if (sx !== dx) write('x', dx)
   if (sy !== dy) write('y', dy)
   this.updateMarquee()
@@ -206,8 +205,8 @@ ImageClip.scrollToMarquee = function (mode) {
       const maxSL = mx / dpr
       const minST = (my + mh - sh) / dpr
       const maxST = my / dpr
-      screen.scrollLeft = IMath.clamp(screen.scrollLeft, minSL, maxSL)
-      screen.scrollTop = IMath.clamp(screen.scrollTop, minST, maxST)
+      screen.scrollLeft = Math.clamp(screen.scrollLeft, minSL, maxSL)
+      screen.scrollTop = Math.clamp(screen.scrollTop, minST, maxST)
       break
     }
     case 'center': {
@@ -215,8 +214,8 @@ ImageClip.scrollToMarquee = function (mode) {
       const y = my + mh / 2
       const sl = x - (sw >> 1)
       const st = y - (sh >> 1)
-      screen.scrollLeft = IMath.round(sl / dpr)
-      screen.scrollTop = IMath.round(st / dpr)
+      screen.scrollLeft = Math.round(sl / dpr)
+      screen.scrollTop = Math.round(st / dpr)
       break
     }
   }
@@ -307,10 +306,10 @@ ImageClip.marqueePointerdown = function (event) {
       const write = getElementWriter('imageClip')
       const x = coords.x / marquee.scaleX
       const y = coords.y / marquee.scaleY
-      const cw = IMath.max(read('width'), 1)
-      const ch = IMath.max(read('height'), 1)
-      const cx = IMath.floor(x / cw) * cw
-      const cy = IMath.floor(y / ch) * ch
+      const cw = Math.max(read('width'), 1)
+      const ch = Math.max(read('height'), 1)
+      const cx = Math.floor(x / cw) * cw
+      const cy = Math.floor(y / ch) * ch
       write('x', cx)
       write('y', cy)
       this.updateMarquee()

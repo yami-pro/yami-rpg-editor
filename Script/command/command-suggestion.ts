@@ -4,8 +4,7 @@ import {
   Command,
   File,
   Local,
-  Window,
-  IString
+  Window
 } from "../yami"
 
 // ******************************** 指令提示框 ********************************
@@ -176,7 +175,7 @@ CommandSuggestion.searcherKeydown = function (event) {
 // 搜索框 - 输入事件
 CommandSuggestion.searcherInput = function (event) {
   if (event.inputType !== 'insertCompositionText') {
-    const text = IString.compress(this.read())
+    const text = String.compress(this.read())
     CommandSuggestion.list.searchNodes(text)
     CommandSuggestion.list.selectDefaultCommand()
   }
@@ -318,7 +317,7 @@ CommandSuggestion.list.updateCommandNames = function IIFE() {
       const key = item.value
       const name = get(key)
       item.name = name
-      item.unspacedName = IString.compress(name)
+      item.unspacedName = String.compress(name)
       const children = item.children
       if (children instanceof Array && key !== 'custom') {
         update(children, get)

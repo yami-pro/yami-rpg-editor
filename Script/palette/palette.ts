@@ -16,9 +16,7 @@ import {
   Timer,
   TimerManager,
   Window,
-  Clipboard,
-  ICSS,
-  IMath
+  Clipboard
 } from "../yami"
 
 // ******************************** 调色板 ********************************
@@ -347,8 +345,8 @@ Palette.setSize = function (width, height) {
       const dro = width
       const sPriorities = tileset.priorities
       const sro = tileset.width
-      const ex = IMath.min(width, tileset.width)
-      const ey = IMath.min(height, tileset.height)
+      const ex = Math.min(width, tileset.width)
+      const ey = Math.min(height, tileset.height)
       for (let y = 0; y < ey; y++) {
         for (let x = 0; x < ex; x++) {
           const di = x + y * dro
@@ -368,8 +366,8 @@ Palette.setSize = function (width, height) {
       const sTiles = tileset.tiles
       const sPriorities = tileset.priorities
       const sro = tileset.width
-      const ex = IMath.min(width, tileset.width)
-      const ey = IMath.min(height, tileset.height)
+      const ex = Math.min(width, tileset.width)
+      const ey = Math.min(height, tileset.height)
       for (let y = 0; y < ey; y++) {
         for (let x = 0; x < ex; x++) {
           const di = x + y * dro
@@ -492,17 +490,17 @@ Palette.resize = function () {
   if (this.state === 'open') {
     const tileset = this.tileset
     const scale = this.scale
-    const scaledTileWidth = IMath.round(tileset.tileWidth * scale)
-    const scaledTileHeight = IMath.round(tileset.tileHeight * scale)
+    const scaledTileWidth = Math.round(tileset.tileWidth * scale)
+    const scaledTileHeight = Math.round(tileset.tileHeight * scale)
     const innerWidth = tileset.width * scaledTileWidth
     const innerHeight = tileset.height * scaledTileHeight
-    const screenBox = ICSS.getDevicePixelContentBoxSize(this.screen)
+    const screenBox = CSS.getDevicePixelContentBoxSize(this.screen)
     const screenWidth = screenBox.width
     const screenHeight = screenBox.height
-    const paddingLeft = IMath.max(screenWidth - innerWidth >> 1, 0)
-    const paddingTop = IMath.max(screenHeight - innerHeight >> 1, 0)
-    const outerWidth = IMath.max(innerWidth, screenWidth)
-    const outerHeight = IMath.max(innerHeight, screenHeight)
+    const paddingLeft = Math.max(screenWidth - innerWidth >> 1, 0)
+    const paddingTop = Math.max(screenHeight - innerHeight >> 1, 0)
+    const outerWidth = Math.max(innerWidth, screenWidth)
+    const outerHeight = Math.max(innerHeight, screenHeight)
     const dpr = window.devicePixelRatio
     this.scaleX = scaledTileWidth / tileset.tileWidth
     this.scaleY = scaledTileHeight / tileset.tileHeight
@@ -528,8 +526,8 @@ Palette.resize = function () {
     this.marquee.select()
 
     // 调整画布
-    const canvasWidth = IMath.min(innerWidth, screenWidth)
-    const canvasHeight = IMath.min(innerHeight, screenHeight)
+    const canvasWidth = Math.min(innerWidth, screenWidth)
+    const canvasHeight = Math.min(innerHeight, screenHeight)
     this.canvas.style.left = `${paddingLeft / dpr}px`
     this.canvas.style.top = `${paddingTop / dpr}px`
     if (this.canvas.dpr !== dpr ||
@@ -544,7 +542,7 @@ Palette.resize = function () {
       this.context.textAlign = 'center'
       this.context.textBaseline = 'middle'
     }
-    this.context.font = `${IMath.min(
+    this.context.font = `${Math.min(
       scaledTileWidth >> 1,
       scaledTileHeight >> 1,
     )}px sans-serif`
@@ -564,11 +562,11 @@ Palette.getTileCoords = function IIFE() {
     const stw = this.scaledTileWidth
     const sth = this.scaledTileHeight
     const dpr = window.devicePixelRatio
-    let x = IMath.floor(coords.x * dpr / stw)
-    let y = IMath.floor(coords.y * dpr / sth)
+    let x = Math.floor(coords.x * dpr / stw)
+    let y = Math.floor(coords.y * dpr / sth)
     if (clamp) {
-      x = IMath.clamp(x, 0, tileset.width - 1)
-      y = IMath.clamp(y, 0, tileset.height - 1)
+      x = Math.clamp(x, 0, tileset.width - 1)
+      y = Math.clamp(y, 0, tileset.height - 1)
     }
     point.x = x
     point.y = y
@@ -584,8 +582,8 @@ Palette.updateCamera = function (x = this.meta.x, y = this.meta.y) {
   const scrollY = y * this.scaledTileHeight + this.paddingTop
   const toleranceX = this.scaledTileWidth * 0.0001
   const toleranceY = this.scaledTileHeight * 0.0001
-  screen.rawScrollLeft = IMath.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - this.screenWidth) / dpr
-  screen.rawScrollTop = IMath.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - this.screenHeight) / dpr
+  screen.rawScrollLeft = Math.clamp(scrollX - this.centerOffsetX, 0, this.outerWidth - this.screenWidth) / dpr
+  screen.rawScrollTop = Math.clamp(scrollY - this.centerOffsetY, 0, this.outerHeight - this.screenHeight) / dpr
   screen.scrollLeft = (scrollX - (this.screenWidth >> 1) + toleranceX) / dpr
   screen.scrollTop = (scrollY - (this.screenHeight >> 1) + toleranceY) / dpr
 }
@@ -595,8 +593,8 @@ Palette.updateCamera = function (x = this.meta.x, y = this.meta.y) {
 Palette.updateTransform = function () {
   const dpr = window.devicePixelRatio
   const screen = this.screen
-  const left = IMath.roundTo(screen.scrollLeft * dpr, 4)
-  const top = IMath.roundTo(screen.scrollTop * dpr, 4)
+  const left = Math.roundTo(screen.scrollLeft * dpr, 4)
+  const top = Math.roundTo(screen.scrollTop * dpr, 4)
   const right = left + this.canvas.width
   const bottom = top + this.canvas.height
   this.scrollLeft = left
@@ -606,8 +604,8 @@ Palette.updateTransform = function () {
   this.context.setTransform(1, 0, 0, 1, -left, -top)
   const scrollX = screen.rawScrollLeft * dpr + this.centerOffsetX
   const scrollY = screen.rawScrollTop * dpr + this.centerOffsetY
-  this.meta.x = IMath.roundTo((scrollX - this.paddingLeft) / this.scaledTileWidth, 4)
-  this.meta.y = IMath.roundTo((scrollY - this.paddingTop) / this.scaledTileHeight, 4)
+  this.meta.x = Math.roundTo((scrollX - this.paddingLeft) / this.scaledTileWidth, 4)
+  this.meta.y = Math.roundTo((scrollY - this.paddingTop) / this.scaledTileHeight, 4)
   Data.manifest.changed = true
 }
 
@@ -644,14 +642,14 @@ Palette.createMarkCanvas = function () {
     let start = 0
     for (let i = 0; i < 10; i++) {
       const text = i === 0 ? '▪' : i.toString()
-      const width = IMath.ceil(context.measureText(text).width)
+      const width = Math.ceil(context.measureText(text).width)
       const aspectRatio = width / size
       positions[i] = {text, start, width, aspectRatio}
       start += width
     }
 
     // 计算添加标记位置
-    const width = IMath.ceil(context.measureText('+').width)
+    const width = Math.ceil(context.measureText('+').width)
     positions.add = {
       text: '+',
       start: start,
@@ -754,10 +752,10 @@ Palette.drawTiles = function () {
       const st = this.scrollTop
       const sr = this.scrollRight
       const sb = this.scrollBottom
-      const bx = IMath.max(IMath.floor(sl / stw), 0)
-      const by = IMath.max(IMath.floor(st / sth), 0)
-      const ex = IMath.min(IMath.ceil(sr / stw), tileset.width)
-      const ey = IMath.min(IMath.ceil(sb / sth), tileset.height)
+      const bx = Math.max(Math.floor(sl / stw), 0)
+      const by = Math.max(Math.floor(st / sth), 0)
+      const ex = Math.min(Math.ceil(sr / stw), tileset.width)
+      const ey = Math.min(Math.ceil(sb / sth), tileset.height)
       for (let y = by; y < ey; y++) {
         for (let x = bx; x < ex; x++) {
           const i = x + y * tro
@@ -805,10 +803,10 @@ Palette.drawTileGrid = function () {
     const sb = this.scrollBottom
     const tw = this.scaledTileWidth
     const th = this.scaledTileHeight
-    const bx = IMath.floor(sl / tw + 1) * tw
-    const by = IMath.floor(st / th + 1) * th
-    const ex = IMath.ceil(sr / tw) * tw
-    const ey = IMath.ceil(sb / th) * th
+    const bx = Math.floor(sl / tw + 1) * tw
+    const by = Math.floor(st / th + 1) * th
+    const ex = Math.ceil(sr / tw) * tw
+    const ey = Math.ceil(sb / th) * th
     context.beginPath()
     for (let y = by; y < ey; y += th) {
       context.moveTo(sl, y + 0.5)
@@ -837,12 +835,12 @@ Palette.drawPriorities = function (event) {
     const sb = this.scrollBottom
     const tw = this.scaledTileWidth
     const th = this.scaledTileHeight
-    const ts = IMath.min(tw, th)
+    const ts = Math.min(tw, th)
     if (ts < 16) return
-    const bx = IMath.max(IMath.floor(sl / tw), 0)
-    const by = IMath.max(IMath.floor(st / th), 0)
-    const ex = IMath.min(IMath.ceil(sr / tw), tileset.width)
-    const ey = IMath.min(IMath.ceil(sb / th), tileset.height)
+    const bx = Math.max(Math.floor(sl / tw), 0)
+    const by = Math.max(Math.floor(st / th), 0)
+    const ex = Math.min(Math.ceil(sr / tw), tileset.width)
+    const ey = Math.min(Math.ceil(sb / th), tileset.height)
     const dragging = this.dragging
     const mark = this.createMarkCanvas()
     const positions = mark.positions
@@ -1170,11 +1168,11 @@ Palette.scrollToSelection = function (shiftKey) {
     const y2 = my + hh - toleranceY
     const meta = this.meta
     const x = shiftKey && mx === ox && mw > 1
-    ? IMath.max(IMath.min(meta.x, x2), x1)
-    : IMath.min(IMath.max(meta.x, x1), x2)
+    ? Math.max(Math.min(meta.x, x2), x1)
+    : Math.min(Math.max(meta.x, x1), x2)
     const y = shiftKey && my === oy && mh > 1
-    ? IMath.max(IMath.min(meta.y, y2), y1)
-    : IMath.min(IMath.max(meta.y, y1), y2)
+    ? Math.max(Math.min(meta.y, y2), y1)
+    : Math.min(Math.max(meta.y, y1), y2)
     if (meta.x !== x || meta.y !== y) {
       this.updateCamera(x, y)
       this.updateTransform()
@@ -1444,8 +1442,8 @@ Palette.screenKeydown = function (event) {
           case 'ArrowRight': offsetX = +1; break
           case 'ArrowDown':  offsetY = +1; break
         }
-        const x = IMath.clamp(mx + offsetX, 0, hframes - mw)
-        const y = IMath.clamp(my + offsetY, 0, vframes - mh)
+        const x = Math.clamp(mx + offsetX, 0, hframes - mw)
+        const y = Math.clamp(my + offsetY, 0, vframes - mh)
         if (mx !== x || my !== y) {
           marquee.select(x, y, mw, mh)
           marquee.originX += x - mx
@@ -1599,10 +1597,10 @@ Palette.marqueePointerdown = function (event) {
         if (event.shiftKey && marquee.visible) {
           const ox = marquee.originX
           const oy = marquee.originY
-          const mx = IMath.min(x, ox)
-          const my = IMath.min(y, oy)
-          const mw = IMath.abs(x - ox) + 1
-          const mh = IMath.abs(y - oy) + 1
+          const mx = Math.min(x, ox)
+          const my = Math.min(y, oy)
+          const mw = Math.abs(x - ox) + 1
+          const mh = Math.abs(y - oy) + 1
           marquee.select(mx, my, mw, mh)
         } else {
           marquee.select(x, y, 1, 1)
@@ -1793,10 +1791,10 @@ Palette.pointermove = function (event) {
         dragging.latest = event
         const marquee = this.marquee
         const coords = this.getTileCoords(event, true)
-        const x = IMath.min(coords.x, marquee.originX)
-        const y = IMath.min(coords.y, marquee.originY)
-        const width = IMath.abs(coords.x - marquee.originX) + 1
-        const height = IMath.abs(coords.y - marquee.originY) + 1
+        const x = Math.min(coords.x, marquee.originX)
+        const y = Math.min(coords.y, marquee.originY)
+        const width = Math.abs(coords.x - marquee.originX) + 1
+        const height = Math.abs(coords.y - marquee.originY) + 1
         if (marquee.x !== x ||
           marquee.y !== y ||
           marquee.width !== width ||
@@ -1812,7 +1810,7 @@ Palette.pointermove = function (event) {
           dragging.scrollLeft - distX,
           dragging.scrollTop - distY,
         )
-        if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
+        if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'scroll'
           Cursor.open('cursor-grab')
         }
@@ -1854,7 +1852,7 @@ Palette.pointermove = function (event) {
       case 'ready-to-shift': {
         const distX = event.clientX - dragging.clientX
         const distY = event.clientY - dragging.clientY
-        if (IMath.sqrt(distX ** 2 + distY ** 2) > 4) {
+        if (Math.sqrt(distX ** 2 + distY ** 2) > 4) {
           dragging.mode = 'shift'
           dragging.active = false
           const x = dragging.startX

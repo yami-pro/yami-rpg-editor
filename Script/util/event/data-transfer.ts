@@ -2,18 +2,16 @@
 
 // ******************************** 数据传送方法 ********************************
 
-interface IDataTransfer extends DataTransfer {
+interface DataTransfer_ext {
   hideDragImage: () => void
 }
 
-const prototype = <IDataTransfer>DataTransfer.prototype
-
 // 数据传送方法 - 隐藏拖拽图像
-prototype.hideDragImage = function IIFE() {
+DataTransfer.prototype.hideDragImage = function IIFE() {
   const image = document.createElement('no-drag-image')
-  return function (this: IDataTransfer) {
+  return function (this: DataTransfer) {
     this.setDragImage(image, 0, 0)
   }
 }()
 
-export { IDataTransfer }
+export { DataTransfer_ext }

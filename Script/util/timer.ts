@@ -1,8 +1,8 @@
 "use strict"
 
 import {
-  IFunction,
-  IFunction_empty_func
+  MouseKeyboardEvent,
+  Function_empty_func
 } from "../yami"
 
 // ******************************** 计时器管理类 ********************************
@@ -45,18 +45,18 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: Timer_update_func | IFunction_empty_func
-  callback: Timer_callback_func | IFunction_empty_func
+  update: Timer_update_func | Function_empty_func
+  callback: Timer_callback_func | Function_empty_func
   target: HTMLElement | null
   running: boolean
 
-  constructor(params: {duration: number, update: Timer_update_func | IFunction_empty_func, callback: Timer_callback_func | IFunction_empty_func}) {
+  constructor(params: {duration: number, update: Timer_update_func | Function_empty_func, callback: Timer_callback_func | Function_empty_func}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
     this.duration = duration
-    this.update = update ?? IFunction.empty
-    this.callback = callback ?? IFunction.empty
+    this.update = update ?? Function.empty
+    this.callback = callback ?? Function.empty
   }
 
   // 执行周期函数
@@ -130,22 +130,22 @@ TimerManager.initialize = function () {
 
   // 监测其他窗口的状态
   // 在最大化时停止播放动画
-  const windowOpen = (event: Event) => {
+  const windowOpen = (event: MouseKeyboardEvent) => {
     const target = event.target
     if (target && target.hasClass('maximized')) {
       this.animationWaiting++
     }
   }
-  const windowClosed = (event: Event) => {
+  const windowClosed = (event: MouseKeyboardEvent) => {
     const target = event.target
     if (target && target.hasClass('maximized')) {
       this.animationWaiting--
     }
   }
-  const windowMaximize = (event: Event) => {
+  const windowMaximize = (event: MouseKeyboardEvent) => {
     this.animationWaiting++
   }
-  const windowUnmaximize = (event: Event) => {
+  const windowUnmaximize = (event: MouseKeyboardEvent) => {
     this.animationWaiting--
   }
   const windows = document.querySelectorAll('#event, #selector, #imageClip')

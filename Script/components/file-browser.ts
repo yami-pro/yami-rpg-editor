@@ -11,8 +11,7 @@ import {
   FolderItem,
   Path,
   Local,
-  IFunction,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 文件浏览器 ********************************
@@ -22,7 +21,7 @@ type Browser_links = {[index: string]: FileBrowser | FileNavPane | FileHeadPane 
 class FileBrowser extends HTMLElement {
   display: string
   directory: HTMLElement[] | null
-  dragging: IMouseKeyboardEvent | null
+  dragging: MouseKeyboardEvent | null
   filters: string[] | null
   backupFolders: HTMLElement[]
   searchResults: (FileItem | FolderItem)[]
@@ -155,7 +154,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 目录改变事件
-  dirchange(event: IMouseKeyboardEvent) {
+  dirchange(event: MouseKeyboardEvent) {
     switch (this.display) {
       case 'normal':
         break
@@ -202,7 +201,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 获取活动页面
-  getActivePage(event: IMouseKeyboardEvent) {
+  getActivePage(event: MouseKeyboardEvent) {
     const {nav, body} = this
     return nav.contains(<Node>event.target)  ? nav
          : body.contains(<Node>event.target) ? body
@@ -210,7 +209,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event: IMouseKeyboardEvent) {
+  pointerdown(event: MouseKeyboardEvent) {
     // 如果丢失dragend事件, 手动结束
     switch (this.dragging?.mode) {
       case 'drag': return this.dragend()
@@ -219,7 +218,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽开始事件
-  dragstart(event: IMouseKeyboardEvent) {
+  dragstart(event: MouseKeyboardEvent) {
     const page = this.getActivePage(event)
     if (page && !this.dragging) {
       if (page.pressing) {
@@ -232,7 +231,7 @@ class FileBrowser extends HTMLElement {
         const aPaths = rPaths.map(path => File.route(path))
         this.dragging = event
         event.mode = 'drag'
-        event.preventDefault = IFunction.empty
+        event.preventDefault = Function.empty
         event.allowMove = false
         event.allowCopy = false
         event.dropTarget = null
@@ -280,7 +279,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽离开事件
-  dragleave(event: IMouseKeyboardEvent) {
+  dragleave(event: MouseKeyboardEvent) {
     const {dragging} = this
     if (dragging?.dropTarget &&
       !this.contains(<Node>event.relatedTarget)) {
@@ -290,7 +289,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽悬停事件
-  dragover(event: IMouseKeyboardEvent) {
+  dragover(event: MouseKeyboardEvent) {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
@@ -364,7 +363,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽释放事件
-  drop(event: IMouseKeyboardEvent) {
+  drop(event: MouseKeyboardEvent) {
     const {dragging} = this
     if (dragging) {
       event.stopPropagation()
@@ -415,7 +414,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽开始事件
-  osDragstart(event: IMouseKeyboardEvent) {
+  osDragstart(event: MouseKeyboardEvent) {
     if (!this.dragging) {
       this.dragging = event
       event.mode = 'os-drag'
@@ -429,7 +428,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽结束事件
-  osDragend(event?: IMouseKeyboardEvent) {
+  osDragend(event?: MouseKeyboardEvent) {
     if (this.dragging) {
       const {dropTarget} = this.dragging
       if (dropTarget instanceof HTMLElement) {
@@ -444,12 +443,12 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽离开事件
-  osDragleave(event: IMouseKeyboardEvent) {
+  osDragleave(event: MouseKeyboardEvent) {
     return this.dragleave(event)
   }
 
   // 操作系统 - 拖拽悬停事件
-  osDragover(event: IMouseKeyboardEvent) {
+  osDragover(event: MouseKeyboardEvent) {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
@@ -489,7 +488,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽释放事件
-  osDrop(event: IMouseKeyboardEvent) {
+  osDrop(event: MouseKeyboardEvent) {
     const {files} = event.dataTransfer
     if (files.length === 0) {
       return

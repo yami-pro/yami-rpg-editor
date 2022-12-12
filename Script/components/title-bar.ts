@@ -2,15 +2,13 @@
 
 import {
   Window,
-  ICSS,
-  IMath,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 标题栏 ********************************
 
 class TitleBar extends HTMLElement {
-  dragging: IMouseKeyboardEvent
+  dragging: MouseKeyboardEvent
 
   constructor() {
     super()
@@ -47,10 +45,10 @@ class TitleBar extends HTMLElement {
                 right -= dpx * 2
                 bottom -= dpx * 2
               }
-              const x = ICSS.rasterize(left - startX + event.clientX)
-              const y = ICSS.rasterize(top - startY + event.clientY)
-              windowFrame.style.left = `${IMath.clamp(x, 0, right)}px`
-              windowFrame.style.top = `${IMath.clamp(y, 0, bottom)}px`
+              const x = CSS.rasterize(left - startX + event.clientX)
+              const y = CSS.rasterize(top - startY + event.clientY)
+              windowFrame.style.left = `${Math.clamp(x, 0, right)}px`
+              windowFrame.style.top = `${Math.clamp(y, 0, bottom)}px`
             }
           }
           const pointerup = event => {

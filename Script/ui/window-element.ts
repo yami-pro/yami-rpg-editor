@@ -3,8 +3,7 @@
 import {
   GL,
   Timer,
-  UI,
-  IMath
+  UI
 } from "../yami"
 
 // ******************************** 窗口元素 ********************************
@@ -77,7 +76,7 @@ class WindowElement extends UI.Element {
   // 写入滚动X
   set scrollX(value) {
     const max = this.scrollWidth - this.width
-    const scrollX = IMath.clamp(value, 0, max)
+    const scrollX = Math.clamp(value, 0, max)
     if (this._scrollX !== scrollX) {
       this._scrollX = scrollX
       if (this.connected) {
@@ -95,7 +94,7 @@ class WindowElement extends UI.Element {
   // 写入滚动Y
   set scrollY(value) {
     const max = this.scrollHeight - this.height
-    const scrollY = IMath.clamp(value, 0, max)
+    const scrollY = Math.clamp(value, 0, max)
     if (this._scrollY !== value) {
       this._scrollY = scrollY
       if (this.connected) {

@@ -1,10 +1,8 @@
 "use strict"
 
-import { HTMLElement_ext } from "../../yami"
-
 // ******************************** 图像扩展 ********************************
 
-interface HTMLInputElement_ext extends HTMLElement_ext {
+interface HTMLInputElement_ext {
   getFocus: (mode?: string | null) => void
 }
 

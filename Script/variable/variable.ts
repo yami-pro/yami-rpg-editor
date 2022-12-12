@@ -10,8 +10,7 @@ import {
   Local,
   Menu,
   Window,
-  Clipboard,
-  IObject
+  Clipboard
 } from "../yami"
 
 // ******************************** 变量窗口 ********************************
@@ -367,7 +366,7 @@ Variable.unpackVariables = function IIFE() {
     for (let i = 0; i < length; i++) {
       const item = items[i]
       if (item.class !== 'folder') {
-        copies[i] = IObject.clone(item)
+        copies[i] = Object.clone(item)
       } else {
         copies[i] = new ReferencedFolder(item)
       }
@@ -388,7 +387,7 @@ Variable.packVariables = function IIFE() {
     for (let i = 0; i < length; i++) {
       const item = items[i]
       if (item.class !== 'folder') {
-        copies[i] = IObject.clone(item)
+        copies[i] = Object.clone(item)
       } else {
         copies[i] = {
           class: item.class,

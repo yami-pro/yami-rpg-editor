@@ -5,9 +5,7 @@ import {
   Menu,
   TextBox,
   Timer,
-  IFunction,
-  IMath,
-  IMouseKeyboardEvent
+  MouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 树状列表 ********************************
@@ -22,7 +20,7 @@ class TreeList extends HTMLElement {
   root: any
   timer: Timer
   selections: HTMLElement[]
-  dragging: IMouseKeyboardEvent
+  dragging: MouseKeyboardEvent
   padded: boolean
   removable: boolean
   renamable: boolean
@@ -864,14 +862,14 @@ class TreeList extends HTMLElement {
       switch (direction) {
         case 'up':
           if (index !== -1) {
-            index = IMath.max(index - 1, 0)
+            index = Math.max(index - 1, 0)
           } else {
             index = last
           }
           break
         case 'down':
           if (index !== -1) {
-            index = IMath.min(index + 1, last)
+            index = Math.min(index + 1, last)
           } else {
             index = 0
           }
@@ -932,14 +930,14 @@ class TreeList extends HTMLElement {
           let scrollTop
           switch (mode) {
             case 'active':
-              scrollTop = IMath.clamp(
+              scrollTop = Math.clamp(
                 this.scrollTop,
                 i * 20 + 20 - this.innerHeight,
                 i * 20,
               )
               break
             case 'middle':
-              scrollTop = IMath.round((
+              scrollTop = Math.round((
                 i * 20 + 10
               - this.innerHeight / 2)
               / 20) * 20
@@ -978,13 +976,13 @@ class TreeList extends HTMLElement {
 
   // 列表扩展方法 - 向上翻页
   pageUp(select) {
-    const scrollLines = IMath.floor(this.clientHeight / 20) - 1
+    const scrollLines = Math.floor(this.clientHeight / 20) - 1
     if (select) {
       const bottom = this.scrollTop + this.clientHeight
-      const bottomIndex = IMath.floor(bottom / 20) - 1
+      const bottomIndex = Math.floor(bottom / 20) - 1
       let index = this.getElementIndexOfSelection(Infinity)
-      index = IMath.min(index, bottomIndex) - scrollLines
-      index = IMath.max(index, 0)
+      index = Math.min(index, bottomIndex) - scrollLines
+      index = Math.max(index, 0)
       this.select(this.elements[index]?.item)
     }
     this.scrollBy(0, -scrollLines * 20)
@@ -992,13 +990,13 @@ class TreeList extends HTMLElement {
 
   // 列表扩展方法 - 向下翻页
   pageDown(select) {
-    const scrollLines = IMath.floor(this.clientHeight / 20) - 1
+    const scrollLines = Math.floor(this.clientHeight / 20) - 1
     if (select) {
       const count = this.elements.count
-      const topIndex = IMath.floor(this.scrollTop / 20)
+      const topIndex = Math.floor(this.scrollTop / 20)
       let index = this.getElementIndexOfSelection(0)
-      index = IMath.max(index, topIndex) + scrollLines
-      index = IMath.min(index, count - 1)
+      index = Math.max(index, topIndex) + scrollLines
+      index = Math.min(index, count - 1)
       this.select(this.elements[index]?.item)
     }
     this.scrollBy(0, +scrollLines * 20)
@@ -1290,7 +1288,7 @@ class TreeList extends HTMLElement {
       )) {
       this.dragging = event
       Object.defineProperty(event, 'offsetY', {writable: true})
-      event.preventDefault = IFunction.empty
+      event.preventDefault = Function.empty
       event.dataTransfer.hideDragImage()
       event.hint = document.createElement('drag-and-drop-hint')
       event.hint.addClass('for-list')
