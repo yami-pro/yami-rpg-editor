@@ -9,8 +9,6 @@ interface EventTarget_ext {
   off(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void
 }
 
-interface IEventTarget extends EventTarget, EventTarget_ext {}
-
 let last: IMouseEvent | null = null
 
 // 重写鼠标双击事件触发方式
@@ -44,10 +42,8 @@ const pointerdown = function (this: Element, event: IMouseEvent) {
   }
 }
 
-const prototype = <IEventTarget>EventTarget.prototype
-
 // 事件目标方法 - 添加事件
-prototype.on = function (type, listener, options) {
+EventTarget.prototype.on = function (type, listener, options) {
   switch (type) {
     case 'doubleclick':
       this.addEventListener('pointerdown', pointerdown)
@@ -60,7 +56,7 @@ prototype.on = function (type, listener, options) {
 }
 
 // 事件目标方法 - 删除事件
-prototype.off = function (type, listener, options) {
+EventTarget.prototype.off = function (type, listener, options) {
   switch (type) {
     case 'doubleclick':
       this.removeEventListener('pointerdown', pointerdown, options)
@@ -72,7 +68,4 @@ prototype.off = function (type, listener, options) {
   }
 }
 
-export {
-  IEventTarget,
-  EventTarget_ext
-}
+export { EventTarget_ext }

@@ -356,6 +356,9 @@ declare global {
   // NodeListOf 扩展
   interface NodeListOf<TNode extends Node> extends NodeList, NodeList_ext {}
 
+  // EventTarget 扩展
+  interface EventTarget extends EventTarget_ext {}
+
   // Element 扩展
   interface Element extends Element_ext {}
 
