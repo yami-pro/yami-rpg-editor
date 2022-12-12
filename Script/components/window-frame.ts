@@ -6,16 +6,15 @@ import {
   Window,
   ICSS,
   IMath,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 窗口框架 ********************************
 
-class WindowFrame extends IHTMLElement {
+class WindowFrame extends HTMLElement {
   enableAmbient: boolean
-  activeElement: IHTMLElement
-  focusableElements: IHTMLElement[]
+  activeElement: HTMLElement
+  focusableElements: HTMLElement[]
   windowResize: (event: IMouseKeyboardEvent) => void
   openEventEnabled: boolean
   closeEventEnabled: boolean

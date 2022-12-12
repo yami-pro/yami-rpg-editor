@@ -1,13 +1,10 @@
 "use strict"
 
-import {
-  DetailBox,
-  IHTMLElement
-} from "../yami"
+import { DetailBox } from "../yami"
 
 // ******************************** 细节概要 ********************************
 
-class DetailSummary extends IHTMLElement {
+class DetailSummary extends HTMLElement {
   constructor() {
     super()
 

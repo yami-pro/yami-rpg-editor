@@ -1,10 +1,8 @@
 "use strict"
 
-import { IHTMLElement } from "../yami"
-
 // ******************************** 拖放提示 ********************************
 
-class DragAndDropHint extends IHTMLElement {
+class DragAndDropHint extends HTMLElement {
   left: number
   top: number
   width: number

@@ -1,17 +1,14 @@
 "use strict"
 
-import {
-  Select,
-  IHTMLElement
-} from "../yami"
+import { Select } from "../yami"
 
 // ******************************** 选择框 ********************************
 
-class SelectBox extends IHTMLElement {
-  info: IHTMLElement
-  dataItems: IHTMLElement[]
+class SelectBox extends HTMLElement {
+  info: HTMLElement
+  dataItems: HTMLElement[]
   dataValue: any
-  relations: IHTMLElement[]
+  relations: HTMLElement[]
   invalid: boolean
   hideUnrelated: boolean
   writeEventEnabled: boolean

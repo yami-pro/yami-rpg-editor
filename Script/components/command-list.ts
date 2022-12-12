@@ -8,7 +8,6 @@ import {
   ctrl,
   Clipboard,
   IMath,
-  IHTMLElement,
   IMouseKeyboardEvent,
   Command,
   CommandHistory,
@@ -17,10 +16,10 @@ import {
 
 // ******************************** 指令列表 ********************************
 
-class CommandList extends IHTMLElement {
+class CommandList extends HTMLElement {
   data: commandsData[]
-  elements: IHTMLElement[]
-  selections: IHTMLElement[]
+  elements: HTMLElement[]
+  selections: HTMLElement[]
   start: number | null
   end: number | null
   origin: number | null
@@ -148,7 +147,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 在重新调整时更新
-  updateOnResize(element: IHTMLElement) {
+  updateOnResize(element: HTMLElement) {
     if (element.contents !== null) {
       this.updateCommandElement(element)
     }
@@ -170,7 +169,7 @@ class CommandList extends IHTMLElement {
         commands, i, indent,
       )) {
         if (target instanceof HTMLElement) {
-          elements[elements.count++] = <IHTMLElement>target
+          elements[elements.count++] = target
           continue
         }
         if (target instanceof Array) {
@@ -276,7 +275,7 @@ class CommandList extends IHTMLElement {
     if (buffer[0].dataIndex !== index) {
       for (const target of buffer) {
         if (target instanceof HTMLElement) {
-          (<IHTMLElement>target).dataIndex = index
+          (target).dataIndex = index
         }
       }
     }
@@ -288,13 +287,13 @@ class CommandList extends IHTMLElement {
       if (enabled) {
         for (const target of buffer) {
           if (target instanceof HTMLElement) {
-            (<IHTMLElement>target).removeClass('disabled')
+            (target).removeClass('disabled')
           }
         }
       } else {
         for (const target of buffer) {
           if (target instanceof HTMLElement) {
-            (<IHTMLElement>target).addClass('disabled')
+            (target).addClass('disabled')
           }
         }
       }
@@ -304,7 +303,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 更新指令元素
-  updateCommandElement(element: IHTMLElement) {
+  updateCommandElement(element: HTMLElement) {
     // 设置文本缩进
     element.style.textIndent = this.computeTextIndent(element.dataIndent)
 
@@ -340,7 +339,7 @@ class CommandList extends IHTMLElement {
           // 如果不存在全局变量格式
           text.textContent = content.text
         }
-        (<IHTMLElement>text).addClass(content.color)
+        (text).addClass(content.color)
         element.appendChild(text)
         continue
       }
@@ -870,7 +869,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 判断列表项父对象是否启用
-  isParentEnabled(element: IHTMLElement) {
+  isParentEnabled(element: HTMLElement) {
     return element.dataList?.parent?.buffer.enabled ?? true
   }
 
@@ -1122,10 +1121,10 @@ class CommandList extends IHTMLElement {
     if (!element.parentNode) {
       return null
     }
-    let x = (<IHTMLElement>element.childNodes[0]).rect().left
+    let x = (element.childNodes[0]).rect().left
     let y = element.rect().top
     // 应用窗口带边框需要减去1px的margin
-    if ((<IHTMLElement>document.body).hasClass('border')) {
+    if ((document.body).hasClass('border')) {
       const dpx = 1 / window.devicePixelRatio
       x -= dpx
       y -= dpx
@@ -1172,8 +1171,8 @@ class CommandList extends IHTMLElement {
       this.windowPointerup(this.dragging)
     }
     if (this.focusing) {
-      let element: IHTMLElement | null = this
-      while (element = <IHTMLElement>element.parentNode) {
+      let element: HTMLElement | null = this
+      while (element = element.parentNode) {
         if (element instanceof WindowFrame) {
           if (element.hasClass('blur')) {
             return
@@ -1330,7 +1329,7 @@ class CommandList extends IHTMLElement {
     }
     switch (event.button) {
       case 0: {
-        let element = <IHTMLElement>event.target
+        let element = event.target
         let index
         if (element === this) {
           if (element.isInContent(event)) {
@@ -1363,7 +1362,7 @@ class CommandList extends IHTMLElement {
         break
       }
       case 2: {
-        let element = <IHTMLElement>event.target
+        let element = event.target
         let index
         if (element === this) {
           if (element.isInContent(event)) {
@@ -1560,7 +1559,7 @@ class CommandList extends IHTMLElement {
   // 窗口 - 变量改变事件
   static windowVariableChange(this: CommandList, event: IMouseKeyboardEvent) {
     this.childNodes.forEach(element => {
-      const {updaters} = <IHTMLElement>element
+      const {updaters} = element
       if (updaters !== undefined) {
         for (const updater of updaters) {
           updater.update()

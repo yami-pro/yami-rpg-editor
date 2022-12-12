@@ -1,14 +1,11 @@
 "use strict"
 
-import {
-  DetailSummary,
-  IHTMLElement
-} from "../yami"
+import { DetailSummary } from "../yami"
 
 // ******************************** 细节框 ********************************
 
 // 默认 details 的子元素无法正确获得 css 百分比高度属性
-class DetailBox extends IHTMLElement {
+class DetailBox extends HTMLElement {
   toggleEventEnabled: boolean
 
   constructor() {

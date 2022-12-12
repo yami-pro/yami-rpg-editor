@@ -1,12 +1,10 @@
 "use strict"
 
-import { IHTMLElement } from "../yami"
-
 // ******************************** 单选框代理 ********************************
 
-class RadioProxy extends IHTMLElement {
+class RadioProxy extends HTMLElement {
   dataValue: any
-  relations: IHTMLElement[]
+  relations: HTMLElement[]
   cancelable: boolean
   writeEventEnabled: boolean
   inputEventEnabled: boolean

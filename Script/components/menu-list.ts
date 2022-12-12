@@ -3,7 +3,6 @@
 import {
   Timer,
   Window,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
@@ -11,18 +10,18 @@ import {
 
 type Window_event_func = (event: IMouseKeyboardEvent) => void
 
-class MenuList extends IHTMLElement {
+class MenuList extends HTMLElement {
   state: string
   callback: () => void
-  dataItems: IHTMLElement[]
-  selection: IHTMLElement
+  dataItems: HTMLElement[]
+  selection: HTMLElement
   popupTimer: Timer
   closeTimer: Timer
-  parent: IHTMLElement
-  submenu: IHTMLElement
+  parent: HTMLElement
+  submenu: HTMLElement
   buttonPressed: boolean
   minWidth: number
-  parentMenuItem: IHTMLElement
+  parentMenuItem: HTMLElement
   windowBlur: Window_event_func
   windowKeydown: Window_event_func
   windowPointerdown: Window_event_func

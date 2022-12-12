@@ -28,7 +28,6 @@ import {
   UI,
   Window,
   Clipboard,
-  IHTMLElement,
   IFunction,
   ICSS,
   IMath,

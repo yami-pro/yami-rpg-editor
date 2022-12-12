@@ -2,16 +2,15 @@
 
 import {
   CustomBox,
-  NumberBox,
-  IHTMLElement
+  NumberBox
 } from "../yami"
 
 // ******************************** 数字变量框 ********************************
 
-class NumberVar extends IHTMLElement {
+class NumberVar extends HTMLElement {
   mode: string
-  numBox: IHTMLElement
-  varBox: IHTMLElement
+  numBox: HTMLElement
+  varBox: HTMLElement
 
   constructor() {
     super()

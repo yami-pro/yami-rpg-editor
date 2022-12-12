@@ -3,13 +3,12 @@
 import {
   TextHistory,
   IMath,
-  IHTMLElement,
   IHTMLInputElement
 } from "../yami"
 
 // ******************************** 文本框 ********************************
 
-class TextBox extends IHTMLElement {
+class TextBox extends HTMLElement {
   input: IHTMLInputElement
   focusEventEnabled: boolean
   blurEventEnabled: boolean

@@ -10,7 +10,6 @@ import {
   FS,
   FSP,
   Path,
-  IHTMLElement,
   Timer,
   IMath,
   FolderItem,
@@ -19,9 +18,9 @@ import {
 
 // ******************************** 文件导航面板 ********************************
 
-class FileNavPane extends IHTMLElement {
+class FileNavPane extends HTMLElement {
   timer: Timer
-  elements: IHTMLElement[]
+  elements: HTMLElement[]
   selections: (FolderItem | FileItem)[]
   pressing: ((event: any) => void) | null
   selectEventEnabled: boolean

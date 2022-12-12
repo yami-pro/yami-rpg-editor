@@ -3,14 +3,13 @@
 import {
   Title,
   IFunction,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 标签栏 ********************************
 
-class TabBar extends IHTMLElement {
-  data: IHTMLElement[]
+class TabBar extends HTMLElement {
+  data: HTMLElement[]
   dragging: IMouseKeyboardEvent
   selectionIndex: number
   writeEventEnabled: boolean

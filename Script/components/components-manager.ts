@@ -1,17 +1,15 @@
 "use strict"
 
-import { IHTMLElement } from "../yami"
-
 // ******************************** 组件管理类 ********************************
 
 interface IScrollBar {
-  addScrollbars(element: IHTMLElement): void
+  addScrollbars(element: HTMLElement): void
 }
 
 const ScrollBarManager = <IScrollBar>new Object()
 
 // 添加滚动条
-ScrollBarManager.addScrollbars = function (element: IHTMLElement) {
+ScrollBarManager.addScrollbars = function (element: HTMLElement) {
   const hBar = document.createElement('scroll-bar')
   const vBar = document.createElement('scroll-bar')
   const corner = document.createElement('scroll-corner')

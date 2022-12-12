@@ -1,13 +1,10 @@
 "use strict"
 
-import {
-  IHTMLCanvasElement,
-  IHTMLElement
-} from "../yami"
+import { IHTMLCanvasElement } from "../yami"
 
 // ******************************** 滤镜框 ********************************
 
-class FilterBox extends IHTMLElement {
+class FilterBox extends HTMLElement {
   canvas: IHTMLCanvasElement
   dataValue: any
 

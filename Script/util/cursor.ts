@@ -1,11 +1,9 @@
 "use strict"
 
-import { IHTMLElement } from "../yami"
-
 // ******************************** 指针对象 ********************************
 
 interface ICursor {
-  region: IHTMLElement | null
+  region: HTMLElement | null
   open(className: string): void
   close(className: string): void
 }

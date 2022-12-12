@@ -4,13 +4,12 @@ import {
   Window,
   ICSS,
   IMath,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 标题栏 ********************************
 
-class TitleBar extends IHTMLElement {
+class TitleBar extends HTMLElement {
   dragging: IMouseKeyboardEvent
 
   constructor() {

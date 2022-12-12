@@ -1,15 +1,12 @@
 "use strict"
 
-import {
-  IMath,
-  IHTMLElement
-} from "../yami"
+import { IMath } from "../yami"
 
 // ******************************** 普通列表 ********************************
 
-class CommonList extends IHTMLElement {
-  elements: IHTMLElement[]
-  selection: IHTMLElement | null
+class CommonList extends HTMLElement {
+  elements: HTMLElement[]
+  selection: HTMLElement | null
   writeEventEnabled: boolean
   selectEventEnabled: boolean
   popupEventEnabled: boolean

@@ -22,14 +22,13 @@ import {
   StateGetter,
   TriggerGetter,
   Variable,
-  VariableGetter,
-  IHTMLElement
+  VariableGetter
 } from "../yami"
 
 // ******************************** 自定义框 ********************************
 
-class CustomBox extends IHTMLElement {
-  info: IHTMLElement
+class CustomBox extends HTMLElement {
+  info: HTMLElement
   dataValue: any
   writeEventEnabled: boolean
   inputEventEnabled: boolean

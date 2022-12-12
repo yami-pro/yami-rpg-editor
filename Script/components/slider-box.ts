@@ -2,16 +2,15 @@
 
 import {
   NumberBox,
-  IHTMLElement,
   IHTMLInputElement
 } from "../yami"
 
 // ******************************** 滑动框 ********************************
 
-class SliderBox extends IHTMLElement {
-  filler: IHTMLElement
+class SliderBox extends HTMLElement {
+  filler: HTMLElement
   input: IHTMLInputElement
-  synchronizer: IHTMLElement
+  synchronizer: HTMLElement
   activeWheel: boolean
   focusEventEnabled: boolean
   blurEventEnabled: boolean

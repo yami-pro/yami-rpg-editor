@@ -1,13 +1,10 @@
 "use strict"
 
-import {
-  IMath,
-  IHTMLElement
-} from "../yami"
+import { IMath } from "../yami"
 
 // ******************************** 开关选项 ********************************
 
-class SwitchItem extends IHTMLElement {
+class SwitchItem extends HTMLElement {
   dataValue: number
   class: string
   length: number

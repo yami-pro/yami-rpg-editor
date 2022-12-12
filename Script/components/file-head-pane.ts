@@ -5,16 +5,15 @@ import {
   SliderBox,
   TextBox,
   Browser_links,
-  FolderItem,
-  IHTMLElement
+  FolderItem
 } from "../yami"
 
 // ******************************** 文件头部面板 ********************************
 
-class FileHeadPane extends IHTMLElement {
-  address: IHTMLElement
+class FileHeadPane extends HTMLElement {
+  address: HTMLElement
   searcher: TextBox
-  view: IHTMLElement
+  view: HTMLElement
   links: Browser_links
 
   constructor() {

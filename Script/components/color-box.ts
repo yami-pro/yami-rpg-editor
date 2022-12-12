@@ -2,16 +2,15 @@
 
 import {
   IEvent,
-  IHTMLElement,
   IMouseKeyboardEvent,
   Color
 } from "../yami"
 
 // ******************************** 颜色框 ********************************
 
-class ColorBox extends IHTMLElement {
+class ColorBox extends HTMLElement {
   dataValue: string
-  foreground: IHTMLElement
+  foreground: HTMLElement
   inputEventEnabled: boolean
 
   constructor() {

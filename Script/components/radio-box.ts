@@ -2,14 +2,13 @@
 
 import {
   RadioProxy,
-  IRegExp,
-  IHTMLElement
+  IRegExp
 } from "../yami"
 
 // ******************************** 单选框 ********************************
 
-class RadioBox extends IHTMLElement {
-  proxy: IHTMLElement
+class RadioBox extends HTMLElement {
+  proxy: HTMLElement
   dataValue: any
 
   constructor() {

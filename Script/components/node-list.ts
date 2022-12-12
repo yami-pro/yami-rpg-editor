@@ -7,22 +7,21 @@ import {
   Timer,
   IFunction,
   IMath,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 树状列表 ********************************
 
-class TreeList extends IHTMLElement {
+class TreeList extends HTMLElement {
   display: string
   keyword: string
-  searchResults: IHTMLElement[]
-  creators: IHTMLElement[]
-  updaters: IHTMLElement[]
-  elements: IHTMLElement[]
+  searchResults: HTMLElement[]
+  creators: HTMLElement[]
+  updaters: HTMLElement[]
+  elements: HTMLElement[]
   root: any
   timer: Timer
-  selections: IHTMLElement[]
+  selections: HTMLElement[]
   dragging: IMouseKeyboardEvent
   padded: boolean
   removable: boolean

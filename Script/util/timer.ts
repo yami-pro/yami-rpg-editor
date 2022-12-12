@@ -2,8 +2,7 @@
 
 import {
   IFunction,
-  IFunction_empty_func,
-  IHTMLElement
+  IFunction_empty_func
 } from "../yami"
 
 // ******************************** 计时器管理类 ********************************
@@ -48,7 +47,7 @@ class Timer {
   duration: number
   update: Timer_update_func | IFunction_empty_func
   callback: Timer_callback_func | IFunction_empty_func
-  target: IHTMLElement | null
+  target: HTMLElement | null
   running: boolean
 
   constructor(params: {duration: number, update: Timer_update_func | IFunction_empty_func, callback: Timer_callback_func | IFunction_empty_func}) {
@@ -133,13 +132,13 @@ TimerManager.initialize = function () {
   // 在最大化时停止播放动画
   const windowOpen = (event: Event) => {
     const target = event.target
-    if (target && (<IHTMLElement>target).hasClass('maximized')) {
+    if (target && (target).hasClass('maximized')) {
       this.animationWaiting++
     }
   }
   const windowClosed = (event: Event) => {
     const target = event.target
-    if (target && (<IHTMLElement>target).hasClass('maximized')) {
+    if (target && (target).hasClass('maximized')) {
       this.animationWaiting--
     }
   }

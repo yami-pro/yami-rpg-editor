@@ -17,18 +17,17 @@ import {
   Select,
   SelectBox,
   TextBox,
-  IHTMLElement,
   IMouseKeyboardEvent,
   DetailBox
 } from "../yami"
 
 // ******************************** 脚本参数面板 ********************************
 
-class ParameterPane extends IHTMLElement {
-  scriptList: IHTMLElement
-  headPad: IHTMLElement
-  metas: IHTMLElement[]
-  wraps: IHTMLElement[]
+class ParameterPane extends HTMLElement {
+  scriptList: HTMLElement
+  headPad: HTMLElement
+  metas: HTMLElement[]
+  wraps: HTMLElement[]
   detailBoxes: DetailBox[]
   checkBoxes: CheckBox[]
   numberBoxes: NumberBox[]

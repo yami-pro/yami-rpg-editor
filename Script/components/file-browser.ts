@@ -11,7 +11,6 @@ import {
   FolderItem,
   Path,
   Local,
-  IHTMLElement,
   IFunction,
   IMouseKeyboardEvent
 } from "../yami"
@@ -20,13 +19,13 @@ import {
 
 type Browser_links = {[index: string]: FileBrowser | FileNavPane | FileHeadPane | FileBodyPane}
 
-class FileBrowser extends IHTMLElement {
+class FileBrowser extends HTMLElement {
   display: string
-  directory: IHTMLElement[] | null
+  directory: HTMLElement[] | null
   dragging: IMouseKeyboardEvent | null
   filters: string[] | null
-  backupFolders: IHTMLElement[]
-  searchResults: IHTMLElement[]
+  backupFolders: HTMLElement[]
+  searchResults: HTMLElement[]
   nav: FileNavPane
   head: FileHeadPane
   body: FileBodyPane
@@ -147,7 +146,7 @@ class FileBrowser extends IHTMLElement {
         break
       }
       case 'search': {
-        const active = <IHTMLElement>document.activeElement
+        const active = document.activeElement
         this.head.searcher.deleteInputContent()
         active.focus()
         break
@@ -295,7 +294,7 @@ class FileBrowser extends IHTMLElement {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
-      let element = <IHTMLElement>event.target
+      let element = event.target
       if (!dragging.allowCopy &&
         !(<Node>dragging.target).contains(<Node>element)) {
         dragging.allowCopy = true
@@ -305,7 +304,7 @@ class FileBrowser extends IHTMLElement {
         element instanceof FileNavPane ||
         element instanceof FileBodyPane ||
         element.file instanceof FolderItem)) {
-        element = <IHTMLElement>element.parentNode
+        element = element.parentNode
       }
       if (dropTarget !== element) {
         if (dropTarget instanceof HTMLElement) {
@@ -454,13 +453,13 @@ class FileBrowser extends IHTMLElement {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
-      let element = <IHTMLElement>event.target
+      let element = event.target
       while (!(
         element instanceof FileBrowser ||
         element instanceof FileNavPane ||
         element instanceof FileBodyPane ||
         element.file instanceof FolderItem)) {
-        element = <IHTMLElement>element.parentNode
+        element = element.parentNode
       }
       if (dropTarget !== element) {
         if (dropTarget instanceof HTMLElement) {

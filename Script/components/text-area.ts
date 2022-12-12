@@ -3,13 +3,12 @@
 import {
   TextHistory,
   Timer,
-  IHTMLElement,
   IHTMLInputElement
 } from "../yami"
 
 // ******************************** 文本区域 ********************************
 
-class TextArea extends IHTMLElement {
+class TextArea extends HTMLElement {
   input: IHTMLInputElement
   focusEventEnabled: boolean
   blurEventEnabled: boolean

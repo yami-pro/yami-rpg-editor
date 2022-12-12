@@ -2,7 +2,6 @@
 
 import {
   EventTarget_ext,
-  IHTMLElement,
   IHTMLCanvasElement,
   IHTMLInputElement,
   CheckBox,
@@ -86,68 +85,72 @@ import {
   JSXHTMLCanvasElement,
   JSXHTMLInputElement,
   Array_ext,
-  ArrayConstructor_ext
+  ArrayConstructor_ext,
+  HTMLElement_ext,
+  HTMLElement_object_ext,
+  HTMLElement_scroll_ext,
+  HTMLElement_components_ext
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
 
-interface IHTMLElementTagNameMap extends HTMLElementTagNameMap {
-  "anim-dir": IHTMLElement
-  "box": IHTMLElement
+interface HTMLElementTagNameMap extends HTMLElementTagNameMap {
+  "anim-dir": HTMLElement
+  "box": HTMLElement
   "canvas": IHTMLCanvasElement
-  "check-mark": IHTMLElement
-  "command-item": IHTMLElement
-  "command-mark-major": IHTMLElement
-  "command-mark-minor": IHTMLElement
-  "command-text": IHTMLElement
-  "common-item": IHTMLElement
-  "detail-grid": IHTMLElement
-  "empty": IHTMLElement
-  "error-counter": IHTMLElement
-  "file-body-content": IHTMLElement
-  "file-body-icon": IHTMLElement
-  "file-body-item": IHTMLElement
-  "file-body-name": IHTMLElement
-  "file-head-address": IHTMLElement
-  "file-head-address-arrow": IHTMLElement
-  "file-head-address-folder": IHTMLElement
-  "file-head-address-link": IHTMLElement
-  "file-head-address-text": IHTMLElement
-  "file-nav-icon": IHTMLElement
-  "file-nav-item": IHTMLElement
-  "folder-mark": IHTMLElement
-  "group": IHTMLElement
-  "group-border": IHTMLElement
-  "group-info": IHTMLElement
-  "group-region": IHTMLElement
+  "check-mark": HTMLElement
+  "command-item": HTMLElement
+  "command-mark-major": HTMLElement
+  "command-mark-minor": HTMLElement
+  "command-text": HTMLElement
+  "common-item": HTMLElement
+  "detail-grid": HTMLElement
+  "empty": HTMLElement
+  "error-counter": HTMLElement
+  "file-body-content": HTMLElement
+  "file-body-icon": HTMLElement
+  "file-body-item": HTMLElement
+  "file-body-name": HTMLElement
+  "file-head-address": HTMLElement
+  "file-head-address-arrow": HTMLElement
+  "file-head-address-folder": HTMLElement
+  "file-head-address-link": HTMLElement
+  "file-head-address-text": HTMLElement
+  "file-nav-icon": HTMLElement
+  "file-nav-item": HTMLElement
+  "folder-mark": HTMLElement
+  "group": HTMLElement
+  "group-border": HTMLElement
+  "group-info": HTMLElement
+  "group-region": HTMLElement
   "input": IHTMLInputElement
-  "item": IHTMLElement
-  "lock-icon": IHTMLElement
-  "menu-accelerator": IHTMLElement
-  "menu-checked": IHTMLElement
-  "menu-icon": IHTMLElement
-  "menu-item": IHTMLElement
-  "menu-label": IHTMLElement
-  "menu-separator": IHTMLElement
-  "menu-sub-mark": IHTMLElement
-  "nav-item": IHTMLElement
-  "no-drag-image": IHTMLElement
-  "node-icon": IHTMLElement
-  "node-item": IHTMLElement
-  "param-item": IHTMLElement
-  "radio-mark": IHTMLElement
-  "scroll-corner": IHTMLElement
-  "scroll-thumb": IHTMLElement
-  "scroll-thumb-inner": IHTMLElement
-  "select-item": IHTMLElement
-  "selection": IHTMLElement
-  "slider-bar": IHTMLElement
-  "slider-filler": IHTMLElement
-  "tab-close": IHTMLElement
-  "tab-item": IHTMLElement
-  "tab-text": IHTMLElement
-  "text": IHTMLElement
-  "visibility-icon": IHTMLElement
+  "item": HTMLElement
+  "lock-icon": HTMLElement
+  "menu-accelerator": HTMLElement
+  "menu-checked": HTMLElement
+  "menu-icon": HTMLElement
+  "menu-item": HTMLElement
+  "menu-label": HTMLElement
+  "menu-separator": HTMLElement
+  "menu-sub-mark": HTMLElement
+  "nav-item": HTMLElement
+  "no-drag-image": HTMLElement
+  "node-icon": HTMLElement
+  "node-item": HTMLElement
+  "param-item": HTMLElement
+  "radio-mark": HTMLElement
+  "scroll-corner": HTMLElement
+  "scroll-thumb": HTMLElement
+  "scroll-thumb-inner": HTMLElement
+  "select-item": HTMLElement
+  "selection": HTMLElement
+  "slider-bar": HTMLElement
+  "slider-filler": HTMLElement
+  "tab-close": HTMLElement
+  "tab-item": HTMLElement
+  "tab-text": HTMLElement
+  "text": HTMLElement
+  "visibility-icon": HTMLElement
 
   "check-box": CheckBox
   "color-box": ColorBox
@@ -195,9 +198,9 @@ interface ISVGElementTagNameMap extends SVGElementTagNameMap {}
 
 interface IDocument extends Document {
   // Returns the first element that is a descendant of node that matches selectors
-  querySelector<K extends keyof IHTMLElementTagNameMap>(selectors: K): IHTMLElementTagNameMap[K] | null
+  querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null
   querySelector<K extends keyof ISVGElementTagNameMap>(selectors: K): ISVGElementTagNameMap[K] | null
-  querySelector<E extends IHTMLElement = IHTMLElement>(selectors: string): E | null;
+  querySelector<E extends HTMLElement = HTMLElement>(selectors: string): E | null;
 }
 
 const globalDocument = <IDocument>document
@@ -230,13 +233,13 @@ declare global {
   interface Window extends EventTarget_ext {}
   interface Document {
     // Creates an instance of the element for the specified tag
-    createElement<K extends keyof IHTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): IHTMLElementTagNameMap[K]
-    createElement(tagName: string, options?: ElementCreationOptions): IHTMLElement
+    createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K]
+    createElement(tagName: string, options?: ElementCreationOptions): HTMLElement
 
     // Returns all element descendants of node that match selectors
-    querySelectorAll<K extends keyof IHTMLElementTagNameMap>(selectors: K): INodeListOf<IHTMLElementTagNameMap[K]>
+    querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): INodeListOf<HTMLElementTagNameMap[K]>
     querySelectorAll<K extends keyof ISVGElementTagNameMap>(selectors: K): INodeListOf<ISVGElementTagNameMap[K]>
-    querySelectorAll<E extends IHTMLElement = IHTMLElement>(selectors: string): INodeListOf<E>
+    querySelectorAll<E extends HTMLElement = HTMLElement>(selectors: string): INodeListOf<E>
   }
   namespace JSX {
     interface IntrinsicElements {
@@ -352,6 +355,7 @@ declare global {
   }
   interface ArrayConstructor extends ArrayConstructor_ext {}
   interface Array<T> extends Array_ext {}
+  interface HTMLElement extends HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, HTMLElement_components_ext, EventTarget_ext {}
 }
 
 // ******************************** 绑定到全局对象 ********************************

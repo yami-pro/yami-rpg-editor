@@ -2,15 +2,14 @@
 
 import {
   IEvent,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 复选框 ********************************
 
-class CheckBox extends IHTMLElement {
+class CheckBox extends HTMLElement {
   dataValue: boolean
-  relations: IHTMLElement[]
+  relations: HTMLElement[]
   writeEventEnabled: boolean
   inputEventEnabled: boolean
 
@@ -92,7 +91,7 @@ class CheckBox extends IHTMLElement {
   }
 
   // 添加相关元素
-  relate(elements: IHTMLElement[]) {
+  relate(elements: HTMLElement[]) {
     this.relations = elements
   }
 
@@ -141,7 +140,7 @@ class CheckBox extends IHTMLElement {
     switch (event.button) {
       case 0:
         if (document.activeElement !== document.body) {
-          (<IHTMLElement>document.activeElement).blur()
+          (document.activeElement).blur()
         }
         this.input(!this.read())
         break

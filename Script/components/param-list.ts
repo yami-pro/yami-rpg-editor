@@ -11,18 +11,17 @@ import {
   Clipboard,
   IFunction,
   IMath,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 参数列表 ********************************
 
-class ParamList extends IHTMLElement {
+class ParamList extends HTMLElement {
   object: any
   type: string
-  data: IHTMLElement[]
-  elements: IHTMLElement[]
-  selections: IHTMLElement[]
+  data: HTMLElement[]
+  elements: HTMLElement[]
+  selections: HTMLElement[]
   start: number
   end: number
   origin: number
@@ -31,7 +30,7 @@ class ParamList extends IHTMLElement {
   inserting: boolean
   focusing: boolean
   dragging: IMouseKeyboardEvent
-  history: IHTMLElement
+  history: HTMLElement
   toggleable: boolean
   windowPointerup: (event: IMouseKeyboardEvent) => void
   windowPointermove: (event: IMouseKeyboardEvent) => void

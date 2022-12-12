@@ -1,7 +1,6 @@
 "use strict"
 
 import {
-  IHTMLElement,
   IDataTransfer,
   MouseEvent_ext
 } from "../../yami"
@@ -9,12 +8,12 @@ import {
 // ******************************** 拖拽事件访问器 ********************************
 
 interface DragEvent_ext extends MouseEvent_ext {
-  dropTarget: IHTMLElement | null
+  dropTarget: HTMLElement | null
   allowMove: boolean
   allowCopy: boolean
   dropPath: string | null
   dropMode: string | null
-  files: IHTMLElement[]
+  files: HTMLElement[]
   filePaths: string[]
   promise: Promise<void>
 }

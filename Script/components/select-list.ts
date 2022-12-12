@@ -4,7 +4,6 @@ import {
   CommonList,
   Window,
   IMath,
-  IHTMLElement,
   IMouseKeyboardEvent
 } from "../yami"
 
@@ -12,11 +11,11 @@ import {
 
 type Window_event_func = (event: IMouseKeyboardEvent) => void
 
-class SelectList extends IHTMLElement {
+class SelectList extends HTMLElement {
   state: string
-  target: IHTMLElement
-  elements: IHTMLElement[]
-  selection: IHTMLElement
+  target: HTMLElement
+  elements: HTMLElement[]
+  selection: HTMLElement
   windowKeydown: Window_event_func
   windowPointerdown: Window_event_func
   windowResize: Window_event_func

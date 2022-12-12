@@ -1,7 +1,6 @@
 "use strict"
 
 import {
-  IHTMLElement,
   CommandHistory,
   FileItem,
   FolderItem
@@ -18,8 +17,6 @@ interface ArrayConstructor_ext {
   subtract<T>(a: T[], b: T[]): T[]
 }
 
-interface IArrayConstructor extends ArrayConstructor, ArrayConstructor_ext {}
-
 // Array扩展
 interface Array_ext {
   // 数组方法扩展
@@ -31,27 +28,23 @@ interface Array_ext {
   count: number
   start: number
   end: number
-  head: IHTMLElement | null
-  foot: IHTMLElement | null
+  head: HTMLElement | null
+  foot: HTMLElement | null
   history: CommandHistory
-  blank: IHTMLElement | null
+  blank: HTMLElement | null
   parent: commandsData
   files: (FolderItem | FileItem)[]
 }
 
-interface IArray<T> extends Array<T>, Array_ext {}
-
 // ******************************** 静态数组方法 ********************************
 
-const IArray = <IArrayConstructor>Array
-
 // 空数组
-IArray.empty = function <T>() {
+Array.empty = function <T>() {
   return new Array<T>()
 }
 
 // 减法
-IArray.subtract = function <T>(a: T[], b: T[]) {
+Array.subtract = function <T>(a: T[], b: T[]) {
   const differences = []
   const length = a.length
   for (let i = 0; i < length; i++) {
@@ -64,12 +57,8 @@ IArray.subtract = function <T>(a: T[], b: T[]) {
 
 // ******************************** 数组方法 ********************************
 
-// Array.prototype 是any[], 先断言到Object, 再断言到Array_ext
-const prototype_as_obj = <Object>Array.prototype
-const prototype = <Array_ext>prototype_as_obj
-
 // 数组方法 - 添加
-Object.defineProperty(prototype, 'append', {
+Object.defineProperty(Array.prototype, 'append', {
   enumerable: false,
   value: function <T>(this: T[], value: T) {
     if (this.indexOf(value) === -1) {
@@ -81,7 +70,7 @@ Object.defineProperty(prototype, 'append', {
 })
 
 // 数组方法 - 移除
-Object.defineProperty(prototype, 'remove', {
+Object.defineProperty(Array.prototype, 'remove', {
   enumerable: false,
   value: function <T>(this: T[], value: T) {
     const index = this.indexOf(value)

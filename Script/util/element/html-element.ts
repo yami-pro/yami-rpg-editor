@@ -2,21 +2,17 @@
 
 import {
   IPointerEvent,
-  EventTarget_ext,
   Element_ext,
   Cursor,
   Timer,
   TimerManager,
   IFunction,
-  commandsData,
   ScrollBarManager,
-  FolderItem,
-  FileItem
 } from "../../yami"
 
 // ******************************** 声明 ********************************
 
-type tipVar = (...params: any[]) => any | {get: () => any}
+type Element_tip = (...params: any[]) => any | {get: () => any}
 
 interface HTMLElement_components_ext {
   // contents: any[] | null
@@ -42,8 +38,8 @@ interface HTMLElement_components_ext {
   // changed: boolean
 
   // file: FolderItem | FileItem
-  // fileIcon: IHTMLElement
-  // nameBox: IHTMLElement
+  // fileIcon: HTMLElement
+  // nameBox: HTMLElement
 
   // isImageChanged: () => boolean
 }
@@ -63,7 +59,7 @@ interface HTMLElement_ext extends Element_ext {
   dataValue: any
 
   _padding: number
-  tip: string | tipVar
+  tip: string | Element_tip
   top: number
   left: number
   width: number
@@ -78,7 +74,7 @@ interface HTMLElement_ext extends Element_ext {
   hasClass(className: string): boolean
   addClass(className: string): boolean
   removeClass(className: string): boolean
-  seek(tagName: string, count?: number): IHTMLElement
+  seek(tagName: string, count?: number): HTMLElement
   css(): CSSStyleDeclaration
   rect(): DOMRect
   hide(): void
@@ -86,7 +82,7 @@ interface HTMLElement_ext extends Element_ext {
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode: string): void
-  setTooltip: (tip: string | tipVar) => void
+  setTooltip: (tip: string | Element_tip) => void
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): void
@@ -102,49 +98,45 @@ interface HTMLElement_ext extends Element_ext {
   setScrollTop(top: number):void
   updateScrollbars(): void
 
-  scrollPointerup(this: IHTMLElement, event: IPointerEvent): void
-  scrollPointermove(this: IHTMLElement, event: IPointerEvent): void
+  scrollPointerup(this: HTMLElement, event: IPointerEvent): void
+  scrollPointermove(this: HTMLElement, event: IPointerEvent): void
 }
-
-interface IHTMLElement extends HTMLElement, HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, HTMLElement_components_ext, EventTarget_ext {}
 
 // ******************************** 元素扩展 ********************************
 
-const prototype = <IHTMLElement>HTMLElement.prototype
-
 // 元素方法 - 读取数据
-prototype.read = function () {
+HTMLElement.prototype.read = function () {
   return this.dataValue
 }
 
 // 元素方法 - 写入数据
-prototype.write = function (value) {
+HTMLElement.prototype.write = function (value) {
   this.dataValue = value
 }
 
 // 元素方法 - 清除子元素
-prototype.clear = function () {
+HTMLElement.prototype.clear = function () {
   this.textContent = ''
   return this
 }
 
 // 元素方法 - 启用元素
-prototype.enable = function () {
+HTMLElement.prototype.enable = function () {
   this.removeClass('disabled')
 }
 
 // 元素方法 - 禁用元素
-prototype.disable = function () {
+HTMLElement.prototype.disable = function () {
   this.addClass('disabled')
 }
 
 // 元素方法 - 检查类名
-prototype.hasClass = function (className) {
+HTMLElement.prototype.hasClass = function (className) {
   return this.classList.contains(className)
 }
 
 // 元素方法 - 添加类名
-prototype.addClass = function (className) {
+HTMLElement.prototype.addClass = function (className) {
   if (!this.classList.contains(className)) {
     this.classList.add(className)
     return true
@@ -153,7 +145,7 @@ prototype.addClass = function (className) {
 }
 
 // 元素方法 - 删除 Class
-prototype.removeClass = function (className) {
+HTMLElement.prototype.removeClass = function (className) {
   if (this.classList.contains(className)) {
     this.classList.remove(className)
     return true
@@ -162,12 +154,12 @@ prototype.removeClass = function (className) {
 }
 
 // 元素方法 - 往上搜索目标元素
-prototype.seek = function (tagName, count = 1) {
+HTMLElement.prototype.seek = function (tagName, count = 1) {
   let element = this
   while (count-- > 0) {
     if (element.tagName !== tagName.toUpperCase() &&
       element.parentNode instanceof HTMLElement) {
-      element = <IHTMLElement>element.parentNode
+      element = element.parentNode
       continue
     }
     break
@@ -176,48 +168,48 @@ prototype.seek = function (tagName, count = 1) {
 }
 
 // 元素方法 - 返回计算后的 CSS 对象
-prototype.css = function () {
+HTMLElement.prototype.css = function () {
   return getComputedStyle(this)
 }
 
 // 元素方法 - 返回边框矩形对象
-prototype.rect = function () {
+HTMLElement.prototype.rect = function () {
   return this.getBoundingClientRect()
 }
 
 // 元素方法 - 隐藏
-prototype.hide = function () {
+HTMLElement.prototype.hide = function () {
   this.addClass('hidden')
   return this
 }
 
 // 元素方法 - 显示
-prototype.show = function () {
+HTMLElement.prototype.show = function () {
   this.removeClass('hidden')
   return this
 }
 
 // 元素方法 - 隐藏子元素
-prototype.hideChildNodes = function () {
+HTMLElement.prototype.hideChildNodes = function () {
   this.childNodes.forEach(
-    childNode => (<IHTMLElement>childNode).hide()
+    childNode => (childNode).hide()
   )
 }
 
 // 元素方法 - 显示子元素
-prototype.showChildNodes = function () {
+HTMLElement.prototype.showChildNodes = function () {
   this.childNodes.forEach(
-    childNode => (<IHTMLElement>childNode).show()
+    childNode => (childNode).show()
   )
 }
 
 // 元素方法 - 设置工具提示
-prototype.setTooltip = function IIFE() {
+HTMLElement.prototype.setTooltip = function IIFE() {
   const tooltip = $('#tooltip')
   const capture = {capture: true}
 
   let state = 'closed'
-  let target: IHTMLElement | null = null
+  let target: HTMLElement | null = null
   let rect: DOMRect | null = null
   let timeStamp = 0
   let clientX = 0
@@ -268,7 +260,7 @@ prototype.setTooltip = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: IHTMLElement, event: MouseEvent) {
+  const pointermove = function (this: HTMLElement, event: MouseEvent) {
     // 两个重叠元素时执行最上层的那个
     if (timeStamp === event.timeStamp) {
       return
@@ -321,7 +313,7 @@ prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (this: IHTMLElement, tip: string | tipVar) {
+  return function (this: HTMLElement, tip: string | Element_tip) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)
@@ -341,12 +333,12 @@ prototype.setTooltip = function IIFE() {
 }()
 
 // 元素方法 - 添加滚动条
-prototype.addScrollbars = function () {
+HTMLElement.prototype.addScrollbars = function () {
   ScrollBarManager.addScrollbars(this)
 }
 
 // 元素方法 - 添加设置滚动方法
-prototype.addSetScrollMethod = function () {
+HTMLElement.prototype.addSetScrollMethod = function () {
   // 用户滚动事件
   const userscroll = new Event('userscroll')
 
@@ -365,42 +357,42 @@ prototype.addSetScrollMethod = function () {
 // 元素方法 - 检查是否出现滚动条
 // 缩放率不是 100% 有可能出现
 // clientWidth > scrollWidth
-prototype.hasScrollBar = function () {
+HTMLElement.prototype.hasScrollBar = function () {
   return this.clientWidth < this.scrollWidth ||
          this.clientHeight < this.scrollHeight
 }
 
 // 元素方法 - 发送改变事件
-prototype.dispatchChangeEvent = function IIFE() {
+HTMLElement.prototype.dispatchChangeEvent = function IIFE() {
   const changes = [
     new Event('change', {bubbles: true}),
     new Event('change', {bubbles: true}),
   ]
-  return function (this: IHTMLElement, index = 0) {
+  return function (this: HTMLElement, index = 0) {
     this.dispatchEvent(changes[index])
   }
 }()
 
 // 元素方法 - 发送调整事件
-prototype.dispatchResizeEvent = function IIFE() {
+HTMLElement.prototype.dispatchResizeEvent = function IIFE() {
   const resize = new Event('resize')
-  return function (this: IHTMLElement) {
+  return function (this: HTMLElement) {
     this.dispatchEvent(resize)
   }
 }()
 
 // 元素方法 - 发送更新事件
-prototype.dispatchUpdateEvent = function IIFE() {
+HTMLElement.prototype.dispatchUpdateEvent = function IIFE() {
   const update = new Event('update')
-  return function (this: IHTMLElement) {
+  return function (this: HTMLElement) {
     this.dispatchEvent(update)
   }
 }()
 
 // 元素方法 - 侦听拖拽滚动条事件
-prototype.listenDraggingScrollbarEvent = function IIFE() {
+HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   // 默认指针按下事件
-  const defaultPointerdown = function (this: IHTMLElement, event: IPointerEvent) {
+  const defaultPointerdown = function (this: HTMLElement, event: IPointerEvent) {
     if (this.dragging) {
       return
     }
@@ -422,7 +414,7 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针弹起事件
-  const pointerup = function (this: IHTMLElement, event: IPointerEvent) {
+  const pointerup = function (this: HTMLElement, event: IPointerEvent) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -437,7 +429,7 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: IHTMLElement, event: IPointerEvent) {
+  const pointermove = function (this: HTMLElement, event: IPointerEvent) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -449,7 +441,7 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
     }
   }
 
-  return function (this: IHTMLElement, pointerdown = defaultPointerdown, options) {
+  return function (this: HTMLElement, pointerdown = defaultPointerdown, options) {
     this.scrollPointerup = pointerup.bind(this)
     this.scrollPointermove = pointermove.bind(this)
     this.on('pointerdown', pointerdown, options)
@@ -461,10 +453,10 @@ prototype.listenDraggingScrollbarEvent = function IIFE() {
 // 元素访问器 - 名称
 Object.defineProperty(
   prototype, 'name', {
-    get: function (this: IHTMLElement) {
+    get: function (this: HTMLElement) {
       return this.getAttribute('name')
     },
-    set: function (this: IHTMLElement, value: string) {
+    set: function (this: HTMLElement, value: string) {
       this.setAttribute('name', value)
     },
   }
@@ -473,7 +465,7 @@ Object.defineProperty(
 // 元素访问器 - 内部高度
 Object.defineProperty(
   prototype, 'innerHeight', {
-    get: function (this: IHTMLElement) {
+    get: function (this: HTMLElement) {
       let padding = this._padding
       if (padding === undefined) {
         const css = this.css()
@@ -492,7 +484,7 @@ Object.defineProperty(
 
 type scrollUpdaterVar = (() => void) | null
 {
-  let target: IHTMLElement | null = null
+  let target: HTMLElement | null = null
   let highSpeed = 0
   let lowSpeed = 0
   let scrollHorizontal = false
@@ -578,7 +570,7 @@ type scrollUpdaterVar = (() => void) | null
   }
 
   // 添加滚动侦听器
-  prototype.addScrollListener = function (mode, speed, shift, updater) {
+  HTMLElement.prototype.addScrollListener = function (mode, speed, shift, updater) {
     target?.removeScrollListener()
     target = this
     switch (mode) {
@@ -602,7 +594,7 @@ type scrollUpdaterVar = (() => void) | null
   }
 
   // 移除滚动侦听器
-  prototype.removeScrollListener = function () {
+  HTMLElement.prototype.removeScrollListener = function () {
     if (target !== this) return
     if (timer.speedX || timer.speedY) {
       timer.speedX = 0
@@ -615,18 +607,19 @@ type scrollUpdaterVar = (() => void) | null
   }
 }
 
-interface IHTMLElementConstructor {
-  new(): IHTMLElement
-  prototype: IHTMLElement
-}
+// interface HTMLElementConstructor {
+//   new(): HTMLElement
+//   prototype: HTMLElement
+// }
 
-const IHTMLElement = <IHTMLElementConstructor>HTMLElement
+// const HTMLElement = <HTMLElementConstructor>HTMLElement
 
 interface JSXHTMLElement { [attributes: string]: any }
 
 export {
-  IHTMLElement,
   HTMLElement_ext,
+  HTMLElement_object_ext,
   HTMLElement_scroll_ext,
+  HTMLElement_components_ext,
   JSXHTMLElement
 }

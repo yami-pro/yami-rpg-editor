@@ -1,13 +1,10 @@
 "use strict"
 
-import {
-  IRegExp,
-  IHTMLElement
-} from "../yami"
+import { IRegExp } from "../yami"
 
 // ******************************** 导航栏 ********************************
 
-class NavBar extends IHTMLElement {
+class NavBar extends HTMLElement {
   writeEventEnabled: boolean
   selectEventEnabled: boolean
 

@@ -20,14 +20,13 @@ import {
   Timer,
   ICSS,
   IMath,
-  IHTMLElement,
   IFunction,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 文件主体面板 ********************************
 
-class  HTMLPropsElement extends IHTMLElement {
+class  HTMLPropsElement extends HTMLElement {
   element: HTMLPropsElement
   itemSize: number
   visibleLines: number
@@ -39,7 +38,7 @@ class  HTMLPropsElement extends IHTMLElement {
   file: FolderItem | FileItem
   context: FileBodyPane
   fileIcon: HTMLPropsElement
-  nameBox: IHTMLElement
+  nameBox: HTMLElement
 
   isImageChanged: () => boolean
 }
@@ -48,7 +47,7 @@ class FileBodyPane extends HTMLPropsElement {
   viewIndex: number | null
   viewMode: string | null
   timer: Timer
-  elements: IHTMLElement[]
+  elements: HTMLElement[]
   selections: (FolderItem | FileItem)[]
   content: HTMLPropsElement
   pressing: ((event: IMouseKeyboardEvent) => void) | null
@@ -87,7 +86,7 @@ class FileBodyPane extends HTMLPropsElement {
     this.viewIndex = null
     this.viewMode = null
     this.timer = timer
-    this.elements = Array.empty()
+    this.elements = []
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1
@@ -245,7 +244,7 @@ class FileBodyPane extends HTMLPropsElement {
       const nodes = content.childNodes
       const last = nodes.length - 1
       for (let i = last; i >= 0; i--) {
-        const element = <IHTMLElement>nodes[i]
+        const element = nodes[i]
         if (element.versionId !== versionId) {
           element.remove()
         }

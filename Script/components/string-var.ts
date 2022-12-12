@@ -2,16 +2,15 @@
 
 import {
   CustomBox,
-  TextBox,
-  IHTMLElement
+  TextBox
 } from "../yami"
 
 // ******************************** 字符串变量框 ********************************
 
-class StringVar extends IHTMLElement {
+class StringVar extends HTMLElement {
   mode: string
-  strBox: IHTMLElement
-  varBox: IHTMLElement
+  strBox: HTMLElement
+  varBox: HTMLElement
 
   constructor() {
     super()
