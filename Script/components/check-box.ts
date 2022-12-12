@@ -140,7 +140,7 @@ class CheckBox extends HTMLElement {
     switch (event.button) {
       case 0:
         if (document.activeElement !== document.body) {
-          (document.activeElement).blur()
+          document.activeElement.blur()
         }
         this.input(!this.read())
         break

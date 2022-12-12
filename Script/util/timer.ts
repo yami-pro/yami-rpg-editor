@@ -132,13 +132,13 @@ TimerManager.initialize = function () {
   // 在最大化时停止播放动画
   const windowOpen = (event: Event) => {
     const target = event.target
-    if (target && (target).hasClass('maximized')) {
+    if (target && target.hasClass('maximized')) {
       this.animationWaiting++
     }
   }
   const windowClosed = (event: Event) => {
     const target = event.target
-    if (target && (target).hasClass('maximized')) {
+    if (target && target.hasClass('maximized')) {
       this.animationWaiting--
     }
   }

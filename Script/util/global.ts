@@ -204,9 +204,9 @@ interface Window_ext {
 //   const regexp = /^#(\w|-)+$/
 //   return function (selector: string) {
 //     if (regexp.test(selector)) {
-//       return (<IDocument>document).querySelector(selector)
+//       return document.querySelector(selector)
 //     } else {
-//       return (<IDocument>document).querySelectorAll(selector)
+//       return document.querySelectorAll(selector)
 //     }
 //   }
 // }()

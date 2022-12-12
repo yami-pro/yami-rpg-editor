@@ -275,7 +275,7 @@ class CommandList extends HTMLElement {
     if (buffer[0].dataIndex !== index) {
       for (const target of buffer) {
         if (target instanceof HTMLElement) {
-          (target).dataIndex = index
+          target.dataIndex = index
         }
       }
     }
@@ -287,13 +287,13 @@ class CommandList extends HTMLElement {
       if (enabled) {
         for (const target of buffer) {
           if (target instanceof HTMLElement) {
-            (target).removeClass('disabled')
+            target.removeClass('disabled')
           }
         }
       } else {
         for (const target of buffer) {
           if (target instanceof HTMLElement) {
-            (target).addClass('disabled')
+            target.addClass('disabled')
           }
         }
       }
@@ -339,7 +339,7 @@ class CommandList extends HTMLElement {
           // 如果不存在全局变量格式
           text.textContent = content.text
         }
-        (text).addClass(content.color)
+        text.addClass(content.color)
         element.appendChild(text)
         continue
       }
@@ -1121,10 +1121,10 @@ class CommandList extends HTMLElement {
     if (!element.parentNode) {
       return null
     }
-    let x = (element.childNodes[0]).rect().left
+    let x = element.childNodes[0].rect().left
     let y = element.rect().top
     // 应用窗口带边框需要减去1px的margin
-    if ((document.body).hasClass('border')) {
+    if (document.body.hasClass('border')) {
       const dpx = 1 / window.devicePixelRatio
       x -= dpx
       y -= dpx
