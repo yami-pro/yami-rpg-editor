@@ -3,12 +3,13 @@
 import {
   CommonList,
   Window,
-  IMath
+  IMath,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 选择列表 ********************************
 
-class SelectList extends HTMLElement {
+class SelectList extends IHTMLElement {
   state             //:string
   target            //:element
   elements          //:array

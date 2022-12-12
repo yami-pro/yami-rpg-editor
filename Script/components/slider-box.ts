@@ -1,10 +1,13 @@
 "use strict"
 
-import { NumberBox } from "../yami"
+import {
+  NumberBox,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 滑动框 ********************************
 
-class SliderBox extends HTMLElement {
+class SliderBox extends IHTMLElement {
   filler            //:element
   input             //:element
   synchronizer      //:element

@@ -3,12 +3,13 @@
 import {
   Window,
   ICSS,
-  IMath
+  IMath,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 标题栏 ********************************
 
-class TitleBar extends HTMLElement {
+class TitleBar extends IHTMLElement {
   dragging //:event
 
   constructor() {

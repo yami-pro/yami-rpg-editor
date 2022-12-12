@@ -2,12 +2,13 @@
 
 import {
   Select,
-  IArray
+  IArray,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 选择框 ********************************
 
-class SelectBox extends HTMLElement {
+class SelectBox extends IHTMLElement {
   info              //:element
   dataItems         //:array
   dataValue         //:any

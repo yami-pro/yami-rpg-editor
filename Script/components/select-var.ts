@@ -2,12 +2,13 @@
 
 import {
   CustomBox,
-  SelectBox
+  SelectBox,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 选择变量框 ********************************
 
-class SelectVar extends HTMLElement {
+class SelectVar extends IHTMLElement {
   mode    //:string
   selectBox  //:element
   varBox  //:element

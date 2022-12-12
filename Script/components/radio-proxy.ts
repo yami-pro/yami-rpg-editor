@@ -1,10 +1,13 @@
 "use strict"
 
-import { IArray } from "../yami"
+import {
+  IArray,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 单选框代理 ********************************
 
-class RadioProxy extends HTMLElement {
+class RadioProxy extends IHTMLElement {
   dataValue         //:any
   relations         //:array
   cancelable        //:boolean

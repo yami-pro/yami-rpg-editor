@@ -1,10 +1,13 @@
 "use strict"
 
-import { CustomBox } from "../yami"
+import {
+  CustomBox,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 文件变量框 ********************************
 
-class FileVar extends HTMLElement {
+class FileVar extends IHTMLElement {
   mode    //:string
   strBox  //:element
   varBox  //:element

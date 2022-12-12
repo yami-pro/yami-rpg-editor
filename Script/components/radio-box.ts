@@ -2,12 +2,13 @@
 
 import {
   RadioProxy,
-  IRegExp
+  IRegExp,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 单选框 ********************************
 
-class RadioBox extends HTMLElement {
+class RadioBox extends IHTMLElement {
   proxy     //:element
   dataValue //:any
 

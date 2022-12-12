@@ -1,10 +1,13 @@
 "use strict"
 
-import { IMath } from "../yami"
+import {
+  IMath,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 普通列表 ********************************
 
-class CommonList extends HTMLElement {
+class CommonList extends IHTMLElement {
   elements            //:array
   selection           //:element
   writeEventEnabled   //:boolean

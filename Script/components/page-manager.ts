@@ -1,8 +1,10 @@
 "use strict"
 
+import { IHTMLElement } from "../yami"
+
 // ******************************** 页面管理器 ********************************
 
-class PageManager extends HTMLElement {
+class PageManager extends IHTMLElement {
   index               //:string
   active              //:element
   switchEventEnabled  //:boolean

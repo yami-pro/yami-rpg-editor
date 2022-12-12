@@ -16,12 +16,13 @@ import {
   PluginManager,
   Select,
   SelectBox,
-  TextBox
+  TextBox,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 脚本参数面板 ********************************
 
-class ParameterPane extends HTMLElement {
+class ParameterPane extends IHTMLElement {
   scriptList          //:element
   headPad             //:element
   metas               //:array

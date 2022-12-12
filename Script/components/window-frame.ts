@@ -5,12 +5,13 @@ import {
   TitleBar,
   Window,
   ICSS,
-  IMath
+  IMath,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 窗口框架 ********************************
 
-class WindowFrame extends HTMLElement {
+class WindowFrame extends IHTMLElement {
   enableAmbient           //:boolean
   activeElement           //:element
   focusableElements       //:array

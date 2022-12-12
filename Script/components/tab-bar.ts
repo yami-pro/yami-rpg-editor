@@ -2,12 +2,13 @@
 
 import {
   Title,
-  IFunction
+  IFunction,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 标签栏 ********************************
 
-class TabBar extends HTMLElement {
+class TabBar extends IHTMLElement {
   data                //:array
   dragging            //:event
   selectionIndex      //:number

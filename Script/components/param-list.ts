@@ -10,12 +10,13 @@ import {
   WindowFrame,
   Clipboard,
   IFunction,
-  IMath
+  IMath,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 参数列表 ********************************
 
-class ParamList extends HTMLElement {
+class ParamList extends IHTMLElement {
   object            //:object
   type              //:string
   data              //:array

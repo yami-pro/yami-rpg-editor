@@ -7,12 +7,13 @@ import {
   Timer,
   IFunction,
   IArray,
-  IMath
+  IMath,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 树状列表 ********************************
 
-class TreeList extends HTMLElement {
+class TreeList extends IHTMLElement {
   display               //:string
   keyword               //:string
   searchResults         //:array

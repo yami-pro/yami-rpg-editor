@@ -2,12 +2,13 @@
 
 import {
   Timer,
-  Window
+  Window,
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 菜单列表 ********************************
 
-class MenuList extends HTMLElement {
+class MenuList extends IHTMLElement {
   state             //:string
   callback          //:function
   dataItems         //:array

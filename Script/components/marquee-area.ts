@@ -1,8 +1,10 @@
 "use strict"
 
+import { IHTMLElement } from "../yami"
+
 // ******************************** 选框区域 ********************************
 
-class MarqueeArea extends HTMLElement {
+class MarqueeArea extends IHTMLElement {
   selection //:element
   x         //:number
   y         //:number
