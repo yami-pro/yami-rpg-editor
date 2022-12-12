@@ -452,7 +452,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
 
 // 元素访问器 - 名称
 Object.defineProperty(
-  prototype, 'name', {
+  HTMLElement.prototype, 'name', {
     get: function (this: HTMLElement) {
       return this.getAttribute('name')
     },
@@ -464,7 +464,7 @@ Object.defineProperty(
 
 // 元素访问器 - 内部高度
 Object.defineProperty(
-  prototype, 'innerHeight', {
+  HTMLElement.prototype, 'innerHeight', {
     get: function (this: HTMLElement) {
       let padding = this._padding
       if (padding === undefined) {
