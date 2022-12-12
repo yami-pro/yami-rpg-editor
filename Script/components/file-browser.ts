@@ -25,7 +25,7 @@ class FileBrowser extends HTMLElement {
   dragging: IMouseKeyboardEvent | null
   filters: string[] | null
   backupFolders: HTMLElement[]
-  searchResults: HTMLElement[]
+  searchResults: (FileItem | FolderItem)[]
   nav: FileNavPane
   head: FileHeadPane
   body: FileBodyPane

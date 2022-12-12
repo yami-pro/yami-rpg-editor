@@ -89,7 +89,12 @@ import {
   HTMLElement_ext,
   HTMLElement_object_ext,
   HTMLElement_scroll_ext,
-  HTMLElement_components_ext
+  HTMLElement_components_ext,
+  Element_ext,
+  HTMLButtonElement_ext,
+  HTMLCanvasElement_ext,
+  HTMLImageElement_ext,
+  HTMLInputElement_ext
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
@@ -353,8 +358,23 @@ declare global {
   // NodeListOf 扩展
   interface NodeListOf<TNode extends Node> extends NodeList, NodeList_ext {}
 
+  // Element 扩展
+  interface Element extends Element_ext {}
+
   // HTMLElement 扩展
   interface HTMLElement extends HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, HTMLElement_components_ext, EventTarget_ext {}
+
+  // HTMLButtonElement 扩展
+  interface HTMLButtonElement extends HTMLButtonElement_ext {}
+
+  // HTMLCanvasElement 扩展
+  interface HTMLCanvasElement extends HTMLCanvasElement_ext {}
+
+  // HTMLImageElement 扩展
+  interface HTMLImageElement extends HTMLImageElement_ext {}
+
+  // HTMLInputElement 扩展
+  interface HTMLInputElement extends HTMLInputElement_ext {}
 
   // Document 扩展
   interface Document {

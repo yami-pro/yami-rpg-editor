@@ -9,25 +9,18 @@ interface HTMLButtonElement_ext extends HTMLElement_ext {
   disable: () => void
 }
 
-interface IHTMLButtonElement extends HTMLButtonElement, HTMLButtonElement_ext {}
-
-const prototype = <IHTMLButtonElement>HTMLButtonElement.prototype
-
 // 启用元素
-prototype.enable = function () {
+HTMLButtonElement.prototype.enable = function () {
   if (this.disabled) {
     this.disabled = false
   }
 }
 
 // 禁用元素
-prototype.disable = function () {
+HTMLButtonElement.prototype.disable = function () {
   if (!this.disabled) {
     this.disabled = true
   }
 }
 
-export {
-  IHTMLButtonElement,
-  HTMLButtonElement_ext
-}
+export { HTMLButtonElement_ext }

@@ -5,19 +5,15 @@ import { HTMLElement_ext } from "../../yami"
 // ******************************** 图像扩展 ********************************
 
 interface HTMLInputElement_ext extends HTMLElement_ext {
-  getFocus: (mode?: any) => void
+  getFocus: (mode?: string | null) => void
 }
-
-interface IHTMLInputElement extends HTMLInputElement, HTMLInputElement_ext {}
 
 interface JSXHTMLInputElement { [attributes: string]: any }
 
 // 加入HTMLElement原型生效, HTMLInputElement原型不生效?
-const inputPrototype = <IHTMLInputElement>HTMLElement.prototype
-
 // 元素方法 - 获得焦点
 // 异步执行可以避免与指针按下行为起冲突
-inputPrototype.getFocus = function (mode = null) {
+HTMLElement.prototype.getFocus = function (this: HTMLInputElement, mode: string | null = null) {
   setTimeout(() => {
     this.focus()
     switch (mode) {
@@ -39,7 +35,6 @@ inputPrototype.getFocus = function (mode = null) {
 }
 
 export {
-  IHTMLInputElement,
   HTMLInputElement_ext,
   JSXHTMLInputElement
 }
