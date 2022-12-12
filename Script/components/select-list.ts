@@ -11,7 +11,7 @@ import {
 
 // ******************************** 选择列表 ********************************
 
-type Window_event_func = (event: IMouseKeyboardEvent): void
+type Window_event_func = (event: IMouseKeyboardEvent) => void
 
 class SelectList extends IHTMLElement {
   state: string
