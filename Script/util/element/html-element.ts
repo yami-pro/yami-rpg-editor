@@ -66,7 +66,7 @@ interface HTMLElement_ext extends Element_ext {
 
   read(): any
   write(value: any): void
-  clear(): void
+  clear(): HTMLElement
   enable(): void
   disable(): void
   hasClass(className: string): boolean
@@ -75,15 +75,15 @@ interface HTMLElement_ext extends Element_ext {
   seek(tagName: string, count?: number): HTMLElement
   css(): CSSStyleDeclaration
   rect(): DOMRect
-  hide(): void
-  show(): void
+  hide(): HTMLElement
+  show(): HTMLElement
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode: string): void
   setTooltip: (tip: string | Element_tip) => void
   addScrollbars(): void
   addSetScrollMethod(): void
-  hasScrollBar(): void
+  hasScrollBar(): boolean
   dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
