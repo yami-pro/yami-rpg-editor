@@ -94,7 +94,7 @@ import {
 
 // ******************************** 全局对象 ********************************
 
-interface HTMLElementTagNameMap extends HTMLElementTagNameMap {
+interface HTMLElementTagNameMap_ext {
   "anim-dir": HTMLElement
   "box": HTMLElement
   "canvas": IHTMLCanvasElement
@@ -192,21 +192,10 @@ interface HTMLElementTagNameMap extends HTMLElementTagNameMap {
   "window-frame": WindowFrame
 }
 
-interface INodeListOf<T extends Node> extends NodeListOf<T>, NodeList_ext {}
+interface SVGElementTagNameMap_ext {}
 
-interface ISVGElementTagNameMap extends SVGElementTagNameMap {}
-
-interface IDocument extends Document {
-  // Returns the first element that is a descendant of node that matches selectors
-  querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null
-  querySelector<K extends keyof ISVGElementTagNameMap>(selectors: K): ISVGElementTagNameMap[K] | null
-  querySelector<E extends HTMLElement = HTMLElement>(selectors: string): E | null;
-}
-
-const globalDocument = <IDocument>document
-
-interface IWindow extends Window, EventTarget_ext {
-  $: typeof globalDocument.querySelector
+interface Window_ext {
+  $: typeof document.querySelector
 }
 
 // ******************************** CSS选择器 ********************************
@@ -222,25 +211,20 @@ interface IWindow extends Window, EventTarget_ext {
 //   }
 // }()
 
-const $ = function (selector: string) {
-  return (<IDocument>document).querySelector(selector)
+window.$ = function (selector: string) {
+  return document.querySelector(selector)
 }
 
 // ******************************** 全局唯一声明 ********************************
 
 declare global {
-  var $: typeof globalDocument.querySelector
-  interface Window extends EventTarget_ext {}
-  interface Document {
-    // Creates an instance of the element for the specified tag
-    createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K]
-    createElement(tagName: string, options?: ElementCreationOptions): HTMLElement
+  // CSS选择器
+  var $: typeof document.querySelector
 
-    // Returns all element descendants of node that match selectors
-    querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): INodeListOf<HTMLElementTagNameMap[K]>
-    querySelectorAll<K extends keyof ISVGElementTagNameMap>(selectors: K): INodeListOf<ISVGElementTagNameMap[K]>
-    querySelectorAll<E extends HTMLElement = HTMLElement>(selectors: string): INodeListOf<E>
-  }
+  // Window 扩展
+  interface Window extends Window_ext, EventTarget_ext {}
+
+  // JSX 扩展
   namespace JSX {
     interface IntrinsicElements {
       "anim-dir": JSXHTMLElement
@@ -353,18 +337,39 @@ declare global {
       "window-frame": JSXWindowFrame
     }
   }
+
+  // HTMLElementTagNameMap 扩展
+  interface HTMLElementTagNameMap extends HTMLElementTagNameMap_ext {}
+
+  // SVGElementTagNameMap 扩展
+  interface SVGElementTagNameMap extends SVGElementTagNameMap_ext {}
+
+  // ArrayConstructor 扩展
   interface ArrayConstructor extends ArrayConstructor_ext {}
+
+  // Array 扩展
   interface Array<T> extends Array_ext {}
+
+  // NodeListOf 扩展
+  interface NodeListOf<TNode extends Node> extends NodeList, NodeList_ext {}
+
+  // HTMLElement 扩展
   interface HTMLElement extends HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, HTMLElement_components_ext, EventTarget_ext {}
-}
 
-// ******************************** 绑定到全局对象 ********************************
+  // Document 扩展
+  interface Document {
+    // Creates an instance of the element for the specified tag
+    createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, options?: ElementCreationOptions): HTMLElementTagNameMap[K]
+    createElement(tagName: string, options?: ElementCreationOptions): HTMLElement
 
-const objectWindow = <Object>window
-const globalWindow = <IWindow>objectWindow
-globalWindow.$ = $
+    // Returns the first element that is a descendant of node that matches selectors
+    querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null
+    querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null
+    querySelector<E extends HTMLElement = HTMLElement>(selectors: string): E | null;
 
-export {
-  IWindow,
-  IDocument
+    // Returns all element descendants of node that match selectors
+    querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>
+    querySelectorAll<K extends keyof SVGElementTagNameMap>(selectors: K): NodeListOf<SVGElementTagNameMap[K]>
+    querySelectorAll<E extends HTMLElement = HTMLElement>(selectors: string): NodeListOf<E>
+  }
 }
