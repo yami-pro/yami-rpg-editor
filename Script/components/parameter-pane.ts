@@ -17,27 +17,30 @@ import {
   Select,
   SelectBox,
   TextBox,
-  IHTMLElement
+  IHTMLElement,
+  IArray,
+  IMouseKeyboardEvent,
+  DetailBox
 } from "../yami"
 
 // ******************************** 脚本参数面板 ********************************
 
 class ParameterPane extends IHTMLElement {
-  scriptList          //:element
-  headPad             //:element
-  metas               //:array
-  wraps               //:array
-  detailBoxes         //:array
-  checkBoxes          //:array
-  numberBoxes         //:array
-  textBoxes           //:array
-  selectBoxes         //:array
-  keyboardBoxes       //:array
-  colorBoxes          //:array
-  customBoxes         //:array
-  updateEventEnabled  //:boolean
-  windowLocalize      //:function
-  scriptChange        //:function
+  scriptList: IHTMLElement
+  headPad: IHTMLElement
+  metas: IArray<IHTMLElement>
+  wraps: IArray<IHTMLElement>
+  detailBoxes: IArray<DetailBox>
+  checkBoxes: IArray<CheckBox>
+  numberBoxes: IArray<NumberBox>
+  textBoxes: IArray<TextBox>
+  selectBoxes: IArray<SelectBox>
+  keyboardBoxes: IArray<KeyboardBox>
+  colorBoxes: IArray<ColorBox>
+  customBoxes: IArray<CustomBox>
+  updateEventEnabled: boolean
+  windowLocalize: (event: IMouseKeyboardEvent) => any
+  scriptChange: (event: IMouseKeyboardEvent) => any
 
   constructor() {
     super()

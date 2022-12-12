@@ -9,9 +9,9 @@ import {
 // ******************************** 数字变量框 ********************************
 
 class NumberVar extends IHTMLElement {
-  mode    //:string
-  numBox  //:element
-  varBox  //:element
+  mode: string
+  numBox: IHTMLElement
+  varBox: IHTMLElement
 
   constructor() {
     super()

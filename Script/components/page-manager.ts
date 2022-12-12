@@ -5,9 +5,9 @@ import { IHTMLElement } from "../yami"
 // ******************************** 页面管理器 ********************************
 
 class PageManager extends IHTMLElement {
-  index               //:string
-  active              //:element
-  switchEventEnabled  //:boolean
+  index: string
+  active: IHTMLElement
+  switchEventEnabled: boolean
 
   constructor() {
     super()

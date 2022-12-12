@@ -9,14 +9,14 @@ import {
 // ******************************** 选择框 ********************************
 
 class SelectBox extends IHTMLElement {
-  info              //:element
-  dataItems         //:array
-  dataValue         //:any
-  relations         //:array
-  invalid           //:boolean
-  hideUnrelated     //:boolean
-  writeEventEnabled //:boolean
-  inputEventEnabled //:boolean
+  info: IHTMLElement
+  dataItems: IArray<IHTMLElement>
+  dataValue: any
+  relations: IArray<IHTMLElement>
+  invalid: boolean
+  hideUnrelated: boolean
+  writeEventEnabled: boolean
+  inputEventEnabled: boolean
 
   constructor() {
     super()

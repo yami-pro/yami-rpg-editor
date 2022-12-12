@@ -4,16 +4,17 @@ import {
   measureText,
   NumberHistory,
   IMath,
-  IHTMLElement
+  IHTMLElement,
+  IHTMLInputElement
 } from "../yami"
 
 // ******************************** 数字框 ********************************
 
 class NumberBox extends IHTMLElement {
-  input             //:element
-  decimals          //:number
-  focusEventEnabled //:boolean
-  blurEventEnabled  //:boolean
+  input: IHTMLInputElement
+  decimals: number
+  focusEventEnabled: boolean
+  blurEventEnabled: boolean
 
   constructor(dom) {
     super()

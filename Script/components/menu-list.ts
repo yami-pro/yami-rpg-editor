@@ -3,29 +3,33 @@
 import {
   Timer,
   Window,
-  IHTMLElement
+  IHTMLElement,
+  IMouseKeyboardEvent,
+  IArray
 } from "../yami"
 
 // ******************************** 菜单列表 ********************************
 
+type Window_event_func = (event: IMouseKeyboardEvent) => void
+
 class MenuList extends IHTMLElement {
-  state             //:string
-  callback          //:function
-  dataItems         //:array
-  selection         //:element
-  popupTimer        //:object
-  closeTimer        //:object
-  parent            //:element
-  submenu           //:element
-  buttonPressed     //:boolean
-  minWidth          //:number
-  parentMenuItem    //:element
-  windowBlur        //:function
-  windowKeydown     //:function
-  windowPointerdown //:function
-  windowPointerup   //:function
-  windowPointerover //:function
-  windowPointerout  //:function
+  state: string
+  callback: () => void
+  dataItems: IArray<IHTMLElement>
+  selection: IHTMLElement
+  popupTimer: Timer
+  closeTimer: Timer
+  parent: IHTMLElement
+  submenu: IHTMLElement
+  buttonPressed: boolean
+  minWidth: number
+  parentMenuItem: IHTMLElement
+  windowBlur: Window_event_func
+  windowKeydown: Window_event_func
+  windowPointerdown: Window_event_func
+  windowPointerup: Window_event_func
+  windowPointerover: Window_event_func
+  windowPointerout: Window_event_func
 
   constructor() {
     super()

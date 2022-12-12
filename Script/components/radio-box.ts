@@ -9,8 +9,8 @@ import {
 // ******************************** 单选框 ********************************
 
 class RadioBox extends IHTMLElement {
-  proxy     //:element
-  dataValue //:any
+  proxy: IHTMLElement
+  dataValue: any
 
   constructor() {
     super()

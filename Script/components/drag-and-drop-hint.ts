@@ -5,11 +5,11 @@ import { IHTMLElement } from "../yami"
 // ******************************** 拖放提示 ********************************
 
 class DragAndDropHint extends IHTMLElement {
-  left    //:number
-  top     //:number
-  width   //:number
-  height  //:number
-  upper   //:boolean
+  left: number
+  top: number
+  width: number
+  height: number
+  upper: boolean
 
   constructor() {
     super()

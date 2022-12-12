@@ -9,9 +9,9 @@ import {
 // ******************************** 字符串变量框 ********************************
 
 class StringVar extends IHTMLElement {
-  mode    //:string
-  strBox  //:element
-  varBox  //:element
+  mode: string
+  strBox: IHTMLElement
+  varBox: IHTMLElement
 
   constructor() {
     super()

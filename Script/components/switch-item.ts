@@ -8,10 +8,10 @@ import {
 // ******************************** 开关选项 ********************************
 
 class SwitchItem extends IHTMLElement {
-  dataValue         //:number
-  class             //:string
-  length            //:number
-  inputEventEnabled //:boolean
+  dataValue: number
+  class: string
+  length: number
+  inputEventEnabled: boolean
 
   constructor() {
     super()

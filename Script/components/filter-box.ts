@@ -1,12 +1,15 @@
 "use strict"
 
-import { IHTMLElement } from "../yami"
+import {
+  IHTMLCanvasElement,
+  IHTMLElement
+} from "../yami"
 
 // ******************************** 滤镜框 ********************************
 
 class FilterBox extends IHTMLElement {
-  canvas    //:element
-  dataValue //:object
+  canvas: IHTMLCanvasElement
+  dataValue: any
 
   constructor() {
     super()

@@ -3,20 +3,22 @@
 import {
   Title,
   IFunction,
-  IHTMLElement
+  IHTMLElement,
+  IArray,
+  IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 标签栏 ********************************
 
 class TabBar extends IHTMLElement {
-  data                //:array
-  dragging            //:event
-  selectionIndex      //:number
-  writeEventEnabled   //:boolean
-  selectEventEnabled  //:boolean
-  closedEventEnabled  //:boolean
-  popupEventEnabled   //:boolean
-  windowPointerup     //:function
+  data: IArray<IHTMLElement>
+  dragging: IMouseKeyboardEvent
+  selectionIndex: number
+  writeEventEnabled: boolean
+  selectEventEnabled: boolean
+  closedEventEnabled: boolean
+  popupEventEnabled: boolean
+  windowPointerup: (event: IMouseKeyboardEvent) => void
 
   constructor() {
     super()

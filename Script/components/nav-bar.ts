@@ -8,8 +8,8 @@ import {
 // ******************************** 导航栏 ********************************
 
 class NavBar extends IHTMLElement {
-  writeEventEnabled   //:boolean
-  selectEventEnabled  //:boolean
+  writeEventEnabled: boolean
+  selectEventEnabled: boolean
 
   constructor() {
     super()

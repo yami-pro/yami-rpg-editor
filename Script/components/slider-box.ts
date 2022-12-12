@@ -2,18 +2,19 @@
 
 import {
   NumberBox,
-  IHTMLElement
+  IHTMLElement,
+  IHTMLInputElement
 } from "../yami"
 
 // ******************************** 滑动框 ********************************
 
 class SliderBox extends IHTMLElement {
-  filler            //:element
-  input             //:element
-  synchronizer      //:element
-  activeWheel       //:boolean
-  focusEventEnabled //:boolean
-  blurEventEnabled  //:boolean
+  filler: IHTMLElement
+  input: IHTMLInputElement
+  synchronizer: IHTMLElement
+  activeWheel: boolean
+  focusEventEnabled: boolean
+  blurEventEnabled: boolean
 
   constructor() {
     super()

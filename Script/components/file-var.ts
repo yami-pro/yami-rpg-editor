@@ -8,9 +8,9 @@ import {
 // ******************************** 文件变量框 ********************************
 
 class FileVar extends IHTMLElement {
-  mode    //:string
-  strBox  //:element
-  varBox  //:element
+  mode: string
+  strBox: IHTMLElement
+  varBox: IHTMLElement
 
   constructor() {
     super()

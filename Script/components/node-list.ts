@@ -8,33 +8,34 @@ import {
   IFunction,
   IArray,
   IMath,
-  IHTMLElement
+  IHTMLElement,
+  IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 树状列表 ********************************
 
 class TreeList extends IHTMLElement {
-  display               //:string
-  keyword               //:string
-  searchResults         //:array
-  creators              //:array
-  updaters              //:array
-  elements              //:array
-  root                  //:object
-  timer                 //:object
-  selections            //:array
-  dragging              //:event
-  padded                //:boolean
-  removable             //:boolean
-  renamable             //:boolean
-  lockDirectory         //:boolean
-  multipleSelect        //:boolean
-  selectEventEnabled    //:boolean
-  unselectEventEnabled  //:boolean
-  recordEventEnabled    //:boolean
-  popupEventEnabled     //:boolean
-  openEventEnabled      //:boolean
-  updateEventEnabled    //:boolean
+  display: string
+  keyword: string
+  searchResults: IArray<IHTMLElement>
+  creators: IArray<IHTMLElement>
+  updaters: IArray<IHTMLElement>
+  elements: IArray<IHTMLElement>
+  root: any
+  timer: Timer
+  selections: IArray<IHTMLElement>
+  dragging: IMouseKeyboardEvent
+  padded: boolean
+  removable: boolean
+  renamable: boolean
+  lockDirectory: boolean
+  multipleSelect: boolean
+  selectEventEnabled: boolean
+  unselectEventEnabled: boolean
+  recordEventEnabled: boolean
+  popupEventEnabled: boolean
+  openEventEnabled: boolean
+  updateEventEnabled: boolean
 
   constructor() {
     super()

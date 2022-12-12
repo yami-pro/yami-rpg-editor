@@ -4,20 +4,24 @@ import {
   CommonList,
   Window,
   IMath,
-  IHTMLElement
+  IHTMLElement,
+  IArray,
+  IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 选择列表 ********************************
 
+type Window_event_func = (event: IMouseKeyboardEvent): void
+
 class SelectList extends IHTMLElement {
-  state             //:string
-  target            //:element
-  elements          //:array
-  selection         //:element
-  windowKeydown     //:function
-  windowPointerdown //:function
-  windowResize      //:function
-  windowBlur        //:function
+  state: string
+  target: IHTMLElement
+  elements: IArray<IHTMLElement>
+  selection: IHTMLElement
+  windowKeydown: Window_event_func
+  windowPointerdown: Window_event_func
+  windowResize: Window_event_func
+  windowBlur: Window_event_func
 
   constructor() {
     super()

@@ -29,10 +29,10 @@ import {
 // ******************************** 自定义框 ********************************
 
 class CustomBox extends IHTMLElement {
-  info              //:element
-  dataValue         //:any
-  writeEventEnabled //:boolean
-  inputEventEnabled //:boolean
+  info: IHTMLElement
+  dataValue: any
+  writeEventEnabled: boolean
+  inputEventEnabled: boolean
 
   constructor() {
     super()

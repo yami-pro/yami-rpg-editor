@@ -1,15 +1,18 @@
 "use strict"
 
-import { IHTMLElement } from "../yami"
+import {
+  IHTMLElement,
+  IHTMLInputElement
+} from "../yami"
 
 // ******************************** 键盘按键框 ********************************
 
 class KeyboardBox extends IHTMLElement {
-  input             //:element
-  dataValue         //:number
-  inputEventEnabled //:boolean
-  focusEventEnabled //:boolean
-  blurEventEnabled  //:boolean
+  input: IHTMLInputElement
+  dataValue: number
+  inputEventEnabled: boolean
+  focusEventEnabled: boolean
+  blurEventEnabled: boolean
 
   constructor() {
     super()

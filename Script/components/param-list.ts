@@ -11,29 +11,31 @@ import {
   Clipboard,
   IFunction,
   IMath,
-  IHTMLElement
+  IHTMLElement,
+  IArray,
+  IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 参数列表 ********************************
 
 class ParamList extends IHTMLElement {
-  object            //:object
-  type              //:string
-  data              //:array
-  elements          //:array
-  selections        //:array
-  start             //:number
-  end               //:number
-  origin            //:number
-  active            //:number
-  flexible          //:boolean
-  inserting         //:boolean
-  focusing          //:boolean
-  dragging          //:event
-  history           //:object
-  toggleable        //:boolean
-  windowPointerup   //:function
-  windowPointermove //:function
+  object: any
+  type: string
+  data: IArray<IHTMLElement>
+  elements: IArray<IHTMLElement>
+  selections: IArray<IHTMLElement>
+  start: number
+  end: number
+  origin: number
+  active: number
+  flexible: boolean
+  inserting: boolean
+  focusing: boolean
+  dragging: IMouseKeyboardEvent
+  history: IHTMLElement
+  toggleable: boolean
+  windowPointerup: (event: IMouseKeyboardEvent) => void
+  windowPointermove: (event: IMouseKeyboardEvent) => void
 
   constructor() {
     super()

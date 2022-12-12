@@ -2,17 +2,18 @@
 
 import {
   IMath,
-  IHTMLElement
+  IHTMLElement,
+  IArray
 } from "../yami"
 
 // ******************************** 普通列表 ********************************
 
 class CommonList extends IHTMLElement {
-  elements            //:array
-  selection           //:element
-  writeEventEnabled   //:boolean
-  selectEventEnabled  //:boolean
-  popupEventEnabled   //:boolean
+  elements: IArray<IHTMLElement>
+  selection: IHTMLElement
+  writeEventEnabled: boolean
+  selectEventEnabled: boolean
+  popupEventEnabled: boolean
 
   constructor() {
     super()

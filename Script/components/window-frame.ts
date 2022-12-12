@@ -6,22 +6,24 @@ import {
   Window,
   ICSS,
   IMath,
-  IHTMLElement
+  IHTMLElement,
+  IArray,
+  IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 窗口框架 ********************************
 
 class WindowFrame extends IHTMLElement {
-  enableAmbient           //:boolean
-  activeElement           //:element
-  focusableElements       //:array
-  windowResize            //:function
-  openEventEnabled        //:boolean
-  closeEventEnabled       //:boolean
-  closedEventEnabled      //:boolean
-  resizeEventEnabled      //:boolean
-  maximizeEventEnabled    //:boolean
-  unmaximizeEventEnabled  //:boolean
+  enableAmbient: boolean
+  activeElement: IHTMLElement
+  focusableElements: IArray<IHTMLElement>
+  windowResize: (event: IMouseKeyboardEvent) => void
+  openEventEnabled: boolean
+  closeEventEnabled: boolean
+  closedEventEnabled: boolean
+  resizeEventEnabled: boolean
+  maximizeEventEnabled: boolean
+  unmaximizeEventEnabled: boolean
 
   constructor() {
     super()

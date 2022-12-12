@@ -3,15 +3,16 @@
 import {
   TextHistory,
   Timer,
-  IHTMLElement
+  IHTMLElement,
+  IHTMLInputElement
 } from "../yami"
 
 // ******************************** 文本区域 ********************************
 
 class TextArea extends IHTMLElement {
-  input             //:element
-  focusEventEnabled //:boolean
-  blurEventEnabled  //:boolean
+  input: IHTMLInputElement
+  focusEventEnabled: boolean
+  blurEventEnabled: boolean
 
   constructor() {
     super()

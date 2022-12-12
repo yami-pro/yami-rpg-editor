@@ -9,9 +9,9 @@ import {
 // ******************************** 选择变量框 ********************************
 
 class SelectVar extends IHTMLElement {
-  mode    //:string
-  selectBox  //:element
-  varBox  //:element
+  mode: string | null
+  selectBox: SelectBox
+  varBox: CustomBox
 
   constructor() {
     super()
