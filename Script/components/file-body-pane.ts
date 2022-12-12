@@ -1156,7 +1156,7 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 键盘按下事件
-  keydown(event) {
+  keydown(event: MouseKeyboardEvent) {
     if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
@@ -1456,7 +1456,7 @@ class FileBodyPane extends HTMLPropsElement {
     })
 
     // 输入前事件
-    textBox.on('beforeinput', function (event) {
+    textBox.on('beforeinput', function (event: MouseKeyboardEvent) {
       if (event.inputType === 'insertText' &&
         typeof event.data === 'string') {
         const regexp = /[\\/:*?"<>|"]/
@@ -1468,14 +1468,14 @@ class FileBodyPane extends HTMLPropsElement {
     })
 
     // 输入事件
-    textBox.on('input', function (event) {
+    textBox.on('input', function (event: MouseKeyboardEvent) {
       if (this.style.width !== '') {
         this.fitContent()
       }
     })
 
     // 选择事件
-    textBox.on('select', function (event) {
+    textBox.on('select', function (event: MouseKeyboardEvent) {
       event.stopPropagation()
     })
 

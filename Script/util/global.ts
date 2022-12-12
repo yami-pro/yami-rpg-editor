@@ -40,7 +40,6 @@ import {
   TextBox,
   TitleBar,
   WindowFrame,
-  NodeList_ext,
   JSXHTMLElement,
   JSXCheckBox,
   JSXColorBox,

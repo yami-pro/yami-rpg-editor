@@ -190,14 +190,14 @@ HTMLElement.prototype.show = function () {
 // 元素方法 - 隐藏子元素
 HTMLElement.prototype.hideChildNodes = function () {
   this.childNodes.forEach(
-    childNode => childNode.hide()
+    childNode => (<HTMLElement>childNode).hide()
   )
 }
 
 // 元素方法 - 显示子元素
 HTMLElement.prototype.showChildNodes = function () {
   this.childNodes.forEach(
-    childNode => childNode.show()
+    childNode => (<HTMLElement>childNode).show()
   )
 }
 
@@ -604,13 +604,6 @@ type scrollUpdaterVar = (() => void) | null
     window.off('pointermove', pointermove)
   }
 }
-
-// interface HTMLElementConstructor {
-//   new(): HTMLElement
-//   prototype: HTMLElement
-// }
-
-// const HTMLElement = <HTMLElementConstructor>HTMLElement
 
 interface JSXHTMLElement { [attributes: string]: any }
 
