@@ -5,7 +5,6 @@ import {
   Window,
   IMath,
   IHTMLElement,
-  IArray,
   IMouseKeyboardEvent
 } from "../yami"
 
@@ -16,7 +15,7 @@ type Window_event_func = (event: IMouseKeyboardEvent) => void
 class SelectList extends IHTMLElement {
   state: string
   target: IHTMLElement
-  elements: IArray<IHTMLElement>
+  elements: IHTMLElement[]
   selection: IHTMLElement
   windowKeydown: Window_event_func
   windowPointerdown: Window_event_func

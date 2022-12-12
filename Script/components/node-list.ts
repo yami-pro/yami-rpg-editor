@@ -6,7 +6,6 @@ import {
   TextBox,
   Timer,
   IFunction,
-  IArray,
   IMath,
   IHTMLElement,
   IMouseKeyboardEvent
@@ -17,13 +16,13 @@ import {
 class TreeList extends IHTMLElement {
   display: string
   keyword: string
-  searchResults: IArray<IHTMLElement>
-  creators: IArray<IHTMLElement>
-  updaters: IArray<IHTMLElement>
-  elements: IArray<IHTMLElement>
+  searchResults: IHTMLElement[]
+  creators: IHTMLElement[]
+  updaters: IHTMLElement[]
+  elements: IHTMLElement[]
   root: any
   timer: Timer
-  selections: IArray<IHTMLElement>
+  selections: IHTMLElement[]
   dragging: IMouseKeyboardEvent
   padded: boolean
   removable: boolean
@@ -673,7 +672,7 @@ class TreeList extends IHTMLElement {
     // 处于搜索模式则清空搜索结果
     // 避免重复更新和选项位置错乱
     if (this.display === 'search') {
-      this.searchResults = IArray.empty()
+      this.searchResults = Array.empty()
     }
     switch (response.type) {
       case 'rename': {
@@ -810,7 +809,7 @@ class TreeList extends IHTMLElement {
 
   // 取消选择
   unselect(item) {
-    let selections = IArray.empty()
+    let selections = Array.empty()
     if (item === undefined) {
       selections = this.selections
     } if (this.selections.includes(item)) {

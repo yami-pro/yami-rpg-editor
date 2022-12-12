@@ -4,28 +4,29 @@ import {
   Menu,
   CommonList,
   TextBox,
-  browserLinks,
+  Browser_links,
   Directory,
   File,
   FS,
   FSP,
   Path,
   IHTMLElement,
-  IArray,
   Timer,
-  IMath
+  IMath,
+  FolderItem,
+  FileItem
 } from "../yami"
 
 // ******************************** 文件导航面板 ********************************
 
 class FileNavPane extends IHTMLElement {
   timer: Timer
-  elements: IArray<IHTMLElement>
-  selections: IArray<IHTMLElement>
+  elements: IHTMLElement[]
+  selections: (FolderItem | FileItem)[]
   pressing: ((event: any) => void) | null
   selectEventEnabled: boolean
   textBox: TextBox
-  links: browserLinks
+  links: Browser_links
 
   constructor() {
     super()

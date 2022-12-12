@@ -1,15 +1,12 @@
 "use strict"
 
-import {
-  IArray,
-  IHTMLElement
-} from "../yami"
+import { IHTMLElement } from "../yami"
 
 // ******************************** 单选框代理 ********************************
 
 class RadioProxy extends IHTMLElement {
   dataValue: any
-  relations: IArray<IHTMLElement>
+  relations: IHTMLElement[]
   cancelable: boolean
   writeEventEnabled: boolean
   inputEventEnabled: boolean
@@ -122,7 +119,7 @@ class RadioProxy extends IHTMLElement {
             }
           } else {
             for (const element of selection
-            ? IArray.subtract(entry.targets, selection.targets)
+            ? Array.subtract(entry.targets, selection.targets)
             : entry.targets) {
               element.disable()
             }

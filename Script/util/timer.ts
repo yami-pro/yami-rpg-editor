@@ -3,14 +3,13 @@
 import {
   IFunction,
   IFunction_empty_func,
-  IHTMLElement,
-  IArray
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 计时器管理类 ********************************
 
 interface ITimer {
-  timers: IArray<Timer>
+  timers: Timer[]
   updaters: {
     stageAnimation: Timer_updater_func | null
     stageRendering: Timer_updater_func | null
@@ -105,7 +104,7 @@ type Timer_updater_key = 'stageAnimation' |
                   'sharedRendering2'
 
 // properties
-TimerManager.timers = IArray.empty()
+TimerManager.timers = Array.empty()
 TimerManager.updaters = {
   stageAnimation: null,
   stageRendering: null,

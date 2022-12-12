@@ -8,6 +8,7 @@ interface UIEvent_ext extends Event_ext {
   latest: UIEvent
   itemHeight: number
   itemIndex: number
+  raw: UIEvent
 }
 
 interface IUIEvent extends UIEvent, UIEvent_ext {}

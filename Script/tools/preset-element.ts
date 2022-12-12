@@ -3,8 +3,7 @@
 import {
   Data,
   UI,
-  Window,
-  IArray
+  Window
 } from "../yami"
 
 // ******************************** 预设元素窗口 ********************************
@@ -103,7 +102,7 @@ PresetElement.windowClosed = function (event) {
 // 界面ID - 写入事件
 PresetElement.uiIdWrite = function (event) {
   const ui = Data.ui[event.value]
-  const nodes = ui ? PresetElement.buildNodes(ui.nodes) : IArray.empty()
+  const nodes = ui ? PresetElement.buildNodes(ui.nodes) : Array.empty()
   PresetElement.nodes = nodes
   PresetElement.list.update()
   if (nodes.length !== 0) {

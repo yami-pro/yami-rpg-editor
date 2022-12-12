@@ -12,7 +12,6 @@ import {
   IFunction,
   IMath,
   IHTMLElement,
-  IArray,
   IMouseKeyboardEvent
 } from "../yami"
 
@@ -21,9 +20,9 @@ import {
 class ParamList extends IHTMLElement {
   object: any
   type: string
-  data: IArray<IHTMLElement>
-  elements: IArray<IHTMLElement>
-  selections: IArray<IHTMLElement>
+  data: IHTMLElement[]
+  elements: IHTMLElement[]
+  selections: IHTMLElement[]
   start: number
   end: number
   origin: number

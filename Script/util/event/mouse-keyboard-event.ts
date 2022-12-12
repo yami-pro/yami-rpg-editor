@@ -3,11 +3,12 @@
 import {
   IKeyboardEvent,
   IPointerEvent,
-  IDragEvent
+  IDragEvent,
+  IWheelEvent
 } from "../../yami"
 
 // ******************************** 键盘事件访问器 ********************************
 
-interface IMouseKeyboardEvent extends IPointerEvent, IKeyboardEvent, IDragEvent {}
+interface IMouseKeyboardEvent extends IPointerEvent, IKeyboardEvent, IDragEvent, IWheelEvent {}
 
 export { IMouseKeyboardEvent }

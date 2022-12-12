@@ -2,21 +2,25 @@
 
 import {
   IHTMLElement,
-  CommandHistory
+  CommandHistory,
+  FileItem,
+  FolderItem
 } from "../yami"
 
 // ******************************** 声明 ********************************
 
 type commandsData = {[index: string]: any}
 
+// ArrayConstructor扩展
 interface ArrayConstructor_ext {
   // 静态数组方法扩展
-  empty<T>(): IArray<T>
-  subtract<T>(a: T[], b: T[]): IArray<T>
+  empty<T>(): T[]
+  subtract<T>(a: T[], b: T[]): T[]
 }
 
 interface IArrayConstructor extends ArrayConstructor, ArrayConstructor_ext {}
 
+// Array扩展
 interface Array_ext {
   // 数组方法扩展
   append<T>(value: T): boolean
@@ -32,6 +36,7 @@ interface Array_ext {
   history: CommandHistory
   blank: IHTMLElement | null
   parent: commandsData
+  files: (FolderItem | FileItem)[]
 }
 
 interface IArray<T> extends Array<T>, Array_ext {}
@@ -42,7 +47,7 @@ const IArray = <IArrayConstructor>Array
 
 // 空数组
 IArray.empty = function <T>() {
-  return <IArray<T>>new Array<T>()
+  return new Array<T>()
 }
 
 // 减法
@@ -54,7 +59,7 @@ IArray.subtract = function <T>(a: T[], b: T[]) {
       differences.push(a[i])
     }
   }
-  return <IArray<T>>differences
+  return differences
 }
 
 // ******************************** 数组方法 ********************************
@@ -66,7 +71,7 @@ const prototype = <Array_ext>prototype_as_obj
 // 数组方法 - 添加
 Object.defineProperty(prototype, 'append', {
   enumerable: false,
-  value: function <T>(this: IArray<T>, value: T) {
+  value: function <T>(this: T[], value: T) {
     if (this.indexOf(value) === -1) {
       this.push(value)
       return true
@@ -78,7 +83,7 @@ Object.defineProperty(prototype, 'append', {
 // 数组方法 - 移除
 Object.defineProperty(prototype, 'remove', {
   enumerable: false,
-  value: function <T>(this: IArray<T>, value: T) {
+  value: function <T>(this: T[], value: T) {
     const index = this.indexOf(value)
     if (index !== -1) {
       this.splice(index, 1)
@@ -89,6 +94,7 @@ Object.defineProperty(prototype, 'remove', {
 })
 
 export {
-  IArray,
+  Array_ext,
+  ArrayConstructor_ext,
   commandsData
 }

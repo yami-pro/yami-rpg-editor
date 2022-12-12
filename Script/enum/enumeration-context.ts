@@ -2,7 +2,6 @@
 
 import {
   Local,
-  IArray,
   IObject
 } from "../yami"
 
@@ -55,7 +54,7 @@ class EnumerationContext {
         groupMap[key] = {
           groupName: '',
           itemMap: IObject.empty(),
-          itemList: IArray.empty(),
+          itemList: Array.empty(),
         }
       }
     }

@@ -9,9 +9,9 @@ import {
   TimerManager,
   IFunction,
   commandsData,
-  IArray,
   ScrollBarManager,
-  FolderItem
+  FolderItem,
+  FileItem
 } from "../../yami"
 
 // ******************************** 声明 ********************************
@@ -19,33 +19,33 @@ import {
 type tipVar = (...params: any[]) => any | {get: () => any}
 
 interface HTMLElement_components_ext {
-  contents: IArray<any> | null
-  dataKey: boolean
-  dataList: IArray<commandsData> | null
-  dataItem: any
-  dataIndex: number
-  dataIndent: number
-  enabled: boolean
+  // contents: any[] | null
+  // dataKey: boolean
+  // dataList: commandsData[] | null
+  // dataItem: any
+  // dataIndex: number
+  // dataIndent: number
+  // enabled: boolean
 
-  updaters: IArray<any>
+  // updaters: any[]
 
   range: Uint32Array
-  path: string
-  file: FolderItem
+  // path: string
   versionId: number
   count: number
-  itemSize: number
-  visibleLines: number
-  normalCountPerLine: number
-  scrollCountPerLine: number
-  scrollCount: number
-  countPerLine: number
-  changed: boolean
+  // itemSize: number
+  // visibleLines: number
+  // normalCountPerLine: number
+  // scrollCountPerLine: number
+  // scrollCount: number
+  // countPerLine: number
+  // changed: boolean
 
-  fileIcon: IHTMLElement
-  nameBox: IHTMLElement
+  // file: FolderItem | FileItem
+  // fileIcon: IHTMLElement
+  // nameBox: IHTMLElement
 
-  isImageChanged: () => boolean
+  // isImageChanged: () => boolean
 }
 
 interface HTMLElement_object_ext {

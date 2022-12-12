@@ -12,26 +12,25 @@ import {
   Path,
   Local,
   IHTMLElement,
-  IArray,
   IFunction,
   IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 文件浏览器 ********************************
 
-type browserLinks = {[index: string]: FileBrowser | FileNavPane | FileHeadPane | FileBodyPane}
+type Browser_links = {[index: string]: FileBrowser | FileNavPane | FileHeadPane | FileBodyPane}
 
 class FileBrowser extends IHTMLElement {
   display: string
-  directory: IArray<IHTMLElement> | null
+  directory: IHTMLElement[] | null
   dragging: IMouseKeyboardEvent | null
-  filters: IArray<IHTMLElement> | null
-  backupFolders: IArray<IHTMLElement>
-  searchResults: IArray<IHTMLElement>
+  filters: string[] | null
+  backupFolders: IHTMLElement[]
+  searchResults: IHTMLElement[]
   nav: FileNavPane
   head: FileHeadPane
   body: FileBodyPane
-  links: browserLinks
+  links: Browser_links
   keyword: RegExp | string | null
 
   constructor() {
@@ -43,8 +42,8 @@ class FileBrowser extends IHTMLElement {
     this.dragging = null
     this.filters = null
     this.keyword = null
-    this.backupFolders = IArray.empty()
-    this.searchResults = IArray.empty()
+    this.backupFolders = Array.empty()
+    this.searchResults = Array.empty()
     this.nav = document.createElement('file-nav-pane')
     this.head = document.createElement('file-head-pane')
     this.body = document.createElement('file-body-pane')
@@ -58,7 +57,7 @@ class FileBrowser extends IHTMLElement {
       const nav = this.nav
       const head = this.head
       const body = this.body
-      const links: browserLinks = {
+      const links: Browser_links = {
         browser,
         nav,
         head,
@@ -102,7 +101,7 @@ class FileBrowser extends IHTMLElement {
         this.filters,
         this.keyword = keyword,
         this.directory,
-        this.searchResults = IArray.empty(),
+        this.searchResults = Array.empty(),
       )
       this.update()
     } else {
@@ -110,8 +109,8 @@ class FileBrowser extends IHTMLElement {
         this.display = 'normal'
         nav.load(...this.backupFolders)
         this.keyword = null
-        this.backupFolders = IArray.empty()
-        this.searchResults = IArray.empty()
+        this.backupFolders = Array.empty()
+        this.searchResults = Array.empty()
       }
     }
   }
@@ -123,8 +122,8 @@ class FileBrowser extends IHTMLElement {
         break
       case 'search':
         this.display = 'normal'
-        this.backupFolders = IArray.empty()
-        this.searchResults = IArray.empty()
+        this.backupFolders = Array.empty()
+        this.searchResults = Array.empty()
         this.head.searcher.write('')
         break
     }
@@ -521,5 +520,5 @@ interface JSXFileBrowser { [attributes: string]: any }
 export {
   FileBrowser,
   JSXFileBrowser,
-  browserLinks
+  Browser_links
 }

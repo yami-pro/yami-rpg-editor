@@ -30,7 +30,6 @@ import {
   Clipboard,
   IHTMLElement,
   IFunction,
-  IArray,
   ICSS,
   IMath,
   INumber,
@@ -4950,7 +4949,7 @@ Animation.listPopup = function (event) {
     pastable = Clipboard.has('yami.animation.object')
     deletable = false
   }
-  let headItems = IArray.empty()
+  let headItems = Array.empty()
   if (item) {
     headItems = [{
       label: get('edit'),

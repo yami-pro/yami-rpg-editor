@@ -3,8 +3,7 @@
 import {
   Data,
   File,
-  FileItem,
-  IArray
+  FileItem
 } from "../yami"
 
 // ******************************** 元数据类 ********************************
@@ -50,7 +49,7 @@ const Meta = function IIFE() {
           this.y = 0
           break
         case 'script':
-          this.parameters = IArray.empty()
+          this.parameters = Array.empty()
           break
       }
 

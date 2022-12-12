@@ -4,8 +4,7 @@ import {
   Timer,
   Window,
   IHTMLElement,
-  IMouseKeyboardEvent,
-  IArray
+  IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 菜单列表 ********************************
@@ -15,7 +14,7 @@ type Window_event_func = (event: IMouseKeyboardEvent) => void
 class MenuList extends IHTMLElement {
   state: string
   callback: () => void
-  dataItems: IArray<IHTMLElement>
+  dataItems: IHTMLElement[]
   selection: IHTMLElement
   popupTimer: Timer
   closeTimer: Timer

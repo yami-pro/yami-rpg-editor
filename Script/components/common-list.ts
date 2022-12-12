@@ -2,15 +2,14 @@
 
 import {
   IMath,
-  IHTMLElement,
-  IArray
+  IHTMLElement
 } from "../yami"
 
 // ******************************** 普通列表 ********************************
 
 class CommonList extends IHTMLElement {
-  elements: IArray<IHTMLElement>
-  selection: IHTMLElement
+  elements: IHTMLElement[]
+  selection: IHTMLElement | null
   writeEventEnabled: boolean
   selectEventEnabled: boolean
   popupEventEnabled: boolean
@@ -20,7 +19,7 @@ class CommonList extends IHTMLElement {
 
     // 设置属性
     this.tabIndex = 0
-    this.elements = []
+    this.elements = Array.empty()
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1

@@ -7,7 +7,6 @@ import {
   commandsData,
   ctrl,
   Clipboard,
-  IArray,
   IMath,
   IHTMLElement,
   IMouseKeyboardEvent,
@@ -19,9 +18,9 @@ import {
 // ******************************** 指令列表 ********************************
 
 class CommandList extends IHTMLElement {
-  data: IArray<commandsData>
-  elements: IArray<IHTMLElement>
-  selections: IArray<IHTMLElement>
+  data: commandsData[]
+  elements: IHTMLElement[]
+  selections: IHTMLElement[]
   start: number | null
   end: number | null
   origin: number | null
@@ -41,15 +40,15 @@ class CommandList extends IHTMLElement {
 
     // 设置属性
     this.tabIndex = 0
-    this.data = IArray.empty()
-    this.elements = IArray.empty()
+    this.data = Array.empty()
+    this.elements = Array.empty()
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1
     this.elements.end = -1
     this.elements.head = null
     this.elements.foot = null
-    this.selections = IArray.empty()
+    this.selections = Array.empty()
     this.selections.count = 0
     this.start = null
     this.end = null
@@ -96,7 +95,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 写入数据
-  write(data: IArray<commandsData>) {
+  write(data: commandsData[]) {
     this.data = data
     this.textContent = ''
     this.update()
@@ -163,7 +162,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建项目
-  createItems(commands: IArray<commandsData>, indent: number) {
+  createItems(commands: commandsData[], indent: number) {
     const elements = this.elements
     const length = commands.length
     for (let i = 0; i < length; i++) {
@@ -175,7 +174,7 @@ class CommandList extends IHTMLElement {
           continue
         }
         if (target instanceof Array) {
-          this.createItems(<IArray<commandsData>>target, indent + 1)
+          this.createItems(<commandsData[]>target, indent + 1)
           continue
         }
       }
@@ -187,7 +186,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建指令缓冲区
-  createCommandBuffer(commands: IArray<commandsData>, index: number, indent: number) {
+  createCommandBuffer(commands: commandsData[], index: number, indent: number) {
     const command = commands[index]
     let buffer = command.buffer
     if (buffer === undefined) {
@@ -204,7 +203,7 @@ class CommandList extends IHTMLElement {
       let li
       let color
       li = document.createElement('command-item')
-      li.contents = IArray.empty()
+      li.contents = Array.empty()
       li.dataKey = true
       li.dataList = commands
       li.dataItem = command
@@ -233,7 +232,7 @@ class CommandList extends IHTMLElement {
         // 换行
         if (content.break !== undefined) {
           li = document.createElement('command-item')
-          li.contents = IArray.empty()
+          li.contents = Array.empty()
           li.dataKey = false
           li.dataList = commands
           li.dataItem = command
@@ -260,7 +259,7 @@ class CommandList extends IHTMLElement {
 
           if (i < length) {
             li = document.createElement('command-item')
-            li.contents = IArray.empty()
+            li.contents = Array.empty()
             li.dataKey = false
             li.dataList = commands
             li.dataItem = command
@@ -333,7 +332,7 @@ class CommandList extends IHTMLElement {
           // 则创建更新器用来即时更新变量名
           let updaters = element.updaters
           if (updaters === undefined) {
-            updaters = element.updaters = IArray.empty()
+            updaters = element.updaters = Array.empty()
           }
           updaters.push(updater)
           updater.update()
@@ -350,13 +349,13 @@ class CommandList extends IHTMLElement {
   }
 
   // 删除指令缓冲区
-  deleteCommandBuffers(commands: IArray<commandsData>) {
+  deleteCommandBuffers(commands: commandsData[]) {
     for (const command of commands) {
       const {buffer} = command
       if (!buffer) continue
       for (const item of buffer) {
         if (item instanceof Array) {
-          this.deleteCommandBuffers(<IArray<commandsData>>item)
+          this.deleteCommandBuffers(<commandsData[]>item)
         }
       }
       delete command.buffer
@@ -364,14 +363,14 @@ class CommandList extends IHTMLElement {
   }
 
   // 创建空项目
-  createBlankElement(commands: IArray<commandsData>, index: number, indent: number) {
+  createBlankElement(commands: commandsData[], index: number, indent: number) {
     let blank = commands.blank
     if (blank === undefined || blank === null) {
       // 创建列表项
       blank = document.createElement('command-item')
 
       // 设置元素属性
-      blank.contents = IArray.empty()
+      blank.contents = Array.empty()
       blank.enabled = true
       blank.dataKey = true
       blank.dataList = commands
@@ -923,7 +922,7 @@ class CommandList extends IHTMLElement {
       if (end === null)
         return
       let method = 'disable'
-      const commands = IArray.empty<commandsData>()
+      const commands = <commandsData[]>[]
       for (let i = start; i <= end; i++) {
         const element = elements[i]
         if (element.dataKey) {
@@ -967,7 +966,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 启用项目
-  enableItems(commands: IArray<commandsData>) {
+  enableItems(commands: commandsData[]) {
     for (const command of commands) {
       if (command.id[0] === '!') {
         command.id = command.id.slice(1)
@@ -976,7 +975,7 @@ class CommandList extends IHTMLElement {
   }
 
   // 禁用项目
-  disableItems(commands: IArray<commandsData>) {
+  disableItems(commands: commandsData[]) {
     for (const command of commands) {
       if (command.id[0] !== '!') {
         command.id = '!' + command.id
@@ -1143,7 +1142,7 @@ class CommandList extends IHTMLElement {
   clear() {
     this.unselect()
     this.textContent = ''
-    this.data = IArray.empty()
+    this.data = Array.empty()
     this.start = null
     this.end = null
     this.origin = null

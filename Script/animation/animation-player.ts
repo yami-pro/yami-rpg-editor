@@ -8,7 +8,6 @@ import {
   Matrix,
   Particle,
   Scene,
-  IArray,
   IMath
 } from "../yami"
 
@@ -43,7 +42,7 @@ class AnimationPlayer {
     this.anchorY = 0
     this.mirror = false
     this.data = animation
-    this.dirMap = IArray.empty()
+    this.dirMap = Array.empty()
     this.dirCases = null
     this.angle = 0
     this.direction = -1

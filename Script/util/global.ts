@@ -84,7 +84,9 @@ import {
   JSXTitleBar,
   JSXWindowFrame,
   JSXHTMLCanvasElement,
-  JSXHTMLInputElement
+  JSXHTMLInputElement,
+  Array_ext,
+  ArrayConstructor_ext
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
@@ -348,6 +350,8 @@ declare global {
       "window-frame": JSXWindowFrame
     }
   }
+  interface ArrayConstructor extends ArrayConstructor_ext {}
+  interface Array<T> extends Array_ext {}
 }
 
 // ******************************** 绑定到全局对象 ********************************

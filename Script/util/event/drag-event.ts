@@ -3,8 +3,7 @@
 import {
   IHTMLElement,
   IDataTransfer,
-  MouseEvent_ext,
-  IArray
+  MouseEvent_ext
 } from "../../yami"
 
 // ******************************** 拖拽事件访问器 ********************************
@@ -15,7 +14,7 @@ interface DragEvent_ext extends MouseEvent_ext {
   allowCopy: boolean
   dropPath: string | null
   dropMode: string | null
-  files: IArray<IHTMLElement>
+  files: IHTMLElement[]
   filePaths: string[]
   promise: Promise<void>
 }

@@ -7,7 +7,6 @@ import {
   ICSS,
   IMath,
   IHTMLElement,
-  IArray,
   IMouseKeyboardEvent
 } from "../yami"
 
@@ -16,7 +15,7 @@ import {
 class WindowFrame extends IHTMLElement {
   enableAmbient: boolean
   activeElement: IHTMLElement
-  focusableElements: IArray<IHTMLElement>
+  focusableElements: IHTMLElement[]
   windowResize: (event: IMouseKeyboardEvent) => void
   openEventEnabled: boolean
   closeEventEnabled: boolean

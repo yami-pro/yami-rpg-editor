@@ -2,7 +2,6 @@
 
 import {
   Select,
-  IArray,
   IHTMLElement
 } from "../yami"
 
@@ -10,9 +9,9 @@ import {
 
 class SelectBox extends IHTMLElement {
   info: IHTMLElement
-  dataItems: IArray<IHTMLElement>
+  dataItems: IHTMLElement[]
   dataValue: any
-  relations: IArray<IHTMLElement>
+  relations: IHTMLElement[]
   invalid: boolean
   hideUnrelated: boolean
   writeEventEnabled: boolean
@@ -225,7 +224,7 @@ class SelectBox extends IHTMLElement {
             deferredList.push(entry)
           } else {
             for (const element of selection
-            ? IArray.subtract(entry.targets, selection.targets)
+            ? Array.subtract(entry.targets, selection.targets)
             : entry.targets) {
               this.disableElement(element)
             }

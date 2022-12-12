@@ -16,14 +16,14 @@ import {
 
 class FileItem {
   meta      //:object
-  name      //:string
-  alias     //:string
-  basename  //:string
-  extname   //:string
-  path      //:string
-  type      //:string
+  name: string
+  alias: string
+  basename: string
+  extname: string
+  path: string
+  type: string
   stats     //:object
-  contexts  //:object
+  contexts: Map<string, object> | null
 
   constructor(name, extname, path, type, stats) {
     let basename = Path.basename(name, extname)

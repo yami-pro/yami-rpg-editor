@@ -18,7 +18,6 @@ import {
   SelectBox,
   TextBox,
   IHTMLElement,
-  IArray,
   IMouseKeyboardEvent,
   DetailBox
 } from "../yami"
@@ -28,16 +27,16 @@ import {
 class ParameterPane extends IHTMLElement {
   scriptList: IHTMLElement
   headPad: IHTMLElement
-  metas: IArray<IHTMLElement>
-  wraps: IArray<IHTMLElement>
-  detailBoxes: IArray<DetailBox>
-  checkBoxes: IArray<CheckBox>
-  numberBoxes: IArray<NumberBox>
-  textBoxes: IArray<TextBox>
-  selectBoxes: IArray<SelectBox>
-  keyboardBoxes: IArray<KeyboardBox>
-  colorBoxes: IArray<ColorBox>
-  customBoxes: IArray<CustomBox>
+  metas: IHTMLElement[]
+  wraps: IHTMLElement[]
+  detailBoxes: DetailBox[]
+  checkBoxes: CheckBox[]
+  numberBoxes: NumberBox[]
+  textBoxes: TextBox[]
+  selectBoxes: SelectBox[]
+  keyboardBoxes: KeyboardBox[]
+  colorBoxes: ColorBox[]
+  customBoxes: CustomBox[]
   updateEventEnabled: boolean
   windowLocalize: (event: IMouseKeyboardEvent) => any
   scriptChange: (event: IMouseKeyboardEvent) => any

@@ -11,7 +11,6 @@ import {
   Menu,
   Window,
   Clipboard,
-  IArray,
   IObject
 } from "../yami"
 
@@ -550,7 +549,7 @@ Variable.listPopup = function (event) {
   const undoable = Variable.history.canUndo()
   const redoable = Variable.history.canRedo()
   const get = Local.createGetter('menuVariableList')
-  let items = IArray.empty()
+  let items = Array.empty()
   if (copyable) {
     items = [{
       label: `ID: ${item.id}`,

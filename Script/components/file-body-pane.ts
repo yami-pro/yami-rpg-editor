@@ -3,7 +3,7 @@
 import {
   Menu,
   TextBox,
-  browserLinks,
+  Browser_links,
   FileBrowser,
   FileHeadPane,
   FileNavPane,
@@ -21,26 +21,43 @@ import {
   ICSS,
   IMath,
   IHTMLElement,
-  IArray,
-  IFunction
+  IFunction,
+  IMouseKeyboardEvent
 } from "../yami"
 
 // ******************************** 文件主体面板 ********************************
 
-class FileBodyPane extends IHTMLElement {
+class  HTMLPropsElement extends IHTMLElement {
+  element: HTMLPropsElement
+  itemSize: number
+  visibleLines: number
+  normalCountPerLine: number
+  scrollCountPerLine: number
+  scrollCount: number
+  countPerLine: number
+  changed: boolean
+  file: FolderItem | FileItem
+  context: FileBodyPane
+  fileIcon: HTMLPropsElement
+  nameBox: IHTMLElement
+
+  isImageChanged: () => boolean
+}
+
+class FileBodyPane extends HTMLPropsElement {
   viewIndex: number | null
   viewMode: string | null
   timer: Timer
-  elements: IArray<IHTMLElement>
-  selections: IArray<IHTMLElement>
-  content: IHTMLElement
-  pressing: ((event: any) => void) | null
+  elements: IHTMLElement[]
+  selections: (FolderItem | FileItem)[]
+  content: HTMLPropsElement
+  pressing: ((event: IMouseKeyboardEvent) => void) | null
   openEventEnabled: boolean
   selectEventEnabled: boolean
   unselectEventEnabled: boolean
   popupEventEnabled: boolean
   textBox: TextBox
-  links: browserLinks
+  links: Browser_links
 
   constructor() {
     super()
@@ -54,7 +71,7 @@ class FileBodyPane extends IHTMLElement {
         if (files.length === 1) {
           const file = files[0]
           const target = timer.target
-          const context = file.getContext(this)
+          const context = <FileBodyPane>file.getContext(this)
           const element = context.element
           if (element.contains(target)) {
             this.rename(file)
@@ -70,13 +87,13 @@ class FileBodyPane extends IHTMLElement {
     this.viewIndex = null
     this.viewMode = null
     this.timer = timer
-    this.elements = IArray.empty()
+    this.elements = Array.empty()
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1
     this.elements.end = -1
-    this.selections = IArray.empty()
-    this.content = document.createElement('file-body-content')
+    this.selections = Array.empty()
+    this.content = <HTMLPropsElement>document.createElement('file-body-content')
     this.content.tabIndex = 0
     this.content.range = new Uint32Array(2)
     this.pressing = null
@@ -91,7 +108,7 @@ class FileBodyPane extends IHTMLElement {
     // 设置内容元素属性访问器
     const {elements} = this
     Object.defineProperty(this.content, 'countPerLine', {
-      get: function () {
+      get: function (this: FileBodyPane) {
         return elements.count < this.scrollCount
         ? this.normalCountPerLine
         : this.scrollCountPerLine
@@ -155,12 +172,12 @@ class FileBodyPane extends IHTMLElement {
     if (!filters) {
       let length = 0
       for (const folder of folders) {
-        length += folder.children.length
+        length += (<FolderItem>folder).children.length
       }
       let i = 0
       const items = new Array(length)
       for (const folder of folders) {
-        for (const item of folder.children) {
+        for (const item of (<FolderItem>folder).children) {
           items[i++] = item
         }
       }
@@ -168,7 +185,8 @@ class FileBodyPane extends IHTMLElement {
     }
     const items = []
     for (const folder of folders) {
-      for (const item of folder.children) {
+      for (const item of (<FolderItem>folder).children) {
+        // FileItem 没有children属性 use instanceof?
         if (item instanceof FolderItem ||
           filters.includes(item.type)) {
           items.push(item)
@@ -382,7 +400,7 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 在重新调整时更新
-  updateOnResize(element: IHTMLElement) {
+  updateOnResize(element: HTMLPropsElement) {
     if (element.changed) {
       element.changed = false
       const {file} = element
@@ -398,7 +416,7 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 创建扁平排列的项目
-  createFlatItems(dir) {
+  createFlatItems(dir: (FileItem | FolderItem)[]) {
     Directory.sortFiles(dir)
     const elements = this.elements
     const length = dir.length
@@ -418,12 +436,12 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 创建文件夹元素
-  createFolderElement(file) {
-    const context = file.getContext(this)
+  createFolderElement(file: FolderItem) {
+    const context = <FileBodyPane>file.getContext(this)
     let element = context.element
     if (element === undefined) {
       // 创建文件夹
-      element = document.createElement('file-body-item')
+      element = <HTMLPropsElement>document.createElement('file-body-item')
       element.file = file
       element.context = context
       context.element = element
@@ -440,7 +458,7 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 更新文件夹元素
-  updateFolderElement(element: IHTMLElement) {
+  updateFolderElement(element: HTMLPropsElement) {
     if (!element.nameBox) {
       // 创建文件夹图标
       const fileIcon = document.createElement('file-body-icon')
@@ -460,12 +478,12 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 创建文件元素
-  createFileElement(file) {
-    const context = file.getContext(this)
+  createFileElement(file: FileItem) {
+    const context = <FileBodyPane>file.getContext(this)
     let element = context.element
     if (element === undefined) {
       // 创建文件
-      element = document.createElement('file-body-item')
+      element = <HTMLPropsElement>document.createElement('file-body-item')
       element.file = file
       element.context = context
       context.element = element
@@ -475,7 +493,7 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 更新文件元素
-  updateFileElement(element: IHTMLElement) {
+  updateFileElement(element: HTMLPropsElement) {
     const {file} = element
     if (!element.nameBox) {
       // 创建文件图标
@@ -484,7 +502,9 @@ class FileBodyPane extends IHTMLElement {
 
       // 创建名字输入框
       const nameBox = document.createElement('file-body-name')
-      nameBox.textContent = file.basename
+      if (file instanceof FileItem) {
+        nameBox.textContent = file.basename
+      }
       element.appendChild(nameBox)
 
       // 设置元素属性
@@ -507,7 +527,7 @@ class FileBodyPane extends IHTMLElement {
 
   // 创建图标
   createIcon(file) {
-    const icon = document.createElement('file-body-icon')
+    const icon = <HTMLPropsElement>document.createElement('file-body-icon')
     switch (file.type) {
       case 'actor': {
         const data = file.data
@@ -608,7 +628,7 @@ class FileBodyPane extends IHTMLElement {
         icon.textContent = file.extname.slice(1)
         break
     }
-    return <IHTMLElement>icon
+    return icon
   }
 
   // 更新图标
@@ -662,7 +682,7 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 选择项目
-  select(...files) {
+  select(...files: (FolderItem | FileItem)[]) {
     this.unselect()
     this.selections = files
     for (const file of files) {
@@ -1244,11 +1264,11 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event) {
+  pointerdown(this: FileBodyPane, event: IMouseKeyboardEvent) {
     this.cancelRenaming()
     switch (event.button) {
       case 0: case 2: {
-        let element = event.target
+        let element = <HTMLPropsElement>event.target
         if (element === this.content) {
           element = this
         }
@@ -1260,7 +1280,7 @@ class FileBodyPane extends IHTMLElement {
         } else {
           if (element.tagName === 'FILE-BODY-ICON' ||
             element.tagName === 'FILE-BODY-NAME') {
-            element = element.parentNode
+            element = <HTMLPropsElement>element.parentNode
           }
           if (element.tagName === 'FILE-BODY-ITEM') {
             const selections = this.selections
@@ -1269,7 +1289,7 @@ class FileBodyPane extends IHTMLElement {
               const elements = this.elements
               const files = Array.from(selections)
               for (let i = length - 1; i >= 0; i--) {
-                const {element} = files[i].getContext(this)
+                const {element} = <HTMLPropsElement>files[i].getContext(this)
                 if (!elements.includes(element)) {
                   files.splice(i, 1)
                 }
@@ -1347,7 +1367,7 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 指针弹起事件
-  pointerup(event) {
+  pointerup(event: IMouseKeyboardEvent) {
     switch (event.button) {
       case 0:
         if (document.activeElement === this.content &&
@@ -1360,7 +1380,7 @@ class FileBodyPane extends IHTMLElement {
       case 2:
         if (document.activeElement === this.content &&
           this.popupEventEnabled) {
-          const popup = new Event('popup')
+          const popup = <IMouseKeyboardEvent>new Event('popup')
           popup.raw = event
           popup.clientX = event.clientX
           popup.clientY = event.clientY
@@ -1371,11 +1391,11 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 鼠标双击事件
-  doubleclick(event) {
-    let element = event.target
+  doubleclick(event: IMouseKeyboardEvent) {
+    let element = <HTMLPropsElement>event.target
     if (element.tagName === 'FILE-BODY-ICON' ||
       element.tagName === 'FILE-BODY-NAME') {
-      element = element.parentNode
+      element = <HTMLPropsElement>element.parentNode
     }
     if (element.tagName === 'FILE-BODY-ITEM') {
       // 阻止打开文件夹时目标元素消失导致列表失去焦点
@@ -1386,14 +1406,17 @@ class FileBodyPane extends IHTMLElement {
   }
 
   // 鼠标滚轮事件
-  wheel(event) {
+  wheel(event: IMouseKeyboardEvent) {
     const {deltaY} = event
     if (deltaY !== 0) {
       if (event.cmdOrCtrlKey) {
         event.preventDefault()
         const index = this.viewIndex
         const delta = IMath.sign(-deltaY)
-        return this.setViewIndex(index + delta)
+        if (index !== null) {
+          // wheel 方法返回值是void?
+          return this.setViewIndex(index + delta)
+        }
       }
       if (this.viewMode === 'list' &&
         this.clientWidth < this.scrollWidth) {
@@ -1421,14 +1444,14 @@ class FileBodyPane extends IHTMLElement {
     textBox.input.addClass('file-body-text-box-input')
 
     // 键盘按下事件
-    textBox.on('keydown', function (event) {
+    textBox.on('keydown', function (this: FileBodyPane, event: IMouseKeyboardEvent) {
       event.stopPropagation()
       switch (event.code) {
         case 'Enter':
         case 'NumpadEnter':
         case 'Escape': {
           const item = this.parentNode
-          const content = item.parentNode
+          const content = <HTMLPropsElement>item?.parentNode
           this.input.blur()
           content.focus()
           break
@@ -1461,8 +1484,8 @@ class FileBodyPane extends IHTMLElement {
     })
 
     // 失去焦点事件
-    textBox.on('blur', function (event) {
-      const item = this.parentNode
+    textBox.on('blur', function (this: FileBodyPane, event: IMouseKeyboardEvent) {
+      const item = <HTMLPropsElement>this.parentNode
       const file = item.file
       const name = this.read().trim()
       let filename = name

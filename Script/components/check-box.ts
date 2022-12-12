@@ -19,7 +19,7 @@ class CheckBox extends IHTMLElement {
 
     // 设置属性
     this.dataValue = false
-    this.relations = []
+    this.relations = Array.empty()
     this.writeEventEnabled = false
     this.inputEventEnabled = false
 

@@ -5,28 +5,27 @@ import {
   FileItem,
   FSP,
   Meta,
-  Path,
-  IArray
+  Path
 } from "../yami"
 
 // ******************************** 文件夹项目 ********************************
 
 class FolderItem {
-  name        //:string
-  path        //:string
+  name: string
+  path: string
   stats       //:object
   parent      //:object
-  children    //:array
-  subfolders  //:array
-  contexts    //:object
+  children: (FolderItem | FileItem)[]
+  subfolders: FolderItem[]
+  contexts: Map<string, object> | null
 
   constructor(name, path, parent) {
     this.name = name
     this.path = path
     this.stats = null
     this.parent = parent
-    this.children = IArray.empty()
-    this.subfolders = IArray.empty()
+    this.children = Array.empty()
+    this.subfolders = Array.empty()
     this.contexts = null
   }
 
