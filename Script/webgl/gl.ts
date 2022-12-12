@@ -8,7 +8,6 @@ import {
   Matrix,
   Texture,
   TextureManager,
-  IHTMLImageElement,
   ImageTexture,
   IEvent
 } from "../yami"
@@ -85,7 +84,7 @@ interface IGL {
   createContext2D(): ICanvasRenderingContext2D
   fillTextWithOutline: (text: string, x: number, y: number, color: number, shadow: number) => void
   createNormalTexture(options: {magFilter?: number, minFilter?: number, format?: number}): BaseTexture | null
-  createImageTexture(image: IHTMLImageElement, options: {magFilter?: number, minFilter?: number}): ImageTexture | null
+  createImageTexture(image: HTMLImageElement, options: {magFilter?: number, minFilter?: number}): ImageTexture | null
   createTextureFBO(texture: Texture): WebGLFramebuffer | null
 
   WEBGL_lose_context: WEBGL_lose_context
@@ -2087,7 +2086,7 @@ GL.createNormalTexture = function (options = {}) {
 }
 
 // WebGL上下文方法 - 创建图像纹理
-GL.createImageTexture = function (image: IHTMLImageElement, options = {}) {
+GL.createImageTexture = function (image: HTMLImageElement, options = {}) {
   const magFilter = options.magFilter ?? this.NEAREST
   const minFilter = options.minFilter ?? this.LINEAR
   const guid = image instanceof Image ? image.guid : image
@@ -2104,7 +2103,7 @@ GL.createImageTexture = function (image: IHTMLImageElement, options = {}) {
     texture.minFilter = minFilter
     manager.append(texture)
     manager.images[guid] = texture
-    const initialize = (image: IHTMLImageElement) => {
+    const initialize = (image: HTMLImageElement) => {
       if (manager.images[guid] === texture && image) {
         texture.image = image
         texture.width = image.naturalWidth

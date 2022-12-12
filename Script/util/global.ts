@@ -2,8 +2,6 @@
 
 import {
   EventTarget_ext,
-  IHTMLCanvasElement,
-  IHTMLInputElement,
   CheckBox,
   ColorBox,
   CommandList,
@@ -102,7 +100,7 @@ import {
 interface HTMLElementTagNameMap_ext {
   "anim-dir": HTMLElement
   "box": HTMLElement
-  "canvas": IHTMLCanvasElement
+  // "canvas": HTMLCanvasElement
   "check-mark": HTMLElement
   "command-item": HTMLElement
   "command-mark-major": HTMLElement
@@ -128,7 +126,7 @@ interface HTMLElementTagNameMap_ext {
   "group-border": HTMLElement
   "group-info": HTMLElement
   "group-region": HTMLElement
-  "input": IHTMLInputElement
+  // "input": HTMLInputElement
   "item": HTMLElement
   "lock-icon": HTMLElement
   "menu-accelerator": HTMLElement

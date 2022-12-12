@@ -3,14 +3,13 @@
 import {
   measureText,
   NumberHistory,
-  IMath,
-  IHTMLInputElement
+  IMath
 } from "../yami"
 
 // ******************************** 数字框 ********************************
 
 class NumberBox extends HTMLElement {
-  input: IHTMLInputElement
+  input: HTMLInputElement
   decimals: number
   focusEventEnabled: boolean
   blurEventEnabled: boolean

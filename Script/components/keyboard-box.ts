@@ -1,11 +1,9 @@
 "use strict"
 
-import { IHTMLInputElement } from "../yami"
-
 // ******************************** 键盘按键框 ********************************
 
 class KeyboardBox extends HTMLElement {
-  input: IHTMLInputElement
+  input: HTMLInputElement
   dataValue: number
   inputEventEnabled: boolean
   focusEventEnabled: boolean
