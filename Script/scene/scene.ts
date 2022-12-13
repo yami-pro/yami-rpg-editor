@@ -1519,7 +1519,7 @@ Scene.updateTargetInfo = function () {
       default: {
         const marquee = this.marquee
         const event = marquee.pointerevent
-        if (event instanceof PointerEvent) {
+        if (event instanceof Event) {
           const {x, y} = this.getTileCoords(event, true)
           const sw = this.width
           const sh = this.height

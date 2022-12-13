@@ -1,14 +1,11 @@
 "use strict"
 
-import {
-  Window,
-  MouseKeyboardEvent
-} from "../yami"
+import { Window } from "../yami"
 
 // ******************************** 标题栏 ********************************
 
 class TitleBar extends HTMLElement {
-  dragging: MouseKeyboardEvent
+  dragging: Event
 
   constructor() {
     super()

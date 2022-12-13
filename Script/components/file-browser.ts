@@ -10,8 +10,7 @@ import {
   FileItem,
   FolderItem,
   Path,
-  Local,
-  MouseKeyboardEvent
+  Local
 } from "../yami"
 
 // ******************************** 文件浏览器 ********************************
@@ -21,7 +20,7 @@ type Browser_links_t = {[index: string]: FileBrowser | FileNavPane | FileHeadPan
 class FileBrowser extends HTMLElement {
   display: string
   directory: HTMLElement[] | null
-  dragging: MouseKeyboardEvent | null
+  dragging: Event | null
   filters: string[] | null
   backupFolders: HTMLElement[]
   searchResults: (FileItem | FolderItem)[]
@@ -154,7 +153,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 目录改变事件
-  dirchange(event: MouseKeyboardEvent) {
+  dirchange(event) {
     switch (this.display) {
       case 'normal':
         break
@@ -201,7 +200,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 获取活动页面
-  getActivePage(event: MouseKeyboardEvent) {
+  getActivePage(event) {
     const {nav, body} = this
     return nav.contains(<Node>event.target)  ? nav
          : body.contains(<Node>event.target) ? body
@@ -209,7 +208,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event: MouseKeyboardEvent) {
+  pointerdown(event) {
     // 如果丢失dragend事件, 手动结束
     switch (this.dragging?.mode) {
       case 'drag': return this.dragend()
@@ -218,7 +217,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽开始事件
-  dragstart(event: MouseKeyboardEvent) {
+  dragstart(event) {
     const page = this.getActivePage(event)
     if (page && !this.dragging) {
       if (page.pressing) {
@@ -279,7 +278,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽离开事件
-  dragleave(event: MouseKeyboardEvent) {
+  dragleave(event) {
     const {dragging} = this
     if (dragging?.dropTarget &&
       !this.contains(<Node>event.relatedTarget)) {
@@ -289,7 +288,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽悬停事件
-  dragover(event: MouseKeyboardEvent) {
+  dragover(event) {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
@@ -363,7 +362,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 拖拽释放事件
-  drop(event: MouseKeyboardEvent) {
+  drop(event) {
     const {dragging} = this
     if (dragging) {
       event.stopPropagation()
@@ -414,7 +413,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽开始事件
-  osDragstart(event: MouseKeyboardEvent) {
+  osDragstart(event) {
     if (!this.dragging) {
       this.dragging = event
       event.mode = 'os-drag'
@@ -428,7 +427,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽结束事件
-  osDragend(event?: MouseKeyboardEvent) {
+  osDragend(event?) {
     if (this.dragging) {
       const {dropTarget} = this.dragging
       if (dropTarget instanceof HTMLElement) {
@@ -443,12 +442,12 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽离开事件
-  osDragleave(event: MouseKeyboardEvent) {
+  osDragleave(event) {
     return this.dragleave(event)
   }
 
   // 操作系统 - 拖拽悬停事件
-  osDragover(event: MouseKeyboardEvent) {
+  osDragover(event) {
     const {dragging} = this
     if (dragging) {
       const {dropTarget} = dragging
@@ -488,7 +487,7 @@ class FileBrowser extends HTMLElement {
   }
 
   // 操作系统 - 拖拽释放事件
-  osDrop(event: MouseKeyboardEvent) {
+  osDrop(event) {
     const {files} = event.dataTransfer
     if (files.length === 0) {
       return

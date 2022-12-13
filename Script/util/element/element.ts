@@ -3,7 +3,7 @@
 // ******************************** 按钮扩展 ********************************
 
 interface Element_ext {
-  isInContent(event: MouseEvent): boolean
+  isInContent(event: Event): boolean
 }
 
 // 元素方法 - 判断事件坐标在内容区域上

@@ -1,21 +1,18 @@
 "use strict"
 
-import {
-  Title,
-  MouseKeyboardEvent
-} from "../yami"
+import { Title } from "../yami"
 
 // ******************************** 标签栏 ********************************
 
 class TabBar extends HTMLElement {
   data: HTMLElement[]
-  dragging: MouseKeyboardEvent
+  dragging: Event
   selectionIndex: number
   writeEventEnabled: boolean
   selectEventEnabled: boolean
   closedEventEnabled: boolean
   popupEventEnabled: boolean
-  windowPointerup: (event: MouseKeyboardEvent) => void
+  windowPointerup: (event: Event) => void
 
   constructor() {
     super()

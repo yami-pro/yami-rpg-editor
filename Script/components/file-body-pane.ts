@@ -17,8 +17,7 @@ import {
   Editor,
   Local,
   Window,
-  Timer,
-  MouseKeyboardEvent
+  Timer
 } from "../yami"
 
 // ******************************** 文件主体面板 ********************************
@@ -47,7 +46,7 @@ class FileBodyPane extends HTMLElement {
   elements: (HTMLElement & FileBodyPaneProps)[]
   selections: (FolderItem | FileItem)[]
   content: HTMLElement & FileBodyPaneProps
-  pressing: ((event: MouseKeyboardEvent) => void) | null
+  pressing: ((event: Event) => void) | null
   openEventEnabled: boolean
   selectEventEnabled: boolean
   unselectEventEnabled: boolean
@@ -67,7 +66,7 @@ class FileBodyPane extends HTMLElement {
         if (files.length === 1) {
           const file = files[0]
           const target = timer.target
-          const context = <FileBodyPane & FileBodyPaneProps>file.getContext(this)
+          const context = file.getContext(this)
           const element = context.element
           if (element.contains(target)) {
             this.rename(file)
@@ -433,7 +432,7 @@ class FileBodyPane extends HTMLElement {
 
   // 创建文件夹元素
   createFolderElement(file: FolderItem) {
-    const context = <FileBodyPane & FileBodyPaneProps>file.getContext(this)
+    const context = file.getContext(this)
     let element = context.element
     if (element === undefined) {
       // 创建文件夹
@@ -475,7 +474,7 @@ class FileBodyPane extends HTMLElement {
 
   // 创建文件元素
   createFileElement(file: FileItem) {
-    const context = <FileBodyPane & FileBodyPaneProps>file.getContext(this)
+    const context = file.getContext(this)
     let element = context.element
     if (element === undefined) {
       // 创建文件
@@ -522,7 +521,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 创建图标
-  createIcon(file) {
+  createIcon(file: FileItem) {
     const icon = document.createElement('file-body-icon')
     switch (file.type) {
       case 'actor': {
@@ -628,7 +627,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 更新图标
-  updateIcon(file) {
+  updateIcon(file: FileItem) {
     const {element} = file.getContext(this)
     if (element?.fileIcon) {
       const icon = this.createIcon(file)
@@ -1156,7 +1155,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: MouseKeyboardEvent) {
+  keydown(event) {
     if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
@@ -1260,7 +1259,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(this: FileBodyPane, event: MouseKeyboardEvent) {
+  pointerdown(this: FileBodyPane, event) {
     this.cancelRenaming()
     switch (event.button) {
       case 0: case 2: {
@@ -1330,7 +1329,7 @@ class FileBodyPane extends HTMLElement {
               this.select(element.file)
             } else if (event.button === 0) {
               if (length > 1) {
-                const pointerup = event => {
+                const pointerup = (event) => {
                   if (this.pressing === pointerup) {
                     this.pressing = null
                     if (element.contains(event.target)) {
@@ -1363,7 +1362,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 指针弹起事件
-  pointerup(event: MouseKeyboardEvent) {
+  pointerup(event) {
     switch (event.button) {
       case 0:
         if (document.activeElement === this.content &&
@@ -1376,7 +1375,7 @@ class FileBodyPane extends HTMLElement {
       case 2:
         if (document.activeElement === this.content &&
           this.popupEventEnabled) {
-          const popup = <MouseKeyboardEvent>new Event('popup')
+          const popup = new Event('popup')
           popup.raw = event
           popup.clientX = event.clientX
           popup.clientY = event.clientY
@@ -1387,7 +1386,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 鼠标双击事件
-  doubleclick(event: MouseKeyboardEvent) {
+  doubleclick(event) {
     let element = event.target
     if (element.tagName === 'FILE-BODY-ICON' ||
       element.tagName === 'FILE-BODY-NAME') {
@@ -1402,7 +1401,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 鼠标滚轮事件
-  wheel(event: MouseKeyboardEvent) {
+  wheel(event) {
     const {deltaY} = event
     if (deltaY !== 0) {
       if (event.cmdOrCtrlKey) {
@@ -1440,7 +1439,7 @@ class FileBodyPane extends HTMLElement {
     textBox.input.addClass('file-body-text-box-input')
 
     // 键盘按下事件
-    textBox.on('keydown', function (this: FileBodyPane, event: MouseKeyboardEvent) {
+    textBox.on('keydown', function (this: FileBodyPane, event) {
       event.stopPropagation()
       switch (event.code) {
         case 'Enter':
@@ -1456,7 +1455,7 @@ class FileBodyPane extends HTMLElement {
     })
 
     // 输入前事件
-    textBox.on('beforeinput', function (event: MouseKeyboardEvent) {
+    textBox.on('beforeinput', function (event) {
       if (event.inputType === 'insertText' &&
         typeof event.data === 'string') {
         const regexp = /[\\/:*?"<>|"]/
@@ -1468,19 +1467,19 @@ class FileBodyPane extends HTMLElement {
     })
 
     // 输入事件
-    textBox.on('input', function (event: MouseKeyboardEvent) {
+    textBox.on('input', function (event) {
       if (this.style.width !== '') {
         this.fitContent()
       }
     })
 
     // 选择事件
-    textBox.on('select', function (event: MouseKeyboardEvent) {
+    textBox.on('select', function (event) {
       event.stopPropagation()
     })
 
     // 失去焦点事件
-    textBox.on('blur', function (this: FileBodyPane, event: MouseKeyboardEvent) {
+    textBox.on('blur', function (this: FileBodyPane, event) {
       const item = this.parentNode
       const file = item.file
       const name = this.read().trim()

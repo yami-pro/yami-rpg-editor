@@ -93,11 +93,6 @@ import {
   HTMLInputElement_ext,
   DataTransfer_ext,
   Event_ext,
-  KeyboardEvent_ext,
-  MouseEvent_ext,
-  PointerEvent_ext,
-  UIEvent_ext,
-  WheelEvent_ext,
   Navigator_ext,
   FunctionConstructor_ext,
   Math_ext,
@@ -403,21 +398,6 @@ declare global {
 
   // Event 扩展
   interface Event extends Event_ext {}
-
-  // KeyboardEvent 扩展
-  interface KeyboardEvent extends KeyboardEvent_ext {}
-
-  // MouseEvent 扩展
-  interface MouseEvent extends MouseEvent_ext {}
-
-  // PointerEvent 扩展
-  interface PointerEvent extends PointerEvent_ext {}
-
-  // UIEvent 扩展
-  interface UIEvent extends UIEvent_ext {}
-
-  // WheelEvent 扩展
-  interface WheelEvent extends WheelEvent_ext {}
 
   // Navigator 扩展
   interface Navigator extends Navigator_ext {}

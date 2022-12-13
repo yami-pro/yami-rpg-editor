@@ -7,7 +7,6 @@ import {
   Commands_data_t,
   ctrl,
   Clipboard,
-  MouseKeyboardEvent,
   Command,
   CommandHistory,
   Local
@@ -26,7 +25,7 @@ class CommandList extends HTMLElement {
   anchor: number | null
   inserting: boolean | null
   focusing: boolean | null
-  dragging: MouseKeyboardEvent | null
+  dragging: Event | null
   windowPointerup: (this: CommandList, event: any) => void
   windowPointermove: (this: CommandList, event: any) => void
   windowVariableChange: (this: CommandList, event: any) => void
@@ -1155,7 +1154,7 @@ class CommandList extends HTMLElement {
   }
 
   // 获得焦点事件
-  listFocus(event: MouseKeyboardEvent) {
+  listFocus(event) {
     if (!this.focusing) {
       this.focusing = true
       this.start !== null
@@ -1165,7 +1164,7 @@ class CommandList extends HTMLElement {
   }
 
   // 失去焦点事件
-  listBlur(event: MouseKeyboardEvent) {
+  listBlur(event) {
     if (this.dragging) {
       this.windowPointerup(this.dragging)
     }
@@ -1186,7 +1185,7 @@ class CommandList extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: MouseKeyboardEvent) {
+  keydown(event) {
     if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'KeyX':
@@ -1322,7 +1321,7 @@ class CommandList extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event: MouseKeyboardEvent) {
+  pointerdown(event) {
     if (this.dragging) {
       return
     }
@@ -1385,7 +1384,7 @@ class CommandList extends HTMLElement {
   }
 
   // 指针弹起事件
-  pointerup(event: MouseKeyboardEvent) {
+  pointerup(event) {
     if (this.dragging) {
       return
     }
@@ -1498,7 +1497,7 @@ class CommandList extends HTMLElement {
   }
 
   // 鼠标双击事件
-  doubleclick(event: MouseKeyboardEvent) {
+  doubleclick(event) {
     if (this.start !== null &&
       this.end !== null) {
         const elements = this.elements
@@ -1515,7 +1514,7 @@ class CommandList extends HTMLElement {
   static alphabetCode = /^Key[A-Z]$/
 
   // 窗口 - 指针弹起事件
-  static windowPointerup(this: CommandList, event: MouseKeyboardEvent) {
+  static windowPointerup(this: CommandList, event) {
     const {dragging} = this
     if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
@@ -1530,7 +1529,7 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 指针移动事件
-  static windowPointermove(this: CommandList, event: MouseKeyboardEvent) {
+  static windowPointermove(this: CommandList, event) {
     const {dragging} = this
     if (dragging && dragging.relate(event)) {
       switch (dragging.mode) {
@@ -1556,7 +1555,7 @@ class CommandList extends HTMLElement {
   }
 
   // 窗口 - 变量改变事件
-  static windowVariableChange(this: CommandList, event: MouseKeyboardEvent) {
+  static windowVariableChange(this: CommandList, event) {
     this.childNodes.forEach(element => {
       const {updaters} = element
       if (updaters !== undefined) {

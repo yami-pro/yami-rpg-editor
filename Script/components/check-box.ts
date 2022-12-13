@@ -1,9 +1,5 @@
 "use strict"
 
-import {
-  MouseKeyboardEvent
-} from "../yami"
-
 // ******************************** 复选框 ********************************
 
 class CheckBox extends HTMLElement {
@@ -121,7 +117,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: MouseKeyboardEvent) {
+  keydown(event) {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
@@ -135,7 +131,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(event: MouseKeyboardEvent) {
+  pointerdown(event) {
     switch (event.button) {
       case 0:
         if (document.activeElement !== document.body) {
@@ -147,7 +143,7 @@ class CheckBox extends HTMLElement {
   }
 
   // 鼠标点击事件
-  mouseclick(event: MouseKeyboardEvent) {
+  mouseclick(event) {
     this.input(!this.read())
   }
 }

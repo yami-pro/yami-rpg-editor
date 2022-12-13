@@ -2,13 +2,12 @@
 
 import {
   Timer,
-  Window,
-  MouseKeyboardEvent
+  Window
 } from "../yami"
 
 // ******************************** 菜单列表 ********************************
 
-type Window_event_func = (event: MouseKeyboardEvent) => void
+type Window_event_func = (event: Event) => void
 
 class MenuList extends HTMLElement {
   state: string

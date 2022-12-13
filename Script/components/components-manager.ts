@@ -30,7 +30,7 @@ ScrollBarManager.addScrollbars = function (element: HTMLElement) {
   vBar.bind(element, 'vertical')
 
   // 鼠标滚轮事件
-  const wheel = (event: MouseEvent) => {
+  const wheel = (event: Event) => {
     element.dispatchEvent(
       new WheelEvent('wheel', event)
     )

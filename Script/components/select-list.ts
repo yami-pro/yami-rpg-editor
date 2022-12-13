@@ -2,13 +2,12 @@
 
 import {
   CommonList,
-  Window,
-  MouseKeyboardEvent
+  Window
 } from "../yami"
 
 // ******************************** 选择列表 ********************************
 
-type Window_event_func = (event: MouseKeyboardEvent) => void
+type Window_event_func = (event: Event) => void
 
 class SelectList extends HTMLElement {
   state: string

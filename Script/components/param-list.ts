@@ -8,8 +8,7 @@ import {
   Menu,
   ParamHistory,
   WindowFrame,
-  Clipboard,
-  MouseKeyboardEvent
+  Clipboard
 } from "../yami"
 
 // ******************************** 参数列表 ********************************
@@ -27,11 +26,11 @@ class ParamList extends HTMLElement {
   flexible: boolean
   inserting: boolean
   focusing: boolean
-  dragging: MouseKeyboardEvent
+  dragging: Event
   history: HTMLElement
   toggleable: boolean
-  windowPointerup: (event: MouseKeyboardEvent) => void
-  windowPointermove: (event: MouseKeyboardEvent) => void
+  windowPointerup: (event: Event) => void
+  windowPointermove: (event: Event) => void
 
   constructor() {
     super()

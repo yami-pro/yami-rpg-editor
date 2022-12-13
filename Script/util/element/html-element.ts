@@ -23,7 +23,7 @@ interface HTMLElement_scroll_ext {
 }
 
 interface HTMLElement_ext extends Element_ext {
-  dragging: PointerEvent | null
+  dragging: Event | null
   dataValue: any
 
   _padding: number
@@ -57,7 +57,7 @@ interface HTMLElement_ext extends Element_ext {
   dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
-  listenDraggingScrollbarEvent: (pointerdown?: (event: PointerEvent) => void, options?: any) => void
+  listenDraggingScrollbarEvent: (pointerdown?: (event: Event) => void, options?: any) => void
 
   beginScrolling(): void
   endScrolling(): void
@@ -66,8 +66,8 @@ interface HTMLElement_ext extends Element_ext {
   setScrollTop(top: number):void
   updateScrollbars(): void
 
-  scrollPointerup(this: HTMLElement, event: PointerEvent): void
-  scrollPointermove(this: HTMLElement, event: PointerEvent): void
+  scrollPointerup(this: HTMLElement, event: Event): void
+  scrollPointermove(this: HTMLElement, event: Event): void
 }
 
 // ******************************** 元素扩展 ********************************
@@ -228,7 +228,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: HTMLElement, event: MouseEvent) {
+  const pointermove = function (this: HTMLElement, event: Event) {
     // 两个重叠元素时执行最上层的那个
     if (timeStamp === event.timeStamp) {
       return
@@ -276,7 +276,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
   }
 
   // 指针离开事件
-  const pointerleave = function (event: MouseEvent) {
+  const pointerleave = function (event: Event) {
     target = null
     close()
   }
@@ -360,7 +360,7 @@ HTMLElement.prototype.dispatchUpdateEvent = function IIFE() {
 // 元素方法 - 侦听拖拽滚动条事件
 HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   // 默认指针按下事件
-  const defaultPointerdown = function (this: HTMLElement, event: PointerEvent) {
+  const defaultPointerdown = function (this: HTMLElement, event: Event) {
     if (this.dragging) {
       return
     }
@@ -382,7 +382,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针弹起事件
-  const pointerup = function (this: HTMLElement, event: PointerEvent) {
+  const pointerup = function (this: HTMLElement, event: Event) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -397,7 +397,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: HTMLElement, event: PointerEvent) {
+  const pointermove = function (this: HTMLElement, event: Event) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -499,7 +499,7 @@ type scrollUpdaterVar = (() => void) | null
   })
 
   // 指针移动事件
-  const pointermove = (event: PointerEvent) => {
+  const pointermove = (event: Event) => {
     if (!target)
       return
     const dpr = window.devicePixelRatio

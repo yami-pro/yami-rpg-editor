@@ -3,8 +3,7 @@
 import {
   Layout,
   TitleBar,
-  Window,
-  MouseKeyboardEvent
+  Window
 } from "../yami"
 
 // ******************************** 窗口框架 ********************************
@@ -13,7 +12,7 @@ class WindowFrame extends HTMLElement {
   enableAmbient: boolean
   activeElement: HTMLElement
   focusableElements: HTMLElement[]
-  windowResize: (event: MouseKeyboardEvent) => void
+  windowResize: (event: Event) => void
   openEventEnabled: boolean
   closeEventEnabled: boolean
   closedEventEnabled: boolean

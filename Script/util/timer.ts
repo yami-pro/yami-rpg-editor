@@ -1,9 +1,6 @@
 "use strict"
 
-import {
-  MouseKeyboardEvent,
-  Function_empty_t
-} from "../yami"
+import { Function_empty_t } from "../yami"
 
 // ******************************** 声明 ********************************
 
@@ -132,22 +129,22 @@ TimerManager.initialize = function () {
 
   // 监测其他窗口的状态
   // 在最大化时停止播放动画
-  const windowOpen = (event: MouseKeyboardEvent) => {
+  const windowOpen = (event: Event) => {
     const target = event.target
     if (target && target.hasClass('maximized')) {
       this.animationWaiting++
     }
   }
-  const windowClosed = (event: MouseKeyboardEvent) => {
+  const windowClosed = (event: Event) => {
     const target = event.target
     if (target && target.hasClass('maximized')) {
       this.animationWaiting--
     }
   }
-  const windowMaximize = (event: MouseKeyboardEvent) => {
+  const windowMaximize = (event: Event) => {
     this.animationWaiting++
   }
-  const windowUnmaximize = (event: MouseKeyboardEvent) => {
+  const windowUnmaximize = (event: Event) => {
     this.animationWaiting--
   }
   const windows = document.querySelectorAll('#event, #selector, #imageClip')

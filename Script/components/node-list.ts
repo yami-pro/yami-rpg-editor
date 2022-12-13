@@ -4,8 +4,7 @@ import {
   CommonList,
   Menu,
   TextBox,
-  Timer,
-  MouseKeyboardEvent
+  Timer
 } from "../yami"
 
 // ******************************** 树状列表 ********************************
@@ -20,7 +19,7 @@ class TreeList extends HTMLElement {
   root: any
   timer: Timer
   selections: HTMLElement[]
-  dragging: MouseKeyboardEvent
+  dragging: Event
   padded: boolean
   removable: boolean
   renamable: boolean

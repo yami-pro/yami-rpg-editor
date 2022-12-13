@@ -1,9 +1,6 @@
 "use strict"
 
-import {
-  MouseKeyboardEvent,
-  Color
-} from "../yami"
+import { Color } from "../yami"
 
 // ******************************** 颜色框 ********************************
 
@@ -91,7 +88,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: MouseKeyboardEvent) {
+  keydown(event) {
     switch (event.code) {
       case 'Enter':
       case 'NumpadEnter':
@@ -104,7 +101,7 @@ class ColorBox extends HTMLElement {
   }
 
   // 鼠标点击事件
-  mouseclick(event: MouseKeyboardEvent) {
+  mouseclick(event) {
     Color.open(this)
   }
 }
