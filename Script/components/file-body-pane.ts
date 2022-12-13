@@ -102,7 +102,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
     this.elements.count = 0
     this.elements.start = -1
     this.elements.end = -1
-    this.selections = Array.empty()
+    this.selections = []
     this.content = document.createElement('file-body-content')
     this.content.tabIndex = 0
     this.content.range = new Uint32Array(2)

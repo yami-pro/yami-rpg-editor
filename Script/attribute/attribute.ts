@@ -629,8 +629,8 @@ Attribute.listPopup = function (event) {
   const undoable = Attribute.history.canUndo()
   const redoable = Attribute.history.canRedo()
   const get = Local.createGetter('menuAttributeList')
-  let headItems = Array.empty()
-  let footItems = Array.empty()
+  let headItems = []
+  let footItems = []
   if (selected) {
     headItems = [{
       label: `ID: ${item.id}`,

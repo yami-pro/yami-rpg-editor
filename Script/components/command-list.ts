@@ -37,15 +37,15 @@ class CommandList extends HTMLElement {
 
     // 设置属性
     this.tabIndex = 0
-    this.data = Array.empty()
-    this.elements = Array.empty()
+    this.data = []
+    this.elements = []
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1
     this.elements.end = -1
     this.elements.head = null
     this.elements.foot = null
-    this.selections = Array.empty()
+    this.selections = []
     this.selections.count = 0
     this.start = null
     this.end = null
@@ -200,7 +200,7 @@ class CommandList extends HTMLElement {
       let li
       let color
       li = document.createElement('command-item')
-      li.contents = Array.empty()
+      li.contents = []
       li.dataKey = true
       li.dataList = commands
       li.dataItem = command
@@ -229,7 +229,7 @@ class CommandList extends HTMLElement {
         // 换行
         if (content.break !== undefined) {
           li = document.createElement('command-item')
-          li.contents = Array.empty()
+          li.contents = []
           li.dataKey = false
           li.dataList = commands
           li.dataItem = command
@@ -256,7 +256,7 @@ class CommandList extends HTMLElement {
 
           if (i < length) {
             li = document.createElement('command-item')
-            li.contents = Array.empty()
+            li.contents = []
             li.dataKey = false
             li.dataList = commands
             li.dataItem = command
@@ -329,7 +329,7 @@ class CommandList extends HTMLElement {
           // 则创建更新器用来即时更新变量名
           let updaters = element.updaters
           if (updaters === undefined) {
-            updaters = element.updaters = Array.empty()
+            updaters = element.updaters = []
           }
           updaters.push(updater)
           updater.update()
@@ -367,7 +367,7 @@ class CommandList extends HTMLElement {
       blank = document.createElement('command-item')
 
       // 设置元素属性
-      blank.contents = Array.empty()
+      blank.contents = []
       blank.enabled = true
       blank.dataKey = true
       blank.dataList = commands
@@ -1139,7 +1139,7 @@ class CommandList extends HTMLElement {
   clear() {
     this.unselect()
     this.textContent = ''
-    this.data = Array.empty()
+    this.data = []
     this.start = null
     this.end = null
     this.origin = null

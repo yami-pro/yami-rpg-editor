@@ -102,7 +102,7 @@ class Timer {
 const TimerManager = <TimerManager>new Object()
 
 // properties
-TimerManager.timers = Array.empty()
+TimerManager.timers = []
 TimerManager.updaters = {
   stageAnimation: null,
   stageRendering: null,

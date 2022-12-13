@@ -24,8 +24,8 @@ class FolderItem {
     this.path = path
     this.stats = null
     this.parent = parent
-    this.children = Array.empty()
-    this.subfolders = Array.empty()
+    this.children = []
+    this.subfolders = []
     this.contexts = null
   }
 

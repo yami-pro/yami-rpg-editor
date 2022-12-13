@@ -877,7 +877,7 @@ PluginManager.parseMeta = function IIFE() {
           active = owner.value
         }
       }
-      const actives = map[active] ?? Array.empty()
+      const actives = map[active] ?? []
       for (const option of options) {
         const keys = map[option]
         if (keys === undefined) continue

@@ -44,8 +44,8 @@ class FileBrowser extends HTMLElement {
     this.dragging = null
     this.filters = null
     this.keyword = null
-    this.backupFolders = Array.empty()
-    this.searchResults = Array.empty()
+    this.backupFolders = []
+    this.searchResults = []
     this.nav = document.createElement('file-nav-pane')
     this.head = document.createElement('file-head-pane')
     this.body = document.createElement('file-body-pane')
@@ -103,7 +103,7 @@ class FileBrowser extends HTMLElement {
         this.filters,
         this.keyword = keyword,
         this.directory,
-        this.searchResults = Array.empty(),
+        this.searchResults = [],
       )
       this.update()
     } else {
@@ -111,8 +111,8 @@ class FileBrowser extends HTMLElement {
         this.display = 'normal'
         nav.load(...this.backupFolders)
         this.keyword = null
-        this.backupFolders = Array.empty()
-        this.searchResults = Array.empty()
+        this.backupFolders = []
+        this.searchResults = []
       }
     }
   }
@@ -124,8 +124,8 @@ class FileBrowser extends HTMLElement {
         break
       case 'search':
         this.display = 'normal'
-        this.backupFolders = Array.empty()
-        this.searchResults = Array.empty()
+        this.backupFolders = []
+        this.searchResults = []
         this.head.searcher.write('')
         break
     }

@@ -13,7 +13,7 @@ class CheckBox extends HTMLElement {
 
     // 设置属性
     this.dataValue = false
-    this.relations = Array.empty()
+    this.relations = []
     this.writeEventEnabled = false
     this.inputEventEnabled = false
 

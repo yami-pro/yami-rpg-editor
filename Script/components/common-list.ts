@@ -14,7 +14,7 @@ class CommonList extends HTMLElement {
 
     // 设置属性
     this.tabIndex = 0
-    this.elements = Array.empty()
+    this.elements = []
     this.elements.versionId = 0
     this.elements.count = 0
     this.elements.start = -1

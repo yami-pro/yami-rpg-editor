@@ -102,7 +102,7 @@ PresetElement.windowClosed = function (event) {
 // 界面ID - 写入事件
 PresetElement.uiIdWrite = function (event) {
   const ui = Data.ui[event.value]
-  const nodes = ui ? PresetElement.buildNodes(ui.nodes) : Array.empty()
+  const nodes = ui ? PresetElement.buildNodes(ui.nodes) : []
   PresetElement.nodes = nodes
   PresetElement.list.update()
   if (nodes.length !== 0) {

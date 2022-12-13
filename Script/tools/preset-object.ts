@@ -60,7 +60,7 @@ PresetObject.open = function (target) {
   const {searcher, list} = this
   const objects = Scene.objects
   const presetId = target.read() || (Scene.target?.presetId ?? '')
-  const nodes = objects ? PresetObject.buildNodes(objects, target.filter) : Array.empty()
+  const nodes = objects ? PresetObject.buildNodes(objects, target.filter) : []
   this.nodes = nodes
   this.list.update()
   searcher.getFocus()
