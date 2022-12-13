@@ -15,7 +15,7 @@ import {
 
 type rgbColor = {red: number, green: number, blue: number}
 
-interface IGL {
+interface GL_ext {
   contrast: number
   ambient: rgbColor
   flip: number
@@ -24,7 +24,7 @@ interface IGL {
   matrix: Matrix
   width: number
   height: number
-  program: IWebGLProgram | null
+  program: WebGLProgram | null
   binding: WebGLFramebuffer | null
   masking: boolean
   depthTest: boolean
@@ -41,28 +41,28 @@ interface IGL {
   frameBuffer: WebGLFramebuffer | null
   vertexBuffer: WebGLBuffer | null
   elementBuffer: WebGLBuffer | null
-  context2d: ICanvasRenderingContext2D | null
-  imageProgram: IWebGLProgram | null
-  tileProgram: IWebGLProgram | null
-  textProgram: IWebGLProgram | null
-  spriteProgram: IWebGLProgram | null
-  particleProgram: IWebGLProgram | null
-  lightProgram: IWebGLProgram | null
-  graphicProgram: IWebGLProgram | null
-  dashedLineProgram: IWebGLProgram | null
+  context2d: CanvasRenderingContext2D | null
+  imageProgram: WebGLProgram | null
+  tileProgram: WebGLProgram | null
+  textProgram: WebGLProgram | null
+  spriteProgram: WebGLProgram | null
+  particleProgram: WebGLProgram | null
+  lightProgram: WebGLProgram | null
+  graphicProgram: WebGLProgram | null
+  dashedLineProgram: WebGLProgram | null
 
   restore(): void
   initialize(): void
-  createProgramWithShaders(vshader: string, fshader: string): IWebGLProgram | null
+  createProgramWithShaders(vshader: string, fshader: string): WebGLProgram | null
   loadShader(type: number, source: string): WebGLShader | null
-  createImageProgram(): IWebGLProgram | null
-  createTileProgram(): IWebGLProgram | null
-  createTextProgram(): IWebGLProgram | null
-  createSpriteProgram(): IWebGLProgram | null
-  createParticleProgram(): IWebGLProgram | null
-  createLightProgram(): IWebGLProgram | null
-  createGraphicProgram(): IWebGLProgram | null
-  createDashedLineProgram(): IWebGLProgram | null
+  createImageProgram(): WebGLProgram | null
+  createTileProgram(): WebGLProgram | null
+  createTextProgram(): WebGLProgram | null
+  createSpriteProgram(): WebGLProgram | null
+  createParticleProgram(): WebGLProgram | null
+  createLightProgram(): WebGLProgram | null
+  createGraphicProgram(): WebGLProgram | null
+  createDashedLineProgram(): WebGLProgram | null
   reset(): void
   updateMasking(): void
   createBlendingUpdater(): () => void
@@ -80,7 +80,7 @@ interface IGL {
   drawSliceImage(texture: ImageTexture, dx: number, dy: number, dw: number, dh: number, clip: Uint32Array, border: number, tint: Uint8Array): void
   drawText(texture: Texture, dx: number, dy: number, dw: number, dh: number, color: number): void
   fillRect(dx: number, dy: number, dw: number, dh: number, color: number): void
-  createContext2D(): ICanvasRenderingContext2D
+  createContext2D(): CanvasRenderingContext2D | null
   fillTextWithOutline: (text: string, x: number, y: number, color: number, shadow: number) => void
   createNormalTexture(options: {magFilter?: number, minFilter?: number, format?: number}): BaseTexture | null
   createImageTexture(image: HTMLImageElement, options: {magFilter?: number, minFilter?: number}): ImageTexture | null
@@ -92,11 +92,7 @@ interface IGL {
   BACKGROUND_BLUE: number
 }
 
-interface IWebGL2RenderingContext extends WebGL2RenderingContext, IGL {}
-
-interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
-  _bufferData(target: number, size: number, usage: number): void
-  bufferData(...params: any[]): void
+interface WebGLRenderingContext_ext {
   createVertexArray(): WebGLVertexArrayObjectOES
   deleteVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): void
   isVertexArray(arrayObject: WebGLVertexArrayObjectOES | null): boolean
@@ -105,7 +101,7 @@ interface IWebGLRenderingContext extends WebGLRenderingContext, IGL {
   MAX: number
 }
 
-interface ICanvasRenderingContext2D extends CanvasRenderingContext2D {
+interface CanvasRenderingContext2D_ext {
   size: number
   paddingItalic: number
 
@@ -113,8 +109,8 @@ interface ICanvasRenderingContext2D extends CanvasRenderingContext2D {
   drawAndFitImage(image: HTMLCanvasElement, sx: number, sy: number, sw: number, sh: number): void
 }
 
-interface IWebGLProgram extends WebGLProgram {
-  use(): IWebGLProgram
+interface WebGLProgram_ext {
+  use(): WebGLProgram
   alpha: number
   a_Position: number
   a_Color: number
@@ -156,13 +152,13 @@ interface IWebGLProgram extends WebGLProgram {
   a_Distance: number
 }
 
-interface IWebGLVertexArrayObject extends WebGLVertexArrayObject {
+interface WebGLVertexArrayObject_ext {
   a10: WebGLVertexArrayObject | null
 }
 
 // ******************************** WebGL ********************************
 
-const context2DPrototype = <ICanvasRenderingContext2D>CanvasRenderingContext2D.prototype
+const context2DPrototype = CanvasRenderingContext2D.prototype
 
 // 画布上下文方法 - 绘制图像必要时缩小使之包含于画布
 context2DPrototype.drawAndFitImage = function (
@@ -190,7 +186,7 @@ context2DPrototype.drawAndFitImage = function (
   this.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)
 }
 
-let GL: IWebGL2RenderingContext
+let GL: WebGL2RenderingContext
 
 {
   // 创建画布元素
@@ -240,10 +236,13 @@ let GL: IWebGL2RenderingContext
   }
 
   // 优先使用WebGL2(Win10 DirectX11)
-  GL = <IWebGL2RenderingContext>canvas.getContext('webgl2', options)
+  GL = <WebGL2RenderingContext>canvas.getContext('webgl2', options)
   if (GL instanceof WebGL2RenderingContext) {} else {
     // 回退到WebGL1(Win7 DirectX9以及旧移动设备)
-    const GL1 = <IWebGLRenderingContext>canvas.getContext('webgl', options)
+    const GL1 = canvas.getContext('webgl', options)
+    if (GL1 === null) {
+      throw new Error('get webgl context error!')
+    }
 
     // 获取元素索引 32 位无符号整数扩展
     const element_index_uint = GL1.getExtension('OES_element_index_uint')
@@ -265,7 +264,7 @@ let GL: IWebGL2RenderingContext
     }
 
     // 重写更新缓冲数据方法
-    const prototype = <IWebGLRenderingContext>WebGLRenderingContext.prototype
+    const prototype = WebGLRenderingContext.prototype
     prototype._bufferData = prototype.bufferData
     prototype.bufferData = function (target, data, usage, offset, length) {
       if (length !== undefined) {
@@ -277,7 +276,7 @@ let GL: IWebGL2RenderingContext
 
     // 转换到WebGL2
     const GL1_as_obj = <Object>GL1
-    GL = <IWebGL2RenderingContext>GL1_as_obj
+    GL = <WebGL2RenderingContext>GL1_as_obj
   }
 
   // 获取失去上下文扩展
@@ -429,7 +428,7 @@ GL.initialize = function () {
 }
 
 // WebGL上下文方法 - 创建程序对象
-GL.createProgramWithShaders = function (vshader, fshader): IWebGLProgram | null {
+GL.createProgramWithShaders = function (vshader, fshader): WebGLProgram | null {
   const vertexShader = this.loadShader(this.VERTEX_SHADER, vshader)
   const fragmentShader = this.loadShader(this.FRAGMENT_SHADER, fshader)
   if (!vertexShader || !fragmentShader) {
@@ -453,7 +452,7 @@ GL.createProgramWithShaders = function (vshader, fshader): IWebGLProgram | null 
     this.deleteShader(vertexShader)
     return null
   }
-  return <IWebGLProgram>program
+  return program
 }
 
 // WebGL上下文方法 - 加载着色器
@@ -1272,7 +1271,7 @@ GL.createLightProgram = function () {
 
 // WebGL上下文方法 - 创建图形程序
 GL.createGraphicProgram = function () {
-  const program = <IWebGLProgram>this.createProgramWithShaders(
+  const program = this.createProgramWithShaders(
     `
     attribute   vec2        a_Position;
     attribute   vec4        a_Color;
@@ -1308,7 +1307,7 @@ GL.createGraphicProgram = function () {
     const u_Alpha = this.getUniformLocation(program, 'u_Alpha')
 
     // 创建顶点数组对象
-    const vao = <IWebGLVertexArrayObject>this.createVertexArray()
+    const vao = this.createVertexArray()
     this.bindVertexArray(vao)
     this.enableVertexAttribArray(a_Position)
     this.enableVertexAttribArray(a_Color)
@@ -1710,7 +1709,7 @@ GL.resize = function (width, height) {
 // WebGL上下文方法 - 绘制图像
 GL.drawImage = function IIFE() {
   const defTint = new Uint8Array(4)
-  return function (this: IWebGL2RenderingContext, texture, dx, dy, dw, dh, tint = defTint) {
+  return function (this: WebGL2RenderingContext, texture, dx, dy, dw, dh, tint = defTint) {
     if (!texture.complete)
       return
 
@@ -1953,7 +1952,7 @@ GL.createContext2D = function () {
   const canvas = document.createElement('canvas')
   canvas.width = 0
   canvas.height = 0
-  const context = <ICanvasRenderingContext2D>canvas.getContext('2d')
+  const context = canvas.getContext('2d')
 
   if (context !== null) {
     // 扩展方法 - 调整画布大小
@@ -1984,7 +1983,7 @@ GL.fillTextWithOutline = function IIFE() {
     {ox:  0, oy:  1, rgba: 0},
     {ox:  0, oy:  0, rgba: 0},
   ]
-  return function (this: IWebGL2RenderingContext, text, x, y, color, shadow) {
+  return function (this: WebGL2RenderingContext, text, x, y, color, shadow) {
     const context = this.context2d
     if (!context)
       return
@@ -2169,5 +2168,9 @@ GL.initialize()
 
 export {
   GL,
-  ICanvasRenderingContext2D
+  GL_ext,
+  WebGLRenderingContext_ext,
+  CanvasRenderingContext2D_ext,
+  WebGLProgram_ext,
+  WebGLVertexArrayObject_ext
 }

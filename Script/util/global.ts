@@ -102,7 +102,12 @@ import {
   StringConstructor_ext,
   Node_ext,
   NodeList_ext,
-  FileBodyPaneProps
+  FileBodyPaneProps,
+  GL_ext,
+  WebGLRenderingContext_ext,
+  CanvasRenderingContext2D_ext,
+  WebGLProgram_ext,
+  WebGLVertexArrayObject_ext
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
@@ -425,6 +430,24 @@ declare global {
 
   // NodeList 扩展
   interface NodeList extends NodeList_ext {}
+
+  // WebGL2RenderingContext 扩展
+  interface WebGL2RenderingContext extends GL_ext {}
+
+  // WebGLRenderingContext 扩展
+  interface WebGLRenderingContext extends WebGLRenderingContext_ext, GL_ext {
+    _bufferData(target: number, size: number, usage: number): void
+    bufferData(...params: any[]): void
+  }
+
+  // CanvasRenderingContext2D 扩展
+  interface CanvasRenderingContext2D extends CanvasRenderingContext2D_ext {}
+
+  // WebGLProgram 扩展
+  interface WebGLProgram extends WebGLProgram_ext {}
+
+  // WebGLVertexArrayObject 扩展
+  interface WebGLVertexArrayObject extends WebGLVertexArrayObject_ext {}
 
   // Document 扩展
   interface Document {
