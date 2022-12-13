@@ -50,7 +50,7 @@ class EnumerationContext {
         }
         groupMap[key] = {
           groupName: '',
-          itemMap: Object.empty(),
+          itemMap: {},
           itemList: [],
         }
       }
