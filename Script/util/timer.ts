@@ -4,7 +4,7 @@ import { Function_empty_t } from "../yami"
 
 // ******************************** 声明 ********************************
 
-type Timer_updater_value_t = (deltaTime: number) => void
+type Timer_updater_t = (deltaTime: number) => void
 type Timer_updater_key_t = 'stageAnimation' |
                   'stageRendering' |
                   'sharedAnimation' |
@@ -14,11 +14,11 @@ type Timer_updater_key_t = 'stageAnimation' |
 interface TimerManager {
   timers: Timer[]
   updaters: {
-    stageAnimation: Timer_updater_value_t | null
-    stageRendering: Timer_updater_value_t | null
-    sharedAnimation: Timer_updater_value_t | null
-    sharedRendering: Timer_updater_value_t | null
-    sharedRendering2: Timer_updater_value_t | null
+    stageAnimation: Timer_updater_t | null
+    stageRendering: Timer_updater_t | null
+    sharedAnimation: Timer_updater_t | null
+    sharedRendering: Timer_updater_t | null
+    sharedRendering2: Timer_updater_t | null
   }
   timestamp: number
   deltaTime: number
@@ -32,8 +32,8 @@ interface TimerManager {
   start(timestamp: number): void
   update(timestamp: number): void
   play(): void
-  appendUpdater(key: Timer_updater_key_t, updater: Timer_updater_value_t): void
-  removeUpdater(key: Timer_updater_key_t, updater: Timer_updater_value_t): void
+  appendUpdater(key: Timer_updater_key_t, updater: Timer_updater_t): void
+  removeUpdater(key: Timer_updater_key_t, updater: Timer_updater_t): void
 }
 
 // ******************************** 计时器类 ********************************
