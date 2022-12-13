@@ -5,9 +5,16 @@ import {
   Function_empty_t
 } from "../yami"
 
-// ******************************** 计时器管理类 ********************************
+// ******************************** 声明 ********************************
 
-interface ITimer {
+type Timer_updater_value_t = (deltaTime: number) => void
+type Timer_updater_key_t = 'stageAnimation' |
+                  'stageRendering' |
+                  'sharedAnimation' |
+                  'sharedRendering' |
+                  'sharedRendering2'
+
+interface TimerManager {
   timers: Timer[]
   updaters: {
     stageAnimation: Timer_updater_value_t | null
@@ -32,12 +39,10 @@ interface ITimer {
   removeUpdater(key: Timer_updater_key_t, updater: Timer_updater_value_t): void
 }
 
-type Timer_update_func = (timer: Timer) => boolean
-type Timer_callback_func = (timer: Timer) => boolean
-
-const TimerManager = <ITimer>new Object()
-
 // ******************************** 计时器类 ********************************
+
+type Timer_update_t = (timer: Timer) => boolean
+type Timer_callback_t = (timer: Timer) => boolean
 
 class Timer {
   speedX: number
@@ -45,12 +50,12 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: Timer_update_func | Function_empty_t
-  callback: Timer_callback_func | Function_empty_t
+  update: Timer_update_t | Function_empty_t
+  callback: Timer_callback_t | Function_empty_t
   target: HTMLElement | null
   running: boolean
 
-  constructor(params: {duration: number, update: Timer_update_func | Function_empty_t, callback: Timer_callback_func | Function_empty_t}) {
+  constructor(params: {duration: number, update: Timer_update_t | Function_empty_t, callback: Timer_callback_t | Function_empty_t}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
@@ -95,12 +100,9 @@ class Timer {
   }
 }
 
-type Timer_updater_value_t = (deltaTime: number) => void
-type Timer_updater_key_t = 'stageAnimation' |
-                  'stageRendering' |
-                  'sharedAnimation' |
-                  'sharedRendering' |
-                  'sharedRendering2'
+// ******************************** 计时器管理类 ********************************
+
+const TimerManager = <TimerManager>new Object()
 
 // properties
 TimerManager.timers = Array.empty()

@@ -106,7 +106,8 @@ import {
   ObjectConstructor_ext,
   RegExpConstructor_ext,
   StringConstructor_ext,
-  NodeList_ext
+  NodeList_ext,
+  FileBodyPaneProps
 } from "../yami"
 
 // ******************************** 全局对象 ********************************
@@ -124,17 +125,17 @@ interface HTMLElementTagNameMap_ext {
   "detail-grid": HTMLElement
   "empty": HTMLElement
   "error-counter": HTMLElement
-  "file-body-content": HTMLElement
-  "file-body-icon": HTMLElement
-  "file-body-item": HTMLElement
-  "file-body-name": HTMLElement
-  "file-head-address": HTMLElement
-  "file-head-address-arrow": HTMLElement
-  "file-head-address-folder": HTMLElement
-  "file-head-address-link": HTMLElement
-  "file-head-address-text": HTMLElement
-  "file-nav-icon": HTMLElement
-  "file-nav-item": HTMLElement
+  "file-body-content": HTMLElement & FileBodyPaneProps
+  "file-body-icon": HTMLElement & FileBodyPaneProps
+  "file-body-item": HTMLElement & FileBodyPaneProps
+  "file-body-name": HTMLElement & FileBodyPaneProps
+  "file-head-address": HTMLElement & FileBodyPaneProps
+  "file-head-address-arrow": HTMLElement & FileBodyPaneProps
+  "file-head-address-folder": HTMLElement & FileBodyPaneProps
+  "file-head-address-link": HTMLElement & FileBodyPaneProps
+  "file-head-address-text": HTMLElement & FileBodyPaneProps
+  "file-nav-icon": HTMLElement & FileBodyPaneProps
+  "file-nav-item": HTMLElement & FileBodyPaneProps
   "folder-mark": HTMLElement
   "group": HTMLElement
   "group-border": HTMLElement
@@ -177,10 +178,10 @@ interface HTMLElementTagNameMap_ext {
   "detail-box": DetailBox
   "detail-summary": DetailSummary
   "drag-and-drop-hint": DragAndDropHint
-  "file-body-pane": FileBodyPane
-  "file-browser": FileBrowser
-  "file-head-pane": FileHeadPane
-  "file-nav-pane": FileNavPane
+  "file-body-pane": FileBodyPane & FileBodyPaneProps
+  "file-browser": FileBrowser & FileBodyPaneProps
+  "file-head-pane": FileHeadPane & FileBodyPaneProps
+  "file-nav-pane": FileNavPane & FileBodyPaneProps
   "file-var": FileVar
   "filter-box": FilterBox
   "keyboard-box": KeyboardBox

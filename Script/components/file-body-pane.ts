@@ -23,8 +23,8 @@ import {
 
 // ******************************** 文件主体面板 ********************************
 
-class  HTMLPropsElement extends HTMLElement {
-  element: HTMLPropsElement
+interface FileBodyPaneProps {
+  element: HTMLElement & FileBodyPaneProps
   itemSize: number
   visibleLines: number
   normalCountPerLine: number
@@ -33,20 +33,20 @@ class  HTMLPropsElement extends HTMLElement {
   countPerLine: number
   changed: boolean
   file: FolderItem | FileItem
-  context: FileBodyPane
-  fileIcon: HTMLPropsElement
-  nameBox: HTMLElement
+  context: FileBodyPane & FileBodyPaneProps
+  fileIcon: HTMLElement & FileBodyPaneProps
+  nameBox: HTMLElement & FileBodyPaneProps
 
   isImageChanged: () => boolean
 }
 
-class FileBodyPane extends HTMLPropsElement {
+class FileBodyPane extends HTMLElement {
   viewIndex: number | null
   viewMode: string | null
   timer: Timer
-  elements: HTMLElement[]
+  elements: (HTMLElement & FileBodyPaneProps)[]
   selections: (FolderItem | FileItem)[]
-  content: HTMLPropsElement
+  content: HTMLElement & FileBodyPaneProps
   pressing: ((event: MouseKeyboardEvent) => void) | null
   openEventEnabled: boolean
   selectEventEnabled: boolean
@@ -67,7 +67,7 @@ class FileBodyPane extends HTMLPropsElement {
         if (files.length === 1) {
           const file = files[0]
           const target = timer.target
-          const context = <FileBodyPane>file.getContext(this)
+          const context = <FileBodyPane & FileBodyPaneProps>file.getContext(this)
           const element = context.element
           if (element.contains(target)) {
             this.rename(file)
@@ -89,7 +89,7 @@ class FileBodyPane extends HTMLPropsElement {
     this.elements.start = -1
     this.elements.end = -1
     this.selections = Array.empty()
-    this.content = <HTMLPropsElement>document.createElement('file-body-content')
+    this.content = document.createElement('file-body-content')
     this.content.tabIndex = 0
     this.content.range = new Uint32Array(2)
     this.pressing = null
@@ -104,7 +104,7 @@ class FileBodyPane extends HTMLPropsElement {
     // 设置内容元素属性访问器
     const {elements} = this
     Object.defineProperty(this.content, 'countPerLine', {
-      get: function (this: FileBodyPane) {
+      get: function (this: FileBodyPane & FileBodyPaneProps) {
         return elements.count < this.scrollCount
         ? this.normalCountPerLine
         : this.scrollCountPerLine
@@ -396,7 +396,7 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 在重新调整时更新
-  updateOnResize(element: HTMLPropsElement) {
+  updateOnResize(element: HTMLElement & FileBodyPaneProps) {
     if (element.changed) {
       element.changed = false
       const {file} = element
@@ -433,11 +433,11 @@ class FileBodyPane extends HTMLPropsElement {
 
   // 创建文件夹元素
   createFolderElement(file: FolderItem) {
-    const context = <FileBodyPane>file.getContext(this)
+    const context = <FileBodyPane & FileBodyPaneProps>file.getContext(this)
     let element = context.element
     if (element === undefined) {
       // 创建文件夹
-      element = <HTMLPropsElement>document.createElement('file-body-item')
+      element = document.createElement('file-body-item')
       element.file = file
       element.context = context
       context.element = element
@@ -454,7 +454,7 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 更新文件夹元素
-  updateFolderElement(element: HTMLPropsElement) {
+  updateFolderElement(element: HTMLElement & FileBodyPaneProps) {
     if (!element.nameBox) {
       // 创建文件夹图标
       const fileIcon = document.createElement('file-body-icon')
@@ -475,11 +475,11 @@ class FileBodyPane extends HTMLPropsElement {
 
   // 创建文件元素
   createFileElement(file: FileItem) {
-    const context = <FileBodyPane>file.getContext(this)
+    const context = <FileBodyPane & FileBodyPaneProps>file.getContext(this)
     let element = context.element
     if (element === undefined) {
       // 创建文件
-      element = <HTMLPropsElement>document.createElement('file-body-item')
+      element = document.createElement('file-body-item')
       element.file = file
       element.context = context
       context.element = element
@@ -489,7 +489,7 @@ class FileBodyPane extends HTMLPropsElement {
   }
 
   // 更新文件元素
-  updateFileElement(element: HTMLPropsElement) {
+  updateFileElement(element: HTMLElement & FileBodyPaneProps) {
     const {file} = element
     if (!element.nameBox) {
       // 创建文件图标
@@ -523,7 +523,7 @@ class FileBodyPane extends HTMLPropsElement {
 
   // 创建图标
   createIcon(file) {
-    const icon = <HTMLPropsElement>document.createElement('file-body-icon')
+    const icon = document.createElement('file-body-icon')
     switch (file.type) {
       case 'actor': {
         const data = file.data
@@ -1264,7 +1264,7 @@ class FileBodyPane extends HTMLPropsElement {
     this.cancelRenaming()
     switch (event.button) {
       case 0: case 2: {
-        let element = <HTMLPropsElement>event.target
+        let element = event.target
         if (element === this.content) {
           element = this
         }
@@ -1276,7 +1276,7 @@ class FileBodyPane extends HTMLPropsElement {
         } else {
           if (element.tagName === 'FILE-BODY-ICON' ||
             element.tagName === 'FILE-BODY-NAME') {
-            element = <HTMLPropsElement>element.parentNode
+            element = element.parentNode
           }
           if (element.tagName === 'FILE-BODY-ITEM') {
             const selections = this.selections
@@ -1285,7 +1285,7 @@ class FileBodyPane extends HTMLPropsElement {
               const elements = this.elements
               const files = Array.from(selections)
               for (let i = length - 1; i >= 0; i--) {
-                const {element} = <HTMLPropsElement>files[i].getContext(this)
+                const {element} = files[i].getContext(this)
                 if (!elements.includes(element)) {
                   files.splice(i, 1)
                 }
@@ -1388,10 +1388,10 @@ class FileBodyPane extends HTMLPropsElement {
 
   // 鼠标双击事件
   doubleclick(event: MouseKeyboardEvent) {
-    let element = <HTMLPropsElement>event.target
+    let element = event.target
     if (element.tagName === 'FILE-BODY-ICON' ||
       element.tagName === 'FILE-BODY-NAME') {
-      element = <HTMLPropsElement>element.parentNode
+      element = element.parentNode
     }
     if (element.tagName === 'FILE-BODY-ITEM') {
       // 阻止打开文件夹时目标元素消失导致列表失去焦点
@@ -1447,7 +1447,7 @@ class FileBodyPane extends HTMLPropsElement {
         case 'NumpadEnter':
         case 'Escape': {
           const item = this.parentNode
-          const content = <HTMLPropsElement>item?.parentNode
+          const content = item?.parentNode
           this.input.blur()
           content.focus()
           break
@@ -1481,7 +1481,7 @@ class FileBodyPane extends HTMLPropsElement {
 
     // 失去焦点事件
     textBox.on('blur', function (this: FileBodyPane, event: MouseKeyboardEvent) {
-      const item = <HTMLPropsElement>this.parentNode
+      const item = this.parentNode
       const file = item.file
       const name = this.read().trim()
       let filename = name
@@ -1527,5 +1527,6 @@ interface JSXFileBodyPane { [attributes: string]: any }
 
 export {
   FileBodyPane,
+  FileBodyPaneProps,
   JSXFileBodyPane
 }
