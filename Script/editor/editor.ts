@@ -53,7 +53,7 @@ import {
 
 // ******************************** 编辑器对象 ********************************
 
-interface IEditor {
+interface Editor {
   // properties
   state: string
   config: any
@@ -74,7 +74,7 @@ interface IEditor {
   saveManifest(): void
 }
 
-const Editor = <IEditor>new Object()
+const Editor = <Editor>new Object()
 
 // ******************************** 编辑器对象加载 ********************************
 

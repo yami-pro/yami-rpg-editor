@@ -2,11 +2,11 @@
 
 // ******************************** 组件管理类 ********************************
 
-interface IScrollBar {
+interface ScrollBar {
   addScrollbars(element: HTMLElement): void
 }
 
-const ScrollBarManager = <IScrollBar>new Object()
+const ScrollBarManager = <ScrollBar>new Object()
 
 // 添加滚动条
 ScrollBarManager.addScrollbars = function (element: HTMLElement) {
