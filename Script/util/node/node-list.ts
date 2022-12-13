@@ -26,7 +26,7 @@ import {
   TabBar,
   TextArea,
   WindowFrame
-} from "../yami"
+} from "../../yami"
 
 // ******************************** 节点列表方法 ********************************
 

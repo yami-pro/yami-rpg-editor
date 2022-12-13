@@ -12,36 +12,6 @@ import {
 
 type Tip_t = (...params: any[]) => any | {get: () => any}
 
-interface HTMLElement_components_ext {
-  // contents: any[] | null
-  // dataKey: boolean
-  // dataList: Commands_data_t[] | null
-  // dataItem: any
-  // dataIndex: number
-  // dataIndent: number
-  // enabled: boolean
-
-  // updaters: any[]
-
-  range: Uint32Array
-  // path: string
-  versionId: number
-  count: number
-  // itemSize: number
-  // visibleLines: number
-  // normalCountPerLine: number
-  // scrollCountPerLine: number
-  // scrollCount: number
-  // countPerLine: number
-  // changed: boolean
-
-  // file: FolderItem | FileItem
-  // fileIcon: HTMLElement
-  // nameBox: HTMLElement
-
-  // isImageChanged: () => boolean
-}
-
 interface HTMLElement_object_ext {
   name: {get: () => any, set: (value: any) => void}
   innerHeight: number
@@ -611,6 +581,5 @@ export {
   HTMLElement_ext,
   HTMLElement_object_ext,
   HTMLElement_scroll_ext,
-  HTMLElement_components_ext,
   JSXHTMLElement
 }

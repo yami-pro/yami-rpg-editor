@@ -1,7 +1,6 @@
 "use strict"
 
 import {
-  EventTarget_ext,
   CheckBox,
   ColorBox,
   CommandList,
@@ -81,12 +80,12 @@ import {
   JSXWindowFrame,
   JSXHTMLCanvasElement,
   JSXHTMLInputElement,
+  EventTarget_ext,
   Array_ext,
   ArrayConstructor_ext,
   HTMLElement_ext,
   HTMLElement_object_ext,
   HTMLElement_scroll_ext,
-  HTMLElement_components_ext,
   Element_ext,
   HTMLButtonElement_ext,
   HTMLCanvasElement_ext,
@@ -106,6 +105,7 @@ import {
   ObjectConstructor_ext,
   RegExpConstructor_ext,
   StringConstructor_ext,
+  Node_ext,
   NodeList_ext,
   FileBodyPaneProps
 } from "../yami"
@@ -384,7 +384,7 @@ declare global {
   interface Element extends Element_ext {}
 
   // HTMLElement 扩展
-  interface HTMLElement extends HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, HTMLElement_components_ext, EventTarget_ext {}
+  interface HTMLElement extends HTMLElement_ext, HTMLElement_object_ext, HTMLElement_scroll_ext, EventTarget_ext {}
 
   // HTMLButtonElement 扩展
   interface HTMLButtonElement extends HTMLButtonElement_ext {}
@@ -439,6 +439,9 @@ declare global {
 
   // StringConstructor 扩展
   interface StringConstructor extends StringConstructor_ext {}
+
+  // Node 扩展
+  interface Node extends Node_ext {}
 
   // NodeList 扩展
   interface NodeList extends NodeList_ext {}
