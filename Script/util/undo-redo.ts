@@ -1,8 +1,10 @@
 "use strict"
 
+import { MouseKeyboardEvent } from "./index"
+
 // ******************************** 禁用撤销和重做 ********************************
 
-window.on('keydown', function (event) {
+window.on('keydown', function (event: MouseKeyboardEvent) {
   if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyZ':
@@ -29,7 +31,7 @@ window.on('keydown', function (event) {
   }
 }, {capture: true})
 
-window.on('keyup', function (event) {
+window.on('keyup', function (event: MouseKeyboardEvent) {
   // 监听空格键的弹起状态
   switch (event.code) {
     case 'Space':

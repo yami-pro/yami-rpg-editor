@@ -6,6 +6,7 @@ import {
   Timer,
   TimerManager,
   ScrollBarManager,
+  MouseKeyboardEvent,
 } from "../../yami"
 
 // ******************************** 声明 ********************************
@@ -23,7 +24,7 @@ interface HTMLElement_scroll_ext {
 }
 
 interface HTMLElement_ext extends Element_ext {
-  dragging: Event | null
+  dragging: MouseKeyboardEvent | null
   dataValue: any
 
   _padding: number
@@ -57,7 +58,7 @@ interface HTMLElement_ext extends Element_ext {
   dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
-  listenDraggingScrollbarEvent: (pointerdown?: (event: Event) => void, options?: any) => void
+  listenDraggingScrollbarEvent: (pointerdown?: (event: MouseKeyboardEvent) => void, options?: any) => void
 
   beginScrolling(): void
   endScrolling(): void
@@ -66,8 +67,8 @@ interface HTMLElement_ext extends Element_ext {
   setScrollTop(top: number):void
   updateScrollbars(): void
 
-  scrollPointerup(this: HTMLElement, event: Event): void
-  scrollPointermove(this: HTMLElement, event: Event): void
+  scrollPointerup(this: HTMLElement, event: MouseKeyboardEvent): void
+  scrollPointermove(this: HTMLElement, event: MouseKeyboardEvent): void
 }
 
 // ******************************** 元素扩展 ********************************
@@ -228,7 +229,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: HTMLElement, event: Event) {
+  const pointermove = function (this: HTMLElement, event: MouseKeyboardEvent) {
     // 两个重叠元素时执行最上层的那个
     if (timeStamp === event.timeStamp) {
       return
@@ -360,7 +361,7 @@ HTMLElement.prototype.dispatchUpdateEvent = function IIFE() {
 // 元素方法 - 侦听拖拽滚动条事件
 HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   // 默认指针按下事件
-  const defaultPointerdown = function (this: HTMLElement, event: Event) {
+  const defaultPointerdown = function (this: HTMLElement, event: MouseKeyboardEvent) {
     if (this.dragging) {
       return
     }
@@ -397,7 +398,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: HTMLElement, event: Event) {
+  const pointermove = function (this: HTMLElement, event: MouseKeyboardEvent) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -499,7 +500,7 @@ type scrollUpdaterVar = (() => void) | null
   })
 
   // 指针移动事件
-  const pointermove = (event: Event) => {
+  const pointermove = (event: MouseKeyboardEvent) => {
     if (!target)
       return
     const dpr = window.devicePixelRatio

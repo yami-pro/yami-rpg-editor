@@ -1,5 +1,7 @@
 "use strict"
 
+import { MouseKeyboardEvent } from "./event"
+
 // ******************************** 事件目标方法 ********************************
 
 interface EventTarget_ext {
@@ -7,10 +9,10 @@ interface EventTarget_ext {
   off(type: string, callback: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void
 }
 
-let last: Event | null = null
+let last: MouseKeyboardEvent | null = null
 
 // 重写鼠标双击事件触发方式
-const pointerdown = function (this: Element, event: Event) {
+const pointerdown = function (this: Element, event: MouseKeyboardEvent) {
   if (!event.cmdOrCtrlKey &&
       !event.altKey &&
       !event.shiftKey &&

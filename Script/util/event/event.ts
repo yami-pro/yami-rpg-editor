@@ -7,74 +7,13 @@ import {
 
 // ******************************** 事件访问器 ********************************
 
+type MouseKeyboardEvent = DragEvent & WheelEvent & PointerEvent & KeyboardEvent
+
 interface Event_ext {
-  // UIEvent
-  detail: number
-  view: Window | null
-
-  // MouseEvent
-  button: number
-  buttons: number
-  clientX: number
-  clientY: number
-  movementX: number
-  movementY: number
-  offsetX: number
-  offsetY: number
-  pageX: number
-  pageY: number
-  relatedTarget: EventTarget | null
-  screenX: number
-  screenY: number
-  x: number
-  y: number
-  getModifierState(keyArg: string): boolean
-
-  // PointerEvent
-  height: number
-  isPrimary: boolean
-  pointerId: number
-  pointerType: string
-  pressure: number
-  tangentialPressure: number
-  tiltX: number
-  tiltY: number
-  twist: number
-  width: number
-  getCoalescedEvents(): PointerEvent[]
-  getPredictedEvents(): PointerEvent[]
-
-  // KeyboardEvent
-  code: string
-  isComposing: boolean
-  key: string
-  location: number
-  repeat: boolean
-  getModifierState(keyArg: string): boolean
-  DOM_KEY_LOCATION_LEFT: number
-  DOM_KEY_LOCATION_NUMPAD: number
-  DOM_KEY_LOCATION_RIGHT: number
-  DOM_KEY_LOCATION_STANDARD: number
-
-  // KeyboardEvent && MouseEvent
-  altKey: boolean
-  ctrlKey: boolean
-  metaKey: boolean
-  shiftKey: boolean
-
-  // DragEvent
-  dataTransfer: DataTransfer | null
-
-  // WheelEvent
-  deltaMode: number
-  deltaX: number
-  deltaY: number
-  deltaZ: number
-  DOM_DELTA_LINE: number
-  DOM_DELTA_PAGE: number
-  DOM_DELTA_PIXEL: number
-
-  // 自定义属性 && 方法
+  // 属性
+  dragKey: boolean
+  cmdOrCtrlKey: boolean
+  message: string
   mode: string | null
   value:  string |
           number |
@@ -97,12 +36,10 @@ interface Event_ext {
   latest: Event
   itemHeight: number
   itemIndex: number
-
+  // 方法
   getRelativeCoords(element: any): {x: number, y: number}
-  dragKey: { get: (this: Event) => boolean }
-  cmdOrCtrlKey: { get: (this: Event) => boolean }
-  relate: (event: any) => boolean
-  isMouseType: () => boolean
+  relate(event: any): boolean
+  isMouseType(): boolean
 }
 
 Event.prototype.value = null
@@ -113,7 +50,7 @@ Event.prototype.scrollTop = 0
 // 事件方法 - 返回相对于元素的坐标
 Event.prototype.getRelativeCoords = function IIFE() {
   const point = {x: 0, y: 0}
-  return function (this: Event, element: Element) {
+  return function (this: MouseKeyboardEvent, element: Element) {
     const rect = element.getBoundingClientRect()
     point.x = (
       this.clientX
@@ -132,26 +69,29 @@ Event.prototype.getRelativeCoords = function IIFE() {
 }()
 
 // 指针事件方法 - 判断是否为鼠标类型
-Event.prototype.isMouseType = function () {
+Event.prototype.isMouseType = function (this: MouseKeyboardEvent) {
   return this.pointerType === 'mouse'
 }
 
 // 指针事件方法 - 判断两个事件是否有关联
-Event.prototype.relate = function (event: Event) {
+Event.prototype.relate = function (this: MouseKeyboardEvent, event: MouseKeyboardEvent) {
   return this.pointerId === event.pointerId
 }
 
 Object.defineProperties(Event.prototype, {
   dragKey: {
-    get: function (this: Event) {
+    get: function (this: MouseKeyboardEvent) {
       return this.spaceKey || this.altKey
     }
   },
   cmdOrCtrlKey: {
     get: navigator.userAgentData.platform === 'macOS'
-    ? function (this: Event) {return this.metaKey}
-    : function (this: Event) {return this.ctrlKey}
+    ? function (this: MouseKeyboardEvent) {return this.metaKey}
+    : function (this: MouseKeyboardEvent) {return this.ctrlKey}
   },
 })
 
-export { Event_ext }
+export {
+  Event_ext,
+  MouseKeyboardEvent
+}

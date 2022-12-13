@@ -1,5 +1,7 @@
 "use strict"
 
+import { MouseKeyboardEvent } from "./index"
+
 // ******************************** 其他 ********************************
 
 // 测量文本大小
@@ -62,7 +64,7 @@ const measureText = function IIFE() {
   }
 
   // 拖拽进入事件
-  const dragenter = function (event: Event) {
+  const dragenter = function (event: MouseKeyboardEvent) {
     if (!dragging &&
       !osdragging &&
       !event.relatedTarget) {
@@ -77,7 +79,7 @@ const measureText = function IIFE() {
   }
 
   // 拖拽离开事件
-  const dragleave = function (event: Event) {
+  const dragleave = function (event: MouseKeyboardEvent) {
     if (osdragging &&
       !event.relatedTarget) {
       osdragging = false

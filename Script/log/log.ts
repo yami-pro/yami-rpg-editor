@@ -7,25 +7,30 @@ import {
 
 // ******************************** 日志窗口 ********************************
 
-const Log = {
-  // properties
-  data: [],
-  devmode: true,
-  beep: false,
-  beepdate: 0,
+interface Log {
+  data: []
+  devmode: boolean
+  beep: boolean
+  beepdate: number
   // methods
-  initialize: null,
-  throw: null,
-  error: null,
-  update: null,
-  message: null,
+  initialize(): void
+  throw(error: any): void
+  error(message: any): void
+  update(): void
+  message: (message: any) => void
   // events
-  windowOpen: null,
-  windowClosed: null,
-  catchError: null,
+  windowOpen(event: Event): void
+  windowClosed(event: Event): void
+  catchError: (event: Event) => void
 }
 
+const Log = <Log>new Object()
+
 // ******************************** 日志窗口加载 ********************************
+
+Log.beepdate = 0
+Log.devmode = true
+Log.beep = false
 
 // 初始化
 Log.initialize = function () {
