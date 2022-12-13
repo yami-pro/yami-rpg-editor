@@ -49,7 +49,7 @@ class Timer {
   duration: number
   update: Timer_update_t | Function_empty_t
   callback: Timer_callback_t | Function_empty_t
-  target: HTMLElement | null
+  target: EventTarget | null
   running: boolean
 
   constructor(params: {duration: number, update: Timer_update_t | Function_empty_t, callback: Timer_callback_t | Function_empty_t}) {

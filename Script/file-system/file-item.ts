@@ -23,7 +23,7 @@ class FileItem {
   path: string
   type: string
   stats     //:object
-  contexts: Map<string, object> | null
+  contexts: Map<HTMLElement, object> | null
 
   constructor(name, extname, path, type, stats) {
     let basename = Path.basename(name, extname)
@@ -126,7 +126,7 @@ class FileItem {
   }
 
   // 获取上下文对象
-  getContext(key) {
+  getContext(key: HTMLElement) {
     let contexts = this.contexts
     if (contexts === null) {
       contexts = this.contexts = new Map()

@@ -15,7 +15,12 @@ import {
 
 // ******************************** 文件浏览器 ********************************
 
-type Browser_links_t = {[index: string]: FileBrowser | FileNavPane | FileHeadPane | FileBodyPane}
+type Browser_links_t = {
+  body: FileBodyPane
+  browser: FileBrowser
+  head: FileHeadPane
+  nav: FileNavPane
+}
 
 class FileBrowser extends HTMLElement {
   display: string

@@ -18,9 +18,13 @@ interface Event_ext {
   value:  string |
           number |
           boolean |
+          FolderItem |
+          FileItem |
           (FolderItem | FileItem)[] |
           null
   raw: Event
+  clientX: number
+  clientY: number
   doubleclickProcessed: boolean
   spaceKey: boolean
   dropTarget: HTMLElement | null
