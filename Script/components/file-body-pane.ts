@@ -1155,7 +1155,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event) {
+  keydown(event: Event) {
     if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
@@ -1259,11 +1259,11 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(this: FileBodyPane, event) {
+  pointerdown(this: FileBodyPane, event: Event) {
     this.cancelRenaming()
     switch (event.button) {
       case 0: case 2: {
-        let element = event.target
+        let element = <HTMLElement>event.target
         if (element === this.content) {
           element = this
         }
@@ -1275,7 +1275,7 @@ class FileBodyPane extends HTMLElement {
         } else {
           if (element.tagName === 'FILE-BODY-ICON' ||
             element.tagName === 'FILE-BODY-NAME') {
-            element = element.parentNode
+            element = <HTMLElement>element.parentNode
           }
           if (element.tagName === 'FILE-BODY-ITEM') {
             const selections = this.selections
@@ -1362,7 +1362,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 指针弹起事件
-  pointerup(event) {
+  pointerup(event: Event) {
     switch (event.button) {
       case 0:
         if (document.activeElement === this.content &&
@@ -1386,11 +1386,11 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 鼠标双击事件
-  doubleclick(event) {
-    let element = event.target
+  doubleclick(event: Event) {
+    let element = <HTMLElement>event.target
     if (element.tagName === 'FILE-BODY-ICON' ||
       element.tagName === 'FILE-BODY-NAME') {
-      element = element.parentNode
+      element = <HTMLElement>element.parentNode
     }
     if (element.tagName === 'FILE-BODY-ITEM') {
       // 阻止打开文件夹时目标元素消失导致列表失去焦点
@@ -1401,7 +1401,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 鼠标滚轮事件
-  wheel(event) {
+  wheel(event: Event) {
     const {deltaY} = event
     if (deltaY !== 0) {
       if (event.cmdOrCtrlKey) {
