@@ -50,7 +50,7 @@ interface HTMLElement_ext extends Element_ext {
   show(): HTMLElement
   hideChildNodes(): void
   showChildNodes(): void
-  getFocus(mode: string): void
+  getFocus(mode?: string): void
   setTooltip: (tip: string | Function_tip_t) => void
   addScrollbars(): void
   addSetScrollMethod(): void
