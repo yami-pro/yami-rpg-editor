@@ -10,12 +10,12 @@ import {
 
 // ******************************** 声明 ********************************
 
-type Element_tip = (...params: any[]) => any | {get: () => any}
+type Tip_t = (...params: any[]) => any | {get: () => any}
 
 interface HTMLElement_components_ext {
   // contents: any[] | null
   // dataKey: boolean
-  // dataList: commandsData[] | null
+  // dataList: Commands_data_t[] | null
   // dataItem: any
   // dataIndex: number
   // dataIndent: number
@@ -57,7 +57,7 @@ interface HTMLElement_ext extends Element_ext {
   dataValue: any
 
   _padding: number
-  tip: string | Element_tip
+  tip: string | Tip_t
   top: number
   left: number
   width: number
@@ -80,7 +80,7 @@ interface HTMLElement_ext extends Element_ext {
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode: string): void
-  setTooltip: (tip: string | Element_tip) => void
+  setTooltip: (tip: string | Tip_t) => void
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): boolean
@@ -311,7 +311,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (this: HTMLElement, tip: string | Element_tip) {
+  return function (this: HTMLElement, tip: string | Tip_t) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)

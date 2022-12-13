@@ -3,7 +3,7 @@
 import {
   Menu,
   TextBox,
-  Browser_links,
+  Browser_links_t,
   FileBrowser,
   FileHeadPane,
   FileNavPane,
@@ -53,7 +53,7 @@ class FileBodyPane extends HTMLPropsElement {
   unselectEventEnabled: boolean
   popupEventEnabled: boolean
   textBox: TextBox
-  links: Browser_links
+  links: Browser_links_t
 
   constructor() {
     super()

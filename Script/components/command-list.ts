@@ -4,7 +4,7 @@ import {
   CommonList,
   Menu,
   WindowFrame,
-  commandsData,
+  Commands_data_t,
   ctrl,
   Clipboard,
   MouseKeyboardEvent,
@@ -16,7 +16,7 @@ import {
 // ******************************** 指令列表 ********************************
 
 class CommandList extends HTMLElement {
-  data: commandsData[]
+  data: Commands_data_t[]
   elements: HTMLElement[]
   selections: HTMLElement[]
   start: number | null
@@ -93,7 +93,7 @@ class CommandList extends HTMLElement {
   }
 
   // 写入数据
-  write(data: commandsData[]) {
+  write(data: Commands_data_t[]) {
     this.data = data
     this.textContent = ''
     this.update()
@@ -160,7 +160,7 @@ class CommandList extends HTMLElement {
   }
 
   // 创建项目
-  createItems(commands: commandsData[], indent: number) {
+  createItems(commands: Commands_data_t[], indent: number) {
     const elements = this.elements
     const length = commands.length
     for (let i = 0; i < length; i++) {
@@ -172,7 +172,7 @@ class CommandList extends HTMLElement {
           continue
         }
         if (target instanceof Array) {
-          this.createItems(<commandsData[]>target, indent + 1)
+          this.createItems(<Commands_data_t[]>target, indent + 1)
           continue
         }
       }
@@ -184,7 +184,7 @@ class CommandList extends HTMLElement {
   }
 
   // 创建指令缓冲区
-  createCommandBuffer(commands: commandsData[], index: number, indent: number) {
+  createCommandBuffer(commands: Commands_data_t[], index: number, indent: number) {
     const command = commands[index]
     let buffer = command.buffer
     if (buffer === undefined) {
@@ -347,13 +347,13 @@ class CommandList extends HTMLElement {
   }
 
   // 删除指令缓冲区
-  deleteCommandBuffers(commands: commandsData[]) {
+  deleteCommandBuffers(commands: Commands_data_t[]) {
     for (const command of commands) {
       const {buffer} = command
       if (!buffer) continue
       for (const item of buffer) {
         if (item instanceof Array) {
-          this.deleteCommandBuffers(<commandsData[]>item)
+          this.deleteCommandBuffers(<Commands_data_t[]>item)
         }
       }
       delete command.buffer
@@ -361,7 +361,7 @@ class CommandList extends HTMLElement {
   }
 
   // 创建空项目
-  createBlankElement(commands: commandsData[], index: number, indent: number) {
+  createBlankElement(commands: Commands_data_t[], index: number, indent: number) {
     let blank = commands.blank
     if (blank === undefined || blank === null) {
       // 创建列表项
@@ -920,7 +920,7 @@ class CommandList extends HTMLElement {
       if (end === null)
         return
       let method = 'disable'
-      const commands = <commandsData[]>[]
+      const commands = <Commands_data_t[]>[]
       for (let i = start; i <= end; i++) {
         const element = elements[i]
         if (element.dataKey) {
@@ -964,7 +964,7 @@ class CommandList extends HTMLElement {
   }
 
   // 启用项目
-  enableItems(commands: commandsData[]) {
+  enableItems(commands: Commands_data_t[]) {
     for (const command of commands) {
       if (command.id[0] === '!') {
         command.id = command.id.slice(1)
@@ -973,7 +973,7 @@ class CommandList extends HTMLElement {
   }
 
   // 禁用项目
-  disableItems(commands: commandsData[]) {
+  disableItems(commands: Commands_data_t[]) {
     for (const command of commands) {
       if (command.id[0] !== '!') {
         command.id = '!' + command.id
@@ -1070,7 +1070,7 @@ class CommandList extends HTMLElement {
   }
 
   // 保存指令
-  save(command: commandsData) {
+  save(command: Commands_data_t) {
     if (this.start !== null) {
       const elements = this.elements
       const element = elements[this.start]

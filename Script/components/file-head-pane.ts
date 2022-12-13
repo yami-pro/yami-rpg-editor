@@ -4,7 +4,7 @@ import {
   Menu,
   SliderBox,
   TextBox,
-  Browser_links,
+  Browser_links_t,
   FolderItem
 } from "../yami"
 
@@ -14,7 +14,7 @@ class FileHeadPane extends HTMLElement {
   address: HTMLElement
   searcher: TextBox
   view: HTMLElement
-  links: Browser_links
+  links: Browser_links_t
 
   constructor() {
     super()

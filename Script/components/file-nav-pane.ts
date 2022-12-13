@@ -4,7 +4,7 @@ import {
   Menu,
   CommonList,
   TextBox,
-  Browser_links,
+  Browser_links_t,
   Directory,
   File,
   FS,
@@ -24,7 +24,7 @@ class FileNavPane extends HTMLElement {
   pressing: ((event: any) => void) | null
   selectEventEnabled: boolean
   textBox: TextBox
-  links: Browser_links
+  links: Browser_links_t
 
   constructor() {
     super()

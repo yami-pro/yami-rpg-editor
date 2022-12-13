@@ -8,7 +8,7 @@ import {
 
 // ******************************** 声明 ********************************
 
-type commandsData = {[index: string]: any}
+type Commands_data_t = { [index: string]: any }
 
 // ArrayConstructor扩展
 interface ArrayConstructor_ext {
@@ -32,7 +32,7 @@ interface Array_ext {
   foot: HTMLElement | null
   history: CommandHistory
   blank: HTMLElement | null
-  parent: commandsData
+  parent: Commands_data_t
   files: (FolderItem | FileItem)[]
 }
 
@@ -85,5 +85,5 @@ Object.defineProperty(Array.prototype, 'remove', {
 export {
   Array_ext,
   ArrayConstructor_ext,
-  commandsData
+  Commands_data_t
 }

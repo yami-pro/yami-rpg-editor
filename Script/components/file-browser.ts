@@ -16,7 +16,7 @@ import {
 
 // ******************************** 文件浏览器 ********************************
 
-type Browser_links = {[index: string]: FileBrowser | FileNavPane | FileHeadPane | FileBodyPane}
+type Browser_links_t = {[index: string]: FileBrowser | FileNavPane | FileHeadPane | FileBodyPane}
 
 class FileBrowser extends HTMLElement {
   display: string
@@ -28,7 +28,7 @@ class FileBrowser extends HTMLElement {
   nav: FileNavPane
   head: FileHeadPane
   body: FileBodyPane
-  links: Browser_links
+  links: Browser_links_t
   keyword: RegExp | string | null
 
   constructor() {
@@ -55,7 +55,7 @@ class FileBrowser extends HTMLElement {
       const nav = this.nav
       const head = this.head
       const body = this.body
-      const links: Browser_links = {
+      const links: Browser_links_t = {
         browser,
         nav,
         head,
@@ -518,5 +518,5 @@ interface JSXFileBrowser { [attributes: string]: any }
 export {
   FileBrowser,
   JSXFileBrowser,
-  Browser_links
+  Browser_links_t
 }

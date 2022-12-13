@@ -2,7 +2,7 @@
 
 import {
   MouseKeyboardEvent,
-  Function_empty_func
+  Function_empty_t
 } from "../yami"
 
 // ******************************** 计时器管理类 ********************************
@@ -10,11 +10,11 @@ import {
 interface ITimer {
   timers: Timer[]
   updaters: {
-    stageAnimation: Timer_updater_func | null
-    stageRendering: Timer_updater_func | null
-    sharedAnimation: Timer_updater_func | null
-    sharedRendering: Timer_updater_func | null
-    sharedRendering2: Timer_updater_func | null
+    stageAnimation: Timer_updater_value_t | null
+    stageRendering: Timer_updater_value_t | null
+    sharedAnimation: Timer_updater_value_t | null
+    sharedRendering: Timer_updater_value_t | null
+    sharedRendering2: Timer_updater_value_t | null
   }
   timestamp: number
   deltaTime: number
@@ -28,8 +28,8 @@ interface ITimer {
   start(timestamp: number): void
   update(timestamp: number): void
   play(): void
-  appendUpdater(key: Timer_updater_key, updater: Timer_updater_func): void
-  removeUpdater(key: Timer_updater_key, updater: Timer_updater_func): void
+  appendUpdater(key: Timer_updater_key_t, updater: Timer_updater_value_t): void
+  removeUpdater(key: Timer_updater_key_t, updater: Timer_updater_value_t): void
 }
 
 type Timer_update_func = (timer: Timer) => boolean
@@ -45,12 +45,12 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: Timer_update_func | Function_empty_func
-  callback: Timer_callback_func | Function_empty_func
+  update: Timer_update_func | Function_empty_t
+  callback: Timer_callback_func | Function_empty_t
   target: HTMLElement | null
   running: boolean
 
-  constructor(params: {duration: number, update: Timer_update_func | Function_empty_func, callback: Timer_callback_func | Function_empty_func}) {
+  constructor(params: {duration: number, update: Timer_update_func | Function_empty_t, callback: Timer_callback_func | Function_empty_t}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
@@ -95,8 +95,8 @@ class Timer {
   }
 }
 
-type Timer_updater_func = (deltaTime: number) => void
-type Timer_updater_key = 'stageAnimation' |
+type Timer_updater_value_t = (deltaTime: number) => void
+type Timer_updater_key_t = 'stageAnimation' |
                   'stageRendering' |
                   'sharedAnimation' |
                   'sharedRendering' |
