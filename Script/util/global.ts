@@ -450,9 +450,9 @@ declare global {
     createElement(tagName: string, options?: ElementCreationOptions): HTMLElement
 
     // Returns the first element that is a descendant of node that matches selectors
-    querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null
-    querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null
-    querySelector<E extends HTMLElement = HTMLElement>(selectors: string): E | null;
+    querySelector<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K]
+    querySelector<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K]
+    querySelector<E extends HTMLElement = HTMLElement>(selectors: string): E
 
     // Returns all element descendants of node that match selectors
     querySelectorAll<K extends keyof HTMLElementTagNameMap>(selectors: K): NodeListOf<HTMLElementTagNameMap[K]>
