@@ -30,7 +30,7 @@ import {
 
 // ******************************** 节点列表方法 ********************************
 
-type Element_listener_on_t =
+type Element_func_on_tag_name_t =
   CheckBox |
   ColorBox |
   CommonList |
@@ -53,7 +53,7 @@ type Element_listener_on_t =
   TextArea |
   WindowFrame
 
-type Element_enable_t =
+type Element_enable_tag_name_t =
   CheckBox |
   ColorBox |
   CustomBox |
@@ -69,7 +69,7 @@ type Element_enable_t =
   StringVar |
   TextArea
 
-type Element_disable_t = Element_enable_t
+type Element_disable_tag_name_t = Element_enable_tag_name_t
 
 interface NodeList_ext {
   on: (type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) => NodeList
@@ -79,7 +79,7 @@ interface NodeList_ext {
 
 // 节点列表 - 添加事件
 NodeList.prototype.on = function (this: NodeList, type, listener, options) {
-  this.forEach( (element: Element_listener_on_t) => {
+  this.forEach( (element: Element_func_on_tag_name_t) => {
     element.on(type, listener, options)
   })
   return this
@@ -87,14 +87,14 @@ NodeList.prototype.on = function (this: NodeList, type, listener, options) {
 
 // 节点列表 - 启用元素
 NodeList.prototype.enable = function (this: NodeList) {
-  this.forEach( (element: Element_enable_t) => {
+  this.forEach( (element: Element_enable_tag_name_t) => {
     element.enable()
   })
 }
 
 // 节点列表 - 禁用元素
 NodeList.prototype.disable = function (this: NodeList) {
-  this.forEach( (element: Element_disable_t) => {
+  this.forEach( (element: Element_disable_tag_name_t) => {
     element.disable()
   })
 }

@@ -27,7 +27,7 @@ interface Event_ext {
   clientY: number
   doubleclickProcessed: boolean
   spaceKey: boolean
-  dropTarget: HTMLElement | null
+  dropTarget: EventTarget | null
   allowMove: boolean
   allowCopy: boolean
   dropPath: string | null
@@ -41,8 +41,8 @@ interface Event_ext {
   itemHeight: number
   itemIndex: number
   // 方法
-  getRelativeCoords(element: any): {x: number, y: number}
-  relate(event: any): boolean
+  getRelativeCoords(element: Element): {x: number, y: number}
+  relate(event: Event): boolean
   isMouseType(): boolean
 }
 
@@ -89,10 +89,14 @@ Object.defineProperties(Event.prototype, {
     }
   },
   cmdOrCtrlKey: {
-    get: navigator.userAgentData.platform === 'macOS'
-    ? function (this: MouseKeyboardEvent) {return this.metaKey}
-    : function (this: MouseKeyboardEvent) {return this.ctrlKey}
-  },
+    get: function (this: MouseKeyboardEvent) {
+      if (navigator.userAgentData.platform === 'macOS') {
+        return this.metaKey
+      } else {
+        return this.ctrlKey
+      }
+    }
+  }
 })
 
 export {
