@@ -1,17 +1,12 @@
 "use strict"
 
-import {
-  FileItem,
-  FolderItem
-} from "../../yami"
+// ******************************** 节点扩展 ********************************
 
-// ******************************** 按钮扩展 ********************************
-
-interface Node_ext {
+interface Node_props {
+  // static
   versionId: number
   range: Uint32Array
   count: number
-  file: FolderItem | FileItem
 }
 
-export { Node_ext }
+export { Node_props }

@@ -100,7 +100,7 @@ import {
   ObjectConstructor_ext,
   RegExpConstructor_ext,
   StringConstructor_ext,
-  Node_ext,
+  Node_props,
   NodeList_ext,
   GL_ext,
   WebGLRenderingContext_ext,
@@ -427,7 +427,7 @@ declare global {
   interface StringConstructor extends StringConstructor_ext {}
 
   // Node 扩展
-  interface Node extends Node_ext {}
+  interface Node extends Node_props {}
 
   // NodeList 扩展
   interface NodeList extends NodeList_ext {}

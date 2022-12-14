@@ -1,6 +1,6 @@
 "use strict"
 
-import { MouseKeyboardEvent } from "./event"
+import { MouseKeyboardEvent } from "../../yami"
 
 // ******************************** 事件目标方法 ********************************
 
