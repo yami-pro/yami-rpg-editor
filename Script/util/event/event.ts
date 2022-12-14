@@ -32,9 +32,9 @@ interface Event_ext {
   allowCopy: boolean
   dropPath: string | null
   dropMode: string | null
-  files: HTMLElement[]
+  files: (FolderItem | FileItem)[]
   filePaths: string[]
-  promise: Promise<void>
+  promise: Promise<object>
   scrollLeft: number
   scrollTop: number
   latest: Event

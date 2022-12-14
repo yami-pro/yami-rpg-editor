@@ -3,7 +3,7 @@
 // ******************************** 数据传送方法 ********************************
 
 interface DataTransfer_ext {
-  hideDragImage: () => void
+  hideDragImage(): void
 }
 
 // 数据传送方法 - 隐藏拖拽图像
