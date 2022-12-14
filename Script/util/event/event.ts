@@ -9,11 +9,31 @@ import {
 
 type MouseKeyboardEvent = DragEvent & WheelEvent & PointerEvent & KeyboardEvent
 
+interface Event_props {
+  // static
+  message: string
+  raw: Event
+  clientX: number
+  clientY: number
+  doubleclickProcessed: boolean
+  dropTarget: EventTarget | null
+  allowMove: boolean
+  allowCopy: boolean
+  dropPath: string | null
+  dropMode: string | null
+  files: (FolderItem | FileItem)[]
+  filePaths: string[]
+  promise: Promise<EventTarget | void>
+  latest: Event
+  itemHeight: number
+  itemIndex: number
+}
+
 interface Event_ext {
-  // 属性
+  // prototype
+  spaceKey: boolean
   dragKey: boolean
   cmdOrCtrlKey: boolean
-  message: string
   mode: string | null
   value:  string |
           number |
@@ -22,25 +42,8 @@ interface Event_ext {
           FileItem |
           (FolderItem | FileItem)[] |
           null
-  raw: Event
-  clientX: number
-  clientY: number
-  doubleclickProcessed: boolean
-  spaceKey: boolean
-  dropTarget: EventTarget | null
-  allowMove: boolean
-  allowCopy: boolean
-  dropPath: string | null
-  dropMode: string | null
-  files: (FolderItem | FileItem)[]
-  filePaths: string[]
-  promise: Promise<object>
   scrollLeft: number
   scrollTop: number
-  latest: Event
-  itemHeight: number
-  itemIndex: number
-  // 方法
   getRelativeCoords(element: Element): {x: number, y: number}
   relate(event: Event): boolean
   isMouseType(): boolean
@@ -101,5 +104,6 @@ Object.defineProperties(Event.prototype, {
 
 export {
   Event_ext,
+  Event_props,
   MouseKeyboardEvent
 }

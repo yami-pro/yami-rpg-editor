@@ -15,35 +15,19 @@ import {
   Local,
   Window,
   Timer,
-  MouseKeyboardEvent
+  MouseKeyboardEvent,
+  ErrorMsg
 } from "../yami"
 
 // ******************************** 文件主体面板 ********************************
 
-interface FileBodyPaneProps {
-  element: HTMLElement & FileBodyPaneProps
-  itemSize: number
-  visibleLines: number
-  normalCountPerLine: number
-  scrollCountPerLine: number
-  scrollCount: number
-  countPerLine: number
-  changed: boolean
-  file: FolderItem | FileItem
-  context: FileBodyPane
-  fileIcon: HTMLElement & FileBodyPaneProps
-  nameBox: HTMLElement & FileBodyPaneProps
-
-  isImageChanged: () => boolean
-}
-
-class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
+class FileBodyPane extends HTMLElement {
   viewIndex: number | null
   viewMode: string | null
   timer: Timer
-  elements: (HTMLElement & FileBodyPaneProps)[]
+  elements: HTMLElement[]
   selections: (FolderItem | FileItem)[]
-  content: HTMLElement & FileBodyPaneProps
+  content: HTMLElement
   pressing: ((event: Event) => void) | null
   openEventEnabled: boolean
   selectEventEnabled: boolean
@@ -51,23 +35,6 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
   popupEventEnabled: boolean
   textBox: TextBox
   links: Browser_links_t
-
-  // props
-  // 属性
-  element: HTMLElement & FileBodyPaneProps
-  itemSize: number
-  visibleLines: number
-  normalCountPerLine: number
-  scrollCountPerLine: number
-  scrollCount: number
-  countPerLine: number
-  changed: boolean
-  file: FolderItem | FileItem
-  context: FileBodyPane
-  fileIcon: HTMLElement & FileBodyPaneProps
-  nameBox: HTMLElement & FileBodyPaneProps
-  // 方法
-  isImageChanged: () => boolean
 
   constructor() {
     super()
@@ -82,8 +49,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
           const file = files[0]
           const target = timer.target
           const context = <FileBodyPane>file.getContext(this)
-          const element = context.element
-          if (element.contains(target)) {
+          const element = <Node>context.element
+          if (element.contains(<Node>target)) {
             this.rename(file)
           }
         }
@@ -410,7 +377,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
   }
 
   // 在重新调整时更新
-  updateOnResize(element: HTMLElement & FileBodyPaneProps) {
+  updateOnResize(element: HTMLElement) {
     if (element.changed) {
       element.changed = false
       const {file} = element
@@ -448,7 +415,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
   // 创建文件夹元素
   createFolderElement(file: FolderItem) {
     const context = <FileBodyPane>file.getContext(this)
-    let element = context.element
+    let element = <HTMLElement>context.element
     if (element === undefined) {
       // 创建文件夹
       element = document.createElement('file-body-item')
@@ -468,7 +435,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
   }
 
   // 更新文件夹元素
-  updateFolderElement(element: HTMLElement & FileBodyPaneProps) {
+  updateFolderElement(element: HTMLElement) {
     if (!element.nameBox) {
       // 创建文件夹图标
       const fileIcon = document.createElement('file-body-icon')
@@ -490,7 +457,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
   // 创建文件元素
   createFileElement(file: FileItem) {
     const context = <FileBodyPane>file.getContext(this)
-    let element = context.element
+    let element = <HTMLElement>context.element
     if (element === undefined) {
       // 创建文件
       element = document.createElement('file-body-item')
@@ -503,8 +470,11 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
   }
 
   // 更新文件元素
-  updateFileElement(element: HTMLElement & FileBodyPaneProps) {
+  updateFileElement(element: HTMLElement) {
     const {file} = element
+    if (file instanceof FolderItem) {
+      throw new Error(ErrorMsg.E00000061)
+    }
     if (!element.nameBox) {
       // 创建文件图标
       const fileIcon = this.createIcon(file)
@@ -530,7 +500,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
       }
     }
     // 当图像改变时更新图标
-    if (element.fileIcon.isImageChanged?.()) {
+    if (element.fileIcon !== null &&
+        (<HTMLElement>element.fileIcon).isImageChanged?.()) {
       this.updateIcon(file)
     }
   }
@@ -643,16 +614,17 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
 
   // 更新图标
   updateIcon(file: FileItem) {
-    const {element} = <FileBodyPane>file.getContext(this)
+    const context = <FileBodyPane>file.getContext(this)
+    const element = <HTMLElement>context.element
     if (element?.fileIcon) {
       const icon = this.createIcon(file)
-      element.replaceChild(icon, element.fileIcon)
+      element.replaceChild(icon, <Node>element.fileIcon)
       element.fileIcon = icon
     }
   }
 
   // 设置图标剪辑
-  setIconClip(icon: HTMLElement & FileBodyPaneProps, path: string, cx: number, cy: number, cw: number, ch: number) {
+  setIconClip(icon: HTMLElement, path: string, cx: number, cy: number, cw: number, ch: number) {
     File.getImageResolution(path).then(({width, height}) => {
       // 当cw和ch为负数时为划分模式
       if (cw < 0) {
@@ -699,7 +671,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
       const context = <FileBodyPane>file.getContext(this)
       const element = context.element
       if (element !== undefined) {
-        element.addClass('selected')
+        (<HTMLElement>element).addClass('selected')
       }
     }
     if (this.selectEventEnabled) {
@@ -713,7 +685,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
   selectAll() {
     const {elements} = this
     const {count} = elements
-    const files = new Array(count)
+    const files = new Array<FolderItem | FileItem>(count)
     for (let i = 0; i < count; i++) {
       files[i] = elements[i].file
     }
@@ -729,7 +701,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
         const context = <FileBodyPane>file.getContext(this)
         const element = context.element
         if (element !== undefined) {
-          element.removeClass('selected')
+          (<HTMLElement>element).removeClass('selected')
         }
       }
       this.selections = []
@@ -778,7 +750,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
       let end = -Infinity
       const {selections} = this
       for (const file of selections) {
-        const {element} = <FileBodyPane>file.getContext(this)
+        const context = <FileBodyPane>file.getContext(this)
+        const element = <HTMLElement>context.element
         const index = elements.indexOf(element)
         if (index !== -1) {
           start = Math.min(start, index)
@@ -935,7 +908,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
     let length = 0
     const elements = this.elements
     for (const file of this.selections) {
-      const {element} = <FileBodyPane>file.getContext(this)
+      const context = <FileBodyPane>file.getContext(this)
+      const element = <HTMLElement>context.element
       if (elements.includes(element)) {
         File.showInExplorer(
           File.route(file.path)
@@ -969,7 +943,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
     if (!selections.includes(Directory.assets)) {
       const elements = this.elements
       for (const file of selections) {
-        const {element} = <FileBodyPane>file.getContext(this)
+        const context = <FileBodyPane>file.getContext(this)
+        const element = <HTMLElement>context.element
         if (elements.includes(element)) {
           files.push(file)
         }
@@ -1003,10 +978,11 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
       file !== Directory.assets &&
       !textBox.parentNode) {
       const context = <FileBodyPane>file.getContext(this)
-      const element = context.element
+      const element = <HTMLElement>context.element
       if (element && element.parentNode) {
-        element.nameBox.hide()
+        (<HTMLElement>element.nameBox).hide()
         element.appendChild(textBox)
+        // FolderItem 是不是也有个basename属性?
         textBox.write(file.basename ?? file.name)
         textBox.getFocus('all')
         switch (this.viewMode) {
@@ -1137,7 +1113,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
     }
     let i = start
     while (elements[i] !== undefined) {
-      elements[i++] = undefined
+      // elements[i++] = undefined 使用delete代替
+      delete elements[i++]
     }
   }
 
@@ -1202,7 +1179,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
           const files = this.selections
           if (files.length === 1) {
             const file = files[0]
-            const {element} = <FileBodyPane>file.getContext(this)
+            const context = <FileBodyPane>file.getContext(this)
+            const element = <HTMLElement>context.element
             if (this.elements.includes(element)) {
               this.openFile(file)
             }
@@ -1302,7 +1280,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
               const elements = this.elements
               const files = Array.from(selections)
               for (let i = length - 1; i >= 0; i--) {
-                const {element} = <FileBodyPane>files[i].getContext(this)
+                const context = <FileBodyPane>files[i].getContext(this)
+                const element = <HTMLElement>context.element
                 if (!elements.includes(element)) {
                   files.splice(i, 1)
                 }
@@ -1330,7 +1309,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
               let start = elements.indexOf(element)
               let end = start
               for (let i = 0; i < length; i++) {
-                const {element} = <FileBodyPane>selections[i].getContext(this)
+                const context = <FileBodyPane>selections[i].getContext(this)
+                const element = <HTMLElement>context.element
                 const index = elements.indexOf(element)
                 if (index !== -1) {
                   start = Math.min(start, index)
@@ -1507,7 +1487,8 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
       const name = this.read().trim()
       let filename = name
       this.remove()
-      item.nameBox.show()
+      const nameBox = <HTMLElement>item.nameBox
+      nameBox.show()
       if (!name) return
       if (file instanceof FileItem) {
         const guid = file.meta?.guid
@@ -1529,7 +1510,7 @@ class FileBodyPane extends HTMLElement implements FileBodyPaneProps {
             File.route(file.path),
             path,
           ).then(() => {
-            item.nameBox.textContent = name
+            nameBox.textContent = name
             return Directory.update()
           })
         })
@@ -1548,6 +1529,5 @@ interface JSXFileBodyPane { [attributes: string]: any }
 
 export {
   FileBodyPane,
-  FileBodyPaneProps,
   JSXFileBodyPane
 }

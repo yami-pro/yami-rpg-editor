@@ -1,7 +1,6 @@
 "use strict"
 
 import {
-  Element_ext,
   Cursor,
   Timer,
   TimerManager,
@@ -23,7 +22,7 @@ interface HTMLElement_scroll_ext {
   removeScrollListener: () => void
 }
 
-interface HTMLElement_ext extends Element_ext {
+interface HTMLElement_ext {
   dragging: MouseKeyboardEvent | null
   dataValue: any
 
