@@ -209,9 +209,9 @@ class FileBrowser extends HTMLElement {
   // 获取活动页面
   getActivePage(event: Event) {
     const {nav, body} = this
-    return nav.contains(<Node>event.target)  ? nav
-         : body.contains(<Node>event.target) ? body
-         : null
+    return nav.contains(<Node>event.target) ?
+           nav : body.contains(<Node>event.target) ?
+                 body : null
   }
 
   // 指针按下事件
@@ -304,11 +304,10 @@ class FileBrowser extends HTMLElement {
         !(<Node>dragging.target).contains(<Node>element)) {
         dragging.allowCopy = true
       }
-      while (!(
-        element instanceof FileBrowser ||
-        element instanceof FileNavPane ||
-        element instanceof FileBodyPane ||
-        element.file instanceof FolderItem)) {
+      while (!(element instanceof FileBrowser ||
+               element instanceof FileNavPane ||
+               element instanceof FileBodyPane ||
+               element.file instanceof FolderItem)) {
         element = <HTMLElement>element.parentNode
       }
       if (dropTarget !== element) {

@@ -24,7 +24,10 @@ interface Event_props {
   dropMode: string | null
   files: (FolderItem | FileItem)[]
   filePaths: string[]
-  promise: Promise<EventTarget | Promise_object_t | Promise_array_t | void>
+  promise: Promise<EventTarget |
+                   Promise_object_t |
+                   Promise_array_t |
+                   void>
   latest: Event
   itemHeight: number
   itemIndex: number
@@ -36,13 +39,13 @@ interface Event_ext {
   dragKey: boolean
   cmdOrCtrlKey: boolean
   mode: string | null
-  value:  string |
-          number |
-          boolean |
-          FolderItem |
-          FileItem |
-          (FolderItem | FileItem)[] |
-          null
+  value: string |
+         number |
+         boolean |
+         FolderItem |
+         FileItem |
+         (FolderItem | FileItem)[] |
+         null
   scrollLeft: number
   scrollTop: number
   getRelativeCoords(element: Element): {x: number, y: number}
