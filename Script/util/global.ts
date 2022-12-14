@@ -219,17 +219,6 @@ interface Window_ext {
 
 // ******************************** CSS选择器 ********************************
 
-// const $ = function IIFE() {
-//   const regexp = /^#(\w|-)+$/
-//   return function (selector: string) {
-//     if (regexp.test(selector)) {
-//       return document.querySelector(selector)
-//     } else {
-//       return document.querySelectorAll(selector)
-//     }
-//   }
-// }()
-
 window.$ = function (selector: string) {
   return document.querySelector(selector)
 }

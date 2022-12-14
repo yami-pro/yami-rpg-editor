@@ -7,8 +7,11 @@ import {
 
 // ******************************** 按钮扩展 ********************************
 
+type Tooltip_t = (...params: any[]) => any
+
 interface Element_props {
   // static
+  _padding: number
   element: EventTarget | null
   itemSize: number
   visibleLines: number
@@ -21,6 +24,14 @@ interface Element_props {
   context: EventTarget | null
   fileIcon: EventTarget | null
   nameBox: EventTarget | null
+  dataValue: any
+  dragging: DragEvent | null
+  tip: string | Tooltip_t
+  top: number
+  left: number
+  width: number
+  height: number
+  visible: boolean
   isImageChanged(): boolean
 }
 
@@ -40,5 +51,6 @@ Element.prototype.isInContent = function (event) {
 
 export {
   Element_ext,
-  Element_props
+  Element_props,
+  Tooltip_t
 }

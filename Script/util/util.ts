@@ -1,7 +1,5 @@
 "use strict"
 
-import { MouseKeyboardEvent } from "./index"
-
 // ******************************** 其他 ********************************
 
 // 测量文本大小
@@ -41,14 +39,14 @@ const measureText = function IIFE() {
   let osdragging = false
 
   // 拖拽开始事件 - 阻止拖拽元素
-  const dragstart = function (event: Event) {
+  const dragstart = function (event: DragEvent) {
     dragging = true
     event.preventDefault()
     window.on('pointerup', pointerup)
   }
 
   // 拖拽结束事件 - 比指针弹起事件优先执行
-  const dragend = function (event: Event) {
+  const dragend = function (event: DragEvent) {
     if (dragging) {
       dragging = false
       window.off('pointerup', pointerup)
@@ -56,7 +54,7 @@ const measureText = function IIFE() {
   }
 
   // 指针弹起事件 - 拖拽被阻止时的备用方案
-  const pointerup = function (event: Event) {
+  const pointerup = function (event: PointerEvent) {
     if (dragging) {
       dragging = false
       window.off('pointerup', pointerup)
@@ -64,7 +62,7 @@ const measureText = function IIFE() {
   }
 
   // 拖拽进入事件
-  const dragenter = function (event: MouseKeyboardEvent) {
+  const dragenter = function (event: DragEvent) {
     if (!dragging &&
       !osdragging &&
       !event.relatedTarget) {
@@ -79,7 +77,7 @@ const measureText = function IIFE() {
   }
 
   // 拖拽离开事件
-  const dragleave = function (event: MouseKeyboardEvent) {
+  const dragleave = function (event: DragEvent) {
     if (osdragging &&
       !event.relatedTarget) {
       osdragging = false
@@ -93,13 +91,13 @@ const measureText = function IIFE() {
   }
 
   // 拖拽悬停事件
-  const dragover = function (event: Event) {
+  const dragover = function (event: DragEvent) {
     event.preventDefault()
   }
 
   // 拖拽释放事件
   // 停止冒泡会拦截该事件
-  const drop = function (event: Event) {
+  const drop = function (event: DragEvent) {
     if (osdragging) {
       osdragging = false
       window.dispatchEvent(

@@ -15,7 +15,6 @@ import {
   Local,
   Window,
   Timer,
-  MouseKeyboardEvent,
   ErrorMsg
 } from "../yami"
 
@@ -1150,7 +1149,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 键盘按下事件
-  keydown(event: MouseKeyboardEvent) {
+  keydown(event: KeyboardEvent) {
     if (event.cmdOrCtrlKey) {
       switch (event.code) {
         case 'ArrowUp':
@@ -1255,7 +1254,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 指针按下事件
-  pointerdown(this: FileBodyPane, event: MouseKeyboardEvent) {
+  pointerdown(this: FileBodyPane, event: PointerEvent) {
     this.cancelRenaming()
     switch (event.button) {
       case 0: case 2: {
@@ -1327,7 +1326,7 @@ class FileBodyPane extends HTMLElement {
               this.select(element.file)
             } else if (event.button === 0) {
               if (length > 1) {
-                const pointerup = (event: MouseKeyboardEvent) => {
+                const pointerup = (event: Event) => {
                   if (this.pressing === pointerup) {
                     this.pressing = null
                     if (element.contains(<Node>event.target)) {
@@ -1362,7 +1361,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 指针弹起事件
-  pointerup(event: MouseKeyboardEvent) {
+  pointerup(event: PointerEvent) {
     switch (event.button) {
       case 0:
         if (document.activeElement === this.content &&
@@ -1401,7 +1400,7 @@ class FileBodyPane extends HTMLElement {
   }
 
   // 鼠标滚轮事件
-  wheel(event: MouseKeyboardEvent) {
+  wheel(event: WheelEvent) {
     const {deltaY} = event
     if (deltaY !== 0) {
       if (event.cmdOrCtrlKey) {
@@ -1439,7 +1438,7 @@ class FileBodyPane extends HTMLElement {
     textBox.input.addClass('file-body-text-box-input')
 
     // 键盘按下事件
-    textBox.on('keydown', function (this: TextBox, event: MouseKeyboardEvent) {
+    textBox.on('keydown', function (this: TextBox, event: KeyboardEvent) {
       event.stopPropagation()
       switch (event.code) {
         case 'Enter':

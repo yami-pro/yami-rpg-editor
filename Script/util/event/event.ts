@@ -7,8 +7,6 @@ import {
 
 // ******************************** 事件访问器 ********************************
 
-type MouseKeyboardEvent = DragEvent & WheelEvent & PointerEvent & KeyboardEvent
-
 type Promise_object_t = {[key: string]: any}
 type Promise_array_t = {[key: string]: any}[]
 
@@ -60,7 +58,7 @@ Event.prototype.scrollTop = 0
 // 事件方法 - 返回相对于元素的坐标
 Event.prototype.getRelativeCoords = function IIFE() {
   const point = {x: 0, y: 0}
-  return function (this: MouseKeyboardEvent, element: Element) {
+  return function (this: Event, element: Element) {
     const rect = element.getBoundingClientRect()
     point.x = (
       this.clientX
@@ -79,23 +77,23 @@ Event.prototype.getRelativeCoords = function IIFE() {
 }()
 
 // 指针事件方法 - 判断是否为鼠标类型
-Event.prototype.isMouseType = function (this: MouseKeyboardEvent) {
+Event.prototype.isMouseType = function (this: PointerEvent) {
   return this.pointerType === 'mouse'
 }
 
 // 指针事件方法 - 判断两个事件是否有关联
-Event.prototype.relate = function (this: MouseKeyboardEvent, event: MouseKeyboardEvent) {
+Event.prototype.relate = function (this: PointerEvent, event: PointerEvent) {
   return this.pointerId === event.pointerId
 }
 
 Object.defineProperties(Event.prototype, {
   dragKey: {
-    get: function (this: MouseKeyboardEvent) {
+    get: function (this: PointerEvent | KeyboardEvent) {
       return this.spaceKey || this.altKey
     }
   },
   cmdOrCtrlKey: {
-    get: function (this: MouseKeyboardEvent) {
+    get: function (this: PointerEvent | KeyboardEvent) {
       if (navigator.userAgentData.platform === 'macOS') {
         return this.metaKey
       } else {
@@ -108,7 +106,6 @@ Object.defineProperties(Event.prototype, {
 export {
   Event_ext,
   Event_props,
-  MouseKeyboardEvent,
   Promise_object_t,
   Promise_array_t
 }

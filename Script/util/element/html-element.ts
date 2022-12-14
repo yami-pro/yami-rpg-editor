@@ -5,35 +5,25 @@ import {
   Timer,
   TimerManager,
   ScrollBarManager,
-  MouseKeyboardEvent,
+  Tooltip_t
 } from "../../yami"
 
 // ******************************** 声明 ********************************
 
-type Function_tip_t = (...params: any[]) => any
-
 interface HTMLElement_object_ext {
+  // prototype
   name: string | null
   innerHeight: number
 }
 
 interface HTMLElement_scroll_ext {
+  // prototype
   addScrollListener: (mode: string, speed: number, shift: boolean, updater: () => void) => void
   removeScrollListener: () => void
 }
 
 interface HTMLElement_ext {
-  dragging: MouseKeyboardEvent | null
-  dataValue: any
-
-  _padding: number
-  tip: string | Function_tip_t
-  top: number
-  left: number
-  width: number
-  height: number
-  visible: boolean
-
+  // prototype
   read(): any
   write(value: any): void
   clear(): HTMLElement
@@ -50,14 +40,14 @@ interface HTMLElement_ext {
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode?: string): void
-  setTooltip: (tip: string | Function_tip_t) => void
+  setTooltip: (tip: string | Tooltip_t) => void
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): boolean
   dispatchChangeEvent: (index?: number) => void
   dispatchResizeEvent: () => void
   dispatchUpdateEvent: () => void
-  listenDraggingScrollbarEvent: (pointerdown?: (event: MouseKeyboardEvent) => void, options?: any) => void
+  listenDraggingScrollbarEvent: (pointerdown?: (event: DragEvent) => void, options?: any) => void
 
   beginScrolling(): void
   endScrolling(): void
@@ -66,8 +56,8 @@ interface HTMLElement_ext {
   setScrollTop(top: number):void
   updateScrollbars(): void
 
-  scrollPointerup(this: HTMLElement, event: MouseKeyboardEvent): void
-  scrollPointermove(this: HTMLElement, event: MouseKeyboardEvent): void
+  scrollPointerup(this: HTMLElement, event: PointerEvent): void
+  scrollPointermove(this: HTMLElement, event: PointerEvent): void
 }
 
 // ******************************** 元素扩展 ********************************
@@ -228,7 +218,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: HTMLElement, event: MouseKeyboardEvent) {
+  const pointermove = function (this: HTMLElement, event: PointerEvent) {
     // 两个重叠元素时执行最上层的那个
     if (timeStamp === event.timeStamp) {
       return
@@ -281,7 +271,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (this: HTMLElement, tip: string | Function_tip_t) {
+  return function (this: HTMLElement, tip: string | Tooltip_t) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)
@@ -360,7 +350,7 @@ HTMLElement.prototype.dispatchUpdateEvent = function IIFE() {
 // 元素方法 - 侦听拖拽滚动条事件
 HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   // 默认指针按下事件
-  const defaultPointerdown = function (this: HTMLElement, event: MouseKeyboardEvent) {
+  const defaultPointerdown = function (this: HTMLElement, event: DragEvent) {
     if (this.dragging) {
       return
     }
@@ -397,7 +387,7 @@ HTMLElement.prototype.listenDraggingScrollbarEvent = function IIFE() {
   }
 
   // 指针移动事件
-  const pointermove = function (this: HTMLElement, event: MouseKeyboardEvent) {
+  const pointermove = function (this: HTMLElement, event: PointerEvent) {
     const {dragging} = this
     if (dragging?.relate(event)) {
       switch (dragging.mode) {
@@ -499,7 +489,7 @@ type scrollUpdaterVar = (() => void) | null
   })
 
   // 指针移动事件
-  const pointermove = (event: MouseKeyboardEvent) => {
+  const pointermove = (event: PointerEvent) => {
     if (!target)
       return
     const dpr = window.devicePixelRatio
