@@ -11,7 +11,9 @@ import {
   FolderItem,
   Path,
   Local,
-  MouseKeyboardEvent
+  MouseKeyboardEvent,
+  ErrorMsg,
+  Promise_array_t
 } from "../yami"
 
 // ******************************** 文件浏览器 ********************************
@@ -245,7 +247,7 @@ class FileBrowser extends HTMLElement {
         event.files = files
         event.filePaths = rPaths
         event.promise = Directory.readdir(aPaths)
-        event.promise.then((dir: {name: string, path: string}[]) => {
+        event.promise.then((dir: Promise_array_t) => {
           // 若文件已删除则结束拖拽
           if (dir.length === 0) {
             this.dragend()
@@ -288,7 +290,7 @@ class FileBrowser extends HTMLElement {
     const {dragging} = this
     if (dragging?.dropTarget &&
       !this.contains(<Node>event.relatedTarget)) {
-      dragging.dropTarget.removeClass('drop-target')
+      (<HTMLElement>dragging.dropTarget).removeClass('drop-target')
       dragging.dropTarget = null
     }
   }
@@ -350,6 +352,9 @@ class FileBrowser extends HTMLElement {
       }
       if (!dragging.dropPath) {
         return
+      }
+      if (event.dataTransfer === null) {
+        throw new Error(ErrorMsg.E00000062)
       }
       if (event.cmdOrCtrlKey) {
         if (dragging.allowCopy) {
@@ -487,6 +492,9 @@ class FileBrowser extends HTMLElement {
       }
       if (dragging.dropPath) {
         event.preventDefault()
+        if (event.dataTransfer === null) {
+          throw new Error(ErrorMsg.E00000062)
+        }
         event.dataTransfer.dropEffect = 'copy'
       }
     }

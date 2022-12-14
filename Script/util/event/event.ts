@@ -9,6 +9,9 @@ import {
 
 type MouseKeyboardEvent = DragEvent & WheelEvent & PointerEvent & KeyboardEvent
 
+type Promise_object_t = {[key: string]: any}
+type Promise_array_t = {[key: string]: any}[]
+
 interface Event_props {
   // static
   message: string
@@ -23,7 +26,7 @@ interface Event_props {
   dropMode: string | null
   files: (FolderItem | FileItem)[]
   filePaths: string[]
-  promise: Promise<EventTarget | void>
+  promise: Promise<EventTarget | Promise_object_t | Promise_array_t | void>
   latest: Event
   itemHeight: number
   itemIndex: number
@@ -105,5 +108,7 @@ Object.defineProperties(Event.prototype, {
 export {
   Event_ext,
   Event_props,
-  MouseKeyboardEvent
+  MouseKeyboardEvent,
+  Promise_object_t,
+  Promise_array_t
 }
