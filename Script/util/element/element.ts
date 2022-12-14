@@ -25,7 +25,7 @@ interface Element_props {
   fileIcon: EventTarget | null
   nameBox: EventTarget | null
   dataValue: any
-  dragging: DragEvent | null
+  dragging: Event | null
   tip: string | Tooltip_t
   top: number
   left: number
