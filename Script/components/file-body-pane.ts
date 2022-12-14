@@ -107,7 +107,7 @@ class FileBodyPane extends HTMLElement {
     viewIndex = Math.clamp(viewIndex, 0, 4)
     if (this.viewIndex !== viewIndex) {
       const {head} = this.links
-      this.viewIndex = viewIndex;
+      this.viewIndex = viewIndex
       head.view.write(viewIndex)
       this.updateViewMode()
     }
