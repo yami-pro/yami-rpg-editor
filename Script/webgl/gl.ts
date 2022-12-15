@@ -8,7 +8,9 @@ import {
   Matrix,
   Texture,
   TextureManager,
-  ImageTexture
+  ImageTexture,
+  FSP,
+  Path
 } from "../yami"
 
 // ******************************** 声明 ********************************
@@ -53,16 +55,17 @@ interface GL_ext {
 
   restore(): void
   initialize(): void
-  createProgramWithShaders(vshader: string, fshader: string): WebGLProgram | null
+  loadFileText(fileName: string): Promise<string>
+  createProgramWithShaders(vsFileName: string, fsFileName: string): Promise<WebGLProgram | null>
   loadShader(type: number, source: string): WebGLShader | null
-  createImageProgram(): WebGLProgram | null
-  createTileProgram(): WebGLProgram | null
-  createTextProgram(): WebGLProgram | null
-  createSpriteProgram(): WebGLProgram | null
-  createParticleProgram(): WebGLProgram | null
-  createLightProgram(): WebGLProgram | null
-  createGraphicProgram(): WebGLProgram | null
-  createDashedLineProgram(): WebGLProgram | null
+  createImageProgram(): Promise<WebGLProgram | null>
+  createTileProgram(): Promise<WebGLProgram | null>
+  createTextProgram(): Promise<WebGLProgram | null>
+  createSpriteProgram(): Promise<WebGLProgram | null>
+  createParticleProgram(): Promise<WebGLProgram | null>
+  createLightProgram(): Promise<WebGLProgram | null>
+  createGraphicProgram(): Promise<WebGLProgram | null>
+  createDashedLineProgram(): Promise<WebGLProgram | null>
   reset(): void
   updateMasking(): void
   createBlendingUpdater(): () => void
@@ -299,7 +302,7 @@ GL.restore = function () {
 }
 
 // WebGL上下文方法 - 初始化
-GL.initialize = function () {
+GL.initialize = async function () {
   // 设置初始属性
   this.flip = this.flip ?? -1
   this.alpha = this.alpha ?? 1
@@ -417,18 +420,30 @@ GL.initialize = function () {
   this.context2d = this.context2d ?? this.createContext2D()
 
   // 创建程序对象
-  this.imageProgram = this.createImageProgram()
-  this.tileProgram = this.createTileProgram()
-  this.textProgram = this.createTextProgram()
-  this.spriteProgram = this.createSpriteProgram()
-  this.particleProgram = this.createParticleProgram()
-  this.lightProgram = this.createLightProgram()
-  this.graphicProgram = this.createGraphicProgram()
-  this.dashedLineProgram = this.createDashedLineProgram()
+  this.imageProgram = await this.createImageProgram()
+  this.tileProgram = await this.createTileProgram()
+  this.textProgram = await this.createTextProgram()
+  this.spriteProgram = await this.createSpriteProgram()
+  this.particleProgram = await this.createParticleProgram()
+  this.lightProgram = await this.createLightProgram()
+  this.graphicProgram = await this.createGraphicProgram()
+  this.dashedLineProgram = await this.createDashedLineProgram()
+}
+
+GL.loadFileText = async function (fileName: string) {
+  const promise = FSP.readFile(fileName, 'utf8')
+  const data = await promise
+  return data
 }
 
 // WebGL上下文方法 - 创建程序对象
-GL.createProgramWithShaders = function (vshader, fshader): WebGLProgram | null {
+GL.createProgramWithShaders = async function (vsFileName, fsFileName) {
+  const path = "Script/webgl/shaders/"
+  const vsPath = Path.resolve(__dirname, path + vsFileName)
+  const fsPath = Path.resolve(__dirname, path + fsFileName)
+
+  const vshader = await this.loadFileText(vsPath)
+  const fshader = await this.loadFileText(fsPath)
   const vertexShader = this.loadShader(this.VERTEX_SHADER, vshader)
   const fragmentShader = this.loadShader(this.FRAGMENT_SHADER, fshader)
   if (!vertexShader || !fragmentShader) {
@@ -475,102 +490,8 @@ GL.loadShader = function (type, source) {
 }
 
 // WebGL上下文方法 - 创建图像程序
-GL.createImageProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   vec2        a_TexCoord;
-    uniform     float       u_Flip;
-    uniform     mat3        u_Matrix;
-    uniform     vec3        u_Ambient;
-    uniform     float       u_Contrast;
-    uniform     int         u_LightMode;
-    uniform     vec2        u_LightCoord;
-    uniform     vec4        u_LightTexSize;
-    uniform     sampler2D   u_LightSampler;
-    varying     vec2        v_TexCoord;
-    varying     vec3        v_LightColor;
-
-    vec3 getLightColor() {
-      if (u_LightMode == 0) {
-        return vec3(1.0, 1.0, 1.0);
-      }
-      if (u_LightMode == 1) {
-        return vec3(
-          gl_Position.x / u_LightTexSize.x + u_LightTexSize.z,
-          gl_Position.y / u_LightTexSize.y * u_Flip + u_LightTexSize.w,
-          -1.0
-        );
-      }
-      if (u_LightMode == 2) {
-        vec2 anchorCoord = (u_Matrix * vec3(u_LightCoord, 1.0)).xy;
-        vec2 lightCoord = vec2(
-          anchorCoord.x / u_LightTexSize.x + u_LightTexSize.z,
-          anchorCoord.y / u_LightTexSize.y * u_Flip + u_LightTexSize.w
-        );
-        return texture2D(u_LightSampler, lightCoord).rgb * u_Contrast;
-      }
-      if (u_LightMode == 3) {
-        return u_Ambient * u_Contrast;
-      }
-    }
-
-    void main() {
-      gl_Position.xyw = u_Matrix * vec3(a_Position, 1.0);
-      v_TexCoord = a_TexCoord;
-      v_LightColor = getLightColor();
-    }
-    `,
-    `
-    precision   highp       float;
-    varying     vec2        v_TexCoord;
-    varying     vec3        v_LightColor;
-    uniform     vec2        u_Viewport;
-    uniform     int         u_Masking;
-    uniform     float       u_Alpha;
-    uniform     int         u_ColorMode;
-    uniform     vec4        u_Color;
-    uniform     vec4        u_Tint;
-    uniform     vec4        u_Repeat;
-    uniform     float       u_Contrast;
-    uniform     sampler2D   u_Sampler;
-    uniform     sampler2D   u_MaskSampler;
-    uniform     sampler2D   u_LightSampler;
-
-    vec3 getLightColor() {
-      if (v_LightColor.z != -1.0) return v_LightColor;
-      return texture2D(u_LightSampler, v_LightColor.xy).rgb * u_Contrast;
-    }
-
-    void main() {
-      if (u_ColorMode == 0) {
-        gl_FragColor = texture2D(u_Sampler, fract(v_TexCoord));
-        if (gl_FragColor.a == 0.0) discard;
-        gl_FragColor.rgb = gl_FragColor.rgb * (1.0 - u_Tint.a) + u_Tint.rgb +
-        dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114)) * u_Tint.a;
-      } else if (u_ColorMode == 1) {
-        float alpha = texture2D(u_Sampler, v_TexCoord).a;
-        if (alpha == 0.0) discard;
-        gl_FragColor = vec4(u_Color.rgb, u_Color.a * alpha);
-      } else if (u_ColorMode == 2) {
-        vec2 uv = vec2(
-          mod(v_TexCoord.x - u_Repeat.x, u_Repeat.z) + u_Repeat.x,
-          mod(v_TexCoord.y - u_Repeat.y, u_Repeat.w) + u_Repeat.y
-        );
-        gl_FragColor = texture2D(u_Sampler, uv);
-        if (gl_FragColor.a == 0.0) discard;
-        gl_FragColor.rgb = gl_FragColor.rgb * (1.0 - u_Tint.a) + u_Tint.rgb +
-        dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114)) * u_Tint.a;
-      }
-      gl_FragColor.rgb *= getLightColor();
-      gl_FragColor.a *= u_Alpha;
-      if (u_Masking == 1) {
-        vec2 fragCoord = vec2(gl_FragCoord.x, (u_Viewport.y - gl_FragCoord.y));
-        gl_FragColor.a *= texture2D(u_MaskSampler, fragCoord / u_Viewport).a;
-      }
-    }
-    `,
-  )
+GL.createImageProgram = async function () {
+  const program = await this.createProgramWithShaders("image.vs", "image.fs")
 
   if (program !== null) {
     this.useProgram(program)
@@ -652,85 +573,8 @@ GL.createImageProgram = function () {
 }
 
 // WebGL上下文方法 - 创建图块程序
-GL.createTileProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   vec2        a_TexCoord;
-    attribute   float       a_TexIndex;
-    uniform     float       u_Flip;
-    uniform     mat3        u_Matrix;
-    uniform     vec3        u_Ambient;
-    uniform     float       u_Contrast;
-    uniform     int         u_LightMode;
-    uniform     vec4        u_LightTexSize;
-    uniform     sampler2D   u_LightSampler;
-    varying     float       v_TexIndex;
-    varying     vec2        v_TexCoord;
-    varying     vec3        v_LightColor;
-
-    vec3 getLightColor() {
-      if (u_LightMode == 0) {
-        return vec3(1.0, 1.0, 1.0);
-      }
-      if (u_LightMode == 1) {
-        return vec3(
-          gl_Position.x / u_LightTexSize.x + u_LightTexSize.z,
-          gl_Position.y / u_LightTexSize.y * u_Flip + u_LightTexSize.w,
-          -1.0
-        );
-      }
-      if (u_LightMode == 2) {
-        return u_Ambient * u_Contrast;
-      }
-    }
-
-    void main() {
-      gl_Position.xyw = u_Matrix * vec3(a_Position, 1.0);
-      v_TexCoord = a_TexCoord;
-      v_TexIndex = a_TexIndex;
-      v_LightColor = getLightColor();
-    }
-    `,
-    `
-    precision   highp       float;
-    varying     float       v_TexIndex;
-    varying     vec2        v_TexCoord;
-    varying     vec3        v_LightColor;
-    uniform     float       u_Alpha;
-    uniform     int         u_TintMode;
-    uniform     vec4        u_Tint;
-    uniform     float       u_Contrast;
-    uniform     sampler2D   u_Samplers[15];
-    uniform     sampler2D   u_LightSampler;
-
-    vec4 sampler(int index, vec2 uv) {
-      for (int i = 0; i < 15; i++) {
-        if (i == index) {
-          return texture2D(u_Samplers[i], uv);
-        }
-      }
-    }
-
-    vec3 getLightColor() {
-      if (v_LightColor.z != -1.0) return v_LightColor;
-      return texture2D(u_LightSampler, v_LightColor.xy).rgb * u_Contrast;
-    }
-
-    void main() {
-      gl_FragColor = sampler(int(v_TexIndex), v_TexCoord);
-      if (gl_FragColor.a == 0.0) {
-        discard;
-      }
-      if (u_TintMode == 1) {
-        gl_FragColor.rgb = gl_FragColor.rgb * (1.0 - u_Tint.a) + u_Tint.rgb +
-        dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114)) * u_Tint.a;
-      }
-      gl_FragColor.rgb *= getLightColor();
-      gl_FragColor.a *= u_Alpha;
-    }
-    `,
-  )
+GL.createTileProgram = async function () {
+  const program = await this.createProgramWithShaders("tile.vs", "tile.fs")
 
   if (program !== null) {
     this.useProgram(program)
@@ -812,41 +656,8 @@ GL.createTileProgram = function () {
 }
 
 // WebGL上下文方法 - 创建文字程序
-GL.createTextProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   vec2        a_TexCoord;
-    attribute   vec4        a_TextColor;
-    varying     vec2        v_TexCoord;
-    varying     vec4        v_TextColor;
-
-    void main() {
-      gl_Position.xyw = vec3(a_Position, 1.0);
-      v_TexCoord = a_TexCoord;
-      v_TextColor = a_TextColor;
-    }
-    `,
-    `
-    precision   highp       float;
-    varying     vec2        v_TexCoord;
-    varying     vec4        v_TextColor;
-    uniform     float       u_Alpha;
-    uniform     float       u_Threshold;
-    uniform     sampler2D   u_Sampler;
-
-    void main() {
-      float texAlpha = texture2D(u_Sampler, v_TexCoord).a;
-      if (texAlpha == 0.0 || texAlpha < u_Threshold) {
-        discard;
-      }
-      gl_FragColor.rgb = v_TextColor.rgb;
-      gl_FragColor.a = u_Threshold == 0.0
-      ? v_TextColor.a * u_Alpha * texAlpha
-      : v_TextColor.a * u_Alpha;
-    }
-    `,
-  )
+GL.createTextProgram = async function () {
+  const program = await this.createProgramWithShaders("text.vs", "text.fs")
 
   if (program !== null) {
     this.useProgram(program)
@@ -900,91 +711,8 @@ GL.createTextProgram = function () {
 }
 
 // WebGL上下文方法 - 创建精灵程序
-GL.createSpriteProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   vec2        a_TexCoord;
-    attribute   vec3        a_TexParam;
-    attribute   vec4        a_Tint;
-    attribute   vec2        a_LightCoord;
-    uniform     float       u_Flip;
-    uniform     mat3        u_Matrix;
-    uniform     float       u_Contrast;
-    uniform     vec4        u_LightTexSize;
-    uniform     sampler2D   u_LightSampler;
-    varying     float       v_TexIndex;
-    varying     float       v_Opacity;
-    varying     vec4        v_Tint;
-    varying     vec2        v_TexCoord;
-    varying     vec3        v_LightColor;
-
-    vec3 getLightColor() {
-      if (a_TexParam.z == 0.0) {
-        return vec3(1.0, 1.0, 1.0);
-      }
-      if (a_TexParam.z == 1.0) {
-        return vec3(
-          gl_Position.x / u_LightTexSize.x + u_LightTexSize.z,
-          gl_Position.y / u_LightTexSize.y * u_Flip + u_LightTexSize.w,
-          -1.0
-        );
-      }
-      if (a_TexParam.z == 2.0) {
-        return texture2D(u_LightSampler, a_LightCoord).rgb * u_Contrast;
-      }
-    }
-
-    void main() {
-      gl_Position.xyw = u_Matrix * vec3(a_Position, 1.0);
-      v_TexIndex = a_TexParam.x;
-      v_Opacity = a_TexParam.y / 255.0;
-      v_Tint = a_Tint / 255.0 - 1.0;
-      v_TexCoord = a_TexCoord;
-      v_LightColor = getLightColor();
-    }
-    `,
-    `
-    precision   highp       float;
-    varying     float       v_TexIndex;
-    varying     float       v_Opacity;
-    varying     vec4        v_Tint;
-    varying     vec2        v_TexCoord;
-    varying     vec3        v_LightColor;
-    uniform     float       u_Alpha;
-    uniform     vec4        u_Tint;
-    uniform     float       u_Contrast;
-    uniform     sampler2D   u_Samplers[15];
-    uniform     sampler2D   u_LightSampler;
-
-    vec4 sampler(int index, vec2 uv) {
-      for (int i = 0; i < 15; i++) {
-        if (i == index) {
-          return texture2D(u_Samplers[i], uv);
-        }
-      }
-    }
-
-    vec3 tint(vec3 color, vec4 tint) {
-      return color.rgb * (1.0 - tint.a) + tint.rgb +
-      dot(color.rgb, vec3(0.299, 0.587, 0.114)) * tint.a;
-    }
-
-    vec3 getLightColor() {
-      if (v_LightColor.z != -1.0) return v_LightColor;
-      return texture2D(u_LightSampler, v_LightColor.xy).rgb * u_Contrast;
-    }
-
-    void main() {
-      gl_FragColor = sampler(int(v_TexIndex), v_TexCoord);
-      if (gl_FragColor.a == 0.0) {
-        discard;
-      }
-      gl_FragColor.rgb = tint(tint(gl_FragColor.rgb, v_Tint), u_Tint) * getLightColor();
-      gl_FragColor.a *= v_Opacity * u_Alpha;
-    }
-    `,
-  )
+GL.createSpriteProgram = async function () {
+  const program = await this.createProgramWithShaders("sprite.vs", "sprite.fs")
 
   if (program !== null) {
   this.useProgram(program)
@@ -1068,54 +796,8 @@ GL.createSpriteProgram = function () {
 }
 
 // WebGL上下文方法 - 创建粒子程序
-GL.createParticleProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   vec2        a_TexCoord;
-    attribute   vec4        a_Color;
-    uniform     mat3        u_Matrix;
-    varying     vec2        v_TexCoord;
-    varying     vec4        v_Color;
-
-    void main() {
-      gl_Position.xyw = u_Matrix * vec3(a_Position, 1.0);
-      v_TexCoord = a_TexCoord;
-      v_Color = a_Color;
-    }
-    `,
-    `
-    precision   highp       float;
-    varying     vec2        v_TexCoord;
-    varying     vec4        v_Color;
-    uniform     float       u_Alpha;
-    uniform     int         u_Mode;
-    uniform     vec4        u_Tint;
-    uniform     sampler2D   u_Sampler;
-
-    void main() {
-      if (u_Mode == 0) {
-        float alpha = texture2D(u_Sampler, v_TexCoord).a;
-        gl_FragColor.a = alpha * v_Color.a * u_Alpha;
-        if (gl_FragColor.a == 0.0) {
-          discard;
-        }
-        gl_FragColor.rgb = v_Color.rgb;
-        return;
-      }
-      if (u_Mode == 1) {
-        gl_FragColor = texture2D(u_Sampler, v_TexCoord);
-        gl_FragColor.a *= v_Color.a * u_Alpha;
-        if (gl_FragColor.a == 0.0) {
-          discard;
-        }
-        gl_FragColor.rgb = gl_FragColor.rgb * (1.0 - u_Tint.a) + u_Tint.rgb +
-        dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114)) * u_Tint.a;
-        return;
-      }
-    }
-    `,
-  )
+GL.createParticleProgram = async function () {
+  const program = await this.createProgramWithShaders("particle.vs", "particle.fs")
 
   if (program !== null) {
   this.useProgram(program)
@@ -1173,57 +855,8 @@ GL.createParticleProgram = function () {
 }
 
 // WebGL上下文方法 - 创建光源程序
-GL.createLightProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   vec2        a_LightCoord;
-    uniform     mat3        u_Matrix;
-    varying     vec2        v_LightCoord;
-
-    void main() {
-      gl_Position.xyw = u_Matrix * vec3(a_Position, 1.0);
-      v_LightCoord = a_LightCoord;
-    }
-    `,
-    `
-    precision   highp       float;
-    const       float       PI = 3.1415926536;
-    varying     vec2        v_LightCoord;
-    uniform     int         u_LightMode;
-    uniform     vec4        u_LightColor;
-    uniform     sampler2D   u_LightSampler;
-
-    vec3 computeLightColor() {
-      if (u_LightMode == 0) {
-        float dist = length(vec2(
-          (v_LightCoord.x - 0.5),
-          (v_LightCoord.y - 0.5)
-        ));
-        if (dist > 0.5) {
-          discard;
-        }
-        float angle = dist * PI;
-        float factor = mix(1.0 - sin(angle), cos(angle), u_LightColor.a);
-        return u_LightColor.rgb * factor;
-      }
-      if (u_LightMode == 1) {
-        vec4 lightColor = texture2D(u_LightSampler, v_LightCoord);
-        if (lightColor.a == 0.0) {
-          discard;
-        }
-        return u_LightColor.rgb * lightColor.rgb * lightColor.a;
-      }
-      if (u_LightMode == 2) {
-        return u_LightColor.rgb;
-      }
-    }
-
-    void main() {
-      gl_FragColor = vec4(computeLightColor(), 1.0);
-    }
-    `,
-  )
+GL.createLightProgram = async function () {
+  const program = await this.createProgramWithShaders("light.vs", "light.fs")
 
   if (program !== null) {
     this.useProgram(program)
@@ -1270,30 +903,8 @@ GL.createLightProgram = function () {
 }
 
 // WebGL上下文方法 - 创建图形程序
-GL.createGraphicProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   vec4        a_Color;
-    uniform     mat3        u_Matrix;
-    varying     vec4        v_Color;
-
-    void main() {
-      gl_Position.xyw = u_Matrix * vec3(a_Position, 1.0);
-      v_Color = a_Color;
-    }
-    `,
-    `
-    precision   highp       float;
-    varying     vec4        v_Color;
-    uniform     float       u_Alpha;
-
-    void main() {
-      gl_FragColor.rgb = v_Color.rgb;
-      gl_FragColor.a = v_Color.a * u_Alpha;
-    }
-    `,
-  )
+GL.createGraphicProgram = async function () {
+  const program = await this.createProgramWithShaders("graphic.vs", "graphic.fs")
 
   if (program !== null) {
   this.useProgram(program)
@@ -1351,33 +962,8 @@ GL.createGraphicProgram = function () {
 }
 
 // WebGL上下文方法 - 创建虚线程序
-GL.createDashedLineProgram = function () {
-  const program = this.createProgramWithShaders(
-    `
-    attribute   vec2        a_Position;
-    attribute   float       a_Distance;
-    uniform     mat3        u_Matrix;
-    varying     float       v_Distance;
-
-    void main() {
-      gl_Position.xyw = u_Matrix * vec3(a_Position, 1.0);
-      v_Distance = a_Distance;
-    }
-    `,
-    `
-    precision   highp       float;
-    const       float       REPEAT = 4.0;
-    varying     float       v_Distance;
-    uniform     float       u_Alpha;
-    uniform     vec4        u_Color;
-
-    void main() {
-      float alpha = floor(2.0 * fract(v_Distance / REPEAT));
-      gl_FragColor.rgb = u_Color.rgb;
-      gl_FragColor.a = u_Color.a * alpha * u_Alpha;
-    }
-    `,
-  )
+GL.createDashedLineProgram = async function () {
+  const program = await this.createProgramWithShaders("dashed-line.vs", "dashed-line.fs")
 
   if (program !== null) {
   this.useProgram(program)

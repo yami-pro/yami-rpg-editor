@@ -28,7 +28,7 @@
       "buildResources": "Assets",
       "output": "Dist"
     },
-    "asar": true,
+    "asar": false,
     "asarUnpack": [
       "Locales",
       "Templates"
@@ -39,6 +39,7 @@
       "Fonts",
       "Images",
       "Locales",
+      "Script/webgl/shaders",
       "Templates",
       "commands.json",
       "default.json",

@@ -1,5 +1,7 @@
 "use strict"
 
+// import * as Path from 'path'
+
 // ******************************** 路径工具 ********************************
 
 const Path = require('path')

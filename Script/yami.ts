@@ -1,10 +1,10 @@
 "use strict"
 
 export * from "./util/index"
+export * from "./file-system/index"
 export * from "./webgl/index"
 export * from "./history/index"
 export * from "./components/index"
-export * from "./file-system/index"
 export * from "./scene/index"
 export * from "./animation/index"
 export * from "./attribute/index"
