@@ -17,5 +17,7 @@ _electron/LICENSES.chromium.html
 *.bin
 _electron/version
 
-Build/
-Dist/
+build/
+dist/
+main.js
+main.js.map
