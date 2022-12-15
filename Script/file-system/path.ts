@@ -1,10 +1,14 @@
 "use strict"
 
-// import * as Path from 'path'
+import * as path from 'path'
 
 // ******************************** 路径工具 ********************************
 
-const Path = require('path')
+interface Path_ext {
+  slash(path: string): string
+}
+
+const Path = <typeof path & Path_ext>path
 
 // 转换至斜杠分隔符
 Path.slash = function IIFE() {
