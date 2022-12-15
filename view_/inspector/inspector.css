@@ -80,19 +80,19 @@
 }
 
 #palette-scroll::after {
-  -webkit-mask-image: url("../Images/tileset_scroll.png");
+  -webkit-mask-image: url("../images/tileset_scroll.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-edit::after {
-  -webkit-mask-image: url("../Images/common_settings.png");
+  -webkit-mask-image: url("../images/common_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
 
 #palette-flip::after {
-  -webkit-mask-image: url("../Images/animation_buttons.png");
+  -webkit-mask-image: url("../images/animation_buttons.png");
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }

@@ -28,7 +28,7 @@
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/particle_view.png");
+  -webkit-mask-image: url("../images/particle_view.png");
   -webkit-mask-size: 100% 200%;
 }
 
@@ -68,7 +68,7 @@
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/particle_animation.png");
+  -webkit-mask-image: url("../images/particle_animation.png");
   -webkit-mask-size: 100% 200%;
 }
 

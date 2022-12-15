@@ -242,7 +242,7 @@ minimize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/title_buttons.png");
+  -webkit-mask-image: url("../images/title_buttons.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
@@ -268,7 +268,7 @@ maximize::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/title_buttons.png");
+  -webkit-mask-image: url("../images/title_buttons.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
@@ -294,7 +294,7 @@ close::after {
   width: 100%;
   height: 100%;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/title_buttons.png");
+  -webkit-mask-image: url("../images/title_buttons.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
@@ -1385,12 +1385,12 @@ node-icon {
 
 node-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url("../Images/folder_folded.png");
+  -webkit-mask-image: url("../images/folder_folded.png");
   -webkit-mask-size: 100%;
 }
 
 node-icon.icon-folder.expanded {
-  -webkit-mask-image: url("../Images/folder_expanded.png");
+  -webkit-mask-image: url("../images/folder_expanded.png");
   -webkit-mask-size: 100%;
 }
 
@@ -1403,7 +1403,7 @@ node-icon.icon-particle-image {
 
 .icon-file {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/file_common.png");
+  -webkit-mask-image: url("../images/file_common.png");
   -webkit-mask-size: 100%;
 }
 
@@ -1457,56 +1457,56 @@ node-icon.icon-particle-image {
 
 .icon-ui-image {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 0;
 }
 
 .icon-ui-text {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -100%;
 }
 
 .icon-ui-textbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -200%;
 }
 
 .icon-ui-dialogbox {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -300%;
 }
 
 .icon-ui-progressbar {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -400%;
 }
 
 .icon-ui-video {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -500%;
 }
 
 .icon-ui-window {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -600%;
 }
 
 .icon-ui-container {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
   -webkit-mask-position: 0 -700%;
 }
@@ -1928,13 +1928,13 @@ file-nav-icon {
 
 file-nav-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url("../Images/folder_folded.png");
+  -webkit-mask-image: url("../images/folder_folded.png");
   -webkit-mask-size: 100%;
 }
 
 file-nav-icon.icon-folder.expanded {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url("../Images/folder_expanded.png");
+  -webkit-mask-image: url("../images/folder_expanded.png");
   -webkit-mask-size: 100%;
 }
 
@@ -2141,52 +2141,52 @@ file-body-icon {
 
 file-body-icon.icon-folder {
   background-color: var(--folder-icon-color);
-  -webkit-mask-image: url("../Images/folder_folded.png");
+  -webkit-mask-image: url("../images/folder_folded.png");
   -webkit-mask-size: 100%;
 }
 
 file-body-icon.icon-file-scene {
-  background-image: url("../Images/file_scene.png");
+  background-image: url("../images/file_scene.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-ui {
-  background-image: url("../Images/file_ui.png");
+  background-image: url("../images/file_ui.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-animation {
-  background-image: url("../Images/file_animation.png");
+  background-image: url("../images/file_animation.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-particle {
-  background-image: url("../Images/file_particle.png");
+  background-image: url("../images/file_particle.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-actor {
-  background-image: url("../Images/file_actor.png");
+  background-image: url("../images/file_actor.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-cube {
-  background-image: url("../Images/file_cube.png");
+  background-image: url("../images/file_cube.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-trigger {
-  background-image: url("../Images/file_trigger.png");
+  background-image: url("../images/file_trigger.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-tileset {
-  background-image: url("../Images/file_tileset.png");
+  background-image: url("../images/file_tileset.png");
   opacity: 0.8;
 }
 
 file-body-icon.icon-file-font {
-  background-image: url("../Images/file_font.png");
+  background-image: url("../images/file_font.png");
   opacity: 0.8;
 }
 
@@ -2195,7 +2195,7 @@ file-body-icon.icon-file-event {
   /*font-weight: bold;*/
   text-align: center;
   color: green;
-  background-image: url("../Images/file_other.png");
+  background-image: url("../images/file_other.png");
   opacity: 0.8;
 }
 
@@ -2225,7 +2225,7 @@ file-body-icon.icon-file-other {
   overflow: hidden;
   white-space: pre;
   text-overflow: ellipsis;
-  background-image: url("../Images/file_other.png");
+  background-image: url("../images/file_other.png");
 }
 
 /*当字号与行高是某些相等的值

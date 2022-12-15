@@ -31,7 +31,7 @@
 }
 
 #ui-switch-settings::after {
-  -webkit-mask-image: url("../Images/common_settings.png");
+  -webkit-mask-image: url("../images/common_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -50,7 +50,7 @@
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/ui_components.png");
+  -webkit-mask-image: url("../images/ui_components.png");
   -webkit-mask-size: 100% 800%;
 }
 

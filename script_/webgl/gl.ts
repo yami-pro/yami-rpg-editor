@@ -438,7 +438,7 @@ GL.loadFileText = async function (fileName: string) {
 
 // WebGL上下文方法 - 创建程序对象
 GL.createProgramWithShaders = async function (vsFileName, fsFileName) {
-  const path = "Script/webgl/shaders/"
+  const path = "script/webgl/shaders/"
   const vsPath = Path.resolve(__dirname, path + vsFileName)
   const fsPath = Path.resolve(__dirname, path + fsFileName)
 

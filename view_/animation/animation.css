@@ -30,25 +30,25 @@
 }
 
 #animation-switch-mark::after {
-  -webkit-mask-image: url("../Images/animation_layer.png");
+  -webkit-mask-image: url("../images/animation_layer.png");
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 #animation-switch-onionskin::after {
-  -webkit-mask-image: url("../Images/animation_buttons.png");
+  -webkit-mask-image: url("../images/animation_buttons.png");
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 #animation-switch-mirror::after {
-  -webkit-mask-image: url("../Images/animation_buttons.png");
+  -webkit-mask-image: url("../images/animation_buttons.png");
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
 
 #animation-switch-settings::after {
-  -webkit-mask-image: url("../Images/common_settings.png");
+  -webkit-mask-image: url("../images/common_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -149,7 +149,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/timeline_buttons.png");
+  -webkit-mask-image: url("../images/timeline_buttons.png");
   -webkit-mask-size: 100% 700%;
 }
 
@@ -249,21 +249,21 @@ anim-dir.selected {
 
 .anim-layer-joint {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/animation_layer.png");
+  -webkit-mask-image: url("../images/animation_layer.png");
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 0;
 }
 
 .anim-layer-sprite {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/animation_layer.png");
+  -webkit-mask-image: url("../images/animation_layer.png");
   -webkit-mask-size: 100% 200%;
   -webkit-mask-position: 0 -100%;
 }
 
 .anim-layer-particle {
   background-color: var(--file-icon-color);
-  -webkit-mask-image: url("../Images/scene_view.png");
+  -webkit-mask-image: url("../images/scene_view.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
@@ -475,7 +475,7 @@ anim-dir.selected {
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/curve_settings.png");
+  -webkit-mask-image: url("../images/curve_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }

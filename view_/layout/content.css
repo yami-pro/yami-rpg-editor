@@ -49,25 +49,25 @@
 }
 
 #scene-switch-grid::after {
-  -webkit-mask-image: url("../Images/scene_view.png");
+  -webkit-mask-image: url("../images/scene_view.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 0;
 }
 
 #scene-switch-light::after {
-  -webkit-mask-image: url("../Images/scene_view.png");
+  -webkit-mask-image: url("../images/scene_view.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -100%;
 }
 
 #scene-switch-animation::after {
-  -webkit-mask-image: url("../Images/scene_view.png");
+  -webkit-mask-image: url("../images/scene_view.png");
   -webkit-mask-size: 100% 400%;
   -webkit-mask-position: 0 -300%;
 }
 
 #scene-switch-settings::after {
-  -webkit-mask-image: url("../Images/common_settings.png");
+  -webkit-mask-image: url("../images/common_settings.png");
   -webkit-mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
 }
@@ -92,7 +92,7 @@
   width: 16px;
   height: 16px;
   background-color: var(--text-color);
-  -webkit-mask-image: url("../Images/scene_tilemap.png");
+  -webkit-mask-image: url("../images/scene_tilemap.png");
   -webkit-mask-size: 100% 1300%;
 }
 

@@ -709,7 +709,7 @@ Easing.selectPointByCoords = function (mouseX, mouseY) {
 Easing.createPointImage = function () {
   if (!this.pointImage) {
     File.get({
-      local: 'Images/curve_mark.png',
+      local: 'images/curve_mark.png',
       type: 'image',
     }).then(image => {
       this.pointImage = image

@@ -71,7 +71,7 @@
   height: 30px;
   background-clip: content-box;
   background-color: var(--input-background);
-  background-image: url("../Images/tile_ruleview.png");
+  background-image: url("../images/tile_ruleview.png");
   background-size: 100% 1100%;
   border: var(--input-border);
   border-radius: 50%;

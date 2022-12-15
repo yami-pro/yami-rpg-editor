@@ -36,7 +36,7 @@ const Local = {
 // 初始化
 Local.initialize = function () {
   // 获取语言包目录
-  this.dirname = Path.resolve(__dirname, 'Locales')
+  this.dirname = Path.resolve(__dirname, 'locales')
   // 读取语言包后显示菜单栏
   this.readLanguageList().then(() => {
     return this.setLanguage(Editor.config.language)

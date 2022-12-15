@@ -30,16 +30,16 @@
     },
     "asar": false,
     "asarUnpack": [
-      "Locales",
+      "locales",
       "Templates"
     ],
     "extraFiles": [],
     "files": [
       "Build",
-      "Fonts",
-      "Images",
-      "Locales",
-      "Script/webgl/shaders",
+      "fonts",
+      "images",
+      "locales",
+      "script/webgl/shaders",
       "Templates",
       "commands.json",
       "default.json",

@@ -5688,7 +5688,7 @@ Scene.createDefaultAnimation = function IIFE() {
 
   // 创建默认图像纹理
   File.get({
-    local: 'Images/default_actor.png',
+    local: 'images/default_actor.png',
     type: 'image',
   }).then(image => {
     if (!image) return

@@ -1,6 +1,6 @@
 "use strict"
 
-import { Editor } from './Script/yami'
+import { Editor } from './script/yami'
 
 // ******************************** 主函数 ********************************
 
