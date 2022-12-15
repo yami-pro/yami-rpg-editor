@@ -1,5 +1,7 @@
 "use strict"
 
+import * as electron from 'electron'
+
 // ******************************** 剪贴板对象 ********************************
 
 interface Clipboard {
@@ -11,20 +13,20 @@ interface Clipboard {
 const Clipboard = <Clipboard>new Object()
 
 Clipboard.has = function (format: any) {
-  const {clipboard} = require('electron')
+  const {clipboard} = electron
   const buffer = clipboard.readBuffer(format)
   return buffer.length !== 0
 }
 
 Clipboard.read = function (format: any) {
-  const {clipboard} = require('electron')
+  const {clipboard} = electron
   const buffer = clipboard.readBuffer(format)
   const string = buffer.toString()
   return string ? JSON.parse(string) : null
 }
 
 Clipboard.write = function (format: any, object: any) {
-  const {clipboard} = require('electron')
+  const {clipboard} = electron
   const string = JSON.stringify(object)
   const buffer = Buffer.from(string)
   clipboard.writeBuffer(format, buffer)

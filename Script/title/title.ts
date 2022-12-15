@@ -72,12 +72,14 @@ const Title = {
   closeClick: null,
 }
 
+import * as electron from 'electron'
+
 // ******************************** 标题栏对象加载 ********************************
 
 // 初始化
 Title.initialize = function () {
   // 设置按钮图标
-  const {ipcRenderer} = require('electron')
+  const {ipcRenderer} = electron
   ipcRenderer.invoke('update-max-min-icon').then(mode => {
     switch (mode) {
       case 'maximize':
@@ -342,7 +344,7 @@ Title.playGame = async function () {
     await File.save(false)
 
     // 创建播放器窗口
-    const {ipcRenderer} = require('electron')
+    const {ipcRenderer} = electron
     ipcRenderer.send('create-player-window', File.root)
 
     // 窗口关闭事件
@@ -671,23 +673,17 @@ Title.playClick = function (event) {
 
 // 最小化按钮 - 鼠标点击事件
 Title.minimizeClick = function (event) {
-  require('electron')
-  .ipcRenderer
-  .send('minimize-window')
+  electron.ipcRenderer.send('minimize-window')
 }
 
 // 最大化按钮 - 鼠标点击事件
 Title.maximizeClick = function (event) {
-  require('electron')
-  .ipcRenderer
-  .send('maximize-window')
+  electron.ipcRenderer.send('maximize-window')
 }
 
 // 关闭按钮 - 鼠标点击事件
 Title.closeClick = function (event) {
-  require('electron')
-  .ipcRenderer
-  .send('close-window')
+  electron.ipcRenderer.send('close-window')
 }
 
 // ******************************** 标题栏对象导出 ********************************

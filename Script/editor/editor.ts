@@ -51,6 +51,8 @@ import {
   Zoom
 } from '../yami.js'
 
+import * as electron from 'electron'
+
 // ******************************** 编辑器对象 ********************************
 
 interface Editor {
@@ -289,9 +291,7 @@ Editor.quit = function () {
   Promise.all(this.promises).catch(
     error => Log.throw(error)
   ).then(() => {
-    require('electron')
-    .ipcRenderer
-    .send('close-window-force')
+    electron.ipcRenderer.send('close-window-force')
   })
 }
 

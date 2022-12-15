@@ -18,6 +18,8 @@ import {
   Title
 } from "../yami"
 
+import * as child_process from 'child_process'
+
 // ******************************** 项目浏览器 ********************************
 
 const Browser = $('#project-browser')
@@ -98,7 +100,7 @@ Browser.openScript = function (filePath) {
     case 'specified-application':
       if (path) {
         const args = [File.route(filePath)]
-        require('child_process').spawn(path, args)
+        child_process.spawn(path, args)
       }
       break
   }

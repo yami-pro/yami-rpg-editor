@@ -21,3 +21,5 @@ Build/
 Dist/
 dist-*.js
 dist-*.css
+main.js
+main.js.map

@@ -14,6 +14,8 @@ import {
   Window
 } from "../yami"
 
+import * as electron from 'electron'
+
 // ******************************** 目录 ********************************
 
 const Directory = {
@@ -306,7 +308,7 @@ Directory.filterFiles = function IIFE() {
 
 // 删除文件
 Directory.deleteFiles = function IIFE() {
-  const {invoke} = require('electron').ipcRenderer
+  const {invoke} = electron.ipcRenderer
   const trash = async files => {
     const promises = []
     for (const file of files) {

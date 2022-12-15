@@ -14,6 +14,8 @@ import {
   UI
 } from "../yami"
 
+import * as electron from 'electron'
+
 // ******************************** 文件 ********************************
 
 const File = {
@@ -285,35 +287,31 @@ File.getImageResolution = function IIFE() {
 // openExternal不支持中文名称
 // 在主进程中打开可保证显示在前面(Windows)
 File.openPath = function (path) {
-  require('electron').ipcRenderer
-  .send('open-path', path)
-  // require('electron').shell
-  // .openPath(Path.normalize(path))
+  electron.ipcRenderer.send('open-path', path)
+  // electron.shell.openPath(Path.normalize(path))
 }
 
 // 打开URL
 File.openURL = function (url) {
-  require('electron').shell.openExternal(url)
+  electron.shell.openExternal(url)
 }
 
 // 在资源管理器中显示
 // 在主进程中打开可保证显示在前面(Windows)
 File.showInExplorer = function (path) {
-  require('electron').ipcRenderer
-  .send('show-item-in-folder', path)
-  // require('electron').shell
-  // .showItemInFolder(Path.normalize(path))
+  electron.ipcRenderer.send('show-item-in-folder', path)
+  // electron.shell.showItemInFolder(Path.normalize(path))
 }
 
 // 显示打开对话框
 File.showOpenDialog = function (options) {
-  const {ipcRenderer} = require('electron')
+  const {ipcRenderer} = electron
   return ipcRenderer.invoke('show-open-dialog', options)
 }
 
 // 显示保存对话框
 File.showSaveDialog = function (options) {
-  const {ipcRenderer} = require('electron')
+  const {ipcRenderer} = electron
   return ipcRenderer.invoke('show-save-dialog', options)
 }
 

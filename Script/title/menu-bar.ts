@@ -49,6 +49,8 @@ const Menubar = {
   pointerover: null,
 }
 
+import * as electron from 'electron'
+
 // ******************************** 菜单栏对象加载 ********************************
 
 // 初始化
@@ -62,9 +64,7 @@ Menubar.initialize = function () {
 
 // 开关全屏模式
 Menubar.toggleFullScreen = function () {
-  require('electron')
-  .ipcRenderer
-  .send('toggle-full-screen')
+  electron.ipcRenderer.send('toggle-full-screen')
 }
 
 // 弹出文件菜单

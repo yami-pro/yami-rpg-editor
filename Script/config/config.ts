@@ -2,8 +2,11 @@
 
 import {
   File,
-  Path
+  Path,
+  FSP
 } from "../yami"
+
+import * as electron from 'electron'
 
 // ******************************** 读取配置文件 ********************************
 
@@ -14,8 +17,8 @@ if (window.process) {
   }
   // 提前读取配置文件以减少等待时间
   // promise.then的执行顺序在main.js之后
-  const path = require('path').resolve(__dirname, 'config.json')
-  window.config = require('fs').promises.readFile(path, 'utf8')
+  const path = Path.resolve(__dirname, 'config.json')
+  window.config = FSP.readFile(path, 'utf8')
   .then(json => JSON.parse(json))
   .catch(error => {
     // 如果不存在配置文件或加载出错
@@ -32,7 +35,7 @@ if (window.process) {
         mode: 'by-file-extension',
         path: '',
       }
-      return require('electron').ipcRenderer
+      return electron.ipcRenderer
       .invoke('get-documents-path')
       .catch(error => 'C:')
       .then(path => {

@@ -5,6 +5,8 @@ import {
   Timer
 } from "../yami"
 
+import * as electron from 'electron'
+
 // ******************************** 日志窗口 ********************************
 
 interface Log {
@@ -73,7 +75,7 @@ Log.error = function (message) {
   }
   if (this.beep && date - this.beepdate > 1000) {
     this.beepdate = date
-    require('electron').shell.beep()
+    electron.shell.beep()
   }
 }
 

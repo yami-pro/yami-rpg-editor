@@ -16,6 +16,8 @@ const Zoom = {
   confirm: null,
 }
 
+import * as electron from 'electron'
+
 // ******************************** 缩放窗口加载 ********************************
 
 // 初始化
@@ -33,13 +35,13 @@ Zoom.open = function () {
 
 // 获取缩放系数
 Zoom.getFactor = function () {
-  return require('electron').webFrame.getZoomFactor()
+  return electron.webFrame.getZoomFactor()
 }
 
 // 确定按钮 - 鼠标点击事件
 Zoom.confirm = function (event) {
   Window.close('zoom')
-  require('electron').webFrame.setZoomFactor(
+  electron.webFrame.setZoomFactor(
     Editor.config.zoom = $('#zoom-factor').read()
   )
 }

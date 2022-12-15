@@ -1,7 +1,13 @@
+"use strict"
+
+import * as electron from 'electron'
+import * as path from 'path'
+import * as fs from 'fs'
+
 // ******************************** 加载模块 ********************************
 
-const {app, Menu, BrowserWindow, ipcMain, dialog, shell} = require('electron')
-const Path = require('path')
+const {app, Menu, BrowserWindow, ipcMain, dialog, shell} = electron
+const Path = path
 
 // ******************************** 注册事件 ********************************
 
@@ -100,7 +106,7 @@ const createEditorWindow = function () {
 
   // 加载配置文件并设置缩放系数
   const path = Path.resolve(__dirname, 'config.json')
-  const promise = require('fs').promises.readFile(path)
+  const promise = fs.promises.readFile(path)
   editor.once('ready-to-show', event => {
     // 窗口最大化
     editor.maximize()
@@ -126,7 +132,7 @@ const createEditorWindow = function () {
 
 const createPlayerWindow = function (parent, path) {
   // 加载配置文件
-  const fs = require('fs')
+  // const fs = require('fs')
   const window = JSON.parse(fs.readFileSync(`${path}data/config.json`)).window
 
   // 减去菜单栏的高度
