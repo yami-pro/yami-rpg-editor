@@ -31,7 +31,7 @@
     "asar": false,
     "asarUnpack": [
       "locales",
-      "Templates"
+      "templates"
     ],
     "extraFiles": [],
     "files": [
@@ -40,7 +40,7 @@
       "images",
       "locales",
       "script/webgl/shaders",
-      "Templates",
+      "templates",
       "commands.json",
       "default.json",
       "index.html",
