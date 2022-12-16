@@ -711,7 +711,7 @@ Easing.createPointImage = function () {
     File.get({
       local: 'images/curve_mark.png',
       type: 'image',
-    })?.then(image => {
+    }).then(image => {
       this.pointImage = image
     })
   }

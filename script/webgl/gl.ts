@@ -1714,7 +1714,7 @@ GL.createImageTexture = function (image: HTMLImageElement, options = {}) {
     : File.get({
       guid: guid,
       type: 'image',
-    })?.then(initialize)
+    }).then(initialize)
   }
   texture.refCount++
   return texture
