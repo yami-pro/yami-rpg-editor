@@ -98,9 +98,9 @@ class Timer {
 
 // ******************************** 计时器管理类 ********************************
 
-const TimerManager = <TimerManager>new Object()
+const TimerManager = <TimerManager>{}
 
-// properties
+// 默认属性
 TimerManager.timers = []
 TimerManager.updaters = {
   stageAnimation: null,

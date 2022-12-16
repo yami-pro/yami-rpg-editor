@@ -21,9 +21,9 @@ npm run start
 
 ## Packing 
 ```shell
-rm -r build/
-esbuild view/index.tsx --jsx-factory=createElement --jsx-fragment=null --bundle --external:*.png --external:*.woff2 --sourcemap --outdir=build
-esbuild main.ts --bundle --platform=node --external:electron --sourcemap --outfile=main.js
+rm -r build/ && \
+esbuild view/index.tsx --jsx-factory=createElement --jsx-fragment=null --bundle --external:*.png --external:*.woff2 --sourcemap --outdir=build && \
+esbuild main.ts --bundle --platform=node --external:electron --sourcemap --outfile=main.js && \
 esbuild index.ts --bundle --platform=node --external:electron --sourcemap --outfile=build/script.js
 
 # windows

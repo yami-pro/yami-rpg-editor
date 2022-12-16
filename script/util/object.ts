@@ -23,7 +23,7 @@ Object.clone = function IIFE() {
         copy[i] = value instanceof Object ? clone(value) : value
       }
     } else {
-      copy = new Object()
+      copy = {}
       // for ... of Object.keys(object) { ... }
       // 在缺少迭代器的对象中无效
       for (const key in object) {

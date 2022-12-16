@@ -12,7 +12,9 @@ interface Cursor {
 // 可以避免更新所有子元素继承到指针属性, 从而提高性能
 // 同时解决了一些元素无法继承指针样式的问题
 
-const Cursor = <Cursor>new Object()
+const Cursor = <Cursor>{}
+
+// 默认属性
 Cursor.region = $('#cursor-region')
 
 // 打开指针样式

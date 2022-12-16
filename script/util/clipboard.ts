@@ -10,7 +10,7 @@ interface Clipboard {
   write(format: any, object: any): void
 }
 
-const Clipboard = <Clipboard>new Object()
+const Clipboard = <Clipboard>{}
 
 Clipboard.has = function (format: any) {
   const {clipboard} = electron

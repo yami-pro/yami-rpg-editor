@@ -59,13 +59,9 @@ const File = <File>{}
 
 // ******************************** 文件加载 ********************************
 
-File.initializeProps = function () {
-  this.root = ''
-  this.promises = {}
-  return this
-}
-
-File.initializeProps()
+// 默认属性
+File.root = ''
+File.promises = {}
 
 // 获取文件
 File.get = function (descriptor) {

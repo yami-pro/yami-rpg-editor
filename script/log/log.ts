@@ -26,10 +26,11 @@ interface Log {
   catchError: (event: Event) => void
 }
 
-const Log = <Log>new Object()
+const Log = <Log>{}
 
 // ******************************** 日志窗口加载 ********************************
 
+// 默认属性
 Log.beepdate = 0
 Log.devmode = true
 Log.beep = false

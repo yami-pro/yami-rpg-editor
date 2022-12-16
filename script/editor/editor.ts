@@ -76,10 +76,11 @@ interface Editor {
   saveManifest(): void
 }
 
-const Editor = <Editor>new Object()
+const Editor = <Editor>{}
 
 // ******************************** 编辑器对象加载 ********************************
 
+// 默认属性
 Editor.state = 'closed'
 Editor.promises = []
 

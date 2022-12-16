@@ -6,7 +6,7 @@ interface ScrollBar {
   addScrollbars(element: HTMLElement): void
 }
 
-const ScrollBarManager = <ScrollBar>new Object()
+const ScrollBarManager = <ScrollBar>{}
 
 // 添加滚动条
 ScrollBarManager.addScrollbars = function (element: HTMLElement) {
