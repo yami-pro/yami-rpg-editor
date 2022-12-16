@@ -4,7 +4,7 @@
 
 const ErrorMsg = {
   E00000061: "对象类型不匹配",
-  E00000062: "DataTransfer对象为空"
+  E00000062: "对象未初始化|无法获取对象"
 }
 
 export { ErrorMsg }

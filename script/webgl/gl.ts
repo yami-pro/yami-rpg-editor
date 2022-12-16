@@ -10,7 +10,9 @@ import {
   TextureManager,
   ImageTexture,
   FSP,
-  Path
+  Path,
+  Log,
+  ErrorMsg
 } from "../yami"
 
 // ******************************** 声明 ********************************
@@ -919,6 +921,10 @@ GL.createGraphicProgram = async function () {
 
     // 创建顶点数组对象
     const vao = this.createVertexArray()
+    if (vao === null) {
+      Log.error(ErrorMsg.E00000062)
+      return null
+    }
     this.bindVertexArray(vao)
     this.enableVertexAttribArray(a_Position)
     this.enableVertexAttribArray(a_Color)
@@ -1708,7 +1714,7 @@ GL.createImageTexture = function (image: HTMLImageElement, options = {}) {
     : File.get({
       guid: guid,
       type: 'image',
-    }).then(initialize)
+    })?.then(initialize)
   }
   texture.refCount++
   return texture

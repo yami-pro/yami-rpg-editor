@@ -18,36 +18,58 @@ import * as electron from 'electron'
 
 // ******************************** 文件 ********************************
 
-const File = {
-  // properties
-  root: '',
-  promises: {},
-  // methods
-  get: null,
-  getPath: null,
-  save: null,
-  saveFile: null,
-  planToSave: null,
-  cancelSave: null,
-  parseFileSize: null,
-  getFileName: null,
-  getImageResolution: null,
-  openPath: null,
-  openURL: null,
-  showInExplorer: null,
-  showOpenDialog: null,
-  showSaveDialog: null,
-  parseFileName: null,
-  filterGUID: null,
-  updateRoot: null,
-  route: null,
+type Descriptor = {
+  type: XMLHttpRequestResponseType | 'image'
+  path?: string
+  local?: string
+  guid?: string
 }
+type ImageResolution = {width: number, height: number}
+
+interface File {
+  // properties
+  root: string
+  promises: {[key: string]: Promise<HTMLImageElement>}
+  // methods
+  initializeProps(): File
+  get(descriptor: Descriptor): Promise<typeof File.promises | HTMLImageElement> | null
+  getPath(guid: string): string
+  save(hint?: boolean): Promise<any[]>
+  saveFile(meta: any): Promise<void>
+  planToSave(meta: any): any
+  cancelSave(meta: any): any
+  parseFileSize(size: number): string
+  getFileName: (dir: string, base: string, ext?: string) => {
+      path: string;
+      route: string;
+  }
+  getImageResolution: (path: string) => Promise<ImageResolution>
+  openPath(path: string): void
+  openURL(url: string): void
+  showInExplorer(path: string): void
+  showOpenDialog(options: any): Promise<any>
+  showSaveDialog(options: any): Promise<any>
+  parseMetaName(meta: any): string
+  filterGUID: (filename: string) => any
+  updateRoot(path: string): void
+  route(relativePath: string): string
+}
+
+const File = <File>{}
 
 // ******************************** 文件加载 ********************************
 
+File.initializeProps = function () {
+  this.root = ''
+  this.promises = {}
+  return this
+}
+
+File.initializeProps()
+
 // 获取文件
 File.get = function (descriptor) {
-  let path
+  let path: string
   if (descriptor.path) {
     path = File.route(descriptor.path)
   } else if (descriptor.guid) {
@@ -56,6 +78,7 @@ File.get = function (descriptor) {
     path = descriptor.local
   } else {
     Log.throw(new Error('Invalid parameter'))
+    return null
   }
   const type = descriptor.type
   switch (type) {
@@ -153,7 +176,7 @@ File.saveFile = function (meta) {
       Particle.save()
       break
   }
-  let text
+  let text: string
   const data = meta.dataMap?.[meta.guid]
   switch (typeof data) {
     case 'object':
@@ -253,8 +276,8 @@ File.getFileName = function IIFE() {
 
 // 获取图像尺寸
 File.getImageResolution = function IIFE() {
-  const promises = {}
-  const resolution = {width: 0, height: 0}
+  const promises: {[key: string]: Promise<ImageResolution>} = {}
+  const resolution: ImageResolution = {width: 0, height: 0}
   return function (path) {
     let promise = promises[path]
     if (promise === undefined) {

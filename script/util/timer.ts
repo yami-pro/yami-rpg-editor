@@ -1,9 +1,8 @@
 "use strict"
 
-import { Function_empty_t } from "../yami"
-
 // ******************************** 声明 ********************************
 
+type Timer_empty_t = (() => void)
 type Timer_updater_t = (deltaTime: number) => void
 type Timer_updater_key_t = 'stageAnimation' |
                   'stageRendering' |
@@ -47,12 +46,12 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: Timer_update_t | Function_empty_t
-  callback: Timer_callback_t | Function_empty_t
+  update: Timer_update_t | Timer_empty_t
+  callback: Timer_callback_t | Timer_empty_t
   target: EventTarget | null
   running: boolean
 
-  constructor(params: {duration: number, update: Timer_update_t | Function_empty_t, callback: Timer_callback_t | Function_empty_t}) {
+  constructor(params: {duration: number, update: Timer_update_t | Timer_empty_t, callback: Timer_callback_t | Timer_empty_t}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0

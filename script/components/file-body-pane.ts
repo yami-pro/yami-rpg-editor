@@ -15,7 +15,8 @@ import {
   Local,
   Window,
   Timer,
-  ErrorMsg
+  ErrorMsg,
+  Log
 } from "../yami"
 
 // ******************************** 文件主体面板 ********************************
@@ -472,7 +473,8 @@ class FileBodyPane extends HTMLElement {
   updateFileElement(element: HTMLElement) {
     const {file} = element
     if (file instanceof FolderItem) {
-      throw new Error(ErrorMsg.E00000061)
+      Log.error(ErrorMsg.E00000061)
+      return
     }
     if (!element.nameBox) {
       // 创建文件图标

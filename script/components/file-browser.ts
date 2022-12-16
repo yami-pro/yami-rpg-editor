@@ -12,7 +12,8 @@ import {
   Path,
   Local,
   ErrorMsg,
-  Promise_array_t
+  Promise_array_t,
+  Log
 } from "../yami"
 
 // ******************************** 文件浏览器 ********************************
@@ -352,7 +353,8 @@ class FileBrowser extends HTMLElement {
         return
       }
       if (event.dataTransfer === null) {
-        throw new Error(ErrorMsg.E00000062)
+        Log.error(ErrorMsg.E00000062)
+        return
       }
       if (event.cmdOrCtrlKey) {
         if (dragging.allowCopy) {
@@ -491,7 +493,8 @@ class FileBrowser extends HTMLElement {
       if (dragging.dropPath) {
         event.preventDefault()
         if (event.dataTransfer === null) {
-          throw new Error(ErrorMsg.E00000062)
+          Log.error(ErrorMsg.E00000062)
+          return
         }
         event.dataTransfer.dropEffect = 'copy'
       }
