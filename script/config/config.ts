@@ -26,6 +26,8 @@ if (window.process) {
       local: 'default.json',
       type: 'json',
     }).then(config => {
+      if (config === null)
+        return
       // 设置默认配置属性
       config.theme = 'dark'
       config.language = ''

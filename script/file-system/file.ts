@@ -32,7 +32,7 @@ interface File {
   promises: {[key: string]: Promise<HTMLImageElement>}
   // methods
   initializeProps(): File
-  get(descriptor: Descriptor): Promise<typeof File.promises | HTMLImageElement> | null
+  get(descriptor: Descriptor): Promise<typeof File.promises | HTMLImageElement | null>
   getPath(guid: string): string
   save(hint?: boolean): Promise<any[]>
   saveFile(meta: any): Promise<void>
@@ -74,7 +74,7 @@ File.get = function (descriptor) {
     path = descriptor.local
   } else {
     Log.throw(new Error('Invalid parameter'))
-    return null
+    return new Promise(resolve => { resolve(null) })
   }
   const type = descriptor.type
   switch (type) {
