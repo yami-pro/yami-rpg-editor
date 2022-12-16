@@ -10,7 +10,8 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
   IpcMainInvokeEvent,
-  SaveDialogOptions
+  SaveDialogOptions,
+  OpenDialogOptions
 } from 'electron'
 
 import {
@@ -262,12 +263,12 @@ ipcMain.on('open-path', (event, path) => {
 })
 
 // 在资源管理器中显示
-ipcMain.on('show-item-in-folder', (event, path) => {
+ipcMain.on('show-item-in-folder', (event, path: string) => {
   shell.showItemInFolder(normalize(path))
 })
 
 // 创建播放器窗口
-ipcMain.on('create-player-window', (event, path) => {
+ipcMain.on('create-player-window', (event, path: string) => {
   const window = getWindowFromEvent(event)
   createPlayerWindow(window, path)
 })
@@ -281,7 +282,7 @@ ipcMain.handle('update-max-min-icon', event => {
 })
 
 // 显示打开对话框
-ipcMain.handle('show-open-dialog', (event, options) => {
+ipcMain.handle('show-open-dialog', (event, options: OpenDialogOptions) => {
   const window = getWindowFromEvent(event)
   return dialog.showOpenDialog(window, options)
 })
