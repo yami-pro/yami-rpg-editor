@@ -4,16 +4,16 @@ import * as path from 'path'
 
 // ******************************** 路径工具 ********************************
 
-interface Path_ext {
+interface Props {
   slash(path: string): string
 }
 
-const Path = <typeof path & Path_ext>path
+const Path = <typeof path & Props>path
 
 // 转换至斜杠分隔符
 Path.slash = function IIFE() {
   const regexp = /\\/g
-  return function (path) {
+  return function (path: string) {
     if (path.indexOf('\\') !== -1) {
       path = path.replace(regexp, '/')
     }
