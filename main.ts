@@ -1,16 +1,6 @@
 "use strict"
 
 import {
-  promises,
-  readFileSync
-} from 'fs'
-
-import {
-  resolve,
-  normalize
-} from 'path'
-
-import {
   app,
   ipcMain,
   dialog,
@@ -22,6 +12,16 @@ import {
   IpcMainInvokeEvent,
   SaveDialogOptions
 } from 'electron'
+
+import {
+  promises,
+  readFileSync
+} from 'fs'
+
+import {
+  resolve,
+  normalize
+} from 'path'
 
 // ******************************** 声明 ********************************
 
