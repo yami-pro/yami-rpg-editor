@@ -1,13 +1,33 @@
 "use strict"
 
-import * as electron from 'electron'
-import * as path from 'path'
-import * as fs from 'fs'
+import {
+  promises,
+  readFileSync
+} from 'fs'
 
-// ******************************** 加载模块 ********************************
+import {
+  resolve,
+  normalize
+} from 'path'
 
-const {app, Menu, BrowserWindow, ipcMain, dialog, shell} = electron
-const Path = path
+import {
+  app,
+  ipcMain,
+  dialog,
+  shell,
+  Menu,
+  MenuItem,
+  BrowserWindow,
+  MenuItemConstructorOptions,
+  IpcMainInvokeEvent,
+  SaveDialogOptions
+} from 'electron'
+
+// ******************************** 声明 ********************************
+
+interface Props {
+  stopCloseEvent: boolean
+}
 
 // ******************************** 注册事件 ********************************
 
@@ -24,10 +44,12 @@ app.on('window-all-closed', () => {
 
 // ******************************** 创建编辑器菜单栏 ********************************
 
-const removeFullScreenMenu = function (template) {
+const removeFullScreenMenu = function (template: (MenuItemConstructorOptions | MenuItem)[]) {
   for (let i = 0; i < template.length; i++) {
     let item = template[i]
-    if (item.label === 'Menu') {
+    if (item.label === 'Menu' && 
+        item.submenu !== undefined &&
+        item.submenu instanceof Array) {
       for (let j = 0; j < item.submenu.length; j++) {
         const subItem = item.submenu[j]
         if (process.platform === 'darwin' && subItem.label === 'FullScreen') {
@@ -42,12 +64,12 @@ const removeFullScreenMenu = function (template) {
 
 const createEditorMenu = function () {
   // 创建模板
-  let template = [
+  let template: (MenuItemConstructorOptions | MenuItem)[] = [
     {
       label: 'Menu',
       submenu: [
         { label: 'Reload', accelerator: 'F5', role: 'forceReload', },
-        { label: 'FullScreen', accelerator: 'F11', role: 'toggleFullScreen', },
+        { label: 'FullScreen', accelerator: 'F11', role: 'togglefullscreen', },
         { label: 'Toogle DevTools', accelerator: 'F12', role: 'toggleDevTools', }
       ],
     },
@@ -75,7 +97,7 @@ const createEditorMenu = function () {
 
 const createEditorWindow = function () {
   // 创建窗口
-  const editor = new BrowserWindow({
+  const editor = <BrowserWindow & Props>new BrowserWindow({
     title: 'Yami RPG Editor',
     width: 1280,
     height: 800,
@@ -96,33 +118,33 @@ const createEditorWindow = function () {
   editor.setMenuBarVisibility(false)
 
   // 加载文件
-  editor.loadFile(Path.resolve(__dirname, 'index.html'))
+  editor.loadFile(resolve(__dirname, 'index.html'))
 
   // 侦听窗口模式切换事件
-  editor.on('maximize', event => editor.send('maximize'))
-  editor.on('unmaximize', event => editor.send('unmaximize'))
-  editor.on('enter-full-screen', event => editor.send('enter-full-screen'))
-  editor.on('leave-full-screen', event => editor.send('leave-full-screen'))
+  editor.on('maximize', (event: Event) => editor.webContents.send('maximize'))
+  editor.on('unmaximize', (event: Event) => editor.webContents.send('unmaximize'))
+  editor.on('enter-full-screen', (event: Event) => editor.webContents.send('enter-full-screen'))
+  editor.on('leave-full-screen', (event: Event) => editor.webContents.send('leave-full-screen'))
 
   // 加载配置文件并设置缩放系数
-  const path = Path.resolve(__dirname, 'config.json')
-  const promise = fs.promises.readFile(path)
-  editor.once('ready-to-show', event => {
+  const path = resolve(__dirname, 'config.json')
+  const promise = promises.readFile(path)
+  editor.once('ready-to-show', (event: Event) => {
     // 窗口最大化
     editor.maximize()
     // 激活
     editor.show()
     promise.then(config => {
-      editor.webContents.setZoomFactor(JSON.parse(config).zoom)
+      editor.webContents.setZoomFactor(JSON.parse(config.toString()).zoom)
       // 打开调试器
       editor.webContents.openDevTools({mode: 'bottom'})
     })
   })
 
   // 侦听窗口关闭事件
-  editor.on('close', event => {
+  editor.on('close', (event: Event) => {
     if (!editor.stopCloseEvent) {
-      editor.send('close')
+      editor.webContents.send('close')
       event.preventDefault()
     }
   })
@@ -130,10 +152,9 @@ const createEditorWindow = function () {
 
 // ******************************** 创建播放器窗口 ********************************
 
-const createPlayerWindow = function (parent, path) {
+const createPlayerWindow = function (parent: BrowserWindow & Props, path: string) {
   // 加载配置文件
-  // const fs = require('fs')
-  const window = JSON.parse(fs.readFileSync(`${path}data/config.json`)).window
+  const window = JSON.parse(readFileSync(`${path}data/config.json`).toString()).window
 
   // 减去菜单栏的高度
   if (process.platform === 'win32') {
@@ -180,7 +201,7 @@ const createPlayerWindow = function (parent, path) {
   // 侦听窗口关闭事件
   player.once('closed', () => {
     if (!parent.isDestroyed()) {
-      parent.send('player-window-closed')
+      parent.webContents.send('player-window-closed')
     }
   })
 }
@@ -188,8 +209,10 @@ const createPlayerWindow = function (parent, path) {
 // ******************************** 进程通信 ********************************
 
 // 获取事件来源窗口
-const getWindowFromEvent = function (event) {
-  return BrowserWindow.fromWebContents(event.sender)
+const getWindowFromEvent = function (event: IpcMainInvokeEvent) {
+  const webContents = BrowserWindow.fromWebContents(event.sender)
+  // 断言为 Intersection Types
+  return <BrowserWindow & Props>webContents
 }
 
 // 最小化窗口
@@ -235,12 +258,12 @@ ipcMain.on('toggle-full-screen', event => {
 
 // 打开资源管理器路径
 ipcMain.on('open-path', (event, path) => {
-  shell.openPath(Path.normalize(path))
+  shell.openPath(normalize(path))
 })
 
 // 在资源管理器中显示
 ipcMain.on('show-item-in-folder', (event, path) => {
-  shell.showItemInFolder(Path.normalize(path))
+  shell.showItemInFolder(normalize(path))
 })
 
 // 创建播放器窗口
@@ -264,14 +287,14 @@ ipcMain.handle('show-open-dialog', (event, options) => {
 })
 
 // 显示保存对话框
-ipcMain.handle('show-save-dialog', (event, options) => {
+ipcMain.handle('show-save-dialog', (event, options: SaveDialogOptions) => {
   const window = getWindowFromEvent(event)
   return dialog.showSaveDialog(window, options)
 })
 
 // 把文件扔进回收站
-ipcMain.handle('trash-item', (event, path) => {
-  return shell.trashItem(Path.normalize(path))
+ipcMain.handle('trash-item', (event, path: string) => {
+  return shell.trashItem(normalize(path))
 })
 
 // 获取用户文档路径
