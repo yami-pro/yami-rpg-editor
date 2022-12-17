@@ -15,21 +15,23 @@ import {
 // ******************************** 文件项目 ********************************
 
 class FileItem {
-  meta      //:object
+  meta: InstanceType<typeof Meta> | null
   name: string
   alias: string
   basename: string
   extname: string
   path: string
   type: string
-  stats     //:object
+  stats: object
   contexts: Map<HTMLElement, object> | null
 
-  constructor(name, extname, path, type, stats) {
+  constructor(name: string, extname: string, path: string, type: string, stats: object) {
     let basename = Path.basename(name, extname)
     const match = basename.match(FileItem.guidRegExp)
-    if (match) basename = basename.slice(0, match.index - 1)
-    this.meta = null
+    if (match && match.index) {
+      basename = basename.slice(0, match.index - 1)
+    }
+    // this.meta = null
     this.name = name
     this.alias = basename + extname
     this.basename = basename

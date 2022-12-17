@@ -19,6 +19,14 @@ const Meta = function IIFE() {
     font: 'fonts',
     other: 'others',
   }
+
+  class Props {
+    file: object
+    guid: string
+    group: object
+    mtimeMs: number
+    versionId: number
+  }
   const loaderDescriptor = {path: null, type: 'json'}
   const fileDescriptor = {writable: true, value: null}
   const guidDescriptor = {writable: true, value: ''}
@@ -31,10 +39,11 @@ const Meta = function IIFE() {
     mtimeMs: {writable: true, value: null},
     versionId: {writable: true, value: 0},
   }
-  return class FileMeta {
+  return class FileMeta extends Props {
     path //:string
 
-    constructor(file, guid) {
+    constructor(file, guid: string) {
+      super()
       const {type, path} = file
       this.path = path
 

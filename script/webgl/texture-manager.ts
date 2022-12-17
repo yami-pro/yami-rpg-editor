@@ -25,7 +25,7 @@ class TextureManager {
   }
 
   // 更新图像纹理
-  updateImage(guid) {
+  updateImage(guid: string) {
     const texture = this.images[guid]
     if (texture === undefined) return
     File.get({
