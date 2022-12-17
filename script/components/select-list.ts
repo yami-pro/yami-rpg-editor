@@ -7,17 +7,19 @@ import {
 
 // ******************************** 选择列表 ********************************
 
-type Window_event_func = (event: Event) => void
+interface TypeMap {
+  eventFunc: (event: Event) => void
+}
 
 class SelectList extends HTMLElement {
   state: string
   target: HTMLElement
   elements: HTMLElement[]
   selection: HTMLElement
-  windowKeydown: Window_event_func
-  windowPointerdown: Window_event_func
-  windowResize: Window_event_func
-  windowBlur: Window_event_func
+  windowKeydown: TypeMap["eventFunc"]
+  windowPointerdown: TypeMap["eventFunc"]
+  windowResize: TypeMap["eventFunc"]
+  windowBlur: TypeMap["eventFunc"]
 
   constructor() {
     super()

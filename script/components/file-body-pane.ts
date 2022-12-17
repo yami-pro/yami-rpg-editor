@@ -3,7 +3,6 @@
 import {
   Menu,
   TextBox,
-  Browser_links_t,
   Data,
   Directory,
   File,
@@ -16,10 +15,22 @@ import {
   Window,
   Timer,
   ErrorMsg,
-  Log
+  Log,
+  FileBrowser,
+  FileHeadPane,
+  FileNavPane
 } from "../yami"
 
 // ******************************** 文件主体面板 ********************************
+
+interface TypeMap {
+  links: {
+    body: FileBodyPane
+    browser: FileBrowser
+    head: FileHeadPane
+    nav: FileNavPane
+  }
+}
 
 class FileBodyPane extends HTMLElement {
   viewIndex: number | null
@@ -34,7 +45,7 @@ class FileBodyPane extends HTMLElement {
   unselectEventEnabled: boolean
   popupEventEnabled: boolean
   textBox: TextBox
-  links: Browser_links_t
+  links: TypeMap["links"]
 
   constructor() {
     super()

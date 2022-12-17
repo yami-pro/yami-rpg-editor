@@ -3,11 +3,15 @@
 import {
   Cursor,
   Timer,
-  ScrollBarManager,
-  Tooltip_t
+  ScrollBarManager
 } from "../../yami"
 
 // ******************************** 声明 ********************************
+
+interface TypeMap {
+  tip: (...params: any[]) => any
+  scrollUpdater: (() => void) | null
+}
 
 interface HTMLElement_object_ext {
   // prototype
@@ -39,7 +43,7 @@ interface HTMLElement_ext {
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode?: string): void
-  setTooltip: (tip: string | Tooltip_t) => void
+  setTooltip: (tip: string | TypeMap["tip"]) => void
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): boolean
@@ -270,7 +274,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (this: HTMLElement, tip: string | Tooltip_t) {
+  return function (this: HTMLElement, tip: string | TypeMap["tip"]) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)
@@ -439,14 +443,13 @@ Object.defineProperty(
 
 // ******************************** 滚动侦听器 ********************************
 
-type scrollUpdaterVar = (() => void) | null
 {
   let target: HTMLElement | null = null
   let highSpeed = 0
   let lowSpeed = 0
   let scrollHorizontal = false
   let scrollVertical = false
-  let scrollUpdater: scrollUpdaterVar = null
+  let scrollUpdater: TypeMap["scrollUpdater"] = null
 
   // 计算滚动距离
   const computeScrollDelta = (speed: number) => {

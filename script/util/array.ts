@@ -8,7 +8,9 @@ import {
 
 // ******************************** 声明 ********************************
 
-type Commands_data_t = { [index: string]: any }
+interface TypeMap {
+  data: {[index: string]: any}
+}
 
 // ArrayConstructor扩展
 interface ArrayConstructor_ext {
@@ -32,7 +34,7 @@ interface Array_ext {
   foot: HTMLElement | null
   history: CommandHistory
   blank: HTMLElement | null
-  parent: Commands_data_t
+  parent: TypeMap["data"]
   files: (FolderItem | FileItem)[]
 }
 
@@ -84,6 +86,5 @@ Object.defineProperty(Array.prototype, 'remove', {
 
 export {
   Array_ext,
-  ArrayConstructor_ext,
-  Commands_data_t
+  ArrayConstructor_ext
 }

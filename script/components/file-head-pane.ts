@@ -4,17 +4,28 @@ import {
   Menu,
   SliderBox,
   TextBox,
-  Browser_links_t,
-  FolderItem
+  FolderItem,
+  FileBodyPane,
+  FileBrowser,
+  FileNavPane
 } from "../yami"
 
 // ******************************** 文件头部面板 ********************************
+
+interface TypeMap {
+  links: {
+    body: FileBodyPane
+    browser: FileBrowser
+    head: FileHeadPane
+    nav: FileNavPane
+  }
+}
 
 class FileHeadPane extends HTMLElement {
   address: HTMLElement
   searcher: TextBox
   view: HTMLElement
-  links: Browser_links_t
+  links: TypeMap["links"]
 
   constructor() {
     super()

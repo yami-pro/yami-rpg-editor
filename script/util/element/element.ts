@@ -7,7 +7,9 @@ import {
 
 // ******************************** 按钮扩展 ********************************
 
-type Tooltip_t = (...params: any[]) => any
+interface TypeMap {
+  tip: (...params: any[]) => any
+}
 
 interface Element_props {
   // static
@@ -26,7 +28,7 @@ interface Element_props {
   nameBox: EventTarget | null
   dataValue: any
   dragging: Event | null
-  tip: string | Tooltip_t
+  tip: string | TypeMap["tip"]
   top: number
   left: number
   width: number
@@ -51,6 +53,5 @@ Element.prototype.isInContent = function (event) {
 
 export {
   Element_ext,
-  Element_props,
-  Tooltip_t
+  Element_props
 }

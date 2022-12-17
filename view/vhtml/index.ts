@@ -2,22 +2,24 @@
 
 import emptyTags from "./empty-tags";
 
-type mapVar = {[index: string]: any}
-type nameVar = (...params: any[]) => any | string
+interface TypeMap {
+	map: {[index: string]: any}
+	name: (...params: any[]) => any | string
+}
 
 // escape an attribute
 let esc = (str: any) => String(str).replace(/[&<>"']/g, s=>`&${map[s]};`);
-let map: mapVar = {'&':'amp','<':'lt','>':'gt','"':'quot',"'":'apos'};
+let map: TypeMap["map"] = {'&':'amp','<':'lt','>':'gt','"':'quot',"'":'apos'};
 let setInnerHTMLAttr = 'dangerouslySetInnerHTML';
-let DOMAttributeNames: mapVar = {
+let DOMAttributeNames: TypeMap["map"] = {
 	className: 'class',
 	htmlFor: 'for'
 };
 
-let sanitized: mapVar = {};
+let sanitized: TypeMap["map"] = {};
 
 /** Hyperscript reviver that constructs a sanitized HTML string. */
-function createElement(name: nameVar, attrs: mapVar) {
+function createElement(name: TypeMap["name"], attrs: TypeMap["map"]) {
 	let stack=[], s = '';
 	attrs = attrs || {};
 	for (let i=arguments.length; i-- > 2; ) {

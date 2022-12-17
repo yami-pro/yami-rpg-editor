@@ -12,17 +12,20 @@ import {
   Path,
   Local,
   ErrorMsg,
-  Promise_array_t,
   Log
 } from "../yami"
 
 // ******************************** 文件浏览器 ********************************
 
-type Browser_links_t = {
-  body: FileBodyPane
-  browser: FileBrowser
-  head: FileHeadPane
-  nav: FileNavPane
+interface TypeMap {
+  links: {
+    body: FileBodyPane
+    browser: FileBrowser
+    head: FileHeadPane
+    nav: FileNavPane
+  }
+  promise: {[key: string]: any}
+  promises: TypeMap["promise"][]
 }
 
 class FileBrowser extends HTMLElement {
@@ -35,7 +38,7 @@ class FileBrowser extends HTMLElement {
   nav: FileNavPane
   head: FileHeadPane
   body: FileBodyPane
-  links: Browser_links_t
+  links: TypeMap["links"]
   keyword: RegExp | string | null
 
   constructor() {
@@ -62,7 +65,7 @@ class FileBrowser extends HTMLElement {
       const nav = this.nav
       const head = this.head
       const body = this.body
-      const links: Browser_links_t = {
+      const links: TypeMap["links"] = {
         browser,
         nav,
         head,
@@ -247,7 +250,7 @@ class FileBrowser extends HTMLElement {
         event.files = files
         event.filePaths = rPaths
         event.promise = Directory.readdir(aPaths)
-        event.promise.then((dir: Promise_array_t) => {
+        event.promise.then((dir: TypeMap["promises"]) => {
           // 若文件已删除则结束拖拽
           if (dir.length === 0) {
             this.dragend()
@@ -534,6 +537,5 @@ interface JSXFileBrowser { [attributes: string]: any }
 
 export {
   FileBrowser,
-  JSXFileBrowser,
-  Browser_links_t
+  JSXFileBrowser
 }

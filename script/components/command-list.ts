@@ -4,7 +4,6 @@ import {
   CommonList,
   Menu,
   WindowFrame,
-  Commands_data_t,
   ctrl,
   Clipboard,
   Command,
@@ -14,8 +13,12 @@ import {
 
 // ******************************** 指令列表 ********************************
 
+interface TypeMap {
+  data: {[index: string]: any}
+}
+
 class CommandList extends HTMLElement {
-  data: Commands_data_t[]
+  data: TypeMap["data"][]
   elements: HTMLElement[]
   selections: HTMLElement[]
   start: number | null
@@ -92,7 +95,7 @@ class CommandList extends HTMLElement {
   }
 
   // 写入数据
-  write(data: Commands_data_t[]) {
+  write(data: TypeMap["data"][]) {
     this.data = data
     this.textContent = ''
     this.update()
@@ -159,7 +162,7 @@ class CommandList extends HTMLElement {
   }
 
   // 创建项目
-  createItems(commands: Commands_data_t[], indent: number) {
+  createItems(commands: TypeMap["data"][], indent: number) {
     const elements = this.elements
     const length = commands.length
     for (let i = 0; i < length; i++) {
@@ -171,7 +174,7 @@ class CommandList extends HTMLElement {
           continue
         }
         if (target instanceof Array) {
-          this.createItems(<Commands_data_t[]>target, indent + 1)
+          this.createItems(<TypeMap["data"][]>target, indent + 1)
           continue
         }
       }
@@ -183,7 +186,7 @@ class CommandList extends HTMLElement {
   }
 
   // 创建指令缓冲区
-  createCommandBuffer(commands: Commands_data_t[], index: number, indent: number) {
+  createCommandBuffer(commands: TypeMap["data"][], index: number, indent: number) {
     const command = commands[index]
     let buffer = command.buffer
     if (buffer === undefined) {
@@ -346,13 +349,13 @@ class CommandList extends HTMLElement {
   }
 
   // 删除指令缓冲区
-  deleteCommandBuffers(commands: Commands_data_t[]) {
+  deleteCommandBuffers(commands: TypeMap["data"][]) {
     for (const command of commands) {
       const {buffer} = command
       if (!buffer) continue
       for (const item of buffer) {
         if (item instanceof Array) {
-          this.deleteCommandBuffers(<Commands_data_t[]>item)
+          this.deleteCommandBuffers(<TypeMap["data"][]>item)
         }
       }
       delete command.buffer
@@ -360,7 +363,7 @@ class CommandList extends HTMLElement {
   }
 
   // 创建空项目
-  createBlankElement(commands: Commands_data_t[], index: number, indent: number) {
+  createBlankElement(commands: TypeMap["data"][], index: number, indent: number) {
     let blank = commands.blank
     if (blank === undefined || blank === null) {
       // 创建列表项
@@ -919,7 +922,7 @@ class CommandList extends HTMLElement {
       if (end === null)
         return
       let method = 'disable'
-      const commands = <Commands_data_t[]>[]
+      const commands = <TypeMap["data"][]>[]
       for (let i = start; i <= end; i++) {
         const element = elements[i]
         if (element.dataKey) {
@@ -963,7 +966,7 @@ class CommandList extends HTMLElement {
   }
 
   // 启用项目
-  enableItems(commands: Commands_data_t[]) {
+  enableItems(commands: TypeMap["data"][]) {
     for (const command of commands) {
       if (command.id[0] === '!') {
         command.id = command.id.slice(1)
@@ -972,7 +975,7 @@ class CommandList extends HTMLElement {
   }
 
   // 禁用项目
-  disableItems(commands: Commands_data_t[]) {
+  disableItems(commands: TypeMap["data"][]) {
     for (const command of commands) {
       if (command.id[0] !== '!') {
         command.id = '!' + command.id
@@ -1069,7 +1072,7 @@ class CommandList extends HTMLElement {
   }
 
   // 保存指令
-  save(command: Commands_data_t) {
+  save(command: TypeMap["data"]) {
     if (this.start !== null) {
       const elements = this.elements
       const element = elements[this.start]

@@ -18,13 +18,15 @@ import * as electron from 'electron'
 
 // ******************************** 文件 ********************************
 
-type Descriptor = {
-  type: XMLHttpRequestResponseType | 'image'
-  path?: string
-  local?: string
-  guid?: string
+interface TypeMap {
+  descriptor: {
+    type: XMLHttpRequestResponseType | 'image'
+    path?: string
+    local?: string
+    guid?: string
+  }
+  resolution: {width: number, height: number}
 }
-type ImageResolution = {width: number, height: number}
 
 interface File {
   // properties
@@ -32,7 +34,7 @@ interface File {
   promises: {[key: string]: Promise<HTMLImageElement>}
   // methods
   initializeProps(): File
-  get(descriptor: Descriptor): Promise<typeof File.promises | HTMLImageElement | null>
+  get(descriptor: TypeMap["descriptor"]): Promise<typeof File.promises | HTMLImageElement | null>
   getPath(guid: string): string
   save(hint?: boolean): Promise<any[]>
   saveFile(meta: any): Promise<void>
@@ -43,7 +45,7 @@ interface File {
       path: string;
       route: string;
   }
-  getImageResolution: (path: string) => Promise<ImageResolution>
+  getImageResolution: (path: string) => Promise<TypeMap["resolution"]>
   openPath(path: string): void
   openURL(url: string): void
   showInExplorer(path: string): void
@@ -272,8 +274,8 @@ File.getFileName = function IIFE() {
 
 // 获取图像尺寸
 File.getImageResolution = function IIFE() {
-  const promises: {[key: string]: Promise<ImageResolution>} = {}
-  const resolution: ImageResolution = {width: 0, height: 0}
+  const promises: {[key: string]: Promise<TypeMap["resolution"]>} = {}
+  const resolution: TypeMap["resolution"] = {width: 0, height: 0}
   return function (path) {
     let promise = promises[path]
     if (promise === undefined) {

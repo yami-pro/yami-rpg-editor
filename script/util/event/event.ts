@@ -7,8 +7,10 @@ import {
 
 // ******************************** 事件访问器 ********************************
 
-type Promise_object_t = {[key: string]: any}
-type Promise_array_t = {[key: string]: any}[]
+interface TypeMap {
+  promise: {[key: string]: any}
+  promises: TypeMap["promise"][]
+}
 
 interface Event_props {
   // static
@@ -25,8 +27,8 @@ interface Event_props {
   files: (FolderItem | FileItem)[]
   filePaths: string[]
   promise: Promise<EventTarget |
-                   Promise_object_t |
-                   Promise_array_t |
+                   TypeMap["promise"] |
+                   TypeMap["promises"] |
                    void>
   latest: Event
   itemHeight: number
@@ -108,7 +110,5 @@ Object.defineProperties(Event.prototype, {
 
 export {
   Event_ext,
-  Event_props,
-  Promise_object_t,
-  Promise_array_t
+  Event_props
 }

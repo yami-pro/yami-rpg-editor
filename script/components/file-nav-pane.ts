@@ -4,7 +4,6 @@ import {
   Menu,
   CommonList,
   TextBox,
-  Browser_links_t,
   Directory,
   File,
   FS,
@@ -12,10 +11,22 @@ import {
   Path,
   Timer,
   FolderItem,
-  FileItem
+  FileItem,
+  FileBodyPane,
+  FileBrowser,
+  FileHeadPane
 } from "../yami"
 
 // ******************************** 文件导航面板 ********************************
+
+interface TypeMap {
+  links: {
+    body: FileBodyPane
+    browser: FileBrowser
+    head: FileHeadPane
+    nav: FileNavPane
+  }
+}
 
 class FileNavPane extends HTMLElement {
   timer: Timer
@@ -24,7 +35,7 @@ class FileNavPane extends HTMLElement {
   pressing: ((event: any) => void) | null
   selectEventEnabled: boolean
   textBox: TextBox
-  links: Browser_links_t
+  links: TypeMap["links"]
 
   constructor() {
     super()
