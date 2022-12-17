@@ -22,14 +22,20 @@ const Meta = function IIFE() {
   }
 
   interface TypeMap {
-    descriptors: {
-      file: object | null
-      guid: string
-      group: object | null
-      mtimeMs: number | null
-      versionId: number
-      dataMap: object | null
-    }
+    file: object | null
+    group: object | null
+    mtimeMs: BigInt | null
+    dataMap: object | null
+  }
+
+  // 修改对象属性, 不修改value
+  const dataMapDescriptor = {writable: false, enumerable: false}
+  const descriptors = {
+    file: {writable: true, enumerable: false},
+    guid: {writable: true, enumerable: false},
+    group: {writable: false, enumerable: false},
+    mtimeMs: {writable: true, enumerable: false},
+    versionId: {writable: true, enumerable: false},
   }
 
   return class FileMeta {
@@ -38,24 +44,23 @@ const Meta = function IIFE() {
     y: number
     parameters: []
 
-    private descriptors: TypeMap["descriptors"]
-
-    get file() { return this.descriptors.file }
-    get guid() { return this.descriptors.guid }
-    get group() { return this.descriptors.group }
-    get mtimeMs() { return this.descriptors.mtimeMs }
-    get versionId() { return this.descriptors.versionId }
-    get dataMap() { return this.descriptors.dataMap }
-
-    set file(value) { this.descriptors.file = value }
-    set guid(value) { this.descriptors.guid = value }
-    set mtimeMs(value) { this.descriptors.mtimeMs = value }
-    set versionId(value) { this.descriptors.versionId = value }
+    file: TypeMap["file"]
+    guid: string
+    group: TypeMap["group"]
+    mtimeMs: BigInt | null
+    versionId: number
+    dataMap: TypeMap["dataMap"]
 
     constructor(file, guid: string) {
       const {type, path} = file
       this.path = path
-      this.descriptors = <TypeMap["descriptors"]>{}
+
+      this.file = null
+      this.guid = ''
+      this.group = null
+      this.mtimeMs = null
+      this.versionId = 0
+      this.dataMap = null
 
       // 特殊类型额外附加属性
       switch (type) {
@@ -75,14 +80,15 @@ const Meta = function IIFE() {
       // 加载数据文件
       const name = FileItem.dataMapNames[type]
       if (name !== undefined) {
-        this.descriptors.dataMap = Data[name]
+        this.dataMap = Data[name]
+        Object.defineProperty(this, 'dataMap', dataMapDescriptor)
 
         // 加载除了场景以外的数据
         if (type !== 'scene') {
           const promise = file.promise ?? Promise.resolve()
           file.promise = promise.then(async () => {
             // 文件重命名后会改变元数据路径
-            this.descriptors.dataMap[guid] = await File.get({type: 'json', path: this.path})
+            this.dataMap[guid] = await File.get({type: 'json', path: this.path})
             switch (type) {
               // 添加UI预设元素链接
               case 'ui':
@@ -107,16 +113,15 @@ const Meta = function IIFE() {
       manifest.guidMap[guid] = this
       manifest.pathMap[path] = this
 
-      this.descriptors.file = file
-      this.descriptors.guid = guid
-      this.descriptors.group = manifest[key]
-      this.descriptors.mtimeMs = null
-      this.descriptors.versionId = 0
+      this.file = file
+      this.guid = guid
+      this.group = manifest[key]
+      Object.defineProperties(this, descriptors)
     }
 
     // 重定向
     redirect(file) {
-      if (this.file?.type === file.type) {
+      if (this.file.type === file.type) {
         this.file = file
         const sPath = this.path
         const dPath = file.path
