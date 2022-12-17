@@ -5,7 +5,7 @@ import {
   Data,
   Easing,
   Layout,
-  TimerManager
+  Timer
 } from "../yami"
 
 // ******************************** 曲线窗口 ********************************
@@ -285,7 +285,7 @@ Curve.drawCurve = function () {
 // 请求渲染
 Curve.requestRendering = function () {
   if (this.state === 'open') {
-    TimerManager.appendUpdater('sharedRendering2', this.renderingFunction)
+    Timer.appendUpdater('sharedRendering2', this.renderingFunction)
   }
 }
 
@@ -296,7 +296,7 @@ Curve.renderingFunction = function () {
 
 // 停止渲染
 Curve.stopRendering = function () {
-  TimerManager.removeUpdater('sharedRendering2', this.renderingFunction)
+  Timer.removeUpdater('sharedRendering2', this.renderingFunction)
 }
 
 // 窗口 - 调整大小事件

@@ -3,7 +3,6 @@
 import {
   Cursor,
   Timer,
-  TimerManager,
   ScrollBarManager,
   Tooltip_t
 } from "../../yami"
@@ -451,7 +450,7 @@ type scrollUpdaterVar = (() => void) | null
 
   // 计算滚动距离
   const computeScrollDelta = (speed: number) => {
-    let delta = speed * TimerManager.deltaTime
+    let delta = speed * Timer.deltaTime
     const dpr = window.devicePixelRatio
     const tolerance = 0.0001
     // 修正数值让正反方向每帧的滚动距离相等

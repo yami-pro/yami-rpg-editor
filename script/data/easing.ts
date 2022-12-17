@@ -13,7 +13,6 @@ import {
   TreeList,
   SetKey,
   Timer,
-  TimerManager,
   Window,
   Clipboard
 } from "../yami"
@@ -741,7 +740,7 @@ Easing.createPreviewImage = function () {
 // 请求渲染
 Easing.requestRendering = function () {
   if (this.data !== null) {
-    TimerManager.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -752,7 +751,7 @@ Easing.renderingFunction = function () {
 
 // 停止渲染
 Easing.stopRendering = function () {
-  TimerManager.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 窗口 - 关闭事件

@@ -14,7 +14,6 @@ import {
   TileFrame,
   TileNode,
   Timer,
-  TimerManager,
   Window,
   Clipboard
 } from "../yami"
@@ -1185,7 +1184,7 @@ Palette.scrollToSelection = function (shiftKey) {
 // 请求渲染
 Palette.requestRendering = function () {
   if (this.state === 'open') {
-    TimerManager.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -1196,7 +1195,7 @@ Palette.renderingFunction = function () {
 
 // 停止渲染
 Palette.stopRendering = function () {
-  TimerManager.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 跳过滚动事件

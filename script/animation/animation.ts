@@ -24,7 +24,6 @@ import {
   Sprite,
   StageColor,
   Timer,
-  TimerManager,
   UI,
   Window,
   Clipboard
@@ -406,7 +405,7 @@ Animation.initialize = function () {
       if (this.state === 'open' &&
         this.dragging === null) {
         const key = this.translationKey
-        const step = TimerManager.deltaTime * 1.5 / this.scale
+        const step = Timer.deltaTime * 1.5 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -4014,7 +4013,7 @@ Animation.requestRefreshingList = function () {
 // 请求更新动画
 Animation.requestAnimation = function () {
   if (this.state === 'open') {
-    TimerManager.appendUpdater('stageAnimation', this.updateAnimation)
+    Timer.appendUpdater('stageAnimation', this.updateAnimation)
   }
 }
 
@@ -4054,13 +4053,13 @@ Animation.updateAnimation = function (deltaTime) {
 
 // 停止更新动画
 Animation.stopAnimation = function () {
-  TimerManager.removeUpdater('stageAnimation', this.updateAnimation)
+  Timer.removeUpdater('stageAnimation', this.updateAnimation)
 }
 
 // 请求渲染
 Animation.requestRendering = function () {
   if (this.state === 'open') {
-    TimerManager.appendUpdater('stageRendering', this.renderingFunction)
+    Timer.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
@@ -4087,7 +4086,7 @@ Animation.renderingFunction = function () {
 
 // 停止渲染
 Animation.stopRendering = function () {
-  TimerManager.removeUpdater('stageRendering', this.renderingFunction)
+  Timer.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 开关标记

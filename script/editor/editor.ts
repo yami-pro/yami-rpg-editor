@@ -43,7 +43,7 @@ import {
   SetQuantity,
   Sprite,
   Team,
-  TimerManager,
+  Timer,
   Title,
   UI,
   Variable,
@@ -105,7 +105,7 @@ Editor.initialize = async function () {
     Menubar.initialize()
     Home.initialize()
     Layout.initialize()
-    TimerManager.initialize()
+    Timer.initialize()
     Scene.initialize()
     UI.initialize()
     Animation.initialize()

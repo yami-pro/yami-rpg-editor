@@ -4,7 +4,7 @@ import {
   Cursor,
   Palette,
   Scene,
-  TimerManager,
+  Timer,
   Window
 } from "../yami"
 
@@ -194,7 +194,7 @@ TileNode.drawNodes = function () {
 // 请求渲染
 TileNode.requestRendering = function () {
   if (this.nodes !== null) {
-    TimerManager.appendUpdater('sharedRendering', this.renderingFunction)
+    Timer.appendUpdater('sharedRendering', this.renderingFunction)
   }
 }
 
@@ -205,7 +205,7 @@ TileNode.renderingFunction = function () {
 
 // 停止渲染
 TileNode.stopRendering = function () {
-  TimerManager.removeUpdater('sharedRendering', this.renderingFunction)
+  Timer.removeUpdater('sharedRendering', this.renderingFunction)
 }
 
 // 滚动到选中位置

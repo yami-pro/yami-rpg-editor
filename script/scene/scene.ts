@@ -30,7 +30,6 @@ import {
   Texture,
   TilemapShortcuts,
   Timer,
-  TimerManager,
   Vector,
   Window,
   Clipboard
@@ -376,7 +375,7 @@ Scene.initialize = function () {
         this.dragging === null) {
         const key = this.translationKey
         const meta = this.meta
-        const step = TimerManager.deltaTime * 0.04 / this.scale
+        const step = Timer.deltaTime * 0.04 / this.scale
         let x = 0
         let y = 0
         if (key & 0b0001) {x -= step}
@@ -5303,7 +5302,7 @@ Scene.getNewTilesetIndex = function (tilesetMap) {
 // 请求更新动画
 Scene.requestAnimation = function () {
   if (this.state === 'open' && this.showAnimation) {
-    TimerManager.appendUpdater('stageAnimation', this.updateAnimation)
+    Timer.appendUpdater('stageAnimation', this.updateAnimation)
   }
 }
 
@@ -5320,20 +5319,20 @@ Scene.updateAnimation = function (deltaTime) {
   Scene.updateParallaxes(deltaTime)
   Scene.updateAnimations(deltaTime)
   Scene.updateParticles(deltaTime)
-  if (TimerManager.updaters.stageRendering !== Scene.renderingFunction) {
+  if (Timer.updaters.stageRendering !== Scene.renderingFunction) {
     Scene.drawScene()
   }
 }
 
 // 停止更新动画
 Scene.stopAnimation = function () {
-  TimerManager.removeUpdater('stageAnimation', this.updateAnimation)
+  Timer.removeUpdater('stageAnimation', this.updateAnimation)
 }
 
 // 请求渲染
 Scene.requestRendering = function () {
   if (this.state === 'open') {
-    TimerManager.appendUpdater('stageRendering', this.renderingFunction)
+    Timer.appendUpdater('stageRendering', this.renderingFunction)
   }
 }
 
@@ -5345,7 +5344,7 @@ Scene.renderingFunction = function () {
 
 // 停止渲染
 Scene.stopRendering = function () {
-  TimerManager.removeUpdater('stageRendering', this.renderingFunction)
+  Timer.removeUpdater('stageRendering', this.renderingFunction)
 }
 
 // 切换图层

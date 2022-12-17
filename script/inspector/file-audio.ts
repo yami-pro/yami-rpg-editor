@@ -6,7 +6,7 @@ import {
   File,
   getElementReader,
   Inspector,
-  TimerManager
+  Timer
 } from "../yami"
 
 // ******************************** 文件 - 音频页面 ********************************
@@ -253,7 +253,7 @@ FileAudio.formatTime = function (time) {
 // 请求动画
 FileAudio.requestAnimation = function () {
   if (this.target !== null) {
-    TimerManager.appendUpdater('sharedAnimation', this.updateAnimation)
+    Timer.appendUpdater('sharedAnimation', this.updateAnimation)
   }
 }
 
@@ -392,7 +392,7 @@ FileAudio.updateAnimation = function (deltaTime) {
 
 // 停止更新动画
 FileAudio.stopAnimation = function () {
-  TimerManager.removeUpdater('sharedAnimation', this.updateAnimation)
+  Timer.removeUpdater('sharedAnimation', this.updateAnimation)
 }
 
 // 主题改变事件

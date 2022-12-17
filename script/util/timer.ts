@@ -2,43 +2,26 @@
 
 // ******************************** 声明 ********************************
 
-type Timer_empty_t = (() => void)
-type Timer_updater_t = (deltaTime: number) => void
-type Timer_updater_key_t = 'stageAnimation' |
-                  'stageRendering' |
-                  'sharedAnimation' |
-                  'sharedRendering' |
-                  'sharedRendering2'
-
-interface TimerManager {
-  timers: Timer[]
+interface Props {
+  empty: (() => void)
+  update: (timer: Timer) => boolean
+  callback: (timer: Timer) => boolean
+  updater: (deltaTime: number) => void
+  updaterKey: 'stageAnimation' |
+              'stageRendering' |
+              'sharedAnimation' |
+              'sharedRendering' |
+              'sharedRendering2'
   updaters: {
-    stageAnimation: Timer_updater_t | null
-    stageRendering: Timer_updater_t | null
-    sharedAnimation: Timer_updater_t | null
-    sharedRendering: Timer_updater_t | null
-    sharedRendering2: Timer_updater_t | null
+    stageAnimation: Props["updater"] | null
+    stageRendering: Props["updater"] | null
+    sharedAnimation: Props["updater"] | null
+    sharedRendering: Props["updater"] | null
+    sharedRendering2: Props["updater"] | null
   }
-  timestamp: number
-  deltaTime: number
-  frameCount: number
-  frameTime: number
-  tpf: number
-  animationIndex: number
-  animationWaiting: number
-
-  initialize(): void
-  start(timestamp: number): void
-  update(timestamp: number): void
-  play(): void
-  appendUpdater(key: Timer_updater_key_t, updater: Timer_updater_t): void
-  removeUpdater(key: Timer_updater_key_t, updater: Timer_updater_t): void
 }
 
 // ******************************** 计时器类 ********************************
-
-type Timer_update_t = (timer: Timer) => boolean
-type Timer_callback_t = (timer: Timer) => boolean
 
 class Timer {
   speedX: number
@@ -46,12 +29,12 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: Timer_update_t | Timer_empty_t
-  callback: Timer_callback_t | Timer_empty_t
+  update: Props["update"] | Props["empty"]
+  callback: Props["callback"] | Props["empty"]
   target: EventTarget | null
   running: boolean
 
-  constructor(params: {duration: number, update: Timer_update_t | Timer_empty_t, callback: Timer_callback_t | Timer_empty_t}) {
+  constructor(params: {duration: number, update: Props["update"] | Props["empty"], callback: Props["callback"] | Props["empty"]}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
@@ -83,179 +66,173 @@ class Timer {
 
   // 添加到列表
   add() {
-    if (TimerManager.timers.append(this)) {
-      TimerManager.play()
+    if (Timer.timers.append(this)) {
+      Timer.play()
     }
     return this
   }
 
   // 从列表中删除
   remove() {
-    TimerManager.timers.remove(this)
+    Timer.timers.remove(this)
     return this
   }
-}
 
-// ******************************** 计时器管理类 ********************************
+  // 静态属性
+  static timers: Timer[] = []
+  static updaters: Props["updaters"] = {
+    stageAnimation: null,
+    stageRendering: null,
+    sharedAnimation: null,
+    sharedRendering: null,
+    sharedRendering2: null,
+  }
+  static timestamp: number = 0
+  static deltaTime: number = 0
+  static frameCount: number = 0
+  static frameTime: number = 0
+  static tpf: number = Infinity
+  static animationIndex: number = -1
+  static animationWaiting: number = 0
 
-const TimerManager = <TimerManager>{}
+  // 静态方法
+  // 初始化
+  static initialize() {
+    // 设置初始参数
+    this.timestamp = 0
+    this.deltaTime = 0
+    this.frameCount = 0
+    this.frameTime = 0
+    this.tpf = Infinity
 
-// 默认属性
-TimerManager.timers = []
-TimerManager.updaters = {
-  stageAnimation: null,
-  stageRendering: null,
-  sharedAnimation: null,
-  sharedRendering: null,
-  sharedRendering2: null,
-}
-TimerManager.timestamp = 0
-TimerManager.deltaTime = 0
-TimerManager.frameCount = 0
-TimerManager.frameTime = 0
-TimerManager.tpf = Infinity
-TimerManager.animationIndex = -1
-TimerManager.animationWaiting = 0
-
-// 初始化
-TimerManager.initialize = function () {
-  // 设置初始参数
-  this.timestamp = 0
-  this.deltaTime = 0
-  this.frameCount = 0
-  this.frameTime = 0
-  this.tpf = Infinity
-
-  // 监测其他窗口的状态
-  // 在最大化时停止播放动画
-  const windowOpen = (event: Event) => {
-    const target = <HTMLElement>event.target
-    if (target && target.hasClass('maximized')) {
+    // 监测其他窗口的状态
+    // 在最大化时停止播放动画
+    const windowOpen = (event: Event) => {
+      const target = <HTMLElement>event.target
+      if (target && target.hasClass('maximized')) {
+        this.animationWaiting++
+      }
+    }
+    const windowClosed = (event: Event) => {
+      const target = <HTMLElement>event.target
+      if (target && target.hasClass('maximized')) {
+        this.animationWaiting--
+      }
+    }
+    const windowMaximize = (event: Event) => {
       this.animationWaiting++
     }
-  }
-  const windowClosed = (event: Event) => {
-    const target = <HTMLElement>event.target
-    if (target && target.hasClass('maximized')) {
+    const windowUnmaximize = (event: Event) => {
       this.animationWaiting--
     }
-  }
-  const windowMaximize = (event: Event) => {
-    this.animationWaiting++
-  }
-  const windowUnmaximize = (event: Event) => {
-    this.animationWaiting--
-  }
-  const windows = document.querySelectorAll('#event, #selector, #imageClip')
-  if (windows) {
-    windows.on('open', windowOpen)
-    windows.on('closed', windowClosed)
-    windows.on('maximize', windowMaximize)
-    windows.on('unmaximize', windowUnmaximize)
-  }
-}
-
-// 开始动画
-TimerManager.start = function (timestamp) {
-  TimerManager.timestamp = timestamp - TimerManager.deltaTime
-  TimerManager.update(timestamp)
-}
-
-// 更新动画
-TimerManager.update = function (timestamp) {
-  let deltaTime = timestamp - TimerManager.timestamp
-
-  // 计算FPS相关数据
-  TimerManager.frameCount++
-  TimerManager.frameTime += deltaTime
-  if (TimerManager.frameTime > 995) {
-    TimerManager.tpf = TimerManager.frameTime / TimerManager.frameCount
-    TimerManager.frameCount = 0
-    TimerManager.frameTime = 0
+    const windows = document.querySelectorAll('#event, #selector, #imageClip')
+    if (windows) {
+      windows.on('open', windowOpen)
+      windows.on('closed', windowClosed)
+      windows.on('maximize', windowMaximize)
+      windows.on('unmaximize', windowUnmaximize)
+    }
   }
 
-  // 修正间隔 - 减少跳帧视觉差异
-  deltaTime = Math.min(deltaTime, TimerManager.tpf + 1, 35)
-
-  // 更新属性
-  TimerManager.timestamp = timestamp
-  TimerManager.deltaTime = deltaTime
-
-  // 更新计时器
-  const {timers} = TimerManager
-  let i = timers.length
-  while (--i >= 0) {
-    timers[i].tick(deltaTime)
+  // 开始动画
+  static start(timestamp: number) {
+    Timer.timestamp = timestamp - Timer.deltaTime
+    Timer.update(timestamp)
   }
 
-  // 更新更新器
-  // 逐个获取更新器以便中途插入更新器
-  const updaters = TimerManager.updaters
-  const {stageAnimation} = updaters
-  if (stageAnimation !== null &&
-    TimerManager.animationWaiting === 0 &&
-    document.hasFocus()) {
-    stageAnimation(deltaTime)
-  }
-  const {stageRendering} = updaters
-  if (stageRendering !== null) {
-    stageRendering(deltaTime)
-    updaters.stageRendering = null
-  }
-  const {sharedAnimation} = updaters
-  if (sharedAnimation !== null &&
-    TimerManager.animationWaiting === 0 &&
-    document.hasFocus()) {
-    sharedAnimation(deltaTime)
-  }
-  const {sharedRendering} = updaters
-  if (sharedRendering !== null) {
-    sharedRendering(deltaTime)
-    updaters.sharedRendering = null
-  }
-  const {sharedRendering2} = updaters
-  if (sharedRendering2 !== null) {
-    sharedRendering2(deltaTime)
-    updaters.sharedRendering2 = null
+  // 更新动画
+  static update(timestamp: number) {
+    let deltaTime = timestamp - Timer.timestamp
+
+    // 计算FPS相关数据
+    Timer.frameCount++
+    Timer.frameTime += deltaTime
+    if (Timer.frameTime > 995) {
+      Timer.tpf = Timer.frameTime / Timer.frameCount
+      Timer.frameCount = 0
+      Timer.frameTime = 0
+    }
+
+    // 修正间隔 - 减少跳帧视觉差异
+    deltaTime = Math.min(deltaTime, Timer.tpf + 1, 35)
+
+    // 更新属性
+    Timer.timestamp = timestamp
+    Timer.deltaTime = deltaTime
+
+    // 更新计时器
+    const {timers} = Timer
+    let i = timers.length
+    while (--i >= 0) {
+      timers[i].tick(deltaTime)
+    }
+
+    // 更新更新器
+    // 逐个获取更新器以便中途插入更新器
+    const updaters = Timer.updaters
+    const {stageAnimation} = updaters
+    if (stageAnimation !== null &&
+      Timer.animationWaiting === 0 &&
+      document.hasFocus()) {
+      stageAnimation(deltaTime)
+    }
+    const {stageRendering} = updaters
+    if (stageRendering !== null) {
+      stageRendering(deltaTime)
+      updaters.stageRendering = null
+    }
+    const {sharedAnimation} = updaters
+    if (sharedAnimation !== null &&
+      Timer.animationWaiting === 0 &&
+      document.hasFocus()) {
+      sharedAnimation(deltaTime)
+    }
+    const {sharedRendering} = updaters
+    if (sharedRendering !== null) {
+      sharedRendering(deltaTime)
+      updaters.sharedRendering = null
+    }
+    const {sharedRendering2} = updaters
+    if (sharedRendering2 !== null) {
+      sharedRendering2(deltaTime)
+      updaters.sharedRendering2 = null
+    }
+
+    // 继续或结束动画
+    if (Timer.timers.length > 0 ||
+      stageAnimation !== null ||
+      sharedAnimation !== null) {
+      Timer.animationIndex = requestAnimationFrame(Timer.update)
+    } else {
+      Timer.animationIndex = -1
+    }
   }
 
-  // 继续或结束动画
-  if (TimerManager.timers.length > 0 ||
-    stageAnimation !== null ||
-    sharedAnimation !== null) {
-    TimerManager.animationIndex = requestAnimationFrame(TimerManager.update)
-  } else {
-    TimerManager.animationIndex = -1
+  // 播放动画
+  static play() {
+    if (this.animationIndex === -1) {
+      this.animationIndex = requestAnimationFrame(this.start)
+    }
   }
-}
 
-// 播放动画
-TimerManager.play = function () {
-  if (this.animationIndex === -1) {
-    this.animationIndex = requestAnimationFrame(this.start)
+  // 添加更新器
+  static appendUpdater(key: Props["updaterKey"], updater: Props["updater"]) {
+    const {updaters} = this
+    if (updaters[key] === null) {
+      updaters[key] = updater
+      this.play()
+    }
   }
-}
 
-// 添加更新器
-TimerManager.appendUpdater = function (key, updater) {
-  const {updaters} = this
-  if (updaters[key] === null) {
-    updaters[key] = updater
-    this.play()
-  }
-}
-
-// 移除更新器
-TimerManager.removeUpdater = function (key, updater) {
-  const {updaters} = this
-  if (updaters[key] === updater) {
-    updaters[key] = null
+  // 移除更新器
+  static removeUpdater(key: Props["updaterKey"], updater: Props["updater"]) {
+    const {updaters} = this
+    if (updaters[key] === updater) {
+      updaters[key] = null
+    }
   }
 }
 
 // ******************************** 计时器类导出 ********************************
 
-export {
-  Timer,
-  TimerManager
-}
+export { Timer }
