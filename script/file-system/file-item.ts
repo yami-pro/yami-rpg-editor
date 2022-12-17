@@ -15,7 +15,7 @@ import {
 // ******************************** 文件项目 ********************************
 
 class FileItem {
-  meta: typeof Meta | null
+  meta: InstanceType<typeof Meta> | null
   name: string
   alias: string
   basename: string
