@@ -15,7 +15,7 @@ import {
 // ******************************** 文件项目 ********************************
 
 class FileItem {
-  meta: InstanceType<typeof Meta> | null
+  meta: typeof Meta | null
   name: string
   alias: string
   basename: string
@@ -47,7 +47,9 @@ class FileItem {
     // 加载脚本
     switch (type) {
       case 'image':
-        GL.textureManager.updateImage(this.meta.guid)
+        if (this.meta !== null) {
+          GL.textureManager.updateImage(this.meta.guid)
+        }
         break
       case 'script':
         Data.loadScript(this)

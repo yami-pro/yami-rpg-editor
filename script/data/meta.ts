@@ -20,7 +20,7 @@ const Meta = function IIFE() {
     other: 'others',
   }
 
-  class Props {
+  interface Props {
     file: object
     guid: string
     group: object
@@ -39,11 +39,10 @@ const Meta = function IIFE() {
     mtimeMs: {writable: true, value: null},
     versionId: {writable: true, value: 0},
   }
-  return class FileMeta extends Props {
+  class FileMeta {
     path //:string
 
     constructor(file, guid: string) {
-      super()
       const {type, path} = file
       this.path = path
 
@@ -128,6 +127,8 @@ const Meta = function IIFE() {
     // 静态 - 版本ID
     static versionId = 0
   }
+
+  return <FileMeta & Props>(FileMeta as Object)
 }()
 
 // ******************************** 元数据类导出 ********************************
