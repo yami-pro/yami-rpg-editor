@@ -2,7 +2,7 @@
 
 // ******************************** 声明 ********************************
 
-interface Props {
+interface TypeMap {
   empty: (() => void)
   update: (timer: Timer) => boolean
   callback: (timer: Timer) => boolean
@@ -13,11 +13,11 @@ interface Props {
               'sharedRendering' |
               'sharedRendering2'
   updaters: {
-    stageAnimation: Props["updater"] | null
-    stageRendering: Props["updater"] | null
-    sharedAnimation: Props["updater"] | null
-    sharedRendering: Props["updater"] | null
-    sharedRendering2: Props["updater"] | null
+    stageAnimation: TypeMap["updater"] | null
+    stageRendering: TypeMap["updater"] | null
+    sharedAnimation: TypeMap["updater"] | null
+    sharedRendering: TypeMap["updater"] | null
+    sharedRendering2: TypeMap["updater"] | null
   }
 }
 
@@ -29,12 +29,12 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: Props["update"] | Props["empty"]
-  callback: Props["callback"] | Props["empty"]
+  update: TypeMap["update"] | TypeMap["empty"]
+  callback: TypeMap["callback"] | TypeMap["empty"]
   target: EventTarget | null
   running: boolean
 
-  constructor(params: {duration: number, update: Props["update"] | Props["empty"], callback: Props["callback"] | Props["empty"]}) {
+  constructor(params: {duration: number, update: TypeMap["update"] | TypeMap["empty"], callback: TypeMap["callback"] | TypeMap["empty"]}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
@@ -80,7 +80,7 @@ class Timer {
 
   // 静态属性
   static timers: Timer[] = []
-  static updaters: Props["updaters"] = {
+  static updaters: TypeMap["updaters"] = {
     stageAnimation: null,
     stageRendering: null,
     sharedAnimation: null,
@@ -216,7 +216,7 @@ class Timer {
   }
 
   // 添加更新器
-  static appendUpdater(key: Props["updaterKey"], updater: Props["updater"]) {
+  static appendUpdater(key: TypeMap["updaterKey"], updater: TypeMap["updater"]) {
     const {updaters} = this
     if (updaters[key] === null) {
       updaters[key] = updater
@@ -225,7 +225,7 @@ class Timer {
   }
 
   // 移除更新器
-  static removeUpdater(key: Props["updaterKey"], updater: Props["updater"]) {
+  static removeUpdater(key: TypeMap["updaterKey"], updater: TypeMap["updater"]) {
     const {updaters} = this
     if (updaters[key] === updater) {
       updaters[key] = null
