@@ -46,10 +46,10 @@ const Meta = function IIFE() {
 
     file: TypeMap["file"]
     guid: string
-    group: TypeMap["group"]
+    readonly group: TypeMap["group"]
     mtimeMs: BigInt | null
     versionId: number
-    dataMap: TypeMap["dataMap"]
+    readonly dataMap: TypeMap["dataMap"]
 
     constructor(file, guid: string) {
       const {type, path} = file
