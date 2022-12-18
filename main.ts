@@ -276,9 +276,9 @@ ipcMain.on('create-player-window', (event, path: string) => {
 // 更新最大小化图标
 ipcMain.handle('update-max-min-icon', event => {
   const window = getWindowFromEvent(event)
-  return window.isMaximized()  ? 'maximize'
-       : window.isFullScreen() ? 'enter-full-screen'
-       :                         'unmaximize'
+  return window.isMaximized() ?
+         'maximize' : window.isFullScreen() ?
+         'enter-full-screen' : 'unmaximize'
 })
 
 // 显示打开对话框
