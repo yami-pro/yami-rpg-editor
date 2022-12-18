@@ -28,14 +28,14 @@ const Meta = function IIFE() {
     dataMap: object | null
   }
 
-  // 修改对象属性为不可枚举
-  const dataMapDescriptor = {enumerable: false}
+  // 修改对象属性, 不修改value
+  const dataMapDescriptor = {writable: false, enumerable: false}
   const descriptors = {
-    file: {enumerable: false},
-    guid: {enumerable: false},
-    group: {enumerable: false},
-    mtimeMs: {enumerable: false},
-    versionId: {enumerable: false},
+    file: {writable: true, enumerable: false},
+    guid: {writable: true, enumerable: false},
+    group: {writable: false, enumerable: false},
+    mtimeMs: {writable: true, enumerable: false},
+    versionId: {writable: true, enumerable: false},
   }
 
   return class FileMeta {
@@ -46,10 +46,10 @@ const Meta = function IIFE() {
 
     file: TypeMap["file"]
     guid: string
-    readonly group: TypeMap["group"]
+    group: TypeMap["group"]
     mtimeMs: BigInt | null
     versionId: number
-    readonly dataMap: TypeMap["dataMap"]
+    dataMap: TypeMap["dataMap"]
 
     constructor(file, guid: string) {
       const {type, path} = file
