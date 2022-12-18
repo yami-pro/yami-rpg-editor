@@ -15,8 +15,13 @@ interface TypeMap {
 
 interface HTMLElement_object_ext {
   // prototype
+  // 使用Object.defineProperty定义
   name: string | null
   innerHeight: number
+
+  // instance
+  // 使用Object.defineProperty定义
+  tip: TypeMap["tip"]
 }
 
 interface HTMLElement_scroll_ext {

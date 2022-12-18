@@ -14,18 +14,18 @@ interface TypeMap {
 
 // ArrayConstructor扩展
 interface ArrayConstructor_ext {
-  // 静态数组方法扩展
+  // static
   empty<T>(): T[]
   subtract<T>(a: T[], b: T[]): T[]
 }
 
 // Array扩展
 interface Array_ext {
-  // 数组方法扩展
+  // prototype
+  // 使用Object.defineProperty定义
   append<T>(value: T): boolean
   remove<T>(value: T): boolean
 
-  // 属性扩展
   versionId: number
   count: number
   start: number

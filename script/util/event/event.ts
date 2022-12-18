@@ -37,9 +37,11 @@ interface Event_props {
 
 interface Event_ext {
   // prototype
-  spaceKey: boolean
+  // 使用Object.defineProperties定义
   dragKey: boolean
   cmdOrCtrlKey: boolean
+
+  spaceKey: boolean
   mode: string | null
   value: string |
          number |
