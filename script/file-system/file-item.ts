@@ -14,7 +14,7 @@ import {
 
 // ******************************** 文件项目 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type data = {[key: string]: string}
 }
 
@@ -148,7 +148,7 @@ class FileItem {
   }
 
   // 静态属性 - 数据映射表的名称
-  static dataMapNames: TypeMap.data = {
+  static dataMapNames: Type.data = {
     actor: 'actors',
     skill: 'skills',
     trigger: 'triggers',

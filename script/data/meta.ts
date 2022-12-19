@@ -8,19 +8,19 @@ import {
 
 // ******************************** 元数据类 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type meta = InstanceType<typeof Meta>
   export type file = FileItem | null
   export type group = meta[] | null
-  export type mtimeMs = BigInt | null
-  export type data = {[key: string]: (object | null)} | null
   export type dataTagName = {[key: string]: string}
+  export type dataMap = {[key: string]: (object | null)} | null
+  export type data = Data & {[key: string]: dataMap}
 }
 
 const Meta = function IIFE() {
 
   // 类型到分组名称映射表
-  const typeMapToGroupName: TypeMap.dataTagName = {
+  const typeMapToGroupName: Type.dataTagName = {
     ...FileItem.dataMapNames,
     image: 'images',
     audio: 'audio',
@@ -46,13 +46,13 @@ const Meta = function IIFE() {
     y: number
     parameters: []
 
-    file: TypeMap.file
+    file: Type.file
     guid: string
     mtimeMs: BigInt | null
     versionId: number
     
-    readonly group: TypeMap.group
-    readonly dataMap: TypeMap.data
+    readonly group: Type.group
+    readonly dataMap: Type.dataMap
 
     constructor(file: FileItem, guid: string) {
       const {type, path} = file
@@ -84,7 +84,7 @@ const Meta = function IIFE() {
       const name = FileItem.dataMapNames[type]
       if (name !== undefined) {
         // 
-        const data = <Data & {[key: string]: TypeMap.data}>Data
+        const data = <Type.data>Data
         this.dataMap = data[name]
         Object.defineProperty(this, 'dataMap', dataMapDescriptor)
 

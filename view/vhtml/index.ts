@@ -2,24 +2,24 @@
 
 import emptyTags from "./empty-tags";
 
-namespace TypeMap {
+namespace Type {
 	export type map = {[index: string]: any}
 	export type name = (...params: any[]) => any | string
 }
 
 // escape an attribute
 let esc = (str: any) => String(str).replace(/[&<>"']/g, s=>`&${map[s]};`);
-let map: TypeMap.map = {'&':'amp','<':'lt','>':'gt','"':'quot',"'":'apos'};
+let map: Type.map = {'&':'amp','<':'lt','>':'gt','"':'quot',"'":'apos'};
 let setInnerHTMLAttr = 'dangerouslySetInnerHTML';
-let DOMAttributeNames: TypeMap.map = {
+let DOMAttributeNames: Type.map = {
 	className: 'class',
 	htmlFor: 'for'
 };
 
-let sanitized: TypeMap.map = {};
+let sanitized: Type.map = {};
 
 /** Hyperscript reviver that constructs a sanitized HTML string. */
-function createElement(name: TypeMap.name, attrs: TypeMap.map) {
+function createElement(name: Type.name, attrs: Type.map) {
 	let stack=[], s = '';
 	attrs = attrs || {};
 	for (let i=arguments.length; i-- > 2; ) {

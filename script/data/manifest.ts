@@ -9,7 +9,7 @@ import {
 
 // ******************************** 元数据清单类 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type meta = InstanceType<typeof Meta>
 }
 
@@ -33,9 +33,9 @@ class Manifest {
   script: []
   others: []
 
-  metaList: TypeMap.meta[]
-  guidMap: {[key: string]: TypeMap.meta}
-  pathMap: {[key: string]: TypeMap.meta}
+  metaList: Type.meta[]
+  guidMap: {[key: string]: Type.meta}
+  pathMap: {[key: string]: Type.meta}
   project: {}
   changes: []
   changed: boolean

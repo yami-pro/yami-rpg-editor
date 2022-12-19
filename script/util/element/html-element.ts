@@ -8,7 +8,7 @@ import {
 
 // ******************************** 声明 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type tip = (...params: any[]) => any
   export type scrollUpdater = (() => void) | null
 }
@@ -21,7 +21,7 @@ interface HTMLElement_object_ext {
 
   // instance
   // 使用Object.defineProperty定义
-  tip: TypeMap.tip
+  tip: Type.tip
 }
 
 interface HTMLElement_scroll_ext {
@@ -48,7 +48,7 @@ interface HTMLElement_ext {
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode?: string): void
-  setTooltip: (tip: string | TypeMap.tip) => void
+  setTooltip: (tip: string | Type.tip) => void
   addScrollbars(): void
   addSetScrollMethod(): void
   hasScrollBar(): boolean
@@ -279,7 +279,7 @@ HTMLElement.prototype.setTooltip = function IIFE() {
     close()
   }
 
-  return function (this: HTMLElement, tip: string | TypeMap.tip) {
+  return function (this: HTMLElement, tip: string | Type.tip) {
     if ('tip' in this === false) {
       this.on('pointermove', pointermove)
       this.on('pointerleave', pointerleave)
@@ -454,7 +454,7 @@ Object.defineProperty(
   let lowSpeed = 0
   let scrollHorizontal = false
   let scrollVertical = false
-  let scrollUpdater: TypeMap.scrollUpdater = null
+  let scrollUpdater: Type.scrollUpdater = null
 
   // 计算滚动距离
   const computeScrollDelta = (speed: number) => {

@@ -17,14 +17,14 @@ import {
 
 // ******************************** 声明 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type color = {red: number, green: number, blue: number}
   export type table = {[index: string]: any}
 }
 
 interface GL_ext {
   contrast: number
-  ambient: TypeMap.color
+  ambient: Type.color
   flip: number
   alpha: number
   blend: string
@@ -75,7 +75,7 @@ interface GL_ext {
   updateMasking(): void
   createBlendingUpdater(): () => void
   setContrast(contrast: number): void
-  setAmbientLight(rgb: TypeMap.color): void
+  setAmbientLight(rgb: Type.color): void
   resizeLightmap(): void
   updateLightTexSize(): void
   updateSamplerNum(samplerNum: number): void
@@ -206,7 +206,7 @@ let GL: WebGL2RenderingContext
   canvas.style.height = '100%'
 
   // 主题画布背景颜色
-  const background: { [index: string]: TypeMap.color } = {
+  const background: { [index: string]: Type.color } = {
     light: {red: 0xc8, green: 0xc8, blue: 0xc8},
     dark: {red: 0x20, green: 0x20, blue: 0x20},
   }
@@ -1060,7 +1060,7 @@ GL.createBlendingUpdater = function () {
   this.enable(this.BLEND)
 
   // 更新器映射表(启用混合时)
-  const A: TypeMap.table = {
+  const A: Type.table = {
     // 正常模式
     normal: () => {
       this.blendEquation(this.FUNC_ADD)
@@ -1109,7 +1109,7 @@ GL.createBlendingUpdater = function () {
   }
 
   // 更新器映射表(禁用混合时)
-  const B: TypeMap.table = {
+  const B: Type.table = {
     normal: resume,
     screen: resume,
     additive: resume,

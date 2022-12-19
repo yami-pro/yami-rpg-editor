@@ -7,7 +7,7 @@ import {
 
 // ******************************** 菜单列表 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type eventFunc = (event: Event) => void
 }
 
@@ -23,12 +23,12 @@ class MenuList extends HTMLElement {
   buttonPressed: boolean
   minWidth: number
   parentMenuItem: HTMLElement
-  windowBlur: TypeMap.eventFunc
-  windowKeydown: TypeMap.eventFunc
-  windowPointerdown: TypeMap.eventFunc
-  windowPointerup: TypeMap.eventFunc
-  windowPointerover: TypeMap.eventFunc
-  windowPointerout: TypeMap.eventFunc
+  windowBlur: Type.eventFunc
+  windowKeydown: Type.eventFunc
+  windowPointerdown: Type.eventFunc
+  windowPointerup: Type.eventFunc
+  windowPointerover: Type.eventFunc
+  windowPointerout: Type.eventFunc
 
   constructor() {
     super()

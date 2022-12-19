@@ -15,13 +15,14 @@ import {
 
 // ******************************** 数据对象 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type meta = InstanceType<typeof Meta>
+  export type manifest = Manifest & {[key: string]: meta[]}
 }
 
 interface Data {
   // properties
-  manifest: Manifest & {[key: string]: TypeMap.meta[]} | null
+  manifest: Type.manifest | null
   uiLinks: null
   actors: null
   skills: null

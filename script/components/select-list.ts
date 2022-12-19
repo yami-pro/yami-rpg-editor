@@ -7,7 +7,7 @@ import {
 
 // ******************************** 选择列表 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type eventFunc = (event: Event) => void
 }
 
@@ -16,10 +16,10 @@ class SelectList extends HTMLElement {
   target: HTMLElement
   elements: HTMLElement[]
   selection: HTMLElement
-  windowKeydown: TypeMap.eventFunc
-  windowPointerdown: TypeMap.eventFunc
-  windowResize: TypeMap.eventFunc
-  windowBlur: TypeMap.eventFunc
+  windowKeydown: Type.eventFunc
+  windowPointerdown: Type.eventFunc
+  windowResize: Type.eventFunc
+  windowBlur: Type.eventFunc
 
   constructor() {
     super()

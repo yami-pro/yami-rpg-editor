@@ -30,9 +30,8 @@ import {
 
 // ******************************** 节点列表方法 ********************************
 
-namespace TypeMap {
-  export type elementsOn =
-                CheckBox |
+namespace Type {
+  export type elementsOn = CheckBox |
                 ColorBox |
                 CommonList |
                 CustomBox |
@@ -53,8 +52,7 @@ namespace TypeMap {
                 TabBar |
                 TextArea |
                 WindowFrame
-  export type elementsEnable =
-                CheckBox |
+  export type elementsEnable = CheckBox |
                 ColorBox |
                 CustomBox |
                 TextBox |
@@ -79,7 +77,7 @@ interface NodeList_ext {
 
 // 节点列表 - 添加事件
 NodeList.prototype.on = function (this: NodeList, type, listener, options) {
-  this.forEach( (element: TypeMap.elementsOn) => {
+  this.forEach( (element: Type.elementsOn) => {
     element.on(type, listener, options)
   })
   return this
@@ -87,14 +85,14 @@ NodeList.prototype.on = function (this: NodeList, type, listener, options) {
 
 // 节点列表 - 启用元素
 NodeList.prototype.enable = function (this: NodeList) {
-  this.forEach( (element: TypeMap.elementsEnable) => {
+  this.forEach( (element: Type.elementsEnable) => {
     element.enable()
   })
 }
 
 // 节点列表 - 禁用元素
 NodeList.prototype.disable = function (this: NodeList) {
-  this.forEach( (element: TypeMap.elementsDisable) => {
+  this.forEach( (element: Type.elementsDisable) => {
     element.disable()
   })
 }

@@ -8,7 +8,7 @@ import {
 
 // ******************************** 声明 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type data = {[index: string]: any}
 }
 
@@ -34,7 +34,7 @@ interface Array_ext {
   foot: HTMLElement | null
   history: CommandHistory
   blank: HTMLElement | null
-  parent: TypeMap.data
+  parent: Type.data
   files: (FolderItem | FileItem)[]
 }
 

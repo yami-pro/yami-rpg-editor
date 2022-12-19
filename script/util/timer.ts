@@ -2,7 +2,7 @@
 
 // ******************************** 声明 ********************************
 
-namespace TypeMap {
+namespace Type {
   export type empty = (() => void)
   export type update = (timer: Timer) => boolean
   export type callback = (timer: Timer) => boolean
@@ -29,12 +29,12 @@ class Timer {
   playbackRate: number
   elapsed: number
   duration: number
-  update: TypeMap.update | TypeMap.empty
-  callback: TypeMap.callback | TypeMap.empty
+  update: Type.update | Type.empty
+  callback: Type.callback | Type.empty
   target: EventTarget | null
   running: boolean
 
-  constructor(params: {duration: number, update: TypeMap.update | TypeMap.empty, callback: TypeMap.callback | TypeMap.empty}) {
+  constructor(params: {duration: number, update: Type.update | Type.empty, callback: Type.callback | Type.empty}) {
     const {duration, update, callback} = params
     this.playbackRate = 1
     this.elapsed = 0
@@ -80,7 +80,7 @@ class Timer {
 
   // 静态属性
   static timers: Timer[] = []
-  static updaters: TypeMap.updaters = {
+  static updaters: Type.updaters = {
     stageAnimation: null,
     stageRendering: null,
     sharedAnimation: null,
@@ -216,7 +216,7 @@ class Timer {
   }
 
   // 添加更新器
-  static appendUpdater(key: TypeMap.updaterKey, updater: TypeMap.updater) {
+  static appendUpdater(key: Type.updaterKey, updater: Type.updater) {
     const {updaters} = this
     if (updaters[key] === null) {
       updaters[key] = updater
@@ -225,7 +225,7 @@ class Timer {
   }
 
   // 移除更新器
-  static removeUpdater(key: TypeMap.updaterKey, updater: TypeMap.updater) {
+  static removeUpdater(key: Type.updaterKey, updater: Type.updater) {
     const {updaters} = this
     if (updaters[key] === updater) {
       updaters[key] = null
