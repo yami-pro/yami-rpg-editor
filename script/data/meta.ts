@@ -48,9 +48,10 @@ const Meta = function IIFE() {
 
     file: TypeMap.file
     guid: string
-    readonly group: TypeMap.group
     mtimeMs: BigInt | null
     versionId: number
+    
+    readonly group: TypeMap.group
     readonly dataMap: TypeMap.data
 
     constructor(file: FileItem, guid: string) {
