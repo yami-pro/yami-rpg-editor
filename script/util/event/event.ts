@@ -7,9 +7,9 @@ import {
 
 // ******************************** 事件访问器 ********************************
 
-interface TypeMap {
-  promise: {[key: string]: any}
-  promises: TypeMap["promise"][]
+namespace TypeMap {
+  export type promise = {[key: string]: any}
+  export type promises = promise[]
 }
 
 interface Event_props {
@@ -27,8 +27,8 @@ interface Event_props {
   files: (FolderItem | FileItem)[]
   filePaths: string[]
   promise: Promise<EventTarget |
-                   TypeMap["promise"] |
-                   TypeMap["promises"] |
+                   TypeMap.promise |
+                   TypeMap.promises |
                    void>
   latest: Event
   itemHeight: number

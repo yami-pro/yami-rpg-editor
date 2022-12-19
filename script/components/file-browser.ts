@@ -17,15 +17,15 @@ import {
 
 // ******************************** 文件浏览器 ********************************
 
-interface TypeMap {
-  links: {
+namespace TypeMap {
+  export type links = {
     body: FileBodyPane
     browser: FileBrowser
     head: FileHeadPane
     nav: FileNavPane
   }
-  promise: {[key: string]: any}
-  promises: TypeMap["promise"][]
+  export type promise = {[key: string]: any}
+  export type promises = promise[]
 }
 
 class FileBrowser extends HTMLElement {
@@ -38,7 +38,7 @@ class FileBrowser extends HTMLElement {
   nav: FileNavPane
   head: FileHeadPane
   body: FileBodyPane
-  links: TypeMap["links"]
+  links: TypeMap.links
   keyword: RegExp | string | null
 
   constructor() {
@@ -65,7 +65,7 @@ class FileBrowser extends HTMLElement {
       const nav = this.nav
       const head = this.head
       const body = this.body
-      const links: TypeMap["links"] = {
+      const links: TypeMap.links = {
         browser,
         nav,
         head,
@@ -250,7 +250,7 @@ class FileBrowser extends HTMLElement {
         event.files = files
         event.filePaths = rPaths
         event.promise = Directory.readdir(aPaths)
-        event.promise.then((dir: TypeMap["promises"]) => {
+        event.promise.then((dir: TypeMap.promises) => {
           // 若文件已删除则结束拖拽
           if (dir.length === 0) {
             this.dragend()

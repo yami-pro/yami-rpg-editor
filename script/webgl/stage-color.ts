@@ -7,8 +7,8 @@ import {
 
 // ******************************** 舞台颜色类 ********************************
 
-interface TypeMap {
-  onchange: () => any
+namespace TypeMap {
+  export type onchange = () => any
 }
 
 class StageColor {
@@ -17,9 +17,9 @@ class StageColor {
   green: number
   blue: number
   alpha: number
-  onchange: TypeMap["onchange"]
+  onchange: TypeMap.onchange
 
-  constructor(hex: string, onchange: TypeMap["onchange"]) {
+  constructor(hex: string, onchange: TypeMap.onchange) {
     this.input(hex)
     this.onchange = onchange
   }

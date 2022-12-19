@@ -19,8 +19,8 @@ import {
 
 // ******************************** 文件导航面板 ********************************
 
-interface TypeMap {
-  links: {
+namespace TypeMap {
+  export type links = {
     body: FileBodyPane
     browser: FileBrowser
     head: FileHeadPane
@@ -35,7 +35,7 @@ class FileNavPane extends HTMLElement {
   pressing: ((event: any) => void) | null
   selectEventEnabled: boolean
   textBox: TextBox
-  links: TypeMap["links"]
+  links: TypeMap.links
 
   constructor() {
     super()

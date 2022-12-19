@@ -12,8 +12,8 @@ import {
 
 // ******************************** 文件头部面板 ********************************
 
-interface TypeMap {
-  links: {
+namespace TypeMap {
+  export type links = {
     body: FileBodyPane
     browser: FileBrowser
     head: FileHeadPane
@@ -25,7 +25,7 @@ class FileHeadPane extends HTMLElement {
   address: HTMLElement
   searcher: TextBox
   view: HTMLElement
-  links: TypeMap["links"]
+  links: TypeMap.links
 
   constructor() {
     super()

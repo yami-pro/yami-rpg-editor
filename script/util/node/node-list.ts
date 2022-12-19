@@ -30,43 +30,45 @@ import {
 
 // ******************************** 节点列表方法 ********************************
 
-interface TypeMap {
-  elementsOn: CheckBox |
-              ColorBox |
-              CommonList |
-              CustomBox |
-              DetailBox |
-              TextBox |
-              SliderBox |
-              FileNavPane |
-              FileBodyPane |
-              KeyboardBox |
-              NavBar |
-              TreeList |
-              NumberBox |
-              PageManager |
-              ParameterPane |
-              RadioProxy |
-              SelectBox |
-              SwitchItem |
-              TabBar |
-              TextArea |
-              WindowFrame
-  elementsEnable: CheckBox |
-                  ColorBox |
-                  CustomBox |
-                  TextBox |
-                  SliderBox |
-                  FileVar |
-                  KeyboardBox |
-                  NumberBox |
-                  NumberVar |
-                  RadioProxy |
-                  SelectBox |
-                  SelectVar |
-                  StringVar |
-                  TextArea
-  elementsDisable: TypeMap["elementsEnable"]
+namespace TypeMap {
+  export type elementsOn =
+                CheckBox |
+                ColorBox |
+                CommonList |
+                CustomBox |
+                DetailBox |
+                TextBox |
+                SliderBox |
+                FileNavPane |
+                FileBodyPane |
+                KeyboardBox |
+                NavBar |
+                TreeList |
+                NumberBox |
+                PageManager |
+                ParameterPane |
+                RadioProxy |
+                SelectBox |
+                SwitchItem |
+                TabBar |
+                TextArea |
+                WindowFrame
+  export type elementsEnable =
+                CheckBox |
+                ColorBox |
+                CustomBox |
+                TextBox |
+                SliderBox |
+                FileVar |
+                KeyboardBox |
+                NumberBox |
+                NumberVar |
+                RadioProxy |
+                SelectBox |
+                SelectVar |
+                StringVar |
+                TextArea
+  export type elementsDisable = elementsEnable
 }
 
 interface NodeList_ext {
@@ -77,7 +79,7 @@ interface NodeList_ext {
 
 // 节点列表 - 添加事件
 NodeList.prototype.on = function (this: NodeList, type, listener, options) {
-  this.forEach( (element: TypeMap["elementsOn"]) => {
+  this.forEach( (element: TypeMap.elementsOn) => {
     element.on(type, listener, options)
   })
   return this
@@ -85,14 +87,14 @@ NodeList.prototype.on = function (this: NodeList, type, listener, options) {
 
 // 节点列表 - 启用元素
 NodeList.prototype.enable = function (this: NodeList) {
-  this.forEach( (element: TypeMap["elementsEnable"]) => {
+  this.forEach( (element: TypeMap.elementsEnable) => {
     element.enable()
   })
 }
 
 // 节点列表 - 禁用元素
 NodeList.prototype.disable = function (this: NodeList) {
-  this.forEach( (element: TypeMap["elementsDisable"]) => {
+  this.forEach( (element: TypeMap.elementsDisable) => {
     element.disable()
   })
 }

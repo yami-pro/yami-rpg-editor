@@ -7,8 +7,8 @@ import {
 
 // ******************************** 按钮扩展 ********************************
 
-interface TypeMap {
-  tip: (...params: any[]) => any
+namespace TypeMap {
+  export type tip = (...params: any[]) => any
 }
 
 interface Element_props {
@@ -28,7 +28,7 @@ interface Element_props {
   nameBox: EventTarget | null
   dataValue: any
   dragging: Event | null
-  tip: string | TypeMap["tip"]
+  tip: string | TypeMap.tip
   top: number
   left: number
   width: number

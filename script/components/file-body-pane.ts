@@ -23,8 +23,8 @@ import {
 
 // ******************************** 文件主体面板 ********************************
 
-interface TypeMap {
-  links: {
+namespace TypeMap {
+  export type links = {
     body: FileBodyPane
     browser: FileBrowser
     head: FileHeadPane
@@ -45,7 +45,7 @@ class FileBodyPane extends HTMLElement {
   unselectEventEnabled: boolean
   popupEventEnabled: boolean
   textBox: TextBox
-  links: TypeMap["links"]
+  links: TypeMap.links
 
   constructor() {
     super()

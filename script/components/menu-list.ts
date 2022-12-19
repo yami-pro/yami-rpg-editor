@@ -7,8 +7,8 @@ import {
 
 // ******************************** 菜单列表 ********************************
 
-interface TypeMap {
-  eventFunc: (event: Event) => void
+namespace TypeMap {
+  export type eventFunc = (event: Event) => void
 }
 
 class MenuList extends HTMLElement {
@@ -23,12 +23,12 @@ class MenuList extends HTMLElement {
   buttonPressed: boolean
   minWidth: number
   parentMenuItem: HTMLElement
-  windowBlur: TypeMap["eventFunc"]
-  windowKeydown: TypeMap["eventFunc"]
-  windowPointerdown: TypeMap["eventFunc"]
-  windowPointerup: TypeMap["eventFunc"]
-  windowPointerover: TypeMap["eventFunc"]
-  windowPointerout: TypeMap["eventFunc"]
+  windowBlur: TypeMap.eventFunc
+  windowKeydown: TypeMap.eventFunc
+  windowPointerdown: TypeMap.eventFunc
+  windowPointerup: TypeMap.eventFunc
+  windowPointerover: TypeMap.eventFunc
+  windowPointerout: TypeMap.eventFunc
 
   constructor() {
     super()
