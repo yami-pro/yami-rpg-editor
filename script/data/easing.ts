@@ -19,9 +19,22 @@ import {
 
 // ******************************** 过渡窗口 ********************************
 
+namespace Type {
+  export type list = HTMLElement & {
+    saveSelection(): void
+    restoreSelection(): void
+    updateNodeElement(element: HTMLElement): void
+    updateItemName(item: any): void
+    addElementClass(item: any): void
+    updateTextNode(item: any): void
+    createKeyTextNode(item: any): void
+    updateKeyTextNode(item: any): void
+  }
+}
+
 interface Easing {
   // properties
-  list: HTMLElement
+  list: Type.list
   curve: HTMLElement
   preview: HTMLElement
   data: null
@@ -122,16 +135,6 @@ Easing.previewImage = null
 Easing.startPoint = null
 Easing.endPoint = null
 Easing.changed = false
-
-// list methods
-Easing.list.saveSelection = null
-Easing.list.restoreSelection = null
-Easing.list.updateNodeElement = null
-Easing.list.updateItemName = null
-Easing.list.addElementClass = null
-Easing.list.updateTextNode = null
-Easing.list.createKeyTextNode = null
-Easing.list.updateKeyTextNode = null
 
 // 初始化
 Easing.initialize = function () {
