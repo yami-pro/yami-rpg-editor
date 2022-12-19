@@ -13,7 +13,7 @@ namespace TypeMap {
   export type file = FileItem | null
   export type group = meta[] | null
   export type mtimeMs = BigInt | null
-  export type data = {[key: string]: (HTMLImageElement | null)} | null
+  export type data = {[key: string]: (object | null)} | null
   export type dataTagName = {[key: string]: string}
 }
 
@@ -82,7 +82,9 @@ const Meta = function IIFE() {
       // 加载数据文件
       const name = FileItem.dataMapNames[type]
       if (name !== undefined) {
-        this.dataMap = Data[name]
+        // 
+        const data = <Data & {[key: string]: TypeMap.data}>Data
+        this.dataMap = data[name]
         Object.defineProperty(this, 'dataMap', dataMapDescriptor)
 
         // 加载除了场景以外的数据

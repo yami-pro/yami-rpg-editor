@@ -59,7 +59,7 @@ interface Data {
   createVariableMap: null
   createAttributeContext: null
   createEnumerationContext: null
-  addUILinks: null
+  addUILinks(uiId: string): void
   removeUILinks: null
   createManifest: null
   saveManifest: null
