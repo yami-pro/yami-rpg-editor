@@ -9,59 +9,66 @@ import {
   FSP,
   Log,
   Manifest,
+  Meta,
   PluginManager
 } from "../yami"
 
 // ******************************** 数据对象 ********************************
 
-const Data = {
-  // properties
-  manifest: null,
-  uiLinks: null,
-  actors: null,
-  skills: null,
-  triggers: null,
-  items: null,
-  equipments: null,
-  states: null,
-  events: null,
-  scripts: null,
-  easings: null,
-  teams: null,
-  autotiles: null,
-  variables: null,
-  attribute: null,
-  enumeration: null,
-  plugins: null,
-  commands: null,
-  config: null,
-  scenes: null,
-  ui: null,
-  animations: null,
-  particles: null,
-  tilesets: null,
-  // methods
-  loadAll: null,
-  loadMeta: null,
-  loadFile: null,
-  loadScene: null,
-  close: null,
-  createEasingItems: null,
-  createTeamItems: null,
-  createDataMaps: null,
-  createGUIDMap: null,
-  createTeamMap: null,
-  createVariableMap: null,
-  createAttributeContext: null,
-  createEnumerationContext: null,
-  addUILinks: null,
-  removeUILinks: null,
-  createManifest: null,
-  saveManifest: null,
-  inheritMetaData: null,
-  parseGUID: null,
-  loadScript: null,
+namespace TypeMap {
+  export type meta = InstanceType<typeof Meta>
 }
+
+interface Data {
+  // properties
+  manifest: Manifest & {[key: string]: TypeMap.meta[]} | null
+  uiLinks: null
+  actors: null
+  skills: null
+  triggers: null
+  items: null
+  equipments: null
+  states: null
+  events: null
+  scripts: null
+  easings: null
+  teams: null
+  autotiles: null
+  variables: null
+  attribute: null
+  enumeration: null
+  plugins: null
+  commands: null
+  config: null
+  scenes: null
+  ui: null
+  animations: null
+  particles: null
+  tilesets: null
+  // methods
+  loadAll: null
+  loadMeta: null
+  loadFile: null
+  loadScene: null
+  close: null
+  createEasingItems: null
+  createTeamItems: null
+  createDataMaps: null
+  createGUIDMap: null
+  createTeamMap: null
+  createVariableMap: null
+  createAttributeContext: null
+  createEnumerationContext: null
+  addUILinks: null
+  removeUILinks: null
+  createManifest: null
+  saveManifest: null
+  inheritMetaData: null
+  parseGUID: null
+  loadScript: null
+}
+
+const Data = <Data>{}
 
 // ******************************** 数据对象加载 ********************************
 

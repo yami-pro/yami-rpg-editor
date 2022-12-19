@@ -8,10 +8,19 @@ import {
 
 // ******************************** 元数据类 ********************************
 
+namespace TypeMap {
+  export type meta = InstanceType<typeof Meta>
+  export type file = FileItem | null
+  export type group = meta[] | null
+  export type mtimeMs = BigInt | null
+  export type data = {[key: string]: (HTMLImageElement | null)} | null
+  export type dataTagName = {[key: string]: string}
+}
+
 const Meta = function IIFE() {
 
   // 类型到分组名称映射表
-  const typeMapToGroupName = {
+  const typeMapToGroupName: TypeMap.dataTagName = {
     ...FileItem.dataMapNames,
     image: 'images',
     audio: 'audio',
@@ -19,13 +28,6 @@ const Meta = function IIFE() {
     script: 'script',
     font: 'fonts',
     other: 'others',
-  }
-
-  interface TypeMap {
-    file: object | null
-    group: object | null
-    mtimeMs: BigInt | null
-    dataMap: object | null
   }
 
   // 修改对象属性, 不修改value
@@ -44,14 +46,14 @@ const Meta = function IIFE() {
     y: number
     parameters: []
 
-    file: TypeMap["file"]
+    file: TypeMap.file
     guid: string
-    readonly group: TypeMap["group"]
+    readonly group: TypeMap.group
     mtimeMs: BigInt | null
     versionId: number
-    readonly dataMap: TypeMap["dataMap"]
+    readonly dataMap: TypeMap.data
 
-    constructor(file, guid: string) {
+    constructor(file: FileItem, guid: string) {
       const {type, path} = file
       this.path = path
 
@@ -88,7 +90,9 @@ const Meta = function IIFE() {
           const promise = file.promise ?? Promise.resolve()
           file.promise = promise.then(async () => {
             // 文件重命名后会改变元数据路径
-            this.dataMap[guid] = await File.get({type: 'json', path: this.path})
+            if (this.dataMap !== null) {
+              this.dataMap[guid] = await File.get({type: 'json', path: this.path})
+            }
             switch (type) {
               // 添加UI预设元素链接
               case 'ui':
@@ -107,6 +111,8 @@ const Meta = function IIFE() {
         throw new Error('Unknown meta type')
       }
       const {manifest} = Data
+      if (manifest === null)
+        return
       manifest.changed = true
       manifest[key].push(this)
       manifest.metaList.push(this)
@@ -120,20 +126,22 @@ const Meta = function IIFE() {
     }
 
     // 重定向
-    redirect(file) {
-      if (this.file.type === file.type) {
+    redirect(file: FileItem) {
+      if (this.file !== null && this.file.type === file.type) {
         this.file = file
         const sPath = this.path
         const dPath = file.path
         if (sPath !== dPath) {
           this.path = dPath
           const {manifest} = Data
-          const {pathMap} = manifest
-          if (pathMap[sPath] === this) {
-            delete pathMap[sPath]
+          if (manifest !== null) {
+            const {pathMap} = manifest
+            if (pathMap[sPath] === this) {
+              delete pathMap[sPath]
+            }
+            pathMap[dPath] = this
+            manifest.changed = true
           }
-          pathMap[dPath] = this
-          manifest.changed = true
         }
         return true
       }

@@ -9,35 +9,73 @@ import {
 
 // ******************************** 元数据清单类 ********************************
 
+namespace TypeMap {
+  export type meta = InstanceType<typeof Meta>
+}
+
 class Manifest {
-  actors = []
-  skills = []
-  triggers = []
-  items = []
-  equipments = []
-  states = []
-  events = []
-  scenes = []
-  tilesets = []
-  ui = []
-  animations = []
-  particles = []
-  images = []
-  audio = []
-  videos = []
-  fonts = []
-  script = []
-  others = []
+  actors: []
+  skills: []
+  triggers: []
+  items: []
+  equipments: []
+  states: []
+  events: []
+  scenes: []
+  tilesets: []
+  ui: []
+  animations: []
+  particles: []
+  images: []
+  audio: []
+  videos: []
+  fonts: []
+  script: []
+  others: []
+
+  metaList: TypeMap.meta[]
+  guidMap: {[key: string]: TypeMap.meta}
+  pathMap: {[key: string]: TypeMap.meta}
+  project: {}
+  changes: []
+  changed: boolean
+  code: string
 
   constructor() {
+    this.actors = []
+    this.skills = []
+    this.triggers = []
+    this.items = []
+    this.equipments = []
+    this.states = []
+    this.events = []
+    this.scenes = []
+    this.tilesets = []
+    this.ui = []
+    this.animations = []
+    this.particles = []
+    this.images = []
+    this.audio = []
+    this.videos = []
+    this.fonts = []
+    this.script = []
+    this.others = []
+
+    this.metaList = []
+    this.guidMap = {}
+    this.pathMap = {}
+    this.project = {}
+    this.changes = []
+    this.changed = false
+    this.code = ''
     Object.defineProperties(this, {
-      metaList: {value: []},
-      guidMap: {value: {}},
-      pathMap: {value: {}},
-      project: {value: {}},
-      changes: {value: []},
-      changed: {writable: true, value: false},
-      code: {writable: true, value: ''},
+      metaList: {writable: false, enumerable: false},
+      guidMap: {writable: false, enumerable: false},
+      pathMap: {writable: false, enumerable: false},
+      project: {writable: false, enumerable: false},
+      changes: {writable: false, enumerable: false},
+      changed: {writable: true, enumerable: false},
+      code: {writable: true, enumerable: false},
     })
   }
 

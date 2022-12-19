@@ -14,6 +14,10 @@ import {
 
 // ******************************** 文件项目 ********************************
 
+namespace TypeMap {
+  export type data = {[key: string]: string}
+}
+
 class FileItem {
   meta: InstanceType<typeof Meta> | null
   name: string
@@ -24,6 +28,7 @@ class FileItem {
   type: string
   stats: object
   contexts: Map<HTMLElement, object> | null
+  promise: Promise<void>
 
   constructor(name: string, extname: string, path: string, type: string, stats: object) {
     let basename = Path.basename(name, extname)
@@ -143,20 +148,20 @@ class FileItem {
   }
 
   // 静态属性 - 数据映射表的名称
-  static dataMapNames = {
-    'actor': 'actors',
-    'skill': 'skills',
-    'trigger': 'triggers',
-    'item': 'items',
-    'equipment': 'equipments',
-    'state': 'states',
-    'event': 'events',
-    'scene': 'scenes',
-    'tileset': 'tilesets',
-    'ui': 'ui',
-    'animation': 'animations',
-    'particle': 'particles',
-    'script': 'scripts',
+  static dataMapNames: TypeMap.data = {
+    actor: 'actors',
+    skill: 'skills',
+    trigger: 'triggers',
+    item: 'items',
+    equipment: 'equipments',
+    state: 'states',
+    event: 'events',
+    scene: 'scenes',
+    tileset: 'tilesets',
+    ui: 'ui',
+    animation: 'animations',
+    particle: 'particles',
+    script: 'scripts',
   }
 
   // 静态属性 - GUID正则表达式
