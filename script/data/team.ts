@@ -17,32 +17,39 @@ import {
 
 // ******************************** 队伍窗口 ********************************
 
-const Team = {
+interface Team {
   // properties
-  list: $('#team-list'),
-  data: null,
-  maximum: null,
-  changed: false,
+  list: HTMLElement
+  data: null
+  maximum: null
+  changed: boolean
   // methods
-  initialize: null,
-  open: null,
-  createId: null,
-  createData: null,
-  getItemById: null,
-  unpackTeams: null,
-  packTeams: null,
+  initialize: null
+  open: null
+  createId: null
+  createData: null
+  getItemById: null
+  unpackTeams: null
+  packTeams: null
   // events
-  windowClose: null,
-  windowClosed: null,
-  listKeydown: null,
-  listPointerdown: null,
-  listSelect: null,
-  listChange: null,
-  listPopup: null,
-  confirm: null,
+  windowClose: null
+  windowClosed: null
+  listKeydown: null
+  listPointerdown: null
+  listSelect: null
+  listChange: null
+  listPopup: null
+  confirm: null
 }
 
+const Team = <Team>{}
+
 // ******************************** 队伍窗口加载 ********************************
+
+Team.list = $('#team-list')
+Team.data = null
+Team.maximum = null
+Team.changed = false
 
 // list methods
 Team.list.insert = null

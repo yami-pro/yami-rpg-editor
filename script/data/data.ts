@@ -72,6 +72,31 @@ const Data = <Data>{}
 
 // ******************************** 数据对象加载 ********************************
 
+Data.manifest = null
+Data.uiLinks = null
+Data.actors = null
+Data.skills = null
+Data.triggers = null
+Data.items = null
+Data.equipments = null
+Data.states = null
+Data.events = null
+Data.scripts = null
+Data.easings = null
+Data.teams = null
+Data.autotiles = null
+Data.variables = null
+Data.attribute = null
+Data.enumeration = null
+Data.plugins = null
+Data.commands = null
+Data.config = null
+Data.scenes = null
+Data.ui = null
+Data.animations = null
+Data.particles = null
+Data.tilesets = null
+
 Data.fuck = function () {
   for (const [key, animation] of Object.entries(this.animations)) {
     for (const motion of animation.motions) {

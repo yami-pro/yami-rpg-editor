@@ -15,23 +15,29 @@ import {
 
 // ******************************** 项目设置窗口 ********************************
 
-const Project = {
+interface Project {
   // properties
-  data: null,
-  changed: false,
-  importedFonts: null,
+  data: null
+  changed: boolean
+  importedFonts: null
   // methods
-  initialize: null,
-  open: null,
+  initialize: null
+  open: null
   // events
-  windowClose: null,
-  windowClosed: null,
-  dataChange: null,
-  paramInput: null,
-  confirm: null,
+  windowClose: null
+  windowClosed: null
+  dataChange: null
+  paramInput: null
+  confirm: null
 }
 
+const Project = <Project>{}
+
 // ******************************** 项目设置窗口加载 ********************************
+
+Project.data = null
+Project.changed = false
+Project.importedFonts = null
 
 // 初始化
 Project.initialize = function () {
