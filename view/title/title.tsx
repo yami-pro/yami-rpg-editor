@@ -84,6 +84,7 @@ const TitleView = ()=>(
       <content-frame>
         <grid-box>
           <text>Author</text><text>Yami Sama</text>
+          <text>Credit</text><text>chunqian.shen</text>
           <text>Editor</text><text id="editor-version"></text>
           <text>Electron</text><text id="electron-version"></text>
           <text>Chromium</text><text id="chrome-version"></text>
