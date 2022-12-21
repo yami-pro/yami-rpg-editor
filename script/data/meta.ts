@@ -13,8 +13,16 @@ namespace Type {
   export type file = FileItem | null
   export type group = meta[] | null
   export type dataTagName = {[key: string]: string}
-  export type dataMap = {[key: string]: (object | null)} | null
+  export type dataMap = {
+    [key: string]: (object | null)
+  } | null
   export type data = Data & {[key: string]: dataMap}
+  export type parameter = {
+    key: string
+    type: string
+    value: string
+    options?: string[]
+  }
 }
 
 const Meta = function IIFE() {
@@ -42,9 +50,9 @@ const Meta = function IIFE() {
 
   return class FileMeta {
     path: string
-    x: number
-    y: number
-    parameters: []
+    x?: number
+    y?: number
+    parameters?: Type.parameter[]
 
     file: Type.file
     guid: string

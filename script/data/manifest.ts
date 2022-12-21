@@ -11,33 +11,71 @@ import {
 
 namespace Type {
   export type meta = InstanceType<typeof Meta>
+
+  type parameter = {
+    key: string
+    type: string
+    value: string | number | boolean
+    options: (string | number | boolean)[]
+  }
+  type dataMap = object
+  export type actor = {path: string}
+  export type skill = actor
+  export type trigger = actor
+  export type item = actor
+  export type equipment = actor
+  export type state = actor
+  export type event = actor
+  export type scene = {
+    path: string
+    x: number
+    y: number
+  }[]
+  export type tileset = scene
+  export type ui = actor
+  export type animation = actor
+  export type particle = actor
+  export type image = {path: string, dataMap: dataMap}[]
+  export type audio = image[]
+  export type video = image[]
+  export type font = image[]
+  export type script = {
+    path: string
+    parameters: parameter[]
+  }[]
+  export type other = actor
+  export type project = {
+    guid: string
+    path: string
+    dataMap: dataMap
+  }
 }
 
 class Manifest {
-  actors: []
-  skills: []
-  triggers: []
-  items: []
-  equipments: []
-  states: []
-  events: []
-  scenes: []
-  tilesets: []
-  ui: []
-  animations: []
-  particles: []
-  images: []
-  audio: []
-  videos: []
-  fonts: []
-  script: []
-  others: []
+  actors: Type.actor[]
+  skills: Type.skill[]
+  triggers: Type.trigger[]
+  items: Type.item[]
+  equipments: Type.equipment[]
+  states: Type.state[]
+  events: Type.event[]
+  scenes: Type.scene[]
+  tilesets: Type.tileset[]
+  ui: Type.ui[]
+  animations: Type.animation[]
+  particles: Type.particle[]
+  images: Type.image[]
+  audio: Type.audio[]
+  videos: Type.video[]
+  fonts: Type.font[]
+  script: Type.script[]
+  others: Type.other[]
 
   metaList: Type.meta[]
   guidMap: {[key: string]: Type.meta}
   pathMap: {[key: string]: Type.meta}
-  project: {}
-  changes: []
+  project: {[key: string]: Type.project}
+  changes: Type.meta[]
   changed: boolean
   code: string
 
@@ -92,7 +130,7 @@ class Manifest {
       if (meta.versionId !== versionId) {
         const {guid, path} = meta
         metaList.splice(i, 1)
-        meta.group.remove(meta)
+        meta.group?.remove(meta)
         if (guidMap[guid] === meta) {
           delete guidMap[guid]
         }
