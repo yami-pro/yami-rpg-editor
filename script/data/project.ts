@@ -18,11 +18,12 @@ import {
 // ******************************** 项目设置窗口 ********************************
 
 namespace Type {
-  export type data = typeof Data.config
+  export type node = {[key: string]: number | boolean | string | node}
+  export type data = typeof Data.config & node
   export type importedFonts = {
     fontId: string | null
     filter: string
-    target: ParamList
+    target: ParamList | null
     initialize(): void
     parse(fontId: any): any
     open(fontId?: string): void
@@ -252,16 +253,17 @@ Project.dataChange = function (this: Project, event: Event) {
 Project.paramInput = function (this: TextBox, event: Event) {
   const key = Inspector.getKey(this)
   const value = this.read()
-  const keys = key.split('-')
+  const keys: string[] = key.split('-')
   const end = keys.length - 1
   let node = Project.data
   if (node !== null) {
+    let childNode: Type.node = {}
     for (let i = 0; i < end; i++) {
-      node = node[keys[i]]
+      childNode = <Type.node>node[keys[i]]
     }
     const property = keys[end]
-    if (node[property] !== value) {
-      node[property] = value
+    if (childNode[property] !== value) {
+      childNode[property] = value
     }
   }
 }
@@ -293,6 +295,7 @@ Project.confirm = function (this: Project, event: Event) {
 Project.importedFonts = {
   fontId: null,
   filter: 'font',
+  target: null,
   initialize: function () {},
   parse: function (fontId) {
     return Command.parseFileName(fontId)
@@ -309,7 +312,7 @@ Project.importedFonts = {
   },
   input: function (fontId) {
     this.fontId = fontId
-    this.target.save()
+    this.target?.save()
   },
 }
 
