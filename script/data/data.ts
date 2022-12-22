@@ -16,87 +16,17 @@ import {
 // ******************************** 数据对象 ********************************
 
 namespace Type {
+  export type node = {
+    [key: string]: number |
+                   boolean |
+                   string |
+                   node |
+                   node[]
+  }
   export type meta = InstanceType<typeof Meta>
   export type manifest = Manifest & {[key: string]: meta[]}
   type guid = string
-  export type config = {
-    gameId: guid
-    window: {
-      title: string
-      width: number
-      height: number
-      display: string
-    }
-    resolution: {
-      width: number
-      height: number
-    }
-    scene: {
-      padding: number
-      animationInterval: number
-    }
-    tileArea: {
-      expansionTop: number
-      expansionLeft: number
-      expansionRight: number
-      expansionBottom: number
-    }
-    animationArea: {
-      expansionTop: number
-      expansionLeft: number
-      expansionRight: number
-      expansionBottom: number
-    }
-    lightArea: {
-      expansionTop: number
-      expansionLeft: number
-      expansionRight: number
-      expansionBottom: number
-    }
-    collision: {
-      actor: {
-        enabled: boolean
-        ignoreTeamMember: boolean
-      }
-      scene: {
-        enabled: boolean
-        actorSize: number
-      }
-    }
-    font: {
-      imports: []
-      default: string
-      pixelated: boolean
-      threshold: number
-    }
-    event: {
-      startup: guid
-      loadGame: guid
-      initScene: guid
-      showText: guid
-      showChoices: guid
-    }
-    actor: {
-      playerTeam: guid
-      playerActor: guid
-      partyMembers: guid[]
-      partyInventory: string
-      tempAttributes: {key: guid, value: guid | number}[]
-    }
-    animation: {
-      frameRate: number
-    }
-    script: {
-      language: "javascript" | "typescript"
-      outDir: "dist"
-    }
-    startPosition: {
-      sceneId: guid
-      x: number
-      y: number
-    }
-    indexedColors: {name: string, code: string}[]
-  }
+  export type config = node
 }
 
 interface Data {

@@ -18,8 +18,14 @@ import {
 // ******************************** 项目设置窗口 ********************************
 
 namespace Type {
-  export type node = {[key: string]: number | boolean | string | node}
-  export type data = typeof Data.config & node
+  export type node = {
+    [key: string]: number |
+                   boolean |
+                   string |
+                   node |
+                   node[]
+  }
+  export type data = node
   export type importedFonts = {
     fontId: string | null
     filter: string
@@ -275,8 +281,10 @@ Project.confirm = function (this: Project, event: Event) {
       this.data !== null) {
     this.changed = false
     const last = Data.config
-    const title1 = Data.config.window.title
-    const title2 = this.data.window.title
+    const window1 = <Type.node>Data.config.window
+    const window2 = <Type.node>this.data.window
+    const title1 = window1.title
+    const title2 = window2.title
     Data.config = this.data
     File.planToSave(Data.manifest.project.config)
     // 更新标题名称
