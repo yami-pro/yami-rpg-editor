@@ -47,26 +47,27 @@ interface Data {
   particles: null
   tilesets: null
   // methods
-  loadAll: null
-  loadMeta: null
-  loadFile: null
-  loadScene: null
-  close: null
-  createEasingItems: null
-  createTeamItems: null
-  createDataMaps: null
-  createGUIDMap: null
-  createTeamMap: null
-  createVariableMap: null
-  createAttributeContext: null
-  createEnumerationContext: null
+  fuck(): void
+  loadAll(): Promise<void>
+  loadMeta(): Promise<void>
+  loadFile(filename: string): Promise<HTMLImageElement>
+  loadScene(guid: string): Promise<any>
+  close(): void
+  createEasingItems(): any
+  createTeamItems(): any
+  createDataMaps(): void
+  createGUIDMap(list: any): void
+  createTeamMap(): void
+  createVariableMap(): void
+  createAttributeContext(): void
+  createEnumerationContext(): void
   addUILinks(uiId: string): void
-  removeUILinks: null
-  createManifest: null
-  saveManifest: null
-  inheritMetaData: null
-  parseGUID: null
-  loadScript: null
+  removeUILinks(uiId: any): void
+  createManifest(): void
+  saveManifest(): Promise<void> | null
+  inheritMetaData(): void
+  parseGUID(meta: any): any
+  loadScript(file: any): Promise<void>
 }
 
 const Data = <Data>{}

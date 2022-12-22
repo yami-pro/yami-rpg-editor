@@ -17,29 +17,54 @@ import {
 
 // ******************************** 队伍窗口 ********************************
 
+namespace Type {
+  export type list = HTMLElement & {
+    insert(dItem: any): void
+    copy(item: any): void
+    paste(dItem: any): void
+    delete(item: any): void
+    saveSelection(): void
+    restoreSelection(): void
+    createIcon(item: any): void
+    updateIcon(item: any): void
+    updateItemName(item: any): void
+    createMark(item: any): void
+    updateMark(item: any): void
+    updateNodeElement(element: HTMLElement): void
+    addElementClass(item: any): void
+    updateTextNode(item: any): void
+  }
+  export type data = {
+    id: string
+    name: string
+    color: string
+    relations: {}
+  }
+}
+
 interface Team {
   // properties
-  list: HTMLElement
+  list: Type.list
   data: null
   maximum: null
   changed: boolean
   // methods
-  initialize: null
-  open: null
-  createId: null
-  createData: null
-  getItemById: null
-  unpackTeams: null
-  packTeams: null
+  initialize(): void
+  open(data: any): void
+  createId(): string
+  createData(): Type.data
+  getItemById(id: any): any
+  unpackTeams(): void
+  packTeams(): void
   // events
-  windowClose: null
-  windowClosed: null
-  listKeydown: null
-  listPointerdown: null
-  listSelect: null
-  listChange: null
-  listPopup: null
-  confirm: null
+  windowClose(event: Event): void
+  windowClosed(event: Event): void
+  listKeydown(event: Event): void
+  listPointerdown(event: Event): any
+  listSelect(event: Event): void
+  listChange(event: Event): void
+  listPopup(event: Event): void
+  confirm(event: Event): void
 }
 
 const Team = <Team>{}
@@ -52,20 +77,9 @@ Team.maximum = null
 Team.changed = false
 
 // list methods
-Team.list.insert = null
-Team.list.copy = null
-Team.list.paste = null
-Team.list.delete = null
-Team.list.saveSelection = null
-Team.list.restoreSelection = null
 Team.list.updateNodeElement = Easing.list.updateNodeElement
-Team.list.createIcon = null
-Team.list.updateIcon = null
-Team.list.updateItemName = null
 Team.list.addElementClass = Easing.list.addElementClass
 Team.list.updateTextNode = Easing.list.updateTextNode
-Team.list.createMark = null
-Team.list.updateMark = null
 
 // 初始化
 Team.initialize = function () {

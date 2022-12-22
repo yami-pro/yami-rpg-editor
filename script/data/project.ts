@@ -21,14 +21,14 @@ interface Project {
   changed: boolean
   importedFonts: null
   // methods
-  initialize: null
-  open: null
+  initialize(): void
+  open(): void
   // events
-  windowClose: null
-  windowClosed: null
-  dataChange: null
-  paramInput: null
-  confirm: null
+  windowClose(event: Event): void
+  windowClosed(event: Event): void
+  dataChange(event: Event): void
+  paramInput(event: Event): void
+  confirm(event: Event): void
 }
 
 const Project = <Project>{}

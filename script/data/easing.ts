@@ -30,6 +30,15 @@ namespace Type {
     createKeyTextNode(item: any): void
     updateKeyTextNode(item: any): void
   }
+  export type point = {x: number, y: number}
+  export type data = {
+    id: string
+    key: string
+    name: string
+    points: point[]
+  }
+  export type curveMap = typeof CurveMap
+  export type easingMap = typeof EasingMap
 }
 
 interface Easing {
@@ -57,56 +66,56 @@ interface Easing {
   endPoint: null
   changed: boolean
   // methods
-  initialize: null
-  get: null
-  clear: null
-  open: null
-  load: null
-  insert: null
-  copy: null
-  paste: null
-  delete: null
-  createId: null
-  createData: null
-  setEasingKey: null
-  getItemById: null
-  updateMaps: null
-  updateCanvases: null
-  drawCurve: null
-  drawPreview: null
-  updatePoints: null
-  selectPointByCoords: null
-  createPointImage: null
-  createPreviewImage: null
-  requestRendering: null
-  renderingFunction: null
-  stopRendering: null
+  initialize(): void
+  get(id: any): any
+  clear(): void
+  open(): void
+  load(easing: any): void
+  insert(dItem: any): void
+  copy(item: any): void
+  paste(dItem: any): void
+  delete(item: any): void
+  createId(): string
+  createData(): Type.data
+  setEasingKey(item: any): void
+  getItemById(id: any): any
+  updateMaps(): void
+  updateCanvases(): void
+  drawCurve(): void
+  drawPreview(): void
+  updatePoints(): void
+  selectPointByCoords(mouseX: any, mouseY: any): any
+  createPointImage(): void
+  createPreviewImage(): void
+  requestRendering(): void
+  renderingFunction(): void
+  stopRendering(): void
   // events
-  windowClose: null
-  windowClosed: null
-  dprchange: null
-  themechange: null
-  dataChange: null
-  listKeydown: null
-  listSelect: null
-  listOpen: null
-  listPopup: null
-  modeSelect: null
-  pointInput: null
-  scaleInput: null
-  curveKeydown: null
-  curvePointerdown: null
-  curveWheel: null
-  curveBlur: null
-  pointerup: null
-  pointermove: null
-  reverseInput: null
-  durationInput: null
-  delayInput: null
-  confirm: null
+  windowClose(event: Event): void
+  windowClosed(event: Event): void
+  dprchange(event: Event): void
+  themechange(event: Event): void
+  dataChange(event: Event): void
+  listKeydown(event: Event): void
+  listSelect(event: Event): void
+  listOpen(event: Event): void
+  listPopup(event: Event): void
+  modeSelect(event: Event): void
+  pointInput(event: Event): void
+  scaleInput(event: Event): void
+  curveKeydown(event: Event): void
+  curvePointerdown(event: Event): void
+  curveWheel(event: Event): void
+  curveBlur(event: Event): void
+  pointerup(event: Event): void
+  pointermove(event: Event): void
+  reverseInput(event: Event): void
+  durationInput(event: Event): void
+  delayInput(event: Event): void
+  confirm(event: Event): void
   // classes
-  CurveMap: null
-  EasingMap: null
+  CurveMap: Type.curveMap
+  EasingMap: Type.easingMap
 }
 
 const Easing = <Easing>{}
@@ -1209,7 +1218,7 @@ Easing.confirm = function (event) {
 // 三次方曲线映射表类 - 必须使用Float64
 // 因为Float32会导致部分点参数出现绘制BUG:线条变粗
 // Chromium78-89都存在这个BUG而Chromium69是正常的
-Easing.CurveMap = class CurveMap extends Float64Array {
+class CurveMap extends Float64Array {
   count //:number
 
   constructor() {
@@ -1242,8 +1251,10 @@ Easing.CurveMap = class CurveMap extends Float64Array {
   }
 }
 
+Easing.CurveMap = CurveMap
+
 // 过渡映射表类
-Easing.EasingMap = function IIFE() {
+const EasingMap = function IIFE() {
   const SCALE = 1000
   const round = Math.round
   return class EasingMap extends Float32Array {
@@ -1303,6 +1314,8 @@ Easing.EasingMap = function IIFE() {
     }()
   }
 }()
+
+Easing.EasingMap = EasingMap
 
 // 列表 - 保存选项状态
 Easing.list.saveSelection = function () {
