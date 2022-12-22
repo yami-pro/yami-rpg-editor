@@ -124,7 +124,7 @@ const getElementReader = function (prefix: string) {
 
 // 获取元素写入器
 const getElementWriter = function (prefix: string, bindingObject: any) {
-  return function (suffix: string, value: any) {
+  return function (suffix: string, value = undefined) {
     if (value === undefined) {
       const nodes = typeof suffix === 'string'
                   ? suffix.split('-')

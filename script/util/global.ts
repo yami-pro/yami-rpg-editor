@@ -211,6 +211,7 @@ interface HTMLElementTagNameMap_ext {
   "window-frame": WindowFrame
 
   // id选择器
+  // SelectBox
   "#activateScene-pointer": SelectBox
   "#actorGetter-memberId": SelectBox
   "#actorGetter-type": SelectBox
@@ -465,6 +466,69 @@ interface HTMLElementTagNameMap_ext {
   "#useItem-wait": SelectBox
   "#variableGetter-preset-key": SelectBox
   "#variableGetter-type": SelectBox
+  // ParamList
+  "#arrayList-list": ParamList
+  "#config-actor-tempAttributes": ParamList
+  "#config-font-imports": ParamList
+  "#fileActor-attributes": ParamList
+  "#fileActor-equipments": ParamList
+  "#fileActor-events": ParamList
+  "#fileActor-scripts": ParamList
+  "#fileActor-skills": ParamList
+  "#fileActor-sprites": ParamList
+  "#fileAnimation-sprites": ParamList
+  "#fileEquipment-attributes": ParamList
+  "#fileEquipment-events": ParamList
+  "#fileEquipment-scripts": ParamList
+  "#fileItem-attributes": ParamList
+  "#fileItem-events": ParamList
+  "#fileItem-scripts": ParamList
+  "#fileScene-events": ParamList
+  "#fileScene-scripts": ParamList
+  "#fileSkill-attributes": ParamList
+  "#fileSkill-events": ParamList
+  "#fileSkill-scripts": ParamList
+  "#fileState-attributes": ParamList
+  "#fileState-events": ParamList
+  "#fileState-scripts": ParamList
+  "#fileTrigger-events": ParamList
+  "#fileTrigger-scripts": ParamList
+  "#if-branch-conditions": ParamList
+  "#if-branches": ParamList
+  "#loop-conditions": ParamList
+  "#moveElement-properties": ParamList
+  "#moveLight-properties": ParamList
+  "#sceneActor-conditions": ParamList
+  "#sceneActor-events": ParamList
+  "#sceneActor-scripts": ParamList
+  "#sceneAnimation-conditions": ParamList
+  "#sceneAnimation-events": ParamList
+  "#sceneAnimation-scripts": ParamList
+  "#sceneLight-conditions": ParamList
+  "#sceneLight-events": ParamList
+  "#sceneLight-scripts": ParamList
+  "#sceneParallax-conditions": ParamList
+  "#sceneParallax-events": ParamList
+  "#sceneParallax-scripts": ParamList
+  "#sceneParticle-conditions": ParamList
+  "#sceneParticle-events": ParamList
+  "#sceneParticle-scripts": ParamList
+  "#sceneRegion-conditions": ParamList
+  "#sceneRegion-events": ParamList
+  "#sceneRegion-scripts": ParamList
+  "#sceneTilemap-conditions": ParamList
+  "#sceneTilemap-events": ParamList
+  "#sceneTilemap-scripts": ParamList
+  "#setDialogBox-properties": ParamList
+  "#setImage-properties": ParamList
+  "#setNumber-operands": ParamList
+  "#setProgressBar-properties": ParamList
+  "#setText-properties": ParamList
+  "#setTextBox-properties": ParamList
+  "#switch-branch-conditions": ParamList
+  "#switch-branches": ParamList
+  "#uiElement-events": ParamList
+  "#uiElement-scripts": ParamList
 }
 
 interface SVGElementTagNameMap_ext {}

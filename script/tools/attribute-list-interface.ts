@@ -20,9 +20,9 @@ class AttributeListInterface {
   editor  //:object
   owner   //:object
 
-  constructor(editor, owner) {
-    this.editor = editor ?? null
-    this.owner = owner ?? null
+  constructor(editor = null, owner = null) {
+    this.editor = editor
+    this.owner = owner
   }
 
   // 初始化

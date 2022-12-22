@@ -8,18 +8,39 @@ import {
   getElementWriter,
   Inspector,
   Local,
+  ParamList,
   Selector,
+  TextBox,
   Title,
   Window
 } from "../yami"
 
 // ******************************** 项目设置窗口 ********************************
 
+namespace Type {
+  export type data = typeof Data.config
+  export type importedFonts = {
+    fontId: string | null
+    filter: string
+    target: ParamList
+    initialize(): void
+    parse(fontId: any): any
+    open(fontId?: string): void
+    save(): any
+    read(): any
+    input(fontId: any): void
+  }
+  export type event = Event & {
+    key: 'config'
+    last: data
+  }
+}
+
 interface Project {
   // properties
-  data: null
+  data: Type.data | null
   changed: boolean
-  importedFonts: null
+  importedFonts: Type.importedFonts | null
   // methods
   initialize(): void
   open(): void
@@ -222,30 +243,34 @@ Project.windowClosed = function (event) {
 }
 
 // 数据 - 改变事件
-Project.dataChange = function (event) {
+Project.dataChange = function (this: Project, event: Event) {
   this.changed = true
   console.log(event)
 }.bind(Project)
 
 // 参数 - 输入事件
-Project.paramInput = function (event) {
+Project.paramInput = function (this: TextBox, event: Event) {
   const key = Inspector.getKey(this)
   const value = this.read()
   const keys = key.split('-')
   const end = keys.length - 1
   let node = Project.data
-  for (let i = 0; i < end; i++) {
-    node = node[keys[i]]
-  }
-  const property = keys[end]
-  if (node[property] !== value) {
-    node[property] = value
+  if (node !== null) {
+    for (let i = 0; i < end; i++) {
+      node = node[keys[i]]
+    }
+    const property = keys[end]
+    if (node[property] !== value) {
+      node[property] = value
+    }
   }
 }
 
 // 确定按钮 - 鼠标点击事件
-Project.confirm = function (event) {
-  if (this.changed) {
+Project.confirm = function (this: Project, event: Event) {
+  if (this.changed &&
+      Data.config !== null &&
+      this.data !== null) {
     this.changed = false
     const last = Data.config
     const title1 = Data.config.window.title
@@ -256,7 +281,7 @@ Project.confirm = function (event) {
     if (title1 !== title2) {
       Title.updateTitleName()
     }
-    const datachange = new Event('datachange')
+    const datachange = <Type.event>new Event('datachange')
     datachange.key = 'config'
     datachange.last = last
     window.dispatchEvent(datachange)
