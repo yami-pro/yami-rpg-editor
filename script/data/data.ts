@@ -27,7 +27,11 @@ namespace Type {
   }
   export type meta = InstanceType<typeof Meta>
   export type manifest = Manifest & {[key: string]: meta[]}
-  type guid = string
+  export type assert = {
+    path: string
+    x?: number
+    y?: number
+  }
 }
 
 interface Data {
@@ -67,24 +71,24 @@ interface Data {
   loadFile(filename: string): Promise<Type.node>
   loadScene(guid: string): Promise<Type.node>
   close(): void
-  createEasingItems(): any
-  createTeamItems(): any
+  createEasingItems(): Type.node[]
+  createTeamItems(): Type.node[]
   createDataMaps(): void
-  createGUIDMap(list: any): void
+  createGUIDMap(list: Type.node[]): void
   createTeamMap(): void
   createVariableMap(): void
   createAttributeContext(): void
   createEnumerationContext(): void
   addUILinks(uiId: string): void
-  removeUILinks(uiId: any): void
+  removeUILinks(uiId: string): void
   createManifest(): void
   saveManifest(): Promise<void> | null
   inheritMetaData(): void
-  parseGUID(meta: any): any
-  loadScript(file: any): Promise<void>
+  parseGUID(meta: Type.assert): string
+  loadScript(file: FileItem): Promise<void>
 }
 
-const Data = <Data>{}
+const Data = <Data & Type.node>{}
 
 // ******************************** 数据对象加载 ********************************
 
@@ -150,8 +154,12 @@ Data.loadAll = async function () {
     this.loadFile('commands'),
     this.loadFile('config'),
   ]).then(() => {
-    Data.createGUIDMap(this.easings)
-    Data.createGUIDMap(this.autotiles)
+    if (this.easings !== null) {
+      Data.createGUIDMap(this.easings)
+    }
+    if (this.autotiles !== null) {
+      Data.createGUIDMap(this.autotiles)
+    }
     Data.createTeamMap()
     Data.createVariableMap()
     Data.createAttributeContext()
@@ -337,7 +345,7 @@ Data.createDataMaps = function () {
 Data.createGUIDMap = function (list) {
   const map: Type.node = {}
   for (const item of list) {
-    map[item.id] = item
+    map[<string>item.id] = item
   }
   Object.defineProperty(list, 'map', {
     configurable: true,

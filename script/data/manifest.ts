@@ -10,6 +10,13 @@ import {
 // ******************************** 元数据清单类 ********************************
 
 namespace Type {
+  export type node = {
+    [key: string]: number |
+                   boolean |
+                   string |
+                   node |
+                   node[]
+  }
   export type meta = InstanceType<typeof Meta>
 
   type parameter = {
@@ -18,36 +25,37 @@ namespace Type {
     value: string | number | boolean
     options: (string | number | boolean)[]
   }
-  type dataMap = object
-  export type actor = {path: string}
-  export type skill = actor
-  export type trigger = actor
-  export type item = actor
-  export type equipment = actor
-  export type state = actor
-  export type event = actor
-  export type scene = {
+  export type assert = {
     path: string
-    x: number
-    y: number
+    x?: number
+    y?: number
+    dataMap?: node
   }
-  export type tileset = scene
-  export type ui = actor
-  export type animation = actor
-  export type particle = actor
-  export type image = {path: string, dataMap: dataMap}[]
-  export type audio = image[]
-  export type video = image[]
-  export type font = image[]
+  export type actor = assert
+  export type skill = assert
+  export type trigger = assert
+  export type item = assert
+  export type equipment = assert
+  export type state = assert
+  export type event = assert
+  export type scene = assert
+  export type tileset = assert
+  export type ui = assert
+  export type animation = assert
+  export type particle = assert
+  export type image = assert[]
+  export type audio = assert[]
+  export type video = assert[]
+  export type font = assert[]
   export type script = {
     path: string
     parameters: parameter[]
   }[]
-  export type other = actor
+  export type other = assert
   export type project = {
     guid: string
     path: string
-    dataMap: dataMap
+    dataMap: node
   }
 }
 
