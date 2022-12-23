@@ -19,11 +19,12 @@ import {
 
 namespace Type {
   export type node = {
-    [key: string]: number |
-                   boolean |
-                   string |
-                   node |
-                   node[]
+    [key: string]:
+      number |
+      boolean |
+      string |
+      node |
+      node[]
   }
   export type data = node
   export type importedFonts = {
@@ -286,7 +287,7 @@ Project.confirm = function (this: Project, event: Event) {
     const title1 = window1.title
     const title2 = window2.title
     Data.config = this.data
-    File.planToSave(Data.manifest.project.config)
+    File.planToSave(Data.manifest?.project.config)
     // 更新标题名称
     if (title1 !== title2) {
       Title.updateTitleName()

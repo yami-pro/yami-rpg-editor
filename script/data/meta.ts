@@ -9,14 +9,19 @@ import {
 // ******************************** 元数据类 ********************************
 
 namespace Type {
+  export type node = {
+    [key: string]:
+      number |
+      boolean |
+      string |
+      node |
+      node[]
+  }
   export type meta = InstanceType<typeof Meta>
   export type file = FileItem | null
   export type group = meta[] | null
   export type dataTagName = {[key: string]: string}
-  export type dataMap = {
-    [key: string]: (object | null)
-  } | null
-  export type data = Data & {[key: string]: dataMap}
+  export type data = Data & {[key: string]: node}
   export type parameter = {
     key: string
     type: string
@@ -60,7 +65,7 @@ const Meta = function IIFE() {
     versionId: number
     
     readonly group: Type.group
-    readonly dataMap: Type.dataMap
+    readonly dataMap: Type.node | null
 
     constructor(file: FileItem, guid: string) {
       const {type, path} = file
@@ -102,7 +107,7 @@ const Meta = function IIFE() {
           file.promise = promise.then(async () => {
             // 文件重命名后会改变元数据路径
             if (this.dataMap !== null) {
-              this.dataMap[guid] = await File.get({type: 'json', path: this.path})
+              this.dataMap[guid] = <Type.node>await File.get({type: 'json', path: this.path})
             }
             switch (type) {
               // 添加UI预设元素链接

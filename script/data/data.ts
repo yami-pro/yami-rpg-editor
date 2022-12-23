@@ -19,11 +19,12 @@ import {
 
 namespace Type {
   export type node = {
-    [key: string]: number |
-                   boolean |
-                   string |
-                   node |
-                   node[]
+    [key: string]:
+      number |
+      boolean |
+      string |
+      node |
+      node[]
   }
   export type meta = InstanceType<typeof Meta>
   export type manifest = Manifest & {[key: string]: meta[]}
