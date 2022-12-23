@@ -30,7 +30,7 @@ namespace Type {
     path: string
     x: number
     y: number
-  }[]
+  }
   export type tileset = scene
   export type ui = actor
   export type animation = actor
@@ -70,9 +70,10 @@ class Manifest {
   fonts: Type.font[]
   script: Type.script[]
   others: Type.other[]
+  last?: Manifest
 
   metaList: Type.meta[]
-  guidMap: {[key: string]: Type.meta}
+  guidMap: {[key: string]: Type.project | Type.meta}
   pathMap: {[key: string]: Type.meta}
   project: {[key: string]: Type.project}
   changes: Type.meta[]

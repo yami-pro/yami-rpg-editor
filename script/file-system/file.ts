@@ -19,6 +19,13 @@ import * as electron from 'electron'
 // ******************************** 文件 ********************************
 
 namespace Type {
+  export type node = {
+    [key: string]: number |
+                   boolean |
+                   string |
+                   node |
+                   node[]
+  }
   export type descriptor = {
     type: XMLHttpRequestResponseType | 'image'
     path?: string
@@ -34,7 +41,7 @@ interface File {
   promises: {[key: string]: Promise<HTMLImageElement>}
   // methods
   initializeProps(): File
-  get(descriptor: Type.descriptor): Promise<HTMLImageElement | null>
+  get(descriptor: Type.descriptor): Promise<Type.node | null>
   getPath(guid: string): string
   save(hint?: boolean): Promise<any[]>
   saveFile(meta: any): Promise<void>

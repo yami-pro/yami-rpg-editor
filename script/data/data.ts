@@ -10,7 +10,9 @@ import {
   Log,
   Manifest,
   Meta,
-  PluginManager
+  PluginManager,
+  ErrorMsg,
+  FileItem
 } from "../yami"
 
 // ******************************** 数据对象 ********************************
@@ -26,41 +28,44 @@ namespace Type {
   export type meta = InstanceType<typeof Meta>
   export type manifest = Manifest & {[key: string]: meta[]}
   type guid = string
-  export type config = node
 }
 
 interface Data {
   // properties
   manifest: Type.manifest | null
-  uiLinks: null
-  actors: null
-  skills: null
-  triggers: null
-  items: null
-  equipments: null
-  states: null
-  events: null
-  scripts: null
-  easings: null
-  teams: null
-  autotiles: null
-  variables: null
-  attribute: null
-  enumeration: null
-  plugins: null
-  commands: null
-  config: Type.config | null
-  scenes: null
-  ui: null
-  animations: null
-  particles: null
-  tilesets: null
+  uiLinks: Type.node | null
+  actors: Type.node | null
+  skills: Type.node | null
+  triggers: Type.node | null
+  items: Type.node | null
+  equipments: Type.node | null
+  states: Type.node | null
+  events: Type.node | null
+  scripts: {[key: string]: Type.meta} | null
+  easings: Type.node[] & {
+    items: Type.node[]
+    map: Type.node
+    selection: string
+  } | null
+  teams: Type.node | null
+  autotiles: Type.node[] | null
+  variables: Type.node[] | null
+  attribute: Type.node | null
+  enumeration: Type.node | null
+  plugins: Type.node[] | null
+  commands: Type.node[] | null
+  config: Type.node | null
+  scenes: Type.node | null
+  ui: Type.node | null
+  animations: Type.node | null
+  particles: Type.node | null
+  tilesets: Type.node | null
   // methods
   fuck(): void
   loadAll(): Promise<void>
   loadMeta(): Promise<void>
-  loadFile(filename: string): Promise<HTMLImageElement>
-  loadScene(guid: string): Promise<any>
+  loadFile(filename: string): Promise<Type.node>
+  loadScene(guid: string): Promise<Type.node>
   close(): void
   createEasingItems(): any
   createTeamItems(): any
@@ -109,18 +114,23 @@ Data.particles = null
 Data.tilesets = null
 
 Data.fuck = function () {
-  for (const [key, animation] of Object.entries(this.animations)) {
-    for (const motion of animation.motions) {
+  const animations = <Type.node>this.animations
+  for (let [key, animation] of Object.entries(animations)) {
+    animation = <Type.node>animation
+    const motions = <Type.node[]>animation.motions
+    for (const motion of motions) {
       const dirMap = motion.dirMap
       delete motion.dirMap
       motion.dirCases = dirMap
     }
-    File.planToSave(Data.manifest.guidMap[key])
+    if (Data.manifest !== null) {
+      File.planToSave(Data.manifest.guidMap[key])
+    }
   }
 }
 
 // 加载所有文件
-Data.loadAll = function () {
+Data.loadAll = async function () {
   // 创建新的数据映射表
   this.createDataMaps()
 
@@ -171,7 +181,7 @@ Data.loadMeta = function () {
 }
 
 // 加载文件
-Data.loadFile = function (filename) {
+Data.loadFile = async function (filename) {
   const path = `data/${filename}.json`
   return File.get({
     path: path,
@@ -186,22 +196,29 @@ Data.loadFile = function (filename) {
         path: path,
         dataMap: this,
       }
-      this.manifest.project[filename] = meta
-      this.manifest.guidMap[meta.guid] = meta
-      return this[filename] = data
+      if (this.manifest !== null) {
+        this.manifest.project[filename] = meta
+        this.manifest.guidMap[meta.guid] = meta
+      }
+      const node = <Data & Type.node>this
+      return node[filename] = data
     }
   )
 }
 
 // 加载场景
-Data.loadScene = function (guid) {
+Data.loadScene = async function (guid) {
   const {scenes} = this
-  if (scenes[guid]) {
+  if (scenes !== null && scenes[guid]) {
     return new Promise(resolve => {
       resolve(Codec.decodeScene(scenes[guid]))
     })
   }
-
+  if (this.manifest === null) {
+    return new Promise((resolve, reject) => {
+      reject(new Error(ErrorMsg.E00000062))
+    })
+  }
   const meta = this.manifest.guidMap[guid]
   if (!meta) {
     return new Promise((resolve, reject) => {
@@ -215,9 +232,10 @@ Data.loadScene = function (guid) {
   }).then(
     code => {
       try {
-        return Codec.decodeScene(
-          scenes[guid] = code
-        )
+        if (scenes !== null) {
+          scenes[guid] = <Type.node>code
+        }
+        return Codec.decodeScene(code)
       } catch (error) {
         error.message = `${path}\n${error.message}`
         throw error
@@ -255,6 +273,8 @@ Data.close = function () {
 
 // 创建过渡选项
 Data.createEasingItems = function () {
+  if (this.easings === null)
+    return []
   let items = this.easings.items
   if (items === undefined) {
     // 把属性写入数组中不会被保存到文件
@@ -276,10 +296,11 @@ Data.createEasingItems = function () {
 
 // 创建队伍选项
 Data.createTeamItems = function () {
-  let items = this.teams.list.items
+  const list = <Type.node[] & {items: Type.node[]}>this.teams?.list
+  let items = list.items
   if (items === undefined) {
-    items = this.teams.list.items = []
-    const teams = this.teams.list
+    items = list.items = []
+    const teams = list
     const length = teams.length
     const digits = Number.computeIndexDigits(length)
     for (let i = 0; i < length; i++) {
@@ -314,7 +335,7 @@ Data.createDataMaps = function () {
 
 // 创建GUID映射表
 Data.createGUIDMap = function (list) {
-  const map = {}
+  const map: Type.node = {}
   for (const item of list) {
     map[item.id] = item
   }
@@ -326,12 +347,12 @@ Data.createGUIDMap = function (list) {
 
 // 创建队伍映射表
 Data.createTeamMap = function () {
-  const map = {}
-  const teams = this.teams
-  for (const item of teams.list) {
-    map[item.id] = item
+  const map: Type.node = {}
+  const list = <Type.node[]>this.teams?.list
+  for (const item of list) {
+    map[<string>item.id] = item
   }
-  Object.defineProperty(teams, 'map', {
+  Object.defineProperty(this.teams, 'map', {
     configurable: true,
     value: map,
   })
@@ -339,17 +360,20 @@ Data.createTeamMap = function () {
 
 // 创建变量映射表
 Data.createVariableMap = function IIFE() {
-  const set = (items, map) => {
+  const set = (items: Type.node[], map: Type.node) => {
     for (const item of items) {
       if (item.children) {
-        set(item.children, map)
+        set(<Type.node[]>item.children, map)
       } else {
-        map[item.id] = item
+        map[<string>item.id] = item
       }
     }
   }
-  return function () {
-    const map = {}
+  return function (this: Data) {
+    const map: Type.node = {}
+    if (this.variables === null) {
+      return
+    }
     set(this.variables, map)
     Object.defineProperty(this.variables, 'map', {
       configurable: true,
@@ -376,22 +400,27 @@ Data.createEnumerationContext = function () {
 
 // 添加UI预设元素链接
 Data.addUILinks = function IIFE() {
-  let guid
-  let uiLinks
-  const setMap = nodes => {
+  let guid: string
+  let uiLinks: Type.node | null
+  const setMap = (nodes: Type.node[]) => {
     for (const node of nodes) {
-      uiLinks[node.presetId] = guid
-      if (node.children.length !== 0) {
-        setMap(node.children)
+      if (uiLinks === null)
+        continue
+      uiLinks[<string>node.presetId] = guid
+      const children = <Type.node[]>node.children
+      if (children.length !== 0) {
+        setMap(children)
       }
     }
   }
-  return function (uiId) {
-    const ui = this.ui[uiId]
+  return function (this: Data, uiId: string) {
+    if (this.ui === null)
+      return
+    const ui = <Type.node>this.ui[uiId]
     if (ui) {
       guid = uiId
       uiLinks = this.uiLinks
-      setMap(ui.nodes)
+      setMap(<Type.node[]>ui.nodes)
       uiLinks = null
     }
   }
@@ -399,25 +428,30 @@ Data.addUILinks = function IIFE() {
 
 // 移除UI预设元素链接
 Data.removeUILinks = function IIFE() {
-  let guid
-  let uiLinks
-  const unlink = nodes => {
+  let guid: string
+  let uiLinks: Type.node | null
+  const unlink = (nodes: Type.node[]) => {
     for (const node of nodes) {
       const {presetId} = node
-      if (uiLinks[presetId] === guid) {
-        delete uiLinks[presetId]
+      if (uiLinks === null)
+        continue
+      if (uiLinks[<string>presetId] === guid) {
+        delete uiLinks[<string>presetId]
       }
-      if (node.children.length !== 0) {
-        unlink(node.children)
+      const children = <Type.node []>node.children
+      if (children.length !== 0) {
+        unlink(children)
       }
     }
   }
-  return function (uiId) {
-    const ui = this.ui[uiId]
+  return function (this: Data, uiId: string) {
+    if (this.ui === null)
+      return
+    const ui = <Type.node>this.ui[uiId]
     if (ui) {
       guid = uiId
       uiLinks = this.uiLinks
-      unlink(ui.nodes)
+      unlink(<Type.node[]>ui.nodes)
       uiLinks = null
     }
   }
@@ -425,7 +459,7 @@ Data.removeUILinks = function IIFE() {
 
 // 创建元数据清单
 Data.createManifest = function () {
-  this.manifest = new Manifest()
+  this.manifest = <Type.manifest>new Manifest()
 }
 
 // 保存元数据清单
@@ -456,12 +490,13 @@ Data.saveManifest = function () {
 // 继承元数据
 Data.inheritMetaData = function () {
   const manifest = this.manifest
-  const last = manifest.last
-  const map = manifest.guidMap
-  if (last === undefined) return
+  const last = manifest?.last
+  const map = manifest?.guidMap
+  if (last === undefined || map === undefined)
+    return
   for (const scene of last.scenes) {
     const guid = this.parseGUID(scene)
-    const meta = map[guid]
+    const meta = <Type.meta>map[guid]
     if (meta !== undefined) {
       meta.x = scene.x
       meta.y = scene.y
@@ -469,13 +504,13 @@ Data.inheritMetaData = function () {
   }
   for (const tileset of last.tilesets) {
     const guid = this.parseGUID(tileset)
-    const meta = map[guid]
+    const meta = <Type.meta>map[guid]
     if (meta !== undefined) {
       meta.x = tileset.x
       meta.y = tileset.y
     }
   }
-  delete manifest.last
+  delete manifest?.last
 }
 
 // 从元数据中解析GUID
@@ -488,13 +523,16 @@ Data.parseGUID = function IIFE() {
 }()
 
 // 加载脚本
-Data.loadScript = async function (file) {
+Data.loadScript = async function (file: FileItem) {
   const meta = file.meta
-  if (meta !== undefined) {
+  if (meta !== undefined && meta !== null) {
     const {scripts} = this
+    if (scripts === null) {
+      return
+    }
     const {guid} = meta
     await file.promise
-    scripts[guid] = File.get({
+    const script = await File.get({
       path: file.path,
       type: 'text',
     }).then(code => {
@@ -502,7 +540,11 @@ Data.loadScript = async function (file) {
       return scripts[guid] = meta
     }).catch(error => {
       delete scripts[guid]
+      return null
     })
+    if (script !== null) {
+      scripts[guid] = script
+    }
   }
 }
 
