@@ -10,13 +10,11 @@ import {
 // ******************************** 树状列表 ********************************
 
 namespace Type {
-  type element = Node
   export type node = {
     [key: string]:
       number |
       boolean |
       string |
-      element |
       node |
       node[]
   }

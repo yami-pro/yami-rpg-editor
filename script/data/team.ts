@@ -19,13 +19,11 @@ import {
 // ******************************** 队伍窗口 ********************************
 
 namespace Type {
-  type element = Node
   export type node = {
     [key: string]:
       number |
       boolean |
       string |
-      element |
       node |
       node[]
   }
@@ -36,7 +34,6 @@ namespace Type {
     delete(item: Type.node): void
     saveSelection(): void
     restoreSelection(): void
-    // createIcon(item: Type.node): void
     updateIcon(item: Type.node): void
     updateItemName(item: Type.node): void
     createMark(item: Type.node): void
@@ -49,6 +46,8 @@ namespace Type {
     key: string
     value: node
   }
+  export type element = node & HTMLElement
+  export type text = node & Text
 }
 
 interface Team {
@@ -220,9 +219,10 @@ Team.packTeams = function () {
   const code = Codec.encodeRelations(
     new Uint8Array(dRelations.buffer, 0, ri)
   )
-  if (Data.teams !== null) {
-    Data.teams.list = <Type.node[]>copies
-    Data.teams.relations = <Type.node>code
+  const teams = <Type.node>Data.teams
+  if (teams !== null) {
+    teams.list = <Type.node[]>copies
+    teams.relations = <Type.node>code
   }
   Data.createTeamMap()
 }
@@ -499,11 +499,11 @@ Team.list.restoreSelection = function () {
 
 // 列表 - 重写创建图标方法
 Team.list.createIcon = function (item) {
-  const element = <HTMLElement & Type.node>item.element
-  const icon = <HTMLElement & Type.node>document.createElement('node-icon')
+  const element = <Type.element>item.element
+  const icon = <Type.element>document.createElement('node-icon')
   icon.addClass('team-icon')
   element.nodeIcon = icon
-  element.insertBefore(icon, <Node>element.textNode)
+  element.insertBefore(icon, <Type.text>element.textNode)
   Team.list.updateIcon(item)
   return icon
 }
@@ -544,7 +544,7 @@ Team.list.updateMark = function (item) {
   if (selection === null)
     return
   const element = <Type.node>item.element
-  const mark = <HTMLElement & Type.node>element.mark
+  const mark = <Type.element>element.mark
   const relations = <Type.node>selection.relations
   const relation = relations[<string>item.id]
   if (mark.relation !== relation) {
