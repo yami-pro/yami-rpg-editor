@@ -12,47 +12,56 @@ import {
   Local,
   Menu,
   Window,
-  Clipboard
+  Clipboard,
+  TreeList
 } from "../yami"
 
 // ******************************** 队伍窗口 ********************************
 
 namespace Type {
-  export type list = HTMLElement & {
-    insert(dItem: any): void
-    copy(item: any): void
-    paste(dItem: any): void
-    delete(item: any): void
+  type element = Node
+  export type node = {
+    [key: string]:
+      number |
+      boolean |
+      string |
+      element |
+      node |
+      node[]
+  }
+  export type list = TreeList & {
+    insert(dItem: Type.node): void
+    copy(item: Type.node): void
+    paste(dItem: Type.node): void
+    delete(item: Type.node): void
     saveSelection(): void
     restoreSelection(): void
-    createIcon(item: any): void
-    updateIcon(item: any): void
-    updateItemName(item: any): void
-    createMark(item: any): void
-    updateMark(item: any): void
-    updateNodeElement(element: HTMLElement): void
-    addElementClass(item: any): void
-    updateTextNode(item: any): void
+    // createIcon(item: Type.node): void
+    updateIcon(item: Type.node): void
+    updateItemName(item: Type.node): void
+    createMark(item: Type.node): void
+    updateMark(item: Type.node): void
+    updateNodeElement(element: Type.node): void
+    addElementClass(item: Type.node): void
+    updateTextNode(item: Type.node): void
   }
-  export type data = {
-    id: string
-    name: string
-    color: string
-    relations: {}
+  export type event = Event & {
+    key: string
+    value: node
   }
 }
 
 interface Team {
   // properties
   list: Type.list
-  data: null
-  maximum: null
+  data: Type.node[] | null
+  maximum: number
   changed: boolean
   // methods
   initialize(): void
   open(data: any): void
   createId(): string
-  createData(): Type.data
+  createData(): Type.node
   getItemById(id: any): any
   unpackTeams(): void
   packTeams(): void
@@ -65,15 +74,15 @@ interface Team {
   listChange(event: Event): void
   listPopup(event: Event): void
   confirm(event: Event): void
+  updateMark(item: Type.node): void
 }
 
 const Team = <Team>{}
 
 // ******************************** 队伍窗口加载 ********************************
 
-Team.list = $('#team-list')
+Team.list = <Type.list>$('#team-list')
 Team.data = null
-Team.maximum = null
 Team.changed = false
 
 // list methods
@@ -125,21 +134,24 @@ Team.open = function (data) {
 // 创建ID
 Team.createId = function () {
   let id
-  do {id = GUID.generate64bit()}
-  while (this.getItemById(id))
+  do {
+    id = GUID.generate64bit()
+  } while (this.getItemById(id))
   return id
 }
 
 // 创建数据
 Team.createData = function () {
   const id = this.createId()
-  const relations = {}
+  const relations: Type.node = {}
   const teams = this.data
-  const length = teams.length
-  for (let i = 0; i < length; i++) {
-    relations[teams[i].id] = 0
+  if (teams !== null) {
+    const length = teams.length
+    for (let i = 0; i < length; i++) {
+      relations[<string>teams[i].id] = 0
+    }
+    relations[id] = 1
   }
-  relations[id] = 1
   return {
     id: id,
     name: '',
@@ -153,23 +165,25 @@ Team.getItemById = Easing.getItemById
 
 // 解包队伍数据
 Team.unpackTeams = function () {
+  if (Data.teams === null)
+    return 
   const code = Data.teams.relations
-  const items = Data.teams.list
+  const items = <Type.node[]>Data.teams.list
   const length = items.length
   const sRelations = Codec.decodeRelations(code, length)
   const copies = new Array(length)
   const a = length * 2
   for (let i = 0; i < length; i++) {
     const item = items[i]
-    const dRelations = {}
+    const dRelations: Type.node = {}
     for (let j = 0; j < i; j++) {
       const ri = (a - j + 1) / 2 * j - j + i
-      dRelations[items[j].id] = sRelations[ri]
+      dRelations[<string>items[j].id] = sRelations[ri]
     }
     const b = (a - i + 1) / 2 * i - i
     for (let j = i; j < length; j++) {
       const ri = b + j
-      dRelations[items[j].id] = sRelations[ri]
+      dRelations[<string>items[j].id] = sRelations[ri]
     }
     copies[i] = {
       id: item.id,
@@ -183,6 +197,9 @@ Team.unpackTeams = function () {
 
 // 打包队伍数据
 Team.packTeams = function () {
+  if (this.data === null) {
+    return
+  }
   const items = this.data
   const length = items.length
   const copies = new Array(length)
@@ -190,9 +207,9 @@ Team.packTeams = function () {
   let ri = 0
   for (let i = 0; i < length; i++) {
     const item = items[i]
-    const sRelations = item.relations
+    const sRelations = <Type.node>item.relations
     for (let j = i; j < length; j++) {
-      dRelations[ri++] = sRelations[items[j].id]
+      dRelations[ri++] = sRelations[<string>items[j].id]
     }
     copies[i] = {
       id: item.id,
@@ -203,8 +220,10 @@ Team.packTeams = function () {
   const code = Codec.encodeRelations(
     new Uint8Array(dRelations.buffer, 0, ri)
   )
-  Data.teams.list = copies
-  Data.teams.relations = code
+  if (Data.teams !== null) {
+    Data.teams.list = <Type.node[]>copies
+    Data.teams.relations = <Type.node>code
+  }
   Data.createTeamMap()
 }
 
@@ -228,21 +247,23 @@ Team.windowClose = function (event) {
 }
 
 // 窗口 - 已关闭事件
-Team.windowClosed = function (event) {
+Team.windowClosed = function (this: Team, event: Event) {
   this.data = null
   this.list.clear()
 }.bind(Team)
 
 // 列表 - 键盘按下事件
-Team.listKeydown = function (event) {
+Team.listKeydown = function (this: Type.list, event: KeyboardEvent) {
   const item = this.read()
+  if (item === null)
+    return
   if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyC':
         this.copy(item)
         break
       case 'KeyV':
-        this.paste()
+        this.paste(item)
         break
     }
   } else if (event.altKey) {
@@ -260,18 +281,19 @@ Team.listKeydown = function (event) {
 }
 
 // 列表 - 指针按下事件
-Team.listPointerdown = function (event) {
+Team.listPointerdown = function (this: Type.list, event: PointerEvent) {
   switch (event.button) {
     case 0:
       // 设置队伍颜色
-      if (event.target.hasClass('team-icon')) {
-        const element = event.target.parentNode
-        const team = element.item
+      const target = <HTMLElement>event.target
+      if (target.hasClass('team-icon')) {
+        const element = <HTMLElement & Type.node>target.parentNode
+        const team = <Type.node>element.item
         return Color.open({
           read: () => {
             return team.color
           },
-          input: color => {
+          input: (color: string) => {
             team.color = color
             this.updateIcon(team)
             Team.changed = true
@@ -279,13 +301,17 @@ Team.listPointerdown = function (event) {
         })
       }
       // 设置队伍关系
-      if (event.target.hasClass('team-mark')) {
-        const element = event.target.parentNode
+      if (target.hasClass('team-mark')) {
+        const element = <HTMLElement & Type.node>target.parentNode
         const teamA = this.read()
-        const teamB = element.item
+        const teamB = <Type.node>element.item
         if (teamA !== teamB) {
-          teamA.relations[teamB.id] ^= 1
-          teamB.relations[teamA.id] ^= 1
+          const relationsA = <Type.node>teamA?.relations
+          const relationsB = <Type.node>teamB.relations
+          const valueA = <number>relationsA[<string>teamA?.id]
+          const valueB = <number>relationsB[<string>teamB.id]
+          relationsA[<string>teamA?.id] = valueA^1
+          relationsB[<string>teamB.id] = valueB^1
           this.updateMark(teamB)
           Team.changed = true
         }
@@ -296,9 +322,11 @@ Team.listPointerdown = function (event) {
 
 // 列表 - 选择事件
 Team.listSelect = function (event) {
+  if (this.data === null)
+    return
   // 更新队伍关系
   for (const team of this.data) {
-    const element = team.element
+    const element = <Type.node>team.element
     if (element !== undefined) {
       element.changed = true
       if (element.parentNode) {
@@ -314,9 +342,9 @@ Team.listChange = function (event) {
 }
 
 // 列表 - 菜单弹出事件
-Team.listPopup = function (event) {
+Team.listPopup = function (event: Type.event) {
   const item = event.value
-  const length = Team.data.length
+  const length = Team.data?.length ?? 0
   const selected = !!item
   const insertable = length < Team.maximum
   const pastable = insertable && Clipboard.has('yami.data.team')
@@ -364,12 +392,12 @@ Team.listPopup = function (event) {
 }
 
 // 确定按钮 - 鼠标点击事件
-Team.confirm = function (event) {
+Team.confirm = function (this: Team, event: Event) {
   if (this.changed) {
     this.changed = false
     this.packTeams()
-    File.planToSave(Data.manifest.project.teams)
-    const datachange = new Event('datachange')
+    File.planToSave(Data.manifest?.project.teams)
+    const datachange = <Type.event>new Event('datachange')
     datachange.key = 'teams'
     window.dispatchEvent(datachange)
   }
@@ -380,9 +408,10 @@ Team.confirm = function (event) {
 Team.list.insert = function (dItem) {
   if (this.data.length < Team.maximum) {
     const team = Team.createData()
-    const id = team.id
+    const id = <string>team.id
     for (const item of this.data) {
-      item.relations[id] = 0
+      const relations = <Type.node>item.relations
+      relations[id] = 0
     }
     this.addNodeTo(team, dItem)
   }
@@ -400,11 +429,11 @@ Team.list.paste = function (dItem) {
   const copy = Clipboard.read('yami.data.team')
   if (copy) {
     const dId = Team.createId()
-    const cRelations = copy.relations
-    const dRelations = {}
+    const cRelations = <Type.node>copy.relations
+    const dRelations: Type.node = {}
     for (const item of this.data) {
-      const sId = item.id
-      const sRelations = item.relations
+      const sId = <string>item.id
+      const sRelations = <Type.node>item.relations
       const code = cRelations[sId] ?? 0
       sRelations[dId] = code
       dRelations[sId] = code
@@ -427,9 +456,10 @@ Team.list.delete = function (item) {
     }, [{
       label: get('yes'),
       click: () => {
-        const id = item.id
+        const id = <string>item.id
         for (const item of items) {
-          delete item.relations[id]
+          const relations = <Type.node>item.relations
+          delete relations[id]
         }
         const index = items.indexOf(item)
         this.deleteNode(item)
@@ -444,7 +474,7 @@ Team.list.delete = function (item) {
 
 // 列表 - 保存选项状态
 Team.list.saveSelection = function () {
-  const {teams} = Data
+  const teams = <Type.node>Data.teams
   // 将数据保存在外部可以切换项目后重置
   if (teams.selection === undefined) {
     Object.defineProperty(teams, 'selection', {
@@ -460,7 +490,7 @@ Team.list.saveSelection = function () {
 
 // 列表 - 恢复选项状态
 Team.list.restoreSelection = function () {
-  const id = Data.teams.selection
+  const id = <string>Data.teams?.selection
   const item = Team.getItemById(id) ?? this.data[0]
   this.select(item)
   this.update()
@@ -469,25 +499,28 @@ Team.list.restoreSelection = function () {
 
 // 列表 - 重写创建图标方法
 Team.list.createIcon = function (item) {
-  const {element} = item
-  const icon = document.createElement('node-icon')
+  const element = <HTMLElement & Type.node>item.element
+  const icon = <HTMLElement & Type.node>document.createElement('node-icon')
   icon.addClass('team-icon')
   element.nodeIcon = icon
-  element.insertBefore(icon, element.textNode)
+  element.insertBefore(icon, <Node>element.textNode)
   Team.list.updateIcon(item)
+  return icon
 }
 
 // 列表 - 更新图标
 Team.list.updateIcon = function (item) {
-  const icon = item.element.nodeIcon
-  const color = item.color
+  const element = <Type.node>item.element
+  const icon = <Type.node>element.nodeIcon
+  const color = <string>item.color
   if (icon.color !== color) {
     icon.color = color
     const r = parseInt(color.slice(0, 2), 16)
     const g = parseInt(color.slice(2, 4), 16)
     const b = parseInt(color.slice(4, 6), 16)
     const a = parseInt(color.slice(6, 8), 16) / 255
-    icon.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
+    const style = <Type.node>icon.style
+    style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
   }
 }
 
@@ -498,8 +531,8 @@ Team.list.updateItemName = function (item) {
 
 // 列表 - 创建标记
 Team.list.createMark = function (item) {
-  const {element} = item
-  const mark = document.createElement('text')
+  const element = <HTMLElement & Type.node>item.element
+  const mark = <HTMLElement & Type.node>document.createElement('text')
   mark.addClass('team-mark')
   element.mark = mark
   element.appendChild(mark)
@@ -508,10 +541,12 @@ Team.list.createMark = function (item) {
 // 列表 - 更新标记
 Team.list.updateMark = function (item) {
   const selection = Team.list.read()
-  if (selection === null) return
-  const mark = item.element.mark
-  const relations = selection.relations
-  const relation = relations[item.id]
+  if (selection === null)
+    return
+  const element = <Type.node>item.element
+  const mark = <HTMLElement & Type.node>element.mark
+  const relations = <Type.node>selection.relations
+  const relation = relations[<string>item.id]
   if (mark.relation !== relation) {
     mark.relation = relation
     switch (relation) {

@@ -529,6 +529,23 @@ interface HTMLElementTagNameMap_ext {
   "#switch-branches": ParamList
   "#uiElement-events": ParamList
   "#uiElement-scripts": ParamList
+  // TreeList
+  "#animation-layer-list": TreeList
+  "#animation-list": TreeList
+  "#attribute-list": TreeList
+  "#autoTile-templates": TreeList
+  "#command-list": TreeList
+  "#command-suggestions": TreeList
+  "#easing-list": TreeList
+  "#enum-list": TreeList
+  "#particle-list": TreeList
+  "#plugin-list": TreeList
+  "#presetElement-list": TreeList
+  "#presetObject-list": TreeList
+  "#scene-list": TreeList
+  "#team-list": TreeList
+  "#ui-list": TreeList
+  "#variable-list": TreeList
 }
 
 interface SVGElementTagNameMap_ext {}
@@ -586,6 +603,7 @@ declare global {
       "group-region": JSXHTMLElement
       "input": JSXHTMLInputElement
       "item": JSXHTMLElement
+      "legend": JSXHTMLElement
       "lock-icon": JSXHTMLElement
       "menu-accelerator": JSXHTMLElement
       "menu-checked": JSXHTMLElement

@@ -4,9 +4,22 @@ import * as electron from 'electron'
 
 // ******************************** 剪贴板对象 ********************************
 
+namespace Type {
+  type element = Node
+  export type node = {
+    [key: string]:
+      number |
+      boolean |
+      string |
+      element |
+      node |
+      node[]
+  }
+}
+
 interface Clipboard {
   has(format: any): boolean
-  read(format: any): any
+  read(format: any): Type.node
   write(format: any, object: any): void
 }
 

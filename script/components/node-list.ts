@@ -9,16 +9,29 @@ import {
 
 // ******************************** 树状列表 ********************************
 
+namespace Type {
+  type element = Node
+  export type node = {
+    [key: string]:
+      number |
+      boolean |
+      string |
+      element |
+      node |
+      node[]
+  }
+}
+
 class TreeList extends HTMLElement {
   display: string
   keyword: string
   searchResults: HTMLElement[]
-  creators: HTMLElement[]
-  updaters: HTMLElement[]
+  creators: ((element: Type.node) => void | Type.node)[]
+  updaters: ((element: Type.node) => void | Type.node)[]
   elements: HTMLElement[]
   root: any
   timer: Timer
-  selections: HTMLElement[]
+  selections: Type.node[]
   dragging: Event
   padded: boolean
   removable: boolean
@@ -31,6 +44,7 @@ class TreeList extends HTMLElement {
   popupEventEnabled: boolean
   openEventEnabled: boolean
   updateEventEnabled: boolean
+  data: Type.node[]
 
   constructor() {
     super()
@@ -284,7 +298,7 @@ class TreeList extends HTMLElement {
   }
 
   // 更新节点元素
-  updateNodeElement(element) {
+  updateNodeElement(element: Type.node) {
     const {item} = element
     if (!element.textNode) {
       // 创建折叠标记
@@ -391,7 +405,7 @@ class TreeList extends HTMLElement {
   }
 
   // 创建图标
-  createIcon(item) {
+  createIcon(item: Type.node) {
     const icon = document.createElement('node-icon')
     switch (item.class) {
       case 'folder':

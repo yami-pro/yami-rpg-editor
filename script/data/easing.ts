@@ -20,10 +20,18 @@ import {
 // ******************************** 过渡窗口 ********************************
 
 namespace Type {
+  export type node = {
+    [key: string]:
+      number |
+      boolean |
+      string |
+      node |
+      node[]
+  }
   export type list = HTMLElement & {
     saveSelection(): void
     restoreSelection(): void
-    updateNodeElement(element: HTMLElement): void
+    updateNodeElement(element: Type.node): void
     updateItemName(item: any): void
     addElementClass(item: any): void
     updateTextNode(item: any): void
@@ -1343,7 +1351,7 @@ Easing.list.restoreSelection = function () {
 }
 
 // 列表 - 重写更新节点元素方法
-Easing.list.updateNodeElement = function (element) {
+Easing.list.updateNodeElement = function (element: Type.node) {
   const {item} = element
   if (!element.textNode) {
     // 创建文本节点
