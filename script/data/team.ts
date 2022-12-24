@@ -74,6 +74,7 @@ interface Team {
   listChange(event: Event): void
   listPopup(event: Event): void
   confirm(event: Event): void
+  updateMark(item: Type.node): void
 }
 
 const Team = <Team>{}
