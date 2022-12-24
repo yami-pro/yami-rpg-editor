@@ -26,6 +26,9 @@ namespace Type {
       node |
       node[]
   }
+  export type list = node[] & {
+    items: Type.node[]
+  }
   export type meta = InstanceType<typeof Meta>
   export type manifest = Manifest & {[key: string]: meta[]}
   export type assert = {
@@ -305,7 +308,7 @@ Data.createEasingItems = function () {
 
 // 创建队伍选项
 Data.createTeamItems = function () {
-  const list = <Type.node[] & {items: Type.node[]}>this.teams?.list
+  const list = <Type.list>this.teams?.list
   let items = list.items
   if (items === undefined) {
     items = list.items = []
