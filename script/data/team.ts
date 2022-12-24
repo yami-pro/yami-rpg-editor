@@ -288,7 +288,7 @@ Team.listPointerdown = function (this: Type.list, event: PointerEvent) {
       // 设置队伍颜色
       const target = <HTMLElement>event.target
       if (target.hasClass('team-icon')) {
-        const element = <HTMLElement & Type.node>target.parentNode
+        const element = <Type.element>target.parentNode
         const team = <Type.node>element.item
         return Color.open({
           read: () => {
@@ -303,7 +303,7 @@ Team.listPointerdown = function (this: Type.list, event: PointerEvent) {
       }
       // 设置队伍关系
       if (target.hasClass('team-mark')) {
-        const element = <HTMLElement & Type.node>target.parentNode
+        const element = <Type.element>target.parentNode
         const teamA = this.read()
         const teamB = <Type.node>element.item
         if (teamA !== teamB) {
@@ -530,8 +530,8 @@ Team.list.updateItemName = function (item) {
 
 // 列表 - 创建标记
 Team.list.createMark = function (item) {
-  const element = <HTMLElement & Type.node>item.element
-  const mark = <HTMLElement & Type.node>document.createElement('text')
+  const element = <Type.element>item.element
+  const mark = <Type.element>document.createElement('text')
   mark.addClass('team-mark')
   element.mark = mark
   element.appendChild(mark)
