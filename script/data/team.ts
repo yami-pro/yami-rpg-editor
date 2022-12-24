@@ -74,7 +74,6 @@ interface Team {
   listChange(event: Event): void
   listPopup(event: Event): void
   confirm(event: Event): void
-  updateMark(item: Type.node): void
 }
 
 const Team = <Team>{}
@@ -309,8 +308,8 @@ Team.listPointerdown = function (this: Type.list, event: PointerEvent) {
         if (teamA !== teamB) {
           const relationsA = <Type.relation>teamA?.relations
           const relationsB = <Type.relation>teamB.relations
-          relationsA[<string>teamA?.id] ^= 1
-          relationsB[<string>teamB.id] ^= 1
+          relationsA[<string>teamB.id] ^= 1
+          relationsB[<string>teamA?.id] ^= 1
           this.updateMark(teamB)
           Team.changed = true
         }
