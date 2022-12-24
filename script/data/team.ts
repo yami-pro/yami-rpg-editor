@@ -342,7 +342,7 @@ Team.listChange = function (event) {
 }
 
 // 列表 - 菜单弹出事件
-Team.listPopup = function (event: Type.event) {
+Team.listPopup = function (this: Type.list, event: Type.event) {
   const item = event.value
   const length = Team.data?.length ?? 0
   const selected = !!item

@@ -406,7 +406,7 @@ class TreeList extends HTMLElement {
 
   // 创建图标
   createIcon(item: Type.node) {
-    const icon = document.createElement('node-icon')
+    const icon = <HTMLElement & Type.node>document.createElement('node-icon')
     switch (item.class) {
       case 'folder':
         icon.addClass('icon-folder')
