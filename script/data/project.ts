@@ -32,11 +32,11 @@ namespace Type {
     filter: string
     target: ParamList | null
     initialize(): void
-    parse(fontId: any): any
+    parse(fontId: string): string
     open(fontId?: string): void
-    save(): any
-    read(): any
-    input(fontId: any): void
+    save(): string | null
+    read(): string | null
+    input(fontId: string): void
   }
   export type event = Event & {
     key: 'config'

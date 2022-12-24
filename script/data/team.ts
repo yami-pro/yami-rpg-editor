@@ -58,17 +58,17 @@ interface Team {
   changed: boolean
   // methods
   initialize(): void
-  open(data: any): void
+  open(): void
   createId(): string
   createData(): Type.node
-  getItemById(id: any): any
+  getItemById(id: string): any
   unpackTeams(): void
   packTeams(): void
   // events
   windowClose(event: Event): void
   windowClosed(event: Event): void
   listKeydown(event: Event): void
-  listPointerdown(event: Event): any
+  listPointerdown(event: Event): void
   listSelect(event: Event): void
   listChange(event: Event): void
   listPopup(event: Event): void
@@ -117,7 +117,7 @@ Team.initialize = function () {
 }
 
 // 打开窗口
-Team.open = function (data) {
+Team.open = function () {
   Window.open('team')
 
   // 解包队伍数据
