@@ -48,6 +48,7 @@ namespace Type {
   }
   export type element = node & HTMLElement
   export type text = node & Text
+  export type relation = {[key: string]: number}
 }
 
 interface Team {
@@ -306,12 +307,10 @@ Team.listPointerdown = function (this: Type.list, event: PointerEvent) {
         const teamA = this.read()
         const teamB = <Type.node>element.item
         if (teamA !== teamB) {
-          const relationsA = <Type.node>teamA?.relations
-          const relationsB = <Type.node>teamB.relations
-          const valueA = <number>relationsA[<string>teamA?.id]
-          const valueB = <number>relationsB[<string>teamB.id]
-          relationsA[<string>teamA?.id] = valueA^1
-          relationsB[<string>teamB.id] = valueB^1
+          const relationsA = <Type.relation>teamA?.relations
+          const relationsB = <Type.relation>teamB.relations
+          relationsA[<string>teamA?.id] ^= 1
+          relationsB[<string>teamB.id] ^= 1
           this.updateMark(teamB)
           Team.changed = true
         }
