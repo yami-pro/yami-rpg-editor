@@ -43,13 +43,13 @@ interface Event_ext {
 
   spaceKey: boolean
   mode: string | null
-  value: string |
-         number |
-         boolean |
-         FolderItem |
-         FileItem |
-         (FolderItem | FileItem)[] |
-         null
+  // value: string |
+  //        number |
+  //        boolean |
+  //        FolderItem |
+  //        FileItem |
+  //        (FolderItem | FileItem)[] |
+  //        null
   scrollLeft: number
   scrollTop: number
   getRelativeCoords(element: Element): {x: number, y: number}

@@ -23,7 +23,7 @@ interface Element_props {
   countPerLine: number
   changed: boolean
   file: FolderItem | FileItem
-  context: EventTarget | null
+  // context: EventTarget | null
   fileIcon: EventTarget | null
   nameBox: EventTarget | null
   dataValue: any

@@ -50,11 +50,7 @@ interface Data {
   states: Type.node | null
   events: Type.node | null
   scripts: {[key: string]: Type.meta} | null
-  easings: Type.node[] & {
-    items: Type.node[]
-    map: Type.node
-    selection: string
-  } | null
+  easings: Type.node[] & Type.node | null
   teams: Type.node | null
   autotiles: Type.node[] | null
   variables: Type.node[] | null
@@ -287,7 +283,7 @@ Data.close = function () {
 Data.createEasingItems = function () {
   if (this.easings === null)
     return []
-  let items = this.easings.items
+  let items = <Type.node[]>this.easings.items
   if (items === undefined) {
     // 把属性写入数组中不会被保存到文件
     items = this.easings.items = []

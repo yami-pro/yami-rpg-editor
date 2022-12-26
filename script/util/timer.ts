@@ -33,6 +33,12 @@ class Timer {
   callback: Type.callback | Type.empty
   target: EventTarget | null
   running: boolean
+  state: 'first' |
+         'delay' |
+         'repeat' |
+         'wait' |
+         'waiting' |
+         'playing'
 
   constructor(params: {duration: number, update: Type.update | Type.empty, callback: Type.callback | Type.empty}) {
     const {duration, update, callback} = params

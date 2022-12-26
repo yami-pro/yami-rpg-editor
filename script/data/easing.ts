@@ -14,7 +14,12 @@ import {
   SetKey,
   Timer,
   Window,
-  Clipboard
+  Clipboard,
+  Log,
+  ErrorMsg,
+  RadioBox,
+  SelectBox,
+  NumberBox
 } from "../yami"
 
 // ******************************** 过渡窗口 ********************************
@@ -28,15 +33,17 @@ namespace Type {
       node |
       node[]
   }
-  export type list = HTMLElement & {
+  export type element = node & HTMLElement
+  export type text = node & Text
+  export type list = TreeList & {
     saveSelection(): void
     restoreSelection(): void
-    updateNodeElement(element: Type.node): void
-    updateItemName(item: any): void
-    addElementClass(item: any): void
-    updateTextNode(item: any): void
-    createKeyTextNode(item: any): void
-    updateKeyTextNode(item: any): void
+    updateNodeElement(element: element): void
+    updateItemName(item: node): void
+    addElementClass(item: node): void
+    updateTextNode(item: node): void
+    createKeyTextNode(item: node): void
+    updateKeyTextNode(item: node): void
   }
   export type point = {x: number, y: number}
   export type data = {
@@ -45,112 +52,142 @@ namespace Type {
     name: string
     points: point[]
   }
-  export type curveMap = typeof CurveMap
-  export type easingMap = typeof EasingMap
+  export type curveMap = IIFE.CurveMap
+  export type easingMap = IIFE.EasingMap
+  export type canvas = HTMLCanvasElement & {
+    centerX: number
+    centerY: number
+    spacing: number
+    context: CanvasRenderingContext2D | null
+    gridColor: string
+    axisColor: string
+    textColor: string
+    curveColor: string
+    curveColorActive: string
+    linkColorActive: string
+  }
+  export type linear = {map: (a: any) => any}
+  export type event = Event & {
+    key: string
+    value: Easing &
+           node &
+           string &
+           number
+  }
+  export type pointerEvent = PointerEvent & {
+    pointStartX: number
+    pointStartY: number
+  }
 }
 
 interface Easing {
   // properties
   list: Type.list
-  curve: HTMLElement
-  preview: HTMLElement
-  data: null
-  points: null
-  dragging: null
-  activePoint: null
-  scale: null
-  originX: null
-  originY: null
-  timer: null
-  reverse: null
-  elapsed: null
-  duration: null
-  delay: null
-  curveMap: null
-  easingMap: null
-  pointImage: null
-  previewImage: null
-  startPoint: null
-  endPoint: null
+  curve: Type.canvas
+  preview: Type.canvas
+  data: Type.node[] & Type.node | null
+  points: Type.point[]
+  dragging: Type.pointerEvent | null
+  activePoint: Type.point | null
+  scale: number
+  originX: number
+  originY: number
+  timer: Timer
+  reverse: boolean
+  elapsed: number
+  duration: number
+  delay: number
+  curveMap: Type.curveMap | null
+  easingMap: Type.easingMap | null
+  pointImage: HTMLImageElement | null
+  previewImage: HTMLCanvasElement | null
+  startPoint: Type.point
+  endPoint: Type.point
   changed: boolean
   // methods
   initialize(): void
-  get(id: any): any
+  get(id: string): Type.linear | Type.easingMap
   clear(): void
   open(): void
-  load(easing: any): void
-  insert(dItem: any): void
-  copy(item: any): void
-  paste(dItem: any): void
-  delete(item: any): void
+  load(easing: Easing): void
+  insert(dItem: Type.node): void
+  copy(item: Type.node): void
+  paste(dItem: Type.node): void
+  delete(item: Type.node): void
   createId(): string
   createData(): Type.data
-  setEasingKey(item: any): void
-  getItemById(id: any): any
+  setEasingKey(item: Type.node): void
+  getItemById(id: string): Type.node | undefined
   updateMaps(): void
   updateCanvases(): void
   drawCurve(): void
   drawPreview(): void
   updatePoints(): void
-  selectPointByCoords(mouseX: any, mouseY: any): any
+  selectPointByCoords(mouseX: number, mouseY: number): Type.point | null
   createPointImage(): void
   createPreviewImage(): void
   requestRendering(): void
   renderingFunction(): void
   stopRendering(): void
   // events
-  windowClose(event: Event): void
-  windowClosed(event: Event): void
-  dprchange(event: Event): void
-  themechange(event: Event): void
-  dataChange(event: Event): void
-  listKeydown(event: Event): void
-  listSelect(event: Event): void
-  listOpen(event: Event): void
-  listPopup(event: Event): void
-  modeSelect(event: Event): void
-  pointInput(event: Event): void
-  scaleInput(event: Event): void
-  curveKeydown(event: Event): void
-  curvePointerdown(event: Event): void
-  curveWheel(event: Event): void
-  curveBlur(event: Event): void
-  pointerup(event: Event): void
-  pointermove(event: Event): void
-  reverseInput(event: Event): void
-  durationInput(event: Event): void
-  delayInput(event: Event): void
-  confirm(event: Event): void
+  windowClose(event: Type.event): void
+  windowClosed(event: Type.event): void
+  dprchange(event: Type.event): void
+  themechange(event: Type.event): void
+  dataChange(event: Type.event): void
+  listKeydown(event: KeyboardEvent): void
+  listSelect(event: Type.event): void
+  listOpen(event: Type.event): void
+  listPopup(event: Type.event): void
+  modeSelect(event: Type.event): void
+  pointInput(event: Type.event): void
+  scaleInput(event: Type.event): void
+  curveKeydown(event: KeyboardEvent): void
+  curvePointerdown(event: Type.pointerEvent): void
+  curveWheel(event: Type.event): void
+  curveBlur(event: Type.event): void
+  pointerup(event: Type.pointerEvent): void
+  pointermove(event: Type.pointerEvent): void
+  reverseInput(event: Type.event): void
+  durationInput(event: Type.event): void
+  delayInput(event: Type.event): void
+  confirm(event: Type.event): void
   // classes
-  CurveMap: Type.curveMap
-  EasingMap: Type.easingMap
+  CurveMap: {
+    prototype: IIFE.CurveMap
+    new(): IIFE.CurveMap
+  }
+  EasingMap: {
+    prototype: IIFE.EasingMap
+    new(): IIFE.EasingMap
+  }
 }
 
 const Easing = <Easing>{}
 
 // ******************************** 过渡窗口加载 ********************************
 
-Easing.list = $('#easing-list')
+Easing.list = <Type.list>$('#easing-list')
 Easing.curve = $('#easing-curve-canvas')
 Easing.preview = $('#easing-preview-canvas')
 Easing.data = null
-Easing.points = null
-Easing.dragging = null
+// Easing.points = null
+// Easing.dragging = null
 Easing.activePoint = null
-Easing.scale = null
-Easing.originX = null
-Easing.originY = null
-Easing.timer = null
-Easing.reverse = null
-Easing.elapsed = null
-Easing.duration = null
-Easing.delay = null
-Easing.curveMap = null
-Easing.easingMap = null
+// Easing.scale = null
+// Easing.originX = null
+// Easing.originY = null
+// Easing.timer = null
+// Easing.reverse = null
+// Easing.elapsed = null
+// Easing.duration = null
+// Easing.delay = null
+// Easing.curveMap = null
+// Easing.easingMap = null
 Easing.pointImage = null
 Easing.previewImage = null
-Easing.startPoint = null
-Easing.endPoint = null
+// Easing.startPoint = null
+// Easing.endPoint = null
 Easing.changed = false
 
 // 初始化
@@ -219,6 +256,7 @@ Easing.initialize = function () {
           this.drawPreview()
           break
       }
+      return true
     },
     callback: timer => {
       switch (timer.state) {
@@ -281,41 +319,41 @@ Easing.initialize = function () {
 }
 
 // 创建作用域
-{
-const maps = {}
-const linear = {map: a => a}
-const get = id => {
-  // 返回现有映射表
-  const map = maps[id]
-  if (map !== undefined) {
-    return map
-  }
+namespace IIFE {
+  const maps: {[key: string]: Type.easingMap} = {}
+  const linear = {map: (a: any) => a}
+  export const get = (id: string) => {
+    // 返回现有映射表
+    const map = maps[id]
+    if (map !== undefined) {
+      return map
+    }
 
-  // 创建新的映射表
-  const easing = Data.easings.map[id]
-  if (easing) {
-    const {points} = easing
-    const {startPoint, endPoint} = Easing
-    const map = new Easing.EasingMap()
-    map.update(startPoint, ...points, endPoint)
-    return maps[id] = map
-  }
+    // 创建新的映射表
+    const easing = <Type.node>Data.easings?.map[id]
+    if (easing !== undefined) {
+      const points = <Type.point[]>easing.points
+      const {startPoint, endPoint} = Easing
+      const map = new Easing.EasingMap()
+      map.update(startPoint, ...points, endPoint)
+      return maps[id] = map
+    }
 
-  // 返回缺省值
-  return linear
-}
-const clear = () => {
-  for (const key of Object.keys(maps)) {
-    delete maps[key]
+    // 返回缺省值
+    return linear
+  }
+  export const clear = () => {
+    for (const key of Object.keys(maps)) {
+      delete maps[key]
+    }
   }
 }
 
 // 获取映射表
-Easing.get = get
+Easing.get = IIFE.get
 
 // 清除映射表集合
-Easing.clear = clear
-}
+Easing.clear = IIFE.clear
 
 // 打开窗口
 Easing.open = function () {
@@ -398,7 +436,7 @@ Easing.paste = function (dItem) {
 // 删除
 Easing.delete = function (item) {
   const items = this.data
-  if (items.length > 1) {
+  if (items !== null && items.length > 1) {
     const get = Local.createGetter('confirmation')
     Window.confirm({
       message: get('deleteSingleFile').replace('<filename>', item.name),
@@ -446,10 +484,12 @@ Easing.setEasingKey = function (item) {
 // 获取ID匹配的数据
 Easing.getItemById = function (id) {
   const {data} = this
-  const {length} = data
-  for (let i = 0; i < length; i++) {
-    if (data[i].id === id) {
-      return data[i]
+  if (data !== null) {
+    const {length} = data
+    for (let i = 0; i < length; i++) {
+      if (data[i].id === id) {
+        return data[i]
+      }
     }
   }
   return undefined
@@ -458,8 +498,8 @@ Easing.getItemById = function (id) {
 // 更新映射表
 Easing.updateMaps = function () {
   const {startPoint, endPoint} = this
-  this.curveMap.update(startPoint, ...this.points, endPoint)
-  this.easingMap.update(startPoint, ...this.points, endPoint)
+  this.curveMap?.update(startPoint, ...this.points, endPoint)
+  this.easingMap?.update(startPoint, ...this.points, endPoint)
 }
 
 // 更新画布
@@ -510,6 +550,10 @@ Easing.drawCurve = function () {
   if (!context) {
     context = canvas.context = canvas.getContext('2d', {desynchronized: true})
   }
+  if (context === null) {
+    Log.error(ErrorMsg.E00000062)
+    return
+  }
   context.clearRect(0, 0, width, height)
 
   // 绘制虚线网格
@@ -555,30 +599,34 @@ Easing.drawCurve = function () {
   context.setTransform(1, 0, 0, 1, 0, 0)
 
   // 绘制曲线
-  context.lineWidth = 2
-  context.strokeStyle = canvas.curveColor
-  context.beginPath()
-  context.moveTo(originX + 0.5, originY + 0.5)
-  const curveMap = this.curveMap
-  const count = curveMap.count
-  for (let i = 2; i < count; i += 2) {
-    context.lineTo(originX + curveMap[i] * fullSize + 0.5, originY - curveMap[i + 1] * fullSize + 0.5)
+  if (this.curveMap !== null) {
+    context.lineWidth = 2
+    context.strokeStyle = canvas.curveColor
+    context.beginPath()
+    context.moveTo(originX + 0.5, originY + 0.5)
+    const curveMap = this.curveMap
+    const count = curveMap.count
+    for (let i = 2; i < count; i += 2) {
+      context.lineTo(originX + curveMap[i] * fullSize + 0.5, originY - curveMap[i + 1] * fullSize + 0.5)
+    }
+    context.stroke()
   }
-  context.stroke()
 
   // 绘制激活曲线
-  context.strokeStyle = canvas.curveColorActive
-  context.beginPath()
-  context.moveTo(originX + 0.5, originY + 0.5)
-  const easingMap = this.easingMap
-  const ratio = easingMap.length - 1
-  const time = this.elapsed / this.duration
-  const length = Math.ceil(ratio * time) + 1
-  for (let i = 1; i < length; i++) {
-    context.lineTo(originX + i * fullSize / ratio + 0.5, originY - easingMap[i] * fullSize + 0.5)
+  if (this.easingMap !== null) {
+    context.strokeStyle = canvas.curveColorActive
+    context.beginPath()
+    context.moveTo(originX + 0.5, originY + 0.5)
+    const easingMap = this.easingMap
+    const ratio = easingMap.length - 1
+    const time = this.elapsed / this.duration
+    const length = Math.ceil(ratio * time) + 1
+    for (let i = 1; i < length; i++) {
+      context.lineTo(originX + i * fullSize / ratio + 0.5, originY - easingMap[i] * fullSize + 0.5)
+    }
+    context.stroke()
+    context.lineWidth = 1
   }
-  context.stroke()
-  context.lineWidth = 1
 
   // 绘制连接线
   const active = this.activePoint
@@ -637,11 +685,15 @@ Easing.drawPreview = function () {
   const width = canvas.width
   const height = canvas.height
   const image = this.previewImage
+  if (image === null) {
+    Log.error(ErrorMsg.E00000062)
+    return
+  }
   const size = image.height
   const halfsize = size / 2
   const spacingX = Math.floor((width - size * 4) / 5)
   const spacingY = Math.floor(height / 2)
-  const time = this.easingMap.map(this.elapsed / this.duration)
+  const time = this.easingMap?.map(this.elapsed / this.duration)
   const dpr = window.devicePixelRatio
 
   // 擦除画布
@@ -649,8 +701,14 @@ Easing.drawPreview = function () {
   if (!context) {
     context = canvas.context = canvas.getContext('2d', {desynchronized: true})
   }
+  if (context === null) {
+    Log.error(ErrorMsg.E00000062)
+    return
+  }
   context.clearRect(0, 0, width, height)
 
+  if (time === undefined)
+    return
   // 绘制位移元素
   {
     const offset = Math.round(60 * dpr)
@@ -723,10 +781,9 @@ Easing.selectPointByCoords = function (mouseX, mouseY) {
   const y = (this.originY - mouseY) / fullSize
   const ifSelectUpper = mouseY < 20
   const ifSelectLower = mouseY >= canvas.height - 20
-  const borderY =
-    ifSelectUpper ? this.originY / fullSize
-  : ifSelectLower ? (this.originY - canvas.height) / fullSize
-  : null
+  const borderY = ifSelectUpper ? 
+                  this.originY / fullSize : ifSelectLower ?
+                  (this.originY - canvas.height) / fullSize : 0
   const points = this.points
   for (let i = points.length - 1; i >= 0; i--) {
     const point = points[i]
@@ -768,6 +825,10 @@ Easing.createPreviewImage = function () {
     canvas.width = 480
     canvas.height = 120
     const context = canvas.getContext('2d')
+    if (context === null) {
+      Log.error(ErrorMsg.E00000062)
+      return
+    }
     const y = (canvas.height - 64) / 2 + 64 * 0.85
     context.fillStyle = '#000000'
     context.fillRect(0, 0, 480, 120)
@@ -819,12 +880,12 @@ Easing.windowClose = function (event) {
 }
 
 // 窗口 - 已关闭事件
-Easing.windowClosed = function (event) {
+Easing.windowClosed = function (this: Easing, event: Type.event) {
   this.list.saveSelection()
   this.curve.blur()
   this.timer.remove()
   this.data = null
-  this.points = null
+  this.points = []
   this.curveMap = null
   this.easingMap = null
   this.activePoint = null
@@ -834,7 +895,7 @@ Easing.windowClosed = function (event) {
 }.bind(Easing)
 
 // 设备像素比改变事件
-Easing.dprchange = function (event) {
+Easing.dprchange = function (this: Easing, event: Type.event) {
   if (this.data !== null) {
     this.updateCanvases()
     this.requestRendering()
@@ -842,7 +903,7 @@ Easing.dprchange = function (event) {
 }.bind(Easing)
 
 // 主题改变事件
-Easing.themechange = function (event) {
+Easing.themechange = function (this: Easing, event: Type.event) {
   const canvas = this.curve
   switch (event.value) {
     case 'light':
@@ -866,21 +927,23 @@ Easing.themechange = function (event) {
 }.bind(Easing)
 
 // 数据 - 改变事件
-Easing.dataChange = function (event) {
+Easing.dataChange = function (this: Easing, event: Type.event) {
   this.changed = true
   console.log(event)
 }.bind(Easing)
 
 // 列表 - 键盘按下事件
-Easing.listKeydown = function (event) {
+Easing.listKeydown = function (this: Type.list, event: KeyboardEvent) {
   const item = this.read()
+  if (item === null)
+    return
   if (event.cmdOrCtrlKey) {
     switch (event.code) {
       case 'KeyC':
         Easing.copy(item)
         break
       case 'KeyV':
-        Easing.paste()
+        Easing.paste(item)
         break
     }
   } else if (event.altKey) {
@@ -908,7 +971,7 @@ Easing.listOpen = function (event) {
 }
 
 // 列表 - 菜单弹出事件
-Easing.listPopup = function (event) {
+Easing.listPopup = function (this: Type.list, event) {
   const item = event.value
   const selected = !!item
   const pastable = Clipboard.has('yami.data.easing')
@@ -961,9 +1024,11 @@ Easing.listPopup = function (event) {
 }
 
 // 模式 - 选择事件
-Easing.modeSelect = function (event) {
+Easing.modeSelect = function (this: Easing, event: Type.event) {
   this.updatePoints()
   const points = this.points
+  if (this.easingMap === null)
+    return
   const easingMap = this.easingMap
   const write = getElementWriter('easing')
   const read = getElementReader('easing')
@@ -1018,7 +1083,7 @@ Easing.modeSelect = function (event) {
 }.bind(Easing)
 
 // 控制点输入框 - 输入事件
-Easing.pointInput = function (event) {
+Easing.pointInput = function (this: HTMLElement, event) {
   const key = Inspector.getKey(this)
   const value = this.read()
   const keys = key.split('-')
@@ -1036,13 +1101,13 @@ Easing.pointInput = function (event) {
 }
 
 // 缩放单选框 - 输入事件
-Easing.scaleInput = function (event) {
+Easing.scaleInput = function (this: Easing, event: Type.event) {
   this.scale = event.value
   this.requestRendering()
 }.bind(Easing)
 
 // 曲线画布 - 键盘按下事件
-Easing.curveKeydown = function (event) {
+Easing.curveKeydown = function (this: Easing, event: KeyboardEvent) {
   const point = this.activePoint
   if (point !== null) {
     switch (event.code) {
@@ -1091,7 +1156,7 @@ Easing.curveKeydown = function (event) {
 }.bind(Easing)
 
 // 曲线画布 - 指针按下事件
-Easing.curvePointerdown = function (event) {
+Easing.curvePointerdown = function (this: Easing, event: Type.pointerEvent) {
   switch (event.button) {
     case 0: {
       const coords = event.getRelativeCoords(this.curve)
@@ -1112,9 +1177,9 @@ Easing.curvePointerdown = function (event) {
 }.bind(Easing)
 
 // 曲线画布 - 鼠标滚轮事件
-Easing.curveWheel = function (event) {
+Easing.curveWheel = function (this: Easing, event: WheelEvent) {
   if (!this.dragging && event.deltaY !== 0) {
-    const radios = document.getElementsByName('easing-scale')
+    const radios = <NodeListOf<RadioBox>>document.getElementsByName('easing-scale')
     const length = radios.length
     for (let i = 0; i < length; i++) {
       if (radios[i].dataValue === this.scale) {
@@ -1130,7 +1195,7 @@ Easing.curveWheel = function (event) {
 }.bind(Easing)
 
 // 曲线画布 - 失去焦点事件
-Easing.curveBlur = function (event) {
+Easing.curveBlur = function (this: Easing, event: Type.event) {
   this.pointerup()
   if (this.activePoint !== null) {
     this.activePoint = null
@@ -1139,7 +1204,7 @@ Easing.curveBlur = function (event) {
 }.bind(Easing)
 
 // 指针弹起事件
-Easing.pointerup = function (event) {
+Easing.pointerup = function (this: Easing, event: Type.pointerEvent) {
   const {dragging} = this
   if (dragging === null) {
     return
@@ -1147,7 +1212,7 @@ Easing.pointerup = function (event) {
   if (event === undefined) {
     event = dragging
   }
-  if (this.dragging.relate(event)) {
+  if (this.dragging?.relate(event)) {
     this.dragging = null
     window.off('pointerup', this.pointerup)
     window.off('pointermove', this.pointermove)
@@ -1155,8 +1220,8 @@ Easing.pointerup = function (event) {
 }.bind(Easing)
 
 // 指针移动事件
-Easing.pointermove = function (event) {
-  if (this.activePoint !== null) {
+Easing.pointermove = function (this: Easing, event: Type.pointerEvent) {
+  if (this.dragging !== null && this.activePoint !== null) {
     const dragging = this.dragging
     const point = this.activePoint
     const index = this.points.indexOf(point)
@@ -1178,12 +1243,12 @@ Easing.pointermove = function (event) {
 }.bind(Easing)
 
 // 回放 - 输入事件
-Easing.reverseInput = function (event) {
+Easing.reverseInput = function (this: SelectBox, event) {
   Easing.reverse = this.read()
 }
 
 // 持续时间 - 输入事件
-Easing.durationInput = function (event) {
+Easing.durationInput = function (this: NumberBox, event) {
   Easing.duration = this.read()
   const timer = Easing.timer
   if (timer.state === 'playing') {
@@ -1194,7 +1259,7 @@ Easing.durationInput = function (event) {
 }
 
 // 延时 - 输入事件
-Easing.delayInput = function (event) {
+Easing.delayInput = function (this: NumberBox, event) {
   Easing.delay = this.read()
   const timer = Easing.timer
   if (timer.state === 'waiting') {
@@ -1205,73 +1270,73 @@ Easing.delayInput = function (event) {
 }
 
 // 确定按钮 - 鼠标点击事件
-Easing.confirm = function (event) {
+Easing.confirm = function (this: Easing, event: Type.pointerEvent) {
   if (this.changed) {
     this.changed = false
     this.clear()
     // 删除数据绑定的元素对象
     const easings = this.data
+    if (easings === null)
+      return
     TreeList.deleteCaches(easings)
     Data.easings = easings
     Data.createGUIDMap(easings)
-    File.planToSave(Data.manifest.project.easings)
+    File.planToSave(Data.manifest?.project.easings)
     // 发送数据改变事件
-    const datachange = new Event('datachange')
+    const datachange = <Type.event>new Event('datachange')
     datachange.key = 'easings'
     window.dispatchEvent(datachange)
   }
   Window.close('easing')
 }.bind(Easing)
 
-// 三次方曲线映射表类 - 必须使用Float64
-// 因为Float32会导致部分点参数出现绘制BUG:线条变粗
-// Chromium78-89都存在这个BUG而Chromium69是正常的
-class CurveMap extends Float64Array {
-  count //:number
+namespace IIFE {
+  // 三次方曲线映射表类 - 必须使用Float64
+  // 因为Float32会导致部分点参数出现绘制BUG:线条变粗
+  // Chromium78-89都存在这个BUG而Chromium69是正常的
+  export class CurveMap extends Float64Array {
+    count: number
 
-  constructor() {
-    super(6002)
-  }
-
-  // 更新数据
-  update(...points) {
-    const length = points.length - 1
-    for (let i = 0; i < length; i += 3) {
-      const {x: x0, y: y0} = points[i]
-      const {x: x1, y: y1} = points[i + 1]
-      const {x: x2, y: y2} = points[i + 2]
-      const {x: x3, y: y3} = points[i + 3]
-      const offset = (i / 3) * 2000
-      for (let i = 0; i <= 1000; i++) {
-        const t0 = i / 1000
-        const t1 = 1 - t0
-        const n0 = t1 ** 3
-        const n1 = 3 * t0 * t1 ** 2
-        const n2 = 3 * t0 ** 2 * t1
-        const n3 = t0 ** 3
-        const x = x0 * n0 + x1 * n1 + x2 * n2 + x3 * n3
-        const y = y0 * n0 + y1 * n1 + y2 * n2 + y3 * n3
-        this[offset + i * 2] = x
-        this[offset + i * 2 + 1] = y
-      }
+    constructor() {
+      super(6002)
     }
-    this.count = Math.floor(points.length / 3) * 2000 + 2
+
+    // 更新数据
+    update(...points: Type.point[]) {
+      const length = points.length - 1
+      for (let i = 0; i < length; i += 3) {
+        const {x: x0, y: y0} = points[i]
+        const {x: x1, y: y1} = points[i + 1]
+        const {x: x2, y: y2} = points[i + 2]
+        const {x: x3, y: y3} = points[i + 3]
+        const offset = (i / 3) * 2000
+        for (let i = 0; i <= 1000; i++) {
+          const t0 = i / 1000
+          const t1 = 1 - t0
+          const n0 = t1 ** 3
+          const n1 = 3 * t0 * t1 ** 2
+          const n2 = 3 * t0 ** 2 * t1
+          const n3 = t0 ** 3
+          const x = x0 * n0 + x1 * n1 + x2 * n2 + x3 * n3
+          const y = y0 * n0 + y1 * n1 + y2 * n2 + y3 * n3
+          this[offset + i * 2] = x
+          this[offset + i * 2 + 1] = y
+        }
+      }
+      this.count = Math.floor(points.length / 3) * 2000 + 2
+    }
   }
-}
 
-Easing.CurveMap = CurveMap
-
-// 过渡映射表类
-const EasingMap = function IIFE() {
+  // 过渡映射表类
   const SCALE = 1000
   const round = Math.round
-  return class EasingMap extends Float32Array {
+  export class EasingMap extends Float32Array {
     constructor() {
       super(SCALE + 1)
     }
 
     // 更新数据
-    update(...points) {
+    update(...points: Type.point[]) {
       const length = points.length - 1
       let pos = -1
       for (let i = 0; i < length; i += 3) {
@@ -1307,7 +1372,7 @@ const EasingMap = function IIFE() {
     }
 
     // 映射
-    map(time) {
+    map(time: number) {
       return this[round(time * SCALE)]
     }
 
@@ -1321,28 +1386,31 @@ const EasingMap = function IIFE() {
       return instance.update(p1, p2, p3, p4)
     }()
   }
-}()
+}
 
-Easing.EasingMap = EasingMap
+Easing.CurveMap = IIFE.CurveMap
+Easing.EasingMap = IIFE.EasingMap
 
 // 列表 - 保存选项状态
 Easing.list.saveSelection = function () {
   const {easings} = Data
   // 将数据保存在外部可以切换项目后重置
-  if (easings.selection === undefined) {
+  if (easings !== null && easings.selection === undefined) {
     Object.defineProperty(easings, 'selection', {
       writable: true,
       value: '',
     })
   }
   const selection = this.read()
-  if (selection) {
-    easings.selection = selection.id
+  if (easings !== null && selection !== null) {
+    easings.selection = <string>selection.id
   }
 }
 
 // 列表 - 恢复选项状态
 Easing.list.restoreSelection = function () {
+  if (Data.easings === null)
+    return
   const id = Data.easings.selection
   const item = Easing.getItemById(id) ?? this.data[0]
   this.select(item)
@@ -1351,11 +1419,11 @@ Easing.list.restoreSelection = function () {
 }
 
 // 列表 - 重写更新节点元素方法
-Easing.list.updateNodeElement = function (element: Type.node) {
-  const {item} = element
+Easing.list.updateNodeElement = function (element: Type.element) {
+  const item = <Type.node>element
   if (!element.textNode) {
     // 创建文本节点
-    const textNode = document.createTextNode('')
+    const textNode = <Type.text>document.createTextNode('')
     element.appendChild(textNode)
     
 
@@ -1383,13 +1451,16 @@ Easing.list.updateItemName = function (item) {
 
 // 列表 - 添加元素类名
 Easing.list.addElementClass = function (item) {
-  item.element.addClass('plain')
+  const element = <Type.element>item.element
+  element.addClass('plain')
 }
 
 // 列表 - 更新文本节点
 Easing.list.updateTextNode = function (item) {
-  const textNode = item.element.textNode
-  const items = item.parent.children
+  const element = <Type.element>item.element
+  const textNode = <Type.node>element.textNode
+  const parent = <Type.node>item.parent
+  const items = <Type.node[]>parent.children
   const index = items.indexOf(item)
   const length = items.length
   const digits = Number.computeIndexDigits(length)
@@ -1402,16 +1473,18 @@ Easing.list.updateTextNode = function (item) {
 
 // 创建键文本节点
 Easing.list.createKeyTextNode = function (item) {
-  const keyTextNode = document.createElement('text')
+  const keyTextNode = <Type.element>document.createElement('text')
   keyTextNode.key = ''
   keyTextNode.addClass('variable-init-text')
-  item.element.appendChild(keyTextNode)
-  item.element.keyTextNode = keyTextNode
+  const element = <Type.element>item.element
+  element.appendChild(keyTextNode)
+  element.keyTextNode = keyTextNode
 }
 
 // 更新键文本节点
 Easing.list.updateKeyTextNode = function (item) {
-  const keyTextNode = item.element.keyTextNode
+  const element = <Type.element>item.element
+  const keyTextNode = <Type.node>element.keyTextNode
   const key = item.key
   if (keyTextNode.key !== key) {
     keyTextNode.key = key
