@@ -1419,7 +1419,7 @@ Easing.list.restoreSelection = function () {
 
 // 列表 - 重写更新节点元素方法
 Easing.list.updateNodeElement = function (element: Type.element) {
-  const item = <Type.node>element
+  const item = <Type.node>element.item
   if (!element.textNode) {
     // 创建文本节点
     const textNode = <Type.text>document.createTextNode('')
