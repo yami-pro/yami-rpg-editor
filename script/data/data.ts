@@ -58,8 +58,11 @@ interface Data {
       }
     }
     selection: string
+    items: Type.node[]
   } | null
-  teams: Type.node | null
+  teams: Type.node & {
+    list: Type.list
+  } | null
   autotiles: Type.node[] | null
   variables: Type.node[] | null
   attribute: Type.node | null
@@ -68,8 +71,16 @@ interface Data {
   commands: Type.node[] | null
   config: Type.node | null
   scenes: Type.node | null
-  ui: Type.node | null
-  animations: Type.node | null
+  ui: {
+    [key: string]: Type.node & {
+      nodes: Type.node[]
+    }
+  } | null
+  animations: {
+    [key: string]: Type.node & {
+      motions: Type.node[]
+    }
+  } | null
   particles: Type.node | null
   tilesets: Type.node | null
   // methods
@@ -126,11 +137,10 @@ Data.particles = null
 Data.tilesets = null
 
 Data.fuck = function () {
-  const animations = <Type.node>this.animations
-  for (let [key, animation] of Object.entries(animations)) {
-    animation = <Type.node>animation
-    const motions = <Type.node[]>animation.motions
-    for (const motion of motions) {
+  if (this.animations === null)
+    return
+  for (let [key, animation] of Object.entries(this.animations)) {
+    for (const motion of animation.motions) {
       const dirMap = motion.dirMap
       delete motion.dirMap
       motion.dirCases = dirMap
@@ -248,8 +258,8 @@ Data.loadScene = async function (guid) {
   }).then(
     code => {
       try {
-        if (scenes !== null) {
-          scenes[guid] = <Type.node>code
+        if (code !== null && scenes !== null) {
+          scenes[guid] = code
         }
         return Codec.decodeScene(code)
       } catch (error) {
@@ -291,7 +301,7 @@ Data.close = function () {
 Data.createEasingItems = function () {
   if (this.easings === null)
     return []
-  let items = <Type.node[]>this.easings.items
+  let items = this.easings.items
   if (items === undefined) {
     // 把属性写入数组中不会被保存到文件
     items = this.easings.items = []
@@ -312,7 +322,9 @@ Data.createEasingItems = function () {
 
 // 创建队伍选项
 Data.createTeamItems = function () {
-  const list = <Type.list>this.teams?.list
+  const list = this.teams?.list
+  if (list == undefined)
+    return []
   let items = list.items
   if (items === undefined) {
     items = list.items = []
@@ -364,7 +376,9 @@ Data.createGUIDMap = function (list) {
 // 创建队伍映射表
 Data.createTeamMap = function () {
   const map: Type.node = {}
-  const list = <Type.node[]>this.teams?.list
+  const list = this.teams?.list
+  if (list === undefined)
+    return
   for (const item of list) {
     map[<string>item.id] = item
   }
@@ -378,8 +392,9 @@ Data.createTeamMap = function () {
 Data.createVariableMap = function IIFE() {
   const set = (items: Type.node[], map: Type.node) => {
     for (const item of items) {
-      if (item.children) {
-        set(<Type.node[]>item.children, map)
+      const children = <Type.node[]>item.children
+      if (children && children.length !== 0) {
+        set(children, map)
       } else {
         map[<string>item.id] = item
       }
@@ -432,11 +447,11 @@ Data.addUILinks = function IIFE() {
   return function (this: Data, uiId: string) {
     if (this.ui === null)
       return
-    const ui = <Type.node>this.ui[uiId]
+    const ui = this.ui[uiId]
     if (ui) {
       guid = uiId
       uiLinks = this.uiLinks
-      setMap(<Type.node[]>ui.nodes)
+      setMap(ui.nodes)
       uiLinks = null
     }
   }
@@ -454,7 +469,7 @@ Data.removeUILinks = function IIFE() {
       if (uiLinks[<string>presetId] === guid) {
         delete uiLinks[<string>presetId]
       }
-      const children = <Type.node []>node.children
+      const children = <Type.node[]>node.children
       if (children.length !== 0) {
         unlink(children)
       }
@@ -463,11 +478,11 @@ Data.removeUILinks = function IIFE() {
   return function (this: Data, uiId: string) {
     if (this.ui === null)
       return
-    const ui = <Type.node>this.ui[uiId]
+    const ui = this.ui[uiId]
     if (ui) {
       guid = uiId
       uiLinks = this.uiLinks
-      unlink(<Type.node[]>ui.nodes)
+      unlink(ui.nodes)
       uiLinks = null
     }
   }
