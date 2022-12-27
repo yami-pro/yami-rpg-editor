@@ -69,9 +69,8 @@ namespace Type {
   export type linear = {map: (a: any) => any}
   export type event = Event & {
     key: string
-    value: Easing &
-           node &
-           string &
+    value: (node & Easing) |
+           string |
            number
   }
   export type pointerEvent = PointerEvent & {
@@ -163,7 +162,7 @@ interface Easing {
   }
 }
 
-const Easing = <Easing>{}
+const Easing = <Easing & Type.node>{}
 
 // ******************************** 过渡窗口加载 ********************************
 
@@ -330,9 +329,9 @@ namespace IIFE {
     }
 
     // 创建新的映射表
-    const easing = <Type.node>Data.easings?.map[id]
+    const easing = Data.easings?.map[id]
     if (easing !== undefined) {
-      const points = <Type.point[]>easing.points
+      const points = easing.points
       const {startPoint, endPoint} = Easing
       const map = new Easing.EasingMap()
       map.update(startPoint, ...points, endPoint)
@@ -962,17 +961,17 @@ Easing.listKeydown = function (this: Type.list, event: KeyboardEvent) {
 
 // 列表 - 选择事件
 Easing.listSelect = function (event) {
-  Easing.load(event.value)
+  Easing.load(<Easing>event.value)
 }
 
 // 列表 - 打开事件
 Easing.listOpen = function (event) {
-  Easing.setEasingKey(event.value)
+  Easing.setEasingKey(<Type.node>event.value)
 }
 
 // 列表 - 菜单弹出事件
 Easing.listPopup = function (this: Type.list, event) {
-  const item = event.value
+  const item = <Type.node>event.value
   const selected = !!item
   const pastable = Clipboard.has('yami.data.easing')
   const deletable = selected && Easing.data.length > 1

@@ -36,6 +36,7 @@ namespace Type {
     x?: number
     y?: number
   }
+  export type point = {x: number, y: number}
 }
 
 interface Data {
@@ -50,7 +51,14 @@ interface Data {
   states: Type.node | null
   events: Type.node | null
   scripts: {[key: string]: Type.meta} | null
-  easings: Type.node[] & Type.node | null
+  easings: Type.node[] & {
+    map: {
+      [key: string]: Type.node & {
+        points: Type.point[]
+      }
+    }
+    selection: string
+  } | null
   teams: Type.node | null
   autotiles: Type.node[] | null
   variables: Type.node[] | null
