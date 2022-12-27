@@ -30,7 +30,9 @@ namespace Type {
     items: Type.node[]
   }
   export type meta = InstanceType<typeof Meta>
-  export type manifest = Manifest & {[key: string]: meta[]}
+  export type manifest = Manifest & {
+    [key: string]: meta[]
+  }
   export type assert = {
     path: string
     x?: number
@@ -50,7 +52,10 @@ interface Data {
   equipments: Type.node | null
   states: Type.node | null
   events: Type.node | null
-  scripts: {[key: string]: Type.meta} | null
+  scripts: {
+    [key: string]: Type.meta
+  } | null
+
   easings: Type.node[] & {
     map: {
       [key: string]: Type.node & {
@@ -60,9 +65,11 @@ interface Data {
     selection: string
     items: Type.node[]
   } | null
+
   teams: Type.node & {
     list: Type.list
   } | null
+
   autotiles: Type.node[] | null
   variables: Type.node[] | null
   attribute: Type.node | null
@@ -76,11 +83,13 @@ interface Data {
       nodes: Type.node[]
     }
   } | null
+
   animations: {
     [key: string]: Type.node & {
       motions: Type.node[]
     }
   } | null
+  
   particles: Type.node | null
   tilesets: Type.node | null
   // methods

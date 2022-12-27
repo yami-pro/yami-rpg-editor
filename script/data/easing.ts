@@ -84,7 +84,7 @@ interface Easing {
   list: Type.list
   curve: Type.canvas
   preview: Type.canvas
-  data: Type.node[] & Type.node | null
+  data: typeof Data.easings
   points: Type.point[]
   dragging: Type.pointerEvent | null
   activePoint: Type.point | null
@@ -1088,8 +1088,10 @@ Easing.pointInput = function (this: HTMLElement, event) {
   const keys = key.split('-')
   const end = keys.length - 1
   let node = Easing.list.read()
+  if (node === null)
+    return
   for (let i = 0; i < end; i++) {
-    node = node[keys[i]]
+    node = <Type.node>node[keys[i]]
   }
   const property = keys[end]
   if (node[property] !== value) {
@@ -1101,7 +1103,7 @@ Easing.pointInput = function (this: HTMLElement, event) {
 
 // 缩放单选框 - 输入事件
 Easing.scaleInput = function (this: Easing, event: Type.event) {
-  this.scale = event.value
+  this.scale = <number>event.value
   this.requestRendering()
 }.bind(Easing)
 
@@ -1194,8 +1196,8 @@ Easing.curveWheel = function (this: Easing, event: WheelEvent) {
 }.bind(Easing)
 
 // 曲线画布 - 失去焦点事件
-Easing.curveBlur = function (this: Easing, event: Type.event) {
-  this.pointerup()
+Easing.curveBlur = function (this: Easing, event: Type.pointerEvent) {
+  this.pointerup(event)
   if (this.activePoint !== null) {
     this.activePoint = null
     this.requestRendering()
