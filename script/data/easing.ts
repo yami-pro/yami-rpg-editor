@@ -35,7 +35,7 @@ namespace Type {
   }
   export type element = node & HTMLElement
   export type text = node & Text
-  export type list = TreeList & {
+  export type treeList = TreeList & {
     saveSelection(): void
     restoreSelection(): void
     updateNodeElement(element: element): void
@@ -66,7 +66,9 @@ namespace Type {
     curveColorActive: string
     linkColorActive: string
   }
-  export type linear = {map: (a: any) => any}
+  export type linear = {
+    get: (key: any) => any
+  }
   export type event = Event & {
     key: string
     value: (node & Easing) |
@@ -81,7 +83,7 @@ namespace Type {
 
 interface Easing {
   // properties
-  list: Type.list
+  list: Type.treeList
   curve: Type.canvas
   preview: Type.canvas
   data: typeof Data.easings
@@ -166,27 +168,13 @@ const Easing = <Easing & Type.node>{}
 
 // ******************************** 过渡窗口加载 ********************************
 
-Easing.list = <Type.list>$('#easing-list')
+Easing.list = <Type.treeList>$('#easing-list')
 Easing.curve = $('#easing-curve-canvas')
 Easing.preview = $('#easing-preview-canvas')
 Easing.data = null
-// Easing.points = null
-// Easing.dragging = null
 Easing.activePoint = null
-// Easing.scale = null
-// Easing.originX = null
-// Easing.originY = null
-// Easing.timer = null
-// Easing.reverse = null
-// Easing.elapsed = null
-// Easing.duration = null
-// Easing.delay = null
-// Easing.curveMap = null
-// Easing.easingMap = null
 Easing.pointImage = null
 Easing.previewImage = null
-// Easing.startPoint = null
-// Easing.endPoint = null
 Easing.changed = false
 
 // 初始化
@@ -320,7 +308,9 @@ Easing.initialize = function () {
 // 创建作用域
 namespace IIFE {
   const maps: {[key: string]: Type.easingMap} = {}
-  const linear = {map: (a: any) => a}
+  const linear: Type.linear = {
+    get: (key: any) => key
+  }
   export const get = (id: string) => {
     // 返回现有映射表
     const map = maps[id]
@@ -692,7 +682,7 @@ Easing.drawPreview = function () {
   const halfsize = size / 2
   const spacingX = Math.floor((width - size * 4) / 5)
   const spacingY = Math.floor(height / 2)
-  const time = this.easingMap?.map(this.elapsed / this.duration)
+  const time = this.easingMap?.get(this.elapsed / this.duration)
   const dpr = window.devicePixelRatio
 
   // 擦除画布
@@ -812,7 +802,7 @@ Easing.createPointImage = function () {
       local: 'images/curve_mark.png',
       type: 'image',
     }).then(image => {
-      this.pointImage = image
+      this.pointImage = <HTMLImageElement>image
     })
   }
 }
@@ -932,7 +922,7 @@ Easing.dataChange = function (this: Easing, event: Type.event) {
 }.bind(Easing)
 
 // 列表 - 键盘按下事件
-Easing.listKeydown = function (this: Type.list, event: KeyboardEvent) {
+Easing.listKeydown = function (this: Type.treeList, event: KeyboardEvent) {
   const item = this.read()
   if (item === null)
     return
@@ -970,7 +960,7 @@ Easing.listOpen = function (event) {
 }
 
 // 列表 - 菜单弹出事件
-Easing.listPopup = function (this: Type.list, event) {
+Easing.listPopup = function (this: Type.treeList, event) {
   const item = <Type.node>event.value
   const selected = !!item
   const pastable = Clipboard.has('yami.data.easing')
@@ -1038,11 +1028,11 @@ Easing.modeSelect = function (this: Easing, event: Type.event) {
     const left = 0
     const right = 1
     const startX = left + (right - left) / 2
-    const startY = easingMap.map(startX)
+    const startY = easingMap.get(startX)
     const ctrlX0 = startX + (right - startX) / 3
-    const ctrlY0 = easingMap.map(ctrlX0)
+    const ctrlY0 = easingMap.get(ctrlX0)
     const ctrlX1 = startX + (right - startX) * 2 / 3
-    const ctrlY1 = easingMap.map(ctrlX1)
+    const ctrlY1 = easingMap.get(ctrlX1)
     write('points-2-x', startX)
     write('points-2-y', startY)
     write('points-3-x', ctrlX0)
@@ -1061,11 +1051,11 @@ Easing.modeSelect = function (this: Easing, event: Type.event) {
     const left = points[2].x
     const right = 1
     const startX = left + (right - left) / 2
-    const startY = easingMap.map(startX)
+    const startY = easingMap.get(startX)
     const ctrlX0 = startX + (right - startX) / 3
-    const ctrlY0 = easingMap.map(ctrlX0)
+    const ctrlY0 = easingMap.get(ctrlX0)
     const ctrlX1 = startX + (right - startX) * 2 / 3
-    const ctrlY1 = easingMap.map(ctrlX1)
+    const ctrlY1 = easingMap.get(ctrlX1)
     write('points-5-x', startX)
     write('points-5-y', startY)
     write('points-6-x', ctrlX0)
@@ -1373,7 +1363,7 @@ namespace IIFE {
     }
 
     // 映射
-    map(time: number) {
+    get(time: number) {
       return this[round(time * SCALE)]
     }
 

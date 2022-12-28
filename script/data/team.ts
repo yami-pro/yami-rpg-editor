@@ -27,7 +27,7 @@ namespace Type {
       node |
       node[]
   }
-  export type list = TreeList & {
+  export type treeList = TreeList & {
     insert(dItem: Type.node): void
     copy(item: Type.node): void
     paste(dItem: Type.node): void
@@ -46,15 +46,26 @@ namespace Type {
     key: string
     value: node
   }
-  export type element = node & HTMLElement
+  export type element = HTMLElement & node & {
+    item: Type.node
+  }
   export type text = node & Text
-  export type relation = {[key: string]: number}
+  export type relation = {
+    [key: string]: number
+  }
 }
 
 interface Team {
   // properties
-  list: Type.list
-  data: Type.node[] | null
+  list: Type.treeList
+  data: (Type.node & {
+    element: Type.node
+  })[] & {
+    [index: number]: Type.node & {
+      relations: Type.node
+    }
+  } | null
+
   maximum: number
   changed: boolean
   // methods
@@ -62,7 +73,7 @@ interface Team {
   open(): void
   createId(): string
   createData(): Type.node
-  getItemById(id: string): any
+  getItemById(id: string): Type.node | undefined
   unpackTeams(): void
   packTeams(): void
   // events
@@ -81,7 +92,7 @@ const Team = <Team>{}
 
 // ******************************** 队伍窗口加载 ********************************
 
-Team.list = <Type.list>$('#team-list')
+Team.list = <Type.treeList>$('#team-list')
 Team.data = null
 Team.changed = false
 
@@ -168,7 +179,7 @@ Team.unpackTeams = function () {
   if (Data.teams === null)
     return 
   const code = Data.teams.relations
-  const items = <Type.node[]>Data.teams.list
+  const items = Data.teams.list
   const length = items.length
   const sRelations = Codec.decodeRelations(code, length)
   const copies = new Array(length)
@@ -207,7 +218,7 @@ Team.packTeams = function () {
   let ri = 0
   for (let i = 0; i < length; i++) {
     const item = items[i]
-    const sRelations = <Type.node>item.relations
+    const sRelations = item.relations
     for (let j = i; j < length; j++) {
       dRelations[ri++] = sRelations[<string>items[j].id]
     }
@@ -220,10 +231,10 @@ Team.packTeams = function () {
   const code = Codec.encodeRelations(
     new Uint8Array(dRelations.buffer, 0, ri)
   )
-  const teams = <Type.node>Data.teams
+  const teams = Data.teams
   if (teams !== null) {
-    teams.list = <Type.node[]>copies
-    teams.relations = <Type.node>code
+    teams.list = <typeof teams.list>copies
+    teams.relations = code
   }
   Data.createTeamMap()
 }
@@ -254,7 +265,7 @@ Team.windowClosed = function (this: Team, event: Event) {
 }.bind(Team)
 
 // 列表 - 键盘按下事件
-Team.listKeydown = function (this: Type.list, event: KeyboardEvent) {
+Team.listKeydown = function (this: Type.treeList, event: KeyboardEvent) {
   const item = this.read()
   if (item === null)
     return
@@ -282,14 +293,14 @@ Team.listKeydown = function (this: Type.list, event: KeyboardEvent) {
 }
 
 // 列表 - 指针按下事件
-Team.listPointerdown = function (this: Type.list, event: PointerEvent) {
+Team.listPointerdown = function (this: Type.treeList, event: PointerEvent) {
   switch (event.button) {
     case 0:
       // 设置队伍颜色
-      const target = <HTMLElement>event.target
+      const target = <Type.element>event.target
       if (target.hasClass('team-icon')) {
         const element = <Type.element>target.parentNode
-        const team = <Type.node>element.item
+        const team = element.item
         return Color.open({
           read: () => {
             return team.color
@@ -305,7 +316,7 @@ Team.listPointerdown = function (this: Type.list, event: PointerEvent) {
       if (target.hasClass('team-mark')) {
         const element = <Type.element>target.parentNode
         const teamA = this.read()
-        const teamB = <Type.node>element.item
+        const teamB = element.item
         if (teamA !== teamB) {
           const relationsA = <Type.relation>teamA?.relations
           const relationsB = <Type.relation>teamB.relations
@@ -325,7 +336,7 @@ Team.listSelect = function (event) {
     return
   // 更新队伍关系
   for (const team of this.data) {
-    const element = <Type.node>team.element
+    const element = team.element
     if (element !== undefined) {
       element.changed = true
       if (element.parentNode) {
@@ -341,7 +352,7 @@ Team.listChange = function (event) {
 }
 
 // 列表 - 菜单弹出事件
-Team.listPopup = function (this: Type.list, event: Type.event) {
+Team.listPopup = function (this: Type.treeList, event: Type.event) {
   const item = event.value
   const length = Team.data?.length ?? 0
   const selected = !!item
@@ -409,7 +420,7 @@ Team.list.insert = function (dItem) {
     const team = Team.createData()
     const id = <string>team.id
     for (const item of this.data) {
-      const relations = <Type.node>item.relations
+      const relations = item.relations
       relations[id] = 0
     }
     this.addNodeTo(team, dItem)
@@ -431,8 +442,8 @@ Team.list.paste = function (dItem) {
     const cRelations = <Type.node>copy.relations
     const dRelations: Type.node = {}
     for (const item of this.data) {
-      const sId = <string>item.id
-      const sRelations = <Type.node>item.relations
+      const sId = item.id
+      const sRelations = item.relations
       const code = cRelations[sId] ?? 0
       sRelations[dId] = code
       dRelations[sId] = code
@@ -456,11 +467,11 @@ Team.list.delete = function (item) {
       label: get('yes'),
       click: () => {
         const id = <string>item.id
-        for (const item of items) {
-          const relations = <Type.node>item.relations
+        for (const _item of items) {
+          const relations = _item.relations
           delete relations[id]
         }
-        const index = items.indexOf(item)
+        const index = items.indexOf(<typeof items[0]>item)
         this.deleteNode(item)
         const last = items.length - 1
         this.select(items[Math.min(index, last)])
@@ -473,7 +484,9 @@ Team.list.delete = function (item) {
 
 // 列表 - 保存选项状态
 Team.list.saveSelection = function () {
-  const teams = <Type.node>Data.teams
+  const teams = Data.teams
+  if (teams === null)
+    return
   // 将数据保存在外部可以切换项目后重置
   if (teams.selection === undefined) {
     Object.defineProperty(teams, 'selection', {

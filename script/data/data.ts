@@ -26,9 +26,6 @@ namespace Type {
       node |
       node[]
   }
-  export type list = node[] & {
-    items: Type.node[]
-  }
   export type meta = InstanceType<typeof Meta>
   export type manifest = Manifest & {
     [key: string]: meta[]
@@ -67,7 +64,10 @@ interface Data {
   } | null
 
   teams: Type.node & {
-    list: Type.list
+    list: Type.node[] & {
+      items: Type.node[]
+    }
+    relations: Type.node
   } | null
 
   autotiles: Type.node[] | null
@@ -76,7 +76,11 @@ interface Data {
   enumeration: Type.node | null
   plugins: Type.node[] | null
   commands: Type.node[] | null
-  config: Type.node | null
+  config: Type.node & {
+    window: Type.node & {
+      title: Type.node
+    }
+  } | null
   scenes: Type.node | null
   ui: {
     [key: string]: Type.node & {
@@ -89,7 +93,7 @@ interface Data {
       motions: Type.node[]
     }
   } | null
-  
+
   particles: Type.node | null
   tilesets: Type.node | null
   // methods
@@ -235,7 +239,7 @@ Data.loadFile = async function (filename) {
         this.manifest.project[filename] = meta
         this.manifest.guidMap[meta.guid] = meta
       }
-      const node = <Data & Type.node>this
+      const node = this
       return node[filename] = data
     }
   )

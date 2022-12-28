@@ -42,7 +42,10 @@ class TreeList extends HTMLElement {
   popupEventEnabled: boolean
   openEventEnabled: boolean
   updateEventEnabled: boolean
-  data: Type.node[]
+  data: (Type.node & {
+    id: string
+    relations: Type.node
+  })[]
 
   constructor() {
     super()

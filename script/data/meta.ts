@@ -20,8 +20,9 @@ namespace Type {
   export type meta = InstanceType<typeof Meta>
   export type file = FileItem | null
   export type group = meta[] | null
-  export type dataTagName = {[key: string]: string}
-  export type data = Data & {[key: string]: node}
+  export type dataTagName = {
+    [key: string]: string
+  }
   export type parameter = {
     key: string
     type: string
@@ -96,9 +97,7 @@ const Meta = function IIFE() {
       // 加载数据文件
       const name = FileItem.dataMapNames[type]
       if (name !== undefined) {
-        // 
-        const data = <Type.data>Data
-        this.dataMap = data[name]
+        this.dataMap = <Type.node>Data[name]
         Object.defineProperty(this, 'dataMap', dataMapDescriptor)
 
         // 加载除了场景以外的数据

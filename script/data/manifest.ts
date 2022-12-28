@@ -82,9 +82,15 @@ class Manifest {
   last?: Manifest
 
   metaList: Type.meta[]
-  guidMap: {[key: string]: Type.project | Type.meta}
-  pathMap: {[key: string]: Type.meta}
-  project: {[key: string]: Type.project}
+  guidMap: {
+    [key: string]: Type.project | Type.meta
+  }
+  pathMap: {
+    [key: string]: Type.meta
+  }
+  project: {
+    [key: string]: Type.project
+  }
   changes: Type.meta[]
   changed: boolean
   code: string

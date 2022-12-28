@@ -162,7 +162,7 @@ class AnimationPlayer {
           const easingId = frame.easingId
           if (easingId !== '' && i < last) {
             const next = frames[i + 1]
-            const time = Easing.get(easingId).map(
+            const time = Easing.get(easingId).get(
               (index - start) / (next.start - start)
             )
             context.update(frame, time, next)

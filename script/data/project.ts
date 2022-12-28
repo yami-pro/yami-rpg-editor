@@ -26,7 +26,6 @@ namespace Type {
       node |
       node[]
   }
-  export type data = node
   export type importedFonts = {
     fontId: string | null
     filter: string
@@ -40,13 +39,18 @@ namespace Type {
   }
   export type event = Event & {
     key: 'config'
-    last: data
+    last: node
   }
 }
 
 interface Project {
   // properties
-  data: Type.data | null
+  data: Type.node & {
+    window: Type.node & {
+      title: Type.node
+    }
+  } | null
+
   changed: boolean
   importedFonts: Type.importedFonts | null
   // methods
@@ -264,13 +268,12 @@ Project.paramInput = function (this: TextBox, event: Event) {
   const end = keys.length - 1
   let node = Project.data
   if (node !== null) {
-    let childNode: Type.node = {}
     for (let i = 0; i < end; i++) {
-      childNode = <Type.node>node[keys[i]]
+      node = <typeof node>node[keys[i]]
     }
     const property = keys[end]
-    if (childNode[property] !== value) {
-      childNode[property] = value
+    if (node[property] !== value) {
+      node[property] = value
     }
   }
 }
@@ -282,10 +285,8 @@ Project.confirm = function (this: Project, event: Event) {
       this.data !== null) {
     this.changed = false
     const last = Data.config
-    const window1 = <Type.node>Data.config.window
-    const window2 = <Type.node>this.data.window
-    const title1 = window1.title
-    const title2 = window2.title
+    const title1 = Data.config.window.title
+    const title2 = this.data.window.title
     Data.config = this.data
     File.planToSave(Data.manifest?.project.config)
     // 更新标题名称
