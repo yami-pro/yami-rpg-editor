@@ -240,7 +240,7 @@ Data.loadFile = async function (filename) {
         this.manifest.guidMap[meta.guid] = meta
       }
       const node = this
-      return node[filename] = data
+      return node[filename] = <Type.node>data
     }
   )
 }
@@ -272,7 +272,7 @@ Data.loadScene = async function (guid) {
     code => {
       try {
         if (code !== null && scenes !== null) {
-          scenes[guid] = code
+          scenes[guid] = <Type.node>code
         }
         return Codec.decodeScene(code)
       } catch (error) {

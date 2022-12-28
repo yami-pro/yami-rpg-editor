@@ -8,6 +8,7 @@ import {
   FS,
   FSP,
   Log,
+  Meta,
   Particle,
   Path,
   Scene,
@@ -20,12 +21,14 @@ import * as electron from 'electron'
 
 namespace Type {
   export type node = {
-    [key: string]: number |
-                   boolean |
-                   string |
-                   node |
-                   node[]
+    [key: string]:
+      number |
+      boolean |
+      string |
+      node |
+      node[]
   }
+  export type meta = InstanceType<typeof Meta>
   export type descriptor = {
     type: XMLHttpRequestResponseType | 'image'
     path?: string
@@ -91,7 +94,7 @@ File.get = function (descriptor) {
       // 如果图像存在guid
       // 文件路径添加版本号
       if (descriptor.guid) {
-        const meta = Data.manifest.guidMap[descriptor.guid]
+        const meta = <Type.meta>Data.manifest?.guidMap[descriptor.guid]
         if (meta) path += `?ver=${meta.mtimeMs}`
       }
       const promises = this.promises
@@ -133,7 +136,7 @@ File.get = function (descriptor) {
 
 // 获取路径
 File.getPath = function (guid) {
-  return Data.manifest.guidMap[guid]?.path ?? ''
+  return Data.manifest?.guidMap[guid]?.path ?? ''
 }
 
 // 保存项目
@@ -142,15 +145,17 @@ File.save = function (hint = true) {
   Data.saveManifest()
 
   // 保存改变的文件
-  const {guidMap, changes} = Data.manifest
-  for (const meta of changes) {
-    // 验证元数据有效性
-    if (guidMap[meta.guid] === meta) {
-      File.saveFile(meta)
+  if (Data.manifest !== null) {
+    const {guidMap, changes} = Data.manifest
+    for (const meta of changes) {
+      // 验证元数据有效性
+      if (guidMap[meta.guid] === meta) {
+        File.saveFile(meta)
+      }
     }
-  }
-  if (changes.length !== 0) {
-    changes.length = 0
+    if (changes.length !== 0) {
+      changes.length = 0
+    }
   }
 
   // 改变指针样式
@@ -209,7 +214,7 @@ File.saveFile = function (meta) {
 // 计划保存
 File.planToSave = function (meta) {
   if (meta instanceof Object) {
-    return Data.manifest.changes.append(meta)
+    return Data.manifest?.changes.append(meta) ?? false
   } else {
     throw new Error('Invalid file meta')
   }
@@ -217,7 +222,7 @@ File.planToSave = function (meta) {
 
 // 取消保存
 File.cancelSave = function (meta) {
-  return Data.manifest.changes.remove(meta)
+  return Data.manifest?.changes.remove(meta) ?? false
 }
 
 // 解析文件大小
