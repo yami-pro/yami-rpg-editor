@@ -46,14 +46,6 @@ namespace Type {
     updateKeyTextNode(item: node): void
   }
   export type point = {x: number, y: number}
-  export type data = {
-    id: string
-    key: string
-    name: string
-    points: point[]
-  }
-  export type curveMap = IIFE.CurveMap
-  export type easingMap = IIFE.EasingMap
   export type canvas = HTMLCanvasElement & {
     centerX: number
     centerY: number
@@ -98,8 +90,8 @@ interface Easing {
   elapsed: number
   duration: number
   delay: number
-  curveMap: Type.curveMap | null
-  easingMap: Type.easingMap | null
+  curveMap: Scope.CurveMap | null
+  easingMap: Scope.EasingMap | null
   pointImage: HTMLImageElement | null
   previewImage: HTMLCanvasElement | null
   startPoint: Type.point
@@ -107,7 +99,7 @@ interface Easing {
   changed: boolean
   // methods
   initialize(): void
-  get(id: string): Type.linear | Type.easingMap
+  get(id: string): Type.linear | Scope.EasingMap
   clear(): void
   open(): void
   load(easing: Easing): void
@@ -116,7 +108,12 @@ interface Easing {
   paste(dItem: Type.node): void
   delete(item: Type.node): void
   createId(): string
-  createData(): Type.data
+  createData(): {
+    id: string
+    key: string
+    name: string
+    points: Type.point[]
+  }
   setEasingKey(item: Type.node): void
   getItemById(id: string): Type.node | undefined
   updateMaps(): void
@@ -154,14 +151,8 @@ interface Easing {
   delayInput(event: Type.event): void
   confirm(event: Type.event): void
   // classes
-  CurveMap: {
-    prototype: IIFE.CurveMap
-    new(): IIFE.CurveMap
-  }
-  EasingMap: {
-    prototype: IIFE.EasingMap
-    new(): IIFE.EasingMap
-  }
+  CurveMap: typeof Scope.CurveMap
+  EasingMap: typeof Scope.EasingMap
 }
 
 const Easing = <Easing & Type.node>{}
@@ -306,8 +297,8 @@ Easing.initialize = function () {
 }
 
 // 创建作用域
-namespace IIFE {
-  const maps: {[key: string]: Type.easingMap} = {}
+namespace Scope {
+  const maps: {[key: string]: Scope.EasingMap} = {}
   const linear: Type.linear = {
     get: (key: any) => key
   }
@@ -339,10 +330,10 @@ namespace IIFE {
 }
 
 // 获取映射表
-Easing.get = IIFE.get
+Easing.get = Scope.get
 
 // 清除映射表集合
-Easing.clear = IIFE.clear
+Easing.clear = Scope.clear
 
 // 打开窗口
 Easing.open = function () {
@@ -964,7 +955,7 @@ Easing.listPopup = function (this: Type.treeList, event) {
   const item = <Type.node>event.value
   const selected = !!item
   const pastable = Clipboard.has('yami.data.easing')
-  const deletable = selected && Easing.data.length > 1
+  const deletable = selected && (Easing.data?.length ?? 0) > 1
   const get = Local.createGetter('menuEasingList')
   Menu.popup({
     x: event.clientX,
@@ -1281,7 +1272,7 @@ Easing.confirm = function (this: Easing, event: Type.pointerEvent) {
   Window.close('easing')
 }.bind(Easing)
 
-namespace IIFE {
+namespace Scope {
   // 三次方曲线映射表类 - 必须使用Float64
   // 因为Float32会导致部分点参数出现绘制BUG:线条变粗
   // Chromium78-89都存在这个BUG而Chromium69是正常的
@@ -1379,8 +1370,8 @@ namespace IIFE {
   }
 }
 
-Easing.CurveMap = IIFE.CurveMap
-Easing.EasingMap = IIFE.EasingMap
+Easing.CurveMap = Scope.CurveMap
+Easing.EasingMap = Scope.EasingMap
 
 // 列表 - 保存选项状态
 Easing.list.saveSelection = function () {
