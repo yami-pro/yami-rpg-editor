@@ -5,46 +5,55 @@ import {
   Data,
   Easing,
   Layout,
+  SelectBox,
   Timer
 } from "../yami"
 
 // ******************************** 曲线窗口 ********************************
 
-const Curve = {
+interface Curve {
   // properties
-  state: 'closed',
-  page: $('#animation-easing').hide(),
-  head: $('#animation-easing-head'),
-  list: $('#animation-easing-id').hide(),
-  canvas: $('#animation-easing-canvas'),
-  target: null,
-  index: null,
-  curveMap: null,
+  state: string
+  page: HTMLElement
+  head: HTMLElement
+  list: SelectBox
+  canvas: HTMLCanvasElement
+  target: null
+  index: null
+  curveMap: typeof Easing.curveMap
   // methods
-  initialize: null,
-  open: null,
-  load: null,
-  close: null,
-  suspend: null,
-  resume: null,
-  updateHead: null,
-  updateEasingOptions: null,
-  updateTimeline: null,
-  resize: null,
-  drawCurve: null,
-  requestRendering: null,
-  renderingFunction: null,
-  stopRendering: null,
+  initialize: null
+  open: null
+  load: null
+  close: null
+  suspend: null
+  resume: null
+  updateHead: null
+  updateEasingOptions: null
+  updateTimeline: null
+  resize: null
+  drawCurve: null
+  requestRendering: null
+  renderingFunction: null
+  stopRendering: null
   // events
-  windowResize: null,
-  themechange: null,
-  datachange: null,
-  easingIdWrite: null,
-  easingIdInput: null,
-  settingsPointerdown: null,
+  windowResize: null
+  themechange: null
+  datachange: null
+  easingIdWrite: null
+  easingIdInput: null
+  settingsPointerdown: null
 }
 
+const Curve = <Curve>{}
+
 // ******************************** 曲线窗口加载 ********************************
+
+Curve.state = 'closed'
+Curve.page = $('#animation-easing').hide()
+Curve.head = $('#animation-easing-head')
+Curve.list = $('#animation-easing-id').hide()
+Curve.canvas = $('#animation-easing-canvas')
 
 // 初始化
 Curve.initialize = function () {

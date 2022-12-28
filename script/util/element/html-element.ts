@@ -43,8 +43,8 @@ interface HTMLElement_ext {
   seek(tagName: string, count?: number): HTMLElement
   css(): CSSStyleDeclaration
   rect(): DOMRect
-  hide(): HTMLElement
-  show(): HTMLElement
+  hide<T>(): T
+  show<T>(): T
   hideChildNodes(): void
   showChildNodes(): void
   getFocus(mode?: string): void
@@ -144,9 +144,9 @@ HTMLElement.prototype.rect = function () {
 }
 
 // 元素方法 - 隐藏
-HTMLElement.prototype.hide = function () {
+HTMLElement.prototype.hide = function <T>() {
   this.addClass('hidden')
-  return this
+  return <T>this
 }
 
 // 元素方法 - 显示
