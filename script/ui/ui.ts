@@ -775,7 +775,7 @@ UI.revealTarget = function IIFE() {
       const {target} = timer
       if (target === UI.target) {
         const easing = Easing.EasingMap.easeInOut
-        const time = easing.map(timer.elapsed / timer.duration)
+        const time = easing.get(timer.elapsed / timer.duration)
         const x = timer.startX * (1 - time) + timer.endX * time
         const y = timer.startY * (1 - time) + timer.endY * time
         const screen = UI.screen

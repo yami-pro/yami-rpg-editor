@@ -445,7 +445,7 @@ class ParticleElement {
     const {color} = this
     const {start, end} = color
     const clamp = ParticleElement.sharedClampedArray
-    const time = Math.min(easing.map(this.elapsed / this.lifetime), 1)
+    const time = Math.min(easing.get(this.elapsed / this.lifetime), 1)
     color.changed = true
     clamp[0] = start[0] * (1 - time) + end[0] * time
     clamp[1] = start[1] * (1 - time) + end[1] * time
