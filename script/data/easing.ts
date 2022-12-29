@@ -45,7 +45,10 @@ namespace Type {
     createKeyTextNode(item: node): void
     updateKeyTextNode(item: node): void
   }
-  export type point = {x: number, y: number}
+  export type point = {
+    x: number
+    y: number
+  }
   export type canvas = HTMLCanvasElement & {
     centerX: number
     centerY: number

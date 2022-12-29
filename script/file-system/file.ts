@@ -35,13 +35,18 @@ namespace Type {
     local?: string
     guid?: string
   }
-  export type resolution = {width: number, height: number}
+  export type resolution = {
+    width: number
+    height: number
+  }
 }
 
 interface File {
   // properties
   root: string
-  promises: {[key: string]: Promise<HTMLImageElement>}
+  promises: {
+    [key: string]: Promise<HTMLImageElement>
+  }
   // methods
   initializeProps(): File
   get(descriptor: Type.descriptor): Promise<Type.node | EventTarget | null>
@@ -52,8 +57,8 @@ interface File {
   cancelSave(meta: any): any
   parseFileSize(size: number): string
   getFileName: (dir: string, base: string, ext?: string) => {
-      path: string;
-      route: string;
+      path: string
+      route: string
   }
   getImageResolution: (path: string) => Promise<Type.resolution>
   openPath(path: string): void

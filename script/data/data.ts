@@ -35,7 +35,10 @@ namespace Type {
     x?: number
     y?: number
   }
-  export type point = {x: number, y: number}
+  export type point = {
+    x: number
+    y: number
+  }
 }
 
 interface Data {

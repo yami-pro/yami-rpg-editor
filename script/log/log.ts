@@ -31,6 +31,7 @@ const Log = <Log>{}
 // ******************************** 日志窗口加载 ********************************
 
 // 默认属性
+Log.data = []
 Log.beepdate = 0
 Log.devmode = true
 Log.beep = false
