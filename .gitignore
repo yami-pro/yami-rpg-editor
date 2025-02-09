@@ -21,3 +21,6 @@ build/
 dist/
 main.js
 main.js.map
+
+# 不上传pnpm的包锁文件
+pnpm-lock.yaml
