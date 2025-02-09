@@ -15,10 +15,18 @@
     "type": "git",
     "url": "https://github.com/yami-pro/yami-rpg-editor.git"
   },
-  "dependencies": {},
+  "packageManager": "pnpm@9.15.4",
   "devDependencies": {
+    "@ruan-cat/commitlint-config": "^0.1.4",
+    "commitizen": "^4.3.1",
+    "cz-git": "^1.11.0",
     "electron": "^18.3.15",
     "electron-builder": "^23.6.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
   },
   "build": {
     "appId": "com.yami.rpgeditor",
