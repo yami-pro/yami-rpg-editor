@@ -1,0 +1,126 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "setObject",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "actor"
+        },
+        "operand": {
+          "type": "actor",
+          "actor": {
+            "type": "variable",
+            "variable": {
+              "type": "element",
+              "element": {
+                "type": "by-id",
+                "presetId": "016c09707e098490"
+              },
+              "key": "1f4c880e8e284c05"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "loop",
+      "params": {
+        "mode": "all",
+        "conditions": [],
+        "commands": [
+          {
+            "id": "comment",
+            "params": {
+              "comment": "Update the progress of the character's attributes per frame"
+            }
+          },
+          {
+            "id": "comment",
+            "params": {
+              "comment": "逐帧更新角色的属性进度"
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "progress"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "variable",
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "actor"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "key"
+                    }
+                  }
+                },
+                {
+                  "operation": "div",
+                  "type": "variable",
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "actor"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "maxKey"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setProgressBar",
+            "params": {
+              "element": {
+                "type": "trigger"
+              },
+              "properties": [
+                {
+                  "key": "progress",
+                  "value": {
+                    "type": "local",
+                    "key": "progress"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "wait",
+            "params": {
+              "duration": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

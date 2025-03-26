@@ -1,0 +1,130 @@
+{
+  "layers": [
+    {
+      "class": "particle",
+      "name": "Wind",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "edge",
+        "x": 0,
+        "y": 0
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 20,
+      "lifetime": 8000,
+      "lifetimeDev": 0,
+      "fadeout": 200,
+      "anchor": {
+        "x": [
+          0,
+          3.5
+        ],
+        "y": [
+          0,
+          3.5
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          190,
+          10
+        ],
+        "speed": [
+          175,
+          75
+        ],
+        "accelAngle": [
+          180,
+          0
+        ],
+        "accel": [
+          25,
+          25
+        ]
+      },
+      "rotation": {
+        "angle": [
+          90,
+          90
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.55,
+          0.45
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "2742b1235e2373aa",
+      "blend": "normal",
+      "light": "global",
+      "sort": "by-scale-factor",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "fixed",
+        "rgba": [
+          255,
+          255,
+          255,
+          8
+        ]
+      }
+    }
+  ]
+}

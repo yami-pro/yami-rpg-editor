@@ -1,0 +1,34 @@
+{
+  "icon": "969cc7da8bb5e984",
+  "clip": [
+    128,
+    0,
+    32,
+    32
+  ],
+  "inherit": "8ffba2cbfefe7647",
+  "attributes": [
+    {
+      "key": "9e7764f296cedc7c",
+      "value": "中毒"
+    },
+    {
+      "key": "98b1ee7f5da9a46a",
+      "value": "持续减少角色生命值"
+    },
+    {
+      "key": "81d27c5772ab7adb",
+      "value": "cf59776929dddb77"
+    },
+    {
+      "key": "f9c84e17d9908aa7",
+      "value": 10000
+    },
+    {
+      "key": "e197ccdf62a3922e",
+      "value": -5
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

@@ -1,0 +1,94 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    128,
+    864,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "魔法盾"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 15000
+    },
+    {
+      "key": "22e4d90f35666e4e",
+      "value": 10
+    },
+    {
+      "key": "9599832f30b88ec6",
+      "value": ""
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ac7278a39cf5d52f"
+          }
+        },
+        {
+          "id": "createTrigger",
+          "params": {
+            "triggerId": "01e2a51501c33d84",
+            "caster": {
+              "type": "trigger"
+            },
+            "origin": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            },
+            "angle": {
+              "type": "absolute",
+              "degrees": 0
+            },
+            "distance": 0,
+            "scale": 1,
+            "timeScale": 1
+          }
+        },
+        {
+          "id": "playAudio",
+          "params": {
+            "type": "se-attenuated",
+            "audio": "0f66ee7867a432bb",
+            "volume": 1,
+            "location": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            }
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "a9e218055f6787d9"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

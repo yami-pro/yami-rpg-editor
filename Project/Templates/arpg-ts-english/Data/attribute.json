@@ -1,0 +1,892 @@
+{
+  "settings": {
+    "actor": "4a9869f39acd85ed",
+    "skill": "fda6e81aeae3568d",
+    "state": "727b66ca0ffe4f2f",
+    "item": "9abfb5d905bb1a6a",
+    "equipment": "78f1806970dda9af",
+    "element": "ea42a0b9c752f48c"
+  },
+  "keys": [
+    {
+      "class": "folder",
+      "id": "4a9869f39acd85ed",
+      "name": "Actor",
+      "expanded": false,
+      "children": [
+        {
+          "id": "da4d32a4f1097059",
+          "key": "name",
+          "type": "string",
+          "name": "Name",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "fe5c2daaadda1b45",
+          "key": "class",
+          "type": "enum",
+          "name": "Class",
+          "enum": "dc35e21ae8cbee5f",
+          "note": ""
+        },
+        {
+          "id": "fb9d675011f6c08f",
+          "key": "level",
+          "type": "number",
+          "name": "Level",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "a5fd5e9f229abb2d",
+          "key": "health",
+          "type": "number",
+          "name": "HP",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "a8451228fe0c120a",
+          "key": "maxHealth",
+          "type": "number",
+          "name": "Max HP",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "7fa82e53c15d0e81",
+          "key": "mana",
+          "type": "number",
+          "name": "MP",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "ff0db36441e761fa",
+          "key": "maxMana",
+          "type": "number",
+          "name": "Max MP",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "5c4faa90ed9b17dc",
+          "key": "exp",
+          "type": "number",
+          "name": "EXP",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "8dd915b112c0447c",
+          "key": "maxExp",
+          "type": "number",
+          "name": "Max EXP",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "96efe7ef1b6999bc",
+          "key": "attack",
+          "type": "number",
+          "name": "Attack",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "752c94a8aa99161b",
+          "key": "defense",
+          "type": "number",
+          "name": "Defense",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "91e7127e267f9425",
+          "key": "mAttack",
+          "type": "number",
+          "name": "M Attack",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "9c18a64439c1368f",
+          "key": "mDefense",
+          "type": "number",
+          "name": "M Defense",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "2b66c53fcb9e7680",
+          "key": "critical",
+          "type": "number",
+          "name": "Critical",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "d4f44a28ced26547",
+          "key": "dodge",
+          "type": "number",
+          "name": "Dodge",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "21dbee71a168756b",
+          "key": "healthSteal",
+          "type": "number",
+          "name": "HP Steal",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "6421aebf4c298605",
+          "key": "attackSpeed",
+          "type": "number",
+          "name": "Attack Speed",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "597091e2c6bc6048",
+          "key": "moveSpeed",
+          "type": "number",
+          "name": "Move Speed",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "d8d40cdec3b0507a",
+          "key": "cooldownReduction",
+          "type": "number",
+          "name": "CD Reduction",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "9a7528d2de781a0d",
+          "key": "healthRegen",
+          "type": "number",
+          "name": "HP Regen",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "128e70ad5699cd34",
+          "key": "manaRegen",
+          "type": "number",
+          "name": "MP Regen",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "47f57252180f77c7",
+          "key": "rewardExp",
+          "type": "number",
+          "name": "Reward EXP",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "82165f67199aa8cc",
+          "key": "equipTypes",
+          "type": "string",
+          "name": "Equip",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "1c60e46c0d8ea80e",
+          "key": "state",
+          "type": "enum",
+          "name": "State",
+          "enum": "8b7080b7a502997f",
+          "note": ""
+        },
+        {
+          "id": "4d51afc89a177b08",
+          "key": "preventDialog",
+          "type": "boolean",
+          "name": "Prevent Dialog",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "264dd4a60329a008",
+          "key": "followingDist",
+          "type": "number",
+          "name": "Following Dist",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "ae74ea048a11f696",
+          "key": "lightRadius",
+          "type": "number",
+          "name": "Light Radius",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "9029d87aba1d7ad5",
+          "key": "lightColor",
+          "type": "string",
+          "name": "Light Color",
+          "enum": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "fda6e81aeae3568d",
+      "name": "Skill",
+      "expanded": false,
+      "children": [
+        {
+          "id": "ec4bb048efcf05a4",
+          "key": "name",
+          "type": "string",
+          "name": "Name",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "99164b45e2c18b2a",
+          "key": "level",
+          "type": "number",
+          "name": "Level",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "0979dee7846ae2dd",
+          "key": "cooldown",
+          "type": "number",
+          "name": "CD",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "22e4d90f35666e4e",
+          "key": "cost",
+          "type": "number",
+          "name": "Cost",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "7b29806b3bf024d9",
+          "key": "passive",
+          "type": "boolean",
+          "name": "Passive",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "9599832f30b88ec6",
+          "key": "description",
+          "type": "string",
+          "name": "Desc",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "class": "folder",
+          "id": "8c85b27acc1ed9c5",
+          "name": "Actor Attrs (Integer)",
+          "expanded": true,
+          "children": [
+            {
+              "id": "80778bc092f32f2b",
+              "key": "maxHealth",
+              "type": "number",
+              "name": "Max HP",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "b244e941cbbfddd6",
+              "key": "maxMana",
+              "type": "number",
+              "name": "Max MP",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "0eb49fe7a2c0a824",
+              "key": "attack",
+              "type": "number",
+              "name": "Attack",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "ed448411e08d06ef",
+              "key": "defense",
+              "type": "number",
+              "name": "Defense",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "9fb64b067a7f796c",
+              "key": "mAttack",
+              "type": "number",
+              "name": "MAttack",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "4f369e985391c6a1",
+              "key": "mDefense",
+              "type": "number",
+              "name": "M Defense",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "ba00f7601c10d36f",
+              "key": "healthRegen",
+              "type": "number",
+              "name": "HP Regen",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "6f39728b0f55d700",
+              "key": "manaRegen",
+              "type": "number",
+              "name": "MP Regen",
+              "enum": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "e54ffe908ac7c988",
+          "name": "Actor Attrs (Percentage)",
+          "expanded": true,
+          "children": [
+            {
+              "id": "ca919b0be032e0b6",
+              "key": "critical",
+              "type": "number",
+              "name": "Critical",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "b90665c470810d6f",
+              "key": "dodge",
+              "type": "number",
+              "name": "Dodge",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "255a5c437e4db297",
+              "key": "healthSteal",
+              "type": "number",
+              "name": "HP Steal",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "480b23558d66cf4c",
+              "key": "attackSpeed",
+              "type": "number",
+              "name": "Attack Speed",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "9059b45d88976805",
+              "key": "moveSpeed",
+              "type": "number",
+              "name": "Move Speed",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "cdd49ed7d48d1c0a",
+              "key": "cooldownReduction",
+              "type": "number",
+              "name": "CD Reduction",
+              "enum": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "727b66ca0ffe4f2f",
+      "name": "State",
+      "expanded": false,
+      "children": [
+        {
+          "id": "9e7764f296cedc7c",
+          "key": "name",
+          "type": "string",
+          "name": "Name",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "81d27c5772ab7adb",
+          "key": "type",
+          "type": "enum",
+          "name": "Type",
+          "enum": "d091a25ffaa9accc",
+          "note": ""
+        },
+        {
+          "id": "f9c84e17d9908aa7",
+          "key": "duration",
+          "type": "number",
+          "name": "Duration",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "98b1ee7f5da9a46a",
+          "key": "description",
+          "type": "string",
+          "name": "Desc",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "class": "folder",
+          "id": "201081a1b42ef208",
+          "name": "Actor Attrs (Integer)",
+          "expanded": true,
+          "children": [
+            {
+              "id": "9af328bfa47540c6",
+              "key": "maxHealth",
+              "type": "number",
+              "name": "Max HP",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "80fa61d38f1b1552",
+              "key": "maxMana",
+              "type": "number",
+              "name": "Max MP",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "95dfb3b12df8bb2d",
+              "key": "attack",
+              "type": "number",
+              "name": "Attack",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "a2e8e03693ca9732",
+              "key": "defense",
+              "type": "number",
+              "name": "Defense",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "bc22fc8868c09aa8",
+              "key": "mAttack",
+              "type": "number",
+              "name": "M Attack",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "78f98e5280c18cdb",
+              "key": "mDefense",
+              "type": "number",
+              "name": "M Defense",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "e197ccdf62a3922e",
+              "key": "healthRegen",
+              "type": "number",
+              "name": "HP Regen",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "4721f3728a2254b8",
+              "key": "manaRegen",
+              "type": "number",
+              "name": "MP Regen",
+              "enum": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "4071a7a838039798",
+          "name": "Actor Attrs (Percentage)",
+          "expanded": true,
+          "children": [
+            {
+              "id": "97052e307fda836c",
+              "key": "critical",
+              "type": "number",
+              "name": "Critical",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "81901bab47954c56",
+              "key": "dodge",
+              "type": "number",
+              "name": "Dodge",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "b90018dbed5939df",
+              "key": "healthSteal",
+              "type": "number",
+              "name": "HP Steal",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "80935a4c2dc38bca",
+              "key": "attackSpeed",
+              "type": "number",
+              "name": "Attack Speed",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "ee886244482527a9",
+              "key": "moveSpeed",
+              "type": "number",
+              "name": "Move Speed",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "be938de8720659e9",
+              "key": "cooldownReduction",
+              "type": "number",
+              "name": "CD Reduction",
+              "enum": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "9abfb5d905bb1a6a",
+      "name": "Item",
+      "expanded": false,
+      "children": [
+        {
+          "id": "272e0e7696d64a92",
+          "key": "name",
+          "type": "string",
+          "name": "Name",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "ff4ae88b5d725e64",
+          "key": "quality",
+          "type": "enum",
+          "name": "Quality",
+          "enum": "66aa13609bc77a7e",
+          "note": ""
+        },
+        {
+          "id": "64234b740706abdf",
+          "key": "consumable",
+          "type": "boolean",
+          "name": "Consumable",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "fabb6c550f7b3094",
+          "key": "cdkey",
+          "type": "enum",
+          "name": "CDKey",
+          "enum": "9b614c266b582778",
+          "note": ""
+        },
+        {
+          "id": "8cabc439007271c7",
+          "key": "cooldown",
+          "type": "number",
+          "name": "CD",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "49574fd687a9bd27",
+          "key": "price",
+          "type": "number",
+          "name": "Price",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "ee210e38c2f48a0b",
+          "key": "description",
+          "type": "string",
+          "name": "Desc",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "5f0bd76049859159",
+          "key": "anim-motion",
+          "type": "enum",
+          "name": "Anim Motion",
+          "enum": "dee2007f94544256",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "78f1806970dda9af",
+      "name": "Equipment",
+      "expanded": true,
+      "children": [
+        {
+          "id": "744c0775cfc21878",
+          "key": "name",
+          "type": "string",
+          "name": "Name",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "f07a7697f4d69696",
+          "key": "quality",
+          "type": "enum",
+          "name": "Quality",
+          "enum": "66aa13609bc77a7e",
+          "note": ""
+        },
+        {
+          "id": "c16d969e58798456",
+          "key": "slot",
+          "type": "enum",
+          "name": "Slot",
+          "enum": "a6642ae59168aae7",
+          "note": ""
+        },
+        {
+          "id": "aea28ab8744f4f68",
+          "key": "type",
+          "type": "enum",
+          "name": "Type",
+          "enum": "1a98aa5c69ce56d0",
+          "note": ""
+        },
+        {
+          "id": "9c6c39e76efa5356",
+          "key": "price",
+          "type": "number",
+          "name": "Price",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "81645b642e77eba9",
+          "key": "description",
+          "type": "string",
+          "name": "Desc",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "class": "folder",
+          "id": "84f1821a0807881d",
+          "name": "Actor Attrs (Integer)",
+          "expanded": true,
+          "children": [
+            {
+              "id": "48922b8d7b953bad",
+              "key": "maxHealth",
+              "type": "number",
+              "name": "Max HP",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "25f80fa1369bd18b",
+              "key": "maxMana",
+              "type": "number",
+              "name": "Max Mana",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "a4467914dbb11608",
+              "key": "attack",
+              "type": "number",
+              "name": "Attack",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "7443fd783f9e04a1",
+              "key": "defense",
+              "type": "number",
+              "name": "Defense",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "fd4f079d31953859",
+              "key": "mAttack",
+              "type": "number",
+              "name": "M Attack",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "fc184a0601ca239c",
+              "key": "mDefense",
+              "type": "number",
+              "name": "M Defense",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "447d078a4b6d1477",
+              "key": "healthRegen",
+              "type": "number",
+              "name": "HP Regen",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "c1a3233da0a17a4a",
+              "key": "manaRegen",
+              "type": "number",
+              "name": "MP Regen",
+              "enum": "",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "76c88aaca42c85f5",
+          "name": "Actor Attrs (Percentage)",
+          "expanded": true,
+          "children": [
+            {
+              "id": "cc87a72933cb881a",
+              "key": "critical",
+              "type": "number",
+              "name": "Critical",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "075ea6ebe1e0b36c",
+              "key": "dodge",
+              "type": "number",
+              "name": "Dodge",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "46027b1d5f2ceac9",
+              "key": "attackSpeed",
+              "type": "number",
+              "name": "Attack Speed",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "72d60d6116e4de36",
+              "key": "moveSpeed",
+              "type": "number",
+              "name": "Move Speed",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "22411fe050e9d228",
+              "key": "healthSteal",
+              "type": "number",
+              "name": "HP Steal",
+              "enum": "",
+              "note": ""
+            },
+            {
+              "id": "db7d46a2857dbbdf",
+              "key": "cooldownReduction",
+              "type": "number",
+              "name": "CD Reduction",
+              "enum": "",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "ea42a0b9c752f48c",
+      "name": "Element",
+      "expanded": false,
+      "children": [
+        {
+          "id": "1f4c880e8e284c05",
+          "key": "target",
+          "type": "object",
+          "name": "Target",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "25fcb64f5d458a0a",
+          "key": "state",
+          "type": "string",
+          "name": "State",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "cca7de0dfb4dfae8",
+          "key": "index",
+          "type": "number",
+          "name": "Index",
+          "enum": "",
+          "note": ""
+        },
+        {
+          "id": "69b2fe88da1819c6",
+          "key": "shortcutKey",
+          "type": "string",
+          "name": "ShortcutKey",
+          "enum": "",
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1084 @@
+{
+  "icon": "97fa22601c6a5e50",
+  "clip": [
+    0,
+    0,
+    512,
+    512
+  ],
+  "inherit": "",
+  "attributes": [],
+  "events": [
+    {
+      "type": "equipmentadd",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Increase integer attributes"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "增加整数属性"
+          }
+        },
+        {
+          "id": "forEach",
+          "params": {
+            "data": "attribute",
+            "groupId": "84f1821a0807881d",
+            "variable": {
+              "type": "local",
+              "key": "key"
+            },
+            "commands": [
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "key"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "attribute",
+                          "attributeId": "48922b8d7b953bad"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "if",
+                          "params": {
+                            "branches": [
+                              {
+                                "mode": "all",
+                                "conditions": [
+                                  {
+                                    "type": "number",
+                                    "variable": {
+                                      "type": "equipment",
+                                      "equipment": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "48922b8d7b953bad"
+                                    },
+                                    "operation": "unequal",
+                                    "operand": {
+                                      "type": "none"
+                                    }
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "Increase the maximum life value and scales the current life value"
+                                    }
+                                  },
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "增加最大生命值，按比例调整当前生命值"
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "ratio"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "a5fd5e9f229abb2d"
+                                          }
+                                        },
+                                        {
+                                          "operation": "div",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "a8451228fe0c120a"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "a8451228fe0c120a"
+                                      },
+                                      "operation": "add",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "equipment",
+                                            "equipment": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "48922b8d7b953bad"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "a5fd5e9f229abb2d"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "a8451228fe0c120a"
+                                          }
+                                        },
+                                        {
+                                          "operation": "mul",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "ratio"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "attribute",
+                          "attributeId": "25f80fa1369bd18b"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "if",
+                          "params": {
+                            "branches": [
+                              {
+                                "mode": "all",
+                                "conditions": [
+                                  {
+                                    "type": "number",
+                                    "variable": {
+                                      "type": "equipment",
+                                      "equipment": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "25f80fa1369bd18b"
+                                    },
+                                    "operation": "unequal",
+                                    "operand": {
+                                      "type": "none"
+                                    }
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "Increase the maximum magic value and scales the current magic value"
+                                    }
+                                  },
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "增加最大魔法值，按比例调整当前魔法值"
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "ratio"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "7fa82e53c15d0e81"
+                                          }
+                                        },
+                                        {
+                                          "operation": "div",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "ff0db36441e761fa"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "ff0db36441e761fa"
+                                      },
+                                      "operation": "add",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "equipment",
+                                            "equipment": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "25f80fa1369bd18b"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "7fa82e53c15d0e81"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "ff0db36441e761fa"
+                                          }
+                                        },
+                                        {
+                                          "operation": "mul",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "ratio"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "defaultCommands": [
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Increase other integer attributes"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "增加其他整数属性"
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "actor",
+                          "actor": {
+                            "type": "trigger"
+                          },
+                          "key": {
+                            "type": "local",
+                            "key": "key"
+                          }
+                        },
+                        "operation": "add",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "equipment",
+                              "equipment": {
+                                "type": "trigger"
+                              },
+                              "key": {
+                                "type": "local",
+                                "key": "key"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Increase percentage attributes, keep 2 decimal places"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "增加百分比属性，保留2位小数"
+          }
+        },
+        {
+          "id": "forEach",
+          "params": {
+            "data": "attribute",
+            "groupId": "76c88aaca42c85f5",
+            "variable": {
+              "type": "local",
+              "key": "key"
+            },
+            "commands": [
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "equipment",
+                            "equipment": {
+                              "type": "trigger"
+                            },
+                            "key": {
+                              "type": "local",
+                              "key": "key"
+                            }
+                          },
+                          "operation": "unequal",
+                          "operand": {
+                            "type": "none"
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "key": {
+                                "type": "local",
+                                "key": "key"
+                              }
+                            },
+                            "operation": "add",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "variable",
+                                "variable": {
+                                  "type": "equipment",
+                                  "equipment": {
+                                    "type": "trigger"
+                                  },
+                                  "key": {
+                                    "type": "local",
+                                    "key": "key"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "key": {
+                                "type": "local",
+                                "key": "key"
+                              }
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "math",
+                                "method": "round",
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": {
+                                    "type": "local",
+                                    "key": "key"
+                                  }
+                                },
+                                "decimals": 2
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "key"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "attribute",
+                          "attributeId": "72d60d6116e4de36"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setMovementSpeed",
+                          "params": {
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "property": "factor",
+                            "factor": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "key": "597091e2c6bc6048"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "equipmentremove",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Decrease integer attributes"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "减少整数属性"
+          }
+        },
+        {
+          "id": "forEach",
+          "params": {
+            "data": "attribute",
+            "groupId": "84f1821a0807881d",
+            "variable": {
+              "type": "local",
+              "key": "key"
+            },
+            "commands": [
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "key"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "attribute",
+                          "attributeId": "48922b8d7b953bad"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "if",
+                          "params": {
+                            "branches": [
+                              {
+                                "mode": "all",
+                                "conditions": [
+                                  {
+                                    "type": "number",
+                                    "variable": {
+                                      "type": "equipment",
+                                      "equipment": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "48922b8d7b953bad"
+                                    },
+                                    "operation": "unequal",
+                                    "operand": {
+                                      "type": "none"
+                                    }
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "Decrease the maximum life value and scales the current life value"
+                                    }
+                                  },
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "减少最大生命值，按比例调整当前生命值"
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "ratio"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "a5fd5e9f229abb2d"
+                                          }
+                                        },
+                                        {
+                                          "operation": "div",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "a8451228fe0c120a"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "a8451228fe0c120a"
+                                      },
+                                      "operation": "sub",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "equipment",
+                                            "equipment": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "48922b8d7b953bad"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "a5fd5e9f229abb2d"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "a8451228fe0c120a"
+                                          }
+                                        },
+                                        {
+                                          "operation": "mul",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "ratio"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "attribute",
+                          "attributeId": "25f80fa1369bd18b"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "if",
+                          "params": {
+                            "branches": [
+                              {
+                                "mode": "all",
+                                "conditions": [
+                                  {
+                                    "type": "number",
+                                    "variable": {
+                                      "type": "equipment",
+                                      "equipment": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "25f80fa1369bd18b"
+                                    },
+                                    "operation": "unequal",
+                                    "operand": {
+                                      "type": "none"
+                                    }
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "Decrease the maximum magic value and scales the current magic value"
+                                    }
+                                  },
+                                  {
+                                    "id": "comment",
+                                    "params": {
+                                      "comment": "减少最大魔法值，按比例调整当前魔法值"
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "ratio"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "7fa82e53c15d0e81"
+                                          }
+                                        },
+                                        {
+                                          "operation": "div",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "ff0db36441e761fa"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "ff0db36441e761fa"
+                                      },
+                                      "operation": "sub",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "equipment",
+                                            "equipment": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "25f80fa1369bd18b"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "7fa82e53c15d0e81"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "trigger"
+                                            },
+                                            "key": "ff0db36441e761fa"
+                                          }
+                                        },
+                                        {
+                                          "operation": "mul",
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "ratio"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "defaultCommands": [
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Decrease other integer attributes"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "减少其他整数属性"
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "actor",
+                          "actor": {
+                            "type": "trigger"
+                          },
+                          "key": {
+                            "type": "local",
+                            "key": "key"
+                          }
+                        },
+                        "operation": "sub",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "equipment",
+                              "equipment": {
+                                "type": "trigger"
+                              },
+                              "key": {
+                                "type": "local",
+                                "key": "key"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Decrease percentage attributes, keep 2 decimal places"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "减少百分比属性，保留2位小数"
+          }
+        },
+        {
+          "id": "forEach",
+          "params": {
+            "data": "attribute",
+            "groupId": "76c88aaca42c85f5",
+            "variable": {
+              "type": "local",
+              "key": "key"
+            },
+            "commands": [
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "equipment",
+                            "equipment": {
+                              "type": "trigger"
+                            },
+                            "key": {
+                              "type": "local",
+                              "key": "key"
+                            }
+                          },
+                          "operation": "unequal",
+                          "operand": {
+                            "type": "none"
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "key": {
+                                "type": "local",
+                                "key": "key"
+                              }
+                            },
+                            "operation": "sub",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "variable",
+                                "variable": {
+                                  "type": "equipment",
+                                  "equipment": {
+                                    "type": "trigger"
+                                  },
+                                  "key": {
+                                    "type": "local",
+                                    "key": "key"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "key": {
+                                "type": "local",
+                                "key": "key"
+                              }
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "math",
+                                "method": "round",
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": {
+                                    "type": "local",
+                                    "key": "key"
+                                  }
+                                },
+                                "decimals": 2
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "key"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "attribute",
+                          "attributeId": "72d60d6116e4de36"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setMovementSpeed",
+                          "params": {
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "property": "factor",
+                            "factor": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "key": "597091e2c6bc6048"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

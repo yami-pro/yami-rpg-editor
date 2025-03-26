@@ -1,0 +1,271 @@
+{
+  "sprites": [
+    {
+      "name": "Holy Word",
+      "id": "643853cfc1b318f5",
+      "image": "7e9b14070b7a4f0b",
+      "hframes": 1,
+      "vframes": 1
+    },
+    {
+      "name": "Summon Wife",
+      "id": "ab00ef66a4e023b7",
+      "image": "1464c7e414894e2b",
+      "hframes": 9,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "class": "motion",
+      "id": "ec797e040f8abf4e",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "particle",
+              "name": "Light Pillar",
+              "hidden": false,
+              "locked": false,
+              "particleId": "0c07214f4bd6b744",
+              "position": "relative",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 60,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "7909c02c48f29edb",
+      "mode": "1-dir",
+      "skip": true,
+      "loop": true,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "Holy Ball",
+              "hidden": false,
+              "locked": false,
+              "sprite": "643853cfc1b318f5",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 20,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.025,
+                  "scaleY": 0.025,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 20,
+                  "end": 21,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 360,
+                  "scaleX": 0.025,
+                  "scaleY": 0.025,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "Trail",
+              "hidden": false,
+              "locked": false,
+              "particleId": "930df2373bf0bb47",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 21,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "bd8f93259986f442",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "Wife - Appear",
+              "hidden": false,
+              "locked": false,
+              "sprite": "ab00ef66a4e023b7",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    255,
+                    255,
+                    255,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 25,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    255,
+                    255,
+                    255,
+                    0
+                  ]
+                },
+                {
+                  "start": 25,
+                  "end": 26,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "Love",
+              "hidden": false,
+              "locked": false,
+              "particleId": "926ff70f7d0a9979",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 26,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

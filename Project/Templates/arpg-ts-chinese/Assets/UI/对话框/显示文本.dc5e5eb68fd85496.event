@@ -1,0 +1,341 @@
+{
+  "type": "showtext",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Get the display text mode {dialog,chat}(default: dialog)"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "获取显示文本模式{dialog,chat}(默认值：dialog)"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "mode"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": "dialog"
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "mode"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "parameter",
+          "key": "mode"
+        }
+      }
+    },
+    {
+      "id": "switch",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "mode"
+        },
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "string",
+                "value": "dialog"
+              }
+            ],
+            "commands": [
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Show a dialog box and block player controls"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "显示对话框，并阻止玩家操作"
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "boolean",
+                          "variable": {
+                            "type": "global",
+                            "key": "ebc7cde369ecbb99"
+                          },
+                          "operation": "equal",
+                          "operand": {
+                            "type": "constant",
+                            "value": false
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "preventSceneInput",
+                          "params": {}
+                        },
+                        {
+                          "id": "setBoolean",
+                          "params": {
+                            "variable": {
+                              "type": "global",
+                              "key": "ebc7cde369ecbb99"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "constant",
+                              "value": true
+                            }
+                          }
+                        },
+                        {
+                          "id": "if",
+                          "params": {
+                            "branches": [
+                              {
+                                "mode": "all",
+                                "conditions": [
+                                  {
+                                    "type": "element",
+                                    "element": {
+                                      "type": "by-id",
+                                      "presetId": "c92fbe4db0564e36"
+                                    },
+                                    "operation": "absent"
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "createElement",
+                                    "params": {
+                                      "operation": "append-one-to-root",
+                                      "presetId": "c92fbe4db0564e36"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "element",
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "c92fbe4db0564e36"
+                              },
+                              "key": "25fcb64f5d458a0a"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "constant",
+                              "value": "dialog"
+                            }
+                          }
+                        },
+                        {
+                          "id": "setObject",
+                          "params": {
+                            "variable": {
+                              "type": "element",
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "c92fbe4db0564e36"
+                              },
+                              "key": "1f4c880e8e284c05"
+                            },
+                            "operand": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "target"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": "moveActor",
+                          "params": {
+                            "actor": {
+                              "type": "player"
+                            },
+                            "mode": "stop"
+                          }
+                        },
+                        {
+                          "id": "callEvent",
+                          "params": {
+                            "type": "element",
+                            "element": {
+                              "type": "by-id",
+                              "presetId": "c92fbe4db0564e36"
+                            },
+                            "eventType": "f2aa14a05754779f"
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "Pause this event and continue the event at the end of the conversation"
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "暂停本事件，在对话结束时继续事件"
+                          }
+                        },
+                        {
+                          "id": "setEvent",
+                          "params": {
+                            "operation": "pause",
+                            "variable": {
+                              "type": "global",
+                              "key": "c44fb9a52536747c"
+                            }
+                          }
+                        },
+                        {
+                          "id": "setBoolean",
+                          "params": {
+                            "variable": {
+                              "type": "global",
+                              "key": "ebc7cde369ecbb99"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "constant",
+                              "value": false
+                            }
+                          }
+                        },
+                        {
+                          "id": "restoreSceneInput",
+                          "params": {}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "string",
+                "value": "chat"
+              }
+            ],
+            "commands": [
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Show a bubble box"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "显示气泡框"
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "actor",
+                          "actor": {
+                            "type": "target"
+                          },
+                          "operation": "present"
+                        },
+                        {
+                          "type": "actor",
+                          "actor": {
+                            "type": "target"
+                          },
+                          "operation": "in-screen"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "createElement",
+                          "params": {
+                            "operation": "append-one-to-root",
+                            "presetId": "32cdd80fab0e9fff"
+                          }
+                        },
+                        {
+                          "id": "setObject",
+                          "params": {
+                            "variable": {
+                              "type": "element",
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "32cdd80fab0e9fff"
+                              },
+                              "key": "1f4c880e8e284c05"
+                            },
+                            "operand": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "target"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": "callEvent",
+                          "params": {
+                            "type": "element",
+                            "element": {
+                              "type": "by-id",
+                              "presetId": "32cdd80fab0e9fff"
+                            },
+                            "eventType": "f2aa14a05754779f"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

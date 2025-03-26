@@ -1,0 +1,382 @@
+{
+  "layers": [
+    {
+      "class": "particle",
+      "name": "拖尾",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "point",
+        "x": 0,
+        "y": 0
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 20,
+      "lifetime": 1000,
+      "lifetimeDev": 0,
+      "fadeout": 1000,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          -90,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.1,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "684a2eb8e358a266",
+      "blend": "additive",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "fixed",
+        "rgba": [
+          0,
+          255,
+          255,
+          50
+        ]
+      }
+    },
+    {
+      "class": "particle",
+      "name": "光圈",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "point",
+        "x": 0,
+        "y": 0
+      },
+      "count": 3,
+      "delay": 50,
+      "interval": 50,
+      "lifetime": 2000,
+      "lifetimeDev": 0,
+      "fadeout": 1000,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          45,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.05,
+          0
+        ],
+        "speed": [
+          -0.01,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "d4685a87d53512cf",
+      "blend": "additive",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "fixed",
+        "rgba": [
+          0,
+          255,
+          255,
+          255
+        ]
+      }
+    },
+    {
+      "class": "particle",
+      "name": "光圈2",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "point",
+        "x": 0,
+        "y": 0
+      },
+      "count": 3,
+      "delay": 50,
+      "interval": 50,
+      "lifetime": 2000,
+      "lifetimeDev": 0,
+      "fadeout": 1000,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          -45,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.02,
+          0
+        ],
+        "speed": [
+          -0.01,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "d84750e95b880df5",
+      "blend": "additive",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "fixed",
+        "rgba": [
+          0,
+          255,
+          255,
+          255
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Parameters: quality"
+      }
+    },
+    {
+      "id": "switch",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "quality"
+        },
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "408dc2e6d1ae7329"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setButton",
+                "params": {
+                  "element": {
+                    "type": "trigger"
+                  },
+                  "properties": [
+                    {
+                      "key": "normalTint",
+                      "value": [
+                        255,
+                        255,
+                        255,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "7802b73510212500"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setButton",
+                "params": {
+                  "element": {
+                    "type": "trigger"
+                  },
+                  "properties": [
+                    {
+                      "key": "normalTint",
+                      "value": [
+                        0,
+                        255,
+                        192,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "9f7addeeb07e147e"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setButton",
+                "params": {
+                  "element": {
+                    "type": "trigger"
+                  },
+                  "properties": [
+                    {
+                      "key": "normalTint",
+                      "value": [
+                        255,
+                        96,
+                        170,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "a204b12d636daa8f"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setButton",
+                "params": {
+                  "element": {
+                    "type": "trigger"
+                  },
+                  "properties": [
+                    {
+                      "key": "normalTint",
+                      "value": [
+                        255,
+                        208,
+                        64,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

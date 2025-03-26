@@ -1,0 +1,641 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Parameters: target, [priceFactor]"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Initialize key attributes **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 初始化关键属性 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "name"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "cd"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "desc"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "price"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "possession"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the item name **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置物品名称 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "_name"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "variable",
+          "variable": {
+            "type": "item",
+            "item": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            },
+            "key": "272e0e7696d64a92"
+          }
+        }
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "string",
+                "variable": {
+                  "type": "local",
+                  "key": "_name"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "none"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "item",
+                    "item": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    },
+                    "key": "ff4ae88b5d725e64"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "408dc2e6d1ae7329"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:0><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "7802b73510212500"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:1><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "9f7addeeb07e147e"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:2><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "a204b12d636daa8f"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:3><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "defaultCommands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "name"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "template",
+                          "value": "<local:_name>"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set item cooldown time **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置物品冷却时间 **********"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "_cd"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "item",
+              "item": {
+                "type": "variable",
+                "variable": {
+                  "type": "local",
+                  "key": "target"
+                }
+              },
+              "key": "8cabc439007271c7"
+            }
+          },
+          {
+            "operation": "div",
+            "type": "constant",
+            "value": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "_cd"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "none"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "cd"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "template",
+                    "value": "冷却时间 <color:ffffff><local:_cd></color> 秒"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set item description information **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置物品描述信息 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "desc"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "variable",
+          "variable": {
+            "type": "item",
+            "item": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            },
+            "key": "ee210e38c2f48a0b"
+          }
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set item price **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置物品价格 **********"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "_price"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "item",
+              "item": {
+                "type": "variable",
+                "variable": {
+                  "type": "local",
+                  "key": "target"
+                }
+              },
+              "key": "49574fd687a9bd27"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "_price"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "none"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "_price"
+                  },
+                  "operation": "mul",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "priceFactor"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "_price"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "round",
+                      "variable": {
+                        "type": "local",
+                        "key": "_price"
+                      },
+                      "decimals": 0
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "price"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "template",
+                    "value": "价格 <color:ffffff><local:_price><color:4>G"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the number of items to hold **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置物品持有数量 **********"
+      }
+    },
+    {
+      "id": "setObject",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "actor"
+        },
+        "operand": {
+          "type": "actor",
+          "actor": {
+            "type": "player"
+          }
+        }
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "object",
+                "variable": {
+                  "type": "local",
+                  "key": "actor"
+                },
+                "operation": "is-actor"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "itemId"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "object",
+                    "property": "item-file-id",
+                    "item": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "quantity"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "object",
+                      "property": "actor-inventory-item-quantity",
+                      "actor": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "local",
+                          "key": "actor"
+                        }
+                      },
+                      "itemId": {
+                        "type": "local",
+                        "key": "itemId"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "possession"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "template",
+                    "value": "持有数量 <local:quantity>"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

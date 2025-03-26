@@ -1,0 +1,85 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "setObject",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "actor"
+        },
+        "operand": {
+          "type": "actor",
+          "actor": {
+            "type": "member",
+            "memberId": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "setPartyMember",
+      "params": {
+        "operation": "remove",
+        "actor": {
+          "type": "member",
+          "memberId": 0
+        }
+      }
+    },
+    {
+      "id": "setPartyMember",
+      "params": {
+        "operation": "add",
+        "actor": {
+          "type": "variable",
+          "variable": {
+            "type": "local",
+            "key": "actor"
+          }
+        }
+      }
+    },
+    {
+      "id": "setPlayerActor",
+      "params": {
+        "actor": {
+          "type": "member",
+          "memberId": 0
+        }
+      }
+    },
+    {
+      "id": "moveCamera",
+      "params": {
+        "mode": "actor",
+        "actor": {
+          "type": "player"
+        },
+        "easingId": "7890d8edf5d88412",
+        "duration": 500,
+        "wait": false
+      }
+    },
+    {
+      "id": "callEvent",
+      "params": {
+        "type": "global",
+        "eventId": "60e2fb94a2bb96cc"
+      }
+    },
+    {
+      "id": "callEvent",
+      "params": {
+        "type": "global",
+        "eventId": "e5c901a348b149dd"
+      }
+    }
+  ]
+}

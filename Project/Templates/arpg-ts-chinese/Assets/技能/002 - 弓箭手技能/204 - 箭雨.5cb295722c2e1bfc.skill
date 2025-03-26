@@ -1,0 +1,205 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    320,
+    1312,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "箭雨"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 30000
+    },
+    {
+      "key": "22e4d90f35666e4e",
+      "value": 20
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ac7278a39cf5d52f"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "144088a2819f6488"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "If the player is controlling the character, point to the mouse position, otherwise point to the enemy position"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "如果是玩家控制的角色，指向鼠标位置，否则指向敌人位置"
+          }
+        },
+        {
+          "id": "if",
+          "params": {
+            "branches": [
+              {
+                "mode": "all",
+                "conditions": [
+                  {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    },
+                    "operation": "is-player"
+                  }
+                ],
+                "commands": [
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "x"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "other",
+                          "data": "mouse-scene-x"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "y"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "other",
+                          "data": "mouse-scene-y"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "elseCommands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "x"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "object",
+                      "property": "actor-x",
+                      "actor": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "global",
+                          "key": "1c9c7609f00bac2f"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "y"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "object",
+                      "property": "actor-y",
+                      "actor": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "global",
+                          "key": "1c9c7609f00bac2f"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "createTrigger",
+          "params": {
+            "triggerId": "7a7be83a32dc9adf",
+            "caster": {
+              "type": "trigger"
+            },
+            "origin": {
+              "type": "absolute",
+              "x": {
+                "type": "local",
+                "key": "x"
+              },
+              "y": {
+                "type": "local",
+                "key": "y"
+              }
+            },
+            "angle": {
+              "type": "direction",
+              "degrees": 0
+            },
+            "distance": 0,
+            "scale": 1,
+            "timeScale": 1
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "d8537bc4dee6d675"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

@@ -1,0 +1,47 @@
+{
+  "type": "loadscene",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "element",
+                "element": {
+                  "type": "by-id",
+                  "presetId": "ad479a00db708bd4"
+                },
+                "operation": "absent"
+              }
+            ],
+            "commands": [
+              {
+                "id": "createElement",
+                "params": {
+                  "operation": "append-all-to-root",
+                  "uiId": "17620ddd23391b09"
+                }
+              },
+              {
+                "id": "createElement",
+                "params": {
+                  "operation": "append-all-to-root",
+                  "uiId": "df0588892edaf007"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

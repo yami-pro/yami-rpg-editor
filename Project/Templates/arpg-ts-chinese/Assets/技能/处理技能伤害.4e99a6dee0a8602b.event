@@ -1,0 +1,892 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Determine if a hit has been made"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "命中判定"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "key": "d4f44a28ced26547"
+                },
+                "operation": "greater",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "random"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "random"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "random"
+                          },
+                          "operation": "less",
+                          "operand": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "key": "d4f44a28ced26547"
+                            }
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "1234 corresponds to the four MISS characters"
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "1234对应MISS四个字符"
+                          }
+                        },
+                        {
+                          "id": "5fda2218f2770caf",
+                          "params": {
+                            "actor": {
+                              "getter": "actor",
+                              "type": "trigger"
+                            },
+                            "style": 0,
+                            "damage": 1234
+                          }
+                        },
+                        {
+                          "id": "return",
+                          "params": {
+                            "type": "none"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Determine if a critical strike is triggered"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "暴击判定"
+      }
+    },
+    {
+      "id": "setBoolean",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "critical"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": false
+        }
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "caster"
+                  },
+                  "key": "2b66c53fcb9e7680"
+                },
+                "operation": "greater",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "random"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "random"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "random"
+                          },
+                          "operation": "less",
+                          "operand": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "caster"
+                              },
+                              "key": "2b66c53fcb9e7680"
+                            }
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "Critical damage multiplier: 2x"
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "暴击伤害倍率：2倍"
+                          }
+                        },
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "damage"
+                            },
+                            "operation": "mul",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "constant",
+                                "value": 2
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "setBoolean",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "critical"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "constant",
+                              "value": true
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Set minimum damage value"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "设置最低伤害值"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "damage"
+                },
+                "operation": "less",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "damage"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 0
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Increases the threat value by an amount equal to the damage value"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "增加与伤害值等量的仇恨值"
+      }
+    },
+    {
+      "id": "changeThreat",
+      "params": {
+        "actor": {
+          "type": "trigger"
+        },
+        "target": {
+          "type": "caster"
+        },
+        "operation": "increase",
+        "threat": {
+          "type": "local",
+          "key": "damage"
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Handle damage"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "伤害处理"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "actor",
+          "actor": {
+            "type": "trigger"
+          },
+          "key": "a5fd5e9f229abb2d"
+        },
+        "operation": "sub",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "local",
+              "key": "damage"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "d0570fb007a2bef5",
+      "params": {
+        "actor": "trigger",
+        "localActorKey": "",
+        "globalActorKey": ""
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "boolean",
+                "variable": {
+                  "type": "local",
+                  "key": "critical"
+                },
+                "operation": "equal",
+                "operand": {
+                  "type": "constant",
+                  "value": true
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "5fda2218f2770caf",
+                "params": {
+                  "actor": {
+                    "getter": "actor",
+                    "type": "trigger"
+                  },
+                  "style": 1,
+                  "damage": {
+                    "getter": "variable",
+                    "type": "local",
+                    "key": "damage"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "elseCommands": [
+          {
+            "id": "5fda2218f2770caf",
+            "params": {
+              "actor": {
+                "getter": "actor",
+                "type": "trigger"
+              },
+              "style": 2,
+              "damage": {
+                "getter": "variable",
+                "type": "local",
+                "key": "damage"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Steal HP"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "偷取生命"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "hpSteal"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "actor",
+              "actor": {
+                "type": "caster"
+              },
+              "key": "21dbee71a168756b"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "hpSteal"
+                },
+                "operation": "greater",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              },
+              {
+                "type": "actor",
+                "actor": {
+                  "type": "caster"
+                },
+                "operation": "present-active"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "hpRecovery"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "damage"
+                      }
+                    },
+                    {
+                      "operation": "mul",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "hpSteal"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "caster"
+                    },
+                    "key": "a5fd5e9f229abb2d"
+                  },
+                  "operation": "add",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "hpRecovery"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "actor",
+                            "actor": {
+                              "type": "caster"
+                            },
+                            "key": "a5fd5e9f229abb2d"
+                          },
+                          "operation": "greater",
+                          "operand": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "caster"
+                              },
+                              "key": "a8451228fe0c120a"
+                            }
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "caster"
+                              },
+                              "key": "a5fd5e9f229abb2d"
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "variable",
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "caster"
+                                  },
+                                  "key": "a8451228fe0c120a"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "If restore HP >= 1, pop up floating number"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "如果恢复生命值 >=1，弹出浮动数字"
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "hpRecovery"
+                          },
+                          "operation": "greater-or-equal",
+                          "operand": {
+                            "type": "constant",
+                            "value": 1
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "5fda2218f2770caf",
+                          "params": {
+                            "actor": {
+                              "getter": "actor",
+                              "type": "caster"
+                            },
+                            "style": 3,
+                            "damage": {
+                              "getter": "variable",
+                              "type": "local",
+                              "key": "hpRecovery"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "If the character's HP <= 0, the character is considered dead"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "如果角色生命值 <= 0，则判定死亡"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "hp"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "a5fd5e9f229abb2d"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "hp"
+                },
+                "operation": "less-or-equal",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "callEvent",
+                "params": {
+                  "type": "global",
+                  "eventId": "8c17eb0bf4fb77ed"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Because the role will not continue to execute the subsequent instructions after de-activation,\nit is put into a independent block to complete the instructions"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "因为角色取消激活后，将不会继续执行后面的指令，所以放到独立执行块中来完成指令"
+                }
+              },
+              {
+                "id": "independent",
+                "params": {
+                  "commands": [
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Stop moving, turn off collision function, cancel activation (death)"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "停止移动，关闭碰撞功能，取消激活(死亡)"
+                      }
+                    },
+                    {
+                      "id": "moveActor",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "mode": "stop"
+                      }
+                    },
+                    {
+                      "id": "setWeight",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "weight": 0
+                      }
+                    },
+                    {
+                      "id": "setActive",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "active": false
+                      }
+                    },
+                    {
+                      "id": "callEvent",
+                      "params": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "eventType": "fdede5db37a4ee44"
+                      }
+                    },
+                    {
+                      "id": "callEvent",
+                      "params": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "eventType": "c2ba6c4f90edd668"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Wait for the end of the character death animation, if there is no resurrection, delete the character"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "等待角色死亡动画播放结束，如果没有复活，删除角色"
+                      }
+                    },
+                    {
+                      "id": "playActorAnimation",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "motion": "ffa7d2c10f634142",
+                        "speed": 1,
+                        "wait": true
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "operation": "inactive"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "deleteActor",
+                                "params": {
+                                  "actor": {
+                                    "type": "trigger"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

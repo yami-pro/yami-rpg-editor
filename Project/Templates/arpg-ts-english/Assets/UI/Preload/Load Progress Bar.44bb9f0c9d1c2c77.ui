@@ -1,0 +1,313 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "nodes": [
+    {
+      "class": "progressbar",
+      "name": "ProgressBar",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "96ed789e4b65fe81",
+      "image": "7c621804d5559957",
+      "display": "stretch",
+      "clip": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "type": "horizontal",
+      "centerX": 0.5,
+      "centerY": 0.5,
+      "startAngle": -90,
+      "centralAngle": 360,
+      "step": 0,
+      "progress": 1,
+      "blend": "normal",
+      "colorMode": "fixed",
+      "color": [
+        0,
+        255,
+        255,
+        125
+      ],
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 1,
+        "x": 0,
+        "x2": 0.5,
+        "y": -50,
+        "y2": 1,
+        "width": 1600,
+        "width2": 0,
+        "height": 32,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "loop",
+              "params": {
+                "mode": "all",
+                "conditions": [],
+                "commands": [
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "loadedMB"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "other",
+                          "data": "loader-loaded-bytes"
+                        },
+                        {
+                          "operation": "div",
+                          "type": "constant",
+                          "value": 1024
+                        },
+                        {
+                          "operation": "div",
+                          "type": "constant",
+                          "value": 1024
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "loadedMB"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "math",
+                          "method": "round",
+                          "variable": {
+                            "type": "local",
+                            "key": "loadedMB"
+                          },
+                          "decimals": 2
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "totalMB"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "other",
+                          "data": "loader-total-bytes"
+                        },
+                        {
+                          "operation": "div",
+                          "type": "constant",
+                          "value": 1024
+                        },
+                        {
+                          "operation": "div",
+                          "type": "constant",
+                          "value": 1024
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "totalMB"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "math",
+                          "method": "round",
+                          "variable": {
+                            "type": "local",
+                            "key": "totalMB"
+                          },
+                          "decimals": 2
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "progress"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "other",
+                          "data": "loader-completion-progress"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setText",
+                    "params": {
+                      "element": {
+                        "type": "by-id",
+                        "presetId": "2100adf98d46c9ce"
+                      },
+                      "properties": [
+                        {
+                          "key": "content",
+                          "value": "<local:loadedMB> / <local:totalMB> MB"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setProgressBar",
+                    "params": {
+                      "element": {
+                        "type": "trigger"
+                      },
+                      "properties": [
+                        {
+                          "key": "progress",
+                          "value": {
+                            "type": "local",
+                            "key": "progress"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "all",
+                          "conditions": [
+                            {
+                              "type": "number",
+                              "variable": {
+                                "type": "local",
+                                "key": "progress"
+                              },
+                              "operation": "equal",
+                              "operand": {
+                                "type": "constant",
+                                "value": 1
+                              }
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "deleteElement",
+                              "params": {
+                                "operation": "delete-element",
+                                "element": {
+                                  "type": "trigger"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "wait",
+                    "params": {
+                      "duration": 1
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "text",
+          "name": "Text",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "2100adf98d46c9ce",
+          "direction": "horizontal-tb",
+          "horizontalAlign": "center",
+          "verticalAlign": "middle",
+          "content": "Loading",
+          "size": 24,
+          "lineSpacing": 0,
+          "letterSpacing": 0,
+          "color": "ffffffff",
+          "font": "",
+          "typeface": "regular",
+          "effect": {
+            "type": "stroke",
+            "strokeWidth": 2,
+            "color": "000000ff"
+          },
+          "overflow": "visible",
+          "blend": "normal",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 0.5,
+            "width": 160,
+            "width2": 0,
+            "height": 32,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

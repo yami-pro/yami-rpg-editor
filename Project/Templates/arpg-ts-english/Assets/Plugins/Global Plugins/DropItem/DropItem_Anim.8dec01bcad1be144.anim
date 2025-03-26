@@ -1,0 +1,701 @@
+{
+  "sprites": [
+    {
+      "name": "Item Icon",
+      "id": "ce69153686959cff",
+      "image": "0a47ecf1e8c15ea6",
+      "hframes": 16,
+      "vframes": 22
+    },
+    {
+      "name": "Glow",
+      "id": "85cd250d826c9c6b",
+      "image": "0fcd4a92ddf48a12",
+      "hframes": 1,
+      "vframes": 1
+    },
+    {
+      "name": "Gold",
+      "id": "37ca8ba9a0cdd5ba",
+      "image": "598a01b56011bb17",
+      "hframes": 8,
+      "vframes": 14
+    }
+  ],
+  "motions": [
+    {
+      "id": "408dc2e6d1ae7329",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "Wrap",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "de6ab9b8ff17ffd4",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "88960b39ce627a19",
+                  "x": 0,
+                  "y": -16,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 10,
+                  "end": 11,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "Icon",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "ce69153686959cff",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 1,
+                      "spriteY": 5,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7802b73510212500",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "Wrap",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "de6ab9b8ff17ffd4",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "88960b39ce627a19",
+                  "x": 0,
+                  "y": -16,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 10,
+                  "end": 11,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "Icon",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "ce69153686959cff",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 1,
+                      "spriteY": 5,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "sprite",
+                  "name": "Glow",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "85cd250d826c9c6b",
+                  "blend": "normal",
+                  "light": "raw",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.5,
+                      "scaleY": 0.5,
+                      "opacity": 0.5,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        -255,
+                        0,
+                        -60,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9f7addeeb07e147e",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "Wrap",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "de6ab9b8ff17ffd4",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "88960b39ce627a19",
+                  "x": 0,
+                  "y": -16,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 10,
+                  "end": 11,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "Icon",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "ce69153686959cff",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 1,
+                      "spriteY": 5,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "sprite",
+                  "name": "Glow",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "85cd250d826c9c6b",
+                  "blend": "normal",
+                  "light": "raw",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.5,
+                      "scaleY": 0.5,
+                      "opacity": 0.75,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        -210,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a204b12d636daa8f",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "Wrap",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "de6ab9b8ff17ffd4",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "88960b39ce627a19",
+                  "x": 0,
+                  "y": -16,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                },
+                {
+                  "start": 10,
+                  "end": 11,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.5,
+                  "scaleY": 0.5,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "Icon",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "ce69153686959cff",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 1,
+                      "spriteY": 5,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "sprite",
+                  "name": "Glow",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "85cd250d826c9c6b",
+                  "blend": "normal",
+                  "light": "raw",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.5,
+                      "scaleY": 0.5,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        -255,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "particle",
+                  "name": "Particles",
+                  "hidden": false,
+                  "locked": false,
+                  "particleId": "1600ed24ed6e9f72",
+                  "position": "absolute",
+                  "angle": "default",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.5,
+                      "scaleY": 0.5,
+                      "opacity": 1,
+                      "scale": 1,
+                      "speed": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "2d76876c802aebec",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": true,
+      "loopStart": 11,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "Translate",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "de6ab9b8ff17ffd4",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "88960b39ce627a19",
+                  "x": 0,
+                  "y": -16,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 10,
+                  "end": 11,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "Coin",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "37ca8ba9a0cdd5ba",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 11,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 6,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 11,
+                      "end": 14,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 6,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 14,
+                      "end": 17,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 1,
+                      "spriteY": 6,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 17,
+                      "end": 20,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 2,
+                      "spriteY": 6,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 20,
+                      "end": 23,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 3,
+                      "spriteY": 6,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": true,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Limit actor's health and mana to prevent exceeding the maximum value"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "限制角色的生命和魔法值以避免超出最大值"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "key": "a5fd5e9f229abb2d"
+                },
+                "operation": "greater",
+                "operand": {
+                  "type": "variable",
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    },
+                    "key": "a8451228fe0c120a"
+                  }
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    },
+                    "key": "a5fd5e9f229abb2d"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "a8451228fe0c120a"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "key": "7fa82e53c15d0e81"
+                },
+                "operation": "greater",
+                "operand": {
+                  "type": "variable",
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    },
+                    "key": "ff0db36441e761fa"
+                  }
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    },
+                    "key": "7fa82e53c15d0e81"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "ff0db36441e761fa"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

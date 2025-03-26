@@ -1,0 +1,89 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    256,
+    1280,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "Burst Arrow"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 5000
+    },
+    {
+      "key": "22e4d90f35666e4e",
+      "value": 5
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ac7278a39cf5d52f"
+          }
+        },
+        {
+          "id": "createTrigger",
+          "params": {
+            "triggerId": "1eabf3d232f51d95",
+            "caster": {
+              "type": "trigger"
+            },
+            "origin": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            },
+            "angle": {
+              "type": "relative",
+              "degrees": 0
+            },
+            "distance": 0,
+            "scale": 1,
+            "timeScale": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "6421aebf4c298605"
+            }
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "144088a2819f6488"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "d8537bc4dee6d675"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

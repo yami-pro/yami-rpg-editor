@@ -1,0 +1,80 @@
+{
+  "type": "auto",
+  "width": 8,
+  "height": 1,
+  "tileWidth": 16,
+  "tileHeight": 16,
+  "globalOffsetX": 0,
+  "globalOffsetY": 0,
+  "globalPriority": 0,
+  "tiles": [
+    {
+      "template": "4216bdebfb1619ab",
+      "image": "cd96420d15c76e4f",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "template": "4216bdebfb1619ab",
+      "image": "cd96420d15c76e4f",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "template": "4216bdebfb1619ab",
+      "image": "cd96420d15c76e4f",
+      "x": 6,
+      "y": 0
+    },
+    {
+      "template": "4216bdebfb1619ab",
+      "image": "cd96420d15c76e4f",
+      "x": 9,
+      "y": 0
+    },
+    {
+      "template": "4e08b963967eb231",
+      "image": "cd96420d15c76e4f",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "template": "4e08b963967eb231",
+      "image": "cd96420d15c76e4f",
+      "x": 4,
+      "y": 0
+    },
+    0,
+    0
+  ],
+  "priorities": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "terrains": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "tags": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

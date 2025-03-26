@@ -1,0 +1,100 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "actor",
+          "actor": {
+            "type": "trigger"
+          },
+          "key": "1c60e46c0d8ea80e"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "enum",
+          "stringId": "4df29e32f2f88d1b"
+        }
+      }
+    },
+    {
+      "id": "setMovementSpeed",
+      "params": {
+        "actor": {
+          "type": "trigger"
+        },
+        "property": "factor-temp",
+        "factor": 0
+      }
+    },
+    {
+      "id": "fixAngle",
+      "params": {
+        "actor": {
+          "type": "trigger"
+        },
+        "fixed": true
+      }
+    },
+    {
+      "id": "playActorAnimation",
+      "params": {
+        "actor": {
+          "type": "trigger"
+        },
+        "motion": "9cadf0c73aa8f06d",
+        "speed": {
+          "type": "actor",
+          "actor": {
+            "type": "trigger"
+          },
+          "key": "6421aebf4c298605"
+        },
+        "wait": true
+      }
+    },
+    {
+      "id": "fixAngle",
+      "params": {
+        "actor": {
+          "type": "trigger"
+        },
+        "fixed": false
+      }
+    },
+    {
+      "id": "setMovementSpeed",
+      "params": {
+        "actor": {
+          "type": "trigger"
+        },
+        "property": "factor-temp",
+        "factor": 1
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "actor",
+          "actor": {
+            "type": "trigger"
+          },
+          "key": "1c60e46c0d8ea80e"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "enum",
+          "stringId": "18e8a940bce7382f"
+        }
+      }
+    }
+  ]
+}

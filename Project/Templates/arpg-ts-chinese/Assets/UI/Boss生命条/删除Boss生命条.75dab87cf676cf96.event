@@ -1,0 +1,53 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "object",
+                "variable": {
+                  "type": "element",
+                  "element": {
+                    "type": "by-id",
+                    "presetId": "0350981d48ce92e8"
+                  },
+                  "key": "1f4c880e8e284c05"
+                },
+                "operation": "equal",
+                "operand": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  }
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "deleteElement",
+                "params": {
+                  "operation": "delete-element",
+                  "element": {
+                    "type": "by-id",
+                    "presetId": "0350981d48ce92e8"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

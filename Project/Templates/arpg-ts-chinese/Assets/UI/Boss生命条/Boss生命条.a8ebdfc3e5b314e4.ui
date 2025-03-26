@@ -1,0 +1,583 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "nodes": [
+    {
+      "class": "container",
+      "name": "Boss生命条",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "0350981d48ce92e8",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 0,
+        "x": 0,
+        "x2": 0.5,
+        "y": 80,
+        "y2": 0,
+        "width": 1200,
+        "width2": 0,
+        "height": 60,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "operation": "disable-pointer-events"
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "image",
+          "name": "背景",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "47903c15b400f0cc",
+          "image": "8a5b795e79e7287a",
+          "display": "slice",
+          "flip": "none",
+          "blend": "normal",
+          "shiftX": 0,
+          "shiftY": 0,
+          "clip": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "border": 8,
+          "tint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 0,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": [
+            {
+              "class": "text",
+              "name": "Boss名称",
+              "enabled": true,
+              "expanded": false,
+              "hidden": false,
+              "locked": false,
+              "presetId": "3d8748571dab120e",
+              "direction": "horizontal-tb",
+              "horizontalAlign": "center",
+              "verticalAlign": "middle",
+              "content": "DIABLO",
+              "size": 48,
+              "lineSpacing": 0,
+              "letterSpacing": 0,
+              "color": "ffe0a0ff",
+              "font": "",
+              "typeface": "bold",
+              "effect": {
+                "type": "shadow",
+                "shadowOffsetX": 2,
+                "shadowOffsetY": 2,
+                "color": "000000ff"
+              },
+              "overflow": "visible",
+              "blend": "normal",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 1,
+                "x": 0,
+                "x2": 0.5,
+                "y": 0,
+                "y2": 0,
+                "width": 400,
+                "width2": 0,
+                "height": 80,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            },
+            {
+              "class": "image",
+              "name": "遮罩层",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "presetId": "7468e181c8fbff77",
+              "image": "8a5b795e79e7287a",
+              "display": "slice",
+              "flip": "none",
+              "blend": "mask",
+              "shiftX": 0,
+              "shiftY": 0,
+              "clip": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "border": 8,
+              "tint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "x": 0,
+                "x2": 0.5,
+                "y": 0,
+                "y2": 0.5,
+                "width": -4,
+                "width2": 1,
+                "height": -4,
+                "height2": 1,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": [
+                {
+                  "class": "progressbar",
+                  "name": "进度条",
+                  "enabled": true,
+                  "expanded": true,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "b3fb448007083804",
+                  "image": "fa66cfef8fca2820",
+                  "display": "stretch",
+                  "clip": [
+                    0,
+                    0,
+                    256,
+                    256
+                  ],
+                  "type": "horizontal",
+                  "centerX": 0.5,
+                  "centerY": 0.5,
+                  "startAngle": -90,
+                  "centralAngle": 360,
+                  "step": 0,
+                  "progress": 1,
+                  "blend": "normal",
+                  "colorMode": "fixed",
+                  "color": [
+                    224,
+                    0,
+                    0,
+                    255
+                  ],
+                  "pointerEvents": "enabled",
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [
+                    {
+                      "type": "autorun",
+                      "enabled": true,
+                      "commands": [
+                        {
+                          "id": "setObject",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "target"
+                            },
+                            "operand": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "variable",
+                                "variable": {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "by-id",
+                                    "presetId": "0350981d48ce92e8"
+                                  },
+                                  "key": "1f4c880e8e284c05"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "elapsed"
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "constant",
+                                "value": 0
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "duration"
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "constant",
+                                "value": 1000
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "loop",
+                          "params": {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "elapsed"
+                                },
+                                "operation": "less",
+                                "operand": {
+                                  "type": "variable",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "duration"
+                                  }
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "ratio"
+                                  },
+                                  "operation": "set",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "elapsed"
+                                      }
+                                    },
+                                    {
+                                      "operation": "div",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "duration"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "number",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "ratio"
+                                          },
+                                          "operation": "greater",
+                                          "operand": {
+                                            "type": "constant",
+                                            "value": 1
+                                          }
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "setNumber",
+                                          "params": {
+                                            "variable": {
+                                              "type": "local",
+                                              "key": "ratio"
+                                            },
+                                            "operation": "set",
+                                            "operands": [
+                                              {
+                                                "operation": "add",
+                                                "type": "constant",
+                                                "value": 1
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "elapsed"
+                                  },
+                                  "operation": "add",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "other",
+                                      "data": "raw-delta-time"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "progress"
+                                  },
+                                  "operation": "set",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "target"
+                                          }
+                                        },
+                                        "key": "a5fd5e9f229abb2d"
+                                      }
+                                    },
+                                    {
+                                      "operation": "div",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "target"
+                                          }
+                                        },
+                                        "key": "a8451228fe0c120a"
+                                      }
+                                    },
+                                    {
+                                      "operation": "mul",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "ratio"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setProgressBar",
+                                "params": {
+                                  "element": {
+                                    "type": "trigger"
+                                  },
+                                  "properties": [
+                                    {
+                                      "key": "progress",
+                                      "value": {
+                                        "type": "local",
+                                        "key": "progress"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "wait",
+                                "params": {
+                                  "duration": 1
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "loop",
+                          "params": {
+                            "mode": "all",
+                            "conditions": [],
+                            "commands": [
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "progress"
+                                  },
+                                  "operation": "set",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "target"
+                                          }
+                                        },
+                                        "key": "a5fd5e9f229abb2d"
+                                      }
+                                    },
+                                    {
+                                      "operation": "div",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "target"
+                                          }
+                                        },
+                                        "key": "a8451228fe0c120a"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setProgressBar",
+                                "params": {
+                                  "element": {
+                                    "type": "trigger"
+                                  },
+                                  "properties": [
+                                    {
+                                      "key": "progress",
+                                      "value": {
+                                        "type": "local",
+                                        "key": "progress"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "wait",
+                                "params": {
+                                  "duration": 1
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "scripts": [],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "sprites": [],
+  "motions": [
+    {
+      "class": "motion",
+      "id": "baf0063927139f01",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "particle",
+              "name": "Trail",
+              "hidden": false,
+              "locked": false,
+              "particleId": "8422ddfc6ec822cb",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

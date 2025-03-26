@@ -1,0 +1,253 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "switch",
+      "params": {
+        "variable": {
+          "type": "equipment",
+          "equipment": {
+            "type": "by-slot",
+            "actor": {
+              "type": "trigger"
+            },
+            "slot": "9b914c88415f4908"
+          },
+          "key": "aea28ab8744f4f68"
+        },
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "96b55f82d8571e0d"
+              }
+            ],
+            "commands": [
+              {
+                "id": "playAudio",
+                "params": {
+                  "type": "se-attenuated",
+                  "audio": "60a9bb3d6ee5da0b",
+                  "volume": 0.5,
+                  "location": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "48cade8361eab2fd"
+              }
+            ],
+            "commands": [
+              {
+                "id": "playAudio",
+                "params": {
+                  "type": "se-attenuated",
+                  "audio": "0b2a8e0a29805898",
+                  "volume": 0.5,
+                  "location": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "0196d851e96719a6"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "random"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "random-int",
+                      "min": 0,
+                      "max": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "random"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "value": 0
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "playAudio",
+                          "params": {
+                            "type": "se-attenuated",
+                            "audio": "d93329f7c015fc61",
+                            "volume": 0.5,
+                            "location": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "value": 1
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "playAudio",
+                          "params": {
+                            "type": "se-attenuated",
+                            "audio": "4ae670a79da2402e",
+                            "volume": 0.5,
+                            "location": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "2bd92f867bb4c772"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "random"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "random-int",
+                      "min": 0,
+                      "max": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "random"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "value": 0
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "playAudio",
+                          "params": {
+                            "type": "se-attenuated",
+                            "audio": "d0a6fe0f4144fe18",
+                            "volume": 0.5,
+                            "location": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "value": 1
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "playAudio",
+                          "params": {
+                            "type": "se-attenuated",
+                            "audio": "0b7aa9356dd09c4f",
+                            "volume": 0.5,
+                            "location": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

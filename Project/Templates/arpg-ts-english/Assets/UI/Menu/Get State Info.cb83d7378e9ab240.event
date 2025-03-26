@@ -1,0 +1,1118 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Parameters: target"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Initialize key attributes **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 初始化关键属性 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "name"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "time"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "desc"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the status name **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置状态名称 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "_name"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "variable",
+          "variable": {
+            "type": "state",
+            "state": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            },
+            "key": "9e7764f296cedc7c"
+          }
+        }
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "string",
+                "variable": {
+                  "type": "local",
+                  "key": "_name"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "none"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "name"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "variable",
+                    "variable": {
+                      "type": "local",
+                      "key": "_name"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the remaining time **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置状态剩余时间 **********"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "seconds"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "object",
+            "property": "state-current-time",
+            "state": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            }
+          },
+          {
+            "operation": "div",
+            "type": "constant",
+            "value": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "seconds"
+                },
+                "operation": "greater-or-equal",
+                "operand": {
+                  "type": "constant",
+                  "value": 3600
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "hours"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "seconds"
+                      }
+                    },
+                    {
+                      "operation": "div",
+                      "type": "constant",
+                      "value": 3600
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "hours"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "floor",
+                      "variable": {
+                        "type": "local",
+                        "key": "hours"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "seconds"
+                  },
+                  "operation": "mod",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 3600
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "time"
+                  },
+                  "operation": "add",
+                  "operand": {
+                    "type": "template",
+                    "value": "<color:ffffff> <local:hours> </color>小时"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "seconds"
+                },
+                "operation": "greater-or-equal",
+                "operand": {
+                  "type": "constant",
+                  "value": 60
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "minutes"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "seconds"
+                      }
+                    },
+                    {
+                      "operation": "div",
+                      "type": "constant",
+                      "value": 60
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "minutes"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "floor",
+                      "variable": {
+                        "type": "local",
+                        "key": "minutes"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "seconds"
+                  },
+                  "operation": "mod",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 60
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "time"
+                  },
+                  "operation": "add",
+                  "operand": {
+                    "type": "template",
+                    "value": "<color:ffffff> <local:minutes> </color>分"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "seconds"
+                },
+                "operation": "greater",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "seconds"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "ceil",
+                      "variable": {
+                        "type": "local",
+                        "key": "seconds"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "time"
+                  },
+                  "operation": "add",
+                  "operand": {
+                    "type": "template",
+                    "value": "<color:ffffff> <local:seconds> </color>秒"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "string",
+                "variable": {
+                  "type": "local",
+                  "key": "time"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "constant",
+                  "value": ""
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "time"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "template",
+                    "value": "剩余时间<local:time>"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the status description information **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置状态描述信息 **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Get integer state attributes"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "获取整数状态属性"
+      }
+    },
+    {
+      "id": "setList",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "attrNames"
+        },
+        "operation": "get-attribute-names",
+        "groupId": "201081a1b42ef208"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "i"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "forEach",
+      "params": {
+        "data": "attribute",
+        "groupId": "201081a1b42ef208",
+        "variable": {
+          "type": "local",
+          "key": "attrKey"
+        },
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "variable",
+                  "variable": {
+                    "type": "state",
+                    "state": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "attrKey"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "attrValue"
+                      },
+                      "operation": "unequal",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrName"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "list",
+                          "variable": {
+                            "type": "local",
+                            "key": "attrNames"
+                          },
+                          "index": {
+                            "type": "local",
+                            "key": "i"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "greater",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:00ff00>+<local:attrValue> <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "less",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:ff0000><local:attrValue> <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "i"
+              },
+              "operation": "add",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Get percentage state attributes"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "获取百分比状态属性"
+      }
+    },
+    {
+      "id": "setList",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "attrNames"
+        },
+        "operation": "get-attribute-names",
+        "groupId": "4071a7a838039798"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "i"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "forEach",
+      "params": {
+        "data": "attribute",
+        "groupId": "4071a7a838039798",
+        "variable": {
+          "type": "local",
+          "key": "attrKey"
+        },
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "variable",
+                  "variable": {
+                    "type": "state",
+                    "state": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "attrKey"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "attrValue"
+                      },
+                      "operation": "unequal",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrName"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "list",
+                          "variable": {
+                            "type": "local",
+                            "key": "attrNames"
+                          },
+                          "index": {
+                            "type": "local",
+                            "key": "i"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrValue_100"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "attrValue"
+                            }
+                          },
+                          {
+                            "operation": "mul",
+                            "type": "constant",
+                            "value": 100
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrValue_100"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "math",
+                            "method": "round",
+                            "variable": {
+                              "type": "local",
+                              "key": "attrValue_100"
+                            },
+                            "decimals": 0
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "greater",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:00ff00>+<local:attrValue_100>% <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "less",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:ff0000><local:attrValue_100>% <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "i"
+              },
+              "operation": "add",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "If the desc attribute is present, the text print position is shifted down by 24 pixels to separate the desc text from the state itself"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "如果存在描述属性，文本打印位置向下移动24个像素，用来隔开状态自身的描述文本"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "string",
+                "variable": {
+                  "type": "local",
+                  "key": "desc"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "constant",
+                  "value": ""
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "desc"
+                  },
+                  "operation": "add",
+                  "operand": {
+                    "type": "constant",
+                    "value": "<y:add,24>"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Add user-set status description information"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "添加用户设置的状态描述信息"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "desc"
+        },
+        "operation": "add",
+        "operand": {
+          "type": "variable",
+          "variable": {
+            "type": "state",
+            "state": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            },
+            "key": "98b1ee7f5da9a46a"
+          }
+        }
+      }
+    }
+  ]
+}

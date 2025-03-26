@@ -1,0 +1,80 @@
+{
+  "icon": "969cc7da8bb5e984",
+  "clip": [
+    288,
+    64,
+    32,
+    32
+  ],
+  "inherit": "8ffba2cbfefe7647",
+  "attributes": [
+    {
+      "key": "9e7764f296cedc7c",
+      "value": "Slowdown"
+    },
+    {
+      "key": "98b1ee7f5da9a46a",
+      "value": "<color:ff0000>-50%</color> Move speed"
+    },
+    {
+      "key": "81d27c5772ab7adb",
+      "value": "cf59776929dddb77"
+    },
+    {
+      "key": "f9c84e17d9908aa7",
+      "value": 5000
+    },
+    {
+      "key": "ee886244482527a9",
+      "value": -0.5
+    }
+  ],
+  "events": [
+    {
+      "type": "stateadd",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "inherited"
+          }
+        },
+        {
+          "id": "addAnimationComponent",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "animationId": "8d0ef30782c36995",
+            "motion": "a20ba584b0ca3547",
+            "priority": 0
+          }
+        }
+      ]
+    },
+    {
+      "type": "stateremove",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "inherited"
+          }
+        },
+        {
+          "id": "removeAnimationComponent",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "animationId": "8d0ef30782c36995",
+            "motion": "a20ba584b0ca3547"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

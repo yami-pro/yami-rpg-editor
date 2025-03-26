@@ -1,0 +1,1291 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Parameters: target, [priceFactor]"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Initialize key attributes **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 初始化关键属性 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "name"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "slot"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "desc"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "price"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "possession"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": ""
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the equipment name **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置装备名称 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "_name"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "variable",
+          "variable": {
+            "type": "equipment",
+            "equipment": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            },
+            "key": "744c0775cfc21878"
+          }
+        }
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "string",
+                "variable": {
+                  "type": "local",
+                  "key": "_name"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "none"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "equipment",
+                    "equipment": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    },
+                    "key": "f07a7697f4d69696"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "408dc2e6d1ae7329"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:0><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "7802b73510212500"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:1><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "9f7addeeb07e147e"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:2><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "conditions": [
+                        {
+                          "type": "enum",
+                          "stringId": "a204b12d636daa8f"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "name"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "template",
+                              "value": "<color:3><local:_name>"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "defaultCommands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "name"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "template",
+                          "value": "<local:_name>"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the equipment slot **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置装备部位 **********"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "slotValue"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "variable",
+          "variable": {
+            "type": "equipment",
+            "equipment": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            },
+            "key": "c16d969e58798456"
+          }
+        }
+      }
+    },
+    {
+      "id": "setList",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "slotNames"
+        },
+        "operation": "get-enum-names",
+        "groupId": "a6642ae59168aae7"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "i"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "forEach",
+      "params": {
+        "data": "enum",
+        "groupId": "a6642ae59168aae7",
+        "variable": {
+          "type": "local",
+          "key": "value"
+        },
+        "commands": [
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "string",
+                      "variable": {
+                        "type": "local",
+                        "key": "value"
+                      },
+                      "operation": "equal",
+                      "operand": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "local",
+                          "key": "slotValue"
+                        }
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "slot"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "list",
+                          "variable": {
+                            "type": "local",
+                            "key": "slotNames"
+                          },
+                          "index": {
+                            "type": "local",
+                            "key": "i"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "break",
+                      "params": {}
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "i"
+              },
+              "operation": "add",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the equipment description information **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置装备描述信息 **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Get integer equipment attributes"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "获取整数装备属性"
+      }
+    },
+    {
+      "id": "setList",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "attrNames"
+        },
+        "operation": "get-attribute-names",
+        "groupId": "84f1821a0807881d"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "i"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "forEach",
+      "params": {
+        "data": "attribute",
+        "groupId": "84f1821a0807881d",
+        "variable": {
+          "type": "local",
+          "key": "attrKey"
+        },
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "variable",
+                  "variable": {
+                    "type": "equipment",
+                    "equipment": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "attrKey"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "attrValue"
+                      },
+                      "operation": "unequal",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrName"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "list",
+                          "variable": {
+                            "type": "local",
+                            "key": "attrNames"
+                          },
+                          "index": {
+                            "type": "local",
+                            "key": "i"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "greater",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:00ff00>+<local:attrValue> <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "less",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:ff0000><local:attrValue> <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "i"
+              },
+              "operation": "add",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Get percentage equipment attributes"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "获取百分比装备属性"
+      }
+    },
+    {
+      "id": "setList",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "attrNames"
+        },
+        "operation": "get-attribute-names",
+        "groupId": "76c88aaca42c85f5"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "i"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "forEach",
+      "params": {
+        "data": "attribute",
+        "groupId": "76c88aaca42c85f5",
+        "variable": {
+          "type": "local",
+          "key": "attrKey"
+        },
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "attrValue"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "variable",
+                  "variable": {
+                    "type": "equipment",
+                    "equipment": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "attrKey"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "attrValue"
+                      },
+                      "operation": "unequal",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrName"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "list",
+                          "variable": {
+                            "type": "local",
+                            "key": "attrNames"
+                          },
+                          "index": {
+                            "type": "local",
+                            "key": "i"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrValue_100"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "attrValue"
+                            }
+                          },
+                          {
+                            "operation": "mul",
+                            "type": "constant",
+                            "value": 100
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "attrValue_100"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "math",
+                            "method": "round",
+                            "variable": {
+                              "type": "local",
+                              "key": "attrValue_100"
+                            },
+                            "decimals": 0
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "greater",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:00ff00>+<local:attrValue_100>% <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "attrValue"
+                                },
+                                "operation": "less",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "desc"
+                                  },
+                                  "operation": "add",
+                                  "operand": {
+                                    "type": "template",
+                                    "value": "<color:ff0000><local:attrValue_100>% <local:attrName></color>\n"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "i"
+              },
+              "operation": "add",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "If the description attribute is present, the text print position is shifted down by 24 pixels to separate the description text of the equipment itself"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "如果存在描述属性，文本打印位置向下移动24个像素，用来隔开装备自身的描述文本"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "string",
+                "variable": {
+                  "type": "local",
+                  "key": "desc"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "constant",
+                  "value": ""
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "desc"
+                  },
+                  "operation": "add",
+                  "operand": {
+                    "type": "constant",
+                    "value": "<y:add,24>"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Add user-set equipment description information"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "添加用户设置的装备描述信息"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "desc"
+        },
+        "operation": "add",
+        "operand": {
+          "type": "variable",
+          "variable": {
+            "type": "equipment",
+            "equipment": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "target"
+              }
+            },
+            "key": "81645b642e77eba9"
+          }
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the equipment prices **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置装备价格 **********"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "_price"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "equipment",
+              "equipment": {
+                "type": "variable",
+                "variable": {
+                  "type": "local",
+                  "key": "target"
+                }
+              },
+              "key": "9c6c39e76efa5356"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "_price"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "none"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "_price"
+                  },
+                  "operation": "mul",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "priceFactor"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "_price"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "round",
+                      "variable": {
+                        "type": "local",
+                        "key": "_price"
+                      },
+                      "decimals": 0
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "price"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "template",
+                    "value": "价格 <color:ffffff><local:_price><color:4>G"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** Set the number of equipment holdings **********"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "********** 设置装备持有数量 **********"
+      }
+    },
+    {
+      "id": "setObject",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "actor"
+        },
+        "operand": {
+          "type": "actor",
+          "actor": {
+            "type": "player"
+          }
+        }
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "object",
+                "variable": {
+                  "type": "local",
+                  "key": "actor"
+                },
+                "operation": "is-actor"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "equipId"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "object",
+                    "property": "equipment-file-id",
+                    "equipment": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "target"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "quantity"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "object",
+                      "property": "actor-inventory-equipment-quantity",
+                      "actor": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "local",
+                          "key": "actor"
+                        }
+                      },
+                      "equipmentId": {
+                        "type": "local",
+                        "key": "equipId"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "possession"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "template",
+                    "value": "持有数量 <local:quantity>"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

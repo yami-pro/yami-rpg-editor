@@ -1,0 +1,18 @@
+{
+  "type": "preload",
+  "enabled": true,
+  "priority": false,
+  "namespace": true,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "createElement",
+      "params": {
+        "operation": "append-all-to-root",
+        "uiId": "44bb9f0c9d1c2c77"
+      }
+    }
+  ]
+}

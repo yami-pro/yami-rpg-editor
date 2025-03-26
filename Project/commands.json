@@ -1,0 +1,660 @@
+[
+  {
+    "class": "folder",
+    "value": "message",
+    "expanded": true,
+    "children": [
+      {
+        "class": "message",
+        "value": "showText"
+      },
+      {
+        "class": "message",
+        "value": "showChoices"
+      },
+      {
+        "class": "message-comment",
+        "value": "comment"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "variable",
+    "expanded": true,
+    "children": [
+      {
+        "class": "variable",
+        "value": "setBoolean"
+      },
+      {
+        "class": "variable",
+        "value": "setNumber"
+      },
+      {
+        "class": "variable",
+        "value": "setString"
+      },
+      {
+        "class": "variable",
+        "value": "setObject"
+      },
+      {
+        "class": "variable",
+        "value": "setList"
+      },
+      {
+        "class": "variable",
+        "value": "deleteVariable"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "flow",
+    "expanded": true,
+    "children": [
+      {
+        "class": "flow",
+        "value": "if"
+      },
+      {
+        "class": "flow",
+        "value": "switch"
+      },
+      {
+        "class": "flow",
+        "value": "loop",
+        "keywords": "while"
+      },
+      {
+        "class": "flow",
+        "value": "forEach"
+      },
+      {
+        "class": "flow",
+        "value": "break"
+      },
+      {
+        "class": "flow",
+        "value": "continue"
+      },
+      {
+        "class": "flow",
+        "value": "independent"
+      },
+      {
+        "class": "flow",
+        "value": "callEvent"
+      },
+      {
+        "class": "flow",
+        "value": "return"
+      },
+      {
+        "class": "flow",
+        "value": "stopEvent",
+        "keywords": "return"
+      },
+      {
+        "class": "flow",
+        "value": "registerEvent"
+      },
+      {
+        "class": "flow",
+        "value": "setEvent"
+      },
+      {
+        "class": "flow",
+        "value": "transition"
+      },
+      {
+        "class": "flow",
+        "value": "block"
+      },
+      {
+        "class": "flow",
+        "value": "label"
+      },
+      {
+        "class": "flow",
+        "value": "jumpTo"
+      },
+      {
+        "class": "flow-wait",
+        "value": "wait"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "ui",
+    "expanded": true,
+    "children": [
+      {
+        "class": "ui",
+        "value": "createElement"
+      },
+      {
+        "class": "ui",
+        "value": "setImage"
+      },
+      {
+        "class": "ui",
+        "value": "loadImage"
+      },
+      {
+        "class": "ui",
+        "value": "tintImage"
+      },
+      {
+        "class": "ui",
+        "value": "setText"
+      },
+      {
+        "class": "ui",
+        "value": "setTextBox"
+      },
+      {
+        "class": "ui",
+        "value": "setDialogBox"
+      },
+      {
+        "class": "ui",
+        "value": "controlDialog"
+      },
+      {
+        "class": "ui",
+        "value": "setProgressBar"
+      },
+      {
+        "class": "ui",
+        "value": "setButton"
+      },
+      {
+        "class": "ui",
+        "value": "controlButton"
+      },
+      {
+        "class": "ui",
+        "value": "setAnimation"
+      },
+      {
+        "class": "ui",
+        "value": "setVideo"
+      },
+      {
+        "class": "ui",
+        "value": "setWindow"
+      },
+      {
+        "class": "ui",
+        "value": "waitForVideo"
+      },
+      {
+        "class": "ui",
+        "value": "setElement"
+      },
+      {
+        "class": "ui",
+        "value": "nestElement"
+      },
+      {
+        "class": "ui",
+        "value": "moveElement"
+      },
+      {
+        "class": "ui",
+        "value": "deleteElement"
+      },
+      {
+        "class": "ui",
+        "value": "setPointerEventRoot"
+      },
+      {
+        "class": "ui",
+        "value": "setFocus"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "object",
+    "expanded": true,
+    "children": [
+      {
+        "class": "object",
+        "value": "createObject"
+      },
+      {
+        "class": "object",
+        "value": "moveLight"
+      },
+      {
+        "class": "object",
+        "value": "deleteObject"
+      },
+      {
+        "class": "object",
+        "value": "setState"
+      },
+      {
+        "class": "object",
+        "value": "playAnimation"
+      },
+      {
+        "class": "object",
+        "value": "setObjectAnimation",
+        "keywords": "setAnimation"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "audio",
+    "expanded": true,
+    "children": [
+      {
+        "class": "audio",
+        "value": "playAudio"
+      },
+      {
+        "class": "audio",
+        "value": "stopAudio"
+      },
+      {
+        "class": "audio",
+        "value": "setVolume"
+      },
+      {
+        "class": "audio",
+        "value": "setPan"
+      },
+      {
+        "class": "audio",
+        "value": "setReverb"
+      },
+      {
+        "class": "audio",
+        "value": "setLoop"
+      },
+      {
+        "class": "audio",
+        "value": "saveAudio"
+      },
+      {
+        "class": "audio",
+        "value": "restoreAudio"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "actor",
+    "expanded": true,
+    "children": [
+      {
+        "class": "actor",
+        "value": "createActor"
+      },
+      {
+        "class": "actor",
+        "value": "moveActor"
+      },
+      {
+        "class": "actor",
+        "value": "followActor"
+      },
+      {
+        "class": "actor",
+        "value": "translateActor"
+      },
+      {
+        "class": "actor",
+        "value": "changeThreat"
+      },
+      {
+        "class": "actor",
+        "value": "setWeight"
+      },
+      {
+        "class": "actor",
+        "value": "setMovementSpeed"
+      },
+      {
+        "class": "actor",
+        "value": "setAngle"
+      },
+      {
+        "class": "actor",
+        "value": "fixAngle"
+      },
+      {
+        "class": "actor",
+        "value": "setActive"
+      },
+      {
+        "class": "actor",
+        "value": "getActor"
+      },
+      {
+        "class": "actor",
+        "value": "getMultipleActors"
+      },
+      {
+        "class": "actor",
+        "value": "deleteActor"
+      },
+      {
+        "class": "actor",
+        "value": "setPlayerActor"
+      },
+      {
+        "class": "actor",
+        "value": "setPartyMember"
+      },
+      {
+        "class": "actor",
+        "value": "changePassableTerrain"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorTeam",
+        "keywords": "changeTeam"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorState",
+        "keywords": "changeState"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorEquipment",
+        "keywords": "changeEquipment"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorSkill",
+        "keywords": "changeSkill"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorPortrait",
+        "keywords": "changePortrait"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorAnimation",
+        "keywords": "changeAnimation"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorSprite",
+        "keywords": "changeSprite"
+      },
+      {
+        "class": "actor",
+        "value": "changeActorMotion"
+      },
+      {
+        "class": "actor",
+        "value": "playActorAnimation"
+      },
+      {
+        "class": "actor",
+        "value": "stopActorAnimation"
+      },
+      {
+        "class": "actor",
+        "value": "addAnimationComponent"
+      },
+      {
+        "class": "actor",
+        "value": "setAnimationComponent"
+      },
+      {
+        "class": "actor",
+        "value": "removeAnimationComponent"
+      },
+      {
+        "class": "actor",
+        "value": "createGlobalActor"
+      },
+      {
+        "class": "actor",
+        "value": "transferGlobalActor"
+      },
+      {
+        "class": "actor",
+        "value": "deleteGlobalActor"
+      },
+      {
+        "class": "actor",
+        "value": "setTarget"
+      },
+      {
+        "class": "actor",
+        "value": "getTarget"
+      },
+      {
+        "class": "actor",
+        "value": "appendTarget"
+      },
+      {
+        "class": "actor",
+        "value": "removeTarget"
+      },
+      {
+        "class": "actor",
+        "value": "detectTargets"
+      },
+      {
+        "class": "actor",
+        "value": "discardTargets"
+      },
+      {
+        "class": "actor",
+        "value": "resetTargets"
+      },
+      {
+        "class": "actor",
+        "value": "renderOutline"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "skill",
+    "expanded": true,
+    "children": [
+      {
+        "class": "skill",
+        "value": "castSkill"
+      },
+      {
+        "class": "skill",
+        "value": "setSkill",
+        "keywords": "cd"
+      },
+      {
+        "class": "skill",
+        "value": "createTrigger"
+      },
+      {
+        "class": "skill",
+        "value": "setTriggerSpeed"
+      },
+      {
+        "class": "skill",
+        "value": "setTriggerAngle"
+      },
+      {
+        "class": "skill",
+        "value": "setTriggerDuration"
+      },
+      {
+        "class": "skill",
+        "value": "setTriggerMotion"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "inventory",
+    "expanded": true,
+    "children": [
+      {
+        "class": "inventory",
+        "value": "setInventory"
+      },
+      {
+        "class": "inventory",
+        "value": "useItem"
+      },
+      {
+        "class": "inventory",
+        "value": "setItem"
+      },
+      {
+        "class": "inventory",
+        "value": "setCooldown"
+      },
+      {
+        "class": "inventory",
+        "value": "setShortcut"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "scene",
+    "expanded": true,
+    "children": [
+      {
+        "class": "scene",
+        "value": "activateScene"
+      },
+      {
+        "class": "scene",
+        "value": "loadScene"
+      },
+      {
+        "class": "scene",
+        "value": "loadSubscene"
+      },
+      {
+        "class": "scene",
+        "value": "unloadSubscene"
+      },
+      {
+        "class": "scene",
+        "value": "deleteScene"
+      },
+      {
+        "class": "scene",
+        "value": "clampCamera"
+      },
+      {
+        "class": "scene",
+        "value": "unclampCamera"
+      },
+      {
+        "class": "scene",
+        "value": "moveCamera"
+      },
+      {
+        "class": "scene",
+        "value": "setZoomFactor"
+      },
+      {
+        "class": "scene",
+        "value": "setAmbientLight"
+      },
+      {
+        "class": "scene",
+        "value": "tintScreen"
+      },
+      {
+        "class": "scene",
+        "value": "shakeScreen"
+      },
+      {
+        "class": "scene",
+        "value": "setTile"
+      },
+      {
+        "class": "scene",
+        "value": "deleteTile"
+      },
+      {
+        "class": "scene",
+        "value": "setTerrain"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "value": "system",
+    "expanded": true,
+    "children": [
+      {
+        "class": "system",
+        "value": "setGameSpeed"
+      },
+      {
+        "class": "system",
+        "value": "setCursor"
+      },
+      {
+        "class": "system",
+        "value": "setTeamRelation"
+      },
+      {
+        "class": "system",
+        "value": "switchCollisionSystem"
+      },
+      {
+        "class": "system",
+        "value": "gameData",
+        "keywords": "save, load"
+      },
+      {
+        "class": "system",
+        "value": "reset"
+      },
+      {
+        "class": "system",
+        "value": "pauseGame"
+      },
+      {
+        "class": "system",
+        "value": "continueGame"
+      },
+      {
+        "class": "system",
+        "value": "preventSceneInput"
+      },
+      {
+        "class": "system",
+        "value": "restoreSceneInput"
+      },
+      {
+        "class": "system",
+        "value": "simulateKey"
+      },
+      {
+        "class": "system",
+        "value": "setLanguage"
+      },
+      {
+        "class": "system",
+        "value": "setResolution"
+      },
+      {
+        "class": "system",
+        "value": "script",
+        "keywords": "javascript"
+      }
+    ]
+  }
+]

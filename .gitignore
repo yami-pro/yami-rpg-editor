@@ -1,19 +1,7 @@
 # ignore
-
-# files
-.DS_Store
-package-lock.json
-config.json
-
-# folders
 node_modules/
-redist/
-*.pak
-*.dll
-*.exe
-*.dat
-_electron/LICENSE
-_electron/LICENSES.chromium.html
-*.bin
-_electron/version
-*.json
+Project/config.json
+Project/Templates/electron-win-x64/
+Project/Templates/electron-mac-universal.app/
+package-lock.json
+.DS_Store

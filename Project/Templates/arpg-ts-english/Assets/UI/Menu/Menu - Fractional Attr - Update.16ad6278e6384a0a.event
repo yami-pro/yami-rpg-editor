@@ -1,0 +1,572 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "setObject",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "actor"
+        },
+        "operand": {
+          "type": "actor",
+          "actor": {
+            "type": "variable",
+            "variable": {
+              "type": "element",
+              "element": {
+                "type": "by-id",
+                "presetId": "016c09707e098490"
+              },
+              "key": "1f4c880e8e284c05"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "loop",
+      "params": {
+        "mode": "all",
+        "conditions": [],
+        "commands": [
+          {
+            "id": "comment",
+            "params": {
+              "comment": "If an equipment is selected, calculate the difference with the current equipment"
+            }
+          },
+          {
+            "id": "comment",
+            "params": {
+              "comment": "如果选中了一个装备，计算它与当前装备的属性差异"
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "diff"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "object",
+                      "variable": {
+                        "type": "element",
+                        "element": {
+                          "type": "by-id",
+                          "presetId": "2f4017f49bfbeeca"
+                        },
+                        "key": "1f4c880e8e284c05"
+                      },
+                      "operation": "is-equipment"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setObject",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "equip2"
+                        },
+                        "operand": {
+                          "type": "variable",
+                          "variable": {
+                            "type": "element",
+                            "element": {
+                              "type": "by-id",
+                              "presetId": "2f4017f49bfbeeca"
+                            },
+                            "key": "1f4c880e8e284c05"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "slot"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "variable",
+                          "variable": {
+                            "type": "equipment",
+                            "equipment": {
+                              "type": "variable",
+                              "variable": {
+                                "type": "local",
+                                "key": "equip2"
+                              }
+                            },
+                            "key": "c16d969e58798456"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "setObject",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "equip1"
+                        },
+                        "operand": {
+                          "type": "equipment",
+                          "equipment": {
+                            "type": "by-slot",
+                            "actor": {
+                              "type": "variable",
+                              "variable": {
+                                "type": "local",
+                                "key": "actor"
+                              }
+                            },
+                            "slot": {
+                              "type": "local",
+                              "key": "slot"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "object",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "equip1"
+                                },
+                                "operation": "unequal",
+                                "operand": {
+                                  "type": "variable",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "equip2"
+                                  }
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "diff"
+                                  },
+                                  "operation": "sub",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "equipment",
+                                        "equipment": {
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "equip1"
+                                          }
+                                        },
+                                        "key": {
+                                          "type": "local",
+                                          "key": "maxKey"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "diff"
+                                  },
+                                  "operation": "add",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "equipment",
+                                        "equipment": {
+                                          "type": "variable",
+                                          "variable": {
+                                            "type": "local",
+                                            "key": "equip2"
+                                          }
+                                        },
+                                        "key": {
+                                          "type": "local",
+                                          "key": "maxKey"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "comment",
+            "params": {
+              "comment": "When the attribute value or attribute difference of a character has changed, update the text"
+            }
+          },
+          {
+            "id": "comment",
+            "params": {
+              "comment": "当角色的属性值或属性差异发生了变化，更新文本"
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "value"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "floor",
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "actor"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "key"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "max"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "variable",
+                  "variable": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "actor"
+                      }
+                    },
+                    "key": {
+                      "type": "local",
+                      "key": "maxKey"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "any",
+                  "conditions": [
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "lastValue"
+                      },
+                      "operation": "unequal",
+                      "operand": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "local",
+                          "key": "value"
+                        }
+                      }
+                    },
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "lastMax"
+                      },
+                      "operation": "unequal",
+                      "operand": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "local",
+                          "key": "max"
+                        }
+                      }
+                    },
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "lastDiff"
+                      },
+                      "operation": "unequal",
+                      "operand": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "local",
+                          "key": "diff"
+                        }
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "lastValue"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "value"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "lastMax"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "max"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "lastDiff"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "diff"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "preview"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "max"
+                            }
+                          },
+                          {
+                            "operation": "add",
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "diff"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "diff"
+                                },
+                                "operation": "greater",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setText",
+                                "params": {
+                                  "element": {
+                                    "type": "trigger"
+                                  },
+                                  "properties": [
+                                    {
+                                      "key": "content",
+                                      "value": "<local:max>(<color:00ff00><local:preview></color>)"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "diff"
+                                },
+                                "operation": "less",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setText",
+                                "params": {
+                                  "element": {
+                                    "type": "trigger"
+                                  },
+                                  "properties": [
+                                    {
+                                      "key": "content",
+                                      "value": "<local:max>(<color:ff0000><local:preview></color>)"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "elseCommands": [
+                          {
+                            "id": "setText",
+                            "params": {
+                              "element": {
+                                "type": "trigger"
+                              },
+                              "properties": [
+                                {
+                                  "key": "content",
+                                  "value": "<local:value>/<local:max>"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "wait",
+            "params": {
+              "duration": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

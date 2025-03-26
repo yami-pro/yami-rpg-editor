@@ -1,0 +1,224 @@
+{
+  "sprites": [
+    {
+      "name": "Chest",
+      "id": "0dc741cdf8bbdcf7",
+      "image": "598a01b56011bb17",
+      "hframes": 4,
+      "vframes": 7
+    }
+  ],
+  "motions": [
+    {
+      "id": "bb120645ed38cecc",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "宝箱",
+              "hidden": false,
+              "locked": false,
+              "sprite": "0dc741cdf8bbdcf7",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 4,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c4998e5b14bd18f",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "宝箱",
+              "hidden": false,
+              "locked": false,
+              "sprite": "0dc741cdf8bbdcf7",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 4,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "97d179e1c4ef7ec8",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "宝箱",
+              "hidden": false,
+              "locked": false,
+              "sprite": "0dc741cdf8bbdcf7",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 4,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 4,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 15,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 4,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "光芒",
+              "hidden": false,
+              "locked": false,
+              "particleId": "b1bff543d7c3ca60",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 15,
+                  "easingId": "",
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

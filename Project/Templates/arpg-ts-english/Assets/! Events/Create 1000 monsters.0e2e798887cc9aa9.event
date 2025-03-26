@@ -1,0 +1,1018 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "width"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "other",
+            "data": "scene-width"
+          }
+        ]
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "height"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "other",
+            "data": "scene-height"
+          }
+        ]
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "numberOfMonsters"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "count"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "loop",
+      "params": {
+        "mode": "all",
+        "conditions": [
+          {
+            "type": "number",
+            "variable": {
+              "type": "local",
+              "key": "count"
+            },
+            "operation": "less",
+            "operand": {
+              "type": "variable",
+              "variable": {
+                "type": "local",
+                "key": "numberOfMonsters"
+              }
+            }
+          }
+        ],
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "de69aa9ed4309642",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "c173925069666080",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "4401f6d48699792a",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "24a711985eaa9df6",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "a8502416b1c2a800",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "f5433fd977349667",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "fbcc147ca56ae445",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "9f66cd8304864e7d",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "ac832c6e431585d6",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "2c62e787cca97b47",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "6fc2b11e2c1b831e",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "dece5f3a9240a4c1",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "x"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "width"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "y"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "math",
+                  "method": "random"
+                },
+                {
+                  "operation": "mul",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "height"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "createActor",
+            "params": {
+              "actorId": "6145e25b65217d2c",
+              "teamId": "fa4ec7762d2d7a92",
+              "position": {
+                "type": "absolute",
+                "x": {
+                  "type": "local",
+                  "key": "x"
+                },
+                "y": {
+                  "type": "local",
+                  "key": "y"
+                }
+              },
+              "angle": 0
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "count"
+              },
+              "operation": "add",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 13
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

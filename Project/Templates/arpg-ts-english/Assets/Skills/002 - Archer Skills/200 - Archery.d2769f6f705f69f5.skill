@@ -1,0 +1,78 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    128,
+    1280,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "Archery"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 0
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "createTrigger",
+          "params": {
+            "triggerId": "2da3fd1f45849e30",
+            "caster": {
+              "type": "trigger"
+            },
+            "origin": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            },
+            "angle": {
+              "type": "relative",
+              "degrees": 0
+            },
+            "distance": 0,
+            "scale": 1,
+            "timeScale": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "6421aebf4c298605"
+            }
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ae18447779cd5aac"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "d8537bc4dee6d675"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

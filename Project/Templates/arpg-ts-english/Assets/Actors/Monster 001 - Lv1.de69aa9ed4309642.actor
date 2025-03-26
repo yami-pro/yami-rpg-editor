@@ -1,0 +1,83 @@
+{
+  "portrait": "dce0ddb8ecfb3e49",
+  "clip": [
+    0,
+    16,
+    16,
+    16
+  ],
+  "animationId": "059d520f9e92a5d8",
+  "idleMotion": "9a715048c0cceb69",
+  "moveMotion": "f7bd22f4d3efcf4a",
+  "rotatable": false,
+  "passage": "land",
+  "speed": 4,
+  "shape": "square",
+  "size": 0.8,
+  "weight": 1,
+  "immovable": true,
+  "scale": 1,
+  "priority": 0,
+  "inherit": "95356a9792703285",
+  "sprites": [
+    {
+      "id": "95eb09e8c9dd2228",
+      "image": "dce0ddb8ecfb3e49"
+    }
+  ],
+  "attributes": [
+    {
+      "key": "da4d32a4f1097059",
+      "value": "怪物"
+    },
+    {
+      "key": "a5fd5e9f229abb2d",
+      "value": 100
+    },
+    {
+      "key": "a8451228fe0c120a",
+      "value": 100
+    },
+    {
+      "key": "7fa82e53c15d0e81",
+      "value": 0
+    },
+    {
+      "key": "ff0db36441e761fa",
+      "value": 0
+    },
+    {
+      "key": "96efe7ef1b6999bc",
+      "value": 10
+    },
+    {
+      "key": "752c94a8aa99161b",
+      "value": 5
+    },
+    {
+      "key": "91e7127e267f9425",
+      "value": 0
+    },
+    {
+      "key": "9c18a64439c1368f",
+      "value": 0
+    },
+    {
+      "key": "6421aebf4c298605",
+      "value": 1
+    },
+    {
+      "key": "597091e2c6bc6048",
+      "value": 1
+    },
+    {
+      "key": "47f57252180f77c7",
+      "value": 1
+    }
+  ],
+  "skills": [],
+  "equipments": [],
+  "inventory": [],
+  "events": [],
+  "scripts": []
+}

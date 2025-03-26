@@ -1,0 +1,123 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Can only be controlled when the player character is alive"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "只有玩家角色存活时才可以控制"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "actor",
+                "actor": {
+                  "type": "player"
+                },
+                "operation": "present-active"
+              },
+              {
+                "type": "boolean",
+                "variable": {
+                  "type": "global",
+                  "key": "ebc7cde369ecbb99"
+                },
+                "operation": "equal",
+                "operand": {
+                  "type": "constant",
+                  "value": false
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "angle"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "other",
+                      "data": "virtual-axis-angle"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "angle"
+                          },
+                          "operation": "greater-or-equal",
+                          "operand": {
+                            "type": "constant",
+                            "value": 0
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "moveActor",
+                          "params": {
+                            "actor": {
+                              "type": "player"
+                            },
+                            "mode": "keep",
+                            "angle": {
+                              "type": "local",
+                              "key": "angle"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "id": "moveActor",
+                      "params": {
+                        "actor": {
+                          "type": "player"
+                        },
+                        "mode": "stop"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

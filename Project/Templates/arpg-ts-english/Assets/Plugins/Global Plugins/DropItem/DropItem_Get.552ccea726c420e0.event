@@ -1,0 +1,657 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "This event needs to be used with the drop item plugin"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "This event will be called automatically when a dropped item touches the player's character"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "FBI警告：本事件需要配合掉落物品插件一起使用"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "掉落物品在触碰玩家角色时，将会自动调用本事件"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "get"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "constant",
+          "value": "Get"
+        }
+      }
+    },
+    {
+      "id": "switch",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "type"
+        },
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "string",
+                "value": "item"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "goldId"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "object",
+                    "property": "file-id",
+                    "fileId": "4280405b44a821f8"
+                  }
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "itemId"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "object",
+                    "property": "item-file-id",
+                    "item": {
+                      "type": "trigger"
+                    }
+                  }
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "itemQuantity"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "object",
+                      "property": "item-quantity",
+                      "item": {
+                        "type": "trigger"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "switch",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "itemId"
+                  },
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "variable": {
+                            "type": "local",
+                            "key": "goldId"
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "If it's gold (special item), increase the amount of money the player has"
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "如果是金币(特殊物品)，增加玩家的金钱数量"
+                          }
+                        },
+                        {
+                          "id": "setInventory",
+                          "params": {
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "operation": "increase-money",
+                            "money": {
+                              "type": "local",
+                              "key": "itemQuantity"
+                            }
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "Show the message of getting gold coins in the message bar"
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "在信息栏显示获得金币的消息"
+                          }
+                        },
+                        {
+                          "id": "createElement",
+                          "params": {
+                            "operation": "append-one-to-element",
+                            "parent": {
+                              "type": "by-id",
+                              "presetId": "39e4ac292c2f01ea"
+                            },
+                            "presetId": "88fc646153e30977"
+                          }
+                        },
+                        {
+                          "id": "setText",
+                          "params": {
+                            "element": {
+                              "type": "latest"
+                            },
+                            "properties": [
+                              {
+                                "key": "content",
+                                "value": "<local:get> <color:fff0a0><local:itemQuantity> <color:4>G"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "defaultCommands": [
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "If it is another item, increase the number of such items in the player's package"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "如果是其他物品，增加玩家包裹中这种物品的数量"
+                      }
+                    },
+                    {
+                      "id": "setInventory",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "operation": "increase-items",
+                        "itemId": {
+                          "type": "local",
+                          "key": "itemId"
+                        },
+                        "quantity": {
+                          "type": "local",
+                          "key": "itemQuantity"
+                        }
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "If the item name is set, show the message of getting the item in the message bar"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "如果设置了物品名字，在信息栏显示获得物品的消息"
+                      }
+                    },
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "itemName"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "variable",
+                          "variable": {
+                            "type": "item",
+                            "item": {
+                              "type": "trigger"
+                            },
+                            "key": "272e0e7696d64a92"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "string",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "itemName"
+                                },
+                                "operation": "unequal",
+                                "operand": {
+                                  "type": "none"
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setString",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "quality"
+                                  },
+                                  "operation": "set",
+                                  "operand": {
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "item",
+                                      "item": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "ff4ae88b5d725e64"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "id": "jumpTo",
+                                "params": {
+                                  "operation": "save-jump",
+                                  "label": "setQualityColorIndex"
+                                }
+                              },
+                              {
+                                "id": "createElement",
+                                "params": {
+                                  "operation": "append-one-to-element",
+                                  "parent": {
+                                    "type": "by-id",
+                                    "presetId": "39e4ac292c2f01ea"
+                                  },
+                                  "presetId": "88fc646153e30977"
+                                }
+                              },
+                              {
+                                "id": "setText",
+                                "params": {
+                                  "element": {
+                                    "type": "latest"
+                                  },
+                                  "properties": [
+                                    {
+                                      "key": "content",
+                                      "value": "<local:get> <color:<local:qualityColorIndex>><local:itemName></color> x<local:itemQuantity>"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "string",
+                "value": "equipment"
+              }
+            ],
+            "commands": [
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "If it is equipment, put this equipment into the player package"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "如果是装备，将这个装备放入玩家包裹"
+                }
+              },
+              {
+                "id": "setInventory",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "operation": "gain-equipment-instance",
+                  "equipment": {
+                    "type": "trigger"
+                  }
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "If the name of the equipment is set, the message of obtaining the equipment is displayed in the message bar"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "如果设置了装备名字，在信息栏显示获得装备的消息"
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "equipmentName"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "variable",
+                    "variable": {
+                      "type": "equipment",
+                      "equipment": {
+                        "type": "trigger"
+                      },
+                      "key": "744c0775cfc21878"
+                    }
+                  }
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "string",
+                          "variable": {
+                            "type": "local",
+                            "key": "equipmentName"
+                          },
+                          "operation": "unequal",
+                          "operand": {
+                            "type": "none"
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setString",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "quality"
+                            },
+                            "operation": "set",
+                            "operand": {
+                              "type": "variable",
+                              "variable": {
+                                "type": "equipment",
+                                "equipment": {
+                                  "type": "trigger"
+                                },
+                                "key": "f07a7697f4d69696"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": "jumpTo",
+                          "params": {
+                            "operation": "save-jump",
+                            "label": "setQualityColorIndex"
+                          }
+                        },
+                        {
+                          "id": "createElement",
+                          "params": {
+                            "operation": "append-one-to-element",
+                            "parent": {
+                              "type": "by-id",
+                              "presetId": "39e4ac292c2f01ea"
+                            },
+                            "presetId": "88fc646153e30977"
+                          }
+                        },
+                        {
+                          "id": "setText",
+                          "params": {
+                            "element": {
+                              "type": "latest"
+                            },
+                            "properties": [
+                              {
+                                "key": "content",
+                                "value": "<local:get> <color:<local:qualityColorIndex>><local:equipmentName>"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "stopEvent",
+      "params": {}
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Shared function: Calculate the color index of the item name (using the index color is convenient to modify the color later)"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "共享函数: 计算物品名字的颜色索引(使用索引色方便以后修改颜色)"
+      }
+    },
+    {
+      "id": "label",
+      "params": {
+        "name": "setQualityColorIndex"
+      }
+    },
+    {
+      "id": "switch",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "quality"
+        },
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "408dc2e6d1ae7329"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "qualityColorIndex"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 0
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "7802b73510212500"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "qualityColorIndex"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "9f7addeeb07e147e"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "qualityColorIndex"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 2
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "enum",
+                "stringId": "a204b12d636daa8f"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "qualityColorIndex"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 3
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "defaultCommands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "qualityColorIndex"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "jumpTo",
+      "params": {
+        "operation": "return"
+      }
+    }
+  ]
+}

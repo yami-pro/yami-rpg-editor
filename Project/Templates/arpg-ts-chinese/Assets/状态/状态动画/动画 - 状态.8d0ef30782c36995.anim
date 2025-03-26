@@ -1,0 +1,192 @@
+{
+  "sprites": [
+    {
+      "name": "魔法盾",
+      "id": "69f78c5bb1701607",
+      "image": "e08fcc28c15a8896",
+      "hframes": 1,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "class": "motion",
+      "id": "a20ba584b0ca3547",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "particle",
+              "name": "Particle",
+              "hidden": false,
+              "locked": false,
+              "particleId": "553dc2b5b1207278",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "99ee34e6d021cbc9",
+      "mode": "1-dir",
+      "skip": true,
+      "loop": true,
+      "loopStart": 10,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "光膜",
+              "hidden": false,
+              "locked": false,
+              "sprite": "69f78c5bb1701607",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 0.045,
+                  "scaleY": 0.06,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -60,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 20,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 0.045,
+                  "scaleY": 0.06,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -60,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 20,
+                  "end": 30,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 0.045,
+                  "scaleY": 0.06,
+                  "opacity": 0.5,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -60,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 30,
+                  "end": 31,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 0.045,
+                  "scaleY": 0.06,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -60,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "08aaec2c6f50518c",
+              "position": "relative",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 31,
+                  "easingId": "",
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,403 @@
+{
+  "layers": [
+    {
+      "class": "particle",
+      "name": "Flame - 1",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "circle",
+        "x": 0,
+        "y": 0,
+        "radius": 32
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 10,
+      "lifetime": 400,
+      "lifetimeDev": 0,
+      "fadeout": 200,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0.25,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          -90,
+          0
+        ],
+        "speed": [
+          100,
+          100
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.15,
+          0.05
+        ],
+        "speed": [
+          -0.05,
+          0.05
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "da4cfb4bba478189",
+      "blend": "additive",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "random",
+        "min": [
+          192,
+          0,
+          0,
+          128
+        ],
+        "max": [
+          255,
+          128,
+          0,
+          128
+        ]
+      }
+    },
+    {
+      "class": "particle",
+      "name": "Flame - 2",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "circle",
+        "x": 0,
+        "y": 0,
+        "radius": 32
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 10,
+      "lifetime": 400,
+      "lifetimeDev": 0,
+      "fadeout": 200,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0.25,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          -90,
+          0
+        ],
+        "speed": [
+          100,
+          100
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.15,
+          0.05
+        ],
+        "speed": [
+          -0.05,
+          0.05
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "364c46acf774f8f6",
+      "blend": "additive",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "random",
+        "min": [
+          192,
+          0,
+          0,
+          128
+        ],
+        "max": [
+          255,
+          128,
+          0,
+          128
+        ]
+      }
+    },
+    {
+      "class": "particle",
+      "name": "Smoke",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "circle",
+        "x": 0,
+        "y": -64,
+        "radius": 32
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 20,
+      "lifetime": 400,
+      "lifetimeDev": 0,
+      "fadeout": 200,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          -90,
+          0
+        ],
+        "speed": [
+          100,
+          100
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.15,
+          0.05
+        ],
+        "speed": [
+          -0.05,
+          0.05
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "3f29badb8f6d3d62",
+      "blend": "normal",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "random",
+        "min": [
+          192,
+          192,
+          192,
+          64
+        ],
+        "max": [
+          192,
+          192,
+          192,
+          64
+        ]
+      }
+    }
+  ]
+}

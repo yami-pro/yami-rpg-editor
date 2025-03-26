@@ -1,0 +1,50 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    32,
+    256,
+    32,
+    32
+  ],
+  "inherit": "008908866afe1bee",
+  "attributes": [
+    {
+      "key": "744c0775cfc21878",
+      "value": "Gloves"
+    },
+    {
+      "key": "f07a7697f4d69696",
+      "value": "9f7addeeb07e147e"
+    },
+    {
+      "key": "c16d969e58798456",
+      "value": "26649c2000acabfd"
+    },
+    {
+      "key": "9c6c39e76efa5356",
+      "value": 550
+    },
+    {
+      "key": "81645b642e77eba9",
+      "value": ""
+    },
+    {
+      "key": "7443fd783f9e04a1",
+      "value": 2
+    },
+    {
+      "key": "46027b1d5f2ceac9",
+      "value": 0.05
+    },
+    {
+      "key": "22411fe050e9d228",
+      "value": 0.1
+    },
+    {
+      "key": "db7d46a2857dbbdf",
+      "value": 0.1
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

@@ -1,0 +1,77 @@
+{
+  "version": "1.0.130",
+  "activeTab": "42bb866ffdc04284",
+  "openTabs": [
+    "",
+    "42bb866ffdc04284"
+  ],
+  "recentTabs": [
+    "ac6c056e3a2df259",
+    "44bb9f0c9d1c2c77",
+    "8d0ef30782c36995",
+    "e94d71029f9e8e66",
+    "904b2d1451f97909",
+    "17620ddd23391b09",
+    "09e956467f04bc68",
+    "a8ebdfc3e5b314e4",
+    "99c04d7e3832374b",
+    "d96910ab9645ff6f"
+  ],
+  "scene": {
+    "grid": true,
+    "light": true,
+    "animation": true,
+    "layer": "object",
+    "brush": "pencil",
+    "zoom": 4,
+    "defaultFolders": {
+      "tilemap": "",
+      "actor": "",
+      "region": "",
+      "light": "",
+      "animation": "",
+      "particle": "",
+      "parallax": ""
+    }
+  },
+  "ui": {
+    "zoom": 2
+  },
+  "animation": {
+    "mark": true,
+    "onionskin": false,
+    "mirror": false,
+    "loop": false,
+    "speed": 1,
+    "zoom": 4,
+    "flip": true
+  },
+  "particle": {
+    "wireframe": false,
+    "anchor": false,
+    "speed": 1,
+    "zoom": 1
+  },
+  "sprite": {
+    "zoom": 4
+  },
+  "palette": {
+    "zoom": 3
+  },
+  "browser": {
+    "view": 3,
+    "folders": [
+      "Assets/角色"
+    ]
+  },
+  "selector": {
+    "view": 3
+  },
+  "plugin": {
+    "detailed": true
+  },
+  "openEvents": [],
+  "uiPrefabs": [
+    "a2ce8411f3d6f2ed"
+  ]
+}

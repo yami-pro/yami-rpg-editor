@@ -2,63 +2,74 @@
   "name": "yami-rpg-editor",
   "version": "1.0.0",
   "main": "main.js",
-  "productName": "YAMI",
+  "productName": "Yami RPG Editor",
   "author": "Yami",
-  "description": "2D rpg editor",
+  "description": "2D Game Editor",
   "scripts": {
-    "start": "electron .",
-    "pack": "electron-builder build --win --x64",
-    "pack-win": "electron-builder build --win --x64 --ia32",
-    "pack-macos": "electron-builder build --mac --publish never"
+    "start": "electron . --dirname=Project",
+    "setup": "npm install",
+    "pack-win-x64": "electron-builder --dir --win --x64",
+    "pack-mac-x64": "electron-builder --dir --mac --x64",
+    "pack-mac-arm64": "electron-builder --dir --mac --arm64",
+    "pack-mac-universal": "electron-builder --dir --mac --universal"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "electron": "^20.3.12",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "steamworks.js": "^0.4.0",
+    "typescript": "^5.8.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/yami-pro/yami-rpg-editor.git"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "electron": "^18.3.15",
-    "electron-builder": "^23.6.0"
-  },
   "build": {
     "appId": "com.yami.rpgeditor",
-    "electronVersion": "18.3.15",
-    "artifactName": "${productName} ${version} installer.${ext}",
+    "electronVersion": "20.3.12",
     "directories": {
       "buildResources": "Assets",
-      "output": "Dist"
+      "output": "../steamworks-sdk/tools/ContentBuilder/content"
     },
-    "asar": true,
-    "asarUnpack": [
-      "Locales",
-      "Templates"
-    ],
-    "extraFiles": [],
     "files": [
-      "Fonts",
-      "Images",
-      "Locales",
-      "Templates",
-      "Script/yami.min.js",
-      "commands.json",
-      "default.json",
-      "index.css",
-      "index.html",
+      {
+        "from": "Project",
+        "to": ".",
+        "filter": ["**", "!config.json"]
+      },
       "main.js",
-      "package.json",
-      "README.md"
+      "package.json"
     ],
+    "extraResources": [
+      {
+        "from": "node_modules/typescript/lib",
+        "to": "app/node_modules/typescript/lib"
+      },
+      {
+        "from": "Project/Templates/electron-win-x64/resources/app/node_modules",
+        "to": "app/Templates/electron-win-x64/resources/app/node_modules"
+      },
+      {
+        "from": "Project/Templates/electron-mac-universal.app/Contents/resources/app/node_modules",
+        "to": "app/Templates/electron-mac-universal.app/Contents/resources/app/node_modules"
+      }
+    ],
+    "asar": false,
+    "asarUnpack": [],
+    "extraFiles": [],
     "nsis": {
       "oneClick": true,
-      "shortcutName": "YAMI"
+      "shortcutName": "yami"
     },
     "win": {
-      "icon": "_electron/resources/app/icon.png",
-      "target": "nsis",
-      "publish": [
-        "github"
-      ]
+      "icon": "icon.ico",
+      "executableName": "yami"
     },
-    "mac": {}
+    "mac": {
+      "icon": "icon.icns",
+      "x64ArchFiles": "*"
+    }
   }
 }

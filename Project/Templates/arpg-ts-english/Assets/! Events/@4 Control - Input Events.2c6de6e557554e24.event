@@ -1,0 +1,2423 @@
+{
+  "type": "loadscene",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "mousedown",
+        "priority": false,
+        "tag": "",
+        "commands": [
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "mouse",
+                      "button": 0,
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setBoolean",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "result"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "constant",
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "id": "ed78b4463988fe8a",
+                      "params": {
+                        "operation": "talk",
+                        "position": {
+                          "getter": "position",
+                          "type": "mouse"
+                        },
+                        "result": {
+                          "getter": "variable",
+                          "type": "local",
+                          "key": "result"
+                        }
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "If no character is found to talk to, an animated pointer is displayed at the mouse click location and moves to the target location"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "如果未找到可以对话的角色，在鼠标点击位置显示一个动画指针，并移动到目标位置"
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "boolean",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "result"
+                                },
+                                "operation": "equal",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": false
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "416c90ddca8ee448",
+                                "params": {
+                                  "position": {
+                                    "getter": "position",
+                                    "type": "mouse"
+                                  }
+                                }
+                              },
+                              {
+                                "id": "moveActor",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "navigate-bypass",
+                                  "destination": {
+                                    "type": "mouse"
+                                  },
+                                  "wait": false
+                                }
+                              },
+                              {
+                                "id": "wait",
+                                "params": {
+                                  "duration": 200
+                                }
+                              },
+                              {
+                                "id": "loop",
+                                "params": {
+                                  "mode": "all",
+                                  "conditions": [
+                                    {
+                                      "type": "mouse",
+                                      "button": 0,
+                                      "state": "pressed"
+                                    },
+                                    {
+                                      "type": "other",
+                                      "key": "game-is-not-paused"
+                                    },
+                                    {
+                                      "type": "other",
+                                      "key": "scene-input-is-not-prevented"
+                                    }
+                                  ],
+                                  "commands": [
+                                    {
+                                      "id": "setNumber",
+                                      "params": {
+                                        "variable": {
+                                          "type": "local",
+                                          "key": "dist"
+                                        },
+                                        "operation": "set",
+                                        "operands": [
+                                          {
+                                            "operation": "add",
+                                            "type": "math",
+                                            "method": "distance",
+                                            "start": {
+                                              "type": "mouse"
+                                            },
+                                            "end": {
+                                              "type": "actor",
+                                              "actor": {
+                                                "type": "player"
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "id": "if",
+                                      "params": {
+                                        "branches": [
+                                          {
+                                            "mode": "all",
+                                            "conditions": [
+                                              {
+                                                "type": "number",
+                                                "variable": {
+                                                  "type": "local",
+                                                  "key": "dist"
+                                                },
+                                                "operation": "greater",
+                                                "operand": {
+                                                  "type": "constant",
+                                                  "value": 1
+                                                }
+                                              }
+                                            ],
+                                            "commands": [
+                                              {
+                                                "id": "moveActor",
+                                                "params": {
+                                                  "actor": {
+                                                    "type": "player"
+                                                  },
+                                                  "mode": "straight",
+                                                  "destination": {
+                                                    "type": "mouse"
+                                                  },
+                                                  "wait": false
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "id": "wait",
+                                      "params": {
+                                        "duration": 1
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "mouse",
+                      "button": 2,
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "loop",
+                      "params": {
+                        "mode": "all",
+                        "conditions": [
+                          {
+                            "type": "mouse",
+                            "button": 2,
+                            "state": "pressed"
+                          }
+                        ],
+                        "commands": [
+                          {
+                            "id": "switch",
+                            "params": {
+                              "variable": {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "key": "1c60e46c0d8ea80e"
+                              },
+                              "branches": [
+                                {
+                                  "conditions": [
+                                    {
+                                      "type": "enum",
+                                      "stringId": "18e8a940bce7382f"
+                                    },
+                                    {
+                                      "type": "enum",
+                                      "stringId": "4b5779824489e9cc"
+                                    },
+                                    {
+                                      "type": "enum",
+                                      "stringId": "7cbd0ff2e806dccd"
+                                    }
+                                  ],
+                                  "commands": [
+                                    {
+                                      "id": "callEvent",
+                                      "params": {
+                                        "type": "global",
+                                        "eventId": "44ea602087a0a6ec"
+                                      }
+                                    },
+                                    {
+                                      "id": "moveActor",
+                                      "params": {
+                                        "actor": {
+                                          "type": "player"
+                                        },
+                                        "mode": "stop"
+                                      }
+                                    },
+                                    {
+                                      "id": "castSkill",
+                                      "params": {
+                                        "actor": {
+                                          "type": "player"
+                                        },
+                                        "mode": "by-key",
+                                        "key": "90007906916a7fd8",
+                                        "wait": false
+                                      }
+                                    },
+                                    {
+                                      "id": "callEvent",
+                                      "params": {
+                                        "type": "global",
+                                        "eventId": "e5c901a348b149dd"
+                                      }
+                                    },
+                                    {
+                                      "id": "wait",
+                                      "params": {
+                                        "duration": 180
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "wait",
+                            "params": {
+                              "duration": 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          }
+        ]
+      },
+      "folded": true
+    },
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "keydown",
+        "priority": false,
+        "tag": "",
+        "commands": [
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "any",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyW",
+                      "state": "just-pressed"
+                    },
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyS",
+                      "state": "just-pressed"
+                    },
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyA",
+                      "state": "just-pressed"
+                    },
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyD",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyF",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "comment",
+                                "params": {
+                                  "comment": "The shortcut bar may be empty, or it may be a skill or an item, execute both commands"
+                                }
+                              },
+                              {
+                                "id": "comment",
+                                "params": {
+                                  "comment": "快捷栏中可能是空的，也可能是技能或物品，两个指令都执行一下"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "c985f8a14e186fbf",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "c985f8a14e186fbf",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyE",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "8100f9f65eccbcf4",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "8100f9f65eccbcf4",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyR",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "c6b62127e427b270",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "c6b62127e427b270",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyC",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "97f323d760aa7208",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "97f323d760aa7208",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "Space",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "7eba9f3cada969f8",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "7eba9f3cada969f8",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "Digit1",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "a0852e138d40db75",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "a0852e138d40db75",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "Digit2",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "aec671ff26cfdace",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "aec671ff26cfdace",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "Digit3",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "9cd95b90e24a5f54",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "9cd95b90e24a5f54",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "Digit4",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "44ea602087a0a6ec"
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "dcb005fc36640a1d",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "dcb005fc36640a1d",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "Tab",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "callEvent",
+                      "params": {
+                        "type": "global",
+                        "eventId": "7b96f29f2b9295ec"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "Escape",
+                      "state": "just-pressed"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "callEvent",
+                      "params": {
+                        "type": "global",
+                        "eventId": "384b535e7f04b897"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          }
+        ]
+      },
+      "folded": true
+    },
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "keyup",
+        "priority": true,
+        "tag": "",
+        "commands": [
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "any",
+                  "conditions": [
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyW",
+                      "state": "just-released"
+                    },
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyS",
+                      "state": "just-released"
+                    },
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyA",
+                      "state": "just-released"
+                    },
+                    {
+                      "type": "keyboard",
+                      "keycode": "KeyD",
+                      "state": "just-released"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "player"
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "global",
+                                  "eventId": "e5c901a348b149dd"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "folded": true
+    },
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "wheel",
+        "priority": false,
+        "tag": "",
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "delta"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "other",
+                  "data": "trigger-wheel-y"
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "delta"
+                      },
+                      "operation": "less",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Scroll wheel increment < 0 means slide up to zoom in on the scene screen"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "滚轮增量<0表示向上滑动，放大场景画面"
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "global",
+                                  "key": "271bed60ed964d90"
+                                },
+                                "operation": "less",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 2
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "global",
+                                    "key": "271bed60ed964d90"
+                                  },
+                                  "operation": "set",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "constant",
+                                      "value": 2
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setZoomFactor",
+                                "params": {
+                                  "zoom": 2,
+                                  "easingId": "7890d8edf5d88412",
+                                  "duration": 1000,
+                                  "wait": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "number",
+                      "variable": {
+                        "type": "local",
+                        "key": "delta"
+                      },
+                      "operation": "greater",
+                      "operand": {
+                        "type": "constant",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Scroll wheel increment > 0 means slide down to narrow the scene screen"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "滚轮增量>0表示向下滑动，缩小场景画面"
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "global",
+                                  "key": "271bed60ed964d90"
+                                },
+                                "operation": "greater",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 1
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "global",
+                                    "key": "271bed60ed964d90"
+                                  },
+                                  "operation": "set",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "constant",
+                                      "value": 1
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setZoomFactor",
+                                "params": {
+                                  "zoom": 1,
+                                  "easingId": "7890d8edf5d88412",
+                                  "duration": 1000,
+                                  "wait": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "folded": true
+          }
+        ]
+      },
+      "folded": true
+    },
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "gamepadbuttonpress",
+        "priority": false,
+        "tag": "",
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "button"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "other",
+                  "data": "trigger-gamepad-button"
+                }
+              ]
+            }
+          },
+          {
+            "id": "switch",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "button"
+              },
+              "branches": [
+                {
+                  "conditions": [
+                    {
+                      "type": "gamepad",
+                      "button": 9
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "simulateKey",
+                      "params": {
+                        "operation": "click",
+                        "keycode": "Escape"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "type": "gamepad",
+                      "button": 11
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "simulateKey",
+                      "params": {
+                        "operation": "click",
+                        "keycode": "Tab"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "other",
+                      "key": "game-is-not-paused"
+                    },
+                    {
+                      "type": "other",
+                      "key": "scene-input-is-not-prevented"
+                    },
+                    {
+                      "type": "actor",
+                      "actor": {
+                        "type": "player"
+                      },
+                      "operation": "present-active"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "switch",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "button"
+                        },
+                        "branches": [
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 12
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "simulateKey",
+                                "params": {
+                                  "operation": "press",
+                                  "keycode": "ArrowUp"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 13
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "simulateKey",
+                                "params": {
+                                  "operation": "press",
+                                  "keycode": "ArrowDown"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 14
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "simulateKey",
+                                "params": {
+                                  "operation": "press",
+                                  "keycode": "ArrowLeft"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 15
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "simulateKey",
+                                "params": {
+                                  "operation": "press",
+                                  "keycode": "ArrowRight"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 2
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "gamepad",
+                                          "button": 6,
+                                          "state": "pressed"
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "castSkill",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "a0852e138d40db75",
+                                            "wait": true
+                                          }
+                                        },
+                                        {
+                                          "id": "useItem",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "a0852e138d40db75",
+                                            "wait": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "elseCommands": [
+                                    {
+                                      "id": "loop",
+                                      "params": {
+                                        "mode": "all",
+                                        "conditions": [
+                                          {
+                                            "type": "gamepad",
+                                            "button": 2,
+                                            "state": "pressed"
+                                          }
+                                        ],
+                                        "commands": [
+                                          {
+                                            "id": "switch",
+                                            "params": {
+                                              "variable": {
+                                                "type": "actor",
+                                                "actor": {
+                                                  "type": "player"
+                                                },
+                                                "key": "1c60e46c0d8ea80e"
+                                              },
+                                              "branches": [
+                                                {
+                                                  "conditions": [
+                                                    {
+                                                      "type": "enum",
+                                                      "stringId": "18e8a940bce7382f"
+                                                    },
+                                                    {
+                                                      "type": "enum",
+                                                      "stringId": "4b5779824489e9cc"
+                                                    },
+                                                    {
+                                                      "type": "enum",
+                                                      "stringId": "7cbd0ff2e806dccd"
+                                                    }
+                                                  ],
+                                                  "commands": [
+                                                    {
+                                                      "id": "moveActor",
+                                                      "params": {
+                                                        "actor": {
+                                                          "type": "player"
+                                                        },
+                                                        "mode": "stop"
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "castSkill",
+                                                      "params": {
+                                                        "actor": {
+                                                          "type": "player"
+                                                        },
+                                                        "mode": "by-key",
+                                                        "key": "90007906916a7fd8",
+                                                        "wait": false
+                                                      }
+                                                    },
+                                                    {
+                                                      "id": "wait",
+                                                      "params": {
+                                                        "duration": 200
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "id": "wait",
+                                            "params": {
+                                              "duration": 1
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 3
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "gamepad",
+                                          "button": 6,
+                                          "state": "pressed"
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "castSkill",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "aec671ff26cfdace",
+                                            "wait": true
+                                          }
+                                        },
+                                        {
+                                          "id": "useItem",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "aec671ff26cfdace",
+                                            "wait": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "elseCommands": [
+                                    {
+                                      "id": "castSkill",
+                                      "params": {
+                                        "actor": {
+                                          "type": "player"
+                                        },
+                                        "mode": "by-key",
+                                        "key": "c985f8a14e186fbf",
+                                        "wait": true
+                                      }
+                                    },
+                                    {
+                                      "id": "useItem",
+                                      "params": {
+                                        "actor": {
+                                          "type": "player"
+                                        },
+                                        "mode": "by-key",
+                                        "key": "c985f8a14e186fbf",
+                                        "wait": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 0
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "gamepad",
+                                          "button": 6,
+                                          "state": "pressed"
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "castSkill",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "9cd95b90e24a5f54",
+                                            "wait": true
+                                          }
+                                        },
+                                        {
+                                          "id": "useItem",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "9cd95b90e24a5f54",
+                                            "wait": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "elseCommands": [
+                                    {
+                                      "id": "simulateKey",
+                                      "params": {
+                                        "operation": "click",
+                                        "keycode": "Enter"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 1
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "gamepad",
+                                          "button": 6,
+                                          "state": "pressed"
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "castSkill",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "dcb005fc36640a1d",
+                                            "wait": true
+                                          }
+                                        },
+                                        {
+                                          "id": "useItem",
+                                          "params": {
+                                            "actor": {
+                                              "type": "player"
+                                            },
+                                            "mode": "by-key",
+                                            "key": "dcb005fc36640a1d",
+                                            "wait": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "elseCommands": [
+                                    {
+                                      "id": "castSkill",
+                                      "params": {
+                                        "actor": {
+                                          "type": "player"
+                                        },
+                                        "mode": "by-key",
+                                        "key": "8100f9f65eccbcf4",
+                                        "wait": true
+                                      }
+                                    },
+                                    {
+                                      "id": "useItem",
+                                      "params": {
+                                        "actor": {
+                                          "type": "player"
+                                        },
+                                        "mode": "by-key",
+                                        "key": "8100f9f65eccbcf4",
+                                        "wait": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 4
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "97f323d760aa7208",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "97f323d760aa7208",
+                                  "wait": true
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 5
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "c6b62127e427b270",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "c6b62127e427b270",
+                                  "wait": true
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 7
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "7eba9f3cada969f8",
+                                  "wait": true
+                                }
+                              },
+                              {
+                                "id": "useItem",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "by-key",
+                                  "key": "7eba9f3cada969f8",
+                                  "wait": true
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "folded": true
+    },
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "gamepadbuttonrelease",
+        "priority": true,
+        "tag": "",
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "button"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "other",
+                  "data": "trigger-gamepad-button"
+                }
+              ]
+            }
+          },
+          {
+            "id": "switch",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "button"
+              },
+              "branches": [
+                {
+                  "conditions": [
+                    {
+                      "type": "gamepad",
+                      "button": 12
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "simulateKey",
+                      "params": {
+                        "operation": "release",
+                        "keycode": "ArrowUp"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "type": "gamepad",
+                      "button": 13
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "simulateKey",
+                      "params": {
+                        "operation": "release",
+                        "keycode": "ArrowDown"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "type": "gamepad",
+                      "button": 14
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "simulateKey",
+                      "params": {
+                        "operation": "release",
+                        "keycode": "ArrowLeft"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "conditions": [
+                    {
+                      "type": "gamepad",
+                      "button": 15
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "simulateKey",
+                      "params": {
+                        "operation": "release",
+                        "keycode": "ArrowRight"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "folded": true
+    },
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "gamepadleftstickchange",
+        "priority": true,
+        "tag": "",
+        "commands": [
+          {
+            "id": "comment",
+            "params": {
+              "comment": "Can only be controlled when the player character is alive"
+            }
+          },
+          {
+            "id": "comment",
+            "params": {
+              "comment": "只有玩家角色存活时才可以控制"
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "other",
+                      "key": "scene-input-is-not-prevented"
+                    },
+                    {
+                      "type": "actor",
+                      "actor": {
+                        "type": "player"
+                      },
+                      "operation": "present-active"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "stickAngle"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "other",
+                            "data": "gamepad-left-stick-angle"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "stickAngle"
+                                },
+                                "operation": "unequal",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": -1
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "moveActor",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "mode": "keep",
+                                  "angle": {
+                                    "type": "local",
+                                    "key": "stickAngle"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "elseCommands": [
+                          {
+                            "id": "moveActor",
+                            "params": {
+                              "actor": {
+                                "type": "player"
+                              },
+                              "mode": "stop"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "folded": true
+    },
+    {
+      "id": "registerEvent",
+      "params": {
+        "target": "global",
+        "operation": "register",
+        "type": "gamepadrightstickchange",
+        "priority": false,
+        "tag": "",
+        "commands": [
+          {
+            "id": "comment",
+            "params": {
+              "comment": "Can only be controlled when the player character is alive"
+            }
+          },
+          {
+            "id": "comment",
+            "params": {
+              "comment": "只有玩家角色存活时才可以控制"
+            }
+          },
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "other",
+                      "key": "game-is-not-paused"
+                    },
+                    {
+                      "type": "other",
+                      "key": "scene-input-is-not-prevented"
+                    },
+                    {
+                      "type": "actor",
+                      "actor": {
+                        "type": "player"
+                      },
+                      "operation": "present-active"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "stickAngle"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "other",
+                            "data": "gamepad-right-stick-angle"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "stickAngle"
+                                },
+                                "operation": "unequal",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": -1
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setAngle",
+                                "params": {
+                                  "actor": {
+                                    "type": "player"
+                                  },
+                                  "angle": {
+                                    "type": "absolute",
+                                    "degrees": {
+                                      "type": "local",
+                                      "key": "stickAngle"
+                                    }
+                                  },
+                                  "easingId": "01eac96676bb2ee7",
+                                  "duration": 0,
+                                  "wait": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "folded": true
+    }
+  ]
+}

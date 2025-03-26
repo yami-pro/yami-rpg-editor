@@ -1,0 +1,91 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "any",
+            "conditions": [
+              {
+                "type": "string",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "key": "1c60e46c0d8ea80e"
+                },
+                "operation": "unequal",
+                "operand": {
+                  "type": "enum",
+                  "stringId": "18e8a940bce7382f"
+                }
+              },
+              {
+                "type": "number",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "key": "7fa82e53c15d0e81"
+                },
+                "operation": "less",
+                "operand": {
+                  "type": "variable",
+                  "variable": {
+                    "type": "skill",
+                    "skill": {
+                      "type": "trigger"
+                    },
+                    "key": "22e4d90f35666e4e"
+                  }
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "stopEvent",
+                "params": {}
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "actor",
+          "actor": {
+            "type": "trigger"
+          },
+          "key": "7fa82e53c15d0e81"
+        },
+        "operation": "sub",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "skill",
+              "skill": {
+                "type": "trigger"
+              },
+              "key": "22e4d90f35666e4e"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    256,
+    1216,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "冲击波"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 10000
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ac7278a39cf5d52f"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "a9e218055f6787d9"
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "launchAngle"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "constant",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "loop",
+          "params": {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "launchAngle"
+                },
+                "operation": "less",
+                "operand": {
+                  "type": "constant",
+                  "value": 360
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "createTrigger",
+                "params": {
+                  "triggerId": "e0f650a8de8c8758",
+                  "caster": {
+                    "type": "trigger"
+                  },
+                  "origin": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    }
+                  },
+                  "angle": {
+                    "type": "relative",
+                    "degrees": {
+                      "type": "local",
+                      "key": "launchAngle"
+                    }
+                  },
+                  "distance": 1,
+                  "scale": 1,
+                  "timeScale": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    },
+                    "key": "6421aebf4c298605"
+                  }
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "launchAngle"
+                  },
+                  "operation": "add",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 20
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

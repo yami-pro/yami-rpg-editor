@@ -1,0 +1,21 @@
+{
+  "list": [
+    {
+      "id": "2a6ee1684ef7dfa0",
+      "name": "NPC",
+      "color": "ffffffff"
+    },
+    {
+      "id": "09eae4cd86f61848",
+      "name": "Player",
+      "color": "0000ffff"
+    },
+    {
+      "id": "fa4ec7762d2d7a92",
+      "name": "Monster",
+      "color": "ff0000ff"
+    }
+  ],
+  "relations": "R",
+  "collisions": "S"
+}

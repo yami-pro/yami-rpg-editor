@@ -1,0 +1,93 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "other",
+                "key": "mouse-entered"
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "x"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "other",
+                      "data": "mouse-scene-x"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "y"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "other",
+                      "data": "mouse-scene-y"
+                    },
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 0.25
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setAngle",
+                "params": {
+                  "actor": {
+                    "type": "player"
+                  },
+                  "angle": {
+                    "type": "position",
+                    "position": {
+                      "type": "absolute",
+                      "x": {
+                        "type": "local",
+                        "key": "x"
+                      },
+                      "y": {
+                        "type": "local",
+                        "key": "y"
+                      }
+                    }
+                  },
+                  "easingId": "01eac96676bb2ee7",
+                  "duration": 0,
+                  "wait": false
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

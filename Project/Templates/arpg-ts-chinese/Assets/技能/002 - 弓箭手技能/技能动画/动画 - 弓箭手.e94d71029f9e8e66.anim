@@ -1,0 +1,715 @@
+{
+  "sprites": [
+    {
+      "name": "箭矢",
+      "id": "e3aeb62f9b8e940a",
+      "image": "8bc0979041d0feb1",
+      "hframes": 1,
+      "vframes": 1
+    },
+    {
+      "name": "箭矢_特效",
+      "id": "d28121218176ca2b",
+      "image": "92bf86be78803292",
+      "hframes": 1,
+      "vframes": 1
+    },
+    {
+      "name": "穿心箭_特效",
+      "id": "c4526286e95fb653",
+      "image": "e07bec682aa43a8e",
+      "hframes": 1,
+      "vframes": 1
+    },
+    {
+      "name": "箭雨_区域",
+      "id": "73240329634a8230",
+      "image": "ef3421bf11fefd44",
+      "hframes": 1,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "class": "motion",
+      "id": "4a6cec6cfcca2f96",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "箭矢",
+              "hidden": false,
+              "locked": false,
+              "sprite": "e3aeb62f9b8e940a",
+              "blend": "normal",
+              "light": "global",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 5,
+                  "y": 0.5,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "特效",
+              "hidden": false,
+              "locked": false,
+              "sprite": "d28121218176ca2b",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -6,
+                  "y": 0,
+                  "rotation": -90,
+                  "scaleX": 0.05,
+                  "scaleY": 0.1,
+                  "opacity": 0.5,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "1a521da9bfa77bd9",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "箭矢",
+              "hidden": false,
+              "locked": false,
+              "sprite": "e3aeb62f9b8e940a",
+              "blend": "normal",
+              "light": "global",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 5,
+                  "y": 0.5,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "特效",
+              "hidden": false,
+              "locked": false,
+              "sprite": "c4526286e95fb653",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -6,
+                  "y": 0,
+                  "rotation": -90,
+                  "scaleX": 0.05,
+                  "scaleY": 0.1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "a40fe5b8fcc12d86",
+              "position": "absolute",
+              "angle": "inherit",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "f0da5e02f905a7a2",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "箭矢",
+              "hidden": false,
+              "locked": false,
+              "sprite": "e3aeb62f9b8e940a",
+              "blend": "normal",
+              "light": "global",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 5,
+                  "y": 0.5,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "特效",
+              "hidden": false,
+              "locked": false,
+              "sprite": "c4526286e95fb653",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -6,
+                  "y": 0,
+                  "rotation": -90,
+                  "scaleX": 0.05,
+                  "scaleY": 0.1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -128,
+                    -255,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "d2dc4a7110026c76",
+              "position": "absolute",
+              "angle": "inherit",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "fda60ae49e6f1f90",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": true,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "箭矢",
+              "hidden": false,
+              "locked": false,
+              "sprite": "e3aeb62f9b8e940a",
+              "blend": "normal",
+              "light": "global",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 5,
+                  "y": 0.5,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "特效",
+              "hidden": false,
+              "locked": false,
+              "sprite": "d28121218176ca2b",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -8,
+                  "y": 0,
+                  "rotation": -90,
+                  "scaleX": 0.05,
+                  "scaleY": 0.1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -128,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "be975ab47db3714f",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "188c5d46b8d627d0",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "位移",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 15,
+                  "easingId": "01eac96676bb2ee7",
+                  "x": 0,
+                  "y": -200,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 15,
+                  "end": 20,
+                  "easingId": "01eac96676bb2ee7",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 20,
+                  "end": 21,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "箭矢",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "e3aeb62f9b8e940a",
+                  "blend": "normal",
+                  "light": "raw",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 21,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": -0.5,
+                      "y": 0,
+                      "rotation": 180,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        255,
+                        64,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "sprite",
+                  "name": "特效",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "c4526286e95fb653",
+                  "blend": "additive",
+                  "light": "raw",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 21,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -10,
+                      "rotation": 0,
+                      "scaleX": 0.05,
+                      "scaleY": 0.1,
+                      "opacity": 0.5,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        -255,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "efe1fa8d082c5cff",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "区域",
+              "hidden": false,
+              "locked": false,
+              "sprite": "73240329634a8230",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.25,
+                  "scaleY": 0.25,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    255,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 150,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 20,
+                  "scaleX": 0.25,
+                  "scaleY": 0.25,
+                  "opacity": 0.5,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    255,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 150,
+                  "end": 160,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 300,
+                  "scaleX": 0.25,
+                  "scaleY": 0.25,
+                  "opacity": 0.5,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    255,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 160,
+                  "end": 161,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 320,
+                  "scaleX": 0.25,
+                  "scaleY": 0.25,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    255,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "d2f908a9b67d8b99",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "7485bc1bac34c9a7",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 36,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

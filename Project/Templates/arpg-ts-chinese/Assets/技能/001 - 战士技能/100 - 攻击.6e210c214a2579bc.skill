@@ -1,0 +1,758 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    0,
+    608,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "攻击"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 0
+    },
+    {
+      "key": "9599832f30b88ec6",
+      "value": ""
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "switch",
+          "params": {
+            "variable": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "1c60e46c0d8ea80e"
+            },
+            "branches": [
+              {
+                "conditions": [
+                  {
+                    "type": "enum",
+                    "stringId": "18e8a940bce7382f"
+                  }
+                ],
+                "commands": [
+                  {
+                    "id": "setString",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "1c60e46c0d8ea80e"
+                      },
+                      "operation": "set",
+                      "operand": {
+                        "type": "enum",
+                        "stringId": "4b5779824489e9cc"
+                      }
+                    }
+                  },
+                  {
+                    "id": "callEvent",
+                    "params": {
+                      "type": "global",
+                      "eventId": "ae18447779cd5aac"
+                    }
+                  },
+                  {
+                    "id": "setMovementSpeed",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "property": "factor-temp",
+                      "factor": 0
+                    }
+                  },
+                  {
+                    "id": "fixAngle",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "fixed": true
+                    }
+                  },
+                  {
+                    "id": "translateActor",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "angle": {
+                        "type": "direction",
+                        "degrees": 0
+                      },
+                      "distance": 0.1,
+                      "easingId": "01eac96676bb2ee7",
+                      "duration": 200,
+                      "wait": false
+                    }
+                  },
+                  {
+                    "id": "createTrigger",
+                    "params": {
+                      "triggerId": "20a1c038cad62899",
+                      "caster": {
+                        "type": "trigger"
+                      },
+                      "origin": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        }
+                      },
+                      "angle": {
+                        "type": "direction",
+                        "degrees": 0
+                      },
+                      "distance": 0,
+                      "scale": 1,
+                      "timeScale": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "6421aebf4c298605"
+                      }
+                    }
+                  },
+                  {
+                    "id": "playActorAnimation",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "motion": "54aa1242b6a66cfc",
+                      "speed": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "6421aebf4c298605"
+                      },
+                      "wait": true
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "all",
+                          "conditions": [
+                            {
+                              "type": "string",
+                              "variable": {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "key": "1c60e46c0d8ea80e"
+                              },
+                              "operation": "equal",
+                              "operand": {
+                                "type": "enum",
+                                "stringId": "4b5779824489e9cc"
+                              }
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "fixAngle",
+                              "params": {
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "fixed": false
+                              }
+                            },
+                            {
+                              "id": "setMovementSpeed",
+                              "params": {
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "property": "factor-temp",
+                                "factor": 1
+                              }
+                            },
+                            {
+                              "id": "setString",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "1c60e46c0d8ea80e"
+                                },
+                                "operation": "set",
+                                "operand": {
+                                  "type": "enum",
+                                  "stringId": "18e8a940bce7382f"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "type": "enum",
+                    "stringId": "4b5779824489e9cc"
+                  }
+                ],
+                "commands": [
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "Avoid casting a combo too early"
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "避免过早施放连击"
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "waitingTime"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "constant",
+                          "value": 250
+                        },
+                        {
+                          "operation": "sub",
+                          "type": "object",
+                          "property": "actor-animation-current-time",
+                          "actor": {
+                            "type": "trigger"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "all",
+                          "conditions": [
+                            {
+                              "type": "number",
+                              "variable": {
+                                "type": "local",
+                                "key": "waitingTime"
+                              },
+                              "operation": "greater",
+                              "operand": {
+                                "type": "constant",
+                                "value": 0
+                              }
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "setString",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "1c60e46c0d8ea80e"
+                                },
+                                "operation": "set",
+                                "operand": {
+                                  "type": "enum",
+                                  "stringId": "a2b0f447f4ffbdd5"
+                                }
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "waitingTime"
+                                },
+                                "operation": "div",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "actor",
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "6421aebf4c298605"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "wait",
+                              "params": {
+                                "duration": {
+                                  "type": "local",
+                                  "key": "waitingTime"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setString",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "1c60e46c0d8ea80e"
+                      },
+                      "operation": "set",
+                      "operand": {
+                        "type": "enum",
+                        "stringId": "7cbd0ff2e806dccd"
+                      }
+                    }
+                  },
+                  {
+                    "id": "callEvent",
+                    "params": {
+                      "type": "global",
+                      "eventId": "144088a2819f6488"
+                    }
+                  },
+                  {
+                    "id": "translateActor",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "angle": {
+                        "type": "direction",
+                        "degrees": 0
+                      },
+                      "distance": 0.1,
+                      "easingId": "01eac96676bb2ee7",
+                      "duration": 200,
+                      "wait": false
+                    }
+                  },
+                  {
+                    "id": "createTrigger",
+                    "params": {
+                      "triggerId": "72c7ea1272e907cc",
+                      "caster": {
+                        "type": "trigger"
+                      },
+                      "origin": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        }
+                      },
+                      "angle": {
+                        "type": "direction",
+                        "degrees": 0
+                      },
+                      "distance": 0,
+                      "scale": 1,
+                      "timeScale": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "6421aebf4c298605"
+                      }
+                    }
+                  },
+                  {
+                    "id": "playActorAnimation",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "motion": "bb0760b21d65ca21",
+                      "speed": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "6421aebf4c298605"
+                      },
+                      "wait": true
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "all",
+                          "conditions": [
+                            {
+                              "type": "string",
+                              "variable": {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "key": "1c60e46c0d8ea80e"
+                              },
+                              "operation": "equal",
+                              "operand": {
+                                "type": "enum",
+                                "stringId": "7cbd0ff2e806dccd"
+                              }
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "fixAngle",
+                              "params": {
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "fixed": false
+                              }
+                            },
+                            {
+                              "id": "setMovementSpeed",
+                              "params": {
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "property": "factor-temp",
+                                "factor": 1
+                              }
+                            },
+                            {
+                              "id": "setString",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "1c60e46c0d8ea80e"
+                                },
+                                "operation": "set",
+                                "operand": {
+                                  "type": "enum",
+                                  "stringId": "18e8a940bce7382f"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "type": "enum",
+                    "stringId": "7cbd0ff2e806dccd"
+                  }
+                ],
+                "commands": [
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "waitingTime"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "constant",
+                          "value": 285
+                        },
+                        {
+                          "operation": "sub",
+                          "type": "object",
+                          "property": "actor-animation-current-time",
+                          "actor": {
+                            "type": "trigger"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "all",
+                          "conditions": [
+                            {
+                              "type": "number",
+                              "variable": {
+                                "type": "local",
+                                "key": "waitingTime"
+                              },
+                              "operation": "greater",
+                              "operand": {
+                                "type": "constant",
+                                "value": 0
+                              }
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "setString",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "1c60e46c0d8ea80e"
+                                },
+                                "operation": "set",
+                                "operand": {
+                                  "type": "enum",
+                                  "stringId": "2acc5496b2d9e78c"
+                                }
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "waitingTime"
+                                },
+                                "operation": "div",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "actor",
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "6421aebf4c298605"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "wait",
+                              "params": {
+                                "duration": {
+                                  "type": "local",
+                                  "key": "waitingTime"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setString",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "1c60e46c0d8ea80e"
+                      },
+                      "operation": "set",
+                      "operand": {
+                        "type": "enum",
+                        "stringId": "4b5779824489e9cc"
+                      }
+                    }
+                  },
+                  {
+                    "id": "callEvent",
+                    "params": {
+                      "type": "global",
+                      "eventId": "ae18447779cd5aac"
+                    }
+                  },
+                  {
+                    "id": "translateActor",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "angle": {
+                        "type": "direction",
+                        "degrees": 0
+                      },
+                      "distance": 0.1,
+                      "easingId": "01eac96676bb2ee7",
+                      "duration": 200,
+                      "wait": false
+                    }
+                  },
+                  {
+                    "id": "createTrigger",
+                    "params": {
+                      "triggerId": "20a1c038cad62899",
+                      "caster": {
+                        "type": "trigger"
+                      },
+                      "origin": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        }
+                      },
+                      "angle": {
+                        "type": "direction",
+                        "degrees": 0
+                      },
+                      "distance": 0,
+                      "scale": 1,
+                      "timeScale": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "6421aebf4c298605"
+                      }
+                    }
+                  },
+                  {
+                    "id": "playActorAnimation",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "motion": "54aa1242b6a66cfc",
+                      "speed": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "6421aebf4c298605"
+                      },
+                      "wait": true
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "all",
+                          "conditions": [
+                            {
+                              "type": "string",
+                              "variable": {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "key": "1c60e46c0d8ea80e"
+                              },
+                              "operation": "equal",
+                              "operand": {
+                                "type": "enum",
+                                "stringId": "4b5779824489e9cc"
+                              }
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "fixAngle",
+                              "params": {
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "fixed": false
+                              }
+                            },
+                            {
+                              "id": "setMovementSpeed",
+                              "params": {
+                                "actor": {
+                                  "type": "trigger"
+                                },
+                                "property": "factor-temp",
+                                "factor": 1
+                              }
+                            },
+                            {
+                              "id": "setString",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "1c60e46c0d8ea80e"
+                                },
+                                "operation": "set",
+                                "operand": {
+                                  "type": "enum",
+                                  "stringId": "18e8a940bce7382f"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

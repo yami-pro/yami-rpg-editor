@@ -1,0 +1,50 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    160,
+    256,
+    32,
+    32
+  ],
+  "inherit": "008908866afe1bee",
+  "attributes": [
+    {
+      "key": "744c0775cfc21878",
+      "value": "Ring"
+    },
+    {
+      "key": "f07a7697f4d69696",
+      "value": "408dc2e6d1ae7329"
+    },
+    {
+      "key": "c16d969e58798456",
+      "value": "0098cdf6d26f8ac4"
+    },
+    {
+      "key": "9c6c39e76efa5356",
+      "value": 2000
+    },
+    {
+      "key": "81645b642e77eba9",
+      "value": ""
+    },
+    {
+      "key": "48922b8d7b953bad",
+      "value": 20
+    },
+    {
+      "key": "25f80fa1369bd18b",
+      "value": 10
+    },
+    {
+      "key": "447d078a4b6d1477",
+      "value": 1
+    },
+    {
+      "key": "c1a3233da0a17a4a",
+      "value": 1
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

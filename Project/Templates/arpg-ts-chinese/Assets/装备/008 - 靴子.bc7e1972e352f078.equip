@@ -1,0 +1,46 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    96,
+    256,
+    32,
+    32
+  ],
+  "inherit": "008908866afe1bee",
+  "attributes": [
+    {
+      "key": "744c0775cfc21878",
+      "value": "靴子"
+    },
+    {
+      "key": "f07a7697f4d69696",
+      "value": "7802b73510212500"
+    },
+    {
+      "key": "c16d969e58798456",
+      "value": "ee4faeddd80ca01f"
+    },
+    {
+      "key": "9c6c39e76efa5356",
+      "value": 1400
+    },
+    {
+      "key": "81645b642e77eba9",
+      "value": ""
+    },
+    {
+      "key": "7443fd783f9e04a1",
+      "value": 4
+    },
+    {
+      "key": "075ea6ebe1e0b36c",
+      "value": 0.05
+    },
+    {
+      "key": "72d60d6116e4de36",
+      "value": 0.05
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

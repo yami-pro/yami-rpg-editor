@@ -1,0 +1,46 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    288,
+    224,
+    32,
+    32
+  ],
+  "inherit": "008908866afe1bee",
+  "attributes": [
+    {
+      "key": "744c0775cfc21878",
+      "value": "护甲"
+    },
+    {
+      "key": "f07a7697f4d69696",
+      "value": "7802b73510212500"
+    },
+    {
+      "key": "c16d969e58798456",
+      "value": "09ce01a6ec896748"
+    },
+    {
+      "key": "9c6c39e76efa5356",
+      "value": 80
+    },
+    {
+      "key": "81645b642e77eba9",
+      "value": ""
+    },
+    {
+      "key": "48922b8d7b953bad",
+      "value": 40
+    },
+    {
+      "key": "7443fd783f9e04a1",
+      "value": 8
+    },
+    {
+      "key": "fc184a0601ca239c",
+      "value": 4
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

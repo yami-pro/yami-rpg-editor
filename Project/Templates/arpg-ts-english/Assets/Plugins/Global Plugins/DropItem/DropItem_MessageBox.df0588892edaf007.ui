@@ -1,0 +1,476 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "nodes": [
+    {
+      "class": "window",
+      "name": "MessageWindow",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "39e4ac292c2f01ea",
+      "layout": "vertical-grid",
+      "scrollX": 0,
+      "scrollY": 0,
+      "gridWidth": 320,
+      "gridHeight": 32,
+      "gridGapX": 0,
+      "gridGapY": 0,
+      "paddingX": 0,
+      "paddingY": 0,
+      "overflow": "visible",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0,
+        "anchorY": 1,
+        "x": 0,
+        "x2": 0,
+        "y": -80,
+        "y2": 1,
+        "width": 320,
+        "width2": 0,
+        "height": 128,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "operation": "disable-pointer-events"
+              }
+            }
+          ]
+        },
+        {
+          "type": "e8a057e280a28d9b",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "length"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "element",
+                    "property": "element-children-count",
+                    "element": {
+                      "type": "trigger"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "if",
+              "params": {
+                "branches": [
+                  {
+                    "mode": "all",
+                    "conditions": [
+                      {
+                        "type": "number",
+                        "variable": {
+                          "type": "local",
+                          "key": "length"
+                        },
+                        "operation": "greater",
+                        "operand": {
+                          "type": "constant",
+                          "value": 20
+                        }
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "deleteElement",
+                        "params": {
+                          "operation": "delete-element",
+                          "element": {
+                            "type": "by-index",
+                            "parent": {
+                              "type": "trigger"
+                            },
+                            "index": 0
+                          }
+                        }
+                      },
+                      {
+                        "id": "setNumber",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "length"
+                          },
+                          "operation": "sub",
+                          "operands": [
+                            {
+                              "operation": "add",
+                              "type": "constant",
+                              "value": 1
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "height"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "variable",
+                    "variable": {
+                      "type": "local",
+                      "key": "length"
+                    }
+                  },
+                  {
+                    "operation": "mul",
+                    "type": "constant",
+                    "value": 32
+                  }
+                ]
+              }
+            },
+            {
+              "id": "moveElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "properties": [
+                  {
+                    "key": "height",
+                    "value": {
+                      "type": "local",
+                      "key": "height"
+                    }
+                  }
+                ],
+                "easingId": "01eac96676bb2ee7",
+                "duration": 0,
+                "wait": true
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "text",
+          "name": "MessageText",
+          "enabled": false,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "88fc646153e30977",
+          "direction": "horizontal-tb",
+          "horizontalAlign": "left",
+          "verticalAlign": "middle",
+          "content": "Gain <color:3>Sword",
+          "size": 20,
+          "lineSpacing": 0,
+          "letterSpacing": 0,
+          "color": "e0e0e0ff",
+          "font": "",
+          "typeface": "bold",
+          "effect": {
+            "type": "outline",
+            "color": "000000ff"
+          },
+          "overflow": "visible",
+          "blend": "normal",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 0,
+            "width": -16,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [
+            {
+              "type": "autorun",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "Adjust the window height when inserting this element into the message window"
+                  }
+                },
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "将本元素插入到消息窗口时，调整窗口高度"
+                  }
+                },
+                {
+                  "id": "callEvent",
+                  "params": {
+                    "type": "element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "39e4ac292c2f01ea"
+                    },
+                    "eventType": "e8a057e280a28d9b"
+                  }
+                },
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "Wait for a while and delete this element after the fade"
+                  }
+                },
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "等待一段时间，渐变后删除本元素"
+                  }
+                },
+                {
+                  "id": "wait",
+                  "params": {
+                    "duration": 5000
+                  }
+                },
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 1000,
+                    "wait": true
+                  }
+                },
+                {
+                  "id": "deleteElement",
+                  "params": {
+                    "operation": "delete-element",
+                    "element": {
+                      "type": "trigger"
+                    }
+                  }
+                },
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "Adjusts the window height when this element is removed from the message window"
+                  }
+                },
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "将本元素从消息窗口移除时，调整窗口高度"
+                  }
+                },
+                {
+                  "id": "callEvent",
+                  "params": {
+                    "type": "element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "39e4ac292c2f01ea"
+                    },
+                    "eventType": "e8a057e280a28d9b"
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "text",
+          "name": "Preview",
+          "enabled": false,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "b747c77e2b85b16d",
+          "direction": "horizontal-tb",
+          "horizontalAlign": "left",
+          "verticalAlign": "middle",
+          "content": "Gain <color:2>Armor",
+          "size": 20,
+          "lineSpacing": 0,
+          "letterSpacing": 0,
+          "color": "e0e0e0ff",
+          "font": "",
+          "typeface": "bold",
+          "effect": {
+            "type": "outline",
+            "color": "000000ff"
+          },
+          "overflow": "visible",
+          "blend": "normal",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 0,
+            "width": -16,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "text",
+          "name": "Preview",
+          "enabled": false,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "cf8a00a6aa25ac9c",
+          "direction": "horizontal-tb",
+          "horizontalAlign": "left",
+          "verticalAlign": "middle",
+          "content": "Gain <color:1>Healing Potion</color> x1",
+          "size": 20,
+          "lineSpacing": 0,
+          "letterSpacing": 0,
+          "color": "e0e0e0ff",
+          "font": "",
+          "typeface": "bold",
+          "effect": {
+            "type": "outline",
+            "color": "000000ff"
+          },
+          "overflow": "visible",
+          "blend": "normal",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 0,
+            "width": -16,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "text",
+          "name": "Preview",
+          "enabled": false,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "e1764d09442ef01e",
+          "direction": "horizontal-tb",
+          "horizontalAlign": "left",
+          "verticalAlign": "middle",
+          "content": "Gain <color:fff0a0>450 <color:4>G",
+          "size": 20,
+          "lineSpacing": 0,
+          "letterSpacing": 0,
+          "color": "e0e0e0ff",
+          "font": "",
+          "typeface": "bold",
+          "effect": {
+            "type": "outline",
+            "color": "000000ff"
+          },
+          "overflow": "visible",
+          "blend": "normal",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 0,
+            "width": -16,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+[
+  {
+    "class": "folder",
+    "name": "常用变量",
+    "expanded": true,
+    "children": [
+      {
+        "id": "9b88cf064bea5488",
+        "name": "临时布尔值",
+        "value": false,
+        "sort": 0,
+        "note": ""
+      },
+      {
+        "id": "4beccf626076a6a5",
+        "name": "临时数值",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "4d769804b47b9c66",
+        "name": "临时字符串",
+        "value": "haha",
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "bfab2564c80ef215",
+        "name": "临时对象",
+        "value": null,
+        "sort": 2,
+        "note": ""
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "name": "系统变量",
+    "expanded": true,
+    "children": [
+      {
+        "id": "271bed60ed964d90",
+        "name": "摄像机缩放率",
+        "value": 2,
+        "sort": 0,
+        "note": ""
+      },
+      {
+        "id": "1c9c7609f00bac2f",
+        "name": "技能目标角色",
+        "value": null,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "ebc7cde369ecbb99",
+        "name": "正在对话中",
+        "value": false,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "24499decb41940d7",
+        "name": "夜晚",
+        "value": false,
+        "sort": 0,
+        "note": ""
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "name": "世界地图",
+    "expanded": true,
+    "children": [
+      {
+        "id": "cc64cab21908af49",
+        "name": "变性成功",
+        "value": false,
+        "sort": 0,
+        "note": ""
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "name": "用户界面",
+    "expanded": true,
+    "children": [
+      {
+        "id": "9008b0429d9e848c",
+        "name": "购买价格系数",
+        "value": 2,
+        "sort": 0,
+        "note": ""
+      },
+      {
+        "id": "94415f939e880277",
+        "name": "出售价格系数",
+        "value": 1,
+        "sort": 0,
+        "note": ""
+      },
+      {
+        "id": "e40281edcb0702ca",
+        "name": "商品数量",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "f0ea5ae8c9c7d124",
+        "name": "商品价格",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "99ffd0d82dda5bf2",
+        "name": "鼠标按下X",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "1cde8969ec2ee785",
+        "name": "鼠标按下Y",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "c44fb9a52536747c",
+        "name": "暂停的事件",
+        "value": null,
+        "sort": 2,
+        "note": ""
+      }
+    ]
+  }
+]

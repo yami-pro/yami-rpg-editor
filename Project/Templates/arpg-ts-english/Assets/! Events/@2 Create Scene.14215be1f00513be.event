@@ -1,0 +1,132 @@
+{
+  "type": "createscene",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "boolean",
+                "variable": {
+                  "type": "global",
+                  "key": "24499decb41940d7"
+                },
+                "operation": "equal",
+                "operand": {
+                  "type": "constant",
+                  "value": true
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setAmbientLight",
+                "params": {
+                  "red": 10,
+                  "green": 10,
+                  "blue": 20,
+                  "easingId": "01eac96676bb2ee7",
+                  "duration": 0,
+                  "wait": false
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "callEvent",
+      "params": {
+        "type": "global",
+        "eventId": "60e2fb94a2bb96cc"
+      }
+    },
+    {
+      "id": "wait",
+      "params": {
+        "duration": 1
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Place party members to the player's side"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "放置队友角色到玩家身边"
+      }
+    },
+    {
+      "id": "forEach",
+      "params": {
+        "data": "member",
+        "variable": {
+          "type": "local",
+          "key": "actor"
+        },
+        "commands": [
+          {
+            "id": "if",
+            "params": {
+              "branches": [
+                {
+                  "mode": "all",
+                  "conditions": [
+                    {
+                      "type": "actor",
+                      "actor": {
+                        "type": "variable",
+                        "variable": {
+                          "type": "local",
+                          "key": "actor"
+                        }
+                      },
+                      "operation": "is-player"
+                    }
+                  ],
+                  "commands": [
+                    {
+                      "id": "continue",
+                      "params": {}
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": "transferGlobalActor",
+            "params": {
+              "actor": {
+                "type": "variable",
+                "variable": {
+                  "type": "local",
+                  "key": "actor"
+                }
+              },
+              "position": {
+                "type": "actor",
+                "actor": {
+                  "type": "player"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

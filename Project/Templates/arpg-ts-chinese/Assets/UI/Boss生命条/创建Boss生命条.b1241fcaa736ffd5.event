@@ -1,0 +1,80 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "element",
+                "element": {
+                  "type": "by-id",
+                  "presetId": "0350981d48ce92e8"
+                },
+                "operation": "absent"
+              }
+            ],
+            "commands": [
+              {
+                "id": "createElement",
+                "params": {
+                  "operation": "append-all-to-root",
+                  "uiId": "a8ebdfc3e5b314e4"
+                }
+              },
+              {
+                "id": "setObject",
+                "params": {
+                  "variable": {
+                    "type": "element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "0350981d48ce92e8"
+                    },
+                    "key": "1f4c880e8e284c05"
+                  },
+                  "operand": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    }
+                  }
+                }
+              },
+              {
+                "id": "setText",
+                "params": {
+                  "element": {
+                    "type": "by-id",
+                    "presetId": "3d8748571dab120e"
+                  },
+                  "properties": [
+                    {
+                      "key": "content",
+                      "value": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "da4d32a4f1097059"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

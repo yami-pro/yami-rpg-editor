@@ -1,0 +1,167 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "nodes": [
+    {
+      "class": "text",
+      "name": "Text",
+      "enabled": true,
+      "expanded": false,
+      "hidden": false,
+      "locked": false,
+      "presetId": "d66d57485bd41256",
+      "direction": "horizontal-tb",
+      "horizontalAlign": "center",
+      "verticalAlign": "middle",
+      "content": "Game Over",
+      "size": 200,
+      "lineSpacing": 0,
+      "letterSpacing": 0,
+      "color": "ffffffff",
+      "font": "",
+      "typeface": "regular",
+      "effect": {
+        "type": "stroke",
+        "strokeWidth": 16,
+        "color": "0060ccff"
+      },
+      "overflow": "visible",
+      "blend": "normal",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "x": 0,
+        "x2": 0.5,
+        "y": 0,
+        "y2": 0.5,
+        "width": 1080,
+        "width2": 0,
+        "height": 200,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "preventSceneInput",
+              "params": {}
+            },
+            {
+              "id": "tintScreen",
+              "params": {
+                "tint": [
+                  -50,
+                  -50,
+                  -50,
+                  255
+                ],
+                "easingId": "01eac96676bb2ee7",
+                "duration": 1000,
+                "wait": false
+              }
+            },
+            {
+              "id": "moveElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "properties": [
+                  {
+                    "key": "opacity",
+                    "value": 0
+                  }
+                ],
+                "easingId": "01eac96676bb2ee7",
+                "duration": 0,
+                "wait": true
+              }
+            },
+            {
+              "id": "wait",
+              "params": {
+                "duration": 1000
+              }
+            },
+            {
+              "id": "moveElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "properties": [
+                  {
+                    "key": "opacity",
+                    "value": 1
+                  }
+                ],
+                "easingId": "7890d8edf5d88412",
+                "duration": 1000,
+                "wait": true
+              }
+            },
+            {
+              "id": "wait",
+              "params": {
+                "duration": 2000
+              }
+            },
+            {
+              "id": "tintScreen",
+              "params": {
+                "tint": [
+                  -255,
+                  -255,
+                  -255,
+                  255
+                ],
+                "easingId": "01eac96676bb2ee7",
+                "duration": 1000,
+                "wait": false
+              }
+            },
+            {
+              "id": "moveElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "properties": [
+                  {
+                    "key": "opacity",
+                    "value": 0
+                  }
+                ],
+                "easingId": "7890d8edf5d88412",
+                "duration": 1000,
+                "wait": true
+              }
+            },
+            {
+              "id": "reset",
+              "params": {}
+            },
+            {
+              "id": "callEvent",
+              "params": {
+                "type": "global",
+                "eventId": "896108c7557627ff"
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": []
+    }
+  ]
+}

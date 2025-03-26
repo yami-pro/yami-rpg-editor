@@ -1,0 +1,153 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Prefer to use the role in the conversation as the target role for the transaction"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "优先使用对话中的角色作为交易的目标角色"
+      }
+    },
+    {
+      "id": "setObject",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "target"
+        },
+        "operand": {
+          "type": "actor",
+          "actor": {
+            "type": "target"
+          }
+        }
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Select the event trigger role as an alternative"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "object",
+                "variable": {
+                  "type": "local",
+                  "key": "target"
+                },
+                "operation": "equal",
+                "operand": {
+                  "type": "none"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setObject",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "target"
+                  },
+                  "operand": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "If the role is valid and no trading window is open"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "如果角色有效，且未打开交易窗口"
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "object",
+                "variable": {
+                  "type": "local",
+                  "key": "target"
+                },
+                "operation": "is-actor"
+              },
+              {
+                "type": "element",
+                "element": {
+                  "type": "by-id",
+                  "presetId": "92057ab96e5b1278"
+                },
+                "operation": "absent"
+              }
+            ],
+            "commands": [
+              {
+                "id": "createElement",
+                "params": {
+                  "operation": "append-one-to-root",
+                  "presetId": "92057ab96e5b1278"
+                }
+              },
+              {
+                "id": "setObject",
+                "params": {
+                  "variable": {
+                    "type": "element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "92057ab96e5b1278"
+                    },
+                    "key": "1f4c880e8e284c05"
+                  },
+                  "operand": {
+                    "type": "variable",
+                    "variable": {
+                      "type": "local",
+                      "key": "target"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+{
+  "sprites": [
+    {
+      "name": "冲击波",
+      "id": "84f60107c90884bd",
+      "image": "18be8b76aa2d7ec4",
+      "hframes": 5,
+      "vframes": 1
+    },
+    {
+      "name": "冲击波_击中",
+      "id": "f15756a86e7bc196",
+      "image": "54e737cc5aea7148",
+      "hframes": 7,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "class": "motion",
+      "id": "202fbc71a3bd6fc8",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": true,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "偏移",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "",
+                  "x": 0,
+                  "y": -1,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "冲击波",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "84f60107c90884bd",
+                  "blend": "normal",
+                  "light": "raw",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 2,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        -255,
+                        -255,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 2,
+                      "end": 4,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 1,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        -255,
+                        -255,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 4,
+                      "end": 6,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 2,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        -255,
+                        -255,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 6,
+                      "end": 8,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 3,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        -255,
+                        -255,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 8,
+                      "end": 10,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 4,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        -255,
+                        -255,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "f564a24ccb748042",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "冲击波-击中",
+              "hidden": false,
+              "locked": false,
+              "sprite": "f15756a86e7bc196",
+              "blend": "normal",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 1,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -255,
+                    -255,
+                    0
+                  ]
+                },
+                {
+                  "start": 1,
+                  "end": 2,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -255,
+                    -255,
+                    0
+                  ]
+                },
+                {
+                  "start": 2,
+                  "end": 3,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -255,
+                    -255,
+                    0
+                  ]
+                },
+                {
+                  "start": 3,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -255,
+                    -255,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 5,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 4,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -255,
+                    -255,
+                    0
+                  ]
+                },
+                {
+                  "start": 5,
+                  "end": 6,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 5,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -255,
+                    -255,
+                    0
+                  ]
+                },
+                {
+                  "start": 6,
+                  "end": 7,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 6,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -255,
+                    -255,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

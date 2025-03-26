@@ -1,0 +1,175 @@
+{
+  "gameId": "99a4069cae2ce128",
+  "deployed": false,
+  "preload": "always",
+  "window": {
+    "title": "My Project",
+    "width": 1280,
+    "height": 720,
+    "display": "windowed"
+  },
+  "resolution": {
+    "width": 1920,
+    "height": 1080,
+    "sceneScale": 3,
+    "uiScale": 1
+  },
+  "scene": {
+    "padding": 0,
+    "animationInterval": 330
+  },
+  "tileArea": {
+    "expansionTop": 0,
+    "expansionLeft": 0,
+    "expansionRight": 0,
+    "expansionBottom": 0
+  },
+  "animationArea": {
+    "expansionTop": 32,
+    "expansionLeft": 128,
+    "expansionRight": 128,
+    "expansionBottom": 64
+  },
+  "lightArea": {
+    "expansionTop": 16,
+    "expansionLeft": 32,
+    "expansionRight": 32,
+    "expansionBottom": 96
+  },
+  "virtualAxis": {
+    "up": "KeyW",
+    "down": "KeyS",
+    "left": "KeyA",
+    "right": "KeyD"
+  },
+  "collision": {
+    "actor": {
+      "enabled": true
+    },
+    "scene": {
+      "enabled": true,
+      "actorSize": 0.8
+    },
+    "trigger": {
+      "collideWithActorShape": true
+    }
+  },
+  "text": {
+    "importedFonts": [],
+    "fontFamily": "sans-serif",
+    "highDefinition": true
+  },
+  "actor": {
+    "tempAttributes": [
+      {
+        "key": "1c60e46c0d8ea80e",
+        "value": "18e8a940bce7382f"
+      }
+    ]
+  },
+  "animation": {
+    "frameRate": 30
+  },
+  "soundAttenuation": {
+    "distance": 10,
+    "easingId": "01eac96676bb2ee7"
+  },
+  "webgl": {
+    "desynchronized": false,
+    "textureMagFilter": "nearest",
+    "textureMinFilter": "linear"
+  },
+  "script": {
+    "autoCompile": true
+  },
+  "save": {
+    "location": "local",
+    "subdir": "99a4069cae2ce166"
+  },
+  "localization": {
+    "languages": [
+      {
+        "name": "en",
+        "font": "",
+        "scale": 1
+      },
+      {
+        "name": "zh-CN",
+        "font": "",
+        "scale": 1
+      }
+    ],
+    "default": "auto"
+  },
+  "startPosition": {
+    "sceneId": "42bb866ffdc04284",
+    "x": 62.5,
+    "y": 39.5
+  },
+  "indexedColors": [
+    {
+      "name": "品质：普通",
+      "code": "ffffffff"
+    },
+    {
+      "name": "品质：稀有",
+      "code": "00ffc0ff"
+    },
+    {
+      "name": "品质：神器",
+      "code": "ff60aaff"
+    },
+    {
+      "name": "品质：传说",
+      "code": "ffd040ff"
+    },
+    {
+      "name": "金币",
+      "code": "ffc040ff"
+    },
+    {
+      "name": "Color 5",
+      "code": "ccc0ffff"
+    },
+    {
+      "name": "Color 6",
+      "code": "ffffa0ff"
+    },
+    {
+      "name": "Color 7",
+      "code": "808080ff"
+    },
+    {
+      "name": "Color 8",
+      "code": "c0c0c0ff"
+    },
+    {
+      "name": "Color 9",
+      "code": "2080ccff"
+    },
+    {
+      "name": "Color 10",
+      "code": "ff3810ff"
+    },
+    {
+      "name": "Color 11",
+      "code": "00a010ff"
+    },
+    {
+      "name": "Color 12",
+      "code": "3e9adeff"
+    },
+    {
+      "name": "Color 13",
+      "code": "a098ffff"
+    },
+    {
+      "name": "Color 14",
+      "code": "ffcc20ff"
+    },
+    {
+      "name": "Color 15",
+      "code": "000000ff"
+    }
+  ]
+}

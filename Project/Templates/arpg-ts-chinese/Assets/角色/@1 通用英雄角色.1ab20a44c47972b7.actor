@@ -1,0 +1,844 @@
+{
+  "portrait": "2479060be2ba27d2",
+  "clip": [
+    0,
+    0,
+    512,
+    512
+  ],
+  "animationId": "",
+  "idleMotion": "",
+  "moveMotion": "",
+  "rotatable": false,
+  "passage": "land",
+  "speed": 4,
+  "shape": "circle",
+  "size": 0.8,
+  "weight": 1,
+  "immovable": true,
+  "scale": 1,
+  "priority": 0,
+  "inherit": "",
+  "sprites": [],
+  "attributes": [],
+  "skills": [],
+  "equipments": [],
+  "inventory": [],
+  "events": [
+    {
+      "type": "07f5bfd70e427909",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Set character level cap"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "设置角色等级上限"
+          }
+        },
+        {
+          "id": "if",
+          "params": {
+            "branches": [
+              {
+                "mode": "all",
+                "conditions": [
+                  {
+                    "type": "number",
+                    "variable": {
+                      "type": "actor",
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "key": "fb9d675011f6c08f"
+                    },
+                    "operation": "less",
+                    "operand": {
+                      "type": "constant",
+                      "value": 10
+                    }
+                  }
+                ],
+                "commands": [
+                  {
+                    "id": "playAnimation",
+                    "params": {
+                      "mode": "actor",
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "animationId": "06444bd79069b200",
+                      "motion": "cadd4e0c4f0beb1d",
+                      "rotatable": true,
+                      "priority": 0,
+                      "offsetY": 0,
+                      "angle": 0,
+                      "speed": 1,
+                      "wait": false
+                    }
+                  },
+                  {
+                    "id": "setList",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "expList"
+                      },
+                      "operation": "set-numbers",
+                      "list": [
+                        0,
+                        100,
+                        200,
+                        300,
+                        400,
+                        500,
+                        600,
+                        700,
+                        800,
+                        900
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "fb9d675011f6c08f"
+                      },
+                      "operation": "add",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "constant",
+                          "value": 1
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "Set the required experience value for the next level"
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "设置下一级所需经验值"
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "8dd915b112c0447c"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "list",
+                          "variable": {
+                            "type": "local",
+                            "key": "expList"
+                          },
+                          "index": {
+                            "type": "actor",
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "key": "fb9d675011f6c08f"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "switch",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "fe5c2daaadda1b45"
+                      },
+                      "branches": [
+                        {
+                          "conditions": [
+                            {
+                              "type": "enum",
+                              "stringId": "9d8664dcb88c5e72"
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "a8451228fe0c120a"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 12
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "ff0db36441e761fa"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 4
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "96efe7ef1b6999bc"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "752c94a8aa99161b"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "91e7127e267f9425"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "9c18a64439c1368f"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "conditions": [
+                            {
+                              "type": "enum",
+                              "stringId": "cf348ee6f14360d8"
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "a8451228fe0c120a"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 10
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "ff0db36441e761fa"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 6
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "96efe7ef1b6999bc"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "752c94a8aa99161b"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "91e7127e267f9425"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "9c18a64439c1368f"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "conditions": [
+                            {
+                              "type": "enum",
+                              "stringId": "ee6c6f9652284009"
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "a8451228fe0c120a"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 6
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "ff0db36441e761fa"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 10
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "96efe7ef1b6999bc"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "752c94a8aa99161b"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "91e7127e267f9425"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "9c18a64439c1368f"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "conditions": [
+                            {
+                              "type": "enum",
+                              "stringId": "4a68d179f298e849"
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "a8451228fe0c120a"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 8
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "ff0db36441e761fa"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 8
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "96efe7ef1b6999bc"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "752c94a8aa99161b"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "91e7127e267f9425"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 1
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "9c18a64439c1368f"
+                                },
+                                "operation": "add",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "constant",
+                                    "value": 2
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "Full restoration of character status"
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "完全恢复角色状态"
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "a5fd5e9f229abb2d"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "variable",
+                          "variable": {
+                            "type": "actor",
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "key": "a8451228fe0c120a"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "7fa82e53c15d0e81"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "variable",
+                          "variable": {
+                            "type": "actor",
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "key": "ff0db36441e761fa"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "fdede5db37a4ee44",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "comment",
+          "params": {
+            "comment": "If all party members die, game over"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "如果队伍成员全部死亡，游戏结束"
+          }
+        },
+        {
+          "id": "forEach",
+          "params": {
+            "data": "member",
+            "variable": {
+              "type": "local",
+              "key": "actor"
+            },
+            "commands": [
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "actor",
+                          "actor": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "actor"
+                            }
+                          },
+                          "operation": "present-active"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "return",
+                          "params": {
+                            "type": "none"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "createElement",
+          "params": {
+            "operation": "append-all-to-root",
+            "uiId": "47303527f9ef1e9d"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

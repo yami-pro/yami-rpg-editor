@@ -1,0 +1,102 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    128,
+    864,
+    32,
+    32
+  ],
+  "inherit": "8ffba2cbfefe7647",
+  "attributes": [
+    {
+      "key": "9e7764f296cedc7c",
+      "value": "Magic Shield"
+    },
+    {
+      "key": "98b1ee7f5da9a46a",
+      "value": ""
+    },
+    {
+      "key": "81d27c5772ab7adb",
+      "value": "aa4be2e45aaa07e2"
+    },
+    {
+      "key": "f9c84e17d9908aa7",
+      "value": 10000
+    },
+    {
+      "key": "a2e8e03693ca9732",
+      "value": 8
+    }
+  ],
+  "events": [
+    {
+      "type": "stateadd",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "inherited"
+          }
+        },
+        {
+          "id": "addAnimationComponent",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "animationId": "8d0ef30782c36995",
+            "motion": "99ee34e6d021cbc9",
+            "priority": 0
+          }
+        },
+        {
+          "id": "f4b25e9faf168b8d",
+          "params": {
+            "mode": "actor",
+            "position": {
+              "getter": "position",
+              "type": "absolute",
+              "x": 0,
+              "y": 0
+            },
+            "actor": {
+              "getter": "actor",
+              "type": "trigger"
+            },
+            "lightColor": "00ffff80",
+            "lightRadius": 1,
+            "intensity": 0,
+            "duration": 10000,
+            "fadein": 500,
+            "fadeout": 500
+          }
+        }
+      ]
+    },
+    {
+      "type": "stateremove",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "inherited"
+          }
+        },
+        {
+          "id": "removeAnimationComponent",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "animationId": "8d0ef30782c36995",
+            "motion": "99ee34e6d021cbc9"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

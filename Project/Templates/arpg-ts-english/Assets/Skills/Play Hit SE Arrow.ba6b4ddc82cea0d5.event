@@ -1,0 +1,25 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "playAudio",
+      "params": {
+        "type": "se-attenuated",
+        "audio": "1e527d0ac7d9ddf6",
+        "volume": 1,
+        "location": {
+          "type": "actor",
+          "actor": {
+            "type": "trigger"
+          }
+        }
+      }
+    }
+  ]
+}

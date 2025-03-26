@@ -1,0 +1,19 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "playAudio",
+      "params": {
+        "type": "se",
+        "audio": "89d7d702be9a747c",
+        "volume": 1
+      }
+    }
+  ]
+}

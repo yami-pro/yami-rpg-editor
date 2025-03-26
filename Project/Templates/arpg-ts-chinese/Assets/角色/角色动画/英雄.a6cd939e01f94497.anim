@@ -1,0 +1,2148 @@
+{
+  "sprites": [
+    {
+      "name": "角色",
+      "id": "00d24327e45b04cc",
+      "image": "0353d952111812c9",
+      "hframes": 9,
+      "vframes": 1
+    },
+    {
+      "name": "武器",
+      "id": "fb1e50df85f01248",
+      "image": "8417da2c8e5ceec4",
+      "hframes": 1,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "id": "9a715048c0cceb69",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": true,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 15,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 15,
+                  "end": 20,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "武器",
+              "hidden": false,
+              "locked": false,
+              "sprite": "fb1e50df85f01248",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -14,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 5,
+                  "end": 10,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 15,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -10,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 15,
+                  "end": 20,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f7bd22f4d3efcf4a",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": true,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 4,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 8,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 5,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 8,
+                  "end": 12,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 6,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 12,
+                  "end": 16,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 7,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "武器",
+              "hidden": false,
+              "locked": false,
+              "sprite": "fb1e50df85f01248",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -14,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 8,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 8,
+                  "end": 12,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -10,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 12,
+                  "end": 16,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baf0063927139f01",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "de6ab9b8ff17ffd4",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 5,
+                  "end": 14,
+                  "easingId": "88960b39ce627a19",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -20,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 8,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 14,
+                  "end": 15,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "武器",
+              "hidden": false,
+              "locked": false,
+              "sprite": "fb1e50df85f01248",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 2,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -14,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 2,
+                  "end": 9,
+                  "easingId": "de6ab9b8ff17ffd4",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -14,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 9,
+                  "end": 14,
+                  "easingId": "88960b39ce627a19",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -20,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 14,
+                  "end": 15,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -16,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "54aa1242b6a66cfc",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 2,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 2,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 6,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 6,
+                  "end": 8,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "joint",
+              "name": "劈砍",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 6,
+                  "easingId": "7890d8edf5d88412",
+                  "x": 10,
+                  "y": -8,
+                  "rotation": -18,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 6,
+                  "end": 8,
+                  "easingId": "",
+                  "x": 7,
+                  "y": 0,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "武器",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "fb1e50df85f01248",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 8,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -14,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "class": "particle",
+                  "name": "剑影",
+                  "hidden": false,
+                  "locked": false,
+                  "particleId": "f8132cce96adce90",
+                  "position": "absolute",
+                  "angle": "inherit",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 8,
+                      "easingId": "",
+                      "x": 0,
+                      "y": -12,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "scale": 1,
+                      "speed": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bb0760b21d65ca21",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 2,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 2,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 6,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 6,
+                  "end": 9,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "joint",
+              "name": "缩放",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 9,
+                  "easingId": "",
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 0.75,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "joint",
+                  "name": "旋转",
+                  "expanded": true,
+                  "hidden": false,
+                  "locked": false,
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 8,
+                      "easingId": "01eac96676bb2ee7",
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1
+                    },
+                    {
+                      "start": 8,
+                      "end": 9,
+                      "easingId": "7890d8edf5d88412",
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 360,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1
+                    }
+                  ],
+                  "children": [
+                    {
+                      "class": "sprite",
+                      "name": "武器",
+                      "hidden": false,
+                      "locked": false,
+                      "sprite": "fb1e50df85f01248",
+                      "blend": "normal",
+                      "light": "anchor",
+                      "frames": [
+                        {
+                          "start": 0,
+                          "end": 9,
+                          "easingId": "",
+                          "anchorX": 0.5,
+                          "anchorY": 0.5,
+                          "pivotX": 0,
+                          "pivotY": 0,
+                          "x": 0,
+                          "y": -24,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "spriteX": 0,
+                          "spriteY": 0,
+                          "tint": [
+                            0,
+                            0,
+                            0,
+                            0
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "particle",
+                      "name": "剑影",
+                      "hidden": false,
+                      "locked": false,
+                      "particleId": "b07bc9b2662d3efc",
+                      "position": "absolute",
+                      "angle": "inherit",
+                      "frames": [
+                        {
+                          "start": 0,
+                          "end": 9,
+                          "easingId": "",
+                          "x": 0,
+                          "y": -28,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "scale": 1,
+                          "speed": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "a188bd6768b2f545",
+      "mode": "1-dir",
+      "skip": true,
+      "loop": true,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 2,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 2,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 6,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": -1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 6,
+                  "end": 9,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": -1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "joint",
+              "name": "缩放",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 9,
+                  "easingId": "",
+                  "x": 0,
+                  "y": -4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 0.75,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "joint",
+                  "name": "旋转",
+                  "expanded": true,
+                  "hidden": false,
+                  "locked": false,
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 8,
+                      "easingId": "01eac96676bb2ee7",
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1
+                    },
+                    {
+                      "start": 8,
+                      "end": 9,
+                      "easingId": "7890d8edf5d88412",
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 360,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1
+                    }
+                  ],
+                  "children": [
+                    {
+                      "class": "sprite",
+                      "name": "武器",
+                      "hidden": false,
+                      "locked": false,
+                      "sprite": "fb1e50df85f01248",
+                      "blend": "normal",
+                      "light": "anchor",
+                      "frames": [
+                        {
+                          "start": 0,
+                          "end": 9,
+                          "easingId": "",
+                          "anchorX": 0.5,
+                          "anchorY": 0.5,
+                          "pivotX": 0,
+                          "pivotY": 0,
+                          "x": 0,
+                          "y": -24,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "spriteX": 0,
+                          "spriteY": 0,
+                          "tint": [
+                            0,
+                            0,
+                            0,
+                            0
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "class": "particle",
+                      "name": "剑影",
+                      "hidden": false,
+                      "locked": false,
+                      "particleId": "b07bc9b2662d3efc",
+                      "position": "absolute",
+                      "angle": "inherit",
+                      "frames": [
+                        {
+                          "start": 0,
+                          "end": 9,
+                          "easingId": "",
+                          "x": 0,
+                          "y": -28,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "scale": 1,
+                          "speed": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "9cadf0c73aa8f06d",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 2,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 2,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 6,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 6,
+                  "end": 8,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "武器",
+              "hidden": false,
+              "locked": false,
+              "sprite": "fb1e50df85f01248",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 2,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 12,
+                  "y": -8,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 2,
+                  "end": 4,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 11,
+                  "y": -8,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 4,
+                  "end": 6,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 12,
+                  "y": -8,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 6,
+                  "end": 8,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 13,
+                  "y": -8,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fab99452db9e9517",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "角色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 3,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 3,
+                  "end": 6,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 1,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 6,
+                  "end": 9,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 2,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 9,
+                  "end": 12,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 3,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "joint",
+              "name": "旋转",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 9,
+                  "easingId": "7890d8edf5d88412",
+                  "x": 8,
+                  "y": 0,
+                  "rotation": 65,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 9,
+                  "end": 12,
+                  "easingId": "",
+                  "x": 6,
+                  "y": -1,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "武器",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "fb1e50df85f01248",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 12,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -14,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ffa7d2c10f634142",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "摔倒",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 10,
+                  "end": 15,
+                  "easingId": "01eac96676bb2ee7",
+                  "x": 0,
+                  "y": 4,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 15,
+                  "end": 35,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 4,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 35,
+                  "end": 59,
+                  "easingId": "01eac96676bb2ee7",
+                  "x": 0,
+                  "y": 4,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 59,
+                  "end": 60,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 4,
+                  "rotation": 90,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "角色",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "00d24327e45b04cc",
+                  "blend": "normal",
+                  "light": "anchor",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 5,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -16,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 5,
+                      "end": 10,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -16,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 1,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 10,
+                      "end": 15,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -16,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 2,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 15,
+                      "end": 35,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -16,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 3,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 35,
+                      "end": 60,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": -16,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "spriteX": 3,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "武器",
+              "hidden": false,
+              "locked": false,
+              "sprite": "fb1e50df85f01248",
+              "blend": "normal",
+              "light": "anchor",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 5,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -14,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 5,
+                  "end": 15,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -12,
+                  "y": -14,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 15,
+                  "end": 35,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -7,
+                  "y": 2,
+                  "rotation": -189,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 35,
+                  "end": 59,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -7,
+                  "y": 2,
+                  "rotation": -189,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 59,
+                  "end": 60,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": -7,
+                  "y": 2,
+                  "rotation": -189,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "7710581f996b0bb8",
+      "mode": "1-dir-mirror",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "消失",
+              "hidden": false,
+              "locked": false,
+              "sprite": "00d24327e45b04cc",
+              "blend": "normal",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 25,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    255,
+                    255,
+                    255,
+                    0
+                  ]
+                },
+                {
+                  "start": 25,
+                  "end": 26,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    255,
+                    255,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

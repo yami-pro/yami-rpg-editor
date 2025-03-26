@@ -1,0 +1,1172 @@
+{
+  "width": 300,
+  "height": 164,
+  "nodes": [
+    {
+      "class": "container",
+      "name": "路人聊天框",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "32cdd80fab0e9fff",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 1,
+        "x": 150,
+        "x2": 0,
+        "y": 132,
+        "y2": 0,
+        "width": 300,
+        "width2": 0,
+        "height": 108,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "f2aa14a05754779f",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "comment",
+              "params": {
+                "comment": "Disable pointer events for dialog elements to avoid blocking the triggering of mouse events and move it to the bottom"
+              }
+            },
+            {
+              "id": "comment",
+              "params": {
+                "comment": "禁用对话框元素的指针事件，避免阻挡鼠标事件的触发，并将它移动到底部"
+              }
+            },
+            {
+              "id": "setElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "operation": "disable-pointer-events"
+              }
+            },
+            {
+              "id": "setElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "operation": "move-to-first"
+              }
+            },
+            {
+              "id": "if",
+              "params": {
+                "branches": [
+                  {
+                    "mode": "all",
+                    "conditions": [
+                      {
+                        "type": "element",
+                        "element": {
+                          "type": "by-id",
+                          "presetId": "8ad8ba7d0d47c7b7"
+                        },
+                        "operation": "absent"
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "createElement",
+                        "params": {
+                          "operation": "append-one-to-root",
+                          "presetId": "8ad8ba7d0d47c7b7"
+                        }
+                      },
+                      {
+                        "id": "setElement",
+                        "params": {
+                          "element": {
+                            "type": "latest"
+                          },
+                          "operation": "hide"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "comment",
+              "params": {
+                "comment": "Prefer to use the character name in the parameter"
+              }
+            },
+            {
+              "id": "comment",
+              "params": {
+                "comment": "优先使用参数中的角色名称"
+              }
+            },
+            {
+              "id": "setString",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "name"
+                },
+                "operation": "set",
+                "operand": {
+                  "type": "parameter",
+                  "key": "name"
+                }
+              }
+            },
+            {
+              "id": "if",
+              "params": {
+                "branches": [
+                  {
+                    "mode": "all",
+                    "conditions": [
+                      {
+                        "type": "string",
+                        "variable": {
+                          "type": "local",
+                          "key": "name"
+                        },
+                        "operation": "equal",
+                        "operand": {
+                          "type": "none"
+                        }
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "setString",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "name"
+                          },
+                          "operation": "set",
+                          "operand": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "variable",
+                                "variable": {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "trigger"
+                                  },
+                                  "key": "1f4c880e8e284c05"
+                                }
+                              },
+                              "key": "da4d32a4f1097059"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "if",
+              "params": {
+                "branches": [
+                  {
+                    "mode": "all",
+                    "conditions": [
+                      {
+                        "type": "string",
+                        "variable": {
+                          "type": "local",
+                          "key": "name"
+                        },
+                        "operation": "equal",
+                        "operand": {
+                          "type": "none"
+                        }
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "setString",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "name"
+                          },
+                          "operation": "set",
+                          "operand": {
+                            "type": "constant",
+                            "value": ""
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "setText",
+              "params": {
+                "element": {
+                  "type": "by-ancestor-and-id",
+                  "ancestor": {
+                    "type": "trigger"
+                  },
+                  "presetId": "8b9bc5b6b8de8aa7"
+                },
+                "properties": [
+                  {
+                    "key": "content",
+                    "value": {
+                      "type": "local",
+                      "key": "name"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "setString",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "content"
+                },
+                "operation": "set",
+                "operand": {
+                  "type": "other",
+                  "data": "showText-content"
+                }
+              }
+            },
+            {
+              "id": "setText",
+              "params": {
+                "element": {
+                  "type": "by-id",
+                  "presetId": "8ad8ba7d0d47c7b7"
+                },
+                "properties": [
+                  {
+                    "key": "content",
+                    "value": {
+                      "type": "local",
+                      "key": "content"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "width"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "element",
+                    "property": "text-textWidth",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "8ad8ba7d0d47c7b7"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "height"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "element",
+                    "property": "text-textHeight",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "8ad8ba7d0d47c7b7"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "moveElement",
+              "params": {
+                "element": {
+                  "type": "by-ancestor-and-id",
+                  "ancestor": {
+                    "type": "trigger"
+                  },
+                  "presetId": "b7920709de9817a7"
+                },
+                "properties": [
+                  {
+                    "key": "width",
+                    "value": {
+                      "type": "local",
+                      "key": "width"
+                    }
+                  },
+                  {
+                    "key": "height",
+                    "value": {
+                      "type": "local",
+                      "key": "height"
+                    }
+                  }
+                ],
+                "easingId": "01eac96676bb2ee7",
+                "duration": 0,
+                "wait": false
+              }
+            },
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "width"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "variable",
+                    "variable": {
+                      "type": "local",
+                      "key": "width"
+                    }
+                  },
+                  {
+                    "operation": "add",
+                    "type": "constant",
+                    "value": 30
+                  }
+                ]
+              }
+            },
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "height"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "variable",
+                    "variable": {
+                      "type": "local",
+                      "key": "height"
+                    }
+                  },
+                  {
+                    "operation": "add",
+                    "type": "constant",
+                    "value": 20
+                  }
+                ]
+              }
+            },
+            {
+              "id": "moveElement",
+              "params": {
+                "element": {
+                  "type": "trigger"
+                },
+                "properties": [
+                  {
+                    "key": "width",
+                    "value": {
+                      "type": "local",
+                      "key": "width"
+                    }
+                  },
+                  {
+                    "key": "height",
+                    "value": {
+                      "type": "local",
+                      "key": "height"
+                    }
+                  }
+                ],
+                "easingId": "01eac96676bb2ee7",
+                "duration": 0,
+                "wait": false
+              }
+            },
+            {
+              "id": "setDialogBox",
+              "params": {
+                "element": {
+                  "type": "by-ancestor-and-id",
+                  "ancestor": {
+                    "type": "trigger"
+                  },
+                  "presetId": "b7920709de9817a7"
+                },
+                "properties": [
+                  {
+                    "key": "content",
+                    "value": {
+                      "type": "local",
+                      "key": "content"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "callEvent",
+              "params": {
+                "type": "element",
+                "element": {
+                  "type": "trigger"
+                },
+                "eventType": "e8a057e280a28d9b"
+              }
+            },
+            {
+              "id": "comment",
+              "params": {
+                "comment": "Calculate the chat box duration (preferably from the duration parameter)"
+              }
+            },
+            {
+              "id": "comment",
+              "params": {
+                "comment": "计算聊天框持续时间(优先从duration参数中获取)"
+              }
+            },
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "duration"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "string",
+                    "method": "length",
+                    "variable": {
+                      "type": "local",
+                      "key": "content"
+                    }
+                  },
+                  {
+                    "operation": "mul",
+                    "type": "constant",
+                    "value": 200
+                  },
+                  {
+                    "operation": "add",
+                    "type": "constant",
+                    "value": 2000
+                  }
+                ]
+              }
+            },
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "duration"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "parameter",
+                    "key": "duration"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "wait",
+              "params": {
+                "duration": {
+                  "type": "local",
+                  "key": "duration"
+                }
+              }
+            },
+            {
+              "id": "deleteElement",
+              "params": {
+                "operation": "delete-element",
+                "element": {
+                  "type": "trigger"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "e8a057e280a28d9b",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setObject",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "target"
+                },
+                "operand": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "variable",
+                    "variable": {
+                      "type": "element",
+                      "element": {
+                        "type": "trigger"
+                      },
+                      "key": "1f4c880e8e284c05"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "id": "comment",
+              "params": {
+                "comment": "Update the position of the chat box perframe"
+              }
+            },
+            {
+              "id": "comment",
+              "params": {
+                "comment": "逐帧更新聊天框的位置"
+              }
+            },
+            {
+              "id": "loop",
+              "params": {
+                "mode": "all",
+                "conditions": [],
+                "commands": [
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "If the character does not exist, close the dialog"
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "如果角色不存在，则关闭对话框"
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "all",
+                          "conditions": [
+                            {
+                              "type": "actor",
+                              "actor": {
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "target"
+                                }
+                              },
+                              "operation": "absent"
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "deleteElement",
+                              "params": {
+                                "operation": "delete-element",
+                                "element": {
+                                  "type": "trigger"
+                                }
+                              }
+                            },
+                            {
+                              "id": "stopEvent",
+                              "params": {}
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "Update the position of the dialog box to maintain a fixed relative distance from the character object"
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "更新对话框的位置，与角色对象保持固定的相对距离"
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "x"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "object",
+                          "property": "actor-ui-x",
+                          "actor": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "target"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "setNumber",
+                    "params": {
+                      "variable": {
+                        "type": "local",
+                        "key": "y"
+                      },
+                      "operation": "set",
+                      "operands": [
+                        {
+                          "operation": "add",
+                          "type": "object",
+                          "property": "actor-ui-y",
+                          "actor": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "target"
+                            }
+                          }
+                        },
+                        {
+                          "operation": "sub",
+                          "type": "constant",
+                          "value": 20
+                        },
+                        {
+                          "operation": "mul",
+                          "type": "other",
+                          "data": "camera-zoom"
+                        },
+                        {
+                          "operation": "div",
+                          "type": "other",
+                          "data": "ui-scale"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "Update only when the position has changed (optimizes performance)"
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "只有位置发生改变时，才进行更新(优化性能)"
+                    }
+                  },
+                  {
+                    "id": "if",
+                    "params": {
+                      "branches": [
+                        {
+                          "mode": "any",
+                          "conditions": [
+                            {
+                              "type": "number",
+                              "variable": {
+                                "type": "local",
+                                "key": "lastX"
+                              },
+                              "operation": "unequal",
+                              "operand": {
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "x"
+                                }
+                              }
+                            },
+                            {
+                              "type": "number",
+                              "variable": {
+                                "type": "local",
+                                "key": "lastY"
+                              },
+                              "operation": "unequal",
+                              "operand": {
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "y"
+                                }
+                              }
+                            }
+                          ],
+                          "commands": [
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "lastX"
+                                },
+                                "operation": "set",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "x"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "lastY"
+                                },
+                                "operation": "set",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "y"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "comment",
+                              "params": {
+                                "comment": "Avoid image element tearing in \"slice\" mode (current version is not rendered perfectly)"
+                              }
+                            },
+                            {
+                              "id": "comment",
+                              "params": {
+                                "comment": "避免图像元素在切片模式下撕裂(当前版本渲染不够完美)"
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "x"
+                                },
+                                "operation": "set",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "math",
+                                    "method": "round",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "x"
+                                    },
+                                    "decimals": 0
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "y"
+                                },
+                                "operation": "set",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "math",
+                                    "method": "round",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "y"
+                                    },
+                                    "decimals": 0
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "moveElement",
+                              "params": {
+                                "element": {
+                                  "type": "trigger"
+                                },
+                                "properties": [
+                                  {
+                                    "key": "x",
+                                    "value": {
+                                      "type": "local",
+                                      "key": "x"
+                                    }
+                                  },
+                                  {
+                                    "key": "y",
+                                    "value": {
+                                      "type": "local",
+                                      "key": "y"
+                                    }
+                                  }
+                                ],
+                                "easingId": "01eac96676bb2ee7",
+                                "duration": 0,
+                                "wait": false
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "id": "wait",
+                    "params": {
+                      "duration": 1
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "container",
+          "name": "背景容器",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": true,
+          "presetId": "419787b087f32eda",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 0.5,
+            "width": 0,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": [
+            {
+              "class": "image",
+              "name": "背景",
+              "enabled": true,
+              "expanded": false,
+              "hidden": false,
+              "locked": true,
+              "presetId": "8a8cfe99d6a009b7",
+              "image": "8a5b795e79e7287a",
+              "display": "slice",
+              "flip": "none",
+              "blend": "normal",
+              "shiftX": 0,
+              "shiftY": 0,
+              "clip": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "border": 8,
+              "tint": [
+                0,
+                30,
+                30,
+                0
+              ],
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0,
+                "y": 0,
+                "y2": 0,
+                "width": 0,
+                "width2": 1,
+                "height": 0,
+                "height2": 1,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            },
+            {
+              "class": "image",
+              "name": "箭头",
+              "enabled": true,
+              "expanded": false,
+              "hidden": false,
+              "locked": false,
+              "presetId": "200b70d860fa9f0c",
+              "image": "27cc6ee680dd8b64",
+              "display": "stretch",
+              "flip": "none",
+              "blend": "normal",
+              "shiftX": 0,
+              "shiftY": 0,
+              "clip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "border": 1,
+              "tint": [
+                0,
+                30,
+                30,
+                0
+              ],
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0.5,
+                "y": -2,
+                "y2": 1,
+                "width": 24,
+                "width2": 0,
+                "height": 12,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "class": "text",
+          "name": "角色名称",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "8b9bc5b6b8de8aa7",
+          "direction": "horizontal-tb",
+          "horizontalAlign": "left",
+          "verticalAlign": "middle",
+          "content": "小蝦米",
+          "size": 16,
+          "lineSpacing": 0,
+          "letterSpacing": 0,
+          "color": "fff0c0ff",
+          "font": "",
+          "typeface": "regular",
+          "effect": {
+            "type": "outline",
+            "color": "000000ff"
+          },
+          "overflow": "visible",
+          "blend": "normal",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 1,
+            "x": 10,
+            "x2": 0,
+            "y": -6,
+            "y2": 0,
+            "width": 64,
+            "width2": 0,
+            "height": 16,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "dialogbox",
+          "name": "聊天内容",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "b7920709de9817a7",
+          "content": "啊！頭好痛呀！\n是不是最近Ｋ書Ｋ太兇了，所以有點恍惚了...\n我記得我正在玩“金庸群俠傳”啊！\n怎麽突然就睡著了？",
+          "interval": 16.6666,
+          "size": 16,
+          "lineSpacing": 8,
+          "letterSpacing": 0,
+          "color": "ffffffff",
+          "font": "",
+          "typeface": "regular",
+          "effect": {
+            "type": "shadow",
+            "shadowOffsetX": 1,
+            "shadowOffsetY": 1,
+            "color": "000000ff"
+          },
+          "blend": "normal",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 0.5,
+            "width": 270,
+            "width2": 0,
+            "height": 88,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "class": "text",
+      "name": "文本区域计算器",
+      "enabled": false,
+      "expanded": false,
+      "hidden": false,
+      "locked": false,
+      "presetId": "8ad8ba7d0d47c7b7",
+      "direction": "horizontal-tb",
+      "horizontalAlign": "left",
+      "verticalAlign": "middle",
+      "content": "用来测量文本区域宽高的元素",
+      "size": 16,
+      "lineSpacing": 8,
+      "letterSpacing": 0,
+      "color": "808080ff",
+      "font": "",
+      "typeface": "regular",
+      "effect": {
+        "type": "none"
+      },
+      "overflow": "wrap",
+      "blend": "normal",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 1,
+        "x": 0,
+        "x2": 0.5,
+        "y": 0,
+        "y2": 1,
+        "width": 270,
+        "width2": 0,
+        "height": 16,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [],
+      "scripts": [],
+      "children": []
+    }
+  ]
+}

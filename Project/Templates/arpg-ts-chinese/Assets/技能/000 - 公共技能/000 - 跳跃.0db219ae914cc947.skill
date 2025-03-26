@@ -1,0 +1,237 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    32,
+    0,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "跳跃"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 5000
+    },
+    {
+      "key": "9599832f30b88ec6",
+      "value": "向前快速移动，并在<color:00ff00>0.5</color>秒内免疫一切伤害"
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ac7278a39cf5d52f"
+          }
+        },
+        {
+          "id": "playAnimation",
+          "params": {
+            "mode": "actor",
+            "actor": {
+              "type": "trigger"
+            },
+            "animationId": "f506be138f018327",
+            "motion": "baf0063927139f01",
+            "rotatable": true,
+            "priority": 0,
+            "offsetY": 0,
+            "angle": 0,
+            "speed": 1,
+            "wait": false
+          }
+        },
+        {
+          "id": "playAudio",
+          "params": {
+            "type": "se-attenuated",
+            "audio": "4520ebb648868564",
+            "volume": 1,
+            "location": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            }
+          }
+        },
+        {
+          "id": "setString",
+          "params": {
+            "variable": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "1c60e46c0d8ea80e"
+            },
+            "operation": "set",
+            "operand": {
+              "type": "enum",
+              "stringId": "4df29e32f2f88d1b"
+            }
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "duration"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "constant",
+                "value": 500
+              }
+            ]
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "distance"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "constant",
+                "value": 5
+              },
+              {
+                "operation": "mul",
+                "type": "variable",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "key": "597091e2c6bc6048"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "setMovementSpeed",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "property": "factor-temp",
+            "factor": 0
+          }
+        },
+        {
+          "id": "fixAngle",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "fixed": true
+          }
+        },
+        {
+          "id": "moveActor",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "mode": "stop"
+          }
+        },
+        {
+          "id": "translateActor",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "angle": {
+              "type": "relative",
+              "degrees": 0
+            },
+            "distance": {
+              "type": "local",
+              "key": "distance"
+            },
+            "easingId": "7890d8edf5d88412",
+            "duration": {
+              "type": "local",
+              "key": "duration"
+            },
+            "wait": false
+          }
+        },
+        {
+          "id": "playActorAnimation",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "motion": "baf0063927139f01",
+            "speed": 1,
+            "wait": true
+          }
+        },
+        {
+          "id": "setMovementSpeed",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "property": "factor-temp",
+            "factor": 1
+          }
+        },
+        {
+          "id": "fixAngle",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "fixed": false
+          }
+        },
+        {
+          "id": "setString",
+          "params": {
+            "variable": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "1c60e46c0d8ea80e"
+            },
+            "operation": "set",
+            "operand": {
+              "type": "enum",
+              "stringId": "18e8a940bce7382f"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

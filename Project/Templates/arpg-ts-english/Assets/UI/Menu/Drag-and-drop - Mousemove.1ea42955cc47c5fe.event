@@ -1,0 +1,262 @@
+{
+  "type": "mousemove",
+  "enabled": false,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "element",
+                "element": {
+                  "type": "by-id",
+                  "presetId": "c4aa45f1f9a37b18"
+                },
+                "operation": "invisible"
+              }
+            ],
+            "commands": [
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "When the mouse is pressed to move a certain distance, turn on drag and drop"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "当鼠标按下移动了一定距离后，开启拖拽"
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "x"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "global",
+                        "key": "99ffd0d82dda5bf2"
+                      }
+                    },
+                    {
+                      "operation": "sub",
+                      "type": "other",
+                      "data": "mouse-ui-x"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "y"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "variable",
+                      "variable": {
+                        "type": "global",
+                        "key": "1cde8969ec2ee785"
+                      }
+                    },
+                    {
+                      "operation": "sub",
+                      "type": "other",
+                      "data": "mouse-ui-y"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "dist"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "abs",
+                      "variable": {
+                        "type": "local",
+                        "key": "x"
+                      }
+                    },
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "abs",
+                      "variable": {
+                        "type": "local",
+                        "key": "y"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "dist"
+                          },
+                          "operation": "less-or-equal",
+                          "operand": {
+                            "type": "constant",
+                            "value": 8
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "stopEvent",
+                          "params": {}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Update the icon of the dragged object"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "更新拖拽对象的图标"
+                }
+              },
+              {
+                "id": "setElement",
+                "params": {
+                  "element": {
+                    "type": "by-id",
+                    "presetId": "c4aa45f1f9a37b18"
+                  },
+                  "operation": "show"
+                }
+              },
+              {
+                "id": "callEvent",
+                "params": {
+                  "type": "element",
+                  "element": {
+                    "type": "by-id",
+                    "presetId": "c4aa45f1f9a37b18"
+                  },
+                  "eventType": "925e3348a8d7cf78"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Update the position of the icon when it is already in drag-and-drop mode"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "当已经处于拖拽模式时，更新拖拽图标的位置"
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "x"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "other",
+            "data": "mouse-ui-x"
+          }
+        ]
+      }
+    },
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "y"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "other",
+            "data": "mouse-ui-y"
+          }
+        ]
+      }
+    },
+    {
+      "id": "moveElement",
+      "params": {
+        "element": {
+          "type": "by-id",
+          "presetId": "c4aa45f1f9a37b18"
+        },
+        "properties": [
+          {
+            "key": "x",
+            "value": {
+              "type": "local",
+              "key": "x"
+            }
+          },
+          {
+            "key": "y",
+            "value": {
+              "type": "local",
+              "key": "y"
+            }
+          }
+        ],
+        "easingId": "01eac96676bb2ee7",
+        "duration": 0,
+        "wait": false
+      }
+    }
+  ]
+}

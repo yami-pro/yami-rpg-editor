@@ -1,0 +1,226 @@
+{
+  "version": "1.0.17",
+  "theme": "dark",
+  "language": "",
+  "project": "",
+  "recent": [],
+  "dialogs": {
+    "new": "",
+    "open": "",
+    "deploy": "",
+    "import": "",
+    "export": ""
+  },
+  "scriptEditor": {
+    "mode": "by-file-extension",
+    "path": ""
+  },
+  "colors": {
+    "sceneBackground": "00000000",
+    "uiBackground": "00000000",
+    "uiForeground": "000000ff",
+    "animationBackground": "203660ff",
+    "particleBackground": "203660ff"
+  },
+  "zoom": 1,
+  "layout": {
+    "directory": {
+      "end": 1,
+      "split": "horizontal",
+      "children": [
+        {
+          "end": 0.82,
+          "tabs": [
+            "project"
+          ]
+        },
+        {
+          "end": 1,
+          "tabs": [
+            "inspector"
+          ]
+        }
+      ]
+    },
+    "scene": {
+      "end": 1,
+      "split": "horizontal",
+      "children": [
+        {
+          "end": 0.82,
+          "split": "vertical",
+          "children": [
+            {
+              "end": 0.74,
+              "split": "horizontal",
+              "children": [
+                {
+                  "end": 0.18,
+                  "tabs": [
+                    "scene-object"
+                  ]
+                },
+                {
+                  "end": 1,
+                  "tabs": [
+                    "scene"
+                  ]
+                }
+              ]
+            },
+            {
+              "end": 1,
+              "tabs": [
+                "project"
+              ]
+            }
+          ]
+        },
+        {
+          "end": 1,
+          "tabs": [
+            "inspector"
+          ]
+        }
+      ]
+    },
+    "ui": {
+      "end": 1,
+      "split": "horizontal",
+      "children": [
+        {
+          "end": 0.82,
+          "split": "vertical",
+          "children": [
+            {
+              "end": 0.74,
+              "split": "horizontal",
+              "children": [
+                {
+                  "end": 0.18,
+                  "tabs": [
+                    "ui-element"
+                  ]
+                },
+                {
+                  "end": 1,
+                  "tabs": [
+                    "ui"
+                  ]
+                }
+              ]
+            },
+            {
+              "end": 1,
+              "tabs": [
+                "project"
+              ]
+            }
+          ]
+        },
+        {
+          "end": 1,
+          "tabs": [
+            "inspector"
+          ]
+        }
+      ]
+    },
+    "animation": {
+      "end": 1,
+      "split": "horizontal",
+      "children": [
+        {
+          "end": 0.82,
+          "split": "vertical",
+          "children": [
+            {
+              "end": 0.74,
+              "split": "horizontal",
+              "children": [
+                {
+                  "end": 0.18,
+                  "tabs": [
+                    "animation-motion"
+                  ]
+                },
+                {
+                  "end": 1,
+                  "tabs": [
+                    "animation"
+                  ]
+                }
+              ]
+            },
+            {
+              "end": 1,
+              "tabs": [
+                "animation-timeline"
+              ]
+            }
+          ]
+        },
+        {
+          "end": 1,
+          "split": "vertical",
+          "children": [
+            {
+              "end": 0.74,
+              "tabs": [
+                "inspector"
+              ]
+            },
+            {
+              "end": 1,
+              "tabs": [
+                "animation-easing"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "particle": {
+      "end": 1,
+      "split": "horizontal",
+      "children": [
+        {
+          "end": 0.82,
+          "split": "vertical",
+          "children": [
+            {
+              "end": 0.74,
+              "split": "horizontal",
+              "children": [
+                {
+                  "end": 0.18,
+                  "tabs": [
+                    "particle-layer"
+                  ]
+                },
+                {
+                  "end": 1,
+                  "tabs": [
+                    "particle"
+                  ]
+                }
+              ]
+            },
+            {
+              "end": 1,
+              "tabs": [
+                "project"
+              ]
+            }
+          ]
+        },
+        {
+          "end": 1,
+          "tabs": [
+            "inspector"
+          ]
+        }
+      ]
+    }
+  }
+}

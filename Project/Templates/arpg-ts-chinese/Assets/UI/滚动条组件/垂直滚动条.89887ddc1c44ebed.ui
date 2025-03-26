@@ -1,0 +1,501 @@
+{
+  "width": 24,
+  "height": 480,
+  "nodes": [
+    {
+      "class": "container",
+      "name": "垂直滚动条",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "a2ce8411f3d6f2ed",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0,
+        "anchorY": 0,
+        "x": 0,
+        "x2": 0,
+        "y": 0,
+        "y2": 0,
+        "width": 24,
+        "width2": 0,
+        "height": 0,
+        "height2": 1,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [],
+      "scripts": [
+        {
+          "id": "04b2af9e637269cc",
+          "enabled": true,
+          "parameters": {
+            "sensitivity": 100
+          }
+        }
+      ],
+      "children": [
+        {
+          "class": "image",
+          "name": "减少按钮",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "e1168760e27e0de1",
+          "image": "8dc6710727d1b9d2",
+          "display": "stretch",
+          "flip": "none",
+          "blend": "normal",
+          "shiftX": 0,
+          "shiftY": 0,
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "tint": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 24,
+            "width2": 0,
+            "height": 24,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 0.4
+          },
+          "events": [
+            {
+              "type": "mouseenter",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.6
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "mouseleave",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.4
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "mousedown",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 1
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "mouseup",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.6
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "container",
+          "name": "滚动轨道",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "b0c551937dd55aa9",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0.5,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0.5,
+            "width": 24,
+            "width2": 0,
+            "height": -48,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": [
+            {
+              "class": "container",
+              "name": "滚动滑块",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "presetId": "4a1ba16b81eb1a75",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0,
+                "y": 0,
+                "y2": 0,
+                "width": 0,
+                "width2": 1,
+                "height": 200,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [
+                {
+                  "type": "mouseenter",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "moveElement",
+                      "params": {
+                        "element": {
+                          "type": "by-ancestor-and-id",
+                          "ancestor": {
+                            "type": "trigger"
+                          },
+                          "presetId": "0efb9bb0f12f8d0c"
+                        },
+                        "properties": [
+                          {
+                            "key": "opacity",
+                            "value": 0.4
+                          }
+                        ],
+                        "easingId": "01eac96676bb2ee7",
+                        "duration": 200,
+                        "wait": false
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "mouseleave",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "moveElement",
+                      "params": {
+                        "element": {
+                          "type": "by-ancestor-and-id",
+                          "ancestor": {
+                            "type": "trigger"
+                          },
+                          "presetId": "0efb9bb0f12f8d0c"
+                        },
+                        "properties": [
+                          {
+                            "key": "opacity",
+                            "value": 0.2
+                          }
+                        ],
+                        "easingId": "01eac96676bb2ee7",
+                        "duration": 200,
+                        "wait": false
+                      }
+                    }
+                  ]
+                }
+              ],
+              "scripts": [],
+              "children": [
+                {
+                  "class": "image",
+                  "name": "图像",
+                  "enabled": true,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "0efb9bb0f12f8d0c",
+                  "image": "fa66cfef8fca2820",
+                  "display": "stretch",
+                  "flip": "none",
+                  "blend": "normal",
+                  "shiftX": 0,
+                  "shiftY": 0,
+                  "clip": [
+                    0,
+                    0,
+                    32,
+                    32
+                  ],
+                  "border": 1,
+                  "tint": [
+                    255,
+                    255,
+                    255,
+                    0
+                  ],
+                  "pointerEvents": "enabled",
+                  "transform": {
+                    "anchorX": 0.5,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0.5,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 12,
+                    "width2": 0,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 0.2
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "class": "image",
+          "name": "增加按钮",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "af0afec479d14156",
+          "image": "8dc6710727d1b9d2",
+          "display": "stretch",
+          "flip": "none",
+          "blend": "normal",
+          "shiftX": 0,
+          "shiftY": 0,
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "tint": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 1,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 1,
+            "width": 24,
+            "width2": 0,
+            "height": 24,
+            "height2": 0,
+            "rotation": 180,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 0.4
+          },
+          "events": [
+            {
+              "type": "mouseenter",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.6
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "mouseleave",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.4
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "mousedown",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 1
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            },
+            {
+              "type": "mouseup",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.6
+                      }
+                    ],
+                    "easingId": "01eac96676bb2ee7",
+                    "duration": 200,
+                    "wait": false
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

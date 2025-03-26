@@ -1,0 +1,101 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "cdTime"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "variable",
+            "variable": {
+              "type": "skill",
+              "skill": {
+                "type": "trigger"
+              },
+              "key": "0979dee7846ae2dd"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "cdTime"
+                },
+                "operation": "greater",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "cdTime"
+                  },
+                  "operation": "mul",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 1
+                    },
+                    {
+                      "operation": "sub()",
+                      "type": "variable",
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "d8d40cdec3b0507a"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setSkill",
+                "params": {
+                  "skill": {
+                    "type": "trigger"
+                  },
+                  "operation": "set-cooldown",
+                  "cooldown": {
+                    "type": "local",
+                    "key": "cdTime"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

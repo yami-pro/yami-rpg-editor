@@ -1,0 +1,46 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    32,
+    224,
+    32,
+    32
+  ],
+  "inherit": "008908866afe1bee",
+  "attributes": [
+    {
+      "key": "744c0775cfc21878",
+      "value": "Helmet"
+    },
+    {
+      "key": "f07a7697f4d69696",
+      "value": "7802b73510212500"
+    },
+    {
+      "key": "c16d969e58798456",
+      "value": "070ac7c4ae86868a"
+    },
+    {
+      "key": "9c6c39e76efa5356",
+      "value": 200
+    },
+    {
+      "key": "81645b642e77eba9",
+      "value": ""
+    },
+    {
+      "key": "48922b8d7b953bad",
+      "value": 20
+    },
+    {
+      "key": "7443fd783f9e04a1",
+      "value": 4
+    },
+    {
+      "key": "fc184a0601ca239c",
+      "value": 2
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

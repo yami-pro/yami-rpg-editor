@@ -1,0 +1,262 @@
+{
+  "layers": [
+    {
+      "class": "particle",
+      "name": "光柱",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "point",
+        "x": 0,
+        "y": -64
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 40,
+      "lifetime": 1000,
+      "lifetimeDev": 0,
+      "fadeout": 200,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          90,
+          0
+        ],
+        "speed": [
+          64,
+          0
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          0,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          0,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "angularSpeed": [
+          0,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.1,
+          0
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "3f29badb8f6d3d62",
+      "blend": "additive",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "fixed",
+        "rgba": [
+          0,
+          255,
+          255,
+          20
+        ]
+      }
+    },
+    {
+      "class": "particle",
+      "name": "星光",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "point",
+        "x": 0,
+        "y": -64
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 20,
+      "lifetime": 1000,
+      "lifetimeDev": 0,
+      "fadeout": 200,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          90,
+          0
+        ],
+        "speed": [
+          64,
+          0
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          180,
+          180
+        ],
+        "speed": [
+          180,
+          180
+        ],
+        "accel": [
+          180,
+          180
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          16,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          0,
+          0
+        ],
+        "angle": [
+          180,
+          180
+        ],
+        "angularSpeed": [
+          360,
+          0
+        ],
+        "angularAccel": [
+          0,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.03,
+          0.02
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "f1a9e73929ec7911",
+      "blend": "additive",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "random",
+        "min": [
+          0,
+          0,
+          0,
+          255
+        ],
+        "max": [
+          255,
+          255,
+          255,
+          255
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "type": "keydown",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "comment",
+      "params": {
+        "comment": "Event commands for debugging functions"
+      }
+    },
+    {
+      "id": "comment",
+      "params": {
+        "comment": "用于调试功能的事件指令"
+      }
+    },
+    {
+      "id": "setString",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "key"
+        },
+        "operation": "set",
+        "operand": {
+          "type": "other",
+          "data": "trigger-key"
+        }
+      }
+    },
+    {
+      "id": "switch",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "key"
+        },
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "keyboard",
+                "keycode": "F1"
+              }
+            ],
+            "commands": [
+              {
+                "id": "70f90f984b009277",
+                "params": {
+                  "operation": "switch"
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "keyboard",
+                "keycode": "F2"
+              }
+            ],
+            "commands": [
+              {
+                "id": "64fc5a82cef100f5",
+                "params": {
+                  "operation": "switch"
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "keyboard",
+                "keycode": "F3"
+              }
+            ],
+            "commands": [
+              {
+                "id": "24087480f46b320c",
+                "params": {
+                  "operation": "switch"
+                }
+              }
+            ]
+          },
+          {
+            "conditions": [
+              {
+                "type": "keyboard",
+                "keycode": "F4"
+              }
+            ],
+            "commands": []
+          }
+        ]
+      }
+    }
+  ]
+}

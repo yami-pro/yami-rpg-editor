@@ -1,0 +1,34 @@
+{
+  "icon": "969cc7da8bb5e984",
+  "clip": [
+    96,
+    64,
+    32,
+    32
+  ],
+  "inherit": "8ffba2cbfefe7647",
+  "attributes": [
+    {
+      "key": "9e7764f296cedc7c",
+      "value": "你被强化了快上"
+    },
+    {
+      "key": "98b1ee7f5da9a46a",
+      "value": "无"
+    },
+    {
+      "key": "81d27c5772ab7adb",
+      "value": "aa4be2e45aaa07e2"
+    },
+    {
+      "key": "f9c84e17d9908aa7",
+      "value": 4000000
+    },
+    {
+      "key": "95dfb3b12df8bb2d",
+      "value": 8
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

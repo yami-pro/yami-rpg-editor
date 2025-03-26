@@ -1,0 +1,298 @@
+{
+  "sprites": [
+    {
+      "name": "黑洞_背景",
+      "id": "46adc0c71b441c0f",
+      "image": "d383774f96804ec9",
+      "hframes": 1,
+      "vframes": 1
+    },
+    {
+      "name": "黑洞_光环",
+      "id": "1af15c6d1eabc1db",
+      "image": "aebe5ebdab75c040",
+      "hframes": 1,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "class": "motion",
+      "id": "17564b58ac27b9ad",
+      "mode": "1-dir",
+      "skip": true,
+      "loop": true,
+      "loopStart": 10,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "光环_旋转",
+              "hidden": false,
+              "locked": false,
+              "sprite": "1af15c6d1eabc1db",
+              "blend": "normal",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 36,
+                  "scaleX": 0,
+                  "scaleY": 0,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 110,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.1,
+                  "scaleY": 0.1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 110,
+                  "end": 111,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": -360,
+                  "scaleX": 0.1,
+                  "scaleY": 0.1,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "光环",
+              "hidden": false,
+              "locked": false,
+              "sprite": "46adc0c71b441c0f",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0,
+                  "scaleY": 0,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -255,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 110,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.065,
+                  "scaleY": 0.065,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -225,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 110,
+                  "end": 111,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.065,
+                  "scaleY": 0.065,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    -255,
+                    -225,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "黑色",
+              "hidden": false,
+              "locked": false,
+              "sprite": "46adc0c71b441c0f",
+              "blend": "subtract",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0,
+                  "scaleY": 0,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 110,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.0625,
+                  "scaleY": 0.0625,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "start": 110,
+                  "end": 111,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 0.0625,
+                  "scaleY": 0.0625,
+                  "opacity": 1,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "64c4c14f0b18fb54",
+              "position": "relative",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 111,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 0.5,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

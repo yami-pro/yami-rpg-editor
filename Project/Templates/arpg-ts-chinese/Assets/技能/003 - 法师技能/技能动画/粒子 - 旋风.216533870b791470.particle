@@ -1,0 +1,130 @@
+{
+  "layers": [
+    {
+      "class": "particle",
+      "name": "Layer",
+      "hidden": false,
+      "locked": false,
+      "area": {
+        "type": "point",
+        "x": 0,
+        "y": 0
+      },
+      "count": 0,
+      "delay": 0,
+      "interval": 25,
+      "lifetime": 2000,
+      "lifetimeDev": 0,
+      "fadeout": 200,
+      "anchor": {
+        "x": [
+          0,
+          0
+        ],
+        "y": [
+          0,
+          0
+        ],
+        "speedX": [
+          0,
+          0
+        ],
+        "speedY": [
+          0,
+          0
+        ]
+      },
+      "movement": {
+        "angle": [
+          -90,
+          0
+        ],
+        "speed": [
+          32,
+          0
+        ],
+        "accelAngle": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "rotation": {
+        "angle": [
+          180,
+          180
+        ],
+        "speed": [
+          0,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "hRotation": {
+        "radius": [
+          8,
+          0
+        ],
+        "expansionSpeed": [
+          0,
+          0
+        ],
+        "expansionAccel": [
+          4,
+          0
+        ],
+        "angle": [
+          180,
+          180
+        ],
+        "angularSpeed": [
+          512,
+          0
+        ],
+        "angularAccel": [
+          -100,
+          0
+        ]
+      },
+      "scale": {
+        "factor": [
+          0.05,
+          0
+        ],
+        "speed": [
+          0.01,
+          0
+        ],
+        "accel": [
+          0,
+          0
+        ]
+      },
+      "image": "3f29badb8f6d3d62",
+      "blend": "normal",
+      "light": "raw",
+      "sort": "youngest-in-front",
+      "sprite": {
+        "mode": "random",
+        "hframes": 1,
+        "vframes": 1,
+        "interval": 100
+      },
+      "color": {
+        "mode": "fixed",
+        "rgba": [
+          255,
+          255,
+          255,
+          128
+        ]
+      }
+    }
+  ]
+}

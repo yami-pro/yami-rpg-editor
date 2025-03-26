@@ -1,0 +1,22 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    224,
+    384,
+    32,
+    32
+  ],
+  "inherit": "233bf98720fab125",
+  "attributes": [
+    {
+      "key": "272e0e7696d64a92",
+      "value": "Gold"
+    },
+    {
+      "key": "5f0bd76049859159",
+      "value": "2d76876c802aebec"
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

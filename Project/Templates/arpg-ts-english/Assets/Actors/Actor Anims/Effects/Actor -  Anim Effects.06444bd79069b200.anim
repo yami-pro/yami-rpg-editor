@@ -1,0 +1,411 @@
+{
+  "sprites": [
+    {
+      "name": "LevelUP",
+      "id": "dea19083c03639e1",
+      "image": "426e34f3a140add2",
+      "hframes": 1,
+      "vframes": 1
+    },
+    {
+      "name": "LevelUP-LightPillar",
+      "id": "aa91a985f0694728",
+      "image": "684a2eb8e358a266",
+      "hframes": 1,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "class": "motion",
+      "id": "cadd4e0c4f0beb1d",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "joint",
+              "name": "Translate",
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 59,
+                  "easingId": "7890d8edf5d88412",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                },
+                {
+                  "start": 59,
+                  "end": 60,
+                  "easingId": "",
+                  "x": 0,
+                  "y": -12,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1
+                }
+              ],
+              "children": [
+                {
+                  "class": "sprite",
+                  "name": "Text",
+                  "hidden": false,
+                  "locked": false,
+                  "sprite": "dea19083c03639e1",
+                  "blend": "normal",
+                  "light": "raw",
+                  "frames": [
+                    {
+                      "start": 0,
+                      "end": 10,
+                      "easingId": "01eac96676bb2ee7",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.05,
+                      "scaleY": 0.05,
+                      "opacity": 0,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 10,
+                      "end": 50,
+                      "easingId": "01eac96676bb2ee7",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.05,
+                      "scaleY": 0.05,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 50,
+                      "end": 59,
+                      "easingId": "01eac96676bb2ee7",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.05,
+                      "scaleY": 0.05,
+                      "opacity": 1,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "start": 59,
+                      "end": 60,
+                      "easingId": "",
+                      "anchorX": 0.5,
+                      "anchorY": 0.5,
+                      "pivotX": 0,
+                      "pivotY": 0,
+                      "x": 0,
+                      "y": 0,
+                      "rotation": 0,
+                      "scaleX": 0.05,
+                      "scaleY": 0.05,
+                      "opacity": 0,
+                      "spriteX": 0,
+                      "spriteY": 0,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "class": "particle",
+              "name": "Spiral",
+              "hidden": false,
+              "locked": false,
+              "particleId": "fb604ebb0ab99206",
+              "position": "relative",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 60,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            },
+            {
+              "class": "sprite",
+              "name": "LightPillar",
+              "hidden": false,
+              "locked": false,
+              "sprite": "aa91a985f0694728",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 10,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -64,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 0.5,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -60,
+                    -210,
+                    0
+                  ]
+                },
+                {
+                  "start": 10,
+                  "end": 50,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -64,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 0.5,
+                  "opacity": 0.4,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -60,
+                    -210,
+                    0
+                  ]
+                },
+                {
+                  "start": 50,
+                  "end": 59,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -64,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 0.5,
+                  "opacity": 0.4,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -60,
+                    -210,
+                    0
+                  ]
+                },
+                {
+                  "start": 59,
+                  "end": 60,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": -64,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 0.5,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    0,
+                    -60,
+                    -210,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "14987656c22ad4d2",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "27e5f3a8e8e7bcbe",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 30,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "9fff8c1bc41a81bb",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "a4282d729aa29f2d",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 30,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "motion",
+      "id": "4d0ecd5f0b97dd4e",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "particle",
+              "name": "粒子",
+              "hidden": false,
+              "locked": false,
+              "particleId": "842e42ee718b9d70",
+              "position": "absolute",
+              "angle": "default",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 30,
+                  "easingId": "",
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "scale": 1,
+                  "speed": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

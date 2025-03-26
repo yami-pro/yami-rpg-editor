@@ -1,0 +1,3240 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "nodes": [
+    {
+      "class": "container",
+      "name": "主窗口",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "54c90b1029d916cf",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0,
+        "anchorY": 0,
+        "x": 0,
+        "x2": 0,
+        "y": 0,
+        "y2": 0,
+        "width": 0,
+        "width2": 1,
+        "height": 0,
+        "height2": 1,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "destroy",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "callEvent",
+              "params": {
+                "type": "global",
+                "eventId": "0cca865673a7b882"
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "image",
+          "name": "背景",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": true,
+          "presetId": "a729e9ece907c6f0",
+          "image": "fa66cfef8fca2820",
+          "display": "stretch",
+          "flip": "none",
+          "blend": "normal",
+          "shiftX": 0,
+          "shiftY": 0,
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "tint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 0,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 0
+          },
+          "events": [
+            {
+              "type": "autorun",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.5
+                      }
+                    ],
+                    "easingId": "7890d8edf5d88412",
+                    "duration": 500,
+                    "wait": false
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "container",
+          "name": "导航栏",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "f8f9910b81cc18a1",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 0,
+            "width2": 1,
+            "height": 100,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": [
+            {
+              "class": "image",
+              "name": "背景",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": true,
+              "presetId": "672f8bf3363ef3e7",
+              "image": "fa66cfef8fca2820",
+              "display": "stretch",
+              "flip": "none",
+              "blend": "normal",
+              "shiftX": 0,
+              "shiftY": 0,
+              "clip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "border": 1,
+              "tint": [
+                0,
+                15,
+                45,
+                0
+              ],
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0,
+                "y": 0,
+                "y2": 0,
+                "width": 0,
+                "width2": 1,
+                "height": 0,
+                "height2": 1,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 0.5
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            },
+            {
+              "class": "text",
+              "name": "标题",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "presetId": "c75aeaa66e6948c9",
+              "direction": "horizontal-tb",
+              "horizontalAlign": "center",
+              "verticalAlign": "middle",
+              "content": "标题名称",
+              "size": 40,
+              "lineSpacing": 0,
+              "letterSpacing": 0,
+              "color": "808080ff",
+              "font": "",
+              "typeface": "bold",
+              "effect": {
+                "type": "shadow",
+                "shadowOffsetX": 2,
+                "shadowOffsetY": 2,
+                "color": "000000ff"
+              },
+              "overflow": "visible",
+              "blend": "normal",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0.5,
+                "y": 0,
+                "y2": 0,
+                "width": 160,
+                "width2": 0,
+                "height": 100,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [
+                {
+                  "type": "autorun",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "switch",
+                      "params": {
+                        "variable": {
+                          "type": "element",
+                          "element": {
+                            "type": "by-id",
+                            "presetId": "54c90b1029d916cf"
+                          },
+                          "key": "25fcb64f5d458a0a"
+                        },
+                        "branches": [
+                          {
+                            "conditions": [
+                              {
+                                "type": "string",
+                                "value": "save"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setText",
+                                "params": {
+                                  "element": {
+                                    "type": "trigger"
+                                  },
+                                  "properties": [
+                                    {
+                                      "key": "content",
+                                      "value": "保存游戏"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "conditions": [
+                              {
+                                "type": "string",
+                                "value": "load"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setText",
+                                "params": {
+                                  "element": {
+                                    "type": "trigger"
+                                  },
+                                  "properties": [
+                                    {
+                                      "key": "content",
+                                      "value": "读取游戏"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "scripts": [],
+              "children": []
+            },
+            {
+              "class": "button",
+              "name": "返回",
+              "enabled": true,
+              "expanded": false,
+              "hidden": false,
+              "locked": false,
+              "presetId": "b14fffc9b2b4e5ec",
+              "display": "stretch",
+              "normalImage": "",
+              "normalClip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "hoverImage": "02ff74b90950aa28",
+              "hoverClip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "activeImage": "",
+              "activeClip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "flip": "none",
+              "clip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "border": 1,
+              "imagePadding": 0,
+              "imageOpacity": 1,
+              "imageEffect": "none",
+              "normalTint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "hoverTint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "activeTint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "direction": "horizontal-tb",
+              "horizontalAlign": "center",
+              "verticalAlign": "middle",
+              "content": "返回",
+              "size": 40,
+              "letterSpacing": 0,
+              "textPadding": 0,
+              "font": "",
+              "typeface": "bold",
+              "textEffect": {
+                "type": "shadow",
+                "shadowOffsetX": 2,
+                "shadowOffsetY": 2,
+                "color": "000000ff"
+              },
+              "normalColor": "808080ff",
+              "hoverColor": "c0c0c0ff",
+              "activeColor": "ffffffff",
+              "hoverSound": "f8ad3495407d6543",
+              "clickSound": "",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 1,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 1,
+                "y": 0,
+                "y2": 0,
+                "width": 120,
+                "width2": 0,
+                "height": 100,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [
+                {
+                  "type": "click",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "setObject",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "focus"
+                        },
+                        "operand": {
+                          "type": "element",
+                          "element": {
+                            "type": "focus"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "object",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "focus"
+                                },
+                                "operation": "is-element"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setFocus",
+                                "params": {
+                                  "operation": "remove",
+                                  "element": {
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "focus"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "elseCommands": [
+                          {
+                            "id": "deleteElement",
+                            "params": {
+                              "operation": "delete-element",
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "54c90b1029d916cf"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "scripts": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "class": "container",
+          "name": "存档窗口",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "75d6812b4af808bd",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0.5,
+            "anchorY": 1,
+            "x": 0,
+            "x2": 0.5,
+            "y": 0,
+            "y2": 1,
+            "width": 0,
+            "width2": 1,
+            "height": 980,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": [
+            {
+              "class": "image",
+              "name": "背景",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": true,
+              "presetId": "59c98ccdcd9d09bd",
+              "image": "fa66cfef8fca2820",
+              "display": "stretch",
+              "flip": "none",
+              "blend": "normal",
+              "shiftX": 0,
+              "shiftY": 0,
+              "clip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "border": 2,
+              "tint": [
+                0,
+                64,
+                64,
+                0
+              ],
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0,
+                "y": 0,
+                "y2": 0,
+                "width": 0,
+                "width2": 0.5,
+                "height": 0,
+                "height2": 0.5,
+                "rotation": 0,
+                "scaleX": 2,
+                "scaleY": 2,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 0.75
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            },
+            {
+              "class": "window",
+              "name": "网格窗口",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "presetId": "ad40507b3c91d2a4",
+              "layout": "horizontal-grid",
+              "scrollX": 0,
+              "scrollY": 0,
+              "gridWidth": 512,
+              "gridHeight": 220,
+              "gridGapX": 20,
+              "gridGapY": 20,
+              "paddingX": 0,
+              "paddingY": 0,
+              "overflow": "hidden",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "x": 0,
+                "x2": 0.5,
+                "y": 0,
+                "y2": 0.5,
+                "width": 1044,
+                "width2": 0,
+                "height": 940,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [
+                {
+                  "type": "create",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "setFocus",
+                      "params": {
+                        "operation": "add",
+                        "element": {
+                          "type": "by-id",
+                          "presetId": "ad40507b3c91d2a4"
+                        },
+                        "mode": "control-child-buttons",
+                        "cancelable": true
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "selected"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "element",
+                            "property": "element-index-of-selected-button",
+                            "element": {
+                              "type": "trigger"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "index"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "constant",
+                            "value": 0
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "end"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "constant",
+                            "value": 16
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setBoolean",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "cleared"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "constant",
+                          "value": false
+                        }
+                      }
+                    },
+                    {
+                      "id": "forEach",
+                      "params": {
+                        "data": "save",
+                        "saveIndex": {
+                          "type": "local",
+                          "key": "number"
+                        },
+                        "commands": [
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "Because reading the save files is asynchronous, there is a short waiting time, so clear the elements at this location"
+                            }
+                          },
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "因为读取存档文件是异步的，有个短暂的等待时间，所以等待加载完毕后再清除元素"
+                            }
+                          },
+                          {
+                            "id": "if",
+                            "params": {
+                              "branches": [
+                                {
+                                  "mode": "all",
+                                  "conditions": [
+                                    {
+                                      "type": "boolean",
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "cleared"
+                                      },
+                                      "operation": "equal",
+                                      "operand": {
+                                        "type": "constant",
+                                        "value": false
+                                      }
+                                    }
+                                  ],
+                                  "commands": [
+                                    {
+                                      "id": "setBoolean",
+                                      "params": {
+                                        "variable": {
+                                          "type": "local",
+                                          "key": "cleared"
+                                        },
+                                        "operation": "set",
+                                        "operand": {
+                                          "type": "constant",
+                                          "value": true
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "id": "deleteElement",
+                                      "params": {
+                                        "operation": "delete-children",
+                                        "element": {
+                                          "type": "trigger"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "Create blank savedata elements before the current savedata"
+                            }
+                          },
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "创建当前存档编号之前的空存档选项卡"
+                            }
+                          },
+                          {
+                            "id": "loop",
+                            "params": {
+                              "mode": "all",
+                              "conditions": [
+                                {
+                                  "type": "number",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "index"
+                                  },
+                                  "operation": "less",
+                                  "operand": {
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "number"
+                                    }
+                                  }
+                                }
+                              ],
+                              "commands": [
+                                {
+                                  "id": "setString",
+                                  "params": {
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "saveNum"
+                                    },
+                                    "operation": "set",
+                                    "operand": {
+                                      "type": "string",
+                                      "method": "pad-start",
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "index"
+                                      },
+                                      "length": 6,
+                                      "pad": "SAVE00"
+                                    }
+                                  }
+                                },
+                                {
+                                  "id": "createElement",
+                                  "params": {
+                                    "operation": "append-one-to-element",
+                                    "parent": {
+                                      "type": "trigger"
+                                    },
+                                    "presetId": "b98d75235dd0044f"
+                                  }
+                                },
+                                {
+                                  "id": "setText",
+                                  "params": {
+                                    "element": {
+                                      "type": "by-id",
+                                      "presetId": "392ba37874fa0354"
+                                    },
+                                    "properties": [
+                                      {
+                                        "key": "content",
+                                        "value": {
+                                          "type": "local",
+                                          "key": "saveNum"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "id": "setNumber",
+                                  "params": {
+                                    "variable": {
+                                      "type": "element",
+                                      "element": {
+                                        "type": "by-id",
+                                        "presetId": "b98d75235dd0044f"
+                                      },
+                                      "key": "cca7de0dfb4dfae8"
+                                    },
+                                    "operation": "set",
+                                    "operands": [
+                                      {
+                                        "operation": "add",
+                                        "type": "variable",
+                                        "variable": {
+                                          "type": "local",
+                                          "key": "index"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "id": "setString",
+                                  "params": {
+                                    "variable": {
+                                      "type": "element",
+                                      "element": {
+                                        "type": "by-id",
+                                        "presetId": "b98d75235dd0044f"
+                                      },
+                                      "key": "25fcb64f5d458a0a"
+                                    },
+                                    "operation": "set",
+                                    "operand": {
+                                      "type": "constant",
+                                      "value": "blank"
+                                    }
+                                  }
+                                },
+                                {
+                                  "id": "setNumber",
+                                  "params": {
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "index"
+                                    },
+                                    "operation": "add",
+                                    "operands": [
+                                      {
+                                        "operation": "add",
+                                        "type": "constant",
+                                        "value": 1
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "Create a valid savedata element, parse the timestamp to the specified date format, and load the screenshot"
+                            }
+                          },
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "创建有效存档的选项卡，将存档中的时间戳解析成指定的日期格式，并加载存档中以字符串形式保存下来的截图"
+                            }
+                          },
+                          {
+                            "id": "setString",
+                            "params": {
+                              "variable": {
+                                "type": "local",
+                                "key": "saveNum"
+                              },
+                              "operation": "set",
+                              "operand": {
+                                "type": "string",
+                                "method": "pad-start",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "index"
+                                },
+                                "length": 6,
+                                "pad": "SAVE00"
+                              }
+                            }
+                          },
+                          {
+                            "id": "setString",
+                            "params": {
+                              "variable": {
+                                "type": "local",
+                                "key": "date"
+                              },
+                              "operation": "set",
+                              "operand": {
+                                "type": "other",
+                                "data": "parse-timestamp",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "timestamp"
+                                },
+                                "format": "{Y}-{M}-{D} {h}:{m}:{s}"
+                              }
+                            }
+                          },
+                          {
+                            "id": "createElement",
+                            "params": {
+                              "operation": "append-one-to-element",
+                              "parent": {
+                                "type": "trigger"
+                              },
+                              "presetId": "b98d75235dd0044f"
+                            }
+                          },
+                          {
+                            "id": "createElement",
+                            "params": {
+                              "operation": "append-one-to-element",
+                              "parent": {
+                                "type": "by-id",
+                                "presetId": "b98d75235dd0044f"
+                              },
+                              "presetId": "7d2a231261249c11"
+                            }
+                          },
+                          {
+                            "id": "createElement",
+                            "params": {
+                              "operation": "append-one-to-element",
+                              "parent": {
+                                "type": "by-id",
+                                "presetId": "b98d75235dd0044f"
+                              },
+                              "presetId": "6b509e4dab0eb969"
+                            }
+                          },
+                          {
+                            "id": "loadImage",
+                            "params": {
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "efb29031882efbb6"
+                              },
+                              "type": "base64",
+                              "variable": {
+                                "type": "local",
+                                "key": "screenshot"
+                              }
+                            }
+                          },
+                          {
+                            "id": "setText",
+                            "params": {
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "392ba37874fa0354"
+                              },
+                              "properties": [
+                                {
+                                  "key": "content",
+                                  "value": {
+                                    "type": "local",
+                                    "key": "saveNum"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "setText",
+                            "params": {
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "6b509e4dab0eb969"
+                              },
+                              "properties": [
+                                {
+                                  "key": "content",
+                                  "value": {
+                                    "type": "local",
+                                    "key": "date"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "setNumber",
+                            "params": {
+                              "variable": {
+                                "type": "element",
+                                "element": {
+                                  "type": "by-id",
+                                  "presetId": "b98d75235dd0044f"
+                                },
+                                "key": "cca7de0dfb4dfae8"
+                              },
+                              "operation": "set",
+                              "operands": [
+                                {
+                                  "operation": "add",
+                                  "type": "variable",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "index"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "setString",
+                            "params": {
+                              "variable": {
+                                "type": "element",
+                                "element": {
+                                  "type": "by-id",
+                                  "presetId": "b98d75235dd0044f"
+                                },
+                                "key": "25fcb64f5d458a0a"
+                              },
+                              "operation": "set",
+                              "operand": {
+                                "type": "constant",
+                                "value": "valid"
+                              }
+                            }
+                          },
+                          {
+                            "id": "setNumber",
+                            "params": {
+                              "variable": {
+                                "type": "local",
+                                "key": "index"
+                              },
+                              "operation": "add",
+                              "operands": [
+                                {
+                                  "operation": "add",
+                                  "type": "constant",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "If there is no savedata, clear the elements here"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "如果没有存档，就在这里清除存档选项卡"
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "boolean",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "cleared"
+                                },
+                                "operation": "equal",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": false
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setBoolean",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "cleared"
+                                  },
+                                  "operation": "set",
+                                  "operand": {
+                                    "type": "constant",
+                                    "value": true
+                                  }
+                                }
+                              },
+                              {
+                                "id": "deleteElement",
+                                "params": {
+                                  "operation": "delete-children",
+                                  "element": {
+                                    "type": "trigger"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Create the remaining blank savedata elements"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "创建剩下的空存档选项卡"
+                      }
+                    },
+                    {
+                      "id": "loop",
+                      "params": {
+                        "mode": "all",
+                        "conditions": [
+                          {
+                            "type": "number",
+                            "variable": {
+                              "type": "local",
+                              "key": "index"
+                            },
+                            "operation": "less",
+                            "operand": {
+                              "type": "variable",
+                              "variable": {
+                                "type": "local",
+                                "key": "end"
+                              }
+                            }
+                          }
+                        ],
+                        "commands": [
+                          {
+                            "id": "setString",
+                            "params": {
+                              "variable": {
+                                "type": "local",
+                                "key": "saveNum"
+                              },
+                              "operation": "set",
+                              "operand": {
+                                "type": "string",
+                                "method": "pad-start",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "index"
+                                },
+                                "length": 6,
+                                "pad": "SAVE00"
+                              }
+                            }
+                          },
+                          {
+                            "id": "createElement",
+                            "params": {
+                              "operation": "append-one-to-element",
+                              "parent": {
+                                "type": "trigger"
+                              },
+                              "presetId": "b98d75235dd0044f"
+                            }
+                          },
+                          {
+                            "id": "setText",
+                            "params": {
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "392ba37874fa0354"
+                              },
+                              "properties": [
+                                {
+                                  "key": "content",
+                                  "value": {
+                                    "type": "local",
+                                    "key": "saveNum"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "setNumber",
+                            "params": {
+                              "variable": {
+                                "type": "element",
+                                "element": {
+                                  "type": "by-id",
+                                  "presetId": "b98d75235dd0044f"
+                                },
+                                "key": "cca7de0dfb4dfae8"
+                              },
+                              "operation": "set",
+                              "operands": [
+                                {
+                                  "operation": "add",
+                                  "type": "variable",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "index"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": "setString",
+                            "params": {
+                              "variable": {
+                                "type": "element",
+                                "element": {
+                                  "type": "by-id",
+                                  "presetId": "b98d75235dd0044f"
+                                },
+                                "key": "25fcb64f5d458a0a"
+                              },
+                              "operation": "set",
+                              "operand": {
+                                "type": "constant",
+                                "value": "blank"
+                              }
+                            }
+                          },
+                          {
+                            "id": "setNumber",
+                            "params": {
+                              "variable": {
+                                "type": "local",
+                                "key": "index"
+                              },
+                              "operation": "add",
+                              "operands": [
+                                {
+                                  "operation": "add",
+                                  "type": "constant",
+                                  "value": 1
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "controlButton",
+                      "params": {
+                        "operation": "select",
+                        "element": {
+                          "type": "by-button-index",
+                          "focus": {
+                            "type": "trigger"
+                          },
+                          "index": {
+                            "type": "local",
+                            "key": "selected"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "id": "controlButton",
+                      "params": {
+                        "operation": "select-default"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "keydown",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "setString",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "key"
+                        },
+                        "operation": "set",
+                        "operand": {
+                          "type": "other",
+                          "data": "trigger-key"
+                        }
+                      }
+                    },
+                    {
+                      "id": "switch",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "key"
+                        },
+                        "branches": [
+                          {
+                            "conditions": [
+                              {
+                                "type": "keyboard",
+                                "keycode": "Delete"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "index"
+                                  },
+                                  "operation": "set",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "element",
+                                      "property": "element-index-of-selected-button",
+                                      "element": {
+                                        "type": "trigger"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "setObject",
+                                "params": {
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "item"
+                                  },
+                                  "operand": {
+                                    "type": "element",
+                                    "element": {
+                                      "type": "by-button-index",
+                                      "focus": {
+                                        "type": "trigger"
+                                      },
+                                      "index": {
+                                        "type": "local",
+                                        "key": "index"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "id": "callEvent",
+                                "params": {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "by-ancestor-and-id",
+                                    "ancestor": {
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "item"
+                                      }
+                                    },
+                                    "presetId": "7d2a231261249c11"
+                                  },
+                                  "eventType": "click"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "gamepadbuttonpress",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "button"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "other",
+                            "data": "trigger-gamepad-button"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "switch",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "button"
+                        },
+                        "branches": [
+                          {
+                            "conditions": [
+                              {
+                                "type": "gamepad",
+                                "button": 3
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "simulateKey",
+                                "params": {
+                                  "operation": "click",
+                                  "keycode": "Delete"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "blur",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "deleteElement",
+                      "params": {
+                        "operation": "delete-element",
+                        "element": {
+                          "type": "by-id",
+                          "presetId": "54c90b1029d916cf"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "scripts": [],
+              "children": [
+                {
+                  "class": "button",
+                  "name": "存档选项",
+                  "enabled": false,
+                  "expanded": true,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "b98d75235dd0044f",
+                  "display": "stretch",
+                  "normalImage": "",
+                  "normalClip": [
+                    0,
+                    0,
+                    32,
+                    32
+                  ],
+                  "hoverImage": "",
+                  "hoverClip": [
+                    0,
+                    0,
+                    32,
+                    32
+                  ],
+                  "activeImage": "",
+                  "activeClip": [
+                    0,
+                    0,
+                    32,
+                    32
+                  ],
+                  "flip": "none",
+                  "clip": [
+                    0,
+                    0,
+                    32,
+                    32
+                  ],
+                  "border": 1,
+                  "imagePadding": 0,
+                  "imageOpacity": 1,
+                  "imageEffect": "none",
+                  "normalTint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "hoverTint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "activeTint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "direction": "horizontal-tb",
+                  "horizontalAlign": "center",
+                  "verticalAlign": "middle",
+                  "content": "",
+                  "size": 16,
+                  "letterSpacing": 0,
+                  "textPadding": 0,
+                  "font": "",
+                  "typeface": "regular",
+                  "textEffect": {
+                    "type": "none"
+                  },
+                  "normalColor": "ffffffff",
+                  "hoverColor": "ffffffff",
+                  "activeColor": "ffffffff",
+                  "hoverSound": "f8ad3495407d6543",
+                  "clickSound": "",
+                  "pointerEvents": "enabled",
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [
+                    {
+                      "type": "select",
+                      "enabled": true,
+                      "commands": [
+                        {
+                          "id": "tintImage",
+                          "params": {
+                            "element": {
+                              "type": "by-ancestor-and-id",
+                              "ancestor": {
+                                "type": "trigger"
+                              },
+                              "presetId": "4bbdf472bcb75c72"
+                            },
+                            "mode": "full",
+                            "tint": [
+                              0,
+                              80,
+                              80,
+                              0
+                            ],
+                            "easingId": "01eac96676bb2ee7",
+                            "duration": 0,
+                            "wait": false
+                          }
+                        },
+                        {
+                          "id": "tintImage",
+                          "params": {
+                            "element": {
+                              "type": "by-ancestor-and-id",
+                              "ancestor": {
+                                "type": "trigger"
+                              },
+                              "presetId": "efb29031882efbb6"
+                            },
+                            "mode": "full",
+                            "tint": [
+                              20,
+                              20,
+                              20,
+                              0
+                            ],
+                            "easingId": "01eac96676bb2ee7",
+                            "duration": 0,
+                            "wait": false
+                          }
+                        },
+                        {
+                          "id": "tintImage",
+                          "params": {
+                            "element": {
+                              "type": "by-ancestor-and-id",
+                              "ancestor": {
+                                "type": "trigger"
+                              },
+                              "presetId": "77116d832750228e"
+                            },
+                            "mode": "full",
+                            "tint": [
+                              255,
+                              255,
+                              255,
+                              0
+                            ],
+                            "easingId": "01eac96676bb2ee7",
+                            "duration": 0,
+                            "wait": false
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "deselect",
+                      "enabled": true,
+                      "commands": [
+                        {
+                          "id": "tintImage",
+                          "params": {
+                            "element": {
+                              "type": "by-ancestor-and-id",
+                              "ancestor": {
+                                "type": "trigger"
+                              },
+                              "presetId": "4bbdf472bcb75c72"
+                            },
+                            "mode": "full",
+                            "tint": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "easingId": "01eac96676bb2ee7",
+                            "duration": 0,
+                            "wait": false
+                          }
+                        },
+                        {
+                          "id": "tintImage",
+                          "params": {
+                            "element": {
+                              "type": "by-ancestor-and-id",
+                              "ancestor": {
+                                "type": "trigger"
+                              },
+                              "presetId": "efb29031882efbb6"
+                            },
+                            "mode": "full",
+                            "tint": [
+                              0,
+                              0,
+                              0,
+                              0
+                            ],
+                            "easingId": "01eac96676bb2ee7",
+                            "duration": 0,
+                            "wait": false
+                          }
+                        },
+                        {
+                          "id": "tintImage",
+                          "params": {
+                            "element": {
+                              "type": "by-ancestor-and-id",
+                              "ancestor": {
+                                "type": "trigger"
+                              },
+                              "presetId": "77116d832750228e"
+                            },
+                            "mode": "full",
+                            "tint": [
+                              128,
+                              160,
+                              160,
+                              0
+                            ],
+                            "easingId": "01eac96676bb2ee7",
+                            "duration": 0,
+                            "wait": false
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "click",
+                      "enabled": true,
+                      "commands": [
+                        {
+                          "id": "switch",
+                          "params": {
+                            "variable": {
+                              "type": "element",
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "54c90b1029d916cf"
+                              },
+                              "key": "25fcb64f5d458a0a"
+                            },
+                            "branches": [
+                              {
+                                "conditions": [
+                                  {
+                                    "type": "string",
+                                    "value": "save"
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "setNumber",
+                                    "params": {
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "timestamp"
+                                      },
+                                      "operation": "set",
+                                      "operands": [
+                                        {
+                                          "operation": "add",
+                                          "type": "other",
+                                          "data": "timestamp"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "id": "setString",
+                                    "params": {
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "screenshot"
+                                      },
+                                      "operation": "set",
+                                      "operand": {
+                                        "type": "other",
+                                        "data": "screenshot",
+                                        "width": 512,
+                                        "height": 220
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "gameData",
+                                    "params": {
+                                      "operation": "save",
+                                      "index": {
+                                        "type": "element",
+                                        "element": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "cca7de0dfb4dfae8"
+                                      },
+                                      "variables": "timestamp, screenshot"
+                                    }
+                                  },
+                                  {
+                                    "id": "callEvent",
+                                    "params": {
+                                      "type": "element",
+                                      "element": {
+                                        "type": "by-id",
+                                        "presetId": "ad40507b3c91d2a4"
+                                      },
+                                      "eventType": "create"
+                                    }
+                                  },
+                                  {
+                                    "id": "callEvent",
+                                    "params": {
+                                      "type": "global",
+                                      "eventId": "6589cd90904fd918"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "conditions": [
+                                  {
+                                    "type": "string",
+                                    "value": "load"
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "switch",
+                                    "params": {
+                                      "variable": {
+                                        "type": "element",
+                                        "element": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "25fcb64f5d458a0a"
+                                      },
+                                      "branches": [
+                                        {
+                                          "conditions": [
+                                            {
+                                              "type": "string",
+                                              "value": "valid"
+                                            }
+                                          ],
+                                          "commands": [
+                                            {
+                                              "id": "independent",
+                                              "params": {
+                                                "commands": [
+                                                  {
+                                                    "id": "gameData",
+                                                    "params": {
+                                                      "operation": "load",
+                                                      "index": {
+                                                        "type": "element",
+                                                        "element": {
+                                                          "type": "trigger"
+                                                        },
+                                                        "key": "cca7de0dfb4dfae8"
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "callEvent",
+                                                    "params": {
+                                                      "type": "global",
+                                                      "eventId": "6589cd90904fd918"
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "conditions": [
+                                            {
+                                              "type": "string",
+                                              "value": "blank"
+                                            }
+                                          ],
+                                          "commands": [
+                                            {
+                                              "id": "callEvent",
+                                              "params": {
+                                                "type": "global",
+                                                "eventId": "72f936bbeba34aa4"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "scripts": [],
+                  "children": [
+                    {
+                      "class": "image",
+                      "name": "遮罩层",
+                      "enabled": true,
+                      "expanded": true,
+                      "hidden": false,
+                      "locked": false,
+                      "presetId": "1f98d877d54da1ad",
+                      "image": "ad70e61e96057efd",
+                      "display": "slice",
+                      "flip": "none",
+                      "blend": "mask",
+                      "shiftX": 0,
+                      "shiftY": 0,
+                      "clip": [
+                        0,
+                        0,
+                        128,
+                        128
+                      ],
+                      "border": 16,
+                      "tint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "pointerEvents": "enabled",
+                      "transform": {
+                        "anchorX": 0,
+                        "anchorY": 0,
+                        "x": 0,
+                        "x2": 0,
+                        "y": 0,
+                        "y2": 0,
+                        "width": 0,
+                        "width2": 1,
+                        "height": 0,
+                        "height2": 1,
+                        "rotation": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "opacity": 1
+                      },
+                      "events": [],
+                      "scripts": [],
+                      "children": [
+                        {
+                          "class": "image",
+                          "name": "背景",
+                          "enabled": true,
+                          "expanded": false,
+                          "hidden": false,
+                          "locked": true,
+                          "presetId": "4bbdf472bcb75c72",
+                          "image": "fa66cfef8fca2820",
+                          "display": "stretch",
+                          "flip": "none",
+                          "blend": "normal",
+                          "shiftX": 0,
+                          "shiftY": 0,
+                          "clip": [
+                            0,
+                            0,
+                            32,
+                            32
+                          ],
+                          "border": 1,
+                          "tint": [
+                            0,
+                            0,
+                            0,
+                            0
+                          ],
+                          "pointerEvents": "enabled",
+                          "transform": {
+                            "anchorX": 0,
+                            "anchorY": 0,
+                            "x": 0,
+                            "x2": 0,
+                            "y": 0,
+                            "y2": 0,
+                            "width": 0,
+                            "width2": 1,
+                            "height": 0,
+                            "height2": 1,
+                            "rotation": 0,
+                            "scaleX": 1,
+                            "scaleY": 1,
+                            "skewX": 0,
+                            "skewY": 0,
+                            "opacity": 0.5
+                          },
+                          "events": [],
+                          "scripts": [],
+                          "children": []
+                        },
+                        {
+                          "class": "image",
+                          "name": "截图",
+                          "enabled": true,
+                          "expanded": false,
+                          "hidden": true,
+                          "locked": true,
+                          "presetId": "efb29031882efbb6",
+                          "image": "",
+                          "display": "stretch",
+                          "flip": "none",
+                          "blend": "normal",
+                          "shiftX": 0,
+                          "shiftY": 0,
+                          "clip": [
+                            0,
+                            0,
+                            32,
+                            32
+                          ],
+                          "border": 1,
+                          "tint": [
+                            0,
+                            0,
+                            0,
+                            0
+                          ],
+                          "pointerEvents": "enabled",
+                          "transform": {
+                            "anchorX": 0,
+                            "anchorY": 0,
+                            "x": 0,
+                            "x2": 0,
+                            "y": 0,
+                            "y2": 0,
+                            "width": 0,
+                            "width2": 1,
+                            "height": 0,
+                            "height2": 1,
+                            "rotation": 0,
+                            "scaleX": 1,
+                            "scaleY": 1,
+                            "skewX": 0,
+                            "skewY": 0,
+                            "opacity": 1
+                          },
+                          "events": [],
+                          "scripts": [],
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "class": "image",
+                      "name": "边框",
+                      "enabled": true,
+                      "expanded": false,
+                      "hidden": false,
+                      "locked": false,
+                      "presetId": "77116d832750228e",
+                      "image": "f6c4f42b3597e577",
+                      "display": "slice",
+                      "flip": "none",
+                      "blend": "normal",
+                      "shiftX": 0,
+                      "shiftY": 0,
+                      "clip": [
+                        0,
+                        0,
+                        128,
+                        128
+                      ],
+                      "border": 16,
+                      "tint": [
+                        128,
+                        160,
+                        160,
+                        0
+                      ],
+                      "pointerEvents": "disabled",
+                      "transform": {
+                        "anchorX": 0,
+                        "anchorY": 0,
+                        "x": 0,
+                        "x2": 0,
+                        "y": 0,
+                        "y2": 0,
+                        "width": 0,
+                        "width2": 1,
+                        "height": 0,
+                        "height2": 1,
+                        "rotation": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "opacity": 1
+                      },
+                      "events": [],
+                      "scripts": [],
+                      "children": []
+                    },
+                    {
+                      "class": "text",
+                      "name": "编号",
+                      "enabled": true,
+                      "expanded": false,
+                      "hidden": false,
+                      "locked": false,
+                      "presetId": "392ba37874fa0354",
+                      "direction": "horizontal-tb",
+                      "horizontalAlign": "left",
+                      "verticalAlign": "middle",
+                      "content": "SAVE00",
+                      "size": 28,
+                      "lineSpacing": 0,
+                      "letterSpacing": 0,
+                      "color": "e0e0e0ff",
+                      "font": "",
+                      "typeface": "bold",
+                      "effect": {
+                        "type": "shadow",
+                        "shadowOffsetX": 2,
+                        "shadowOffsetY": 2,
+                        "color": "000000ff"
+                      },
+                      "overflow": "visible",
+                      "blend": "normal",
+                      "pointerEvents": "disabled",
+                      "transform": {
+                        "anchorX": 0,
+                        "anchorY": 0,
+                        "x": 16,
+                        "x2": 0,
+                        "y": 16,
+                        "y2": 0,
+                        "width": 120,
+                        "width2": 0,
+                        "height": 28,
+                        "height2": 0,
+                        "rotation": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "opacity": 1
+                      },
+                      "events": [],
+                      "scripts": [],
+                      "children": []
+                    },
+                    {
+                      "class": "text",
+                      "name": "日期",
+                      "enabled": false,
+                      "expanded": false,
+                      "hidden": false,
+                      "locked": false,
+                      "presetId": "6b509e4dab0eb969",
+                      "direction": "horizontal-tb",
+                      "horizontalAlign": "right",
+                      "verticalAlign": "middle",
+                      "content": "2022-7-20 00:00:00",
+                      "size": 28,
+                      "lineSpacing": 0,
+                      "letterSpacing": 0,
+                      "color": "e0e0e0ff",
+                      "font": "",
+                      "typeface": "regular",
+                      "effect": {
+                        "type": "shadow",
+                        "shadowOffsetX": 2,
+                        "shadowOffsetY": 2,
+                        "color": "000000ff"
+                      },
+                      "overflow": "visible",
+                      "blend": "normal",
+                      "pointerEvents": "disabled",
+                      "transform": {
+                        "anchorX": 1,
+                        "anchorY": 1,
+                        "x": -16,
+                        "x2": 1,
+                        "y": -16,
+                        "y2": 1,
+                        "width": 280,
+                        "width2": 0,
+                        "height": 28,
+                        "height2": 0,
+                        "rotation": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "opacity": 1
+                      },
+                      "events": [],
+                      "scripts": [],
+                      "children": []
+                    },
+                    {
+                      "class": "button",
+                      "name": "关闭",
+                      "enabled": false,
+                      "expanded": false,
+                      "hidden": false,
+                      "locked": false,
+                      "presetId": "7d2a231261249c11",
+                      "display": "stretch",
+                      "normalImage": "",
+                      "normalClip": [
+                        0,
+                        0,
+                        32,
+                        32
+                      ],
+                      "hoverImage": "",
+                      "hoverClip": [
+                        0,
+                        0,
+                        32,
+                        32
+                      ],
+                      "activeImage": "",
+                      "activeClip": [
+                        0,
+                        0,
+                        32,
+                        32
+                      ],
+                      "flip": "none",
+                      "clip": [
+                        0,
+                        0,
+                        32,
+                        32
+                      ],
+                      "border": 1,
+                      "imagePadding": 0,
+                      "imageOpacity": 1,
+                      "imageEffect": "none",
+                      "normalTint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "hoverTint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "activeTint": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "direction": "horizontal-tb",
+                      "horizontalAlign": "center",
+                      "verticalAlign": "middle",
+                      "content": "X",
+                      "size": 28,
+                      "letterSpacing": 0,
+                      "textPadding": 0,
+                      "font": "",
+                      "typeface": "bold",
+                      "textEffect": {
+                        "type": "shadow",
+                        "shadowOffsetX": 2,
+                        "shadowOffsetY": 2,
+                        "color": "000000ff"
+                      },
+                      "normalColor": "e0e0e0ff",
+                      "hoverColor": "f0e060ff",
+                      "activeColor": "ffff80ff",
+                      "hoverSound": "",
+                      "clickSound": "",
+                      "pointerEvents": "enabled",
+                      "transform": {
+                        "anchorX": 1,
+                        "anchorY": 0,
+                        "x": -12,
+                        "x2": 1,
+                        "y": 16,
+                        "y2": 0,
+                        "width": 28,
+                        "width2": 0,
+                        "height": 28,
+                        "height2": 0,
+                        "rotation": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "opacity": 1
+                      },
+                      "events": [
+                        {
+                          "type": "click",
+                          "enabled": true,
+                          "commands": [
+                            {
+                              "id": "setEvent",
+                              "params": {
+                                "operation": "stop-propagation"
+                              }
+                            },
+                            {
+                              "id": "createElement",
+                              "params": {
+                                "operation": "append-one-to-root",
+                                "presetId": "5649a01235f4fb64"
+                              }
+                            },
+                            {
+                              "id": "setObject",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "closeButton"
+                                },
+                                "operand": {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "trigger"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "id": "setObject",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "saveCard"
+                                },
+                                "operand": {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "parent",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "closeButton"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "id": "setNumber",
+                              "params": {
+                                "variable": {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "by-id",
+                                    "presetId": "5649a01235f4fb64"
+                                  },
+                                  "key": "cca7de0dfb4dfae8"
+                                },
+                                "operation": "set",
+                                "operands": [
+                                  {
+                                    "operation": "add",
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "element",
+                                      "element": {
+                                        "type": "variable",
+                                        "variable": {
+                                          "type": "local",
+                                          "key": "saveCard"
+                                        }
+                                      },
+                                      "key": "cca7de0dfb4dfae8"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "callEvent",
+                              "params": {
+                                "type": "global",
+                                "eventId": "03bca125e5493562"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "scripts": [],
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "class": "reference",
+                  "name": "存档选项 1",
+                  "enabled": false,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "0d6ee8bdb731054f",
+                  "prefabId": "b98d75235dd0044f",
+                  "synchronous": true,
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                },
+                {
+                  "class": "reference",
+                  "name": "存档选项 2",
+                  "enabled": false,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "e922cea6e6160370",
+                  "prefabId": "b98d75235dd0044f",
+                  "synchronous": true,
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                },
+                {
+                  "class": "reference",
+                  "name": "存档选项 3",
+                  "enabled": false,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "5e9c8ea31eb5034c",
+                  "prefabId": "b98d75235dd0044f",
+                  "synchronous": true,
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                },
+                {
+                  "class": "reference",
+                  "name": "存档选项 4",
+                  "enabled": false,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "0d83649b47f1caa9",
+                  "prefabId": "b98d75235dd0044f",
+                  "synchronous": true,
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                },
+                {
+                  "class": "reference",
+                  "name": "存档选项 5",
+                  "enabled": false,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "e1469956ae668211",
+                  "prefabId": "b98d75235dd0044f",
+                  "synchronous": true,
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                },
+                {
+                  "class": "reference",
+                  "name": "存档选项 6",
+                  "enabled": false,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "f94cc36c47fdfa21",
+                  "prefabId": "b98d75235dd0044f",
+                  "synchronous": true,
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                },
+                {
+                  "class": "reference",
+                  "name": "存档选项 7",
+                  "enabled": false,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "2a71f72985b475d0",
+                  "prefabId": "b98d75235dd0044f",
+                  "synchronous": true,
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "class": "reference",
+              "name": "垂直滚动条",
+              "enabled": true,
+              "expanded": false,
+              "hidden": false,
+              "locked": false,
+              "presetId": "bd8c4a240e8eca6d",
+              "prefabId": "a2ce8411f3d6f2ed",
+              "synchronous": false,
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "x": 544,
+                "x2": 0.5,
+                "y": 0,
+                "y2": 0.5,
+                "width": 24,
+                "width2": 0,
+                "height": 940,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "container",
+      "name": "存档删除窗口",
+      "enabled": false,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "5649a01235f4fb64",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "x": 0,
+        "x2": 0.5,
+        "y": 0,
+        "y2": 0.5,
+        "width": 320,
+        "width2": 0,
+        "height": 140,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setFocus",
+              "params": {
+                "operation": "add",
+                "element": {
+                  "type": "trigger"
+                },
+                "mode": "control-child-buttons",
+                "cancelable": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "gamepadbuttonpress",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "button"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "other",
+                    "data": "trigger-gamepad-button"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "switch",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "button"
+                },
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "gamepad",
+                        "button": 6
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "simulateKey",
+                        "params": {
+                          "operation": "click",
+                          "keycode": "ArrowUp"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "type": "gamepad",
+                        "button": 7
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "simulateKey",
+                        "params": {
+                          "operation": "click",
+                          "keycode": "ArrowDown"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "blur",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "deleteElement",
+              "params": {
+                "operation": "delete-element",
+                "element": {
+                  "type": "trigger"
+                }
+              }
+            },
+            {
+              "id": "callEvent",
+              "params": {
+                "type": "global",
+                "eventId": "0cca865673a7b882"
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "image",
+          "name": "背景",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": true,
+          "presetId": "a9a37594cd7568a2",
+          "image": "ad70e61e96057efd",
+          "display": "slice",
+          "flip": "none",
+          "blend": "normal",
+          "shiftX": 0,
+          "shiftY": 0,
+          "clip": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "border": 16,
+          "tint": [
+            0,
+            30,
+            30,
+            0
+          ],
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 0,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 0.5
+          },
+          "events": [
+            {
+              "type": "autorun",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "moveElement",
+                  "params": {
+                    "element": {
+                      "type": "trigger"
+                    },
+                    "properties": [
+                      {
+                        "key": "opacity",
+                        "value": 0.75
+                      }
+                    ],
+                    "easingId": "7890d8edf5d88412",
+                    "duration": 500,
+                    "wait": false
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "image",
+          "name": "边框",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": true,
+          "presetId": "f3bddc6c07c35afb",
+          "image": "f6c4f42b3597e577",
+          "display": "slice",
+          "flip": "none",
+          "blend": "normal",
+          "shiftX": 0,
+          "shiftY": 0,
+          "clip": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "border": 16,
+          "tint": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 0,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": []
+        },
+        {
+          "class": "button",
+          "name": "删除存档数据",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "2ac682da54b417d7",
+          "display": "stretch",
+          "normalImage": "",
+          "normalClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "hoverImage": "02ff74b90950aa28",
+          "hoverClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "activeImage": "",
+          "activeClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "flip": "none",
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "imagePadding": 0,
+          "imageOpacity": 1,
+          "imageEffect": "tint-1",
+          "normalTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "hoverTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "activeTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "horizontal-tb",
+          "horizontalAlign": "left",
+          "verticalAlign": "middle",
+          "content": "删除存档数据",
+          "size": 40,
+          "letterSpacing": 0,
+          "textPadding": 10,
+          "font": "",
+          "typeface": "bold",
+          "textEffect": {
+            "type": "shadow",
+            "shadowOffsetX": 2,
+            "shadowOffsetY": 2,
+            "color": "000000ff"
+          },
+          "normalColor": "ffffffff",
+          "hoverColor": "f0e060ff",
+          "activeColor": "ffff80ff",
+          "hoverSound": "f8ad3495407d6543",
+          "clickSound": "",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 10,
+            "x2": 0,
+            "y": 10,
+            "y2": 0,
+            "width": 300,
+            "width2": 0,
+            "height": 60,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [
+            {
+              "type": "click",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "gameData",
+                  "params": {
+                    "operation": "delete",
+                    "index": {
+                      "type": "element",
+                      "element": {
+                        "type": "by-id",
+                        "presetId": "5649a01235f4fb64"
+                      },
+                      "key": "cca7de0dfb4dfae8"
+                    }
+                  }
+                },
+                {
+                  "id": "deleteElement",
+                  "params": {
+                    "operation": "delete-element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "5649a01235f4fb64"
+                    }
+                  }
+                },
+                {
+                  "id": "callEvent",
+                  "params": {
+                    "type": "element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "ad40507b3c91d2a4"
+                    },
+                    "eventType": "create"
+                  }
+                },
+                {
+                  "id": "callEvent",
+                  "params": {
+                    "type": "global",
+                    "eventId": "3f935b3f2928576e"
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [
+            {
+              "id": "e0a9d9f1709b2096",
+              "enabled": true,
+              "parameters": {
+                "period": 640,
+                "opacity": 0.5
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "class": "button",
+          "name": "取消",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "0f25b2e2bec879ca",
+          "display": "stretch",
+          "normalImage": "",
+          "normalClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "hoverImage": "02ff74b90950aa28",
+          "hoverClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "activeImage": "",
+          "activeClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "flip": "none",
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "imagePadding": 0,
+          "imageOpacity": 1,
+          "imageEffect": "tint-1",
+          "normalTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "hoverTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "activeTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "horizontal-tb",
+          "horizontalAlign": "left",
+          "verticalAlign": "middle",
+          "content": "取消",
+          "size": 40,
+          "letterSpacing": 0,
+          "textPadding": 10,
+          "font": "",
+          "typeface": "bold",
+          "textEffect": {
+            "type": "shadow",
+            "shadowOffsetX": 2,
+            "shadowOffsetY": 2,
+            "color": "000000ff"
+          },
+          "normalColor": "ffffffff",
+          "hoverColor": "f0e060ff",
+          "activeColor": "ffff80ff",
+          "hoverSound": "f8ad3495407d6543",
+          "clickSound": "",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 10,
+            "x2": 0,
+            "y": 70,
+            "y2": 0,
+            "width": 300,
+            "width2": 0,
+            "height": 60,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [
+            {
+              "type": "click",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "deleteElement",
+                  "params": {
+                    "operation": "delete-element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "5649a01235f4fb64"
+                    }
+                  }
+                },
+                {
+                  "id": "callEvent",
+                  "params": {
+                    "type": "global",
+                    "eventId": "0cca865673a7b882"
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [
+            {
+              "id": "e0a9d9f1709b2096",
+              "enabled": true,
+              "parameters": {
+                "period": 640,
+                "opacity": 0.5
+              }
+            }
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

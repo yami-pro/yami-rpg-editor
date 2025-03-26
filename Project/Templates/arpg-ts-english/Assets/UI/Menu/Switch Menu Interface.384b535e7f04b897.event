@@ -1,0 +1,52 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "element",
+                "element": {
+                  "type": "by-id",
+                  "presetId": "016c09707e098490"
+                },
+                "operation": "present"
+              }
+            ],
+            "commands": [
+              {
+                "id": "deleteElement",
+                "params": {
+                  "operation": "delete-element",
+                  "element": {
+                    "type": "by-id",
+                    "presetId": "016c09707e098490"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "elseCommands": [
+          {
+            "id": "createElement",
+            "params": {
+              "operation": "append-one-to-root",
+              "presetId": "016c09707e098490"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

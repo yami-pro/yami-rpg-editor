@@ -1,0 +1,1095 @@
+{
+  "portrait": "b7b38a1e17faef8f",
+  "clip": [
+    0,
+    16,
+    32,
+    32
+  ],
+  "animationId": "63a1f1a0de940ace",
+  "idleMotion": "9a715048c0cceb69",
+  "moveMotion": "f7bd22f4d3efcf4a",
+  "rotatable": false,
+  "passage": "land",
+  "speed": 12,
+  "shape": "circle",
+  "size": 2,
+  "weight": 2,
+  "immovable": true,
+  "scale": 1,
+  "priority": 0,
+  "inherit": "95356a9792703285",
+  "sprites": [
+    {
+      "id": "f19d0f48652419a5",
+      "image": "b7b38a1e17faef8f"
+    }
+  ],
+  "attributes": [
+    {
+      "key": "da4d32a4f1097059",
+      "value": "DIABLO I"
+    },
+    {
+      "key": "a5fd5e9f229abb2d",
+      "value": 10000
+    },
+    {
+      "key": "a8451228fe0c120a",
+      "value": 10000
+    },
+    {
+      "key": "7fa82e53c15d0e81",
+      "value": 100
+    },
+    {
+      "key": "ff0db36441e761fa",
+      "value": 100
+    },
+    {
+      "key": "96efe7ef1b6999bc",
+      "value": 60
+    },
+    {
+      "key": "752c94a8aa99161b",
+      "value": 40
+    },
+    {
+      "key": "91e7127e267f9425",
+      "value": 0
+    },
+    {
+      "key": "9c18a64439c1368f",
+      "value": 100
+    },
+    {
+      "key": "6421aebf4c298605",
+      "value": 1
+    },
+    {
+      "key": "597091e2c6bc6048",
+      "value": 1
+    },
+    {
+      "key": "9a7528d2de781a0d",
+      "value": 100
+    },
+    {
+      "key": "47f57252180f77c7",
+      "value": 200
+    },
+    {
+      "key": "ae74ea048a11f696",
+      "value": 4
+    },
+    {
+      "key": "9029d87aba1d7ad5",
+      "value": "<color:ff0000>"
+    }
+  ],
+  "skills": [
+    {
+      "id": "a9e5e36608fcf690",
+      "key": "90007906916a7fd8"
+    },
+    {
+      "id": "76004b325744d935",
+      "key": ""
+    },
+    {
+      "id": "d72fc9543a60cfd8",
+      "key": ""
+    }
+  ],
+  "equipments": [],
+  "inventory": [],
+  "events": [
+    {
+      "type": "autorun",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Record the location of the birth point"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "记录出生点位置"
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "startX"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "object",
+                "property": "actor-x",
+                "actor": {
+                  "type": "trigger"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "startY"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "object",
+                "property": "actor-y",
+                "actor": {
+                  "type": "trigger"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Reduce CPU usage at the same time"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "减少同一时间CPU的使用"
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "gcd"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "constant",
+                "value": 4000
+              }
+            ]
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "delay"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "math",
+                "method": "random"
+              },
+              {
+                "operation": "mul",
+                "type": "constant",
+                "value": 1000
+              }
+            ]
+          }
+        },
+        {
+          "id": "wait",
+          "params": {
+            "duration": {
+              "type": "local",
+              "key": "delay"
+            }
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Idle state"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "待机状态"
+          }
+        },
+        {
+          "id": "loop",
+          "params": {
+            "mode": "all",
+            "conditions": [],
+            "commands": [
+              {
+                "id": "label",
+                "params": {
+                  "name": "idle"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "If the target is found, enter combat state"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "如果发现目标，则进入战斗状态"
+                }
+              },
+              {
+                "id": "detectTargets",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "distance": 8,
+                  "selector": "enemy",
+                  "inSight": false
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "actor",
+                          "actor": {
+                            "type": "trigger"
+                          },
+                          "operation": "has-targets"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "skillTime"
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "other",
+                                "data": "elapsed-time"
+                              },
+                              {
+                                "operation": "add",
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "gcd"
+                                }
+                              },
+                              {
+                                "operation": "mul",
+                                "type": "math",
+                                "method": "random"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "callEvent",
+                          "params": {
+                            "type": "global",
+                            "eventId": "b1241fcaa736ffd5"
+                          }
+                        },
+                        {
+                          "id": "jumpTo",
+                          "params": {
+                            "operation": "jump",
+                            "label": "combat"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "wait",
+                "params": {
+                  "duration": 1000
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Combat state"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "战斗状态"
+          }
+        },
+        {
+          "id": "loop",
+          "params": {
+            "mode": "all",
+            "conditions": [],
+            "commands": [
+              {
+                "id": "wait",
+                "params": {
+                  "duration": 100
+                }
+              },
+              {
+                "id": "label",
+                "params": {
+                  "name": "combat"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Get hostile targets, reset if no targets"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "获取敌对目标，如果没有目标就重置"
+                }
+              },
+              {
+                "id": "getTarget",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "selector": "enemy",
+                  "condition": "max-threat"
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "actor",
+                          "actor": {
+                            "type": "target"
+                          },
+                          "operation": "absent"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "jumpTo",
+                          "params": {
+                            "operation": "jump",
+                            "label": "return"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Casting a skill at regular intervals"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "每隔一段时间施放一个技能"
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "time"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "other",
+                      "data": "elapsed-time"
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "time"
+                          },
+                          "operation": "greater-or-equal",
+                          "operand": {
+                            "type": "variable",
+                            "variable": {
+                              "type": "local",
+                              "key": "skillTime"
+                            }
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "skillTime"
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "time"
+                                }
+                              },
+                              {
+                                "operation": "add",
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "gcd"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "cd"
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "object",
+                                "property": "skill-cooldown-time",
+                                "skill": {
+                                  "type": "by-id",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "skillId": "76004b325744d935"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "if",
+                          "params": {
+                            "branches": [
+                              {
+                                "mode": "all",
+                                "conditions": [
+                                  {
+                                    "type": "number",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "cd"
+                                    },
+                                    "operation": "equal",
+                                    "operand": {
+                                      "type": "constant",
+                                      "value": 0
+                                    }
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "moveActor",
+                                    "params": {
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "mode": "stop"
+                                    }
+                                  },
+                                  {
+                                    "id": "wait",
+                                    "params": {
+                                      "duration": 200
+                                    }
+                                  },
+                                  {
+                                    "id": "setAngle",
+                                    "params": {
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "angle": {
+                                        "type": "position",
+                                        "position": {
+                                          "type": "actor",
+                                          "actor": {
+                                            "type": "target"
+                                          }
+                                        }
+                                      },
+                                      "easingId": "01eac96676bb2ee7",
+                                      "duration": 0,
+                                      "wait": false
+                                    }
+                                  },
+                                  {
+                                    "id": "castSkill",
+                                    "params": {
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "mode": "by-id",
+                                      "skillId": "76004b325744d935",
+                                      "wait": true
+                                    }
+                                  },
+                                  {
+                                    "id": "continue",
+                                    "params": {}
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "setNumber",
+                          "params": {
+                            "variable": {
+                              "type": "local",
+                              "key": "cd"
+                            },
+                            "operation": "set",
+                            "operands": [
+                              {
+                                "operation": "add",
+                                "type": "object",
+                                "property": "skill-cooldown-time",
+                                "skill": {
+                                  "type": "by-id",
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "skillId": "d72fc9543a60cfd8"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "if",
+                          "params": {
+                            "branches": [
+                              {
+                                "mode": "all",
+                                "conditions": [
+                                  {
+                                    "type": "number",
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "cd"
+                                    },
+                                    "operation": "equal",
+                                    "operand": {
+                                      "type": "constant",
+                                      "value": 0
+                                    }
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "moveActor",
+                                    "params": {
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "mode": "stop"
+                                    }
+                                  },
+                                  {
+                                    "id": "wait",
+                                    "params": {
+                                      "duration": 200
+                                    }
+                                  },
+                                  {
+                                    "id": "setAngle",
+                                    "params": {
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "angle": {
+                                        "type": "position",
+                                        "position": {
+                                          "type": "actor",
+                                          "actor": {
+                                            "type": "target"
+                                          }
+                                        }
+                                      },
+                                      "easingId": "01eac96676bb2ee7",
+                                      "duration": 0,
+                                      "wait": false
+                                    }
+                                  },
+                                  {
+                                    "id": "castSkill",
+                                    "params": {
+                                      "actor": {
+                                        "type": "trigger"
+                                      },
+                                      "mode": "by-id",
+                                      "skillId": "d72fc9543a60cfd8",
+                                      "wait": true
+                                    }
+                                  },
+                                  {
+                                    "id": "continue",
+                                    "params": {}
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "If the target is in range of the attack"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "如果目标在攻击范围内"
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "horiz"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "distance-x",
+                      "start": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        }
+                      },
+                      "end": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "target"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "vert"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "math",
+                      "method": "distance-y",
+                      "start": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        }
+                      },
+                      "end": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "target"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "horiz"
+                          },
+                          "operation": "less-or-equal",
+                          "operand": {
+                            "type": "constant",
+                            "value": 3
+                          }
+                        },
+                        {
+                          "type": "number",
+                          "variable": {
+                            "type": "local",
+                            "key": "vert"
+                          },
+                          "operation": "less-or-equal",
+                          "operand": {
+                            "type": "constant",
+                            "value": 0.5
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "Casting a normal attack"
+                          }
+                        },
+                        {
+                          "id": "comment",
+                          "params": {
+                            "comment": "施放普通攻击"
+                          }
+                        },
+                        {
+                          "id": "moveActor",
+                          "params": {
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "mode": "stop"
+                          }
+                        },
+                        {
+                          "id": "setAngle",
+                          "params": {
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "angle": {
+                              "type": "position",
+                              "position": {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "target"
+                                }
+                              }
+                            },
+                            "easingId": "01eac96676bb2ee7",
+                            "duration": 0,
+                            "wait": false
+                          }
+                        },
+                        {
+                          "id": "castSkill",
+                          "params": {
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "mode": "by-key",
+                            "key": "90007906916a7fd8",
+                            "wait": false
+                          }
+                        },
+                        {
+                          "id": "castSkill",
+                          "params": {
+                            "actor": {
+                              "type": "trigger"
+                            },
+                            "mode": "by-key",
+                            "key": "90007906916a7fd8",
+                            "wait": true
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "elseCommands": [
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "If the distance is too far, approach the target first"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "如果距离太远，先接近目标"
+                      }
+                    },
+                    {
+                      "id": "followActor",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "target": {
+                          "type": "target"
+                        },
+                        "mode": "rectangle",
+                        "minDist": 0.5,
+                        "maxDist": 3,
+                        "vertDist": 0,
+                        "navigate": true,
+                        "bypass": false,
+                        "once": false,
+                        "wait": false
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Returning state"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "返回状态"
+          }
+        },
+        {
+          "id": "label",
+          "params": {
+            "name": "return"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "75dab87cf676cf96"
+          }
+        },
+        {
+          "id": "resetTargets",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            }
+          }
+        },
+        {
+          "id": "moveActor",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "mode": "navigate",
+            "destination": {
+              "type": "absolute",
+              "x": {
+                "type": "local",
+                "key": "startX"
+              },
+              "y": {
+                "type": "local",
+                "key": "startY"
+              }
+            },
+            "wait": true
+          }
+        },
+        {
+          "id": "jumpTo",
+          "params": {
+            "operation": "jump",
+            "label": "idle"
+          }
+        }
+      ]
+    },
+    {
+      "type": "destroy",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "75dab87cf676cf96"
+          }
+        }
+      ]
+    },
+    {
+      "type": "c2ba6c4f90edd668",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "249c9c9d4de177c9",
+          "params": {
+            "actor": "trigger",
+            "localActorKey": "",
+            "globalActorKey": "",
+            "type": "item",
+            "itemId": "4280405b44a821f8",
+            "equipmentId": "",
+            "min": 666,
+            "max": 666,
+            "dropRate": 1
+          }
+        },
+        {
+          "id": "249c9c9d4de177c9",
+          "params": {
+            "actor": "trigger",
+            "localActorKey": "",
+            "globalActorKey": "",
+            "type": "item",
+            "itemId": "9bb9eeccaf5c50a5",
+            "equipmentId": "",
+            "min": 1,
+            "max": 2,
+            "dropRate": 1
+          }
+        },
+        {
+          "id": "249c9c9d4de177c9",
+          "params": {
+            "actor": "trigger",
+            "localActorKey": "",
+            "globalActorKey": "",
+            "type": "equipment",
+            "itemId": "",
+            "equipmentId": "c68ee0ccd1a4bb39",
+            "min": 1,
+            "max": 1,
+            "dropRate": 1
+          }
+        },
+        {
+          "id": "249c9c9d4de177c9",
+          "params": {
+            "actor": "trigger",
+            "localActorKey": "",
+            "globalActorKey": "",
+            "type": "equipment",
+            "itemId": "",
+            "equipmentId": "f47d0daa7cc837ab",
+            "min": 1,
+            "max": 1,
+            "dropRate": 1
+          }
+        },
+        {
+          "id": "249c9c9d4de177c9",
+          "params": {
+            "actor": "trigger",
+            "localActorKey": "",
+            "globalActorKey": "",
+            "type": "equipment",
+            "itemId": "",
+            "equipmentId": "6d52ba532b70a3d4",
+            "min": 1,
+            "max": 1,
+            "dropRate": 1
+          }
+        },
+        {
+          "id": "249c9c9d4de177c9",
+          "params": {
+            "actor": "trigger",
+            "localActorKey": "",
+            "globalActorKey": "",
+            "type": "equipment",
+            "itemId": "",
+            "equipmentId": "0bebc5fffdd070ea",
+            "min": 1,
+            "max": 1,
+            "dropRate": 1
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": [
+    {
+      "id": "f8d98d5c407a7b96",
+      "enabled": true,
+      "parameters": {
+        "currentKey": "a5fd5e9f229abb2d",
+        "maximumKey": "a8451228fe0c120a",
+        "speedKey": "9a7528d2de781a0d"
+      }
+    }
+  ]
+}

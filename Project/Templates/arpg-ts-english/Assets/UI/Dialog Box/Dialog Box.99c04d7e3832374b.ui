@@ -1,0 +1,2225 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "nodes": [
+    {
+      "class": "container",
+      "name": "DialogBox",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "c92fbe4db0564e36",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 1,
+        "x": 0,
+        "x2": 0.5,
+        "y": -80,
+        "y2": 1,
+        "width": 1000,
+        "width2": 0,
+        "height": 256,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setPointerEventRoot",
+              "params": {
+                "operation": "add",
+                "element": {
+                  "type": "trigger"
+                }
+              }
+            },
+            {
+              "id": "setFocus",
+              "params": {
+                "operation": "add",
+                "element": {
+                  "type": "trigger"
+                },
+                "mode": "control-descendant-buttons",
+                "cancelable": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "f2aa14a05754779f",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "switch",
+              "params": {
+                "variable": {
+                  "type": "element",
+                  "element": {
+                    "type": "trigger"
+                  },
+                  "key": "25fcb64f5d458a0a"
+                },
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "string",
+                        "value": "dialog"
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "if",
+                        "params": {
+                          "branches": [
+                            {
+                              "mode": "all",
+                              "conditions": [
+                                {
+                                  "type": "actor",
+                                  "actor": {
+                                    "type": "variable",
+                                    "variable": {
+                                      "type": "element",
+                                      "element": {
+                                        "type": "trigger"
+                                      },
+                                      "key": "1f4c880e8e284c05"
+                                    }
+                                  },
+                                  "operation": "present"
+                                }
+                              ],
+                              "commands": [
+                                {
+                                  "id": "setElement",
+                                  "params": {
+                                    "element": {
+                                      "type": "by-id",
+                                      "presetId": "160a1022ff4fe004"
+                                    },
+                                    "operation": "show"
+                                  }
+                                },
+                                {
+                                  "id": "loadImage",
+                                  "params": {
+                                    "element": {
+                                      "type": "by-id",
+                                      "presetId": "61d96b11c05a4cbd"
+                                    },
+                                    "type": "actor-portrait",
+                                    "actor": {
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "element",
+                                        "element": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "1f4c880e8e284c05"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "id": "comment",
+                                  "params": {
+                                    "comment": "Prefer to use the character name in the parameter"
+                                  }
+                                },
+                                {
+                                  "id": "comment",
+                                  "params": {
+                                    "comment": "优先使用参数中的角色名称"
+                                  }
+                                },
+                                {
+                                  "id": "setString",
+                                  "params": {
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "name"
+                                    },
+                                    "operation": "set",
+                                    "operand": {
+                                      "type": "parameter",
+                                      "key": "name"
+                                    }
+                                  }
+                                },
+                                {
+                                  "id": "if",
+                                  "params": {
+                                    "branches": [
+                                      {
+                                        "mode": "all",
+                                        "conditions": [
+                                          {
+                                            "type": "string",
+                                            "variable": {
+                                              "type": "local",
+                                              "key": "name"
+                                            },
+                                            "operation": "equal",
+                                            "operand": {
+                                              "type": "none"
+                                            }
+                                          }
+                                        ],
+                                        "commands": [
+                                          {
+                                            "id": "setString",
+                                            "params": {
+                                              "variable": {
+                                                "type": "local",
+                                                "key": "name"
+                                              },
+                                              "operation": "set",
+                                              "operand": {
+                                                "type": "variable",
+                                                "variable": {
+                                                  "type": "actor",
+                                                  "actor": {
+                                                    "type": "variable",
+                                                    "variable": {
+                                                      "type": "element",
+                                                      "element": {
+                                                        "type": "trigger"
+                                                      },
+                                                      "key": "1f4c880e8e284c05"
+                                                    }
+                                                  },
+                                                  "key": "da4d32a4f1097059"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "id": "if",
+                                  "params": {
+                                    "branches": [
+                                      {
+                                        "mode": "all",
+                                        "conditions": [
+                                          {
+                                            "type": "string",
+                                            "variable": {
+                                              "type": "local",
+                                              "key": "name"
+                                            },
+                                            "operation": "equal",
+                                            "operand": {
+                                              "type": "none"
+                                            }
+                                          }
+                                        ],
+                                        "commands": [
+                                          {
+                                            "id": "setString",
+                                            "params": {
+                                              "variable": {
+                                                "type": "local",
+                                                "key": "name"
+                                              },
+                                              "operation": "set",
+                                              "operand": {
+                                                "type": "constant",
+                                                "value": ""
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "id": "setText",
+                                  "params": {
+                                    "element": {
+                                      "type": "by-id",
+                                      "presetId": "10690485e8c42dc1"
+                                    },
+                                    "properties": [
+                                      {
+                                        "key": "content",
+                                        "value": {
+                                          "type": "local",
+                                          "key": "name"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "elseCommands": [
+                            {
+                              "id": "setElement",
+                              "params": {
+                                "element": {
+                                  "type": "by-id",
+                                  "presetId": "160a1022ff4fe004"
+                                },
+                                "operation": "hide"
+                              }
+                            },
+                            {
+                              "id": "setString",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "name"
+                                },
+                                "operation": "set",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": ""
+                                }
+                              }
+                            },
+                            {
+                              "id": "setString",
+                              "params": {
+                                "variable": {
+                                  "type": "local",
+                                  "key": "name"
+                                },
+                                "operation": "set",
+                                "operand": {
+                                  "type": "parameter",
+                                  "key": "name"
+                                }
+                              }
+                            },
+                            {
+                              "id": "setText",
+                              "params": {
+                                "element": {
+                                  "type": "by-id",
+                                  "presetId": "10690485e8c42dc1"
+                                },
+                                "properties": [
+                                  {
+                                    "key": "content",
+                                    "value": {
+                                      "type": "local",
+                                      "key": "name"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "setString",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "content"
+                          },
+                          "operation": "set",
+                          "operand": {
+                            "type": "other",
+                            "data": "showText-content"
+                          }
+                        }
+                      },
+                      {
+                        "id": "setDialogBox",
+                        "params": {
+                          "element": {
+                            "type": "by-id",
+                            "presetId": "02521df5ae008089"
+                          },
+                          "properties": [
+                            {
+                              "key": "content",
+                              "value": {
+                                "type": "local",
+                                "key": "content"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "type": "string",
+                        "value": "choice"
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "Create options window inside the dialog box"
+                        }
+                      },
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "在对话框内部创建选项窗口"
+                        }
+                      },
+                      {
+                        "id": "createElement",
+                        "params": {
+                          "operation": "append-one-to-element",
+                          "parent": {
+                            "type": "by-id",
+                            "presetId": "f0c069d4d87d22f0"
+                          },
+                          "presetId": "4786b3ec5df9f85c"
+                        }
+                      },
+                      {
+                        "id": "setNumber",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "y"
+                          },
+                          "operation": "set",
+                          "operands": [
+                            {
+                              "operation": "add",
+                              "type": "element",
+                              "property": "dialogBox-printEndY",
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "02521df5ae008089"
+                              }
+                            },
+                            {
+                              "operation": "add",
+                              "type": "constant",
+                              "value": 36
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "setString",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "content"
+                          },
+                          "operation": "set",
+                          "operand": {
+                            "type": "element",
+                            "property": "dialogBox-content",
+                            "element": {
+                              "type": "by-id",
+                              "presetId": "02521df5ae008089"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "If the first line is not empty, offset 44px down"
+                        }
+                      },
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "如果第一行不为空，向下偏移44px"
+                        }
+                      },
+                      {
+                        "id": "if",
+                        "params": {
+                          "branches": [
+                            {
+                              "mode": "all",
+                              "conditions": [
+                                {
+                                  "type": "string",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "content"
+                                  },
+                                  "operation": "unequal",
+                                  "operand": {
+                                    "type": "constant",
+                                    "value": ""
+                                  }
+                                }
+                              ],
+                              "commands": [
+                                {
+                                  "id": "setNumber",
+                                  "params": {
+                                    "variable": {
+                                      "type": "local",
+                                      "key": "y"
+                                    },
+                                    "operation": "add",
+                                    "operands": [
+                                      {
+                                        "operation": "add",
+                                        "type": "constant",
+                                        "value": 44
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "moveElement",
+                        "params": {
+                          "element": {
+                            "type": "by-id",
+                            "presetId": "4786b3ec5df9f85c"
+                          },
+                          "properties": [
+                            {
+                              "key": "y",
+                              "value": {
+                                "type": "local",
+                                "key": "y"
+                              }
+                            }
+                          ],
+                          "easingId": "01eac96676bb2ee7",
+                          "duration": 0,
+                          "wait": false
+                        }
+                      },
+                      {
+                        "id": "callEvent",
+                        "params": {
+                          "type": "element",
+                          "element": {
+                            "type": "by-id",
+                            "presetId": "4786b3ec5df9f85c"
+                          },
+                          "eventType": "f2aa14a05754779f"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "mousedownLB",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "if",
+              "params": {
+                "branches": [
+                  {
+                    "mode": "all",
+                    "conditions": [
+                      {
+                        "type": "string",
+                        "variable": {
+                          "type": "element",
+                          "element": {
+                            "type": "trigger"
+                          },
+                          "key": "25fcb64f5d458a0a"
+                        },
+                        "operation": "equal",
+                        "operand": {
+                          "type": "constant",
+                          "value": "dialog"
+                        }
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "if",
+                        "params": {
+                          "branches": [
+                            {
+                              "mode": "all",
+                              "conditions": [
+                                {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "by-id",
+                                    "presetId": "02521df5ae008089"
+                                  },
+                                  "operation": "dialogbox-is-updating"
+                                }
+                              ],
+                              "commands": [
+                                {
+                                  "id": "controlDialog",
+                                  "params": {
+                                    "element": {
+                                      "type": "by-id",
+                                      "presetId": "02521df5ae008089"
+                                    },
+                                    "operation": "print-immediately"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "mode": "all",
+                              "conditions": [
+                                {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "by-id",
+                                    "presetId": "02521df5ae008089"
+                                  },
+                                  "operation": "dialogbox-is-waiting"
+                                }
+                              ],
+                              "commands": [
+                                {
+                                  "id": "controlDialog",
+                                  "params": {
+                                    "element": {
+                                      "type": "by-id",
+                                      "presetId": "02521df5ae008089"
+                                    },
+                                    "operation": "print-next-page"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "mode": "all",
+                              "conditions": [
+                                {
+                                  "type": "element",
+                                  "element": {
+                                    "type": "by-id",
+                                    "presetId": "02521df5ae008089"
+                                  },
+                                  "operation": "dialogbox-is-complete"
+                                }
+                              ],
+                              "commands": [
+                                {
+                                  "id": "callEvent",
+                                  "params": {
+                                    "type": "element",
+                                    "element": {
+                                      "type": "trigger"
+                                    },
+                                    "eventType": "a7adcc1b24d4baf0"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "keydown",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setString",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "key"
+                },
+                "operation": "set",
+                "operand": {
+                  "type": "other",
+                  "data": "trigger-key"
+                }
+              }
+            },
+            {
+              "id": "switch",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "key"
+                },
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "keyboard",
+                        "keycode": "Enter"
+                      },
+                      {
+                        "type": "keyboard",
+                        "keycode": "Space"
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "When the confirmation button is pressed"
+                        }
+                      },
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "当确认键被按下时"
+                        }
+                      },
+                      {
+                        "id": "callEvent",
+                        "params": {
+                          "type": "element",
+                          "element": {
+                            "type": "trigger"
+                          },
+                          "eventType": "mousedownLB"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "gamepadbuttonpress",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "button"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "other",
+                    "data": "trigger-gamepad-button"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "switch",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "button"
+                },
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "gamepad",
+                        "button": 0
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "callEvent",
+                        "params": {
+                          "type": "element",
+                          "element": {
+                            "type": "trigger"
+                          },
+                          "eventType": "mousedownLB"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "type": "gamepad",
+                        "button": 6
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "simulateKey",
+                        "params": {
+                          "operation": "click",
+                          "keycode": "ArrowUp"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "type": "gamepad",
+                        "button": 7
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "simulateKey",
+                        "params": {
+                          "operation": "click",
+                          "keycode": "ArrowDown"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "a7adcc1b24d4baf0",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setString",
+              "params": {
+                "variable": {
+                  "type": "element",
+                  "element": {
+                    "type": "trigger"
+                  },
+                  "key": "25fcb64f5d458a0a"
+                },
+                "operation": "set",
+                "operand": {
+                  "type": "constant",
+                  "value": "inactive"
+                }
+              }
+            },
+            {
+              "id": "setEvent",
+              "params": {
+                "operation": "continue",
+                "variable": {
+                  "type": "global",
+                  "key": "c44fb9a52536747c"
+                }
+              }
+            },
+            {
+              "id": "if",
+              "params": {
+                "branches": [
+                  {
+                    "mode": "all",
+                    "conditions": [
+                      {
+                        "type": "element",
+                        "element": {
+                          "type": "by-id",
+                          "presetId": "4786b3ec5df9f85c"
+                        },
+                        "operation": "present"
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "deleteElement",
+                        "params": {
+                          "operation": "delete-element",
+                          "element": {
+                            "type": "by-id",
+                            "presetId": "4786b3ec5df9f85c"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "id": "wait",
+              "params": {
+                "duration": 1
+              }
+            },
+            {
+              "id": "if",
+              "params": {
+                "branches": [
+                  {
+                    "mode": "all",
+                    "conditions": [
+                      {
+                        "type": "string",
+                        "variable": {
+                          "type": "element",
+                          "element": {
+                            "type": "trigger"
+                          },
+                          "key": "25fcb64f5d458a0a"
+                        },
+                        "operation": "equal",
+                        "operand": {
+                          "type": "constant",
+                          "value": "inactive"
+                        }
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "deleteElement",
+                        "params": {
+                          "operation": "delete-element",
+                          "element": {
+                            "type": "trigger"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "container",
+          "name": "PortraitContainer",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "160a1022ff4fe004",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 204,
+            "width2": 0,
+            "height": 204,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": [
+            {
+              "class": "image",
+              "name": "Mask",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "presetId": "92059fb59f2c4b9d",
+              "image": "ad70e61e96057efd",
+              "display": "slice",
+              "flip": "none",
+              "blend": "mask",
+              "shiftX": 0,
+              "shiftY": 0,
+              "clip": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "border": 16,
+              "tint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "x": 0,
+                "x2": 0.5,
+                "y": 0,
+                "y2": 0.5,
+                "width": 0,
+                "width2": 1,
+                "height": 0,
+                "height2": 1,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": [
+                {
+                  "class": "image",
+                  "name": "Portrait",
+                  "enabled": true,
+                  "expanded": true,
+                  "hidden": false,
+                  "locked": true,
+                  "presetId": "61d96b11c05a4cbd",
+                  "image": "02552449717ac209",
+                  "display": "stretch",
+                  "flip": "none",
+                  "blend": "normal",
+                  "shiftX": 0,
+                  "shiftY": 0,
+                  "clip": [
+                    0,
+                    0,
+                    32,
+                    32
+                  ],
+                  "border": 1,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "pointerEvents": "enabled",
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y2": 0,
+                    "width": 0,
+                    "width2": 1,
+                    "height": 0,
+                    "height2": 1,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [],
+                  "scripts": [],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "class": "image",
+              "name": "Border",
+              "enabled": true,
+              "expanded": false,
+              "hidden": false,
+              "locked": true,
+              "presetId": "cabb80d61809fc25",
+              "image": "f6c4f42b3597e577",
+              "display": "slice",
+              "flip": "none",
+              "blend": "normal",
+              "shiftX": 0,
+              "shiftY": 0,
+              "clip": [
+                0,
+                0,
+                128,
+                128
+              ],
+              "border": 16,
+              "tint": [
+                255,
+                255,
+                255,
+                0
+              ],
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0,
+                "y": 0,
+                "y2": 0,
+                "width": 0,
+                "width2": 1,
+                "height": 0,
+                "height2": 1,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 0.9
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "class": "container",
+          "name": "ContentContainer",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "f0c069d4d87d22f0",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 1,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 1,
+            "y": 0,
+            "y2": 0,
+            "width": -204,
+            "width2": 1,
+            "height": 0,
+            "height2": 1,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [],
+          "scripts": [],
+          "children": [
+            {
+              "class": "text",
+              "name": "ActorName",
+              "enabled": true,
+              "expanded": false,
+              "hidden": false,
+              "locked": false,
+              "presetId": "10690485e8c42dc1",
+              "direction": "horizontal-tb",
+              "horizontalAlign": "left",
+              "verticalAlign": "middle",
+              "content": "Name",
+              "size": 28,
+              "lineSpacing": 0,
+              "letterSpacing": 0,
+              "color": "fff0c0ff",
+              "font": "",
+              "typeface": "regular",
+              "effect": {
+                "type": "stroke",
+                "strokeWidth": 4,
+                "color": "000000ff"
+              },
+              "overflow": "visible",
+              "blend": "normal",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 20,
+                "x2": 0,
+                "y": 0,
+                "y2": 0,
+                "width": 100,
+                "width2": 0,
+                "height": 28,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": []
+            },
+            {
+              "class": "dialogbox",
+              "name": "DialogContent",
+              "enabled": true,
+              "expanded": true,
+              "hidden": false,
+              "locked": false,
+              "presetId": "02521df5ae008089",
+              "content": "blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah",
+              "interval": 16.6666,
+              "size": 28,
+              "lineSpacing": 16,
+              "letterSpacing": 0,
+              "color": "ffffffff",
+              "font": "",
+              "typeface": "regular",
+              "effect": {
+                "type": "stroke",
+                "strokeWidth": 4,
+                "color": "000000ff"
+              },
+              "blend": "normal",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 30,
+                "x2": 0,
+                "y": 44,
+                "y2": 0,
+                "width": -60,
+                "width2": 1,
+                "height": 160,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [],
+              "scripts": [],
+              "children": [
+                {
+                  "class": "image",
+                  "name": "Pointer",
+                  "enabled": true,
+                  "expanded": false,
+                  "hidden": false,
+                  "locked": false,
+                  "presetId": "c8d0cec964b9620a",
+                  "image": "80ab244e98af64d8",
+                  "display": "clip",
+                  "flip": "none",
+                  "blend": "normal",
+                  "shiftX": 0,
+                  "shiftY": 0,
+                  "clip": [
+                    0,
+                    0,
+                    28,
+                    28
+                  ],
+                  "border": 1,
+                  "tint": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "pointerEvents": "enabled",
+                  "transform": {
+                    "anchorX": 0,
+                    "anchorY": 0,
+                    "x": 500,
+                    "x2": 0,
+                    "y": 132,
+                    "y2": 0,
+                    "width": 28,
+                    "width2": 0,
+                    "height": 28,
+                    "height2": 0,
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1,
+                    "skewX": 0,
+                    "skewY": 0,
+                    "opacity": 1
+                  },
+                  "events": [
+                    {
+                      "type": "autorun",
+                      "enabled": true,
+                      "commands": [
+                        {
+                          "id": "setElement",
+                          "params": {
+                            "element": {
+                              "type": "trigger"
+                            },
+                            "operation": "hide"
+                          }
+                        },
+                        {
+                          "id": "loop",
+                          "params": {
+                            "mode": "all",
+                            "conditions": [],
+                            "commands": [
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "element",
+                                          "element": {
+                                            "type": "by-id",
+                                            "presetId": "02521df5ae008089"
+                                          },
+                                          "operation": "dialogbox-is-updating"
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "if",
+                                          "params": {
+                                            "branches": [
+                                              {
+                                                "mode": "all",
+                                                "conditions": [
+                                                  {
+                                                    "type": "element",
+                                                    "element": {
+                                                      "type": "trigger"
+                                                    },
+                                                    "operation": "visible"
+                                                  }
+                                                ],
+                                                "commands": [
+                                                  {
+                                                    "id": "setElement",
+                                                    "params": {
+                                                      "element": {
+                                                        "type": "trigger"
+                                                      },
+                                                      "operation": "hide"
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "mode": "any",
+                                      "conditions": [
+                                        {
+                                          "type": "element",
+                                          "element": {
+                                            "type": "by-id",
+                                            "presetId": "02521df5ae008089"
+                                          },
+                                          "operation": "dialogbox-is-waiting"
+                                        },
+                                        {
+                                          "type": "element",
+                                          "element": {
+                                            "type": "by-id",
+                                            "presetId": "02521df5ae008089"
+                                          },
+                                          "operation": "dialogbox-is-complete"
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "setString",
+                                          "params": {
+                                            "variable": {
+                                              "type": "local",
+                                              "key": "content"
+                                            },
+                                            "operation": "set",
+                                            "operand": {
+                                              "type": "element",
+                                              "property": "dialogBox-content",
+                                              "element": {
+                                                "type": "by-id",
+                                                "presetId": "02521df5ae008089"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "id": "if",
+                                          "params": {
+                                            "branches": [
+                                              {
+                                                "mode": "all",
+                                                "conditions": [
+                                                  {
+                                                    "type": "string",
+                                                    "variable": {
+                                                      "type": "local",
+                                                      "key": "content"
+                                                    },
+                                                    "operation": "equal",
+                                                    "operand": {
+                                                      "type": "constant",
+                                                      "value": ""
+                                                    }
+                                                  }
+                                                ],
+                                                "commands": [
+                                                  {
+                                                    "id": "comment",
+                                                    "params": {
+                                                      "comment": "No dialogue content, skip"
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "comment",
+                                                    "params": {
+                                                      "comment": "不存在对话内容，跳过"
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "mode": "all",
+                                                "conditions": [
+                                                  {
+                                                    "type": "element",
+                                                    "element": {
+                                                      "type": "trigger"
+                                                    },
+                                                    "operation": "invisible"
+                                                  }
+                                                ],
+                                                "commands": [
+                                                  {
+                                                    "id": "setNumber",
+                                                    "params": {
+                                                      "variable": {
+                                                        "type": "local",
+                                                        "key": "state"
+                                                      },
+                                                      "operation": "set",
+                                                      "operands": [
+                                                        {
+                                                          "operation": "add",
+                                                          "type": "constant",
+                                                          "value": 0
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "setNumber",
+                                                    "params": {
+                                                      "variable": {
+                                                        "type": "local",
+                                                        "key": "elapsed"
+                                                      },
+                                                      "operation": "set",
+                                                      "operands": [
+                                                        {
+                                                          "operation": "add",
+                                                          "type": "constant",
+                                                          "value": 0
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "setNumber",
+                                                    "params": {
+                                                      "variable": {
+                                                        "type": "local",
+                                                        "key": "x"
+                                                      },
+                                                      "operation": "set",
+                                                      "operands": [
+                                                        {
+                                                          "operation": "add",
+                                                          "type": "element",
+                                                          "property": "dialogBox-printEndX",
+                                                          "element": {
+                                                            "type": "by-id",
+                                                            "presetId": "02521df5ae008089"
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "setNumber",
+                                                    "params": {
+                                                      "variable": {
+                                                        "type": "local",
+                                                        "key": "y"
+                                                      },
+                                                      "operation": "set",
+                                                      "operands": [
+                                                        {
+                                                          "operation": "add",
+                                                          "type": "element",
+                                                          "property": "dialogBox-printEndY",
+                                                          "element": {
+                                                            "type": "by-id",
+                                                            "presetId": "02521df5ae008089"
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "setImage",
+                                                    "params": {
+                                                      "element": {
+                                                        "type": "trigger"
+                                                      },
+                                                      "properties": [
+                                                        {
+                                                          "key": "clip-0",
+                                                          "value": 0
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "moveElement",
+                                                    "params": {
+                                                      "element": {
+                                                        "type": "trigger"
+                                                      },
+                                                      "properties": [
+                                                        {
+                                                          "key": "x",
+                                                          "value": {
+                                                            "type": "local",
+                                                            "key": "x"
+                                                          }
+                                                        },
+                                                        {
+                                                          "key": "y",
+                                                          "value": {
+                                                            "type": "local",
+                                                            "key": "y"
+                                                          }
+                                                        }
+                                                      ],
+                                                      "easingId": "01eac96676bb2ee7",
+                                                      "duration": 0,
+                                                      "wait": true
+                                                    }
+                                                  },
+                                                  {
+                                                    "id": "setElement",
+                                                    "params": {
+                                                      "element": {
+                                                        "type": "trigger"
+                                                      },
+                                                      "operation": "show"
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "elseCommands": [
+                                              {
+                                                "id": "comment",
+                                                "params": {
+                                                  "comment": "Change the image frame of the pointer every 100ms"
+                                                }
+                                              },
+                                              {
+                                                "id": "comment",
+                                                "params": {
+                                                  "comment": "每隔100ms改变一次指针的图像帧"
+                                                }
+                                              },
+                                              {
+                                                "id": "setNumber",
+                                                "params": {
+                                                  "variable": {
+                                                    "type": "local",
+                                                    "key": "elapsed"
+                                                  },
+                                                  "operation": "add",
+                                                  "operands": [
+                                                    {
+                                                      "operation": "add",
+                                                      "type": "other",
+                                                      "data": "raw-delta-time"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              {
+                                                "id": "if",
+                                                "params": {
+                                                  "branches": [
+                                                    {
+                                                      "mode": "all",
+                                                      "conditions": [
+                                                        {
+                                                          "type": "number",
+                                                          "variable": {
+                                                            "type": "local",
+                                                            "key": "elapsed"
+                                                          },
+                                                          "operation": "greater-or-equal",
+                                                          "operand": {
+                                                            "type": "constant",
+                                                            "value": 100
+                                                          }
+                                                        }
+                                                      ],
+                                                      "commands": [
+                                                        {
+                                                          "id": "setNumber",
+                                                          "params": {
+                                                            "variable": {
+                                                              "type": "local",
+                                                              "key": "elapsed"
+                                                            },
+                                                            "operation": "sub",
+                                                            "operands": [
+                                                              {
+                                                                "operation": "add",
+                                                                "type": "constant",
+                                                                "value": 100
+                                                              }
+                                                            ]
+                                                          }
+                                                        },
+                                                        {
+                                                          "id": "setNumber",
+                                                          "params": {
+                                                            "variable": {
+                                                              "type": "local",
+                                                              "key": "state"
+                                                            },
+                                                            "operation": "set",
+                                                            "operands": [
+                                                              {
+                                                                "operation": "add",
+                                                                "type": "variable",
+                                                                "variable": {
+                                                                  "type": "local",
+                                                                  "key": "state"
+                                                                }
+                                                              },
+                                                              {
+                                                                "operation": "add()",
+                                                                "type": "constant",
+                                                                "value": 1
+                                                              },
+                                                              {
+                                                                "operation": "mod",
+                                                                "type": "constant",
+                                                                "value": 6
+                                                              }
+                                                            ]
+                                                          }
+                                                        },
+                                                        {
+                                                          "id": "switch",
+                                                          "params": {
+                                                            "variable": {
+                                                              "type": "local",
+                                                              "key": "state"
+                                                            },
+                                                            "branches": [
+                                                              {
+                                                                "conditions": [
+                                                                  {
+                                                                    "type": "number",
+                                                                    "value": 0
+                                                                  }
+                                                                ],
+                                                                "commands": [
+                                                                  {
+                                                                    "id": "setImage",
+                                                                    "params": {
+                                                                      "element": {
+                                                                        "type": "trigger"
+                                                                      },
+                                                                      "properties": [
+                                                                        {
+                                                                          "key": "clip-0",
+                                                                          "value": 0
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "conditions": [
+                                                                  {
+                                                                    "type": "number",
+                                                                    "value": 1
+                                                                  }
+                                                                ],
+                                                                "commands": [
+                                                                  {
+                                                                    "id": "setImage",
+                                                                    "params": {
+                                                                      "element": {
+                                                                        "type": "trigger"
+                                                                      },
+                                                                      "properties": [
+                                                                        {
+                                                                          "key": "clip-0",
+                                                                          "value": 28
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "conditions": [
+                                                                  {
+                                                                    "type": "number",
+                                                                    "value": 2
+                                                                  }
+                                                                ],
+                                                                "commands": [
+                                                                  {
+                                                                    "id": "setImage",
+                                                                    "params": {
+                                                                      "element": {
+                                                                        "type": "trigger"
+                                                                      },
+                                                                      "properties": [
+                                                                        {
+                                                                          "key": "clip-0",
+                                                                          "value": 56
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "conditions": [
+                                                                  {
+                                                                    "type": "number",
+                                                                    "value": 3
+                                                                  }
+                                                                ],
+                                                                "commands": [
+                                                                  {
+                                                                    "id": "setImage",
+                                                                    "params": {
+                                                                      "element": {
+                                                                        "type": "trigger"
+                                                                      },
+                                                                      "properties": [
+                                                                        {
+                                                                          "key": "clip-0",
+                                                                          "value": 84
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "conditions": [
+                                                                  {
+                                                                    "type": "number",
+                                                                    "value": 4
+                                                                  }
+                                                                ],
+                                                                "commands": [
+                                                                  {
+                                                                    "id": "setImage",
+                                                                    "params": {
+                                                                      "element": {
+                                                                        "type": "trigger"
+                                                                      },
+                                                                      "properties": [
+                                                                        {
+                                                                          "key": "clip-0",
+                                                                          "value": 112
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "conditions": [
+                                                                  {
+                                                                    "type": "number",
+                                                                    "value": 5
+                                                                  }
+                                                                ],
+                                                                "commands": [
+                                                                  {
+                                                                    "id": "setImage",
+                                                                    "params": {
+                                                                      "element": {
+                                                                        "type": "trigger"
+                                                                      },
+                                                                      "properties": [
+                                                                        {
+                                                                          "key": "clip-0",
+                                                                          "value": 140
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "wait",
+                                "params": {
+                                  "duration": 1
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "scripts": [],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "container",
+      "name": "Container",
+      "enabled": false,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "664221f0a2e43145",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "x": 0,
+        "x2": 0.5,
+        "y": 0,
+        "y2": 0.5,
+        "width": 800,
+        "width2": 0,
+        "height": 176,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [],
+      "scripts": [],
+      "children": [
+        {
+          "class": "window",
+          "name": "ChoiceWindow",
+          "enabled": true,
+          "expanded": true,
+          "hidden": false,
+          "locked": false,
+          "presetId": "4786b3ec5df9f85c",
+          "layout": "vertical-grid",
+          "scrollX": 0,
+          "scrollY": 0,
+          "gridWidth": 760,
+          "gridHeight": 44,
+          "gridGapX": 0,
+          "gridGapY": 0,
+          "paddingX": 0,
+          "paddingY": 0,
+          "overflow": "visible",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 20,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 760,
+            "width2": 0,
+            "height": 176,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [
+            {
+              "type": "f2aa14a05754779f",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "setNumber",
+                  "params": {
+                    "variable": {
+                      "type": "local",
+                      "key": "index"
+                    },
+                    "operation": "set",
+                    "operands": [
+                      {
+                        "operation": "add",
+                        "type": "constant",
+                        "value": 0
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "loop",
+                  "params": {
+                    "mode": "all",
+                    "conditions": [],
+                    "commands": [
+                      {
+                        "id": "setString",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "choice"
+                          },
+                          "operation": "set",
+                          "operand": {
+                            "type": "other",
+                            "data": "showChoices-content",
+                            "choiceIndex": {
+                              "type": "local",
+                              "key": "index"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "id": "if",
+                        "params": {
+                          "branches": [
+                            {
+                              "mode": "all",
+                              "conditions": [
+                                {
+                                  "type": "string",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "choice"
+                                  },
+                                  "operation": "equal",
+                                  "operand": {
+                                    "type": "constant",
+                                    "value": ""
+                                  }
+                                }
+                              ],
+                              "commands": [
+                                {
+                                  "id": "break",
+                                  "params": {}
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "Create option element and set Y coordinate and index"
+                        }
+                      },
+                      {
+                        "id": "comment",
+                        "params": {
+                          "comment": "创建选项元素并设置Y坐标和索引"
+                        }
+                      },
+                      {
+                        "id": "createElement",
+                        "params": {
+                          "operation": "append-one-to-element",
+                          "parent": {
+                            "type": "trigger"
+                          },
+                          "presetId": "6661f6943fd109e4"
+                        }
+                      },
+                      {
+                        "id": "setButton",
+                        "params": {
+                          "element": {
+                            "type": "latest"
+                          },
+                          "properties": [
+                            {
+                              "key": "content",
+                              "value": {
+                                "type": "local",
+                                "key": "choice"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "setNumber",
+                        "params": {
+                          "variable": {
+                            "type": "element",
+                            "element": {
+                              "type": "by-id",
+                              "presetId": "6661f6943fd109e4"
+                            },
+                            "key": "cca7de0dfb4dfae8"
+                          },
+                          "operation": "set",
+                          "operands": [
+                            {
+                              "operation": "add",
+                              "type": "variable",
+                              "variable": {
+                                "type": "local",
+                                "key": "index"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "setNumber",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "index"
+                          },
+                          "operation": "add",
+                          "operands": [
+                            {
+                              "operation": "add",
+                              "type": "constant",
+                              "value": 1
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "controlButton",
+                  "params": {
+                    "operation": "select-default"
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [],
+          "children": [
+            {
+              "class": "button",
+              "name": "Choice",
+              "enabled": false,
+              "expanded": false,
+              "hidden": false,
+              "locked": false,
+              "presetId": "6661f6943fd109e4",
+              "display": "stretch",
+              "normalImage": "",
+              "normalClip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "hoverImage": "02ff74b90950aa28",
+              "hoverClip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "activeImage": "",
+              "activeClip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "flip": "none",
+              "clip": [
+                0,
+                0,
+                32,
+                32
+              ],
+              "border": 1,
+              "imagePadding": 0,
+              "imageOpacity": 1,
+              "imageEffect": "none",
+              "normalTint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "hoverTint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "activeTint": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "direction": "horizontal-tb",
+              "horizontalAlign": "left",
+              "verticalAlign": "middle",
+              "content": "Choice Content",
+              "size": 28,
+              "letterSpacing": 0,
+              "textPadding": 10,
+              "font": "",
+              "typeface": "regular",
+              "textEffect": {
+                "type": "stroke",
+                "strokeWidth": 4,
+                "color": "000000ff"
+              },
+              "normalColor": "ffffffff",
+              "hoverColor": "f0e060ff",
+              "activeColor": "ffff80ff",
+              "hoverSound": "f8ad3495407d6543",
+              "clickSound": "89d7d702be9a747c",
+              "pointerEvents": "enabled",
+              "transform": {
+                "anchorX": 0,
+                "anchorY": 0,
+                "x": 0,
+                "x2": 0,
+                "y": 0,
+                "y2": 0,
+                "width": 0,
+                "width2": 1,
+                "height": 44,
+                "height2": 0,
+                "rotation": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "opacity": 1
+              },
+              "events": [
+                {
+                  "type": "click",
+                  "enabled": true,
+                  "commands": [
+                    {
+                      "id": "setEvent",
+                      "params": {
+                        "operation": "goto-choice-branch",
+                        "choiceIndex": {
+                          "type": "element",
+                          "element": {
+                            "type": "trigger"
+                          },
+                          "key": "cca7de0dfb4dfae8"
+                        }
+                      }
+                    },
+                    {
+                      "id": "callEvent",
+                      "params": {
+                        "type": "element",
+                        "element": {
+                          "type": "by-id",
+                          "presetId": "c92fbe4db0564e36"
+                        },
+                        "eventType": "a7adcc1b24d4baf0"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "scripts": [
+                {
+                  "id": "e0a9d9f1709b2096",
+                  "enabled": true,
+                  "parameters": {
+                    "period": 640,
+                    "opacity": 0.5
+                  }
+                }
+              ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

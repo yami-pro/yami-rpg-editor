@@ -1,0 +1,179 @@
+{
+  "icon": "97fa22601c6a5e50",
+  "clip": [
+    0,
+    0,
+    512,
+    512
+  ],
+  "inherit": "",
+  "attributes": [],
+  "events": [
+    {
+      "type": "itemuse",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "comment",
+          "params": {
+            "comment": "Get the GCD corresponding to the item's cooldown key (items with the same cooldown key share cooldown progress)"
+          }
+        },
+        {
+          "id": "comment",
+          "params": {
+            "comment": "获取物品冷却键对应的GCD(相同冷却键的物品共享冷却进度)"
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "cdTime"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "object",
+                "property": "actor-cooldown-time",
+                "actor": {
+                  "type": "trigger"
+                },
+                "key": {
+                  "type": "item",
+                  "item": {
+                    "type": "trigger"
+                  },
+                  "key": "fabb6c550f7b3094"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "if",
+          "params": {
+            "branches": [
+              {
+                "mode": "all",
+                "conditions": [
+                  {
+                    "type": "number",
+                    "variable": {
+                      "type": "local",
+                      "key": "cdTime"
+                    },
+                    "operation": "greater",
+                    "operand": {
+                      "type": "constant",
+                      "value": 0
+                    }
+                  }
+                ],
+                "commands": [
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "If the item has not finished cooling, stop the event"
+                    }
+                  },
+                  {
+                    "id": "comment",
+                    "params": {
+                      "comment": "如果物品冷却未结束，停止事件"
+                    }
+                  },
+                  {
+                    "id": "stopEvent",
+                    "params": {
+                      "type": "current"
+                    }
+                  }
+                ]
+              }
+            ],
+            "elseCommands": [
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "If the item is not on cooldown, set the cooldown time of the item"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "如果物品不在冷却状态中，设置物品的冷却时间"
+                }
+              },
+              {
+                "id": "setCooldown",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "operation": "set",
+                  "key": {
+                    "type": "item",
+                    "item": {
+                      "type": "trigger"
+                    },
+                    "key": "fabb6c550f7b3094"
+                  },
+                  "cooldown": {
+                    "type": "item",
+                    "item": {
+                      "type": "trigger"
+                    },
+                    "key": "8cabc439007271c7"
+                  }
+                }
+              },
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "boolean",
+                          "variable": {
+                            "type": "item",
+                            "item": {
+                              "type": "trigger"
+                            },
+                            "key": "64234b740706abdf"
+                          },
+                          "operation": "equal",
+                          "operand": {
+                            "type": "constant",
+                            "value": true
+                          }
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "setItem",
+                          "params": {
+                            "item": {
+                              "type": "trigger"
+                            },
+                            "operation": "decrease",
+                            "quantity": 1
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

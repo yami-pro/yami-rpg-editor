@@ -1,0 +1,845 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "nodes": [
+    {
+      "class": "image",
+      "name": "Background",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "8279eea04ef08b6f",
+      "image": "babf411df124a5b4",
+      "display": "tile",
+      "flip": "none",
+      "blend": "normal",
+      "shiftX": 0,
+      "shiftY": 0,
+      "clip": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "border": 1,
+      "tint": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "x": 0,
+        "x2": 0.5,
+        "y": 0,
+        "y2": 0.5,
+        "width": 480,
+        "width2": 0,
+        "height": 256,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 4,
+        "scaleY": 4,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [],
+      "scripts": [
+        {
+          "id": "ca47167633407b36",
+          "enabled": true,
+          "parameters": {
+            "velocityX": 5,
+            "velocityY": 0
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "class": "image",
+      "name": "Midground",
+      "enabled": true,
+      "expanded": false,
+      "hidden": false,
+      "locked": false,
+      "presetId": "51abc151cc7debfd",
+      "image": "9667fbb162407000",
+      "display": "stretch",
+      "flip": "none",
+      "blend": "normal",
+      "shiftX": 0,
+      "shiftY": 0,
+      "clip": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "border": 1,
+      "tint": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0,
+        "anchorY": 0.5,
+        "x": 0,
+        "x2": 0,
+        "y": 0,
+        "y2": 0.5,
+        "width": 960,
+        "width2": 0,
+        "height": 512,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 2,
+        "scaleY": 2,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [],
+      "scripts": [
+        {
+          "id": "ca47167633407b36",
+          "enabled": true,
+          "parameters": {
+            "velocityX": 20,
+            "velocityY": 0
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "class": "text",
+      "name": "Title",
+      "enabled": true,
+      "expanded": false,
+      "hidden": false,
+      "locked": false,
+      "presetId": "102f385c0ceec6cc",
+      "direction": "horizontal-tb",
+      "horizontalAlign": "center",
+      "verticalAlign": "middle",
+      "content": "Hello World",
+      "size": 128,
+      "lineSpacing": 0,
+      "letterSpacing": 0,
+      "color": "ffe0a0ff",
+      "font": "",
+      "typeface": "bold-italic",
+      "effect": {
+        "type": "shadow",
+        "shadowOffsetX": 4,
+        "shadowOffsetY": 4,
+        "color": "000000ff"
+      },
+      "overflow": "visible",
+      "blend": "normal",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "x": 0,
+        "x2": 0.5,
+        "y": -100,
+        "y2": 0.5,
+        "width": 800,
+        "width2": 0,
+        "height": 128,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [],
+      "scripts": [],
+      "children": []
+    },
+    {
+      "class": "window",
+      "name": "ButtonWindow",
+      "enabled": true,
+      "expanded": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "3276d4951c242c7f",
+      "layout": "vertical-grid",
+      "scrollX": 0,
+      "scrollY": 0,
+      "gridWidth": 320,
+      "gridHeight": 80,
+      "gridGapX": 0,
+      "gridGapY": 0,
+      "paddingX": 0,
+      "paddingY": 0,
+      "overflow": "visible",
+      "pointerEvents": "enabled",
+      "transform": {
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "x": 0,
+        "x2": 0.5,
+        "y": 160,
+        "y2": 0.5,
+        "width": 320,
+        "width2": 0,
+        "height": 240,
+        "height2": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "skewX": 0,
+        "skewY": 0,
+        "opacity": 1
+      },
+      "events": [
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setFocus",
+              "params": {
+                "operation": "add",
+                "element": {
+                  "type": "trigger"
+                },
+                "mode": "control-child-buttons",
+                "cancelable": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "gamepadbuttonpress",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setNumber",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "button"
+                },
+                "operation": "set",
+                "operands": [
+                  {
+                    "operation": "add",
+                    "type": "other",
+                    "data": "trigger-gamepad-button"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "switch",
+              "params": {
+                "variable": {
+                  "type": "local",
+                  "key": "button"
+                },
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "gamepad",
+                        "button": 6
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "simulateKey",
+                        "params": {
+                          "operation": "click",
+                          "keycode": "ArrowUp"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "type": "gamepad",
+                        "button": 7
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "id": "simulateKey",
+                        "params": {
+                          "operation": "click",
+                          "keycode": "ArrowDown"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": [],
+      "children": [
+        {
+          "class": "button",
+          "name": "NewGame",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "e1909fc7ca42ac85",
+          "display": "stretch",
+          "normalImage": "",
+          "normalClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "hoverImage": "02ff74b90950aa28",
+          "hoverClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "activeImage": "",
+          "activeClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "flip": "none",
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "imagePadding": 0,
+          "imageOpacity": 1,
+          "imageEffect": "none",
+          "normalTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "hoverTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "activeTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "horizontal-tb",
+          "horizontalAlign": "center",
+          "verticalAlign": "middle",
+          "content": "New Game",
+          "size": 56,
+          "letterSpacing": 0,
+          "textPadding": 0,
+          "font": "",
+          "typeface": "regular",
+          "textEffect": {
+            "type": "shadow",
+            "shadowOffsetX": 4,
+            "shadowOffsetY": 4,
+            "color": "000000ff"
+          },
+          "normalColor": "b4b0a0ff",
+          "hoverColor": "f0e060ff",
+          "activeColor": "ffff80ff",
+          "hoverSound": "f8ad3495407d6543",
+          "clickSound": "985b7bc1a5fba576",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 320,
+            "width2": 0,
+            "height": 72,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [
+            {
+              "type": "click",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "Deleting the event host does not continue the execution and puts it in a separate execution block to ensure completion"
+                  }
+                },
+                {
+                  "id": "comment",
+                  "params": {
+                    "comment": "删除事件宿主后就不会继续执行，放到独立执行块中保证完成"
+                  }
+                },
+                {
+                  "id": "independent",
+                  "params": {
+                    "commands": [
+                      {
+                        "id": "deleteElement",
+                        "params": {
+                          "operation": "delete-all"
+                        }
+                      },
+                      {
+                        "id": "createGlobalActor",
+                        "params": {
+                          "actorId": "42a1df090cd447ff",
+                          "teamId": "09eae4cd86f61848"
+                        }
+                      },
+                      {
+                        "id": "setPlayerActor",
+                        "params": {
+                          "actor": {
+                            "type": "latest"
+                          }
+                        }
+                      },
+                      {
+                        "id": "setPartyMember",
+                        "params": {
+                          "operation": "add",
+                          "actor": {
+                            "type": "player"
+                          }
+                        }
+                      },
+                      {
+                        "id": "setString",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "sceneId"
+                          },
+                          "operation": "set",
+                          "operand": {
+                            "type": "other",
+                            "data": "start-position-scene-id"
+                          }
+                        }
+                      },
+                      {
+                        "id": "setNumber",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "x"
+                          },
+                          "operation": "set",
+                          "operands": [
+                            {
+                              "operation": "add",
+                              "type": "other",
+                              "data": "start-position-x"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "setNumber",
+                        "params": {
+                          "variable": {
+                            "type": "local",
+                            "key": "y"
+                          },
+                          "operation": "set",
+                          "operands": [
+                            {
+                              "operation": "add",
+                              "type": "other",
+                              "data": "start-position-y"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": "loadScene",
+                        "params": {
+                          "sceneId": {
+                            "type": "local",
+                            "key": "sceneId"
+                          },
+                          "transfer": true,
+                          "x": {
+                            "type": "local",
+                            "key": "x"
+                          },
+                          "y": {
+                            "type": "local",
+                            "key": "y"
+                          }
+                        }
+                      },
+                      {
+                        "id": "setZoomFactor",
+                        "params": {
+                          "zoom": {
+                            "type": "global",
+                            "key": "271bed60ed964d90"
+                          },
+                          "easingId": "01eac96676bb2ee7",
+                          "duration": 0,
+                          "wait": false
+                        }
+                      },
+                      {
+                        "id": "moveCamera",
+                        "params": {
+                          "mode": "actor",
+                          "actor": {
+                            "type": "player"
+                          },
+                          "easingId": "01eac96676bb2ee7",
+                          "duration": 0,
+                          "wait": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [
+            {
+              "id": "e0a9d9f1709b2096",
+              "enabled": true,
+              "parameters": {
+                "period": 640,
+                "opacity": 0.5
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "class": "button",
+          "name": "Continue",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "0bb1f8408260b287",
+          "display": "stretch",
+          "normalImage": "",
+          "normalClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "hoverImage": "02ff74b90950aa28",
+          "hoverClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "activeImage": "",
+          "activeClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "flip": "none",
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "imagePadding": 0,
+          "imageOpacity": 1,
+          "imageEffect": "none",
+          "normalTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "hoverTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "activeTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "horizontal-tb",
+          "horizontalAlign": "center",
+          "verticalAlign": "middle",
+          "content": "Continue",
+          "size": 56,
+          "letterSpacing": 0,
+          "textPadding": 0,
+          "font": "",
+          "typeface": "regular",
+          "textEffect": {
+            "type": "shadow",
+            "shadowOffsetX": 4,
+            "shadowOffsetY": 4,
+            "color": "000000ff"
+          },
+          "normalColor": "b4b0a0ff",
+          "hoverColor": "f0e060ff",
+          "activeColor": "ffff80ff",
+          "hoverSound": "f8ad3495407d6543",
+          "clickSound": "",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 320,
+            "width2": 0,
+            "height": 72,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [
+            {
+              "type": "click",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "if",
+                  "params": {
+                    "branches": [
+                      {
+                        "mode": "all",
+                        "conditions": [
+                          {
+                            "type": "element",
+                            "element": {
+                              "type": "by-id",
+                              "presetId": "54c90b1029d916cf"
+                            },
+                            "operation": "absent"
+                          }
+                        ],
+                        "commands": [
+                          {
+                            "id": "createElement",
+                            "params": {
+                              "operation": "append-one-to-root",
+                              "presetId": "54c90b1029d916cf"
+                            }
+                          },
+                          {
+                            "id": "setString",
+                            "params": {
+                              "variable": {
+                                "type": "element",
+                                "element": {
+                                  "type": "by-id",
+                                  "presetId": "54c90b1029d916cf"
+                                },
+                                "key": "25fcb64f5d458a0a"
+                              },
+                              "operation": "set",
+                              "operand": {
+                                "type": "constant",
+                                "value": "load"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "scripts": [
+            {
+              "id": "e0a9d9f1709b2096",
+              "enabled": true,
+              "parameters": {
+                "period": 640,
+                "opacity": 0.5
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "class": "button",
+          "name": "Exit",
+          "enabled": true,
+          "expanded": false,
+          "hidden": false,
+          "locked": false,
+          "presetId": "69f983c011139bf5",
+          "display": "stretch",
+          "normalImage": "",
+          "normalClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "hoverImage": "02ff74b90950aa28",
+          "hoverClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "activeImage": "",
+          "activeClip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "flip": "none",
+          "clip": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "border": 1,
+          "imagePadding": 0,
+          "imageOpacity": 1,
+          "imageEffect": "none",
+          "normalTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "hoverTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "activeTint": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "horizontal-tb",
+          "horizontalAlign": "center",
+          "verticalAlign": "middle",
+          "content": "Exit",
+          "size": 56,
+          "letterSpacing": 0,
+          "textPadding": 0,
+          "font": "",
+          "typeface": "regular",
+          "textEffect": {
+            "type": "shadow",
+            "shadowOffsetX": 4,
+            "shadowOffsetY": 4,
+            "color": "000000ff"
+          },
+          "normalColor": "b4b0a0ff",
+          "hoverColor": "f0e060ff",
+          "activeColor": "ffff80ff",
+          "hoverSound": "f8ad3495407d6543",
+          "clickSound": "",
+          "pointerEvents": "enabled",
+          "transform": {
+            "anchorX": 0,
+            "anchorY": 0,
+            "x": 0,
+            "x2": 0,
+            "y": 0,
+            "y2": 0,
+            "width": 320,
+            "width2": 0,
+            "height": 72,
+            "height2": 0,
+            "rotation": 0,
+            "scaleX": 1,
+            "scaleY": 1,
+            "skewX": 0,
+            "skewY": 0,
+            "opacity": 1
+          },
+          "events": [
+            {
+              "type": "click",
+              "enabled": true,
+              "commands": [
+                {
+                  "id": "bc72195fc998f0af",
+                  "params": {}
+                }
+              ]
+            }
+          ],
+          "scripts": [
+            {
+              "id": "e0a9d9f1709b2096",
+              "enabled": true,
+              "parameters": {
+                "period": 640,
+                "opacity": 0.5
+              }
+            }
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    288,
+    832,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "召唤老婆"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 15000
+    },
+    {
+      "key": "22e4d90f35666e4e",
+      "value": 20
+    },
+    {
+      "key": "9599832f30b88ec6",
+      "value": ""
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ac7278a39cf5d52f"
+          }
+        },
+        {
+          "id": "createTrigger",
+          "params": {
+            "triggerId": "cbecc880ed6d9ddd",
+            "caster": {
+              "type": "trigger"
+            },
+            "origin": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            },
+            "angle": {
+              "type": "direction",
+              "degrees": 0
+            },
+            "distance": 1,
+            "scale": 1,
+            "timeScale": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "6421aebf4c298605"
+            }
+          }
+        },
+        {
+          "id": "playAudio",
+          "params": {
+            "type": "se-attenuated",
+            "audio": "07ddd6deb327cba6",
+            "volume": 1,
+            "location": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            }
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "a9e218055f6787d9"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

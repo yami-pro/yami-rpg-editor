@@ -1,0 +1,227 @@
+{
+  "width": 20,
+  "height": 20,
+  "tileWidth": 16,
+  "tileHeight": 16,
+  "ambient": {
+    "red": 255,
+    "green": 255,
+    "blue": 255,
+    "direct": 0
+  },
+  "terrains": "~O3",
+  "events": [],
+  "scripts": [],
+  "objects": [
+    {
+      "class": "tilemap",
+      "name": "Tilemap1",
+      "enabled": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "7b952ff6ad35417a",
+      "tilesetMap": {
+        "1": "0e9420a25a16ab75"
+      },
+      "shortcut": 1,
+      "layer": "background",
+      "order": 0,
+      "light": "global",
+      "blend": "normal",
+      "x": 0,
+      "y": 0,
+      "width": 20,
+      "height": 20,
+      "anchorX": 0,
+      "anchorY": 0,
+      "offsetX": 0,
+      "offsetY": 0,
+      "parallaxFactorX": 1,
+      "parallaxFactorY": 1,
+      "opacity": 1,
+      "code": "#3###mO2",
+      "conditions": [],
+      "events": [],
+      "scripts": []
+    },
+    {
+      "class": "tilemap",
+      "name": "Tilemap2",
+      "enabled": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "ebbe147aa17b8dcf",
+      "tilesetMap": {
+        "1": "0e9420a25a16ab75"
+      },
+      "shortcut": 2,
+      "layer": "background",
+      "order": 0,
+      "light": "global",
+      "blend": "normal",
+      "x": 0,
+      "y": 0,
+      "width": 20,
+      "height": 20,
+      "anchorX": 0,
+      "anchorY": 0,
+      "offsetX": 0,
+      "offsetY": 0,
+      "parallaxFactorX": 1,
+      "parallaxFactorY": 1,
+      "opacity": 1,
+      "code": "x#3'&#w#3'&#~6#3S###3S$##3S%##3S&#n#3'&#do#3'&#co#33,##33-##33.#p#3W###3W$##3W%##3W&#u#3'##c#37,##37-##37.#p#3[###3[$##3[%##3[&#s#3'##co#3;,##3;-##3;.#p#3_###3_$##3_%##3_&#~A#3/$#{#3?.#~8#3+$#co#3'&#t#3+$#cr#3/$#q#3+$#t#3+$#o#3'##cr#3/%#cr#3'&#o#3+$#o#3'##t#3/%#q#3'&#q#3?.##3'##cx#3'&#n#3'##cp#3'##p#3+%#c#3/%#v#3'##er#3/%#o#3S'##3S(##3S)#v#3?.##3'&#s#3W'##3W(##3W)#q#33&##33'##33(#o#3'&#cs#3['##3[(##3[)#q#37&##37'##37(#s#3'##p#3_'##3_(##3_)#p#3'&##3;&##3;'##3;(##3'##q#3'##cu#3'&#cs#3'&#eu",
+      "conditions": [],
+      "events": [],
+      "scripts": []
+    },
+    {
+      "class": "actor",
+      "name": "Trader",
+      "type": "local",
+      "enabled": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "b0b02a2adac390cf",
+      "actorId": "469ef64d5f7b9877",
+      "teamId": "2a6ee1684ef7dfa0",
+      "x": 8.5,
+      "y": 9.5,
+      "angle": 0,
+      "scale": 1,
+      "conditions": [],
+      "events": [
+        {
+          "type": "create",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "setInventory",
+              "params": {
+                "actor": {
+                  "type": "trigger"
+                },
+                "operation": "increase-money",
+                "money": 233
+              }
+            },
+            {
+              "id": "setInventory",
+              "params": {
+                "actor": {
+                  "type": "trigger"
+                },
+                "operation": "increase-items",
+                "itemId": "9bb9eeccaf5c50a5",
+                "quantity": 9
+              }
+            },
+            {
+              "id": "setInventory",
+              "params": {
+                "actor": {
+                  "type": "trigger"
+                },
+                "operation": "increase-items",
+                "itemId": "4d09afb19ad27705",
+                "quantity": 9
+              }
+            },
+            {
+              "id": "setInventory",
+              "params": {
+                "actor": {
+                  "type": "trigger"
+                },
+                "operation": "gain-equipment",
+                "equipmentId": "fe1e746ee8299a4e"
+              }
+            },
+            {
+              "id": "setInventory",
+              "params": {
+                "actor": {
+                  "type": "trigger"
+                },
+                "operation": "gain-equipment",
+                "equipmentId": "f47d0daa7cc837ab"
+              }
+            },
+            {
+              "id": "setInventory",
+              "params": {
+                "actor": {
+                  "type": "trigger"
+                },
+                "operation": "gain-equipment",
+                "equipmentId": "9c37cb64a42f3664"
+              }
+            }
+          ]
+        },
+        {
+          "type": "autorun",
+          "enabled": true,
+          "commands": []
+        },
+        {
+          "type": "4009faa4ee2f5fbc",
+          "enabled": true,
+          "commands": [
+            {
+              "id": "showText",
+              "params": {
+                "target": {
+                  "type": "trigger"
+                },
+                "parameters": "",
+                "content": "Handsome, buy something?"
+              }
+            },
+            {
+              "id": "showChoices",
+              "params": {
+                "choices": [
+                  {
+                    "content": "I want to go back",
+                    "commands": [
+                      {
+                        "id": "loadScene",
+                        "params": {
+                          "sceneId": "42bb866ffdc04284",
+                          "transfer": true,
+                          "x": 61,
+                          "y": 38
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "content": "Transfer to the dungeon",
+                    "commands": [
+                      {
+                        "id": "loadScene",
+                        "params": {
+                          "sceneId": "0cc7147865076a05",
+                          "transfer": true,
+                          "x": 0,
+                          "y": 4
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "content": "Leave",
+                    "commands": []
+                  }
+                ],
+                "parameters": ""
+              }
+            }
+          ]
+        }
+      ],
+      "scripts": []
+    }
+  ]
+}

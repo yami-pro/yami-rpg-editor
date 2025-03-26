@@ -1,0 +1,329 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "actor",
+                "actor": {
+                  "type": "caster"
+                },
+                "operation": "is-member"
+              },
+              {
+                "type": "number",
+                "variable": {
+                  "type": "actor",
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "key": "47f57252180f77c7"
+                },
+                "operation": "greater-or-equal",
+                "operand": {
+                  "type": "constant",
+                  "value": 0
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "forEach",
+                "params": {
+                  "data": "member",
+                  "variable": {
+                    "type": "local",
+                    "key": "actor"
+                  },
+                  "commands": [
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "variable",
+                                  "variable": {
+                                    "type": "local",
+                                    "key": "actor"
+                                  }
+                                },
+                                "operation": "present-active"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "setNumber",
+                                "params": {
+                                  "variable": {
+                                    "type": "actor",
+                                    "actor": {
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "local",
+                                        "key": "actor"
+                                      }
+                                    },
+                                    "key": "5c4faa90ed9b17dc"
+                                  },
+                                  "operation": "add",
+                                  "operands": [
+                                    {
+                                      "operation": "add",
+                                      "type": "variable",
+                                      "variable": {
+                                        "type": "actor",
+                                        "actor": {
+                                          "type": "trigger"
+                                        },
+                                        "key": "47f57252180f77c7"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "number",
+                                          "variable": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "variable",
+                                              "variable": {
+                                                "type": "local",
+                                                "key": "actor"
+                                              }
+                                            },
+                                            "key": "5c4faa90ed9b17dc"
+                                          },
+                                          "operation": "greater-or-equal",
+                                          "operand": {
+                                            "type": "variable",
+                                            "variable": {
+                                              "type": "actor",
+                                              "actor": {
+                                                "type": "variable",
+                                                "variable": {
+                                                  "type": "local",
+                                                  "key": "actor"
+                                                }
+                                              },
+                                              "key": "8dd915b112c0447c"
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "comment",
+                                          "params": {
+                                            "comment": "Decrease experience value when upgrade is successful, limit experience value when full level"
+                                          }
+                                        },
+                                        {
+                                          "id": "comment",
+                                          "params": {
+                                            "comment": "升级成功时减少经验值，满级时限制经验值"
+                                          }
+                                        },
+                                        {
+                                          "id": "setNumber",
+                                          "params": {
+                                            "variable": {
+                                              "type": "local",
+                                              "key": "level"
+                                            },
+                                            "operation": "set",
+                                            "operands": [
+                                              {
+                                                "operation": "add",
+                                                "type": "variable",
+                                                "variable": {
+                                                  "type": "actor",
+                                                  "actor": {
+                                                    "type": "variable",
+                                                    "variable": {
+                                                      "type": "local",
+                                                      "key": "actor"
+                                                    }
+                                                  },
+                                                  "key": "fb9d675011f6c08f"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "id": "setNumber",
+                                          "params": {
+                                            "variable": {
+                                              "type": "local",
+                                              "key": "exp"
+                                            },
+                                            "operation": "set",
+                                            "operands": [
+                                              {
+                                                "operation": "add",
+                                                "type": "variable",
+                                                "variable": {
+                                                  "type": "actor",
+                                                  "actor": {
+                                                    "type": "variable",
+                                                    "variable": {
+                                                      "type": "local",
+                                                      "key": "actor"
+                                                    }
+                                                  },
+                                                  "key": "8dd915b112c0447c"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "id": "callEvent",
+                                          "params": {
+                                            "type": "actor",
+                                            "actor": {
+                                              "type": "variable",
+                                              "variable": {
+                                                "type": "local",
+                                                "key": "actor"
+                                              }
+                                            },
+                                            "eventType": "07f5bfd70e427909"
+                                          }
+                                        },
+                                        {
+                                          "id": "if",
+                                          "params": {
+                                            "branches": [
+                                              {
+                                                "mode": "all",
+                                                "conditions": [
+                                                  {
+                                                    "type": "number",
+                                                    "variable": {
+                                                      "type": "local",
+                                                      "key": "level"
+                                                    },
+                                                    "operation": "less",
+                                                    "operand": {
+                                                      "type": "variable",
+                                                      "variable": {
+                                                        "type": "actor",
+                                                        "actor": {
+                                                          "type": "variable",
+                                                          "variable": {
+                                                            "type": "local",
+                                                            "key": "actor"
+                                                          }
+                                                        },
+                                                        "key": "fb9d675011f6c08f"
+                                                      }
+                                                    }
+                                                  }
+                                                ],
+                                                "commands": [
+                                                  {
+                                                    "id": "setNumber",
+                                                    "params": {
+                                                      "variable": {
+                                                        "type": "actor",
+                                                        "actor": {
+                                                          "type": "variable",
+                                                          "variable": {
+                                                            "type": "local",
+                                                            "key": "actor"
+                                                          }
+                                                        },
+                                                        "key": "5c4faa90ed9b17dc"
+                                                      },
+                                                      "operation": "sub",
+                                                      "operands": [
+                                                        {
+                                                          "operation": "add",
+                                                          "type": "variable",
+                                                          "variable": {
+                                                            "type": "local",
+                                                            "key": "exp"
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ],
+                                            "elseCommands": [
+                                              {
+                                                "id": "setNumber",
+                                                "params": {
+                                                  "variable": {
+                                                    "type": "actor",
+                                                    "actor": {
+                                                      "type": "variable",
+                                                      "variable": {
+                                                        "type": "local",
+                                                        "key": "actor"
+                                                      }
+                                                    },
+                                                    "key": "5c4faa90ed9b17dc"
+                                                  },
+                                                  "operation": "set",
+                                                  "operands": [
+                                                    {
+                                                      "operation": "add",
+                                                      "type": "variable",
+                                                      "variable": {
+                                                        "type": "local",
+                                                        "key": "exp"
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

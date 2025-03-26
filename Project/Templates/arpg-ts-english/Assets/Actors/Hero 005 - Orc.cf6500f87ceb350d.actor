@@ -1,0 +1,800 @@
+{
+  "portrait": "4ee48c139e8bb12b",
+  "clip": [
+    0,
+    0,
+    32,
+    32
+  ],
+  "animationId": "a6cd939e01f94497",
+  "idleMotion": "9a715048c0cceb69",
+  "moveMotion": "f7bd22f4d3efcf4a",
+  "rotatable": false,
+  "passage": "land",
+  "speed": 8,
+  "shape": "circle",
+  "size": 0.8,
+  "weight": 1,
+  "immovable": true,
+  "scale": 1,
+  "priority": 0,
+  "inherit": "",
+  "sprites": [
+    {
+      "id": "00d24327e45b04cc",
+      "image": "1464c7e414894e2b"
+    },
+    {
+      "id": "fb1e50df85f01248",
+      "image": "84f7595342f7dfbd"
+    }
+  ],
+  "attributes": [
+    {
+      "key": "da4d32a4f1097059",
+      "value": "Epsilon"
+    },
+    {
+      "key": "a5fd5e9f229abb2d",
+      "value": 200
+    },
+    {
+      "key": "a8451228fe0c120a",
+      "value": 200
+    },
+    {
+      "key": "7fa82e53c15d0e81",
+      "value": 40
+    },
+    {
+      "key": "ff0db36441e761fa",
+      "value": 40
+    },
+    {
+      "key": "96efe7ef1b6999bc",
+      "value": 40
+    },
+    {
+      "key": "752c94a8aa99161b",
+      "value": 20
+    },
+    {
+      "key": "91e7127e267f9425",
+      "value": 20
+    },
+    {
+      "key": "9c18a64439c1368f",
+      "value": 15
+    },
+    {
+      "key": "2b66c53fcb9e7680",
+      "value": 0
+    },
+    {
+      "key": "d4f44a28ced26547",
+      "value": 0
+    },
+    {
+      "key": "6421aebf4c298605",
+      "value": 1
+    },
+    {
+      "key": "597091e2c6bc6048",
+      "value": 1
+    },
+    {
+      "key": "21dbee71a168756b",
+      "value": 0
+    },
+    {
+      "key": "d8d40cdec3b0507a",
+      "value": 0
+    },
+    {
+      "key": "9a7528d2de781a0d",
+      "value": 4
+    },
+    {
+      "key": "128e70ad5699cd34",
+      "value": 2
+    },
+    {
+      "key": "ae74ea048a11f696",
+      "value": 4
+    }
+  ],
+  "skills": [
+    {
+      "id": "6e210c214a2579bc",
+      "key": "90007906916a7fd8"
+    }
+  ],
+  "equipments": [],
+  "inventory": [],
+  "events": [
+    {
+      "type": "autorun",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "setObject",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "master"
+            },
+            "operand": {
+              "type": "actor",
+              "actor": {
+                "type": "variable",
+                "variable": {
+                  "type": "global",
+                  "key": "1c9c7609f00bac2f"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "block",
+          "params": {
+            "note": "Set summon duration",
+            "asynchronous": true,
+            "commands": [
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Set the duration of the summon"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "设置召唤持续时间"
+                }
+              },
+              {
+                "id": "wait",
+                "params": {
+                  "duration": 30000
+                }
+              },
+              {
+                "id": "moveActor",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "mode": "stop"
+                }
+              },
+              {
+                "id": "setActive",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "active": false
+                }
+              },
+              {
+                "id": "playActorAnimation",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  },
+                  "motion": "7710581f996b0bb8",
+                  "speed": 1,
+                  "wait": true
+                }
+              },
+              {
+                "id": "deleteActor",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  }
+                }
+              }
+            ]
+          },
+          "folded": true
+        },
+        {
+          "id": "block",
+          "params": {
+            "note": "Combat state machine",
+            "asynchronous": false,
+            "commands": [
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Following state"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "跟随主人状态"
+                }
+              },
+              {
+                "id": "loop",
+                "params": {
+                  "mode": "all",
+                  "conditions": [],
+                  "commands": [
+                    {
+                      "id": "label",
+                      "params": {
+                        "name": "follow"
+                      }
+                    },
+                    {
+                      "id": "followActor",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "target": {
+                          "type": "variable",
+                          "variable": {
+                            "type": "local",
+                            "key": "master"
+                          }
+                        },
+                        "mode": "circle",
+                        "minDist": 0,
+                        "maxDist": 1,
+                        "offset": 0,
+                        "navigate": true,
+                        "once": false,
+                        "wait": false
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "distance"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "math",
+                            "method": "distance",
+                            "start": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            },
+                            "end": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "master"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "distance"
+                                },
+                                "operation": "less-or-equal",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 12
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "comment",
+                                "params": {
+                                  "comment": "If the target is found, enter combat state"
+                                }
+                              },
+                              {
+                                "id": "comment",
+                                "params": {
+                                  "comment": "如果发现目标，则进入战斗状态"
+                                }
+                              },
+                              {
+                                "id": "detectTargets",
+                                "params": {
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "distance": 8,
+                                  "selector": "enemy",
+                                  "inSight": false
+                                }
+                              },
+                              {
+                                "id": "if",
+                                "params": {
+                                  "branches": [
+                                    {
+                                      "mode": "all",
+                                      "conditions": [
+                                        {
+                                          "type": "actor",
+                                          "actor": {
+                                            "type": "trigger"
+                                          },
+                                          "operation": "has-targets"
+                                        }
+                                      ],
+                                      "commands": [
+                                        {
+                                          "id": "jumpTo",
+                                          "params": {
+                                            "operation": "jump",
+                                            "label": "combat"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "wait",
+                      "params": {
+                        "duration": 1000
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Combat state"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "战斗状态"
+                }
+              },
+              {
+                "id": "loop",
+                "params": {
+                  "mode": "all",
+                  "conditions": [],
+                  "commands": [
+                    {
+                      "id": "wait",
+                      "params": {
+                        "duration": 100
+                      }
+                    },
+                    {
+                      "id": "label",
+                      "params": {
+                        "name": "combat"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "If the current character is too far away from the summoner, force to disengage from the battle"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "如果当前角色跟召唤师的距离太远，强制脱战"
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "distance"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "math",
+                            "method": "distance",
+                            "start": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            },
+                            "end": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "variable",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "master"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "distance"
+                                },
+                                "operation": "greater",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 12
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "jumpTo",
+                                "params": {
+                                  "operation": "jump",
+                                  "label": "return"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "Obtain hostile targets"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "获取敌对目标"
+                      }
+                    },
+                    {
+                      "id": "discardTargets",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "selector": "enemy",
+                        "distance": 12
+                      }
+                    },
+                    {
+                      "id": "getTarget",
+                      "params": {
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "selector": "enemy",
+                        "condition": "max-threat"
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "actor",
+                                "actor": {
+                                  "type": "target"
+                                },
+                                "operation": "absent"
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "jumpTo",
+                                "params": {
+                                  "operation": "jump",
+                                  "label": "return"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "If the target is in range of the attack"
+                      }
+                    },
+                    {
+                      "id": "comment",
+                      "params": {
+                        "comment": "如果目标在攻击范围内"
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "horiz"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "math",
+                            "method": "distance-x",
+                            "start": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            },
+                            "end": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "target"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "setNumber",
+                      "params": {
+                        "variable": {
+                          "type": "local",
+                          "key": "vert"
+                        },
+                        "operation": "set",
+                        "operands": [
+                          {
+                            "operation": "add",
+                            "type": "math",
+                            "method": "distance-y",
+                            "start": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "trigger"
+                              }
+                            },
+                            "end": {
+                              "type": "actor",
+                              "actor": {
+                                "type": "target"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "if",
+                      "params": {
+                        "branches": [
+                          {
+                            "mode": "all",
+                            "conditions": [
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "horiz"
+                                },
+                                "operation": "less-or-equal",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 1.5
+                                }
+                              },
+                              {
+                                "type": "number",
+                                "variable": {
+                                  "type": "local",
+                                  "key": "vert"
+                                },
+                                "operation": "less-or-equal",
+                                "operand": {
+                                  "type": "constant",
+                                  "value": 0.5
+                                }
+                              }
+                            ],
+                            "commands": [
+                              {
+                                "id": "comment",
+                                "params": {
+                                  "comment": "Casting a normal attack"
+                                }
+                              },
+                              {
+                                "id": "comment",
+                                "params": {
+                                  "comment": "施放普通攻击"
+                                }
+                              },
+                              {
+                                "id": "moveActor",
+                                "params": {
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "mode": "stop"
+                                }
+                              },
+                              {
+                                "id": "setAngle",
+                                "params": {
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "angle": {
+                                    "type": "position",
+                                    "position": {
+                                      "type": "actor",
+                                      "actor": {
+                                        "type": "target"
+                                      }
+                                    }
+                                  },
+                                  "easingId": "01eac96676bb2ee7",
+                                  "duration": 0,
+                                  "wait": false
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "mode": "by-id",
+                                  "skillId": "6e210c214a2579bc",
+                                  "wait": false
+                                }
+                              },
+                              {
+                                "id": "castSkill",
+                                "params": {
+                                  "actor": {
+                                    "type": "trigger"
+                                  },
+                                  "mode": "by-id",
+                                  "skillId": "6e210c214a2579bc",
+                                  "wait": true
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "elseCommands": [
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "If the distance is too far, approach the target first"
+                            }
+                          },
+                          {
+                            "id": "comment",
+                            "params": {
+                              "comment": "如果距离太远，先接近目标"
+                            }
+                          },
+                          {
+                            "id": "followActor",
+                            "params": {
+                              "actor": {
+                                "type": "trigger"
+                              },
+                              "target": {
+                                "type": "target"
+                              },
+                              "mode": "rectangle",
+                              "minDist": 0.5,
+                              "maxDist": 1.5,
+                              "vertDist": 0,
+                              "navigate": true,
+                              "bypass": false,
+                              "once": false,
+                              "wait": false
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Returning state"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "返回状态"
+                }
+              },
+              {
+                "id": "label",
+                "params": {
+                  "name": "return"
+                }
+              },
+              {
+                "id": "resetTargets",
+                "params": {
+                  "actor": {
+                    "type": "trigger"
+                  }
+                }
+              },
+              {
+                "id": "jumpTo",
+                "params": {
+                  "operation": "jump",
+                  "label": "follow"
+                }
+              }
+            ]
+          },
+          "folded": true
+        }
+      ]
+    }
+  ],
+  "scripts": [
+    {
+      "id": "f8d98d5c407a7b96",
+      "enabled": true,
+      "parameters": {
+        "currentKey": "7fa82e53c15d0e81",
+        "maximumKey": "ff0db36441e761fa",
+        "speedKey": "128e70ad5699cd34"
+      }
+    }
+  ]
+}

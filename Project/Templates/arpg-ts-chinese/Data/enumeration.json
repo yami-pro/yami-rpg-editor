@@ -1,0 +1,755 @@
+{
+  "settings": {
+    "shortcut-key": "9060946744d86ba4",
+    "cooldown-key": "9b614c266b582778",
+    "equipment-slot": "a6642ae59168aae7",
+    "global-event": "",
+    "scene-event": "",
+    "actor-event": "8b2857921df4b8cd",
+    "skill-event": "",
+    "state-event": "",
+    "equipment-event": "",
+    "item-event": "",
+    "region-event": "",
+    "light-event": "",
+    "animation-event": "",
+    "particle-event": "",
+    "parallax-event": "",
+    "tilemap-event": "",
+    "element-event": "e886be920637eccd"
+  },
+  "strings": [
+    {
+      "class": "folder",
+      "id": "9060946744d86ba4",
+      "name": "快捷键",
+      "expanded": true,
+      "children": [
+        {
+          "class": "folder",
+          "id": "7cbb9c2f502bbfc4",
+          "name": "隐藏技能的快捷键",
+          "expanded": true,
+          "children": [
+            {
+              "id": "90007906916a7fd8",
+              "value": "RB",
+              "name": "Attack",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "27b0dbea0d85631c",
+          "name": "快捷栏中的快捷键",
+          "expanded": true,
+          "children": [
+            {
+              "id": "a0852e138d40db75",
+              "value": "1",
+              "name": "1",
+              "note": ""
+            },
+            {
+              "id": "aec671ff26cfdace",
+              "value": "2",
+              "name": "2",
+              "note": ""
+            },
+            {
+              "id": "9cd95b90e24a5f54",
+              "value": "3",
+              "name": "3",
+              "note": ""
+            },
+            {
+              "id": "dcb005fc36640a1d",
+              "value": "4",
+              "name": "4",
+              "note": ""
+            },
+            {
+              "id": "97f323d760aa7208",
+              "value": "C",
+              "name": "C",
+              "note": ""
+            },
+            {
+              "id": "c985f8a14e186fbf",
+              "value": "F",
+              "name": "F",
+              "note": ""
+            },
+            {
+              "id": "8100f9f65eccbcf4",
+              "value": "E",
+              "name": "E",
+              "note": ""
+            },
+            {
+              "id": "c6b62127e427b270",
+              "value": "R",
+              "name": "R",
+              "note": ""
+            },
+            {
+              "id": "7eba9f3cada969f8",
+              "value": "Space",
+              "name": "Space",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "9b614c266b582778",
+      "name": "冷却键",
+      "expanded": true,
+      "children": [
+        {
+          "id": "99b7b4b64b1a371f",
+          "value": "recover-health",
+          "name": "恢复生命",
+          "note": ""
+        },
+        {
+          "id": "764397b0f9da00c4",
+          "value": "recover-mana",
+          "name": "恢复魔法",
+          "note": ""
+        },
+        {
+          "id": "5cc9a347c43688af",
+          "value": "remove-debuff",
+          "name": "解毒",
+          "note": ""
+        },
+        {
+          "id": "726e8f42a3f99bd5",
+          "value": "add-buff",
+          "name": "增益",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "a6642ae59168aae7",
+      "name": "装备槽",
+      "expanded": true,
+      "children": [
+        {
+          "id": "9b914c88415f4908",
+          "value": "weapon",
+          "name": "武器",
+          "note": ""
+        },
+        {
+          "id": "09ce01a6ec896748",
+          "value": "body",
+          "name": "身体",
+          "note": ""
+        },
+        {
+          "id": "070ac7c4ae86868a",
+          "value": "head",
+          "name": "头",
+          "note": ""
+        },
+        {
+          "id": "26649c2000acabfd",
+          "value": "hand",
+          "name": "手",
+          "note": ""
+        },
+        {
+          "id": "ee4faeddd80ca01f",
+          "value": "foot",
+          "name": "脚",
+          "note": ""
+        },
+        {
+          "id": "0098cdf6d26f8ac4",
+          "value": "accessory",
+          "name": "饰品",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "1a98aa5c69ce56d0",
+      "name": "装备类型",
+      "expanded": true,
+      "children": [
+        {
+          "id": "96b55f82d8571e0d",
+          "value": "sword",
+          "name": "剑",
+          "note": ""
+        },
+        {
+          "id": "48cade8361eab2fd",
+          "value": "axe",
+          "name": "斧",
+          "note": ""
+        },
+        {
+          "id": "0196d851e96719a6",
+          "value": "bow",
+          "name": "弓",
+          "note": ""
+        },
+        {
+          "id": "2bd92f867bb4c772",
+          "value": "wand",
+          "name": "杖",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "66aa13609bc77a7e",
+      "name": "装备品质",
+      "expanded": true,
+      "children": [
+        {
+          "id": "408dc2e6d1ae7329",
+          "value": "common",
+          "name": "普通",
+          "note": ""
+        },
+        {
+          "id": "7802b73510212500",
+          "value": "rare",
+          "name": "稀有",
+          "note": ""
+        },
+        {
+          "id": "9f7addeeb07e147e",
+          "value": "artifact",
+          "name": "神器",
+          "note": ""
+        },
+        {
+          "id": "a204b12d636daa8f",
+          "value": "legendary",
+          "name": "传说",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "d091a25ffaa9accc",
+      "name": "状态类型",
+      "expanded": true,
+      "children": [
+        {
+          "id": "aa4be2e45aaa07e2",
+          "value": "positive",
+          "name": "正面状态",
+          "note": ""
+        },
+        {
+          "id": "cf59776929dddb77",
+          "value": "negative",
+          "name": "负面状态",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "8b2857921df4b8cd",
+      "name": "角色事件",
+      "expanded": true,
+      "children": [
+        {
+          "id": "4009faa4ee2f5fbc",
+          "value": "talk",
+          "name": "对话事件",
+          "note": ""
+        },
+        {
+          "id": "07f5bfd70e427909",
+          "value": "level-up",
+          "name": "升级事件",
+          "note": ""
+        },
+        {
+          "id": "fdede5db37a4ee44",
+          "value": "death",
+          "name": "死亡事件",
+          "note": ""
+        },
+        {
+          "id": "c2ba6c4f90edd668",
+          "value": "drop",
+          "name": "掉落物品",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "dc35e21ae8cbee5f",
+      "name": "职业",
+      "expanded": true,
+      "children": [
+        {
+          "id": "9d8664dcb88c5e72",
+          "value": "warrior",
+          "name": "战士",
+          "note": ""
+        },
+        {
+          "id": "cf348ee6f14360d8",
+          "value": "archer",
+          "name": "弓箭手",
+          "note": ""
+        },
+        {
+          "id": "ee6c6f9652284009",
+          "value": "mage",
+          "name": "魔法师",
+          "note": ""
+        },
+        {
+          "id": "4a68d179f298e849",
+          "value": "priest",
+          "name": "圣职者",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "8b7080b7a502997f",
+      "name": "角色状态",
+      "expanded": true,
+      "children": [
+        {
+          "id": "18e8a940bce7382f",
+          "value": "idle",
+          "name": "闲置",
+          "note": ""
+        },
+        {
+          "id": "4df29e32f2f88d1b",
+          "value": "casting",
+          "name": "技能施放中",
+          "note": ""
+        },
+        {
+          "id": "4b5779824489e9cc",
+          "value": "combo-1",
+          "name": "连击-1",
+          "note": ""
+        },
+        {
+          "id": "a2b0f447f4ffbdd5",
+          "value": "combo-2-wait",
+          "name": "连击-2-等待",
+          "note": ""
+        },
+        {
+          "id": "7cbd0ff2e806dccd",
+          "value": "combo-2",
+          "name": "连击-2",
+          "note": ""
+        },
+        {
+          "id": "2acc5496b2d9e78c",
+          "value": "combo-3-wait",
+          "name": "连击-3-等待",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "a2aadd0ff77b7506",
+      "name": "角色动作",
+      "expanded": true,
+      "children": [
+        {
+          "id": "9a715048c0cceb69",
+          "value": "idle",
+          "name": "闲置",
+          "note": ""
+        },
+        {
+          "id": "f7bd22f4d3efcf4a",
+          "value": "move",
+          "name": "移动",
+          "note": ""
+        },
+        {
+          "id": "baf0063927139f01",
+          "value": "jump",
+          "name": "跳跃",
+          "note": ""
+        },
+        {
+          "id": "27714ed346503827",
+          "value": "attack",
+          "name": "攻击",
+          "note": ""
+        },
+        {
+          "id": "54aa1242b6a66cfc",
+          "value": "attack-1",
+          "name": "攻击-1",
+          "note": ""
+        },
+        {
+          "id": "bb0760b21d65ca21",
+          "value": "attack-2",
+          "name": "攻击-2",
+          "note": ""
+        },
+        {
+          "id": "9cadf0c73aa8f06d",
+          "value": "archery",
+          "name": "射箭",
+          "note": ""
+        },
+        {
+          "id": "fab99452db9e9517",
+          "value": "cast",
+          "name": "施放",
+          "note": ""
+        },
+        {
+          "id": "ffa7d2c10f634142",
+          "value": "death",
+          "name": "死亡",
+          "note": ""
+        },
+        {
+          "id": "7710581f996b0bb8",
+          "value": "teleport",
+          "name": "传送",
+          "note": ""
+        },
+        {
+          "id": "2ba68d4864416488",
+          "value": "boss-frenzy",
+          "name": "Boss-狂暴",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "228a77c680ffd1e2",
+      "name": "角色相关动作",
+      "expanded": true,
+      "children": [
+        {
+          "id": "14987656c22ad4d2",
+          "value": "recover-health",
+          "name": "恢复生命",
+          "note": ""
+        },
+        {
+          "id": "9fff8c1bc41a81bb",
+          "value": "recovery-mana",
+          "name": "恢复魔法",
+          "note": ""
+        },
+        {
+          "id": "4d0ecd5f0b97dd4e",
+          "value": "gain-buff",
+          "name": "获得增益状态",
+          "note": ""
+        },
+        {
+          "id": "cadd4e0c4f0beb1d",
+          "value": "level-up",
+          "name": "升级效果",
+          "note": ""
+        },
+        {
+          "id": "a20ba584b0ca3547",
+          "value": "slowdown",
+          "name": "减速",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "5470a86d6c241f72",
+      "name": "技能动作",
+      "expanded": true,
+      "children": [
+        {
+          "class": "folder",
+          "id": "7288f9c522b7f7ff",
+          "name": "战士技能",
+          "expanded": true,
+          "children": [
+            {
+              "id": "aa9d732244824a32",
+              "value": "flying-sword",
+              "name": "飞剑",
+              "note": ""
+            },
+            {
+              "id": "6ff216e290e6b75e",
+              "value": "holy-sword",
+              "name": "圣剑",
+              "note": ""
+            },
+            {
+              "id": "a188bd6768b2f545",
+              "value": "blade-storm",
+              "name": "旋风斩",
+              "note": ""
+            },
+            {
+              "id": "07f29292c7aa7674",
+              "value": "sword-wheel",
+              "name": "剑轮舞",
+              "note": ""
+            },
+            {
+              "id": "b4f2b345fa11c818",
+              "value": "sword-wheel-end",
+              "name": "剑轮舞-结束",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "f9eeb509add68da5",
+          "name": "弓箭手技能",
+          "expanded": true,
+          "children": [
+            {
+              "id": "4a6cec6cfcca2f96",
+              "value": "archery",
+              "name": "射箭",
+              "note": ""
+            },
+            {
+              "id": "1a521da9bfa77bd9",
+              "value": "piercing-arrow",
+              "name": "穿心箭",
+              "note": ""
+            },
+            {
+              "id": "f0da5e02f905a7a2",
+              "value": "burst-arrow",
+              "name": "爆裂箭",
+              "note": ""
+            },
+            {
+              "id": "d2f908a9b67d8b99",
+              "value": "burst-arrow-explosion",
+              "name": "爆裂箭-爆炸",
+              "note": ""
+            },
+            {
+              "id": "fda60ae49e6f1f90",
+              "value": "frozen-arrow",
+              "name": "冰冻箭",
+              "note": ""
+            },
+            {
+              "id": "188c5d46b8d627d0",
+              "value": "rain-of-arrows",
+              "name": "箭雨",
+              "note": ""
+            },
+            {
+              "id": "efe1fa8d082c5cff",
+              "value": "rain-of-arrows-area",
+              "name": "箭雨-区域",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "20fa2f94a4aec9b6",
+          "name": "法师技能",
+          "expanded": true,
+          "children": [
+            {
+              "id": "77e80af2f5e29e56",
+              "value": "fire-ball",
+              "name": "火球",
+              "note": ""
+            },
+            {
+              "id": "0afacb0de87a087e",
+              "value": "burn",
+              "name": "燃烧",
+              "note": ""
+            },
+            {
+              "id": "a848d7938b833835",
+              "value": "fire-wall",
+              "name": "火墙",
+              "note": ""
+            },
+            {
+              "id": "feef287d2c1ebc2a",
+              "value": "cyclone",
+              "name": "飓风",
+              "note": ""
+            },
+            {
+              "id": "17564b58ac27b9ad",
+              "value": "black-hole",
+              "name": "黑洞",
+              "note": ""
+            },
+            {
+              "id": "b6e9990a79420ba4",
+              "value": "ice-cone-emitter",
+              "name": "冰封球",
+              "note": ""
+            },
+            {
+              "id": "d6995c7a6dd3c27d",
+              "value": "ice-cone",
+              "name": "冰锥",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "729e24992d8aae45",
+          "name": "圣职者技能",
+          "expanded": true,
+          "children": [
+            {
+              "id": "ec797e040f8abf4e",
+              "value": "heal",
+              "name": "治疗术",
+              "note": ""
+            },
+            {
+              "id": "7909c02c48f29edb",
+              "value": "holy-word",
+              "name": "圣言术",
+              "note": ""
+            },
+            {
+              "id": "99ee34e6d021cbc9",
+              "value": "magic-shield",
+              "name": "魔法盾",
+              "note": ""
+            },
+            {
+              "id": "bd8f93259986f442",
+              "value": "summon-wife",
+              "name": "召唤老婆",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "class": "folder",
+          "id": "79d0e180a52f3d38",
+          "name": "Boss技能",
+          "expanded": true,
+          "children": [
+            {
+              "id": "202fbc71a3bd6fc8",
+              "value": "spark",
+              "name": "冲击波",
+              "note": ""
+            },
+            {
+              "id": "f564a24ccb748042",
+              "value": "spark-hit",
+              "name": "冲击波-击中",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "dee2007f94544256",
+      "name": "其他动作",
+      "expanded": true,
+      "children": [
+        {
+          "id": "c9196e684ff2942a",
+          "value": "map-marker",
+          "name": "地图标记",
+          "note": ""
+        },
+        {
+          "id": "bb120645ed38cecc",
+          "value": "chest-closed",
+          "name": "宝箱-已关闭",
+          "note": ""
+        },
+        {
+          "id": "8c4998e5b14bd18f",
+          "value": "chest-open",
+          "name": "宝箱-已打开",
+          "note": ""
+        },
+        {
+          "id": "97d179e1c4ef7ec8",
+          "value": "chest-opening",
+          "name": "宝箱-正在打开",
+          "note": ""
+        },
+        {
+          "id": "2d76876c802aebec",
+          "value": "item-gold",
+          "name": "物品-金币",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "class": "folder",
+      "id": "e886be920637eccd",
+      "name": "元素事件",
+      "expanded": true,
+      "children": [
+        {
+          "id": "f2aa14a05754779f",
+          "value": "load-data",
+          "name": "加载数据",
+          "note": ""
+        },
+        {
+          "id": "925e3348a8d7cf78",
+          "value": "update",
+          "name": "更新数据",
+          "note": ""
+        },
+        {
+          "id": "e8a057e280a28d9b",
+          "value": "resize",
+          "name": "调整大小",
+          "note": ""
+        },
+        {
+          "id": "a7adcc1b24d4baf0",
+          "value": "close-window",
+          "name": "关闭窗口",
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

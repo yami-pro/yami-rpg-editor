@@ -1,0 +1,142 @@
+[
+  {
+    "class": "folder",
+    "name": "Common",
+    "expanded": true,
+    "children": [
+      {
+        "id": "9b88cf064bea5488",
+        "name": "TemporaryBoolean",
+        "value": false,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "4beccf626076a6a5",
+        "name": "TemporaryNumber",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "4d769804b47b9c66",
+        "name": "TemporaryString",
+        "value": "",
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "bfab2564c80ef215",
+        "name": "TemporaryObject",
+        "value": null,
+        "sort": 2,
+        "note": "玩家在对话框选项作出选择时返回的数值{1,2,...}"
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "name": "System",
+    "expanded": true,
+    "children": [
+      {
+        "id": "271bed60ed964d90",
+        "name": "CameraZoom",
+        "value": 2,
+        "sort": 0,
+        "note": ""
+      },
+      {
+        "id": "1c9c7609f00bac2f",
+        "name": "SkillTargetActor",
+        "value": null,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "ebc7cde369ecbb99",
+        "name": "IsInConversation",
+        "value": false,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "24499decb41940d7",
+        "name": "Night",
+        "value": false,
+        "sort": 0,
+        "note": ""
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "name": "Overworld",
+    "expanded": true,
+    "children": [
+      {
+        "id": "cc64cab21908af49",
+        "name": "GenderChanged",
+        "value": false,
+        "sort": 0,
+        "note": ""
+      }
+    ]
+  },
+  {
+    "class": "folder",
+    "name": "UI",
+    "expanded": true,
+    "children": [
+      {
+        "id": "9008b0429d9e848c",
+        "name": "BuyingPriceFactor",
+        "value": 2,
+        "sort": 0,
+        "note": ""
+      },
+      {
+        "id": "94415f939e880277",
+        "name": "SellingPriceFactor",
+        "value": 1,
+        "sort": 0,
+        "note": ""
+      },
+      {
+        "id": "e40281edcb0702ca",
+        "name": "GoodsQuantity",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "f0ea5ae8c9c7d124",
+        "name": "TotalPrice",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "99ffd0d82dda5bf2",
+        "name": "MouseDownX",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "1cde8969ec2ee785",
+        "name": "MouseDownY",
+        "value": 0,
+        "sort": 2,
+        "note": ""
+      },
+      {
+        "id": "c44fb9a52536747c",
+        "name": "PausedEvent",
+        "value": null,
+        "sort": 2,
+        "note": ""
+      }
+    ]
+  }
+]

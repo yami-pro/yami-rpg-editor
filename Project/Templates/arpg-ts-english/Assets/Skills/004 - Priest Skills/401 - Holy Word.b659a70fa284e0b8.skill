@@ -1,0 +1,212 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    96,
+    864,
+    32,
+    32
+  ],
+  "inherit": "",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "Holy Word"
+    },
+    {
+      "key": "0979dee7846ae2dd",
+      "value": 5000
+    },
+    {
+      "key": "22e4d90f35666e4e",
+      "value": 5
+    },
+    {
+      "key": "9599832f30b88ec6",
+      "value": ""
+    }
+  ],
+  "events": [
+    {
+      "type": "skillcast",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "f2cdf8aefe70bc48"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "ac7278a39cf5d52f"
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "quantity"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "constant",
+                "value": 8
+              }
+            ]
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "local",
+              "key": "count"
+            },
+            "operation": "set",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "constant",
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "loop",
+          "params": {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "number",
+                "variable": {
+                  "type": "local",
+                  "key": "count"
+                },
+                "operation": "less",
+                "operand": {
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "quantity"
+                  }
+                }
+              }
+            ],
+            "commands": [
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "angle"
+                  },
+                  "operation": "set",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 360
+                    },
+                    {
+                      "operation": "mul",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "count"
+                      }
+                    },
+                    {
+                      "operation": "div",
+                      "type": "variable",
+                      "variable": {
+                        "type": "local",
+                        "key": "quantity"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "createTrigger",
+                "params": {
+                  "triggerId": "45806aa2151957e4",
+                  "caster": {
+                    "type": "trigger"
+                  },
+                  "origin": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    }
+                  },
+                  "angle": {
+                    "type": "relative",
+                    "degrees": {
+                      "type": "local",
+                      "key": "angle"
+                    }
+                  },
+                  "distance": 2,
+                  "scale": 1,
+                  "timeScale": {
+                    "type": "actor",
+                    "actor": {
+                      "type": "trigger"
+                    },
+                    "key": "6421aebf4c298605"
+                  }
+                }
+              },
+              {
+                "id": "setNumber",
+                "params": {
+                  "variable": {
+                    "type": "local",
+                    "key": "count"
+                  },
+                  "operation": "add",
+                  "operands": [
+                    {
+                      "operation": "add",
+                      "type": "constant",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "playAudio",
+          "params": {
+            "type": "se-attenuated",
+            "audio": "48f2ff54fe24a818",
+            "volume": 1,
+            "location": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              }
+            }
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "a9e218055f6787d9"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

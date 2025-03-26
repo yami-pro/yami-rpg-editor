@@ -1,0 +1,182 @@
+{
+  "type": "mouseup",
+  "enabled": false,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "if",
+      "params": {
+        "branches": [
+          {
+            "mode": "all",
+            "conditions": [
+              {
+                "type": "element",
+                "element": {
+                  "type": "by-id",
+                  "presetId": "c4aa45f1f9a37b18"
+                },
+                "operation": "present"
+              }
+            ],
+            "commands": [
+              {
+                "id": "if",
+                "params": {
+                  "branches": [
+                    {
+                      "mode": "all",
+                      "conditions": [
+                        {
+                          "type": "element",
+                          "element": {
+                            "type": "by-id",
+                            "presetId": "c4aa45f1f9a37b18"
+                          },
+                          "operation": "visible"
+                        }
+                      ],
+                      "commands": [
+                        {
+                          "id": "switch",
+                          "params": {
+                            "variable": {
+                              "type": "element",
+                              "element": {
+                                "type": "by-id",
+                                "presetId": "c4aa45f1f9a37b18"
+                              },
+                              "key": "25fcb64f5d458a0a"
+                            },
+                            "branches": [
+                              {
+                                "conditions": [
+                                  {
+                                    "type": "string",
+                                    "value": "shortcut"
+                                  }
+                                ],
+                                "commands": [
+                                  {
+                                    "id": "setShortcut",
+                                    "params": {
+                                      "actor": {
+                                        "type": "variable",
+                                        "variable": {
+                                          "type": "element",
+                                          "element": {
+                                            "type": "by-id",
+                                            "presetId": "016c09707e098490"
+                                          },
+                                          "key": "1f4c880e8e284c05"
+                                        }
+                                      },
+                                      "operation": "delete-shortcut",
+                                      "key": {
+                                        "type": "element",
+                                        "element": {
+                                          "type": "by-id",
+                                          "presetId": "c4aa45f1f9a37b18"
+                                        },
+                                        "key": "69b2fe88da1819c6"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "callEvent",
+                                    "params": {
+                                      "type": "global",
+                                      "eventId": "2b678792940af6a4"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "Resetting drag-and-drop data"
+                }
+              },
+              {
+                "id": "comment",
+                "params": {
+                  "comment": "重置拖拽数据"
+                }
+              },
+              {
+                "id": "setObject",
+                "params": {
+                  "variable": {
+                    "type": "element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "c4aa45f1f9a37b18"
+                    },
+                    "key": "1f4c880e8e284c05"
+                  },
+                  "operand": {
+                    "type": "none"
+                  }
+                }
+              },
+              {
+                "id": "setString",
+                "params": {
+                  "variable": {
+                    "type": "element",
+                    "element": {
+                      "type": "by-id",
+                      "presetId": "c4aa45f1f9a37b18"
+                    },
+                    "key": "25fcb64f5d458a0a"
+                  },
+                  "operation": "set",
+                  "operand": {
+                    "type": "constant",
+                    "value": ""
+                  }
+                }
+              },
+              {
+                "id": "setElement",
+                "params": {
+                  "element": {
+                    "type": "by-id",
+                    "presetId": "c4aa45f1f9a37b18"
+                  },
+                  "operation": "hide"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setEvent",
+      "params": {
+        "operation": "disable",
+        "eventId": "1ea42955cc47c5fe"
+      }
+    },
+    {
+      "id": "setEvent",
+      "params": {
+        "operation": "disable",
+        "eventId": "0e0491b9870ec48a"
+      }
+    }
+  ]
+}

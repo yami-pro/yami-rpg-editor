@@ -1,0 +1,65 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    64,
+    288,
+    32,
+    32
+  ],
+  "inherit": "233bf98720fab125",
+  "attributes": [
+    {
+      "key": "272e0e7696d64a92",
+      "value": "Antidote"
+    },
+    {
+      "key": "ff4ae88b5d725e64",
+      "value": "408dc2e6d1ae7329"
+    },
+    {
+      "key": "64234b740706abdf",
+      "value": true
+    },
+    {
+      "key": "fabb6c550f7b3094",
+      "value": "5cc9a347c43688af"
+    },
+    {
+      "key": "8cabc439007271c7",
+      "value": 1000
+    },
+    {
+      "key": "49574fd687a9bd27",
+      "value": 25
+    },
+    {
+      "key": "ee210e38c2f48a0b",
+      "value": "Relief of <color:00ff00>poison</color> state"
+    }
+  ],
+  "events": [
+    {
+      "type": "itemuse",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "inherited"
+          }
+        },
+        {
+          "id": "changeActorState",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "operation": "remove",
+            "stateId": "7828f99e825114d7"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

@@ -1,0 +1,92 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    96,
+    288,
+    32,
+    32
+  ],
+  "inherit": "233bf98720fab125",
+  "attributes": [
+    {
+      "key": "272e0e7696d64a92",
+      "value": "兴奋剂"
+    },
+    {
+      "key": "ff4ae88b5d725e64",
+      "value": "a204b12d636daa8f"
+    },
+    {
+      "key": "64234b740706abdf",
+      "value": true
+    },
+    {
+      "key": "fabb6c550f7b3094",
+      "value": "726e8f42a3f99bd5"
+    },
+    {
+      "key": "8cabc439007271c7",
+      "value": 5000
+    },
+    {
+      "key": "49574fd687a9bd27",
+      "value": 100
+    },
+    {
+      "key": "ee210e38c2f48a0b",
+      "value": ""
+    }
+  ],
+  "events": [
+    {
+      "type": "itemuse",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "inherited"
+          }
+        },
+        {
+          "id": "playAnimation",
+          "params": {
+            "mode": "actor",
+            "actor": {
+              "type": "trigger"
+            },
+            "animationId": "06444bd79069b200",
+            "motion": "4d0ecd5f0b97dd4e",
+            "rotatable": true,
+            "priority": 0,
+            "offsetY": 0,
+            "angle": 0,
+            "speed": 1,
+            "wait": false
+          }
+        },
+        {
+          "id": "changeActorState",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "operation": "add",
+            "stateId": "2c45a007f5e43c64"
+          }
+        },
+        {
+          "id": "changeActorState",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "operation": "add",
+            "stateId": "472c81522620ac92"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

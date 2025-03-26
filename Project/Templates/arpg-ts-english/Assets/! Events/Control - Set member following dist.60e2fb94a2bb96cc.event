@@ -1,0 +1,84 @@
+{
+  "type": "common",
+  "enabled": true,
+  "priority": false,
+  "namespace": false,
+  "returnType": "none",
+  "description": "",
+  "parameters": [],
+  "commands": [
+    {
+      "id": "setNumber",
+      "params": {
+        "variable": {
+          "type": "local",
+          "key": "dist"
+        },
+        "operation": "set",
+        "operands": [
+          {
+            "operation": "add",
+            "type": "constant",
+            "value": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "forEach",
+      "params": {
+        "data": "member",
+        "variable": {
+          "type": "local",
+          "key": "actor"
+        },
+        "commands": [
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "actor",
+                "actor": {
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "actor"
+                  }
+                },
+                "key": "264dd4a60329a008"
+              },
+              "operation": "set",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "variable",
+                  "variable": {
+                    "type": "local",
+                    "key": "dist"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "setNumber",
+            "params": {
+              "variable": {
+                "type": "local",
+                "key": "dist"
+              },
+              "operation": "add",
+              "operands": [
+                {
+                  "operation": "add",
+                  "type": "constant",
+                  "value": 2
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

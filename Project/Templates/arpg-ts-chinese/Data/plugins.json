@@ -1,0 +1,189 @@
+[
+  {
+    "id": "f0ee6c16284dcf99",
+    "enabled": true,
+    "parameters": {
+      "state": "enabled",
+      "display": "auto-except-for-player-team",
+      "duration": 10000,
+      "range": 10,
+      "health": "a5fd5e9f229abb2d",
+      "maxHealth": "a8451228fe0c120a",
+      "specialBarEnabled": false,
+      "specialAttr": "fe5c2daaadda1b45",
+      "specialAttrValue": "9d8664dcb88c5e72",
+      "backgroundIdFriendly": "92144fc3fc32fdbf",
+      "foregroundIdFriendly": "7c621804d5559957",
+      "backgroundIdEnemy": "92144fc3fc32fdbf",
+      "foregroundIdEnemy": "2b481ebc2d529fe4",
+      "backgroundIdSpecial": "92144fc3fc32fdbf",
+      "foregroundIdSpecial": "1eb77a9949439cd9",
+      "offsetY": -20,
+      "scale": 0.125,
+      "opacity": 1
+    }
+  },
+  {
+    "id": "c272524ebdfb8a4f",
+    "enabled": true,
+    "parameters": {
+      "state": "disabled",
+      "showObstacles": true,
+      "obstacleColor": "ffff0040",
+      "waterColor": "0000ff40",
+      "wallColor": "ff000040",
+      "movementPathColor": "00ff00c0",
+      "followingPathColor": "ffff00c0"
+    }
+  },
+  {
+    "id": "905fbd1443c9caf5",
+    "enabled": true,
+    "parameters": {
+      "state": "disabled",
+      "triggerShapeColor": "ff000066",
+      "actorAnchorColor": "00ff00ff",
+      "actorColliderColor": "00ffff40",
+      "actorAnchorSize": 1
+    }
+  },
+  {
+    "id": "51274497cfdf6459",
+    "enabled": true,
+    "parameters": {
+      "display": "auto-except-for-player-team",
+      "duration": 10000,
+      "range": 10,
+      "textAttr": "da4d32a4f1097059",
+      "template": "<size:12><outline:000000><content>",
+      "offsetY": -24
+    }
+  },
+  {
+    "id": "2f719d2d4b4cc48a",
+    "enabled": true,
+    "parameters": {
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "gray": 0,
+      "easingId": "88960b39ce627a19",
+      "duration": 160
+    }
+  },
+  {
+    "id": "ad08a4def6200207",
+    "enabled": true,
+    "parameters": {
+      "startXMean": 0,
+      "startYMean": -18,
+      "startXDev": 0,
+      "startYDev": 0,
+      "translationXMean": 0,
+      "translationYMean": -8,
+      "translationXDev": 0,
+      "translationYDev": 0,
+      "startScale": 0.5,
+      "endScale": 0.5,
+      "startOpacity": 2,
+      "endOpacity": 0,
+      "xEasingId": "88960b39ce627a19",
+      "yEasingId": "de6ab9b8ff17ffd4",
+      "scaleEasingId": "7890d8edf5d88412",
+      "opacityEasingId": "88960b39ce627a19",
+      "duration": 1000,
+      "numberImage0": "ea604fd77664b4be",
+      "numberImage1": "4a04123cc7bb302f",
+      "numberImage2": "78ebb3bb4a63384c",
+      "numberImage3": "080fc8dd5a6fdda8",
+      "numberImage4": "b595179462dc6267",
+      "numberImage5": "549197775744222a"
+    }
+  },
+  {
+    "id": "9c75586916ab9a5b",
+    "enabled": false,
+    "parameters": {
+      "smoothFactor": 2
+    }
+  },
+  {
+    "id": "aa20eb36e72e9e90",
+    "enabled": true,
+    "parameters": {
+      "state": "enabled",
+      "dialogueEvent": "4009faa4ee2f5fbc",
+      "switchToPreventDialog": "4d51afc89a177b08",
+      "triggerDistance": 1,
+      "triggerKey": "Enter",
+      "selectionTop": 1.25,
+      "selectionLeft": 0.75,
+      "selectionRight": 0.75,
+      "selectionBottom": 0.5,
+      "outlineColor": "ffffffff"
+    }
+  },
+  {
+    "id": "180a5e540780b997",
+    "enabled": true,
+    "parameters": {
+      "eventId": "552ccea726c420e0",
+      "animationId": "8dec01bcad1be144",
+      "showName": false,
+      "nameAttr": "744c0775cfc21878",
+      "qualityKey": "f07a7697f4d69696",
+      "motionKey": "5f0bd76049859159",
+      "defQuality": "408dc2e6d1ae7329",
+      "iconLayer": "Icon",
+      "formats": [
+        "common = <outline:000000><color:0>{name}",
+        "rare = <outline:000000><color:1>{name}",
+        "artifact = <outline:000000><color:2>{name}",
+        "legendary = <outline:000000><color:3>{name}"
+      ],
+      "nameOffsetY": -16,
+      "inventorySize": 0,
+      "dropRange": 2,
+      "dropTime": 333,
+      "attractionDistance": 4,
+      "initialSpeed": 10,
+      "acceleration": 20,
+      "initialDelay": 2000,
+      "lifeTime": 30000
+    }
+  },
+  {
+    "id": "bea0a4d7621c5076",
+    "enabled": true,
+    "parameters": {
+      "animationId": "9870648f11eebb64",
+      "motion": "c9196e684ff2942a",
+      "priority": -1
+    }
+  },
+  {
+    "id": "2550bcb8a6e279ae",
+    "enabled": true,
+    "parameters": {
+      "lightColor": "ffffff60",
+      "lightColorAttr": "9029d87aba1d7ad5",
+      "lightRadiusAttr": "ae74ea048a11f696",
+      "intensity": 0
+    }
+  },
+  {
+    "id": "812784b903077a6a",
+    "enabled": true,
+    "parameters": {
+      "codes": "9527"
+    }
+  },
+  {
+    "id": "2aafc4d56d4590d8",
+    "enabled": false,
+    "parameters": {
+      "appId": 1,
+      "verify": true
+    }
+  }
+]

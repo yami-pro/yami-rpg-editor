@@ -1,0 +1,50 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    96,
+    192,
+    32,
+    32
+  ],
+  "inherit": "008908866afe1bee",
+  "attributes": [
+    {
+      "key": "744c0775cfc21878",
+      "value": "Bow"
+    },
+    {
+      "key": "f07a7697f4d69696",
+      "value": "9f7addeeb07e147e"
+    },
+    {
+      "key": "c16d969e58798456",
+      "value": "9b914c88415f4908"
+    },
+    {
+      "key": "aea28ab8744f4f68",
+      "value": "0196d851e96719a6"
+    },
+    {
+      "key": "9c6c39e76efa5356",
+      "value": 900
+    },
+    {
+      "key": "81645b642e77eba9",
+      "value": ""
+    },
+    {
+      "key": "a4467914dbb11608",
+      "value": 20
+    },
+    {
+      "key": "cc87a72933cb881a",
+      "value": 0.1
+    },
+    {
+      "key": "72d60d6116e4de36",
+      "value": 0.05
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

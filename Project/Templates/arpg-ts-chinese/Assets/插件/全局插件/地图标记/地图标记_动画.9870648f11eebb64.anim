@@ -1,0 +1,106 @@
+{
+  "sprites": [
+    {
+      "name": "标记",
+      "id": "4a664860e196b168",
+      "image": "60868f0235927990",
+      "hframes": 1,
+      "vframes": 1
+    }
+  ],
+  "motions": [
+    {
+      "id": "c9196e684ff2942a",
+      "mode": "1-dir",
+      "skip": false,
+      "loop": false,
+      "loopStart": 0,
+      "dirCases": [
+        {
+          "layers": [
+            {
+              "class": "sprite",
+              "name": "图层1",
+              "hidden": false,
+              "locked": false,
+              "sprite": "4a664860e196b168",
+              "blend": "additive",
+              "light": "raw",
+              "frames": [
+                {
+                  "start": 0,
+                  "end": 25,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0.5,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    128,
+                    255,
+                    255,
+                    0
+                  ]
+                },
+                {
+                  "start": 25,
+                  "end": 35,
+                  "easingId": "01eac96676bb2ee7",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0.5,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    128,
+                    255,
+                    255,
+                    0
+                  ]
+                },
+                {
+                  "start": 35,
+                  "end": 36,
+                  "easingId": "",
+                  "anchorX": 0.5,
+                  "anchorY": 0.5,
+                  "pivotX": 0,
+                  "pivotY": 0,
+                  "x": 0,
+                  "y": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 0,
+                  "spriteX": 0,
+                  "spriteY": 0,
+                  "tint": [
+                    128,
+                    255,
+                    255,
+                    0
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

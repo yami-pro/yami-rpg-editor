@@ -1,0 +1,34 @@
+{
+  "icon": "a76bcfc585129656",
+  "clip": [
+    160,
+    608,
+    32,
+    32
+  ],
+  "inherit": "1049c4a227522e4f",
+  "attributes": [
+    {
+      "key": "ec4bb048efcf05a4",
+      "value": "剑术精通"
+    },
+    {
+      "key": "7b29806b3bf024d9",
+      "value": true
+    },
+    {
+      "key": "9599832f30b88ec6",
+      "value": "战士职业的基础技能"
+    },
+    {
+      "key": "0eb49fe7a2c0a824",
+      "value": 10
+    },
+    {
+      "key": "480b23558d66cf4c",
+      "value": 0.05
+    }
+  ],
+  "events": [],
+  "scripts": []
+}

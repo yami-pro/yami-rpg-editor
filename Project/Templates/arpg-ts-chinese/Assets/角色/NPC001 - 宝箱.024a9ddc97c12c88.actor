@@ -1,0 +1,163 @@
+{
+  "portrait": "d095eb446178fd84",
+  "clip": [
+    0,
+    0,
+    256,
+    256
+  ],
+  "animationId": "5e2f8708492289fc",
+  "idleMotion": "bb120645ed38cecc",
+  "moveMotion": "bb120645ed38cecc",
+  "rotatable": false,
+  "passage": "land",
+  "speed": 0,
+  "shape": "square",
+  "size": 0.8,
+  "weight": 0,
+  "immovable": true,
+  "scale": 1,
+  "priority": 0,
+  "inherit": "",
+  "sprites": [],
+  "attributes": [],
+  "skills": [],
+  "equipments": [],
+  "inventory": [],
+  "events": [
+    {
+      "type": "autorun",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "if",
+          "params": {
+            "branches": [
+              {
+                "mode": "all",
+                "conditions": [
+                  {
+                    "type": "boolean",
+                    "variable": {
+                      "type": "self"
+                    },
+                    "operation": "equal",
+                    "operand": {
+                      "type": "constant",
+                      "value": true
+                    }
+                  }
+                ],
+                "commands": [
+                  {
+                    "id": "setBoolean",
+                    "params": {
+                      "variable": {
+                        "type": "actor",
+                        "actor": {
+                          "type": "trigger"
+                        },
+                        "key": "4d51afc89a177b08"
+                      },
+                      "operation": "set",
+                      "operand": {
+                        "type": "constant",
+                        "value": true
+                      }
+                    }
+                  },
+                  {
+                    "id": "changeActorMotion",
+                    "params": {
+                      "actor": {
+                        "type": "trigger"
+                      },
+                      "type": "idle",
+                      "motion": "8c4998e5b14bd18f"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "4009faa4ee2f5fbc",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "setBoolean",
+          "params": {
+            "variable": {
+              "type": "self"
+            },
+            "operation": "set",
+            "operand": {
+              "type": "constant",
+              "value": true
+            }
+          }
+        },
+        {
+          "id": "setBoolean",
+          "params": {
+            "variable": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "4d51afc89a177b08"
+            },
+            "operation": "set",
+            "operand": {
+              "type": "constant",
+              "value": true
+            }
+          }
+        },
+        {
+          "id": "playAudio",
+          "params": {
+            "type": "se",
+            "audio": "d1f218a4ebddfe27",
+            "volume": 1
+          }
+        },
+        {
+          "id": "playActorAnimation",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "motion": "97d179e1c4ef7ec8",
+            "speed": 1,
+            "wait": true
+          }
+        },
+        {
+          "id": "changeActorMotion",
+          "params": {
+            "actor": {
+              "type": "trigger"
+            },
+            "type": "idle",
+            "motion": "8c4998e5b14bd18f"
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "actor",
+            "actor": {
+              "type": "trigger"
+            },
+            "eventType": "c2ba6c4f90edd668"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}

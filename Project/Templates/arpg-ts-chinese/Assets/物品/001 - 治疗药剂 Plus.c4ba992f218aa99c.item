@@ -1,0 +1,99 @@
+{
+  "icon": "0a47ecf1e8c15ea6",
+  "clip": [
+    128,
+    288,
+    32,
+    32
+  ],
+  "inherit": "233bf98720fab125",
+  "attributes": [
+    {
+      "key": "272e0e7696d64a92",
+      "value": "治疗药剂 Plus"
+    },
+    {
+      "key": "ff4ae88b5d725e64",
+      "value": "7802b73510212500"
+    },
+    {
+      "key": "64234b740706abdf",
+      "value": true
+    },
+    {
+      "key": "fabb6c550f7b3094",
+      "value": "99b7b4b64b1a371f"
+    },
+    {
+      "key": "8cabc439007271c7",
+      "value": 5000
+    },
+    {
+      "key": "49574fd687a9bd27",
+      "value": 120
+    },
+    {
+      "key": "ee210e38c2f48a0b",
+      "value": "恢复<color:00ff00>100</color>HP"
+    }
+  ],
+  "events": [
+    {
+      "type": "itemuse",
+      "enabled": true,
+      "commands": [
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "inherited"
+          }
+        },
+        {
+          "id": "playAnimation",
+          "params": {
+            "mode": "actor",
+            "actor": {
+              "type": "trigger"
+            },
+            "animationId": "06444bd79069b200",
+            "motion": "14987656c22ad4d2",
+            "rotatable": true,
+            "priority": 0,
+            "offsetY": 0,
+            "angle": 0,
+            "speed": 1,
+            "wait": false
+          }
+        },
+        {
+          "id": "setNumber",
+          "params": {
+            "variable": {
+              "type": "actor",
+              "actor": {
+                "type": "trigger"
+              },
+              "key": "a5fd5e9f229abb2d"
+            },
+            "operation": "add",
+            "operands": [
+              {
+                "operation": "add",
+                "type": "constant",
+                "value": 100
+              }
+            ]
+          }
+        },
+        {
+          "id": "callEvent",
+          "params": {
+            "type": "global",
+            "eventId": "877c64fd64f297ac"
+          }
+        }
+      ]
+    }
+  ],
+  "scripts": []
+}
