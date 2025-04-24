@@ -5,3 +5,6 @@ Project/Templates/electron-win-x64/
 Project/Templates/electron-mac-universal.app/
 package-lock.json
 .DS_Store
+
+# 不提交pnpm的锁文件
+pnpm-lock.yaml
