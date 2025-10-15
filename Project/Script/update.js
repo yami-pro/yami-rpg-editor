@@ -1116,6 +1116,14 @@ Updater.updateIncrementalChanges = function (version) {
       if (!update) return
       this.copyScripts('scene.ts', 'event.ts', 'flow.ts', 'time.ts', 'util.ts')
     }
+
+    '1.0.133'(update) {
+      this.logMessage(
+        'Slightly simplified pathfinding calculations.',
+      )
+      if (!update) return
+      this.copyScripts('scene.ts')
+    }
   }
 
   const verLatest = Editor.getVersionNumber(Editor.latestProjectVersion)

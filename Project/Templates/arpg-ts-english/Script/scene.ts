@@ -3506,8 +3506,7 @@ class ScenePartitionManager<T> {
     for (let y = top; y < bottom; y++) {
       for (let x = left; x < right; x++) {
         const cell = this.cells[x + y * rowOffset]
-        if (cell.length !== 0)
-        {
+        if (cell.length !== 0) {
           exports[count++] = cell
         }
       }
@@ -6040,7 +6039,7 @@ let PathFinder = new class ScenePathFinder {
               const nc = c + Math.dist(nx, ny, tx, ty) + cost
               const ne = nc + Math.dist(nx, ny, dx, dy) * H_WEIGHT
               PathFinder.openVertex(nx, ny, nc, ne, vi)
-              PathFinder.blocked = cost !== 0
+              if (cost !== 0) PathFinder.blocked = true
             }
           }
         }
