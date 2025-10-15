@@ -3506,7 +3506,6 @@ class ScenePartitionManager<T> {
     for (let y = top; y < bottom; y++) {
       for (let x = left; x < right; x++) {
         const cell = this.cells[x + y * rowOffset]
-        // 过滤空分区
         if (cell.length !== 0)
         {
           exports[count++] = cell
@@ -5953,12 +5952,14 @@ let PathFinder = new class ScenePathFinder {
   private terrains!: Uint8Array
   /** 当前场景障碍数组 */
   private obstacles!: Uint32Array
+  /** 路径是否发生阻塞 */
+  private blocked: boolean = false
 
   /** 初始化 */
   public initialize(): void {
     this.states = new Uint8Array(GL.zeros.buffer, 0, 512 * 512)
     this.indices = new Uint32Array(GL.arrays[1].uint32.buffer, 0, 512 * 512)
-    this.vertices = new Float64Array(GL.arrays[0].float64.buffer, 0, 512 * 512 * 6)
+    this.vertices = new Float64Array(GL.arrays[0].float64.buffer, 0, 512 * 512 * 5)
     this.openset = new Uint32Array(GL.zeros.buffer, 512 * 512, 512 * 512 * 2 / 4)
     this.queue = new Uint32Array(GL.arrays[2].uint32.buffer, 0, 100)
   }
@@ -5989,7 +5990,7 @@ let PathFinder = new class ScenePathFinder {
     }
     // 设置终点权重(权重越高，寻路计算步骤越少，计算出来的可能不是最佳路线)
     const H_WEIGHT = 1.25
-    const startIndex = (sx + sy * 512) * 6
+    const startIndex = (sx + sy * 512) * 5
     const {vertices, openset, queue, offsets} = PathFinder
     // 设置绕开角色开关
     PathFinder.setBypass(bypass)
@@ -6000,7 +6001,7 @@ let PathFinder = new class ScenePathFinder {
     // 设置寻路阈值，期望值达到阈值后放弃计算
     PathFinder.threshold = Math.dist(sx, sy, dx, dy) + PathFinder.maxExtraCost
     // 打开起点
-    PathFinder.openVertex(sx, sy, 0, 0, startIndex, false)
+    PathFinder.openVertex(sx, sy, 0, 0, startIndex)
     // 循环更新顶点队列
     while (PathFinder.updateQueue()) {
       for (let i = 0; i < PathFinder.queueCount; i++) {
@@ -6018,7 +6019,7 @@ let PathFinder = new class ScenePathFinder {
         // 如果到达终点，擦除数据并建立路径
         if (tx === dx && ty === dy) {
           PathFinder.clear()
-          return this.buildPath(startX, startY, destX, destY, vi, passage)
+          return PathFinder.buildPath(startX, startY, destX, destY, vi, passage)
         }
         // 遍历8个偏移方向的顶点
         for (let i = 0; i < 16; i += 2) {
@@ -6032,13 +6033,14 @@ let PathFinder = new class ScenePathFinder {
               // 则计算到父节点的成本和到终点的期望值，打开该顶点
               const nc = pc + Math.dist(nx, ny, px, py)
               const ne = nc + Math.dist(nx, ny, dx, dy) * H_WEIGHT
-              PathFinder.openVertex(nx, ny, nc, ne, pi, false)
+              PathFinder.openVertex(nx, ny, nc, ne, pi)
             } else {
               // 否则计算相邻成本，增加额外成本
               // 以及计算到终点的期望值，打开该顶点
               const nc = c + Math.dist(nx, ny, tx, ty) + cost
               const ne = nc + Math.dist(nx, ny, dx, dy) * H_WEIGHT
-              PathFinder.openVertex(nx, ny, nc, ne, vi, cost !== 0)
+              PathFinder.openVertex(nx, ny, nc, ne, vi)
+              PathFinder.blocked = cost !== 0
             }
           }
         }
@@ -6077,17 +6079,11 @@ let PathFinder = new class ScenePathFinder {
     const vertices = PathFinder.vertices
     const radius = ActorCollider.sceneCollisionRadius
     const caches = GL.arrays[1].float64
-    let blocked = false
     let vi = endIndex
     let ci = caches.length
     caches[--ci] = destY
     caches[--ci] = destX
     while (true) {
-      // 如果路径被阻挡
-      if (vertices[vi + 5] == 1) {
-        blocked = true
-      }
-
       // 获取父节点索引
       vi = vertices[vi + 4]
 
@@ -6107,7 +6103,7 @@ let PathFinder = new class ScenePathFinder {
     caches[--ci] = startX
 
     // 调整终点坐标(要求可通行)
-    if (!blocked) {
+    if (!PathFinder.blocked) {
       const width = PathFinder.width
       const height = PathFinder.height
       const terrains = PathFinder.terrains
@@ -6136,7 +6132,7 @@ let PathFinder = new class ScenePathFinder {
     // 调整最后一个拐点(如果存在)
     // 已发现问题：角色可能会卡在这个拐点(靠近墙，无法到达目的地)
     const pi = caches.length - 6
-    if (!blocked && pi >= 0) {
+    if (!PathFinder.blocked && pi >= 0) {
       const px = caches[pi]
       const py = caches[pi + 1]
       const cx = caches[pi + 2]
@@ -6203,11 +6199,10 @@ let PathFinder = new class ScenePathFinder {
    * @param cost 已知路径成本
    * @param expectation 路径总成本期望值
    * @param parentIndex 父级顶点的索引
-   * @param blocked 与上一个顶点之间是否阻塞
    */
-  private openVertex = (x: number, y: number, cost: number, expectation: number, parentIndex: number, blocked: boolean): void => {
+  private openVertex = (x: number, y: number, cost: number, expectation: number, parentIndex: number): void => {
     const si = x + y * 512
-    const vi = si * 6
+    const vi = si * 5
     switch (PathFinder.states[si]) {
       case 0:
         // 如果顶点是关闭状态，则将其插入开启列表
@@ -6222,7 +6217,6 @@ let PathFinder = new class ScenePathFinder {
             PathFinder.vertices[vi + 2] = cost
             PathFinder.vertices[vi + 3] = expectation
             PathFinder.vertices[vi + 4] = parentIndex
-            PathFinder.vertices[vi + 5] = blocked ? 1 : 0
             PathFinder.openset[i] = vi + 1
             // 设置为打开状态
             PathFinder.states[si] = 1
@@ -6237,7 +6231,6 @@ let PathFinder = new class ScenePathFinder {
           PathFinder.vertices[vi + 2] = cost
           PathFinder.vertices[vi + 3] = expectation
           PathFinder.vertices[vi + 4] = parentIndex
-          PathFinder.vertices[vi + 5] = blocked ? 1 : 0
         }
         return
     }
@@ -6312,6 +6305,7 @@ let PathFinder = new class ScenePathFinder {
       openset[i] = 0
     }
     PathFinder.opensetCount = 0
+    PathFinder.blocked = false
   }
 
   /**
