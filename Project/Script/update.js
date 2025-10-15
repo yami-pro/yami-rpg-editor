@@ -1106,6 +1106,16 @@ Updater.updateIncrementalChanges = function (version) {
       this.copyScripts('main.ts', 'camera.ts', 'actor.ts', 'input.ts', 'ui.ts', 'event.ts', 'webgl.ts')
       this.copyPlugins('aa20eb36e72e9e90')
     }
+
+    '1.0.132'(update) {
+      this.logMessage(
+        'Fixed a bug in the pathfinding system where partial paths around obstacles were calculated incorrectly.',
+        'Fixed a bug where calling Flow.waitRaw could cause inaccurate timing in Flow.wait and Flow.transition.',
+        'Updated the Russian language pack.',
+      )
+      if (!update) return
+      this.copyScripts('scene.ts', 'event.ts', 'flow.ts', 'time.ts', 'util.ts')
+    }
   }
 
   const verLatest = Editor.getVersionNumber(Editor.latestProjectVersion)

@@ -264,13 +264,16 @@ class Timer {
 
   /**
    * 从对象池中取出计时器实例
+   * @param mode 计时器模式
    * @returns 计时器实例
    */
-  public static fetch(): Timer {
+  public static fetch(mode: TimerMode): Timer {
     const timers = this.timerPool
-    return timers.count !== 0
+    const timer = timers.count !== 0
       ? timers[--timers.count]!
       : new Timer({ duration: 0 })
+    timer.mode = mode
+    return timer
   }
 
   /**

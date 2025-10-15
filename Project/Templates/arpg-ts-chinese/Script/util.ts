@@ -388,7 +388,7 @@ Math.modDegrees = (degrees, period = 360) => {
 // 弧度取2π周期的余数
 Math.modRadians = radians => {
   const period = Math.PI * 2
-  return radians >= 0 ? radians % period : (radians % period + period) % period
+  return radians >= 0 ? radians % period : radians % period + period
 }
 
 /** ******************************** 颜色方法集合 ******************************** */

@@ -1347,26 +1347,6 @@ class ScriptTouchEvent {
   /** 已改变的触摸点列表 */
   public readonly changedTouches: Array<TouchPoint>
 
-  /** Shift键是否按下 */
-  public get shiftKey(): boolean {
-    return this.browserTouchEvent.shiftKey
-  }
-
-  /** Meta键是否按下 */
-  public get metaKey(): boolean {
-    return this.browserTouchEvent.metaKey
-  }
-
-  /** Ctrl键是否按下 */
-  public get ctrlKey(): boolean {
-    return this.browserTouchEvent.ctrlKey
-  }
-
-  /** Alt键是否按下 */
-  public get altKey(): boolean {
-    return this.browserTouchEvent.altKey
-  }
-
   /**
    * @param event 原生触摸事件
    */

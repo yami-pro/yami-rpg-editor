@@ -157,8 +157,7 @@ class Flow {
    */
   public wait(duration: number): Promise<void> {
     return new Promise(resolve => {
-      const timer = Timer.fetch().add()
-      timer.mode = 'scaled'
+      const timer = Timer.fetch('scaled').add()
       timer.duration = duration
       timer.callback = () => {
         this.continue(resolve)
@@ -173,8 +172,7 @@ class Flow {
    */
   public waitRaw(duration: number): Promise<void> {
     return new Promise((resolve: () => void) => {
-      const timer = Timer.fetch().add()
-      timer.mode = 'raw'
+      const timer = Timer.fetch('raw').add()
       timer.duration = duration
       timer.callback = () => {
         this.continue(resolve)
@@ -194,8 +192,7 @@ class Flow {
   public transition(start: number, end: number, easingKey: string, duration: number, update: (interpolation: number) => void): Promise<void> {
     return new Promise(resolve => {
       const easing = Easing.get(easingKey)
-      const timer = Timer.fetch().add()
-      timer.mode = 'scaled'
+      const timer = Timer.fetch('scaled').add()
       timer.duration = duration
       timer.update = timer => {
         if (this.verify()) {

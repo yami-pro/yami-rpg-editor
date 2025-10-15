@@ -3505,7 +3505,12 @@ class ScenePartitionManager<T> {
     // 获取小块分区中的数据，避免全局遍历
     for (let y = top; y < bottom; y++) {
       for (let x = left; x < right; x++) {
-        exports[count++] = this.cells[x + y * rowOffset]
+        const cell = this.cells[x + y * rowOffset]
+        // 过滤空分区
+        if (cell.length !== 0)
+        {
+          exports[count++] = cell
+        }
       }
     }
     exports.count = count
@@ -6033,7 +6038,7 @@ let PathFinder = new class ScenePathFinder {
               // 以及计算到终点的期望值，打开该顶点
               const nc = c + Math.dist(nx, ny, tx, ty) + cost
               const ne = nc + Math.dist(nx, ny, dx, dy) * H_WEIGHT
-              PathFinder.openVertex(nx, ny, nc, ne, vi, cost === 0)
+              PathFinder.openVertex(nx, ny, nc, ne, vi, cost !== 0)
             }
           }
         }
@@ -6078,10 +6083,9 @@ let PathFinder = new class ScenePathFinder {
     caches[--ci] = destY
     caches[--ci] = destX
     while (true) {
-      // 丢弃不可通行的节点
-      while (vertices[vi + 5]) {
+      // 如果路径被阻挡
+      if (vertices[vi + 5] == 1) {
         blocked = true
-        vi = vertices[vi + 4]
       }
 
       // 获取父节点索引
