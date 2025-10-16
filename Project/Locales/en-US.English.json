@@ -1938,7 +1938,7 @@
       "boolean": {"name": "Boolean", "tip": "Returns a boolean value"},
       "number": {"name": "Number", "tip": "Returns a numerical value"},
       "string": {"name": "String", "tip": "Returns a string"},
-      "object": {"name": "object", "tip": "Returns an object"},
+      "object": {"name": "Object", "tip": "Returns an object"},
       "actor": {"name": "Actor", "tip": "Returns an actor object"},
       "skill": {"name": "Skill", "tip": "Returns a skill object"},
       "state": {"name": "State", "tip": "Returns a state object"},

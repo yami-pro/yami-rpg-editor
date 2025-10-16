@@ -725,6 +725,7 @@ Reference.findAllGuids = function (targetGuid = '') {
       const plugin = plugins[i]
       const json = JSON.stringify(plugin)
       const path = `${dir}/${i}`
+      getPathOfGuid(plugin.id)
       let match
       while (match = guidInJSON.exec(json)) {
         pushToUsedMap(path, match[1] ?? match[2])
