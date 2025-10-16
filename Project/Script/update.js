@@ -1107,7 +1107,7 @@ Updater.updateIncrementalChanges = function (version) {
       this.copyPlugins('aa20eb36e72e9e90')
     }
 
-    '1.0.132'(update) {
+    '1.0.134'(update) {
       this.logMessage(
         'Fixed a bug in the pathfinding system where partial paths around obstacles were calculated incorrectly.',
         'Fixed a bug where calling Flow.waitRaw could cause inaccurate timing in Flow.wait and Flow.transition.',
@@ -1115,14 +1115,6 @@ Updater.updateIncrementalChanges = function (version) {
       )
       if (!update) return
       this.copyScripts('scene.ts', 'event.ts', 'flow.ts', 'time.ts', 'util.ts')
-    }
-
-    '1.0.133'(update) {
-      this.logMessage(
-        'Slightly simplified pathfinding calculations.',
-      )
-      if (!update) return
-      this.copyScripts('scene.ts')
     }
   }
 

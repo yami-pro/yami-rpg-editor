@@ -170,8 +170,6 @@ UpdateLog.initialize = function () {
   $('#update-log').on('closed', this.windowClosed)
 }
 
-// 关闭窗口
-
 // 打开窗口
 UpdateLog.open = function (items = null) {
   if (items instanceof Array) {

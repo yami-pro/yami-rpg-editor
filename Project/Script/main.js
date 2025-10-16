@@ -8,7 +8,7 @@ const Editor = {
   config: null,
   project: null,
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.133',
+  latestProjectVersion: '1.0.134',
   // methods
   initialize: null,
   open: null,
