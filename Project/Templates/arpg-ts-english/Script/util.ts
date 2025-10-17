@@ -205,7 +205,7 @@ declare namespace CSS {
    * @param uri URI
    * @returns CSSURL
    */
-  function encodeURL(url: string): string
+  function encodeURL(uri: string): string
 }
 
 // 编码字符串为CSSURL
@@ -382,7 +382,7 @@ Math.degrees = radians => {
 
 // 角度取360度周期的余数
 Math.modDegrees = (degrees, period = 360) => {
-  return degrees >= 0 ? degrees % 360 : (degrees % 360 + 360) % 360
+  return degrees >= 0 ? degrees % 360 : degrees % 360 + 360
 }
 
 // 弧度取2π周期的余数

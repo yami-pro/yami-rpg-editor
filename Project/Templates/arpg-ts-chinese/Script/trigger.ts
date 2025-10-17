@@ -80,8 +80,8 @@ class Trigger {
   /** 通过触发模式获取角色列表 */
   private getActorsByHitMode: () => CacheList<Actor>
 
-  /** 更新时间列表 */
-  private updateTimeList: () => void
+  /** 更新击中列表 */
+  private updateHitList: () => void
 
   /**
    * 触发器对象
@@ -109,7 +109,7 @@ class Trigger {
     this.detectCollisionWithWalls = Trigger.detectCollisionWithWalls[data.onHitWalls]
     this.getActorsByCollision = Trigger.actorGetters[data.shape.type]
     this.getActorsByHitMode = Trigger.collisionFilters[data.hitMode]
-    this.updateTimeList = Trigger.hitListUpdaters[data.hitMode]
+    this.updateHitList = Trigger.hitListUpdaters[data.hitMode]
     switch (data.onHitActors) {
       case 'penetrate':
         this.hitCount = Infinity
@@ -304,14 +304,14 @@ class Trigger {
     // 获取碰撞角色列表(共享列表，用count表示长度)
     const targets = this.getActorsByCollision(this.x, this.y, this.angle, this.scale, this.shape as any)
     if (targets.count > 0) {
-      // 通过选择器进一步筛选目标角色
+      // 通过选择器筛选目标角色
       Trigger.getActorsBySelector(this.caster, this.selector)
 
-      // 更新时间列表
-      this.updateTimeList()
-
-      // 获取命中的角色
+      // 通过击中模式筛选目标角色
       this.getActorsByHitMode()
+
+      // 更新时间列表，剔除过期角色
+      this.updateHitList()
 
       // 触发对应事件
       if (targets.count > 0) {
@@ -377,15 +377,12 @@ class Trigger {
           }
           // 同时发送脚本事件
           this.script.getEvents('hitactor')?.call(new ScriptTriggerHitEvent(actor, this))
-        }
-        // 如果击中次数不够，返回false
-        if ((this.hitCount -= count) <= 0) {
-          return false
+          // 如果击中次数不够，返回false
+          if (--this.hitCount === 0) {
+            return false
+          }
         }
       }
-    } else {
-      // 更新时间列表
-      this.updateTimeList()
     }
     return true
   }

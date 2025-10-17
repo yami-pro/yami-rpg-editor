@@ -3,5 +3,9 @@ node_modules/
 Project/config.json
 Project/Templates/electron-win-x64/
 Project/Templates/electron-mac-universal.app/
+Project/Templates/arpg-ts-english/Dist
+Project/Templates/arpg-ts-chinese/Dist
+Project/Templates/arpg-ts-english/*.bak
+Project/Templates/arpg-ts-chinese/*.bak
 package-lock.json
 .DS_Store

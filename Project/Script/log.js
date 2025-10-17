@@ -176,7 +176,7 @@ UpdateLog.open = function (items = null) {
     Window.open('update-log')
     this.update(items)
   } else {
-    Updater.updateIncrementalChanges(Editor.latestProjectVersion)
+    Updater.updateIncrementalChanges(Updater.latestProjectVersion)
   }
 }
 

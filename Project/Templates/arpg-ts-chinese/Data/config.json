@@ -4,8 +4,8 @@
   "preload": "always",
   "window": {
     "title": "My Project",
-    "width": 1280,
-    "height": 720,
+    "width": 1920,
+    "height": 1080,
     "display": "windowed"
   },
   "resolution": {

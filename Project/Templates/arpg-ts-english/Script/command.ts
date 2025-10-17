@@ -86,9 +86,9 @@ let Command = new class CommandCompiler {
   public choiceContents: Array<string> = []
   /** 返回值的键 */
   public returnKey: symbol = Symbol('RETURN_VALUE')
-  /** 继承事件指令列表的键 */
+  /** 继承事件的指令列表的键 */
   public inheritKey = Symbol("INHERITED_COMMANDS")
-  /** 异步指令块事件列表的键 */
+  /** 异步指令块的指令列表的键 */
   public asyncKey = Symbol("ASYNC_COMMANDS")
   /** 自定义指令脚本管理器 */
   public custom!: ScriptManager

@@ -83,7 +83,7 @@ interface WebGL2RenderingContext {
   elementBuffer: WebGLBuffer
   /** 批量渲染器 */
   batchRenderer: BatchRenderer
-  // 离屏纹理(启用深度缓冲区)
+  /** 离屏纹理(启用深度缓冲区) */
   offscreen: {
     enabled: boolean
     current: OffscreenTexture

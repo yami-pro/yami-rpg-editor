@@ -79,7 +79,7 @@ type ItemAttributeKey = string
 type ElementAttributeKey = string
 
 /** 快捷键 */
-type ShortCutKey = string
+type ShortcutKey = string
 
 /** 变量访问器 */
 type VariableGetter =
@@ -186,7 +186,7 @@ type SkillGetter =
 {
   type: 'by-key'
   actor: ActorGetter
-  key: ShortCutKey
+  key: ShortcutKey
 }
 |
 {
@@ -264,7 +264,7 @@ type ItemGetter =
 {
   type: 'by-key'
   actor: ActorGetter
-  key: ShortCutKey
+  key: ShortcutKey
 }
 |
 {

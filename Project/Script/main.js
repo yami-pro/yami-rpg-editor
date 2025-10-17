@@ -7,8 +7,6 @@ const Editor = {
   state: 'closed',
   config: null,
   project: null,
-  latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.134',
   // methods
   initialize: null,
   open: null,
@@ -467,7 +465,7 @@ Editor.getVersionNumber = function (version) {
 // 检查编辑器更新
 Editor.checkForEditorUpdates = function () {
   const ver1 = Editor.config.version
-  const ver2 = Editor.latestEditorVersion
+  const ver2 = Updater.latestEditorVersion
   const verNum1 = Editor.getVersionNumber(ver1)
   const verNum2 = Editor.getVersionNumber(ver2)
   if (verNum1 < verNum2) {
@@ -479,7 +477,7 @@ Editor.checkForEditorUpdates = function () {
 // 检查项目更新
 Editor.checkForProjectUpdates = async function () {
   const ver1 = Editor.project.version
-  const ver2 = Editor.latestProjectVersion
+  const ver2 = Updater.latestProjectVersion
   const verNum1 = Editor.getVersionNumber(ver1)
   const verNum2 = Editor.getVersionNumber(ver2)
   if (verNum1 < verNum2) {
@@ -515,7 +513,7 @@ Editor.checkForProjectUpdates = async function () {
 // 判断项目版本是否受编辑器支持
 Editor.isProjectVersionSupported = function () {
   const ver1 = Editor.project.version
-  const ver2 = Editor.latestProjectVersion
+  const ver2 = Updater.latestProjectVersion
   const verNum1 = Editor.getVersionNumber(ver1)
   const verNum2 = Editor.getVersionNumber(ver2)
   if (verNum1 <= verNum2) {

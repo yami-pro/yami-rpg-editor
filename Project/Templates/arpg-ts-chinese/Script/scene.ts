@@ -6133,7 +6133,6 @@ let PathFinder = new class ScenePathFinder {
     }
 
     // 调整最后一个拐点(如果存在)
-    // 已发现问题：角色可能会卡在这个拐点(靠近墙，无法到达目的地)
     const pi = caches.length - 6
     if (!blocked && pi >= 0) {
       const px = caches[pi]
