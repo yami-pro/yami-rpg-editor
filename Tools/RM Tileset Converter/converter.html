@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' content='text/html'/>
+<meta name='viewport' content='width=device-width'/>
+<link rel='icon' href='#'/>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: 12px arial, sans-serif;
+  user-select: none;
+  -ms-user-select: none;
+  cursor: default; /* for edge */
+}
+
+table {
+  font: 14px consolas, monospace;
+  letter-spacing: 1px;
+  text-align: center;
+  white-space: pre;
+}
+
+td {
+  line-height: 10px;
+  background-color: #e0e0e0;
+}
+
+.ground-td,
+.waterfall-td {
+  width: 174px;
+  height: 24px;
+}
+
+.animation-frame-td {
+  width: 42px;
+  height: 24px;
+}
+
+#left {
+  position: fixed;
+  width: 220px;
+  height: 100%;
+}
+
+#image-file {
+  display: none;
+}
+
+#image-label {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 200px;
+  height: 200px;
+}
+
+#image-name {
+  padding: 0 4px;
+  line-height: 18px;
+  background-color: #f8f8f8;
+  border: 1px solid #a0a0a0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#image-name:hover {
+  background-color: #ffffff;
+  border-color: #606060;
+}
+
+#image-frame {
+  width: 200px;
+  height: 160px;
+  background-color: #e0e0e0;
+  border-left: 1px solid #a0a0a0;
+  border-right: 1px solid #a0a0a0;
+}
+
+#image-type {
+  vertical-align: top; /* for firefox */
+  height: 20px;
+  font: 12px arial, sans-serif;
+  border: 1px solid #a0a0a0;
+}
+
+#image-type:hover {
+  border-color: #606060;
+}
+
+#tile-params {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  left: 10px;
+  top: 220px;
+  width: 240px;
+}
+
+li {
+  display: block;
+  float: left;
+  margin-right: -1px;
+  padding: 2px;
+  background-color: #e0e0e0;
+  border: 1px solid #a0a0a0;
+}
+
+li:hover {
+  background-color: #f0f0f0;
+}
+
+li.selected {
+  background-color: #e0f0ff;
+}
+
+#tile-info {
+  position: absolute;
+  left: 10px;
+  top: 242px;
+  right: 10px;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#ground,
+#wall,
+#waterfall,
+#animation {
+  display: none;
+}
+
+#ground.selected,
+#wall.selected,
+#waterfall.selected,
+#animation.selected {
+  display: inherit;
+}
+
+#right {
+  position: fixed;
+  left: 220px;
+  right: 0;
+  height: 100%;
+  overflow: auto;
+}
+
+#canvas-frame {
+  position: absolute;
+  top: 10px;
+}
+
+select {
+  width: 200px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+
+canvas {
+  vertical-align: top;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 1px;
+  border: 1px solid #a0a0a0;
+}
+</style>
+</head>
+<body>
+<div id='left'>
+  <input id='image-file' type='file' accept='image/png'/>
+  <label id='image-label' for='image-file'>
+    <div id='image-name'>Open File...</div>
+    <div id='image-frame'></div>
+    <select id='image-type'>
+      <option value='A1'>MV/VX Tileset A1</option>
+      <option value='A2'>MV/VX Tileset A2</option>
+      <option value='A3'>MV/VX Tileset A3</option>
+      <option value='A4'>MV/VX Tileset A4</option>
+      <option value='XP'>XP AutoTile</option>
+    </select>
+  </label>
+  <ul id='tile-params'>
+    <li value='ground' class='selected'>Ground</li>
+    <li value='wall'>Wall</li>
+    <li value='waterfall'>Waterfall</li>
+    <li value='animation'>Animation</li>
+  </ul>
+  <div id='tile-info'>
+    <div id='ground' class='selected'>
+      Ground: 47 frames
+      <table>
+        <tr><td> 0</td><td> 1</td><td> 2</td><td> 3</td><td> 4</td><td> 5</td><td> 6</td><td> 7</td></tr>
+        <tr><td> 8</td><td> 9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+        <tr><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+        <tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+        <tr><td>32</td><td>33</td><td>34</td><td>35</td><td>36</td><td>37</td><td>38</td><td>39</td></tr>
+        <tr><td>40</td><td>41</td><td>42</td><td>43</td><td>44</td><td>45</td><td>46</td><td></td></tr>
+      </table>
+      Settings: index | neighbor | frame
+      <table>
+        <tr>
+          <td>0</td><td>√√√<br>√ √<br>√√√</td>
+          <td>1</td><td> √√<br>× √<br> √√</td>
+          <td>2</td><td> × <br>√ √<br>√√√</td>
+          <td>3</td><td> × <br>× √<br> √√</td>
+        </tr>
+        <tr>
+          <td></td><td>0</td>
+          <td></td><td>1</td>
+          <td></td><td>2</td>
+          <td></td><td>3</td>
+        </tr>
+        <tr>
+          <td>4</td><td>√√ <br>√ ×<br>√√ </td>
+          <td>5</td><td> √ <br>× ×<br> √ </td>
+          <td>6</td><td> × <br>√ ×<br>√√ </td>
+          <td>7</td><td> × <br>× ×<br> √ </td>
+        </tr>
+        <tr>
+          <td></td><td>4</td>
+          <td></td><td>5</td>
+          <td></td><td>6</td>
+          <td></td><td>7</td>
+        </tr>
+        <tr>
+          <td>8</td><td>√√√<br>√ √<br> × </td>
+          <td>9</td><td> √√<br>× √<br> × </td>
+          <td>1<br>0</td><td> × <br>√ √<br> × </td>
+          <td>1<br>1</td><td> × <br>× √<br> × </td>
+        </tr>
+        <tr>
+          <td></td><td>8</td>
+          <td></td><td>9</td>
+          <td></td><td>10</td>
+          <td></td><td>11</td>
+        </tr>
+        <tr>
+          <td>1<br>2</td><td>√√ <br>√ ×<br> × </td>
+          <td>1<br>3</td><td> √ <br>× ×<br> × </td>
+          <td>1<br>4</td><td> × <br>√ ×<br> × </td>
+          <td>1<br>5</td><td> × <br>× ×<br> × </td>
+        </tr>
+        <tr>
+          <td></td><td>12</td>
+          <td></td><td>13</td>
+          <td></td><td>14</td>
+          <td></td><td>15</td>
+        </tr>
+        <tr>
+          <td>1<br>6</td><td> √×<br>× √<br> √√</td>
+          <td>1<br>7</td><td> √√<br>× √<br> √×</td>
+          <td>1<br>8</td><td> √×<br>× √<br> √×</td>
+          <td>1<br>9</td><td> × <br>√ √<br>√√×</td>
+        </tr>
+        <tr>
+          <td></td><td>16</td>
+          <td></td><td>17</td>
+          <td></td><td>18</td>
+          <td></td><td>19</td>
+        </tr>
+        <tr>
+          <td>2<br>0</td><td> × <br>√ √<br>×√√</td>
+          <td>2<br>1</td><td> × <br>√ √<br>×√×</td>
+          <td>2<br>2</td><td>√√ <br>√ ×<br>×√ </td>
+          <td>2<br>3</td><td>×√ <br>√ ×<br>√√ </td>
+        </tr>
+        <tr>
+          <td></td><td>20</td>
+          <td></td><td>21</td>
+          <td></td><td>22</td>
+          <td></td><td>23</td>
+        </tr>
+        <tr>
+          <td>2<br>4</td><td>×√ <br>√ ×<br>×√ </td>
+          <td>2<br>5</td><td>×√√<br>√ √<br> × </td>
+          <td>2<br>6</td><td>√√×<br>√ √<br> × </td>
+          <td>2<br>7</td><td>×√×<br>√ √<br> × </td>
+        </tr>
+        <tr>
+          <td></td><td>24</td>
+          <td></td><td>25</td>
+          <td></td><td>26</td>
+          <td></td><td>27</td>
+        </tr>
+        <tr>
+          <td>2<br>8</td><td> × <br>× √<br> √×</td>
+          <td>2<br>9</td><td> × <br>√ ×<br>×√ </td>
+          <td>3<br>0</td><td>×√ <br>√ ×<br> × </td>
+          <td>3<br>1</td><td> √×<br>× √<br> × </td>
+        </tr>
+        <tr>
+          <td></td><td>28</td>
+          <td></td><td>29</td>
+          <td></td><td>30</td>
+          <td></td><td>31</td>
+        </tr>
+        <tr>
+          <td>3<br>2</td><td>×√√<br>√ √<br>√√√</td>
+          <td>3<br>3</td><td>√√×<br>√ √<br>√√√</td>
+          <td>3<br>4</td><td>×√×<br>√ √<br>√√√</td>
+          <td>3<br>5</td><td>√√√<br>√ √<br>√√×</td>
+        </tr>
+        <tr>
+          <td></td><td>32</td>
+          <td></td><td>33</td>
+          <td></td><td>34</td>
+          <td></td><td>35</td>
+        </tr>
+        <tr>
+          <td>3<br>6</td><td>×√√<br>√ √<br>√√×</td>
+          <td>3<br>7</td><td>√√×<br>√ √<br>√√×</td>
+          <td>3<br>8</td><td>×√×<br>√ √<br>√√×</td>
+          <td>3<br>9</td><td>√√√<br>√ √<br>×√√</td>
+        </tr>
+        <tr>
+          <td></td><td>36</td>
+          <td></td><td>37</td>
+          <td></td><td>38</td>
+          <td></td><td>39</td>
+        </tr>
+        <tr>
+          <td>4<br>0</td><td>×√√<br>√ √<br>×√√</td>
+          <td>4<br>1</td><td>√√×<br>√ √<br>×√√</td>
+          <td>4<br>2</td><td>×√×<br>√ √<br>×√√</td>
+          <td>4<br>3</td><td>√√√<br>√ √<br>×√×</td>
+        </tr>
+        <tr>
+          <td></td><td>40</td>
+          <td></td><td>41</td>
+          <td></td><td>42</td>
+          <td></td><td>43</td>
+        </tr>
+        <tr>
+          <td>4<br>4</td><td>×√√<br>√ √<br>×√×</td>
+          <td>4<br>5</td><td>√√×<br>√ √<br>×√×</td>
+          <td>4<br>6</td><td>×√×<br>√ √<br>×√×</td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td></td><td>44</td>
+          <td></td><td>45</td>
+          <td></td><td>46</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </div>
+    <div id='wall'>
+      Wall: 16 frames
+      <table>
+        <tr><td> 0</td><td> 1</td><td> 2</td><td> 3</td><td> 4</td><td> 5</td><td> 6</td><td> 7</td></tr>
+        <tr><td> 8</td><td> 9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+      </table>
+      Settings: index | neighbor | frame
+      <table>
+        <tr>
+          <td>0</td><td> √ <br>√ √<br>√√√</td>
+          <td>1</td><td> √ <br>× √<br>×√ </td>
+          <td>2</td><td> × <br>√ √<br>√√√</td>
+          <td>3</td><td> × <br>× √<br>×√√</td>
+        </tr>
+        <tr>
+          <td></td><td>0</td>
+          <td></td><td>1</td>
+          <td></td><td>2</td>
+          <td></td><td>3</td>
+        </tr>
+        <tr>
+          <td>4</td><td> √ <br>√ ×<br> √×</td>
+          <td>5</td><td> √ <br>× ×<br>×√×</td>
+          <td>6</td><td> × <br>√ ×<br>√√×</td>
+          <td>7</td><td> × <br>× ×<br>×√×</td>
+        </tr>
+        <tr>
+          <td></td><td>4</td>
+          <td></td><td>5</td>
+          <td></td><td>6</td>
+          <td></td><td>7</td>
+        </tr>
+        <tr>
+          <td>8</td><td> √ <br>√ √<br> × </td>
+          <td>9</td><td> √ <br>× √<br>×× </td>
+          <td>1<br>0</td><td> × <br>√ √<br> × </td>
+          <td>1<br>1</td><td> × <br>× √<br>×× </td>
+        </tr>
+        <tr>
+          <td></td><td>8</td>
+          <td></td><td>9</td>
+          <td></td><td>10</td>
+          <td></td><td>11</td>
+        </tr>
+        <tr>
+          <td>1<br>2</td><td> √ <br>√ ×<br> ××</td>
+          <td>1<br>3</td><td> √ <br>× ×<br>×××</td>
+          <td>1<br>4</td><td> × <br>√ ×<br> ××</td>
+          <td>1<br>5</td><td> × <br>× ×<br>×××</td>
+        </tr>
+        <tr>
+          <td></td><td>12</td>
+          <td></td><td>13</td>
+          <td></td><td>14</td>
+          <td></td><td>15</td>
+        </tr>
+        <tr>
+          <td>1<br>6</td><td> √ <br>√ √<br>×√√</td>
+          <td>1<br>7</td><td> √ <br>√ √<br>√√×</td>
+          <td>1<br>8</td><td> √ <br>√ √<br>×√×</td>
+          <td>1<br>9</td><td> √ <br>× √<br>√√√</td>
+        </tr>
+        <tr>
+          <td></td><td>1</td>
+          <td></td><td>4</td>
+          <td></td><td>5</td>
+          <td></td><td>0</td>
+        </tr>
+        <tr>
+          <td>2<br>0</td><td> √ <br>× √<br>√√×</td>
+          <td>2<br>1</td><td> √ <br>× √<br>×√×</td>
+          <td>2<br>2</td><td> × <br>√ √<br>×√√</td>
+          <td>2<br>3</td><td> × <br>√ √<br>√√×</td>
+        </tr>
+        <tr>
+          <td></td><td>4</td>
+          <td></td><td>5</td>
+          <td></td><td>3</td>
+          <td></td><td>6</td>
+        </tr>
+        <tr>
+          <td>2<br>4</td><td> × <br>√ √<br>×√×</td>
+          <td>2<br>5</td><td> × <br>× √<br>√√√</td>
+          <td>2<br>6</td><td> × <br>× √<br>√√×</td>
+          <td>2<br>7</td><td> × <br>× √<br>×√×</td>
+        </tr>
+        <tr>
+          <td></td><td>7</td>
+          <td></td><td>2</td>
+          <td></td><td>6</td>
+          <td></td><td>7</td>
+        </tr>
+        <tr>
+          <td>2<br>8</td><td> √ <br>√ ×<br>√√√</td>
+          <td>2<br>9</td><td> √ <br>√ ×<br>×√√</td>
+          <td>3<br>0</td><td> √ <br>√ ×<br>×√×</td>
+          <td>3<br>1</td><td> √ <br>× ×<br>√√√</td>
+        </tr>
+        <tr>
+          <td></td><td>0</td>
+          <td></td><td>1</td>
+          <td></td><td>5</td>
+          <td></td><td>0</td>
+        </tr>
+        <tr>
+          <td>3<br>2</td><td> √ <br>× ×<br>×√√</td>
+          <td>3<br>3</td><td> √ <br>× ×<br>√√×</td>
+          <td>3<br>4</td><td> × <br>√ ×<br>√√√</td>
+          <td>3<br>5</td><td> × <br>√ ×<br>×√√</td>
+        </tr>
+        <tr>
+          <td></td><td>1</td>
+          <td></td><td>4</td>
+          <td></td><td>2</td>
+          <td></td><td>3</td>
+        </tr>
+        <tr>
+          <td>3<br>6</td><td> × <br>√ ×<br>×√×</td>
+          <td>3<br>7</td><td> × <br>× ×<br>√√√</td>
+          <td>3<br>8</td><td> × <br>× ×<br>×√√</td>
+          <td>3<br>9</td><td> × <br>× ×<br>√√×</td>
+        </tr>
+        <tr>
+          <td></td><td>7</td>
+          <td></td><td>2</td>
+          <td></td><td>3</td>
+          <td></td><td>6</td>
+        </tr>
+        <tr>
+          <td>4<br>0</td><td> √ <br>× √<br>√× </td>
+          <td>4<br>1</td><td> × <br>× √<br>√× </td>
+          <td>4<br>2</td><td> √ <br>√ ×<br> ×√</td>
+          <td>4<br>3</td><td> √ <br>× ×<br>√×√</td>
+        </tr>
+        <tr>
+          <td></td><td>8</td>
+          <td></td><td>2</td>
+          <td></td><td>8</td>
+          <td></td><td>8</td>
+        </tr>
+        <tr>
+          <td>4<br>4</td><td> √ <br>× ×<br>××√</td>
+          <td>4<br>5</td><td> √ <br>× ×<br>√××</td>
+          <td>4<br>6</td><td> × <br>√ ×<br> ×√</td>
+          <td>4<br>7</td><td> × <br>× ×<br>√×√</td>
+        </tr>
+        <tr>
+          <td></td><td>9</td>
+          <td></td><td>12</td>
+          <td></td><td>2</td>
+          <td></td><td>10</td>
+        </tr>
+        <tr>
+          <td>4<br>8</td><td> × <br>× ×<br>××√</td>
+          <td>4<br>9</td><td> × <br>× ×<br>√××</td>
+          <td></td><td></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td></td><td>11</td>
+          <td></td><td>14</td>
+          <td></td><td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+    </div>
+    <div id='waterfall'>
+      Waterfall: 4 frames
+      <table>
+        <tr><td> 0</td><td> 1</td><td> 2</td><td> 3</td><td>  </td><td>  </td><td>  </td><td>  </td></tr>
+      </table>
+      Settings: index | neighbor | frame
+      <table>
+        <tr>
+          <td>0</td><td>   <br>√ √<br>   </td>
+          <td>1</td><td>   <br>× √<br>   </td>
+          <td>2</td><td>   <br>√ ×<br>   </td>
+          <td>3</td><td>   <br>× ×<br>   </td>
+        </tr>
+        <tr>
+          <td></td><td>0</td>
+          <td></td><td>1</td>
+          <td></td><td>2</td>
+          <td></td><td>3</td>
+        </tr>
+      </table>
+    </div>
+    <div id='animation'>
+      Ground: 3 frames
+      <table>
+        <tr><td class='ground-td'>0</td></tr>
+        <tr><td class='ground-td'>1</td></tr>
+        <tr><td class='ground-td'>2</td></tr>
+      </table>
+      Animation sequences
+      <table>
+        <tr>
+          <td class='animation-frame-td'>0</td>
+          <td class='animation-frame-td'>1</td>
+          <td class='animation-frame-td'>2</td>
+          <td class='animation-frame-td'>1</td>
+        </tr>
+      </table>
+      Waterfall: 3 frames
+      <table>
+        <tr><td class='waterfall-td'>0</td></tr>
+        <tr><td class='waterfall-td'>1</td></tr>
+        <tr><td class='waterfall-td'>2</td></tr>
+      </table>
+      Animation sequences
+      <table>
+        <tr>
+          <td class='animation-frame-td'>0</td>
+          <td class='animation-frame-td'>1</td>
+          <td class='animation-frame-td'>2</td>
+          <td class='animation-frame-td'></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div id='right'>
+  <div id='canvas-frame'></div>
+</div>
+<script>
+// CSS 选择器
+const $ = function (selector) {
+  return document.querySelector(selector)
+}
+
+// 图块参数列表 - 鼠标按下事件
+$('#tile-params').addEventListener('mousedown', function (event) {
+  const item = event.target
+  if (item instanceof HTMLLIElement &&
+    !item.classList.contains('selected')) {
+    const last = this.querySelector('.selected')
+    if (last) {
+      const page = $(`#${last.getAttribute('value')}`)
+      page.classList.remove('selected')
+      last.classList.remove('selected')
+    }
+    const page = $(`#${item.getAttribute('value')}`)
+    page.classList.add('selected')
+    item.classList.add('selected')
+  }
+})
+
+// 文件输入框 - 改变事件
+$('#image-file').addEventListener('change', function (event) {
+  loadImageFile(event.target.files[0])
+})
+
+// 拖拽进入事件
+document.addEventListener('dragenter', function (event) {
+  event.preventDefault()
+})
+
+// 拖拽悬停事件
+document.addEventListener('dragover', function (event) {
+  event.preventDefault()
+  event.dataTransfer.dropEffect = 'move'
+})
+
+// 拖拽释放事件
+// capture: true & stopPropagation for firefox
+document.addEventListener('drop', function (event) {
+  event.preventDefault()
+  event.stopPropagation()
+  loadImageFile(event.dataTransfer.files[0])
+}, {capture: true})
+
+// 图像类型 - 改变事件
+$('#image-type').addEventListener('change', function (event) {
+  const image = $('#image-frame').childNodes[0]
+  if (image instanceof Image) {
+    const type = this.value
+    const canvases = (
+      type === 'A1' ? createClassA1(image)
+    : type === 'A2' ? createClassA2(image)
+    : type === 'A3' ? createClassA3(image)
+    : type === 'A4' ? createClassA4(image)
+    : type === 'XP' ? createClassXP(image)
+    :                 []
+    )
+    $('#canvas-frame').textContent = ''
+    for (let canvas of canvases) {
+      $('#canvas-frame').appendChild(canvas)
+    }
+  }
+})
+
+// 加载图像文件
+const loadImageFile = function (file) {
+  if (file && /\.PNG$/i.test(file.name)) {
+    const reader = new FileReader()
+    reader.onload = event => {
+      const image = new Image()
+      image.onload = event => {
+        $('#image-name').textContent = file.name
+        $('#image-frame').textContent = ''
+        $('#image-frame').appendChild(image)
+        if (image.naturalHeight === 128) {
+          $('#image-type').value = 'XP'
+        } else if (/A1/i.test(file.name)) {
+          $('#image-type').value = 'A1'
+        } else if (/A2/i.test(file.name)) {
+          $('#image-type').value = 'A2'
+        } else if (/A3/i.test(file.name)) {
+          $('#image-type').value = 'A3'
+        } else if (/A4/i.test(file.name)) {
+          $('#image-type').value = 'A4'
+        }
+        const type = $('#image-type').value
+        const canvases = (
+          type === 'A1' ? createClassA1(image)
+        : type === 'A2' ? createClassA2(image)
+        : type === 'A3' ? createClassA3(image)
+        : type === 'A4' ? createClassA4(image)
+        : type === 'XP' ? createClassXP(image)
+        :                 []
+        )
+        $('#canvas-frame').textContent = ''
+        for (let canvas of canvases) {
+          $('#canvas-frame').appendChild(canvas)
+        }
+      }
+      image.src = reader.result
+    }
+    reader.readAsDataURL(file)
+  }
+}
+
+// 创建 A1 类
+const createClassA1 = function (image) {
+  const canvases = []
+  const size = Math.max(image.naturalWidth >> 4, 2)
+  for (let x = 0; x < 2; x++) {
+    for (let y = 0; y < 4; y++) {
+      const canvas = document.createElement('canvas')
+      canvas.width = size * 8
+      canvas.height = size * 24
+      extractTerrainTile(canvas, image, size, x * 8, y * 3, 0, 0)
+      extractTerrainTile(canvas, image, size, x * 8 + 2, y * 3, 0, 6)
+      extractTerrainTile(canvas, image, size, x * 8 + 4, y * 3, 0, 12)
+      if (x < 1 && y < 2) {
+        extractTerrainTile(canvas, image, size, x * 8 + 6, y * 3, 0, 18)
+      } else {
+        extractLoopTile(canvas, image, size, x * 8 + 6, y * 3, 0, 18)
+        extractLoopTile(canvas, image, size, x * 8 + 6, y * 3 + 1, 0, 19)
+        extractLoopTile(canvas, image, size, x * 8 + 6, y * 3 + 2, 0, 20)
+      }
+      canvases.push(canvas)
+    }
+  }
+  const canvas = document.createElement('canvas')
+  const {width, height} = canvases[0]
+  canvas.width = width * 8
+  canvas.height = height
+  canvas.style.width = `${width + 4}px`
+  const context = canvas.getContext('2d')
+  for (let i = 0; i < 8; i++) {
+    context.drawImage(canvases[i], i * width, 0)
+  }
+  canvases.push(canvas)
+  return canvases
+}
+
+// 创建 A2 类
+const createClassA2 = function (image) {
+  const canvases = []
+  const size = Math.max(image.naturalWidth >> 4, 2)
+  for (let y = 0; y < 4; y++) {
+    for (let x = 0; x < 8; x++) {
+      const canvas = document.createElement('canvas')
+      canvas.width = size * 8
+      canvas.height = size * 6
+      extractTerrainTile(canvas, image, size, x * 2, y * 3, 0, 0)
+      canvases.push(canvas)
+    }
+  }
+  const canvas = document.createElement('canvas')
+  const {width, height} = canvases[0]
+  canvas.width = width * 8
+  canvas.height = height * 4
+  canvas.style.width = `${width + 4}px`
+  const context = canvas.getContext('2d')
+  for (let y = 0; y < 4; y++) {
+    for (let x = 0; x < 8; x++) {
+      context.drawImage(canvases[x + y * 8], x * width, y * height)
+    }
+  }
+  canvases.push(canvas)
+  return canvases
+}
+
+// 创建 A3 类
+const createClassA3 = function (image) {
+  const canvases = []
+  const size = Math.max(image.naturalWidth >> 4, 2)
+  for (let y = 0; y < 2; y++) {
+    for (let x = 0; x < 8; x++) {
+      const canvas = document.createElement('canvas')
+      canvas.width = size * 8
+      canvas.height = size * 4
+      extractWallTile(canvas, image, size, x * 2, y * 4, 0, 0)
+      extractWallTile(canvas, image, size, x * 2, y * 4 + 2, 0, 2)
+      canvases.push(canvas)
+    }
+  }
+  const canvas = document.createElement('canvas')
+  const {width, height} = canvases[0]
+  canvas.width = width * 8
+  canvas.height = height * 2
+  canvas.style.width = `${width + 4}px`
+  const context = canvas.getContext('2d')
+  for (let y = 0; y < 2; y++) {
+    for (let x = 0; x < 8; x++) {
+      context.drawImage(canvases[x + y * 8], x * width, y * height)
+    }
+  }
+  canvases.push(canvas)
+  return canvases
+}
+
+// 创建 A4 类
+const createClassA4 = function (image) {
+  const canvases = []
+  const size = Math.max(image.naturalWidth >> 4, 2)
+  for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < 8; x++) {
+      const canvas = document.createElement('canvas')
+      canvas.width = size * 8
+      canvas.height = size * 8
+      extractTerrainTile(canvas, image, size, x * 2, y * 5, 0, 0)
+      extractWallTile(canvas, image, size, x * 2, y * 5 + 3, 0, 6)
+      canvases.push(canvas)
+    }
+  }
+  const canvas = document.createElement('canvas')
+  const {width, height} = canvases[0]
+  canvas.width = width * 8
+  canvas.height = height * 3
+  canvas.style.width = `${width + 4}px`
+  const context = canvas.getContext('2d')
+  for (let y = 0; y < 3; y++) {
+    for (let x = 0; x < 8; x++) {
+      context.drawImage(canvases[x + y * 8], x * width, y * height)
+    }
+  }
+  canvases.push(canvas)
+  return canvases
+}
+
+// 创建 XP 类
+const createClassXP = function (image) {
+  const canvases = []
+  const size = Math.max(image.naturalHeight >> 2, 2)
+  const canvas = document.createElement('canvas')
+  if (image.naturalWidth < image.naturalHeight) {
+    canvas.width = size * 8
+    canvas.height = size * 6
+    extractXPTile(canvas, image, size, 0, 0, 0, 0)
+  } else {
+    canvas.width = size * 16
+    canvas.height = size * 12
+    extractXPTile(canvas, image, size, 0, 0, 0, 0)
+    extractXPTile(canvas, image, size, 3, 0, 8, 0)
+    extractXPTile(canvas, image, size, 6, 0, 0, 6)
+    extractXPTile(canvas, image, size, 9, 0, 8, 6)
+  }
+  canvases.push(canvas)
+  return canvases
+}
+
+// 提取地形图块
+const extractTerrainTile = function (canvas, image, size, scol, srow, dcol, drow) {
+  const context = canvas.getContext('2d')
+  const unit = size >> 1
+  const sx = scol * size
+  const sy = srow * size
+  const clips = terrainClips
+  const length = clips.length
+  let ti = 0
+  let dx = dcol * size
+  let dy = drow * size
+  for (let i = 0; i < length; i++) {
+    const clip = clips[i]
+    if (clip === 0) {
+      ti += 1
+      dx = (dcol + ti % 8) * size
+      dy = (drow + (ti >> 3)) * size
+      continue
+    }
+    context.drawImage(image, sx + unit * clip[0], sy + unit * clip[1], unit * clip[2], unit * clip[3], dx + unit * clip[4], dy + unit * clip[5], unit * clip[2], unit * clip[3])
+  }
+}
+
+// 提取循环图块
+const extractLoopTile = function (canvas, image, size, scol, srow, dcol, drow) {
+  const context = canvas.getContext('2d')
+  const unit = size >> 1
+  const sx = scol * size
+  const sy = srow * size
+  let dx = dcol * size
+  let dy = drow * size
+  const clips = loopClips
+  const length = clips.length
+  for (let i = 0; i < length; i++) {
+    const clip = clips[i]
+    if (clip === 0) {
+      dx += size
+      continue
+    }
+    context.drawImage(image, sx + unit * clip[0], sy + unit * clip[1], unit * clip[2], unit * clip[3], dx + unit * clip[4], dy + unit * clip[5], unit * clip[2], unit * clip[3])
+  }
+}
+
+// 提取墙壁图块
+const extractWallTile = function (canvas, image, size, scol, srow, dcol, drow) {
+  const context = canvas.getContext('2d')
+  const unit = size >> 1
+  const sx = scol * size
+  const sy = srow * size
+  let ti = 0
+  let dx = dcol * size
+  let dy = drow * size
+  const clips = wallClips
+  const length = clips.length
+  for (let i = 0; i < length; i++) {
+    const clip = clips[i]
+    if (clip === 0) {
+      ti += 1
+      dx = (dcol + ti % 8) * size
+      dy = (drow + (ti >> 3)) * size
+      continue
+    }
+    context.drawImage(image, sx + unit * clip[0], sy + unit * clip[1], unit * clip[2], unit * clip[3], dx + unit * clip[4], dy + unit * clip[5], unit * clip[2], unit * clip[3])
+  }
+}
+
+// 提取 XP 图块
+const extractXPTile = function (canvas, image, size, scol, srow, dcol, drow) {
+  const context = canvas.getContext('2d')
+  const unit = size >> 1
+  const sx = scol * size
+  const sy = srow * size
+  const clips = XPClips
+  const length = clips.length
+  let ti = 0
+  let dx = dcol * size
+  let dy = drow * size
+  for (let i = 0; i < length; i++) {
+    const clip = clips[i]
+    if (clip === 0) {
+      ti += 1
+      dx = (dcol + ti % 8) * size
+      dy = (drow + (ti >> 3)) * size
+      continue
+    }
+    context.drawImage(image, sx + unit * clip[0], sy + unit * clip[1], unit * clip[2], unit * clip[3], dx + unit * clip[4], dy + unit * clip[5], unit * clip[2], unit * clip[3])
+  }
+}
+
+// 地形图块剪切参数
+const terrainClips = [
+  [2, 4, 1, 1, 0, 0], [1, 4, 1, 1, 1, 0], [2, 3, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 0
+  [0, 4, 2, 1, 0, 0], [0, 3, 2, 1, 0, 1], 0, // 1
+  [2, 2, 1, 2, 0, 0], [1, 2, 1, 2, 1, 0], 0, // 2
+  [0, 2, 2, 2, 0, 0], 0, // 3
+  [2, 4, 2, 1, 0, 0], [2, 3, 2, 1, 0, 1], 0, // 4
+  [0, 4, 1, 1, 0, 0], [3, 4, 1, 1, 1, 0], [0, 3, 1, 1, 0, 1], [3, 3, 1, 1, 1, 1], 0, // 5
+  [2, 2, 2, 2, 0, 0], 0, // 6
+  [0, 2, 1, 2, 0, 0], [3, 2, 1, 2, 1, 0], 0, // 7
+  [2, 4, 1, 2, 0, 0], [1, 4, 1, 2, 1, 0], 0, // 8
+  [0, 4, 2, 2, 0, 0], 0, // 9
+  [2, 2, 1, 1, 0, 0], [1, 2, 1, 1, 1, 0], [2, 5, 1, 1, 0, 1], [1, 5, 1, 1, 1, 1], 0, // 10
+  [0, 2, 2, 1, 0, 0], [0, 5, 2, 1, 0, 1], 0, // 11
+  [2, 4, 2, 2, 0, 0], 0, // 12
+  [0, 4, 1, 2, 0, 0], [3, 4, 1, 2, 1, 0], 0, // 13
+  [2, 2, 2, 1, 0, 0], [2, 5, 2, 1, 0, 1], 0, // 14
+  [0, 2, 1, 1, 0, 0], [3, 2, 1, 1, 1, 0], [0, 5, 1, 1, 0, 1], [3, 5, 1, 1, 1, 1], 0, // 15
+  [0, 4, 1, 1, 0, 0], [3, 0, 1, 1, 1, 0], [0, 3, 2, 1, 0, 1], 0, // 16
+  [0, 4, 2, 1, 0, 0], [0, 3, 1, 1, 0, 1], [3, 1, 1, 1, 1, 1], 0, // 17
+  [0, 4, 1, 1, 0, 0], [0, 3, 1, 1, 0, 1], [3, 0, 1, 2, 1, 0], 0, // 18
+  [2, 2, 1, 2, 0, 0], [1, 2, 1, 1, 1, 0], [3, 1, 1, 1, 1, 1], 0, // 19
+  [2, 2, 1, 1, 0, 0], [1, 2, 1, 2, 1, 0], [2, 1, 1, 1, 0, 1], 0, // 20
+  [2, 2, 1, 1, 0, 0], [1, 2, 1, 1, 1, 0], [2, 1, 2, 1, 0, 1], 0, // 21
+  [2, 4, 2, 1, 0, 0], [2, 1, 1, 1, 0, 1], [3, 3, 1, 1, 1, 1], 0, // 22
+  [2, 0, 1, 1, 0, 0], [3, 4, 1, 1, 1, 0], [2, 3, 2, 1, 0, 1], 0, // 23
+  [2, 0, 1, 2, 0, 0], [3, 4, 1, 1, 1, 0], [3, 3, 1, 1, 1, 1], 0, // 24
+  [2, 0, 1, 1, 0, 0], [2, 5, 1, 1, 0, 1], [1, 4, 1, 2, 1, 0], 0, // 25
+  [2, 4, 1, 2, 0, 0], [3, 0, 1, 1, 1, 0], [1, 5, 1, 1, 1, 1], 0, // 26
+  [2, 0, 2, 1, 0, 0], [2, 5, 1, 1, 0, 1], [1, 5, 1, 1, 1, 1], 0, // 27
+  [0, 2, 2, 1, 0, 0], [0, 3, 1, 1, 0, 1], [3, 1, 1, 1, 1, 1], 0, // 28
+  [2, 2, 2, 1, 0, 0], [2, 1, 1, 1, 0, 1], [3, 3, 1, 1, 1, 1], 0, // 29
+  [2, 0, 1, 1, 0, 0], [3, 4, 1, 1, 1, 0], [2, 5, 2, 1, 0, 1], 0, // 30
+  [0, 4, 1, 1, 0, 0], [3, 0, 1, 1, 1, 0], [0, 5, 2, 1, 0, 1], 0, // 31
+  [2, 0, 1, 1, 0, 0], [1, 4, 1, 1, 1, 0], [2, 3, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 32
+  [2, 4, 1, 1, 0, 0], [3, 0, 1, 1, 1, 0], [2, 3, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 33
+  [2, 0, 2, 1, 0, 0], [2, 3, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 34
+  [2, 4, 1, 1, 0, 0], [1, 4, 1, 1, 1, 0], [2, 3, 1, 1, 0, 1], [3, 1, 1, 1, 1, 1], 0, // 35
+  [2, 0, 1, 1, 0, 0], [1, 4, 1, 1, 1, 0], [2, 3, 1, 1, 0, 1], [3, 1, 1, 1, 1, 1], 0, // 36
+  [2, 4, 1, 1, 0, 0], [2, 3, 1, 1, 0, 1], [3, 0, 1, 2, 1, 0], 0, // 37
+  [2, 0, 2, 1, 0, 0], [2, 3, 1, 1, 0, 1], [3, 1, 1, 1, 1, 1], 0, // 38
+  [2, 4, 1, 1, 0, 0], [1, 4, 1, 1, 1, 0], [2, 1, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 39
+  [2, 0, 1, 2, 0, 0], [1, 4, 1, 1, 1, 0], [1, 3, 1, 1, 1, 1], 0, // 40
+  [2, 4, 1, 1, 0, 0], [3, 0, 1, 1, 1, 0], [2, 1, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 41
+  [2, 0, 2, 1, 0, 0], [2, 1, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 42
+  [2, 4, 1, 1, 0, 0], [1, 4, 1, 1, 1, 0], [2, 1, 2, 1, 0, 1], 0, // 43
+  [2, 0, 1, 1, 0, 0], [1, 4, 1, 1, 1, 0], [2, 1, 2, 1, 0, 1], 0, // 44
+  [2, 4, 1, 1, 0, 0], [3, 0, 1, 1, 1, 0], [2, 1, 2, 1, 0, 1], 0, // 45
+  [2, 0, 2, 2, 0, 0], // 46
+]
+
+// 循环图块剪切参数
+const loopClips = [
+  [2, 0, 1, 2, 0, 0], [1, 0, 1, 2, 1, 0], 0, // 0
+  [0, 0, 2, 2, 0, 0], 0, // 1
+  [2, 0, 2, 2, 0, 0], 0, // 2
+  [0, 0, 1, 2, 0, 0], [3, 0, 1, 2, 1, 0], // 3
+]
+
+// 墙壁图块剪切参数
+const wallClips = [
+  [2, 2, 1, 1, 0, 0], [1, 2, 1, 1, 1, 0], [2, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1], 0, // 0
+  [0, 2, 2, 1, 0, 0], [0, 1, 2, 1, 0, 1], 0, // 1
+  [2, 0, 1, 2, 0, 0], [1, 0, 1, 2, 1, 0], 0, // 2
+  [0, 0, 2, 2, 0, 0], 0, // 3
+  [2, 2, 2, 1, 0, 0], [2, 1, 2, 1, 0, 1], 0, // 4
+  [0, 2, 1, 1, 0, 0], [3, 2, 1, 1, 1, 0], [0, 1, 1, 1, 0, 1], [3, 1, 1, 1, 1, 1], 0, // 5
+  [2, 0, 2, 2, 0, 0], 0, // 6
+  [0, 0, 1, 2, 0, 0], [3, 0, 1, 2, 1, 0], 0, // 7
+  [2, 2, 1, 2, 0, 0], [1, 2, 1, 2, 1, 0], 0, // 8
+  [0, 2, 2, 2, 0, 0], 0, // 9
+  [2, 0, 1, 1, 0, 0], [1, 0, 1, 1, 1, 0], [2, 3, 1, 1, 0, 1], [1, 3, 1, 1, 1, 1], 0, // 10
+  [0, 0, 2, 1, 0, 0], [0, 3, 2, 1, 0, 1], 0, // 11
+  [2, 2, 2, 2, 0, 0], 0, // 12
+  [0, 2, 1, 2, 0, 0], [3, 2, 1, 2, 1, 0], 0, // 13
+  [2, 0, 2, 1, 0, 0], [2, 3, 2, 1, 0, 1], 0, // 14
+  [0, 0, 1, 1, 0, 0], [3, 0, 1, 1, 1, 0], [0, 3, 1, 1, 0, 1], [3, 3, 1, 1, 1, 1], // 15
+]
+
+// XP 图块剪切参数
+const XPClips = [
+  [2, 4, 2, 2, 0, 0], 0, // 0
+  [0, 4, 2, 2, 0, 0], 0, // 1
+  [2, 2, 2, 2, 0, 0], 0, // 2
+  [0, 2, 2, 2, 0, 0], 0, // 3
+  [4, 4, 2, 2, 0, 0], 0, // 4
+  [0, 4, 1, 2, 0, 0], [5, 4, 1, 2, 1, 0], 0, // 5
+  [4, 2, 2, 2, 0, 0], 0, // 6
+  [0, 2, 1, 2, 0, 0], [5, 2, 1, 2, 1, 0], 0, // 7
+  [2, 6, 2, 2, 0, 0], 0, // 8
+  [0, 6, 2, 2, 0, 0], 0, // 9
+  [2, 2, 2, 1, 0, 0], [2, 7, 2, 1, 0, 1], 0, // 10
+  [0, 2, 2, 1, 0, 0], [0, 7, 2, 1, 0, 1], 0, // 11
+  [4, 6, 2, 2, 0, 0], 0, // 12
+  [0, 6, 1, 2, 0, 0], [5, 6, 1, 2, 1, 0], 0, // 13
+  [4, 2, 2, 1, 0, 0], [4, 7, 2, 1, 0, 1], 0, // 14
+  [0, 2, 1, 1, 0, 0], [5, 2, 1, 1, 1, 0], [0, 7, 1, 1, 0, 1], [5, 7, 1, 1, 1, 1], 0, // 15
+  [0, 4, 1, 2, 0, 0], [5, 0, 1, 1, 1, 0], [3, 5, 1, 1, 1, 1], 0, // 16
+  [0, 4, 1, 2, 0, 0], [3, 4, 1, 1, 1, 0], [5, 1, 1, 1, 1, 1], 0, // 17
+  [0, 4, 1, 2, 0, 0], [5, 0, 1, 2, 1, 0], 0, // 18
+  [2, 2, 2, 1, 0, 0], [2, 5, 1, 1, 0, 1], [5, 1, 1, 1, 1, 1], 0, // 19
+  [2, 2, 2, 1, 0, 0], [4, 1, 1, 1, 0, 1], [3, 5, 1, 1, 1, 1], 0, // 20
+  [2, 2, 2, 1, 0, 0], [4, 1, 2, 1, 0, 1], 0, // 21
+  [2, 4, 1, 1, 0, 0], [4, 1, 1, 1, 0, 1], [5, 4, 1, 2, 1, 0], 0, // 22
+  [4, 0, 1, 1, 0, 0], [2, 5, 1, 1, 0, 1], [5, 4, 1, 2, 1, 0], 0, // 23
+  [4, 0, 1, 2, 0, 0], [5, 4, 1, 2, 1, 0], 0, // 24
+  [4, 0, 1, 1, 0, 0], [3, 4, 1, 1, 1, 0], [2, 7, 2, 1, 0, 1], 0, // 25
+  [2, 4, 1, 1, 0, 0], [5, 0, 1, 1, 1, 0], [2, 7, 2, 1, 0, 1], 0, // 26
+  [4, 0, 2, 1, 0, 0], [2, 7, 2, 1, 0, 1], 0, // 27
+  [0, 2, 2, 1, 0, 0], [0, 3, 1, 1, 0, 1], [5, 1, 1, 1, 1, 1], 0, // 28
+  [4, 2, 2, 1, 0, 0], [4, 1, 1, 1, 0, 1], [5, 3, 1, 1, 1, 1], 0, // 29
+  [4, 0, 1, 1, 0, 0], [5, 6, 1, 1, 1, 0], [4, 7, 2, 1, 0, 1], 0, // 30
+  [0, 6, 1, 1, 0, 0], [5, 0, 1, 1, 1, 0], [0, 7, 2, 1, 0, 1], 0, // 31
+  [4, 0, 1, 1, 0, 0], [3, 4, 1, 1, 1, 0], [2, 5, 2, 1, 0, 1], 0, // 32
+  [2, 4, 1, 1, 0, 0], [5, 0, 1, 1, 1, 0], [2, 5, 2, 1, 0, 1], 0, // 33
+  [4, 0, 2, 1, 0, 0], [2, 5, 2, 1, 0, 1], 0, // 34
+  [2, 4, 2, 1, 0, 0], [2, 5, 1, 1, 0, 1], [5, 1, 1, 1, 1, 1], 0, // 35
+  [4, 0, 1, 1, 0, 0], [3, 4, 1, 1, 1, 0], [2, 5, 1, 1, 0, 1], [5, 1, 1, 1, 1, 1], 0, // 36
+  [2, 4, 1, 2, 0, 0], [5, 0, 1, 2, 1, 0], 0, // 37
+  [4, 0, 2, 1, 0, 0], [2, 5, 1, 1, 0, 1], [5, 1, 1, 1, 1, 1], 0, // 38
+  [2, 4, 2, 1, 0, 0], [4, 1, 1, 1, 0, 1], [3, 5, 1, 1, 1, 1], 0, // 39
+  [4, 0, 1, 2, 0, 0], [3, 4, 1, 2, 1, 0], 0, // 40
+  [2, 4, 1, 1, 0, 0], [5, 0, 1, 1, 1, 0], [4, 1, 1, 1, 0, 1], [3, 5, 1, 1, 1, 1], 0, // 41
+  [4, 0, 2, 1, 0, 0], [4, 1, 1, 1, 0, 1], [3, 5, 1, 1, 1, 1], 0, // 42
+  [2, 4, 2, 1, 0, 0], [4, 1, 2, 1, 0, 1], 0, // 43
+  [4, 0, 1, 1, 0, 0], [3, 4, 1, 1, 1, 0], [4, 1, 2, 1, 0, 1], 0, // 44
+  [2, 4, 1, 1, 0, 0], [5, 0, 1, 1, 1, 0], [4, 1, 2, 1, 0, 1], 0, // 45
+  [4, 0, 2, 2, 0, 0], // 46
+]
+</script>
+</body>
+</html>
