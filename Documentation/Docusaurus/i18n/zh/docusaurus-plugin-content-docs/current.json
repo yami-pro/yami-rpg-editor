@@ -1,0 +1,82 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Basic Interfaces": {
+    "message": "基础界面",
+    "description": "The label for category Basic Interfaces in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Inspectors": {
+    "message": "检查器",
+    "description": "The label for category Inspectors in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.File": {
+    "message": "文件",
+    "description": "The label for category File in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Scene": {
+    "message": "场景",
+    "description": "The label for category Scene in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.UI": {
+    "message": "界面",
+    "description": "The label for category UI in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Animation": {
+    "message": "动画",
+    "description": "The label for category Animation in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Particle": {
+    "message": "粒子",
+    "description": "The label for category Particle in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Event": {
+    "message": "事件指令",
+    "description": "The label for category Event in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Getters": {
+    "message": "访问器",
+    "description": "The label for category Getters in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Message": {
+    "message": "消息",
+    "description": "The label for category Message in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Variable": {
+    "message": "变量控制",
+    "description": "The label for category Variable in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Flow": {
+    "message": "流程控制",
+    "description": "The label for category Flow in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Object": {
+    "message": "对象",
+    "description": "The label for category Object in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Audio": {
+    "message": "音频",
+    "description": "The label for category Audio in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Actor": {
+    "message": "角色",
+    "description": "The label for category Actor in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Skill": {
+    "message": "技能",
+    "description": "The label for category Skill in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Inventory": {
+    "message": "库存",
+    "description": "The label for category Inventory in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.System": {
+    "message": "系统",
+    "description": "The label for category System in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Hotkeys": {
+    "message": "快捷键",
+    "description": "The label for category Hotkeys in sidebar tutorialSidebar"
+  }
+}
