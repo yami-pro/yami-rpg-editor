@@ -1,0 +1,10 @@
+x64:
+  nodeModuleFilePatterns:
+    - '**/*'
+    - main.js
+    - package.json
+arm64:
+  nodeModuleFilePatterns:
+    - '**/*'
+    - main.js
+    - package.json
