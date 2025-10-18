@@ -56,6 +56,7 @@
         "lightColor": "0000ff80",
         "lightRadius": 6,
         "intensity": 0,
+        "direct": 0.25,
         "fadein": 100,
         "fadeout": 100
       }

@@ -230,6 +230,8 @@ const Scene = {
   redoMapData: null,
   createHistory: null,
   createDefaultAnimation: null,
+  getObjectFile: null,
+  openFileLocation: null,
   saveToConfig: null,
   loadFromConfig: null,
   saveToProject: null,
@@ -5841,6 +5843,37 @@ Scene.createDefaultAnimation = function IIFE() {
   }
 }()
 
+// 获取对象文件
+Scene.getObjectFile = function (sceneObject) {
+  switch (sceneObject?.class) {
+    case 'actor':
+    case 'animation': {
+      const guid = sceneObject.data?.guid
+      return Data.manifest.guidMap[guid]?.file ?? null
+    }
+    case 'particle': {
+      const guid = sceneObject.emitter?.data.guid
+      return Data.manifest.guidMap[guid]?.file ?? null
+    }
+    case 'parallax': {
+      const guid = sceneObject.image
+      return Data.manifest.guidMap[guid]?.file ?? null
+    }
+    default:
+      return undefined
+  }
+}
+
+// 打开文件位置
+Scene.openFileLocation = function (sceneObject) {
+  const file = Scene.getObjectFile(sceneObject)
+  if (file instanceof FileItem) {
+    Browser.body.openFileLocation(file)
+    Browser.body.select(file)
+    Browser.body.content.getFocus()
+  }
+}
+
 // 保存状态到配置文件
 Scene.saveToConfig = function (config) {
   config.colors.sceneBackground = this.background.hex
@@ -7042,6 +7075,17 @@ Scene.menuPopup = function (event) {
         break
       }
     }
+    // 添加在项目中查找选项
+    const file = Scene.getObjectFile(target)
+    if (file !== undefined) {
+      menuItems.push({
+        label: Local.get('common.findInProject'),
+        enabled: file instanceof FileItem,
+        click: () => {
+          Scene.openFileLocation(target)
+        }
+      })
+    }
     const {startPosition} = Data.config
     if (startPosition.sceneId === this.meta.guid &&
       Math.floor(startPosition.x) === x &&
@@ -7441,6 +7485,17 @@ Scene.listPopup = function (event) {
       click: () => {
         Reference.openRelated(item.presetId)
       },
+    })
+  }
+  // 添加在项目中查找选项
+  const file = Scene.getObjectFile(item)
+  if (file !== undefined) {
+    menuItems.push({
+      label: Local.get('common.findInProject'),
+      enabled: file instanceof FileItem,
+      click: () => {
+        Scene.openFileLocation(item)
+      }
     })
   }
   if (!item) {

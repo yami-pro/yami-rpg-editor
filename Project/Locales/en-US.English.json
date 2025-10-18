@@ -23,6 +23,7 @@
       "find-references": "Find References",
       "find-invalid-references": "Find Invalid References",
       "find-unused-references": "Find Unused References",
+      "findInProject": "Find in Project",
       "showInExplorer": "Show in Explorer",
       "showInFinder": "Show in Finder"
     },

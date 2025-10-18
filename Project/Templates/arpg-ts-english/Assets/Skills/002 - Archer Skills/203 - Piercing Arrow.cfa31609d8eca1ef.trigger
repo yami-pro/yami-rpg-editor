@@ -132,6 +132,7 @@
         "lightColor": "00ffff80",
         "lightRadius": 4,
         "intensity": 0,
+        "direct": 0.25,
         "fadein": 0,
         "fadeout": 0
       }

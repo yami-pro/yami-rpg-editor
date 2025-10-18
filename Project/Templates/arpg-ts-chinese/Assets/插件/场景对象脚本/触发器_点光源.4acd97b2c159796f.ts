@@ -19,6 +19,12 @@
 @clamp 0 1
 @decimals 4
 
+@number direct
+@alias #direct
+@clamp 0 1
+@decimals 4
+@default 0.25
+
 @number fadein
 @alias #fadein
 @clamp 0 10000
@@ -33,6 +39,7 @@
 #lightColor Light Color
 #lightRadius Light Radius
 #intensity Intensity
+#direct Direct Light Ratio
 #fadein Fadein (ms)
 #fadeout Fadeout (ms)
 
@@ -42,6 +49,7 @@
 #lightColor Цвет освещения
 #lightRadius Радиус освещения
 #intensity Интенсивность
+#direct Коэф. освещения
 #fadein Появление (ms)
 #fadeout Исчезновение (ms)
 
@@ -51,6 +59,7 @@
 #lightColor 照明颜色
 #lightRadius 照明半径
 #intensity 强度
+#direct 直射率
 #fadein 渐入时间(ms)
 #fadeout 渐出时间(ms)
 */
@@ -62,6 +71,7 @@ declare global {
     [POINT_LIGHT]: {
       color: Float64Array
       radius: number
+      direct: number
       fadein: number
       fadeout: number
     }
@@ -73,6 +83,7 @@ export default class Trigger_PointLight implements Script<Trigger> {
   lightColor!: string
   lightRadius!: number
   intensity!: number
+  direct!: number
   fadein!: number
   fadeout!: number
 
@@ -106,6 +117,7 @@ export default class Trigger_PointLight implements Script<Trigger> {
     trigger[POINT_LIGHT] = {
       color: lightColor,
       radius: this.lightRadius,
+      direct: this.direct,
       fadein: this.fadein,
       fadeout: this.fadeout,
     }
@@ -117,6 +129,7 @@ export default class Trigger_PointLight implements Script<Trigger> {
     const gl = GL
     const scene = Scene.binding!
     const vertices = gl.arrays[0].float32
+    const vertices2 = gl.arrays[3].float32
     const tw = scene.tileWidth
     const th = scene.tileHeight
     const sl = Camera.lightLeft
@@ -129,6 +142,7 @@ export default class Trigger_PointLight implements Script<Trigger> {
     const lb = sb / th
     const vs = tw / th
     let vi = 0
+    let vi2 = 0
     const triggers = Scene.visibleTriggers
     const count = triggers.count
     for (let i = 0; i < count; i++) {
@@ -167,6 +181,7 @@ export default class Trigger_PointLight implements Script<Trigger> {
         const dt = y - radius + oy
         const dr = x + radius
         const db = y + radius + oy
+        // 设置反射光绘制顶点
         vertices[vi    ] = dl
         vertices[vi + 1] = dt
         vertices[vi + 2] = 0
@@ -200,10 +215,55 @@ export default class Trigger_PointLight implements Script<Trigger> {
         vertices[vi + 30] = blue
         vertices[vi + 31] = intensity
         vi += 32
+        const direct = light.direct
+        if (direct === 0) {
+          continue
+        }
+        red *= direct
+        green *= direct
+        blue *= direct
+        // 设置直射光绘制顶点
+        vertices2[vi2    ] = dl
+        vertices2[vi2 + 1] = dt
+        vertices2[vi2 + 2] = 0
+        vertices2[vi2 + 3] = 0
+        vertices2[vi2 + 4] = red
+        vertices2[vi2 + 5] = green
+        vertices2[vi2 + 6] = blue
+        vertices2[vi2 + 7] = intensity
+        vertices2[vi2 + 8] = dl
+        vertices2[vi2 + 9] = db
+        vertices2[vi2 + 10] = 0
+        vertices2[vi2 + 11] = 1
+        vertices2[vi2 + 12] = red
+        vertices2[vi2 + 13] = green
+        vertices2[vi2 + 14] = blue
+        vertices2[vi2 + 15] = intensity
+        vertices2[vi2 + 16] = dr
+        vertices2[vi2 + 17] = db
+        vertices2[vi2 + 18] = 1
+        vertices2[vi2 + 19] = 1
+        vertices2[vi2 + 20] = red
+        vertices2[vi2 + 21] = green
+        vertices2[vi2 + 22] = blue
+        vertices2[vi2 + 23] = intensity
+        vertices2[vi2 + 24] = dr
+        vertices2[vi2 + 25] = dt
+        vertices2[vi2 + 26] = 1
+        vertices2[vi2 + 27] = 0
+        vertices2[vi2 + 28] = red
+        vertices2[vi2 + 29] = green
+        vertices2[vi2 + 30] = blue
+        vertices2[vi2 + 31] = intensity
+        vi2 += 32
       }
     }
 
-    // 绘制光源
+    if (vi === 0 && vi2 === 0) {
+      return
+    }
+
+    // 绘制反射光源
     if (vi !== 0) {
       // 获取光照纹理裁剪区域
       const cx = gl.reflectedLightMap.clipX
@@ -219,7 +279,7 @@ export default class Trigger_PointLight implements Script<Trigger> {
       .scale(tw, th)
       gl.blend = 'screen'
       const program = gl.lightProgram.use()
-      // 绑定光照纹理FBO
+      // 绑定反射光纹理FBO
       gl.bindFBO(gl.reflectedLightMap.fbo)
       gl.setViewport(cx, cy, cw, ch)
       gl.bindVertexArray(program.vao)
@@ -229,6 +289,32 @@ export default class Trigger_PointLight implements Script<Trigger> {
       gl.drawElements(gl.TRIANGLES, vi / 32 * 6, gl.UNSIGNED_INT, 0)
       // 重置视口并解除FBO绑定
       gl.resetViewport()
+      gl.unbindFBO()
+    }
+
+    // 绘制直射光源
+    if (vi2 !== 0) {
+      const sl = Camera.scrollLeft
+      const st = Camera.scrollTop
+      const sr = Camera.scrollRight
+      const sb = Camera.scrollBottom
+      const projMatrix = Matrix.instance.project(
+        gl.flip,
+        sr - sl,
+        sb - st,
+      )
+      .translate(-sl, -st)
+      .scale(tw, th)
+      gl.blend = 'screen'
+      const program = gl.lightProgram.use()
+      // 绑定直射光纹理FBO
+      gl.bindFBO(gl.directLightMap.fbo)
+      gl.bindVertexArray(program.vao)
+      gl.uniformMatrix3fv(program.u_Matrix, false, projMatrix)
+      gl.uniform1i(program.u_LightMode, 0)
+      gl.bufferData(gl.ARRAY_BUFFER, vertices2, gl.STREAM_DRAW, 0, vi2)
+      gl.drawElements(gl.TRIANGLES, vi2 / 32 * 6, gl.UNSIGNED_INT, 0)
+      // 解除FBO绑定
       gl.unbindFBO()
     }
   }

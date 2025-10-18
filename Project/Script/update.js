@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.135',
+  latestProjectVersion: '1.0.136',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -1127,6 +1127,16 @@ Updater.updateIncrementalChanges = function (version) {
       )
       if (!update) return
       this.copyScripts('scene.ts', 'trigger.ts', 'command.ts', 'ui.ts', 'util.ts', 'yami/yami.command.d.ts', 'yami/yami.webgl.d.ts')
+    }
+
+    '1.0.136'(update) {
+      this.logMessage(
+        'Removed the Steam online verification feature, allowing the editor to be opened directly without launching Steam.',
+        'Add a "Find in Project" menu item for applicable scene objects (Actor, Animation, Particle, Parallax).',
+        'Upgraded the "Trigger_PointLight.ts" script by adding a "Direct Light Ratio" property to enhance the lighting effect.',
+      )
+      if (!update) return
+      this.copyPlugins('4acd97b2c159796f')
     }
   }
 

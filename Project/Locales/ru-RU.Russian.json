@@ -23,6 +23,7 @@
       "find-references": "Поиск ссылок",
       "find-invalid-references": "Поиск неправильных ссылок",
       "find-unused-references": "Поиск неиспользуемых ссылок",
+      "findInProject": "Найти в проекте",
       "showInExplorer": "Расположение файла в OC",
       "showInFinder": "Показать в Поиске"
     },

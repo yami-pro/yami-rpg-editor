@@ -23,6 +23,7 @@
       "find-references": "查找引用",
       "find-invalid-references": "查找无效引用",
       "find-unused-references": "查找未使用的引用",
+      "findInProject": "在项目中查找",
       "showInExplorer": "在资源管理器中显示",
       "showInFinder": "在访达中显示"
     },
