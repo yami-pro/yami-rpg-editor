@@ -17,12 +17,12 @@
 #fullscreen Fullscreen
 
 @lang ru
-#plugin Установите режим отображения
-#desc Установите режим отображения приложения
+#plugin Режим отображения
+#desc Выбрать режим отображения приложения
 #display Отобразить
-#windowed В окне
-#maximized Развернуть окно
-#fullscreen Полный экран
+#windowed В оконном
+#maximized В развернутом
+#fullscreen В полноэкранном
 
 @lang zh
 #plugin 设置显示模式

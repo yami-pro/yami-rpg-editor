@@ -68,10 +68,10 @@ Render text content at the actor's location when the actor has a "Text Attribute
 #display Отобразить
 #always Всегда
 #auto Автоматически
-#auto-except-for-player-team Автоматически (за исключением команд игроков)
+#auto-except-for-player-team Авто (кроме команд игроков)
 #in-the-visible-range В видимом диапазоне
 #display-desc Всегда показывать текст или показывать его после атаки
-#duration Продолжительность(ms)
+#duration Продолж (ms)
 #duration-desc Продолжительность текста, отображаемого после атаки
 #range Видимый диапазон
 #range-desc Если расстояние от актёра до центра камеры находится в пределах видимости, отобразите текст
