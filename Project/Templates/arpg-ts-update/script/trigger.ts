@@ -307,11 +307,11 @@ class Trigger {
       // 通过选择器筛选目标角色
       Trigger.getActorsBySelector(this.caster, this.selector)
 
-      // 通过击中模式筛选目标角色
-      this.getActorsByHitMode()
-
       // 更新时间列表，剔除过期角色
       this.updateHitList()
+
+      // 通过击中模式筛选目标角色
+      this.getActorsByHitMode()
 
       // 触发对应事件
       if (targets.count > 0) {

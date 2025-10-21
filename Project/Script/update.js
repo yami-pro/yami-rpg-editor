@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.136',
+  latestProjectVersion: '1.0.137',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -1137,6 +1137,14 @@ Updater.updateIncrementalChanges = function (version) {
       )
       if (!update) return
       this.copyPlugins('4acd97b2c159796f')
+    }
+
+    '1.0.137'(update) {
+      this.logMessage(
+        'Fixed the trigger malfunction caused by version 1.0.135.',
+      )
+      if (!update) return
+      this.copyScripts('trigger.ts')
     }
   }
 
