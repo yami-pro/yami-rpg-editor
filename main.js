@@ -50,7 +50,9 @@ ipcMain.handle('wait-write-file', event => {
 const FSP = require('fs').promises
 const writeFile = async (filePath, text, check) => {
   if (check) await FSP.stat(filePath)
-  return FSP.writeFile(filePath, text)
+  return FSP.writeFile(filePath, text).then(() => {
+    console.log(`Write file: ${filePath}`)
+  })
 }
 
 // 保护承诺对象
@@ -82,6 +84,7 @@ app.on('window-all-closed', () => {
 // 阻止退出直到写入完成
 app.on('before-quit', async event => {
   event.preventDefault()
+  await new Promise(r => stopTSC(r))
   await Promise.allSettled(promises)
   app.exit()
 })
@@ -96,8 +99,6 @@ const createEditorMenu = function () {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 }
-
-// ******************************** 创建编辑器菜单栏 ********************************
 
 const createMenuTemplate = function () {
   const template = []
@@ -201,7 +202,6 @@ const createEditorWindow = function () {
   editor.on('close', async event => {
     if (!editor.stopCloseEvent) {
       // 停止TSC进程
-      await new Promise(r => stopTSC(r))
       editor.send('before-close-window')
       event.preventDefault()
       // 如果渲染线程未响应，超时2秒后退出应用
@@ -261,6 +261,7 @@ const createEditorWindow = function () {
       callback?.()
     }
   }
+  global.stopTSC = stopTSC
 }
 
 // ******************************** 创建播放器窗口 ********************************

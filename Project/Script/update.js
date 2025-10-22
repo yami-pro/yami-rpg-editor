@@ -1141,6 +1141,7 @@ Updater.updateIncrementalChanges = function (version) {
 
     '1.0.137'(update) {
       this.logMessage(
+        'Fixed a bug caused by version 1.0.131 where files were not automatically saved when closing the editor.',
         'Fixed the trigger malfunction caused by version 1.0.135.',
       )
       if (!update) return
