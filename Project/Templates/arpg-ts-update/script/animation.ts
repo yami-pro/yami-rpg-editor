@@ -31,7 +31,7 @@ class AnimationPlayer {
   public rotation: number
   /** 动画的不透明度 */
   public opacity: number
-  /** 动画渲染排序的优先级 */
+  /** 动画渲染的优先级 */
   public priority: number
   /** 动画当前角度 */
   public angle: number
@@ -81,6 +81,8 @@ class AnimationPlayer {
   public destroyed: boolean
   /** 动画组件 - 键 */
   public key?: string
+  /** 动画组件 - 顺序 */
+  public order?: number
   /** 动画组件 - 原始缩放系数 */
   public rawScale?: number
   /** 动画组件 - 原始偏移Y */
@@ -816,6 +818,8 @@ class AnimationPlayer {
    * @param matrix 动画矩阵
    */
   public drawUIAnimation(x: number, y: number, opacity: number, matrix: Matrix): void {
+    this.emitterManager?.update(Time.rawDeltaTime)
+    this.emitterManager?.drawBack(matrix, opacity)
     GL.alpha = opacity
     const program = GL.spriteProgram.use()
     GL.batchRenderer.bindProgram()
@@ -829,8 +833,7 @@ class AnimationPlayer {
     this.draw('raw')
     GL.batchRenderer.draw()
     GL.batchRenderer.unbindProgram()
-    this.emitterManager?.update(Time.rawDeltaTime)
-    this.emitterManager?.draw(matrix)
+    this.emitterManager?.drawFront(matrix, opacity)
   }
 
   /** 释放资源 */
@@ -1186,10 +1189,11 @@ class AnimationPlayer {
       const data = Data.particles[guid]
       if (!data) return
       const position = this.animation.position
+      const priority = layer.order === 'before' ? -0.1 : 0.1
       const emitter = new SceneParticleEmitter(data) as AnimationParticleEmitter
       emitter.disabled = false
       emitter.matrix = this.matrix
-      emitter.priority = this.animation.priority
+      emitter.priority = this.animation.priority + priority
       emitter.x = position.x
       emitter.y = position.y
       emitter.temporary = true
@@ -1197,7 +1201,7 @@ class AnimationPlayer {
       this.animation.emitterCount++
       const {alwaysDraw} = emitter
       if (this.animation.emitterManager) {
-        this.animation.emitterManager.append(emitter)
+        this.animation.emitterManager.append(emitter, layer.order)
       } else {
         // 委托给场景粒子发射器列表进行更新
         Scene.emitter.append(emitter)
@@ -1218,6 +1222,8 @@ class AnimationPlayer {
           emitter.x = position.x
           emitter.y = position.y
         }
+        // 更新粒子优先级
+        emitter.priority = this.animation.priority + priority
         // 更新已激活粒子
         const speed = this.animation.speed
         const count = emitter.updateParticles(deltaTime * speed)
@@ -1283,15 +1289,25 @@ class AnimationPlayer {
 class AnimationParticleEmitterManager {
   /** 场景粒子发射器列表 */
   public list: Array<SceneParticleEmitter> = []
+  public backList: Array<SceneParticleEmitter> = []
+  public frontList: Array<SceneParticleEmitter> = []
 
   /**
    * 添加粒子发射器到管理器中
    * @param emitter 粒子发射器
    */
-  public append(emitter: SceneParticleEmitter): void {
+  public append(emitter: SceneParticleEmitter, order: 'before' | 'after'): void {
     if (emitter.parent === null) {
       emitter.parent = this
       this.list.push(emitter)
+      switch (order) {
+        case 'before':
+          this.backList.push(emitter)
+          break
+        case 'after':
+          this.frontList.push(emitter)
+          break
+      }
     }
   }
 
@@ -1303,6 +1319,8 @@ class AnimationParticleEmitterManager {
     if (emitter.parent === this) {
       emitter.parent = null
       this.list.remove(emitter)
+      this.frontList.remove(emitter) ||
+      this.backList.remove(emitter)
     }
   }
 
@@ -1317,12 +1335,30 @@ class AnimationParticleEmitterManager {
   }
 
   /**
-   * 绘制粒子
+   * 绘制背景粒子
    * @param matrix 投影矩阵
+   * @param opacity 不透明度
    */
-  public draw(matrix: Matrix): void {
-    for (const emitter of this.list) {
+  public drawBack(matrix: Matrix, opacity: number): void {
+    for (const emitter of this.backList) {
+      const emitterOpacity = emitter.opacity
+      emitter.opacity *= opacity
       emitter.draw(matrix)
+      emitter.opacity = emitterOpacity
+    }
+  }
+
+  /**
+   * 绘制前景粒子
+   * @param matrix 投影矩阵
+   * @param opacity 不透明度
+   */
+  public drawFront(matrix: Matrix, opacity: number): void {
+    for (const emitter of this.frontList) {
+      const emitterOpacity = emitter.opacity
+      emitter.opacity *= opacity
+      emitter.draw(matrix)
+      emitter.opacity = emitterOpacity
     }
   }
 
@@ -1333,6 +1369,8 @@ class AnimationParticleEmitterManager {
         emitter.destroy()
       }
       this.list.length = 0
+      this.backList.length = 0
+      this.frontList.length = 0
     }
   }
 }

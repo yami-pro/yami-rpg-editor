@@ -19,7 +19,6 @@ const Editor = {
   saveProject: null,
   loadProject: null,
   saveManifest: null,
-  getVersionNumber: null,
   checkForEditorUpdates: null,
   checkForProjectUpdates: null,
   isProjectVersionSupported: null,
@@ -138,7 +137,7 @@ Editor.open = async function (path, agreed = false) {
     const json = FS.readFileSync(path, 'utf8')
     this.project = JSON.parse(json)
     Object.defineProperty(this.project, 'code', {value: json})
-    const verNum = Editor.getVersionNumber(this.project.version)
+    const verNum = Updater.getVersionNumber(this.project.version)
     if (!Editor.isProjectVersionSupported()) {
       return Window.confirm({
         message: get('versionIsTooHigh'),
@@ -150,7 +149,7 @@ Editor.open = async function (path, agreed = false) {
       }])
     }
     // 升级到1.0.122：破坏性更新
-    if (verNum < Editor.getVersionNumber('1.0.122')) {
+    if (verNum < Updater.getVersionNumber('1.0.122')) {
       if (!agreed) {
         const warning = Updater.getTSVersionWarning()
         return Window.confirm({
@@ -185,7 +184,7 @@ Editor.open = async function (path, agreed = false) {
   // 加载数据文件
   try {
     const ver = this.project.version
-    const verNum = Editor.getVersionNumber(ver)
+    const verNum = Updater.getVersionNumber(ver)
     await Updater.createLocalization(verNum)
     const loadData = Data.loadAll()
     const loadDir = Directory.read()
@@ -453,21 +452,12 @@ Editor.saveManifest = function () {
   return Data.saveManifest()
 }
 
-// 获取版本数值
-Editor.getVersionNumber = function (version) {
-  const nodes = version.split('.')
-  const a = parseInt(nodes[0])
-  const b = parseInt(nodes[1])
-  const c = parseInt(nodes[2])
-  return a * 100000000 + b * 10000 + c
-}
-
 // 检查编辑器更新
 Editor.checkForEditorUpdates = function () {
   const ver1 = Editor.config.version
   const ver2 = Updater.latestEditorVersion
-  const verNum1 = Editor.getVersionNumber(ver1)
-  const verNum2 = Editor.getVersionNumber(ver2)
+  const verNum1 = Updater.getVersionNumber(ver1)
+  const verNum2 = Updater.getVersionNumber(ver2)
   if (verNum1 < verNum2) {
     Editor.config.version = ver2
     console.warn(`升级编辑器版本：${ver1} -> ${ver2}`)
@@ -478,8 +468,8 @@ Editor.checkForEditorUpdates = function () {
 Editor.checkForProjectUpdates = async function () {
   const ver1 = Editor.project.version
   const ver2 = Updater.latestProjectVersion
-  const verNum1 = Editor.getVersionNumber(ver1)
-  const verNum2 = Editor.getVersionNumber(ver2)
+  const verNum1 = Updater.getVersionNumber(ver1)
+  const verNum2 = Updater.getVersionNumber(ver2)
   if (verNum1 < verNum2) {
     console.warn(`升级项目版本：${ver1} -> ${ver2}`)
     Updater.updateProject(verNum1)
@@ -514,8 +504,8 @@ Editor.checkForProjectUpdates = async function () {
 Editor.isProjectVersionSupported = function () {
   const ver1 = Editor.project.version
   const ver2 = Updater.latestProjectVersion
-  const verNum1 = Editor.getVersionNumber(ver1)
-  const verNum2 = Editor.getVersionNumber(ver2)
+  const verNum1 = Updater.getVersionNumber(ver1)
+  const verNum2 = Updater.getVersionNumber(ver2)
   if (verNum1 <= verNum2) {
     return true
   }

@@ -425,6 +425,10 @@ Title.loadFromProject = function (project) {
 // 窗口 - 关闭前事件
 Title.windowBeforeClose = function (event) {
   if (Window.frames.length === 0) {
+    // 阻止关闭窗口
+    require('electron')
+    .ipcRenderer
+    .send('prevent-close-window')
     Title.askWhetherToSave(() => {
       Editor.quit()
     })
@@ -1991,6 +1995,19 @@ Menubar.popupHelpMenu = function (target) {
       click: () => {
         UpdateLog.open()
       },
+    }, {
+      label: 'GitHub',
+      submenu: [{
+        label: 'Yami RPG Editor',
+        click: () => {
+          File.openURL('https://github.com/yami-pro/yami-rpg-editor')
+        },
+      }, {
+        label: 'Open Yami Community',
+        click: () => {
+          File.openURL('https://github.com/Open-Yami-Community')
+        },
+      }],
     }])
   }
 }

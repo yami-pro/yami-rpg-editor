@@ -645,26 +645,26 @@ class Actor {
     const length = list.length
     // 创建初始物品和装备，避免触发获得事件
     for (let i = 0; i < length; i++) {
-      const goods = list[i]
-      switch (goods.type) {
+      const asset = list[i]
+      switch (asset.type) {
         case 'item': {
-          const data = Data.items[goods.id]
+          const data = Data.items[asset.id]
           if (data) {
             const item = new Item(data)
             inventory.insert(item)
-            item.increase(goods.quantity)
+            item.increase(asset.quantity)
           }
           continue
         }
         case 'equipment': {
-          const data = Data.equipments[goods.id]
+          const data = Data.equipments[asset.id]
           if (data) {
             inventory.insert(new Equipment(data))
           }
           continue
         }
         case 'money':
-          inventory.money += goods.money
+          inventory.money += asset.money
           continue
       }
     }
@@ -946,6 +946,15 @@ class Actor {
    */
   public setPassage(passage: keyof ActorPassageMap): void {
     this.passage = Actor.passageMap[passage]
+  }
+
+  /**
+   * 设置角色优先级
+   * @param priority 优先级
+   */
+  public setPriority(priority: number): void {
+    this.priority = priority
+    this.animationManager.setPriority(priority)
   }
 
   /**
@@ -1441,6 +1450,10 @@ class ActorCollider {
   /** 处理不可推动碰撞 */
   public handleImmovableCollisions(): void {
     const self = this.actor
+    if (self.collider.weight === 0)
+    {
+      return
+    }
     const ox = self.x
     const oy = self.y
     const half = this.half
@@ -2693,6 +2706,7 @@ class AnimationManager {
     if (key && this.keyMap[key] !== animation) {
       animation.key = key
       animation.parent = this
+      animation.priority = this.actor.priority
       animation.setPosition(this.actor)
       // 设置原始缩放系数
       if (animation.rawScale === undefined) {
@@ -2720,6 +2734,15 @@ class AnimationManager {
       } else {
         this.list.push(animation)
         this.keyMap[key] = animation
+      }
+      // 设置默认顺序
+      if (animation.order === undefined) {
+        animation.order = 0
+      }
+      // 立即同步角度
+      if (animation.syncAngle)
+      {
+        animation.setAngle(this.actor.angle)
       }
       this.sort()
     }
@@ -2820,14 +2843,24 @@ class AnimationManager {
   }
 
   /**
-   * 设置动画优先级
-   * @param key 动画键
-   * @param priority 排序优先级
+   * 设置动画渲染优先级(粒子)
+   * @param angle 角度(弧度)
    */
-  public setPriority(key: string, priority: number): void {
+  public setPriority(priority: number): void {
+    for (const animation of this.list) {
+      animation.priority = priority
+    }
+  }
+
+  /**
+   * 设置动画排序顺序
+   * @param key 动画键
+   * @param order 顺序
+   */
+  public setOrder(key: string, order: number): void {
     const animation = this.keyMap[key]
     if (animation) {
-      animation.priority = priority
+      animation.order = order
       this.sort()
     }
   }
@@ -2942,7 +2975,7 @@ class AnimationManager {
         scale: animation.rawScale,
         speed: animation.speed,
         opacity: animation.opacity,
-        priority: animation.priority,
+        order: animation.order,
         offsetY: animation.rawOffsetY,
         motion: animation.defaultMotion ?? undefined,
         images: animation.priorityImages ?? undefined,
@@ -2958,6 +2991,12 @@ class AnimationManager {
   public loadData(animations: Array<AnimationComponentSaveData>): void {
     this.scale = this.actor.scale
     for (const savedData of animations) {
+      // 补丁：2025-11-1，将priority改名为order
+      // 兼容旧存档，在合适的时候可以删除这段补丁
+      if (savedData.order === undefined) {
+        // @ts-ignore
+        savedData.order = savedData.priority
+      }
       const data = Data.animations[savedData.id]
       if (data) {
         const animation = new AnimationPlayer(data)
@@ -2969,7 +3008,8 @@ class AnimationManager {
         animation.scale = savedData.scale * this.scale
         animation.speed = savedData.speed
         animation.opacity = savedData.opacity
-        animation.priority = savedData.priority
+        animation.order = savedData.order
+        animation.priority = this.actor.priority
         animation.rawOffsetY = savedData.offsetY
         animation.offsetY = savedData.offsetY * this.scale
         animation.parent = this
@@ -2994,7 +3034,7 @@ class AnimationManager {
    * @param a 动画播放器A
    * @param b 动画播放器B
    */
-  private static sorter = (a: AnimationPlayer, b: AnimationPlayer): number => a.priority - b.priority
+  private static sorter = (a: AnimationPlayer, b: AnimationPlayer): number => a.order! - b.order!
 }
 
 /** ******************************** 角色动画控制器 ******************************** */
@@ -4196,7 +4236,7 @@ class Item {
     }
   }
 
-  /** 将货物从库存中移除 */
+  /** 将物品从库存中移除 */
   public remove(): void {
     this.parent?.remove(this)
   }
@@ -4267,11 +4307,11 @@ class Inventory {
   public money: number
   /** 预测下一个空槽的插入位置 */
   private pointer: number
-  /** 库存货物列表 */
+  /** 库存资产列表 */
   public list: Array<Item | Equipment>
-  /** {ID:货物集合}映射表 */
+  /** {ID:资产集合}映射表 */
   public idMap: HashMap<Array<Item | Equipment>>
-  /** 库存管理器版本(随着货物添加和移除发生变化) */
+  /** 库存管理器版本(随着资产添加和移除发生变化) */
   public version: number
 
   /**
@@ -4288,8 +4328,8 @@ class Inventory {
   }
 
   /**
-   * 获取库存货物
-   * @param id 货物文件ID
+   * 获取库存资产
+   * @param id 资产文件ID
    * @returns 物品或装备实例
    */
   public get(id: string): Item | Equipment | undefined {
@@ -4297,8 +4337,8 @@ class Inventory {
   }
 
   /**
-   * 获取库存货物列表
-   * @param id 货物文件ID
+   * 获取库存资产列表
+   * @param id 资产文件ID
    * @returns 物品或装备列表
    */
   public getList(id: string): Array<Item | Equipment> | undefined {
@@ -4308,9 +4348,9 @@ class Inventory {
   /** 重置库存中的物品、装备、金币 */
   public reset(): void {
     // 遍历库存中的所有物品装备，重置属性
-    for (const goods of this.list) {
-      goods.parent = null
-      goods.order = -1
+    for (const asset of this.list) {
+      asset.parent = null
+      asset.order = -1
     }
     // 重置库存属性
     this.money = 0
@@ -4322,19 +4362,19 @@ class Inventory {
 
   /**
    * 插入物品或装备到库存中的空位置
-   * @param goods 插入货物
+   * @param asset 插入资产
    */
-  public insert(goods: Item | Equipment): void {
-    if (goods.parent === null) {
+  public insert(asset: Item | Equipment): void {
+    if (asset.parent === null) {
       // 将物品插入到空槽位
       let i = this.pointer
       const {list} = this
       while (list[i]?.order === i) {i++}
-      list.splice(i, 0, goods)
-      goods.order = i
-      goods.parent = this
+      list.splice(i, 0, asset)
+      asset.order = i
+      asset.parent = this
       // 将物品添加到映射表
-      this.addToMap(goods)
+      this.addToMap(asset)
       // 设置空槽位起始查找位置
       this.pointer = i + 1
       this.version++
@@ -4343,17 +4383,17 @@ class Inventory {
 
   /**
    * 从库存中移除物品或装备
-   * @param goods 移除货物
+   * @param asset 移除资产
    */
-  public remove(goods: Item | Equipment): void {
-    if (goods.parent === this) {
+  public remove(asset: Item | Equipment): void {
+    if (asset.parent === this) {
       const {list} = this
-      const i = list.indexOf(goods)
+      const i = list.indexOf(asset)
       list.splice(i, 1)
-      goods.order = -1
-      goods.parent = null
+      asset.order = -1
+      asset.parent = null
       // 将物品从映射表中移除
-      this.removeFromMap(goods)
+      this.removeFromMap(asset)
       // 设置空槽位起始查找位置
       if (this.pointer > i) {
         this.pointer = i
@@ -4364,31 +4404,31 @@ class Inventory {
 
   /**
    * 添加物品或装备到映射表
-   * @param goods 添加货物
+   * @param asset 添加资产
    */
-  private addToMap(goods: Item | Equipment): void {
-    if (this.idMap[goods.id]) {
-      this.idMap[goods.id]!.push(goods)
+  private addToMap(asset: Item | Equipment): void {
+    if (this.idMap[asset.id]) {
+      this.idMap[asset.id]!.push(asset)
     } else {
-      this.idMap[goods.id] = [goods]
+      this.idMap[asset.id] = [asset]
     }
   }
 
   /**
    * 从映射表中移除物品或装备
-   * @param goods 移除对象
+   * @param asset 移除对象
    */
-  private removeFromMap(goods: Item | Equipment): void {
-    this.idMap[goods.id]?.remove(goods)
-    if (this.idMap[goods.id]?.length === 0) {
-      delete this.idMap[goods.id]
+  private removeFromMap(asset: Item | Equipment): void {
+    this.idMap[asset.id]?.remove(asset)
+    if (this.idMap[asset.id]?.length === 0) {
+      delete this.idMap[asset.id]
     }
   }
 
   /**
    * 交换物品或装备(如果存在)在库存中的位置
-   * @param order1 货物1的位置
-   * @param order2 货物2的位置
+   * @param order1 资产1的位置
+   * @param order2 资产2的位置
    */
   public swap(order1: number, order2: number): void {
     if (order1 >= 0 && order2 >= 0 && order1 !== order2) {
@@ -4399,20 +4439,20 @@ class Inventory {
         order2 = temp
       }
       const {list} = this
-      const goods1 = list.find(a => a.order === order1)
-      const goods2 = list.find(a => a.order === order2)
-      if (goods1 && goods2) {
+      const asset1 = list.find(a => a.order === order1)
+      const asset2 = list.find(a => a.order === order2)
+      if (asset1 && asset2) {
         // 同时存在两个物品
-        const pos1 = list.indexOf(goods1)
-        const pos2 = list.indexOf(goods2)
-        goods1.order = order2
-        goods2.order = order1
-        list[pos1] = goods2
-        list[pos2] = goods1
+        const pos1 = list.indexOf(asset1)
+        const pos2 = list.indexOf(asset2)
+        asset1.order = order2
+        asset2.order = order1
+        list[pos1] = asset2
+        list[pos2] = asset1
         this.version++
-      } else if (goods1) {
+      } else if (asset1) {
         // 存在索引较小的物品
-        const pos1 = list.indexOf(goods1)
+        const pos1 = list.indexOf(asset1)
         list.splice(pos1, 1)
         let pos2 = pos1
         const {length} = list
@@ -4422,16 +4462,16 @@ class Inventory {
           }
           pos2++
         }
-        goods1.order = order2
-        list.splice(pos2, 0, goods1)
+        asset1.order = order2
+        list.splice(pos2, 0, asset1)
         this.version++
         // 设置空槽位起始查找位置
         if (this.pointer > pos1) {
           this.pointer = pos1
         }
-      } else if (goods2) {
+      } else if (asset2) {
         // 存在索引较大的物品
-        const pos2 = list.indexOf(goods2)
+        const pos2 = list.indexOf(asset2)
         list.splice(pos2, 1)
         let pos1 = pos2
         while (--pos1 >= 0) {
@@ -4441,8 +4481,8 @@ class Inventory {
           }
         }
         pos1 = Math.max(pos1, 0)
-        goods2.order = order1
-        list.splice(pos1, 0, goods2)
+        asset2.order = order1
+        list.splice(pos1, 0, asset2)
         this.version++
       }
     }
@@ -4476,14 +4516,14 @@ class Inventory {
   /**
    * 查找指定的物品或装备数量
    * @param id 物品或装备的文件ID
-   * @returns 货物的数量
+   * @returns 资产的数量
    */
   public count(id: string): number {
     const list = this.getList(id)
     if (!list) return 0
     let count = 0
-    for (const goods of list) {
-      count += goods instanceof Item ? goods.quantity : 1
+    for (const asset of list) {
+      count += asset instanceof Item ? asset.quantity : 1
     }
     return count
   }

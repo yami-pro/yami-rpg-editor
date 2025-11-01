@@ -249,7 +249,6 @@
       "light": "光源",
       "element": "元素"
     },
-    "[comment]": "~~~~~~~~",
     "eventTips": {
       "common": "不会自动执行",
       "create": "对象初始化时触发事件",
@@ -1684,7 +1683,6 @@
     }},
 
     "[comment]": "********** 标题栏 **********",
-    "[comment]": "~~~~~~~~",
     "title-play": {"tip": "$运行游戏\nF10：开关统计信息\nF11：切换全屏模式\nF12：开发者工具"},
 
     "[comment]": "********** 主页 **********",
@@ -1928,7 +1926,6 @@
     "fileState-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展状态"},
 
     "[comment]": "********** 检查器 - 文件 - 事件 **********",
-    "[comment]": "~~~~~~~~",
     "fileEvent-general-grid": {"label": "基本设置"},
     "fileEvent-type": {"label": "类型", "tip": "一些特定的行为将会自动触发相关类型的事件"},
     "fileEvent-enabled": {"label": "启用", "tip": "按事件类型自动触发"},
@@ -1953,7 +1950,6 @@
     "fileEvent-parameters": {"label": "事件参数", "tip": "通过\"调用事件\"指令调用本事件可传递参数值\n将在执行本事件时自动写入参数值到这些变量"},
 
     "[comment]": "********** 检查器 - 文件 - 图像 **********",
-    "[comment]": "~~~~~~~~",
     "fileImage-info-grid": {"label": "文件信息"},
     "fileImage-name": {"label": "名称", "tip": "文件名称"},
     "fileImage-size": {"label": "大小", "tip": "文件大小"},
@@ -1961,7 +1957,6 @@
     "fileImage-image-viewer": {"label": "图像"},
 
     "[comment]": "********** 检查器 - 文件 - 音频 **********",
-    "[comment]": "~~~~~~~~",
     "fileAudio-info-grid": {"label": "文件信息"},
     "fileAudio-name": {"label": "名称", "tip": "文件名称"},
     "fileAudio-size": {"label": "大小", "tip": "文件大小"},
@@ -1976,7 +1971,6 @@
     "fileAudio-frequency-canvas": {"label": "频率"},
 
     "[comment]": "********** 检查器 - 文件 - 视频 **********",
-    "[comment]": "~~~~~~~~",
     "fileVideo-info-grid": {"label": "文件信息"},
     "fileVideo-name": {"label": "名称", "tip": "文件名称"},
     "fileVideo-size": {"label": "大小", "tip": "文件大小"},
@@ -1998,7 +1992,6 @@
     "fileScript-overview": {"label": "概述"},
 
     "[comment]": "********** 检查器 - 场景 - 角色 **********",
-    "[comment]": "~~~~~~~~",
     "sceneActor-general-grid": {"label": "基本设置"},
     "sceneActor-name": {"label": "名称", "tip": "角色的备注名称"},
     "sceneActor-type": {"label": "类型", "tip": "选择创建临时还是永久角色", "options": {
@@ -2016,7 +2009,6 @@
     "sceneActor-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展角色"},
 
     "[comment]": "********** 检查器 - 场景 - 区域 **********",
-    "[comment]": "~~~~~~~~",
     "sceneRegion-general-grid": {"label": "基本设置"},
     "sceneRegion-name": {"label": "名称", "tip": "区域的备注名称"},
     "sceneRegion-color": {"label": "颜色", "tip": "区域的颜色"},
@@ -2029,7 +2021,6 @@
     "sceneRegion-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展区域"},
 
     "[comment]": "********** 检查器 - 场景 - 光源 **********",
-    "[comment]": "~~~~~~~~",
     "sceneLight-general-grid": {"label": "基本设置"},
     "sceneLight-name": {"label": "名称", "tip": "光源的备注名称"},
     "sceneLight-type": {"label": "类型", "tip": "影响光源的可用参数", "options": {
@@ -2061,7 +2052,6 @@
     "sceneLight-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展光源"},
 
     "[comment]": "********** 检查器 - 场景 - 动画 **********",
-    "[comment]": "~~~~~~~~",
     "sceneAnimation-general-grid": {"label": "基本设置"},
     "sceneAnimation-name": {"label": "名称", "tip": "动画的备注名称"},
     "sceneAnimation-animationId": {"label": "动画", "tip": "选择一个动画文件"},
@@ -2082,7 +2072,6 @@
     "sceneAnimation-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展动画"},
 
     "[comment]": "********** 检查器 - 场景 - 粒子 **********",
-    "[comment]": "~~~~~~~~",
     "sceneParticle-general-grid": {"label": "基本设置"},
     "sceneParticle-name": {"label": "名称", "tip": "粒子的备注名称"},
     "sceneParticle-particleId": {"label": "粒子", "tip": "选择一个粒子文件"},
@@ -2098,7 +2087,6 @@
     "sceneParticle-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展粒子"},
 
     "[comment]": "********** 检查器 - 场景 - 视差图 **********",
-    "[comment]": "~~~~~~~~",
     "sceneParallax-general-grid": {"label": "基本设置"},
     "sceneParallax-name": {"label": "名称", "tip": "视差图的备注名称"},
     "sceneParallax-image": {"label": "图像", "tip": "视差图的图像文件"},
@@ -2143,7 +2131,6 @@
     "sceneParallax-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展视差图"},
 
     "[comment]": "********** 检查器 - 场景 - 瓦片地图 **********",
-    "[comment]": "~~~~~~~~",
     "sceneTilemap-general-grid": {"label": "基本设置"},
     "sceneTilemap-name": {"label": "名称", "tip": "瓦片地图的备注名称"},
     "sceneTilemap-layer": {"label": "图层", "tip": "前景层总是覆盖对象层，对象层总是覆盖背景层\n如果图层相同则按照顺序来排序，顺序大的显示在前面\n如果顺序相同则按照在对象列表中出现的位置排序，位置往后的显示在前面", "options": {
@@ -2179,7 +2166,6 @@
     "sceneTilemap-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展瓦片地图"},
 
     "[comment]": "********** 检查器 - 界面 - 通用 **********",
-    "[comment]": "~~~~~~~~",
     "uiElement-general-grid": {"label": "基本设置"},
     "uiElement-name": {"label": "名称", "tip": "元素的备注名称"},
     "uiElement-pointerEvents": {"label": "指针事件", "tip": "是否允许触发这个元素的鼠标和触屏事件", "options": {
@@ -2224,7 +2210,6 @@
     "uiElement-scripts": {"label": "脚本", "tip": "添加脚本文件来扩展元素"},
 
     "[comment]": "********** 检查器 - 界面 - 图像 **********",
-    "[comment]": "~~~~~~~~",
     "uiImage-properties-grid": {"label": "图像属性"},
     "uiImage-image": {"label": "图像", "tip": "元素的图像文件"},
     "uiImage-display": {"label": "显示", "tip": "如何显示这个图像", "options": {
@@ -2597,6 +2582,10 @@
     "animParticleLayer-angle": {"label": "角度", "tip": "是否调整粒子的发射和运动角度", "options": {
       "default": {"name": "默认", "tip": "粒子的发射和运动角度按照自身预设的运行"},
       "inherit": {"name": "继承动画帧", "tip": "粒子的发射和运动角度受动画和父级图层的旋转角度影响"}
+    }},
+    "animParticleLayer-order": {"label": "顺序", "tip": "粒子相对于动画精灵的渲染顺序", "options": {
+      "before": {"name": "精灵下面", "tip": "粒子比精灵更早被渲染"},
+      "after": {"name": "精灵上面", "tip": "粒子比精灵更晚被渲染"}
     }},
 
     "[comment]": "********** 检查器 - 动画 - 粒子帧 **********",
@@ -3268,7 +3257,6 @@
     "setQuantity-quantity": {"label": "数量", "tip": "输入项目数量"},
 
     "[comment]": "********** 事件 **********",
-    "[comment]": "~~~~~~~~",
     "event": {"title": "事件"},
     "event-open-list": {"label": "事件"},
     "event-commands-gutter-background": {"label": "执行内容"},
@@ -4242,7 +4230,7 @@
     "[comment]": "********** 指令 - 指令块 **********",
     "block": {"title": "指令块"},
     "block-note": {"placeholder": "备注", "tip": "描述这个指令块的作用"},
-    "block-asynchronous-label": {"content": "异步执行", "tip": "开启：创建新的执行分支，不堵塞后续指令的执行，随着当前事件的结束而停止\n关闭：同步执行块中的指令，没有任何多余的额外操作"},
+    "block-asynchronous-label": {"content": "异步执行", "tip": "开启：创建新的执行分支，不堵塞后续指令的执行\n关闭：同步执行块中的指令，没有任何多余的额外操作"},
 
     "[comment]": "********** 指令 - 标签 **********",
     "label": {"title": "标签"},

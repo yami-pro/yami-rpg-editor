@@ -2048,6 +2048,7 @@
                   "particleId": "216533870b791470",
                   "position": "relative",
                   "angle": "default",
+                  "order": "after",
                   "frames": [
                     {
                       "start": 0,
@@ -2145,6 +2146,7 @@
               "particleId": "48a9b775033a07cd",
               "position": "absolute",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,
@@ -2492,6 +2494,7 @@
               "particleId": "64c4c14f0b18fb54",
               "position": "relative",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,
@@ -2587,6 +2590,7 @@
               "particleId": "2e74e3641d8c688b",
               "position": "absolute",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,
@@ -2682,6 +2686,7 @@
               "particleId": "958d907c515c36fa",
               "position": "absolute",
               "angle": "inherit",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,

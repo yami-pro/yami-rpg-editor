@@ -22,7 +22,7 @@ type ActorFile = {
   attributes: Array<InitialAttribute>
   skills: Array<InitialSkill>
   equipments: Array<InitialEquipment>
-  inventory: Array<InitialInventoryGoods>
+  inventory: Array<InitialInventoryAsset>
   events: HashMap<CommandFunctionList> //*
   scripts: Array<ScriptData>
 }
@@ -51,8 +51,8 @@ type InitialEquipment = {
   slot: string
 }
 
-/** 初始库存货物 */
-type InitialInventoryGoods = InitialInventoryItem | InitialInventoryEquipment | InitialInventoryMoney
+/** 初始库存资产 */
+type InitialInventoryAsset = InitialInventoryItem | InitialInventoryEquipment | InitialInventoryMoney
 
 /** 初始库存物品 */
 type InitialInventoryItem = {
@@ -217,7 +217,7 @@ type AnimationComponentSaveData = {
   scale: number
   speed: number
   opacity: number
-  priority: number
+  order: number
   offsetY: number
   motion?: string
   images?: HashMap<string>

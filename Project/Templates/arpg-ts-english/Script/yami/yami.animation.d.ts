@@ -134,6 +134,7 @@ type AnimationParticleLayer = {
   particleId: string
   position: AnimationParticlePosition
   angle: AnimationParticleAngle
+  order: AnimationParticleOrder
   frames: Array<AnimationParticleFrame>
 }
 
@@ -142,6 +143,9 @@ type AnimationParticlePosition = 'absolute' | 'relative'
 
 /** 动画粒子角度 */
 type AnimationParticleAngle = 'default' | 'inherit'
+
+/** 动画粒子绘制顺序 */
+type AnimationParticleOrder = 'before' | 'after'
 
 /** 动画粒子帧 */
 type AnimationParticleFrame = {

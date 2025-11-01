@@ -75,6 +75,7 @@
               "particleId": "388f9d622e8b7b4e",
               "position": "absolute",
               "angle": "inherit",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,
@@ -268,6 +269,7 @@
                   "particleId": "1ad483b533265df3",
                   "position": "absolute",
                   "angle": "inherit",
+                  "order": "after",
                   "frames": [
                     {
                       "start": 18,
@@ -458,6 +460,7 @@
               "particleId": "20675d792581a77c",
               "position": "absolute",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,
@@ -496,6 +499,7 @@
               "particleId": "4d3d8500784e1721",
               "position": "absolute",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,

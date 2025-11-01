@@ -200,6 +200,7 @@
               "particleId": "b1bff543d7c3ca60",
               "position": "absolute",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,

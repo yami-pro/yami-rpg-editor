@@ -34,6 +34,7 @@
               "particleId": "0c07214f4bd6b744",
               "position": "relative",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,
@@ -129,6 +130,7 @@
               "particleId": "930df2373bf0bb47",
               "position": "absolute",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,
@@ -247,6 +249,7 @@
               "particleId": "926ff70f7d0a9979",
               "position": "absolute",
               "angle": "default",
+              "order": "after",
               "frames": [
                 {
                   "start": 0,

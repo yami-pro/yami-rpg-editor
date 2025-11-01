@@ -835,6 +835,7 @@
                   "particleId": "f8132cce96adce90",
                   "position": "absolute",
                   "angle": "inherit",
+                  "order": "after",
                   "frames": [
                     {
                       "start": 0,
@@ -1062,6 +1063,7 @@
                       "particleId": "b07bc9b2662d3efc",
                       "position": "absolute",
                       "angle": "inherit",
+                      "order": "after",
                       "frames": [
                         {
                           "start": 0,
@@ -1292,6 +1294,7 @@
                       "particleId": "b07bc9b2662d3efc",
                       "position": "absolute",
                       "angle": "inherit",
+                      "order": "after",
                       "frames": [
                         {
                           "start": 0,

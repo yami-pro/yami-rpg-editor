@@ -249,7 +249,6 @@
       "light": "Light",
       "element": "Element"
     },
-    "[comment]": "~~~~~~~~",
     "eventTips": {
       "common": "Will not execute automatically",
       "create": "Event triggered when the object is initialized",
@@ -1684,7 +1683,6 @@
     }},
 
     "[comment]": "********** Title Bar **********",
-    "[comment]": "~~~~~~~~",
     "title-play": {"tip": "$Run Game\nF10：Show Stats/FPS\nF11：Toggle Fullscreen\nF12：Developer Tools"},
 
     "[comment]": "********** Home **********",
@@ -1928,7 +1926,6 @@
     "fileState-scripts": {"label": "Scripts", "tip": "Add script files to extend this state"},
 
     "[comment]": "********** Inspector - File - Event **********",
-    "[comment]": "~~~~~~~~",
     "fileEvent-general-grid": {"label": "General"},
     "fileEvent-type": {"label": "Type", "tip": "Certain specific behaviors will automatically trigger related type events"},
     "fileEvent-enabled": {"label": "Enabled", "tip": "Automatically triggered by event type"},
@@ -1953,7 +1950,6 @@
     "fileEvent-parameters": {"label": "Parameters", "tip": "Parameter values can be passed when calling this event through the \"Call Event\" command\nThe parameter values will automatically be written to these variables when executing the event"},
 
     "[comment]": "********** Inspector - File - Image **********",
-    "[comment]": "~~~~~~~~",
     "fileImage-info-grid": {"label": "File Info"},
     "fileImage-name": {"label": "Name", "tip": "File Name"},
     "fileImage-size": {"label": "Size", "tip": "File Size"},
@@ -1961,7 +1957,6 @@
     "fileImage-image-viewer": {"label": "Image"},
 
     "[comment]": "********** Inspector - File - Audio **********",
-    "[comment]": "~~~~~~~~",
     "fileAudio-info-grid": {"label": "File Info"},
     "fileAudio-name": {"label": "Name", "tip": "File Name"},
     "fileAudio-size": {"label": "Size", "tip": "File Size"},
@@ -1976,7 +1971,6 @@
     "fileAudio-frequency-canvas": {"label": "Frequency"},
 
     "[comment]": "********** Inspector - File - Video **********",
-    "[comment]": "~~~~~~~~",
     "fileVideo-info-grid": {"label": "File Info"},
     "fileVideo-name": {"label": "Name", "tip": "File Name"},
     "fileVideo-size": {"label": "Size", "tip": "File Size"},
@@ -1998,7 +1992,6 @@
     "fileScript-overview": {"label": "Overview"},
 
     "[comment]": "********** Inspector - Scene - Actor **********",
-    "[comment]": "~~~~~~~~",
     "sceneActor-general-grid": {"label": "General"},
     "sceneActor-name": {"label": "Name", "tip": "Actor Name (note: this is a label for user reference only)"},
     "sceneActor-type": {"label": "Type", "tip": "Choose whether to create a temporary or permanent actor", "options": {
@@ -2016,7 +2009,6 @@
     "sceneActor-scripts": {"label": "Scripts", "tip": "Add Script files to extend Actor functions"},
 
     "[comment]": "********** Inspector - Scene - Region **********",
-    "[comment]": "~~~~~~~~",
     "sceneRegion-general-grid": {"label": "General"},
     "sceneRegion-name": {"label": "Name", "tip": "Region Name (note: this is a label for user reference only)"},
     "sceneRegion-color": {"label": "Color", "tip": "Region Color"},
@@ -2029,7 +2021,6 @@
     "sceneRegion-scripts": {"label": "Scripts", "tip": "Add Script files to extend Region functions"},
 
     "[comment]": "********** Inspector - Scene - Light **********",
-    "[comment]": "~~~~~~~~",
     "sceneLight-general-grid": {"label": "General"},
     "sceneLight-name": {"label": "Name", "tip": "Light Name (note: this is a label for user reference only)"},
     "sceneLight-type": {"label": "Type", "tip": "Light Parameters", "options": {
@@ -2061,7 +2052,6 @@
     "sceneLight-scripts": {"label": "Scripts", "tip": "Add Script files to extend Light functions"},
 
     "[comment]": "********** Inspector - Scene - Animation **********",
-    "[comment]": "~~~~~~~~",
     "sceneAnimation-general-grid": {"label": "General"},
     "sceneAnimation-name": {"label": "Name", "tip": "Animation Name (note: this is a label for user reference only)"},
     "sceneAnimation-animationId": {"label": "Animation", "tip": "Selected Animation File"},
@@ -2082,7 +2072,6 @@
     "sceneAnimation-scripts": {"label": "Scripts", "tip": "Add Script files to extend Animation functions"},
 
     "[comment]": "********** Inspector - Scene - Particle **********",
-    "[comment]": "~~~~~~~~",
     "sceneParticle-general-grid": {"label": "General"},
     "sceneParticle-name": {"label": "Name", "tip": "Particle Name (note: this is a label for user reference only)"},
     "sceneParticle-particleId": {"label": "Particle", "tip": "Selected Particle File"},
@@ -2098,7 +2087,6 @@
     "sceneParticle-scripts": {"label": "Scripts", "tip": "Add Script files to extend Particle functions"},
 
     "[comment]": "********** Inspector - Scene - Parallax **********",
-    "[comment]": "~~~~~~~~",
     "sceneParallax-general-grid": {"label": "General"},
     "sceneParallax-name": {"label": "Name", "tip": "Parallax Name (note: this is a label for user reference only)"},
     "sceneParallax-image": {"label": "Image", "tip": "Selected Parallax File"},
@@ -2143,7 +2131,6 @@
     "sceneParallax-scripts": {"label": "Scripts", "tip": "Add Script files to extend Parallax functions"},
 
     "[comment]": "********** Inspector - Scene - Tilemap **********",
-    "[comment]": "~~~~~~~~",
     "sceneTilemap-general-grid": {"label": "General"},
     "sceneTilemap-name": {"label": "Name", "tip": "Tilemap Name (note: this is a label for user reference only)"},
     "sceneTilemap-layer": {"label": "Layer", "tip": "Foreground layer always overlaps Background layer, Object layer always overlaps Background layer\nIf layers are the same type, sorting goes in order with the highest value displayed first\nIf the order is the same, sorting goes by Object list position", "options": {
@@ -2179,7 +2166,6 @@
     "sceneTilemap-scripts": {"label": "Scripts", "tip": "Add Script files to extend Tilemap functions"},
 
     "[comment]": "********** Inspector - UI - Common **********",
-    "[comment]": "~~~~~~~~",
     "uiElement-general-grid": {"label": "General"},
     "uiElement-name": {"label": "Name", "tip": "The remark name of the element"},
     "uiElement-pointerEvents": {"label": "Pointer Events", "tip": "Whether to allow triggering mouse and touch events for this element", "options": {
@@ -2224,7 +2210,6 @@
     "uiElement-scripts": {"label": "Scripts", "tip": "Add Script files to extend Element functions"},
 
     "[comment]": "********** Inspector - UI - Image **********",
-    "[comment]": "~~~~~~~~",
     "uiImage-properties-grid": {"label": "Image Properties"},
     "uiImage-image": {"label": "Image", "tip": "Selected Image file"},
     "uiImage-display": {"label": "Display", "tip": "Display option for this image", "options": {
@@ -2597,6 +2582,10 @@
     "animParticleLayer-angle": {"label": "Angle", "tip": "Should the particle's emission and movement angle be adjusted", "options": {
       "default": {"name": "Default", "tip": "The particle's emission and movement angles follow the preset behavior"},
       "inherit": {"name": "Inherit", "tip": "The particle's emission and movement angles are affected by the animation and the rotation angle of the parent layer"}
+    }},
+    "animParticleLayer-order": {"label": "Order", "tip": "The rendering order of particles relative to animation sprites", "options": {
+      "before": {"name": "Below Sprites", "tip": "Particles are rendered earlier than sprites"},
+      "after": {"name": "Above Sprites", "tip": "Particles are rendered later than sprites"}
     }},
 
     "[comment]": "********** Inspector - Animation - Particle Frame **********",
@@ -3268,7 +3257,6 @@
     "setQuantity-quantity": {"label": "Quantity", "tip": "Enter the item quantity"},
 
     "[comment]": "********** Event **********",
-    "[comment]": "~~~~~~~~",
     "event": {"title": "Event"},
     "event-open-list": {"label": "Event"},
     "event-commands-gutter-background": {"label": "Content"},
@@ -4242,7 +4230,7 @@
     "[comment]": "********** Command - Block **********",
     "block": {"title": "Block"},
     "block-note": {"placeholder": "Note", "tip": "Describe the purpose of this command block"},
-    "block-asynchronous-label": {"content": "Asynchronous", "tip": "Enabled: Creates a new execution branch without blocking subsequent commands. It stops when the current event ends.\nDisabled: Executes the commands in the block synchronously without any additional operations."},
+    "block-asynchronous-label": {"content": "Asynchronous", "tip": "Enabled: Creates a new execution branch without blocking subsequent commands.\nDisabled: Executes the commands in the block synchronously without any additional operations."},
 
     "[comment]": "********** Command - Label **********",
     "label": {"title": "Label"},

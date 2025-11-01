@@ -8211,8 +8211,14 @@ AnimParticleLayer.initialize = function () {
     {name: 'Inherit', value: 'inherit'},
   ])
 
+  // 创建顺序选项
+  $('#animParticleLayer-order').loadItems([
+    {name: 'Behind Sprites', value: 'before'},
+    {name: 'Front of Sprites', value: 'after'},
+  ])
+
   // 侦听事件
-  const elements = $('#animParticleLayer-particleId, #animParticleLayer-position, #animParticleLayer-angle')
+  const elements = $('#animParticleLayer-particleId, #animParticleLayer-position, #animParticleLayer-angle, #animParticleLayer-order')
   elements.on('input', this.paramInput)
   elements.on('focus', Inspector.inputFocus)
   elements.on('blur', Inspector.inputBlur(
@@ -8234,6 +8240,7 @@ AnimParticleLayer.create = function () {
     particleId: '',
     position: 'absolute',
     angle: 'default',
+    order: 'after',
     frames: [Inspector.animParticleFrame.create()],
   }
 }
@@ -8249,6 +8256,7 @@ AnimParticleLayer.open = function (layer) {
     write('particleId')
     write('position')
     write('angle')
+    write('order')
   }
 }
 
@@ -8273,6 +8281,7 @@ AnimParticleLayer.update = function (layer, key, value) {
       break
     case 'position':
     case 'angle':
+    case 'order':
       if (layer[key] !== value) {
         layer[key] = value
       }

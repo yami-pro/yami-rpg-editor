@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.137',
+  latestProjectVersion: '1.0.139',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -29,13 +29,14 @@ const Updater = {
   updateToLatest: null,
   updateIncrementalChanges: null,
   getTsVersionWarning: null,
+  getVersionNumber: null,
 }
 
 // 更新项目数据
 Updater.updateProject = function (verNum) {
   // 更新到1.0.122版本
   // 添加openEvents属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     if (!Editor.project.openEvents) {
       Editor.project.openEvents = []
     }
@@ -55,7 +56,7 @@ Updater.updateConfig = function (verNum) {
   // 更新到1.0.54版本
   // 添加localization.languages属性
   // 添加localization.default属性
-  if (verNum < Editor.getVersionNumber('1.0.54')) {
+  if (verNum < Updater.getVersionNumber('1.0.54')) {
     const sConfig = Data.config
     const dConfig = {}
     for (const key of Object.keys(sConfig)) {
@@ -95,14 +96,14 @@ Updater.updateConfig = function (verNum) {
   // 更新到1.0.52版本
   // 删除text.pixelated属性
   // 删除text.threshold属性
-  if (verNum < Editor.getVersionNumber('1.0.52')) {
+  if (verNum < Updater.getVersionNumber('1.0.52')) {
     delete Data.config.text.pixelated
     delete Data.config.text.threshold
     File.planToSave(Data.manifest.project.config)
   }
   // 更新到1.0.68版本
   // 删除collision.actor.ignoreTeamMember属性
-  if (verNum < Editor.getVersionNumber('1.0.68')) {
+  if (verNum < Updater.getVersionNumber('1.0.68')) {
     delete Data.config.collision.actor.ignoreTeamMember
     File.planToSave(Data.manifest.project.config)
   }
@@ -110,7 +111,7 @@ Updater.updateConfig = function (verNum) {
   // 添加resolution.sceneScale属性
   // 添加resolution.uiScale属性
   // 添加resolution.highDefinition属性
-  if (verNum < Editor.getVersionNumber('1.0.102')) {
+  if (verNum < Updater.getVersionNumber('1.0.102')) {
     Data.config.resolution.sceneScale = 1
     Data.config.resolution.uiScale = 1
     Data.config.text.highDefinition = false
@@ -120,7 +121,7 @@ Updater.updateConfig = function (verNum) {
   // 删除text.wordWrap属性
   // 修改localization.languages属性为对象
   // 添加language.name|font|scale属性
-  if (verNum < Editor.getVersionNumber('1.0.115')) {
+  if (verNum < Updater.getVersionNumber('1.0.115')) {
     delete Data.config.text.wordWrap
     const {languages} = Data.config.localization
     for (let i = 0; i < languages.length; i++) {
@@ -144,7 +145,7 @@ Updater.updateConfig = function (verNum) {
   // 添加script.autoCompile属性
   // 添加save.location|subdirectory属性
   // 删除event属性，修改对应的事件类型
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const {config, events} = Data
     if (config.deployed === undefined) {
       config.deployed = false
@@ -199,7 +200,7 @@ Updater.updateConfig = function (verNum) {
   // 添加webgl.textureMagFilter属性
   // 添加webgl.textureMinFilter属性
   // 添加preload属性
-  if (verNum < Editor.getVersionNumber('1.0.127')) {
+  if (verNum < Updater.getVersionNumber('1.0.127')) {
     const {config} = Data
     if (config.webgl.textureMagFilter === undefined) {
       config.webgl = {
@@ -218,7 +219,7 @@ Updater.updateConfig = function (verNum) {
 // 更新本地事件数据
 Updater.updateLocalEvents = function (verNum) {
   // 更新到1.0.122版本：添加enabled属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const listMap = EventEditor.getAllLocalEvents()
     for (const [guid, events] of Object.entries(listMap)) {
       const meta = Data.manifest.guidMap[guid]
@@ -240,7 +241,7 @@ Updater.updateLocalEvents = function (verNum) {
 Updater.updateGlobalEvents = function (verNum) {
   // 更新到1.0.105版本：添加priority属性
   // 更新到1.0.122版本：添加namespace|returnType|description|parameters属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const events = Data.events
     const keys = Object.keys(Inspector.fileEvent.create('global'))
     for (const [guid, sEvent] of Object.entries(events)) {
@@ -296,7 +297,7 @@ Updater.updateActors = function (verNum) {
   // 更新到1.0.45版本：添加shape属性
   // 更新到1.0.105版本：添加inventory属性
   // 更新到1.0.122版本：添加immovable|inherit属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const actors = Data.actors
     const keys = Object.keys(Inspector.fileActor.create())
     for (const [guid, sActor] of Object.entries(actors)) {
@@ -325,7 +326,7 @@ Updater.updateActors = function (verNum) {
 // 更新技能数据
 Updater.updateSkills = function (verNum) {
   // 更新到1.0.122版本：添加inherit属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const skills = Data.skills
     const keys = Object.keys(Inspector.fileSkill.create())
     for (const [guid, sSkill] of Object.entries(skills)) {
@@ -348,7 +349,7 @@ Updater.updateSkills = function (verNum) {
 // 更新触发器数据
 Updater.updateTriggers = function (verNum) {
   // 更新到1.0.122版本：添加inherit属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const triggers = Data.triggers
     const keys = Object.keys(Inspector.fileTrigger.create())
     for (const [guid, sTrigger] of Object.entries(triggers)) {
@@ -371,7 +372,7 @@ Updater.updateTriggers = function (verNum) {
 // 更新物品数据
 Updater.updateItems = function (verNum) {
   // 更新到1.0.122版本：添加inherit属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const items = Data.items
     const keys = Object.keys(Inspector.fileItem.create())
     for (const [guid, sItem] of Object.entries(items)) {
@@ -394,7 +395,7 @@ Updater.updateItems = function (verNum) {
 // 更新装备数据
 Updater.updateEquipments = function (verNum) {
   // 更新到1.0.122版本：添加inherit属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const equipments = Data.equipments
     const keys = Object.keys(Inspector.fileEquipment.create())
     for (const [guid, sEquipment] of Object.entries(equipments)) {
@@ -417,7 +418,7 @@ Updater.updateEquipments = function (verNum) {
 // 更新状态数据
 Updater.updateStates = function (verNum) {
   // 更新到1.0.122版本：添加inherit属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const states = Data.states
     const keys = Object.keys(Inspector.fileState.create())
     for (const [guid, sState] of Object.entries(states)) {
@@ -471,7 +472,7 @@ Updater.updateScenes = function (verNum) {
   // 更新到1.0.116版本
   // 删除scene.contrast属性
   // 添加scene.ambient.direct属性
-  if (verNum < Editor.getVersionNumber('1.0.116')) {
+  if (verNum < Updater.getVersionNumber('1.0.116')) {
     for (const [guid, scene] of Object.entries(Data.scenes)) {
       const meta = Data.manifest.guidMap[guid]
       if (meta === undefined) {
@@ -483,7 +484,7 @@ Updater.updateScenes = function (verNum) {
     }
   }
   // 更新到1.0.116版本：添加light.direct属性
-  if (verNum < Editor.getVersionNumber('1.0.116')) {
+  if (verNum < Updater.getVersionNumber('1.0.116')) {
     const keys = Object.keys(Inspector.sceneLight.create())
     replaceSceneObject(object => {
       if (object.class === 'light') {
@@ -499,7 +500,7 @@ Updater.updateScenes = function (verNum) {
     })
   }
   // 更新到1.0.122版本：添加actor.type属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const keys = Object.keys(Inspector.sceneActor.create())
     replaceSceneObject(object => {
       if (object.class === 'actor') {
@@ -519,7 +520,7 @@ Updater.updateScenes = function (verNum) {
 // 更新图块组数据
 Updater.updateTilesets = function (verNum) {
   // 更新到1.0.60版本：添加terrains属性
-  if (verNum < Editor.getVersionNumber('1.0.60')) {
+  if (verNum < Updater.getVersionNumber('1.0.60')) {
     const tilesets = Data.tilesets
     for (const [guid, tileset] of Object.entries(tilesets)) {
       const meta = Data.manifest.guidMap[guid]
@@ -532,7 +533,7 @@ Updater.updateTilesets = function (verNum) {
     }
   }
   // 更新到1.0.85版本：添加tags属性
-  if (verNum < Editor.getVersionNumber('1.0.85')) {
+  if (verNum < Updater.getVersionNumber('1.0.85')) {
     const tilesets = Data.tilesets
     for (const [guid, tileset] of Object.entries(tilesets)) {
       const meta = Data.manifest.guidMap[guid]
@@ -582,7 +583,7 @@ Updater.updateElements = function (verNum) {
   // 添加button.hoverClip属性
   // 添加button.activeClip属性
   // 添加button.imageOpacity属性
-  if (verNum < Editor.getVersionNumber('1.0.40')) {
+  if (verNum < Updater.getVersionNumber('1.0.40')) {
     const keys = Object.keys(Inspector.uiButton.create())
     replaceUIElement(sNode => {
       if (sNode.class === 'button') {
@@ -609,7 +610,7 @@ Updater.updateElements = function (verNum) {
   }
   // 更新到1.0.61版本
   // 添加element.pointerEvents属性
-  if (verNum < Editor.getVersionNumber('1.0.61')) {
+  if (verNum < Updater.getVersionNumber('1.0.61')) {
     const keysMap = {}
     replaceUIElement(sNode => {
       let keys = keysMap[sNode.class]
@@ -635,7 +636,7 @@ Updater.updateElements = function (verNum) {
   }
   // 更新到1.0.118版本
   // 添加video.playbackRate属性
-  if (verNum < Editor.getVersionNumber('1.0.118')) {
+  if (verNum < Updater.getVersionNumber('1.0.118')) {
     const keys = Object.keys(Inspector.uiVideo.create())
     replaceUIElement(sNode => {
       if (sNode.class === 'video') {
@@ -654,7 +655,7 @@ Updater.updateElements = function (verNum) {
 // 更新动画数据
 Updater.updateAnimations = function (verNum) {
   // 更新到1.0.37版本：添加精灵帧anchorX, anchorY, pivotX, pivotY属性
-  if (verNum < Editor.getVersionNumber('1.0.37')) {
+  if (verNum < Updater.getVersionNumber('1.0.37')) {
     const keys = Object.keys(Inspector.animSpriteFrame.create())
     // 更新图层中的精灵帧
     const update = layers => {
@@ -699,12 +700,50 @@ Updater.updateAnimations = function (verNum) {
       File.planToSave(meta)
     }
   }
+  // 更新到1.0.139版本：添加粒子层order属性
+  if (verNum < Updater.getVersionNumber('1.0.139')) {
+    const keys = Object.keys(Inspector.animParticleLayer.create())
+    // 更新图层中的精灵帧
+    const update = layers => {
+      const length = layers.length
+      for (let i = 0; i < length; i++) {
+        const sLayer = layers[i]
+        switch (sLayer.class) {
+          case 'joint':
+            update(sLayer.children)
+            continue
+          case 'particle': {
+            const dLayer = Inspector.animParticleLayer.create()
+            for (const key of keys) {
+              if (key in sLayer) {
+                dLayer[key] = sLayer[key]
+              }
+            }
+            layers[i] = dLayer
+            continue
+          }
+        }
+      }
+    }
+    for (const [guid, animation] of Object.entries(Data.animations)) {
+      const meta = Data.manifest.guidMap[guid]
+      if (meta === undefined) {
+        throw new Error(`Missing metadata: ${guid}`)
+      }
+      for (const motion of animation.motions) {
+        for (const dirCase of motion.dirCases) {
+          update(dirCase.layers)
+        }
+      }
+      File.planToSave(meta)
+    }
+  }
 }
 
 // 更新粒子数据
 Updater.updateParticles = function (verNum) {
   // 更新到1.0.95版本：[min, max]参数换算成[std, dev]
-  if (verNum < Editor.getVersionNumber('1.0.95')) {
+  if (verNum < Updater.getVersionNumber('1.0.95')) {
     // 转换[min, max]到[std, dev]
     const convert = array => {
       const min = array[0]
@@ -747,7 +786,7 @@ Updater.updateParticles = function (verNum) {
   // 更新到1.0.122版本
   // 删除hframes|vframes属性
   // 添加sprite属性
-  if (verNum < Editor.getVersionNumber('1.0.122')) {
+  if (verNum < Updater.getVersionNumber('1.0.122')) {
     const keys = Object.keys(Inspector.particleLayer.create())
     for (const [guid, particle] of Object.entries(Data.particles)) {
       const meta = Data.manifest.guidMap[guid]
@@ -784,7 +823,7 @@ Updater.updateParticles = function (verNum) {
 // 更新队伍数据
 Updater.updateTeams = function (verNum) {
   // 更新到1.0.68版本：添加collisions属性
-  if (verNum < Editor.getVersionNumber('1.0.68')) {
+  if (verNum < Updater.getVersionNumber('1.0.68')) {
     Data.teams.collisions = Codec.encodeTeamData(
       Codec.decodeTeamData(
         Data.teams.relations,
@@ -797,7 +836,7 @@ Updater.updateTeams = function (verNum) {
 
 // 创建本地化数据
 Updater.createLocalization = async function (verNum) {
-  if (verNum < Editor.getVersionNumber('1.0.54')) {
+  if (verNum < Updater.getVersionNumber('1.0.54')) {
     const path = File.route('Data/localization.json')
     const json = JSON.stringify({list: []}, null, 2)
     await FSP.writeFile(path, json)
@@ -815,8 +854,8 @@ Updater.backupProject = function () {
 // 更新到最新版本(TypeScript)
 Updater.updateToLatest = function (version) {
   // 从1.0.122版本开始增量替换文件
-  const verNum = Editor.getVersionNumber(version)
-  if (verNum >= Editor.getVersionNumber('1.0.122')) {
+  const verNum = Updater.getVersionNumber(version)
+  if (verNum >= Updater.getVersionNumber('1.0.122')) {
     return Updater.updateIncrementalChanges(version)
   }
 
@@ -897,7 +936,7 @@ Updater.updateToLatest = function (version) {
 
 // 更新增量改动
 Updater.updateIncrementalChanges = function (version) {
-  const verNum = Editor.getVersionNumber(version)
+  const verNum = Updater.getVersionNumber(version)
   const dstProjectDir = Path.dirname(Editor.config.project)
   const srcProjectDir = Path.resolve(__dirname, 'Templates/arpg-ts-update')
   const srcScriptDir = Path.resolve(__dirname, 'Templates/arpg-ts-update/script')
@@ -909,7 +948,7 @@ Updater.updateIncrementalChanges = function (version) {
   let isBackupFolderCreated = false
 
   // 更新程序集合
-  const updater = new class Updater {
+  const updater = new class VersionUpdater {
     showMessage() {
       if (messages.length !== 0) {
         UpdateLog.open(messages)
@@ -1147,9 +1186,31 @@ Updater.updateIncrementalChanges = function (version) {
       if (!update) return
       this.copyScripts('trigger.ts')
     }
+
+    '1.0.139'(update) {
+      this.logMessage(
+        'Fixed a bug where the application would forcibly exit after a 2-second timeout if no action was taken on the save prompt at exit.',
+        'Fixed a bug where UI animation elements with opacity less than 1 did not affect particles.',
+        'Fixed a bug where executing a "Break" command inside nested "For Each" loops caused incorrect execution flow.',
+        'Fixed a bug where enabling the "Sync Angle" option in the "Add Animation Component" command did not immediately refresh the angle when first added.',
+        'For practical reasons, enabling "Async" in the "Block" command no longer ties the block’s lifecycle to the event. Asynchronous blocks now continue running after the event, and users must manage their lifecycle manually.',
+        'Added a setting for animation particle layers: "Order", allowing particles to be drawn below or above the sprite.',
+        'Added a GitHub submenu under the editor’s Help menu linking to the open-source projects.',
+      )
+      if (!update) return
+      this.copyScripts(
+        'actor.ts',
+        'animation.ts',
+        'command.ts',
+        'yami/yami.actor.d.ts',
+        'yami/yami.animation.d.ts',
+        'yami/yami.command.d.ts',
+      )
+      Updater.updateAnimations()
+    }
   }
 
-  const verLatest = Editor.getVersionNumber(Updater.latestProjectVersion)
+  const verLatest = Updater.getVersionNumber(Updater.latestProjectVersion)
   const currentMinorVer = verNum % 10000
   const latestMinorVer = verLatest % 10000
   const initialMinorVer = 122
@@ -1179,4 +1240,13 @@ Updater.getTSVersionWarning = function () {
       "cancel": 'Cancel',
     }
   }
+}
+
+// 获取版本数值
+Updater.getVersionNumber = function (version) {
+  const nodes = version.split('.')
+  const a = parseInt(nodes[0])
+  const b = parseInt(nodes[1])
+  const c = parseInt(nodes[2])
+  return a * 100000000 + b * 10000 + c
 }
