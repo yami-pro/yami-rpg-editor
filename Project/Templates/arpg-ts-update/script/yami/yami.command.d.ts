@@ -20,8 +20,8 @@ type CompileTimeCommandContext = {
   commands: CommandFunctionList
   index: number
   loop: boolean
-  iterator: boolean
   path: string
+  foreach?: ForEachCommandContext
 }
 
 /** 编译时跳转上下文 */
@@ -48,6 +48,7 @@ type compileTimeReturnContext = {
 type ForEachCommandContext = {
   list: Array<any>
   index: number
+  reset(): void
 }
 
 /** 过渡指令上下文 */

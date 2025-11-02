@@ -122,7 +122,6 @@ let Command = new class CommandCompiler {
       commands: functions,
       index: 0,
       loop: loop,
-      iterator: false,
       path: '',
     }
     // 创建标签集合与跳转列表
@@ -2947,19 +2946,18 @@ let Command = new class CommandCompiler {
     const {SET, LIST_GET} = Attribute
 
     // 编译通用迭代器
-    const compileCommonIterator = (variable: VariableGetter): CommandFunction => {
+    const compileCommonIterator = (variable: VariableGetter, foreach: ForEachCommandContext): CommandFunction => {
       const context = Command.stack.get()
       const nextCommands = context.commands
       const nextIndex = context.index + 1
       const setter = Command.compileVariable(variable, SET)
       return () => {
-        const wrap = CurrentEvent.forEach![0]
-        const value = wrap.list[wrap.index++]
+        const value = foreach.list[foreach.index++]
         if (value !== undefined) {
           setter(value)
           CommandIndex = 0
         } else {
-          CurrentEvent.forEach!.shift()
+          foreach.reset()
           CommandList = nextCommands
           CommandIndex = nextIndex
         }
@@ -2968,14 +2966,13 @@ let Command = new class CommandCompiler {
     }
 
     // 编译存档迭代器
-    const compileSaveIterator = (variable: VariableGetter): CommandFunction => {
+    const compileSaveIterator = (variable: VariableGetter, foreach: ForEachCommandContext): CommandFunction => {
       const context = Command.stack.get()
       const nextCommands = context.commands
       const nextIndex = context.index + 1
       const setSaveIndex = Command.compileVariable(variable, SET)
       return () => {
-        const wrap = CurrentEvent.forEach![0]
-        const meta = wrap.list[wrap.index++]
+        const meta = foreach.list[foreach.index++]
         if (meta) {
           setSaveIndex(meta.index)
           const {data} = meta
@@ -2985,7 +2982,7 @@ let Command = new class CommandCompiler {
           }
           CommandIndex = 0
         } else {
-          CurrentEvent.forEach!.shift()
+          foreach.reset()
           CommandList = nextCommands
           CommandIndex = nextIndex
         }
@@ -3074,17 +3071,24 @@ let Command = new class CommandCompiler {
           }
           break
       }
-      Command.stack.get().iterator = true
+      const foreach: ForEachCommandContext = {
+        list: Array.empty,
+        index: 0,
+        reset() {
+          this.list = Array.empty
+          this.index = 0
+        },
+      }
+      Command.stack.get().foreach = foreach
       switch (data) {
         default: {
-          const iterator = compileCommonIterator(variable ?? touchId!)
+          const iterator = compileCommonIterator(variable ?? touchId!, foreach)
           const loopCommands = Command.compile(commands, iterator, true)
           return () => {
-            const list = getList()
-            // @ts-ignore
+            const list = getList() as Array<any>
             if (list?.length > 0) {
-              if (!CurrentEvent.forEach) CurrentEvent.forEach = []
-              CurrentEvent.forEach.unshift({list: list!, index: 0})
+              foreach.list = list
+              foreach.index = 0
               CommandList = loopCommands
               iterator()
             }
@@ -3092,14 +3096,14 @@ let Command = new class CommandCompiler {
           }
         }
         case 'save': {
-          const iterator = compileSaveIterator(saveIndex!)
+          const iterator = compileSaveIterator(saveIndex!, foreach)
           const loopCommands = Command.compile(commands, iterator, true)
           return () => {
             const event = CurrentEvent
             Data.loadSaveMeta().then(list => {
               if (list.length !== 0) {
-                if (!event.forEach) event.forEach = []
-                event.forEach.unshift({list, index: 0})
+                foreach.list = list
+                foreach.index = 0
                 event.commands = loopCommands
                 event.index = loopCommands.length - 1
               }
@@ -3118,12 +3122,12 @@ let Command = new class CommandCompiler {
     let i = stack.length
     while (--i >= 0) {
       if (stack[i].loop) {
-        const {commands, index, iterator} = stack[i - 1]
+        const {commands, index, foreach} = stack[i - 1]
         const jump = Command.goto(commands, index + 1)
-        // 如果跳出的是遍历循环，移除相关上下文
-        if (iterator) {
+        // 如果跳出的是遍历循环，重置相关上下文
+        if (foreach) {
           return () => {
-            CurrentEvent.forEach?.shift()
+            foreach.reset()
             return jump()
           }
         }

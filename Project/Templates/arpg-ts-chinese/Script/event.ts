@@ -466,8 +466,6 @@ class EventHandler {
   public savedCommands?: CommandFunctionList
   /** 保存的指令索引 */
   public savedIndex?: number
-  /** 遍历数据列表 */
-  public forEach?: Array<ForEachCommandContext>
   /** 过渡数据列表 */
   public transitions?: Array<TransitionCommandContext>
   /** 回调函数列表 */
