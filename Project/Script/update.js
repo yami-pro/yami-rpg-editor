@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.139',
+  latestProjectVersion: '1.0.140',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -1193,6 +1193,7 @@ Updater.updateIncrementalChanges = function (version) {
         'Fixed a bug where UI animation elements with opacity less than 1 did not affect particles.',
         'Fixed a bug where executing a "Break" command inside nested "For Each" loops caused incorrect execution flow.',
         'Fixed a bug where enabling the "Sync Angle" option in the "Add Animation Component" command did not immediately refresh the angle when first added.',
+        'Fixed a bug where the collision function was not disabled when an actor’s weight was 0.',
         'For practical reasons, enabling "Async" in the "Block" command no longer ties the block’s lifecycle to the event. Asynchronous blocks now continue running after the event, and users must manage their lifecycle manually.',
         'Added a setting for animation particle layers: "Order", allowing particles to be drawn below or above the sprite.',
         'Added a GitHub submenu under the editor’s Help menu linking to the open-source projects.',
@@ -1207,6 +1208,14 @@ Updater.updateIncrementalChanges = function (version) {
         'yami/yami.command.d.ts',
       )
       Updater.updateAnimations()
+    }
+
+    '1.0.140'(update) {
+      this.logMessage(
+        'Fixed a bug where accessing a light source object through a variable in an event command caused an error.',
+      )
+      if (!update) return
+      this.copyScripts('command.ts')
     }
   }
 
