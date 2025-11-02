@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.140',
+  latestProjectVersion: '1.0.141',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -1216,6 +1216,14 @@ Updater.updateIncrementalChanges = function (version) {
       )
       if (!update) return
       this.copyScripts('command.ts')
+    }
+
+    '1.0.141'(update) {
+      this.logMessage(
+        'Fixed a bug where entering nested conditional branches in the synchronous “Block” command caused an error.',
+      )
+      if (!update) return
+      this.copyScripts('ui.ts', 'command.ts')
     }
   }
 

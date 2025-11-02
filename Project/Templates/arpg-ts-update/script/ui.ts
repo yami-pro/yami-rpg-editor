@@ -704,7 +704,7 @@ let UI = new class UIManager {
    */
   private keydown(event: ScriptKeyboardEvent): void {
     if (UI.focuses.length !== 0) {
-      switch ((Input.event as ScriptKeyboardEvent).keyName) {
+      switch (event.keyName) {
         case 'ArrowUp':
           Input.bubbles.stop()
           UI.pressDirKey('Up')

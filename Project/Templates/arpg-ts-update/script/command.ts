@@ -4059,9 +4059,9 @@ let Command = new class CommandCompiler {
     }
     switch (asynchronous) {
       case false: {
-        const functions = Command.compile(commands)
-        functions.remove(Command.readStack)
-        return functions
+        const context = Command.stack.get()
+        const pop = Command.goto(context.commands, context.index + 1)
+        return Command.goto(Command.compile(commands, pop), 0)
       }
       case true: {
         const commandList = Command.compileIndependent(commands)

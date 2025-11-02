@@ -2172,7 +2172,7 @@
       "id": "17564b58ac27b9ad",
       "mode": "1-dir",
       "skip": false,
-      "loop": true,
+      "loop": false,
       "loopStart": 0,
       "dirCases": [
         {
