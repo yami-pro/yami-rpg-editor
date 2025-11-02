@@ -6413,6 +6413,19 @@ Animation.Player = class AnimationPlayer {
 
   // 绘制动画
   draw(opacity, light) {
+    const {emitters} = this
+    const {length} = emitters
+    // 绘制背景粒子
+    if (length !== 0) {
+      GL.batchRenderer.draw()
+      for (let i = 0; i < length; i++) {
+        const emitter = emitters[i]
+        if (emitter.layer.order === 'before') {
+          emitter.draw()
+        }
+      }
+    }
+    // 绘制动画精灵
     const {contexts} = this
     const {count} = contexts
     for (let i = 0; i < count; i++) {
@@ -6428,12 +6441,14 @@ Animation.Player = class AnimationPlayer {
         }
       }
     }
-    const {emitters} = this
-    const {length} = emitters
+    // 绘制前景粒子
     if (length !== 0) {
       GL.batchRenderer.draw()
       for (let i = 0; i < length; i++) {
-        emitters[i].draw()
+        const emitter = emitters[i]
+        if (emitter.layer.order === 'after') {
+          emitter.draw()
+        }
       }
     }
   }
