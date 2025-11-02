@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.142',
+  latestProjectVersion: '1.0.144',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -1218,13 +1218,13 @@ Updater.updateIncrementalChanges = function (version) {
       this.copyScripts('command.ts')
     }
 
-    '1.0.142'(update) {
+    '1.0.144'(update) {
       this.logMessage(
         'Fixed a bug where entering conditional branches in the synchronous “Block” command caused an error.',
         'Improved the implementation of "For Each" command to make it more reliable during jumps and exits.',
       )
       if (!update) return
-      this.copyScripts('ui.ts', 'event.ts', 'command.ts', 'yami.command.d.ts')
+      this.copyScripts('ui.ts', 'event.ts', 'command.ts', 'yami/yami.command.d.ts')
     }
   }
 

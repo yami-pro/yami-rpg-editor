@@ -58,6 +58,7 @@ class CommandFunctionList extends Array<CommandFunction> {
   public description?: string
   public parameters?: Array<GlobalEventParameter>
   public parent?: Array<CommandFunctionList>
+  public foreach?: ForEachCommandContext
   public callback?: CallbackFunction
 }
 
@@ -3079,11 +3080,11 @@ let Command = new class CommandCompiler {
           this.index = 0
         },
       }
-      Command.stack.get().foreach = foreach
       switch (data) {
         default: {
           const iterator = compileCommonIterator(variable ?? touchId!, foreach)
           const loopCommands = Command.compile(commands, iterator, true)
+          loopCommands.foreach = foreach
           return () => {
             const list = getList() as Array<any>
             if (list?.length > 0) {
@@ -3098,6 +3099,7 @@ let Command = new class CommandCompiler {
         case 'save': {
           const iterator = compileSaveIterator(saveIndex!, foreach)
           const loopCommands = Command.compile(commands, iterator, true)
+          loopCommands.foreach = foreach
           return () => {
             const event = CurrentEvent
             Data.loadSaveMeta().then(list => {
@@ -3122,16 +3124,13 @@ let Command = new class CommandCompiler {
     let i = stack.length
     while (--i >= 0) {
       if (stack[i].loop) {
-        const {commands, index, foreach} = stack[i - 1]
+        const {commands, index} = stack[i - 1]
         const jump = Command.goto(commands, index + 1)
-        // 如果跳出的是遍历循环，重置相关上下文
-        if (foreach) {
-          return () => {
-            foreach.reset()
-            return jump()
-          }
+        return () => {
+          // 如果跳出遍历循环，重置上下文
+          CommandList.foreach?.reset()
+          return jump()
         }
-        return jump
       }
     }
     return null

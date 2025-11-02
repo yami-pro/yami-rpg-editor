@@ -21,7 +21,6 @@ type CompileTimeCommandContext = {
   index: number
   loop: boolean
   path: string
-  foreach?: ForEachCommandContext
 }
 
 /** 编译时跳转上下文 */
