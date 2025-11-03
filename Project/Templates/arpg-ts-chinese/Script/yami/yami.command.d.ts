@@ -20,6 +20,7 @@ type CompileTimeCommandContext = {
   commands: CommandFunctionList
   index: number
   loop: boolean
+  foreach: ForEachCommandContext | null
   path: string
 }
 

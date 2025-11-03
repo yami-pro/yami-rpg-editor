@@ -58,7 +58,6 @@ class CommandFunctionList extends Array<CommandFunction> {
   public description?: string
   public parameters?: Array<GlobalEventParameter>
   public parent?: Array<CommandFunctionList>
-  public foreach?: ForEachCommandContext
   public callback?: CallbackFunction
 }
 
@@ -116,13 +115,14 @@ let Command = new class CommandCompiler {
    * @param loop 当前指令列表是否处于循环状态
    * @returns 编译后的事件指令函数列表
    */
-  public compile(commands: CommandDataList, callback?: CommandFunction, loop: boolean = false): CommandFunctionList {
+  public compile(commands: CommandDataList, callback?: CommandFunction, loop: boolean = false, foreach: ForEachCommandContext | null = null): CommandFunctionList {
     const stack = this.stack
     const functions = new CommandFunctionList()
     const context: CompileTimeCommandContext = {
       commands: functions,
       index: 0,
       loop: loop,
+      foreach: foreach,
       path: '',
     }
     // 创建标签集合与跳转列表
@@ -3083,8 +3083,7 @@ let Command = new class CommandCompiler {
       switch (data) {
         default: {
           const iterator = compileCommonIterator(variable ?? touchId!, foreach)
-          const loopCommands = Command.compile(commands, iterator, true)
-          loopCommands.foreach = foreach
+          const loopCommands = Command.compile(commands, iterator, true, foreach)
           return () => {
             const list = getList() as Array<any>
             if (list?.length > 0) {
@@ -3098,8 +3097,7 @@ let Command = new class CommandCompiler {
         }
         case 'save': {
           const iterator = compileSaveIterator(saveIndex!, foreach)
-          const loopCommands = Command.compile(commands, iterator, true)
-          loopCommands.foreach = foreach
+          const loopCommands = Command.compile(commands, iterator, true, foreach)
           return () => {
             const event = CurrentEvent
             Data.loadSaveMeta().then(list => {
@@ -3123,14 +3121,19 @@ let Command = new class CommandCompiler {
     const {stack} = this
     let i = stack.length
     while (--i >= 0) {
-      if (stack[i].loop) {
+      const context = stack[i]
+      if (context.loop) {
+        const {foreach} = context
         const {commands, index} = stack[i - 1]
         const jump = Command.goto(commands, index + 1)
-        return () => {
-          // 如果跳出遍历循环，重置上下文
-          CommandList.foreach?.reset()
-          return jump()
+        // 如果跳出的是遍历循环，重置相关上下文
+        if (foreach) {
+          return () => {
+            foreach.reset()
+            return jump()
+          }
         }
+        return jump
       }
     }
     return null
