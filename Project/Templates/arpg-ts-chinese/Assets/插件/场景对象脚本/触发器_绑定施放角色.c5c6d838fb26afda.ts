@@ -10,8 +10,8 @@
 #desc Always in the same position as the skill casting actor
 
 @lang ru
-#plugin Триггер - Применить Навык
-#desc Всегда находится в той же позиции, что и заклинатель
+#plugin Триггер - Связать Навык
+#desc Всегда в той же позиции, что и актёр, применяющий навык
 
 @lang zh
 #plugin 触发器 - 绑定技能施放角色

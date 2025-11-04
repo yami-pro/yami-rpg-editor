@@ -17,8 +17,8 @@
 #switch Switch
 
 @lang ru
-#plugin Переключить панель здоровья
-#desc Команда для плагина Health Bar
+#plugin Переключатель Индикатора здоровья
+#desc Команда для плагина Индикатор здоровья
 #operation Операция
 #enable Включить
 #disable Выключить

@@ -52,9 +52,9 @@ PluginManager.FlashEffect.flash(actor)
 #duration Duration(ms)
 
 @lang ru
-#plugin Эффект вспышки
+#plugin Эффект Вспышки
 #desc
-Используется для демонстрации эффекта ущерба, нанесенного актеру.
+Используется для демонстрации эффекта урона нанесенного актеру.
 
 Метод:
 PluginManager.FlashEffect.flash(actor)

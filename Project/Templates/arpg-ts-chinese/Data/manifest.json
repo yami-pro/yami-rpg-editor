@@ -66,19 +66,19 @@
     },
     {
       "path": "Assets/角色/英雄000 - 战士.42a1df090cd447ff.actor",
-      "size": 62161
+      "size": 61116
     },
     {
       "path": "Assets/角色/英雄001 - 弓箭手.469ef64d5f7b9877.actor",
-      "size": 71440
+      "size": 70395
     },
     {
       "path": "Assets/角色/英雄002 - 魔法师.ee01eba61f7a38f9.actor",
-      "size": 71457
+      "size": 70412
     },
     {
       "path": "Assets/角色/英雄003 - 圣职者.97b3d6bfefb25235.actor",
-      "size": 61999
+      "size": 60954
     },
     {
       "path": "Assets/角色/英雄004 - 召唤兽.cf6500f87ceb350d.actor",
@@ -115,10 +115,6 @@
       "size": 533
     },
     {
-      "path": "Assets/技能/000 - 公共技能/000 - 跳跃.0db219ae914cc947.skill",
-      "size": 5316
-    },
-    {
       "path": "Assets/技能/003 - 法师技能/300 - 火球.2a39e76dfc12ee8e.skill",
       "size": 1820
     },
@@ -137,6 +133,10 @@
     {
       "path": "Assets/技能/003 - 法师技能/304 - 冰封球.d58e81968a540da8.skill",
       "size": 2002
+    },
+    {
+      "path": "Assets/技能/000 - 公共技能/000 - 跳跃.0db219ae914cc947.skill",
+      "size": 5316
     },
     {
       "path": "Assets/技能/002 - 弓箭手技能/200 - 射箭.d2769f6f705f69f5.skill",
@@ -159,22 +159,6 @@
       "size": 5306
     },
     {
-      "path": "Assets/技能/005 - 怪物技能/900 - 攻击.76af4e41772ddda8.skill",
-      "size": 3291
-    },
-    {
-      "path": "Assets/技能/005 - 怪物技能/901 - Boss攻击.a9e5e36608fcf690.skill",
-      "size": 27013
-    },
-    {
-      "path": "Assets/技能/005 - 怪物技能/902 - 狂乱锤击.76004b325744d935.skill",
-      "size": 5041
-    },
-    {
-      "path": "Assets/技能/005 - 怪物技能/903 - 冲击波.d72fc9543a60cfd8.skill",
-      "size": 3235
-    },
-    {
       "path": "Assets/技能/004 - 圣职者技能/401 - 圣言术.b659a70fa284e0b8.skill",
       "size": 5187
     },
@@ -189,6 +173,22 @@
     {
       "path": "Assets/技能/004 - 圣职者技能/404 - 召唤老婆.43a476a6c8601b45.skill",
       "size": 2006
+    },
+    {
+      "path": "Assets/技能/005 - 怪物技能/900 - 攻击.76af4e41772ddda8.skill",
+      "size": 3291
+    },
+    {
+      "path": "Assets/技能/005 - 怪物技能/901 - Boss攻击.a9e5e36608fcf690.skill",
+      "size": 27013
+    },
+    {
+      "path": "Assets/技能/005 - 怪物技能/902 - 狂乱锤击.76004b325744d935.skill",
+      "size": 5041
+    },
+    {
+      "path": "Assets/技能/005 - 怪物技能/903 - 冲击波.d72fc9543a60cfd8.skill",
+      "size": 3235
     },
     {
       "path": "Assets/技能/@被动技能.1049c4a227522e4f.skill",
@@ -273,6 +273,22 @@
       "size": 1883
     },
     {
+      "path": "Assets/技能/004 - 圣职者技能/401 - 圣言术.45806aa2151957e4.trigger",
+      "size": 4330
+    },
+    {
+      "path": "Assets/技能/004 - 圣职者技能/402 - 治疗术.4d76c2781fb50245.trigger",
+      "size": 2451
+    },
+    {
+      "path": "Assets/技能/004 - 圣职者技能/403 - 魔法盾.01e2a51501c33d84.trigger",
+      "size": 744
+    },
+    {
+      "path": "Assets/技能/004 - 圣职者技能/404 - 召唤老婆.cbecc880ed6d9ddd.trigger",
+      "size": 1903
+    },
+    {
       "path": "Assets/技能/005 - 怪物技能/900 - 攻击.41d1cf3c9500fc15.trigger",
       "size": 1761
     },
@@ -291,22 +307,6 @@
     {
       "path": "Assets/技能/005 - 怪物技能/903 - 冲击波.e0f650a8de8c8758.trigger",
       "size": 3319
-    },
-    {
-      "path": "Assets/技能/004 - 圣职者技能/401 - 圣言术.45806aa2151957e4.trigger",
-      "size": 4330
-    },
-    {
-      "path": "Assets/技能/004 - 圣职者技能/402 - 治疗术.4d76c2781fb50245.trigger",
-      "size": 2451
-    },
-    {
-      "path": "Assets/技能/004 - 圣职者技能/403 - 魔法盾.01e2a51501c33d84.trigger",
-      "size": 744
-    },
-    {
-      "path": "Assets/技能/004 - 圣职者技能/404 - 召唤老婆.cbecc880ed6d9ddd.trigger",
-      "size": 1903
     }
   ],
   "items": [
@@ -433,6 +433,10 @@
       "size": 91531
     },
     {
+      "path": "Assets/! 事件/@5 新的游戏.40b2ca62601a61b7.event",
+      "size": 3620
+    },
+    {
       "path": "Assets/! 事件/刷1000只怪.0e2e798887cc9aa9.event",
       "size": 26105
     },
@@ -463,10 +467,6 @@
     {
       "path": "Assets/UI/Boss生命条/删除Boss生命条.75dab87cf676cf96.event",
       "size": 1240
-    },
-    {
-      "path": "Assets/UI/交易/打开交易窗口.116f445dbaae10c7.event",
-      "size": 3612
     },
     {
       "path": "Assets/UI/主菜单/主菜单_分数属性_更新.16ad6278e6384a0a.event",
@@ -517,6 +517,10 @@
       "size": 3379
     },
     {
+      "path": "Assets/UI/交易/打开交易窗口.116f445dbaae10c7.event",
+      "size": 3612
+    },
+    {
       "path": "Assets/UI/对话框/显示文本.dc5e5eb68fd85496.event",
       "size": 11344
     },
@@ -551,10 +555,6 @@
     {
       "path": "Assets/UI/系统音效/006.播放存档音效.6589cd90904fd918.event",
       "size": 312
-    },
-    {
-      "path": "Assets/插件/全局插件/掉落物品/掉落物品获得事件.552ccea726c420e0.event",
-      "size": 21269
     },
     {
       "path": "Assets/技能/击杀后获得经验值.8c17eb0bf4fb77ed.event",
@@ -597,6 +597,10 @@
       "size": 2466
     },
     {
+      "path": "Assets/插件/全局插件/掉落物品/掉落物品获得事件.552ccea726c420e0.event",
+      "size": 21269
+    },
+    {
       "path": "Assets/测试用事件指令.bb0348bc4e21a598.event",
       "size": 2148
     }
@@ -604,7 +608,7 @@
   "scenes": [
     {
       "path": "Assets/场景/世界.42bb866ffdc04284.scene",
-      "size": 50876,
+      "size": 50519,
       "x": 64,
       "y": 40
     },
@@ -643,12 +647,16 @@
   ],
   "ui": [
     {
+      "path": "Assets/UI/主界面/主界面.17620ddd23391b09.ui",
+      "size": 219682
+    },
+    {
       "path": "Assets/UI/Boss生命条/Boss生命条.a8ebdfc3e5b314e4.ui",
       "size": 21499
     },
     {
-      "path": "Assets/UI/主界面/主界面.17620ddd23391b09.ui",
-      "size": 219682
+      "path": "Assets/UI/主菜单/主菜单.904b2d1451f97909.ui",
+      "size": 946730
     },
     {
       "path": "Assets/UI/交易/交易界面.09e956467f04bc68.ui",
@@ -657,10 +665,6 @@
     {
       "path": "Assets/UI/加载进度/加载进度.44bb9f0c9d1c2c77.ui",
       "size": 9297
-    },
-    {
-      "path": "Assets/UI/主菜单/主菜单.904b2d1451f97909.ui",
-      "size": 946730
     },
     {
       "path": "Assets/UI/存档/存档界面.75e49412b3f62524.ui",
@@ -675,16 +679,16 @@
       "size": 36600
     },
     {
-      "path": "Assets/UI/标题画面/标题画面.9ad6ca0c1eb8cc8a.ui",
-      "size": 21956
+      "path": "Assets/UI/游戏结束/游戏结束.47303527f9ef1e9d.ui",
+      "size": 3981
     },
     {
       "path": "Assets/UI/滚动条组件/垂直滚动条.89887ddc1c44ebed.ui",
       "size": 13722
     },
     {
-      "path": "Assets/UI/游戏结束/游戏结束.47303527f9ef1e9d.ui",
-      "size": 3981
+      "path": "Assets/UI/标题画面/标题画面.9ad6ca0c1eb8cc8a.ui",
+      "size": 17182
     },
     {
       "path": "Assets/插件/全局插件/掉落物品/掉落物品_消息窗口.df0588892edaf007.ui",
@@ -709,6 +713,30 @@
       "size": 20367
     },
     {
+      "path": "Assets/技能/003 - 法师技能/技能动画/动画 - 法师.1fd96a521f0c9814.anim",
+      "size": 81040
+    },
+    {
+      "path": "Assets/技能/001 - 战士技能/技能动画/动画 - 战士.b588467c46e18522.anim",
+      "size": 14487
+    },
+    {
+      "path": "Assets/技能/000 - 公共技能/技能动画/动画 - 公共.f506be138f018327.anim",
+      "size": 995
+    },
+    {
+      "path": "Assets/技能/002 - 弓箭手技能/技能动画/动画 - 弓箭手.e94d71029f9e8e66.anim",
+      "size": 19208
+    },
+    {
+      "path": "Assets/技能/004 - 圣职者技能/技能动画/动画 - 圣职者.d37fa15080fd801f.anim",
+      "size": 7121
+    },
+    {
+      "path": "Assets/技能/005 - 怪物技能/技能动画/动画 - 怪物.62d9236c4746f761.anim",
+      "size": 10285
+    },
+    {
       "path": "Assets/插件/全局插件/地图标记/地图标记_动画.9870648f11eebb64.anim",
       "size": 2669
     },
@@ -727,30 +755,6 @@
     {
       "path": "Assets/角色/角色动画/首领.63a1f1a0de940ace.anim",
       "size": 57843
-    },
-    {
-      "path": "Assets/技能/001 - 战士技能/技能动画/动画 - 战士.b588467c46e18522.anim",
-      "size": 14487
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/动画 - 法师.1fd96a521f0c9814.anim",
-      "size": 81040
-    },
-    {
-      "path": "Assets/技能/000 - 公共技能/技能动画/动画 - 公共.f506be138f018327.anim",
-      "size": 995
-    },
-    {
-      "path": "Assets/技能/002 - 弓箭手技能/技能动画/动画 - 弓箭手.e94d71029f9e8e66.anim",
-      "size": 19208
-    },
-    {
-      "path": "Assets/技能/005 - 怪物技能/技能动画/动画 - 怪物.62d9236c4746f761.anim",
-      "size": 10285
-    },
-    {
-      "path": "Assets/技能/004 - 圣职者技能/技能动画/动画 - 圣职者.d37fa15080fd801f.anim",
-      "size": 7121
     }
   ],
   "particles": [
@@ -779,28 +783,24 @@
       "size": 2110
     },
     {
-      "path": "Assets/插件/全局插件/掉落物品/掉落物品_粒子.1600ed24ed6e9f72.particle",
-      "size": 2131
+      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 冰封球.2e74e3641d8c688b.particle",
+      "size": 2090
     },
     {
-      "path": "Assets/角色/角色动画/特效/角色 - 升级效果.fb604ebb0ab99206.particle",
-      "size": 4162
+      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 冰锥.958d907c515c36fa.particle",
+      "size": 1987
     },
     {
-      "path": "Assets/角色/角色动画/特效/角色 - 恢复生命.27e5f3a8e8e7bcbe.particle",
-      "size": 2102
+      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 旋风.216533870b791470.particle",
+      "size": 2004
     },
     {
-      "path": "Assets/角色/角色动画/特效/角色 - 恢复魔法.a4282d729aa29f2d.particle",
-      "size": 2108
+      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 火墙.48a9b775033a07cd.particle",
+      "size": 6295
     },
     {
-      "path": "Assets/角色/角色动画/特效/角色 - 打开宝箱.b1bff543d7c3ca60.particle",
-      "size": 1990
-    },
-    {
-      "path": "Assets/角色/角色动画/特效/角色 - 获得增益状态.842e42ee718b9d70.particle",
-      "size": 2102
+      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 黑洞.64c4c14f0b18fb54.particle",
+      "size": 2091
     },
     {
       "path": "Assets/技能/001 - 战士技能/技能动画/粒子 - 剑轮舞 - 结束.4d3d8500784e1721.particle",
@@ -825,26 +825,6 @@
     {
       "path": "Assets/技能/001 - 战士技能/技能动画/粒子 - 飞剑.388f9d622e8b7b4e.particle",
       "size": 1985
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 冰封球.2e74e3641d8c688b.particle",
-      "size": 2090
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 冰锥.958d907c515c36fa.particle",
-      "size": 1987
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 旋风.216533870b791470.particle",
-      "size": 2004
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 火墙.48a9b775033a07cd.particle",
-      "size": 6295
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/粒子 - 黑洞.64c4c14f0b18fb54.particle",
-      "size": 2091
     },
     {
       "path": "Assets/技能/000 - 公共技能/技能动画/粒子 - 跳跃.8422ddfc6ec822cb.particle",
@@ -877,6 +857,30 @@
     {
       "path": "Assets/技能/004 - 圣职者技能/技能动画/粒子 - 治疗术.0c07214f4bd6b744.particle",
       "size": 4063
+    },
+    {
+      "path": "Assets/插件/全局插件/掉落物品/掉落物品_粒子.1600ed24ed6e9f72.particle",
+      "size": 2131
+    },
+    {
+      "path": "Assets/角色/角色动画/特效/角色 - 升级效果.fb604ebb0ab99206.particle",
+      "size": 4162
+    },
+    {
+      "path": "Assets/角色/角色动画/特效/角色 - 恢复生命.27e5f3a8e8e7bcbe.particle",
+      "size": 2102
+    },
+    {
+      "path": "Assets/角色/角色动画/特效/角色 - 恢复魔法.a4282d729aa29f2d.particle",
+      "size": 2108
+    },
+    {
+      "path": "Assets/角色/角色动画/特效/角色 - 打开宝箱.b1bff543d7c3ca60.particle",
+      "size": 1990
+    },
+    {
+      "path": "Assets/角色/角色动画/特效/角色 - 获得增益状态.842e42ee718b9d70.particle",
+      "size": 2102
     }
   ],
   "images": [
@@ -985,100 +989,16 @@
       "size": 22792
     },
     {
-      "path": "Assets/物品/! 物品图标.0a47ecf1e8c15ea6.png",
-      "size": 127956
+      "path": "Assets/技能/! 技能图标.a76bcfc585129656.png",
+      "size": 1241934
     },
     {
       "path": "Assets/状态/! 状态图标.969cc7da8bb5e984.png",
       "size": 83568
     },
     {
-      "path": "Assets/技能/! 技能图标.a76bcfc585129656.png",
-      "size": 1241934
-    },
-    {
-      "path": "Assets/UI/! 素材/Cursor.97d169816ea8f68b.png",
-      "size": 391
-    },
-    {
-      "path": "Assets/UI/! 素材/UI P1.1ff7285ca9f55cf9.png",
-      "size": 886
-    },
-    {
-      "path": "Assets/UI/! 素材/UI P2.216c4fcc77ad4520.png",
-      "size": 1032
-    },
-    {
-      "path": "Assets/UI/! 素材/UI P3.02552449717ac209.png",
-      "size": 1332
-    },
-    {
-      "path": "Assets/UI/! 素材/UI P4.e7f151299f00f227.png",
-      "size": 907
-    },
-    {
-      "path": "Assets/UI/! 素材/主菜单_开关.729cfd18b5c2e240.png",
-      "size": 9774
-    },
-    {
-      "path": "Assets/UI/! 素材/主菜单_物品栏_选框.899680c2aad2adeb.png",
-      "size": 15461
-    },
-    {
-      "path": "Assets/UI/! 素材/对话框_翻页提示.80ab244e98af64d8.png",
-      "size": 15877
-    },
-    {
-      "path": "Assets/UI/! 素材/按钮_选中.02ff74b90950aa28.png",
-      "size": 15294
-    },
-    {
-      "path": "Assets/UI/! 素材/滚动条_按钮.8dc6710727d1b9d2.png",
-      "size": 23518
-    },
-    {
-      "path": "Assets/UI/! 素材/物品槽.960df18801f07e6d.png",
-      "size": 16551
-    },
-    {
-      "path": "Assets/UI/! 素材/窗口边框_1px.67ab9bf6f44db9dd.png",
-      "size": 15623
-    },
-    {
-      "path": "Assets/UI/! 素材/纯黑色.fa66cfef8fca2820.png",
-      "size": 15390
-    },
-    {
-      "path": "Assets/UI/! 素材/纯黑色_圆角.ad70e61e96057efd.png",
-      "size": 15464
-    },
-    {
-      "path": "Assets/UI/! 素材/纯黑色_圆角_边框.f6c4f42b3597e577.png",
-      "size": 15776
-    },
-    {
-      "path": "Assets/UI/! 素材/聊天框.8a5b795e79e7287a.png",
-      "size": 15598
-    },
-    {
-      "path": "Assets/UI/! 素材/聊天框_箭头.27cc6ee680dd8b64.png",
-      "size": 15475
-    },
-    {
-      "path": "Assets/UI/! 素材/背景_激活.010b7ecfbc5f5e76.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/UI/! 素材/进度条.09b440b7468ad859.png",
-      "size": 18414
-    },
-    {
-      "path": "Assets/UI/标题画面/background.babf411df124a5b4.png",
-      "size": 6394
-    },
-    {
-      "path": "Assets/UI/标题画面/midground.9667fbb162407000.png",
-      "size": 70636
+      "path": "Assets/物品/! 物品图标.0a47ecf1e8c15ea6.png",
+      "size": 127956
     },
     {
       "path": "Assets/场景/图块/overworld_tileset_grass.cd96420d15c76e4f.png",
@@ -1181,6 +1101,90 @@
       "size": 0
     },
     {
+      "path": "Assets/UI/! 素材/Cursor.97d169816ea8f68b.png",
+      "size": 391
+    },
+    {
+      "path": "Assets/UI/! 素材/UI P1.1ff7285ca9f55cf9.png",
+      "size": 886
+    },
+    {
+      "path": "Assets/UI/! 素材/UI P2.216c4fcc77ad4520.png",
+      "size": 1032
+    },
+    {
+      "path": "Assets/UI/! 素材/UI P3.02552449717ac209.png",
+      "size": 1332
+    },
+    {
+      "path": "Assets/UI/! 素材/UI P4.e7f151299f00f227.png",
+      "size": 907
+    },
+    {
+      "path": "Assets/UI/! 素材/主菜单_开关.729cfd18b5c2e240.png",
+      "size": 9774
+    },
+    {
+      "path": "Assets/UI/! 素材/主菜单_物品栏_选框.899680c2aad2adeb.png",
+      "size": 15461
+    },
+    {
+      "path": "Assets/UI/! 素材/对话框_翻页提示.80ab244e98af64d8.png",
+      "size": 15877
+    },
+    {
+      "path": "Assets/UI/! 素材/按钮_选中.02ff74b90950aa28.png",
+      "size": 15294
+    },
+    {
+      "path": "Assets/UI/! 素材/滚动条_按钮.8dc6710727d1b9d2.png",
+      "size": 23518
+    },
+    {
+      "path": "Assets/UI/! 素材/物品槽.960df18801f07e6d.png",
+      "size": 16551
+    },
+    {
+      "path": "Assets/UI/! 素材/窗口边框_1px.67ab9bf6f44db9dd.png",
+      "size": 15623
+    },
+    {
+      "path": "Assets/UI/! 素材/纯黑色.fa66cfef8fca2820.png",
+      "size": 15390
+    },
+    {
+      "path": "Assets/UI/! 素材/纯黑色_圆角.ad70e61e96057efd.png",
+      "size": 15464
+    },
+    {
+      "path": "Assets/UI/! 素材/纯黑色_圆角_边框.f6c4f42b3597e577.png",
+      "size": 15776
+    },
+    {
+      "path": "Assets/UI/! 素材/聊天框.8a5b795e79e7287a.png",
+      "size": 15598
+    },
+    {
+      "path": "Assets/UI/! 素材/聊天框_箭头.27cc6ee680dd8b64.png",
+      "size": 15475
+    },
+    {
+      "path": "Assets/UI/! 素材/背景_激活.010b7ecfbc5f5e76.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/UI/! 素材/进度条.09b440b7468ad859.png",
+      "size": 18414
+    },
+    {
+      "path": "Assets/UI/标题画面/background.babf411df124a5b4.png",
+      "size": 6394
+    },
+    {
+      "path": "Assets/UI/标题画面/midground.9667fbb162407000.png",
+      "size": 70636
+    },
+    {
       "path": "Assets/角色/头像/Chest-1.d095eb446178fd84.png",
       "size": 57244
     },
@@ -1217,54 +1221,6 @@
       "size": 1064
     },
     {
-      "path": "Assets/插件/全局插件/地图标记/地图标记_选框.60868f0235927990.png",
-      "size": 15437
-    },
-    {
-      "path": "Assets/插件/全局插件/生命值条/生命值条_友好.7c621804d5559957.png",
-      "size": 15680
-    },
-    {
-      "path": "Assets/插件/全局插件/生命值条/生命值条_敌对.2b481ebc2d529fe4.png",
-      "size": 15694
-    },
-    {
-      "path": "Assets/插件/全局插件/生命值条/生命值条_特殊.1eb77a9949439cd9.png",
-      "size": 15843
-    },
-    {
-      "path": "Assets/插件/全局插件/生命值条/生命值条_背景.92144fc3fc32fdbf.png",
-      "size": 15559
-    },
-    {
-      "path": "Assets/插件/全局插件/伤害数字/伤害数字_暴击.4a04123cc7bb302f.png",
-      "size": 15779
-    },
-    {
-      "path": "Assets/插件/全局插件/伤害数字/伤害数字_未命中.ea604fd77664b4be.png",
-      "size": 15454
-    },
-    {
-      "path": "Assets/插件/全局插件/伤害数字/伤害数字_生命值减少.78ebb3bb4a63384c.png",
-      "size": 15762
-    },
-    {
-      "path": "Assets/插件/全局插件/伤害数字/伤害数字_生命值增加.080fc8dd5a6fdda8.png",
-      "size": 15787
-    },
-    {
-      "path": "Assets/插件/全局插件/伤害数字/伤害数字_魔法值减少.b595179462dc6267.png",
-      "size": 15767
-    },
-    {
-      "path": "Assets/插件/全局插件/伤害数字/伤害数字_魔法值增加.549197775744222a.png",
-      "size": 15779
-    },
-    {
-      "path": "Assets/插件/全局插件/掉落物品/掉落物品_光芒.0fcd4a92ddf48a12.png",
-      "size": 7853
-    },
-    {
       "path": "Assets/场景/视差图/Starry Space Parallaxes/星空_1.b7ff6a0840772580.png",
       "size": 1360
     },
@@ -1283,6 +1239,26 @@
     {
       "path": "Assets/场景/视差图/雾.40b0703a8367977d.png",
       "size": 182080
+    },
+    {
+      "path": "Assets/技能/003 - 法师技能/技能动画/贴图 - 火球.16607ed2e8dccbb8.png",
+      "size": 8753
+    },
+    {
+      "path": "Assets/技能/003 - 法师技能/技能动画/贴图 - 燃烧.91675a97ac48e009.png",
+      "size": 3683
+    },
+    {
+      "path": "Assets/技能/001 - 战士技能/技能动画/贴图 - 剑.924099c18893664d.png",
+      "size": 19512
+    },
+    {
+      "path": "Assets/技能/005 - 怪物技能/技能动画/精灵 - 冲击波 - 击中.54e737cc5aea7148.png",
+      "size": 1617
+    },
+    {
+      "path": "Assets/技能/005 - 怪物技能/技能动画/精灵 - 冲击波.18be8b76aa2d7ec4.png",
+      "size": 2932
     },
     {
       "path": "Assets/粒子/Basic/ding blood/dingbats-392.b84245a73aad8034.png",
@@ -1474,530 +1450,6 @@
     },
     {
       "path": "Assets/粒子/Basic/ding blood/dingbats-442.f73fbe34645f0871.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_1.84ae4b59763c981b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_10.22679da1a9c741fb.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_11.b056c07773e978d4.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_12.ca7902135fc867cc.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_13.2b213d7df7c26706.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_14.86fe20b4e440eb2a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_15.eb975912be659363.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_16.7bea3e5c22f649ce.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_17.ac250fea69376bcf.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_18.d7fb3825415451ff.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_19.89e6ec3e727b3975.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_2.3f72478906440296.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_20.952f0d58bfe03e59.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_21.af599f0b772312cf.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_3.c6e8f83df6a9c68e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_4.6c6758b8b42b205d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_5.5000da44d1a35639.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_6.cad466960db6022d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_7.c391d009a3f9e6db.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_8.d0438d60ef922f38.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/star/shape_star_9.0c47ec67eb2bce11.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_1.c69abe135681ecb3.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_10.fdcc7adbe864ba86.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_11.1e54e8179cde4cd5.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_12.6c1983dde2a59824.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_13.3b27c16b5b735f05.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_14.4a2fa6547fae5cdd.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_15.89105b7915ec17c6.png",
-      "size": 43895
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_16.0549e133e8a263f0.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_17.1281c5fe08d6c9e5.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_18.ca2ef7a07c95a77c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_19.adaad63661749960.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_2.6e996f444a1da88b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_20.00625849c1807517.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_21.2f81c9dcc0a1a65d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_22.4137cd5c8fda1c1c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_23.eb31924b86465bc5.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_24.0b7232cc58ace7ab.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_25.5aa38212366c8868.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_26.c31f7b5f94f622c3.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_27.e1db496c7b0fe81c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_28.959ad21e592fcb6f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_29.4b5d710fda37c790.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_3.07813b2d577d5d15.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_1.188cbbff73c90300.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_10.41a2585583c88f63.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_11.4253b7003758cded.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_12.111b14c8955fe966.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_13.01789f0a49e933bb.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_14.de73fb2d02f35b2a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_30.fefa7b5ccbe46ac4.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_31.e4c986275263e395.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_32.c42f1ee54f83fdb3.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_33.9c8ed62e9037ec86.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_34.bb6dab6f6fe10489.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_35.87330aa751709b73.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_36.2618bfe0db486758.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_37.ee8ade279e2a1157.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_38.6d0f3e3b29e473b5.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_39.934af1afbc31200d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_4.b89a4f2f4af2c49c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_40.2a89efb12d4f949a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_5.0536a805102e4a70.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_6.60f62ceb47ea066e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_7.ccc763d710638936.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_8.09ddabaab9c88d40.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/spiral/spiral_9.d70990ceff15e323.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_15.743b9f51f04d050d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_16.15d2c523e3d7740c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_17.cd1eba76fb6633ab.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_18.eedd79b184bad122.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_19.d5dadd7f795f1850.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_2.d84750e95b880df5.png",
-      "size": 63598
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_20.a52e704d65494537.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_21.8d43c29a6c4e3908.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_22.b01552a2d31b161e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_23.60b61e0708125f77.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_24.ddc9136a1d1a5d91.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_25.6c259d595ce7905b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_26.ef3421bf11fefd44.png",
-      "size": 42821
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_27.681bbb2d416ae071.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_28.7ffb2cad86d56d70.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_29.2c1797aa005b6555.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_3.236c1e1ebc232f3e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_30.b3b60e5915c13234.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_31.7d46b9b6fc02dd29.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_32.14ca4b2bee70fe0d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_33.8b19f4e37c10f832.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_34.fa09d2973ab4d5d0.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_35.38cb3ff0c40ba98c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_36.e1a40c3a3dac0630.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_37.322171dc97f2b330.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_38.f01d58ab1af0acfa.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_39.9e8060e89de35433.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_4.be8e377b04b9184f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_40.a14af2368a7da65f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_5.ca529fc20b722496.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_6.2d0dcdd81561f666.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_7.3c54a008e7f9e39d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_8.fe8b6a4a98ad5903.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/targets/target_9.62592c0827b7c7ba.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_1.9940e3e0289bd7ed.png",
-      "size": 286214
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_10.8abf7320d03be888.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_11.2972b0e70d4a01e8.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_12.27980407c75d31db.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_13.fe3e863d8baa0365.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_14.5e6a7857f8d3805a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_15.cf8296d2a4487726.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_16.c602535b6d08b81e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_17.2c44350e35e522e9.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_18.adbeb56873ee0dd7.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_19.bf12ccc2a11b62db.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_2.799f9ecf3b35cbc7.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_20.9a9d7db0b569fa29.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_21.d21b69fbaad0bf9b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_22.553b105b324d9f9b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_23.aecee793b985e64a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_24.ef8b69f1a8b7dbfd.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_25.5ae9183b951850ce.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_26.90cd0cbe8fa9d914.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_27.ed63cbe4e6d8a708.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_28.46d4aa9afd0b6eba.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_29.f564789d0b7a8406.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_3.0e3801e002e4c20f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_30.493e3a8b0b463e81.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_4.cfd6b31bd3f9742e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_5.f73aefd6127f406d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_6.4dc91d51b70f65d1.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_7.21674db705708326.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_8.2173420a490eccda.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/burst/color_burst_9.e56cdd1a9d785662.png",
       "size": 0
     },
     {
@@ -2369,83 +1821,895 @@
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/energyball/energyball_1.d595c12025f5efaf.png",
-      "size": 267342
-    },
-    {
-      "path": "Assets/粒子/Color/energyball/energyball_10.aebe5ebdab75c040.png",
-      "size": 264195
-    },
-    {
-      "path": "Assets/粒子/Color/energyball/energyball_2.2903145914c5412d.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-115.d42fffb5f23c54a7.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/energyball/energyball_3.8d445b61f057b2d3.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-116.0831f05c3fec298b.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/energyball/energyball_4.7e9b14070b7a4f0b.png",
-      "size": 214315
-    },
-    {
-      "path": "Assets/粒子/Color/energyball/energyball_5.6b28ba3d592b2672.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-117.6049b2afb09ef9de.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/energyball/energyball_6.be484f18785d873e.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-118.dfbf8c1e6c2c0806.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/energyball/energyball_7.acd040d5ce8a3234.png",
-      "size": 263789
-    },
-    {
-      "path": "Assets/粒子/Color/energyball/energyball_8.74b64e2db8b1bc05.png",
-      "size": 221390
-    },
-    {
-      "path": "Assets/粒子/Color/energyball/energyball_9.ccfa7201945dc5c0.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-132.37c58b083317fed1.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_1.b4a1fcdc7752f3f7.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-133.d02821a9f37cd820.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_10.bf6912f979213162.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-134.269b940babf12afc.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_2.99a106bf034f3bc7.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-135.0c41b702c71eb2c1.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_3.e4f72efcf4a5d626.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-136.a15252d49f5b51f2.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_4.db82979716859673.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-137.be324700b9204d30.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_5.da8d6a2f1b63e1ae.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-139.c4bfb587855795f1.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_6.2804bdd329d10e35.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-143.e8c07552767dea37.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_7.0a0dce1793772d61.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-144.3ac6ed480bb5768e.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_8.8a1c302652890097.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-145.39ba9811dc404ddc.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/spirowires/color_spirowires_9.01b649b2d3c50301.png",
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-150.c1260e4939c51a49.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-152.8c46eae987eab264.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-154.81560f153126b66f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-261.a9187e32dd5bc68a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-262.552b0c429b28da26.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-263.b448a0f4ddc96fe5.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-264.4feda1801d691247.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-265.d10afb075f56e126.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-266.f2a2c8f94fa65bc4.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-270.d38b9cdd699601eb.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-271.38c951057772984c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-272.2695aed2273052ed.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-273.ac13c35ba616dc5a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-277.6f887ccbc2623417.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-278.9734c875275d12e4.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-279.6dee59bbeade3d40.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-280.f4fdbee7b363935a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-281.b225edeb3aa7b077.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-282.fa45f6e5c6198e0d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-283.ad84ed232fc19a88.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-339.ec2ee2dc31bebbe4.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-340.0cb2e9a2aa5ddd2e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-349.7d2167b7f67ea242.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-365.ea517ec2e5de9bf3.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-366.c596f59413efe267.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-367.55c7f90721cfc6cf.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-368.d383774f96804ec9.png",
+      "size": 2618
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-369.048e2e83b7d28c4b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-370.e46c28ae5915be15.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-371.1fff5b459a0d45b9.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-372.c5fcac807a3cdc4b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-373.4e4a13e3f252518c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-374.1edc394598735ae9.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-375.4466dd85d376161e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-376.04bd4927bae8dcda.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-377.a4cf4e35c3c36dbb.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-378.f12f472ca86a8b35.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-379.68aa7a636bfbf756.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-380.1264624e84544abb.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-381.9bc05e1b5f96d080.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-385.7cb8e971b9bc6535.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-388.b30fd0ec735612f3.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-389.2e36f7dca31247fc.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-390.22aa815f9b0cf035.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-447.42ee55f646df853e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-452.3b27667ecc9e6562.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-453.808544ee961943b4.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-455.0ebd5030c3c458b6.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-456.aabffccfc4e5c15b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-457.963693f0022d98a1.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-458.2edadf75325ede3d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-459.6c2c04e11e118e80.png",
+      "size": 5923
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-460.73e1ac036d7c5c01.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-461.1bfdb60a949975c4.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-462.2747115088b33276.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-464.2074371f67165b9f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-467.dc8907373b697701.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-468.48e0e15ee15f0525.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-470.2cb0ff0aa39c12dc.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-471.5374f3b83e64519d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-473.ce22a746295e53b2.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-474.3a8cb3bbdebfed9a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-475.9dd222f3476ede08.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-476.6cdb596c5d2e68ed.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-477.c5904de8e02164f1.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-478.350380215bc41b1d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-480.8ef9d3c0aeb62af7.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-481.fbe5d5b70247aeae.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-482.106887d32ff0507b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-486.fefbe9827111ad40.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-487.faf4864568e1624c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-488.d143b68673f1cd94.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_1.84ae4b59763c981b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_10.22679da1a9c741fb.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_11.b056c07773e978d4.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_12.ca7902135fc867cc.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_13.2b213d7df7c26706.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-489.be63d83975cc2d70.png",
+      "size": 2525
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-490.03585991daaff958.png",
+      "size": 2872
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-491.24754dfba5b6e4b6.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-492.e789faccdadaeb31.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-493.e0bd4dbb47bb64fb.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/ding shapes/dingbats-494.06c0ff43c9fd3f11.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_14.86fe20b4e440eb2a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_15.eb975912be659363.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_16.7bea3e5c22f649ce.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_17.ac250fea69376bcf.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_18.d7fb3825415451ff.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_19.89e6ec3e727b3975.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_2.3f72478906440296.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_20.952f0d58bfe03e59.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_21.af599f0b772312cf.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_3.c6e8f83df6a9c68e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_4.6c6758b8b42b205d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_5.5000da44d1a35639.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_6.cad466960db6022d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_7.c391d009a3f9e6db.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_8.d0438d60ef922f38.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/star/shape_star_9.0c47ec67eb2bce11.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_1.188cbbff73c90300.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_10.41a2585583c88f63.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_11.4253b7003758cded.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_12.111b14c8955fe966.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_13.01789f0a49e933bb.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_14.de73fb2d02f35b2a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_15.743b9f51f04d050d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_16.15d2c523e3d7740c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_17.cd1eba76fb6633ab.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_18.eedd79b184bad122.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_19.d5dadd7f795f1850.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_2.d84750e95b880df5.png",
+      "size": 63598
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_20.a52e704d65494537.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_21.8d43c29a6c4e3908.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_22.b01552a2d31b161e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_23.60b61e0708125f77.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_24.ddc9136a1d1a5d91.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_25.6c259d595ce7905b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_26.ef3421bf11fefd44.png",
+      "size": 42821
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_27.681bbb2d416ae071.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_28.7ffb2cad86d56d70.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_29.2c1797aa005b6555.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_3.236c1e1ebc232f3e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_30.b3b60e5915c13234.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_31.7d46b9b6fc02dd29.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_32.14ca4b2bee70fe0d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_33.8b19f4e37c10f832.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_34.fa09d2973ab4d5d0.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_35.38cb3ff0c40ba98c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_36.e1a40c3a3dac0630.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_37.322171dc97f2b330.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_38.f01d58ab1af0acfa.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_39.9e8060e89de35433.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_4.be8e377b04b9184f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_40.a14af2368a7da65f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_5.ca529fc20b722496.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_6.2d0dcdd81561f666.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_7.3c54a008e7f9e39d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_8.fe8b6a4a98ad5903.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/targets/target_9.62592c0827b7c7ba.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_1.c69abe135681ecb3.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_10.fdcc7adbe864ba86.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_11.1e54e8179cde4cd5.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_12.6c1983dde2a59824.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_13.3b27c16b5b735f05.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_14.4a2fa6547fae5cdd.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_15.89105b7915ec17c6.png",
+      "size": 43895
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_16.0549e133e8a263f0.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_17.1281c5fe08d6c9e5.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_18.ca2ef7a07c95a77c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_19.adaad63661749960.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_2.6e996f444a1da88b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_20.00625849c1807517.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_21.2f81c9dcc0a1a65d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_22.4137cd5c8fda1c1c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_23.eb31924b86465bc5.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_24.0b7232cc58ace7ab.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_25.5aa38212366c8868.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_26.c31f7b5f94f622c3.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_27.e1db496c7b0fe81c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_28.959ad21e592fcb6f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_29.4b5d710fda37c790.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_3.07813b2d577d5d15.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_30.fefa7b5ccbe46ac4.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_31.e4c986275263e395.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_32.c42f1ee54f83fdb3.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_33.9c8ed62e9037ec86.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_34.bb6dab6f6fe10489.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_35.87330aa751709b73.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_36.2618bfe0db486758.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_37.ee8ade279e2a1157.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_38.6d0f3e3b29e473b5.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_39.934af1afbc31200d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_4.b89a4f2f4af2c49c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_40.2a89efb12d4f949a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_5.0536a805102e4a70.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_6.60f62ceb47ea066e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_7.ccc763d710638936.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_8.09ddabaab9c88d40.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Basic/spiral/spiral_9.d70990ceff15e323.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_1.9940e3e0289bd7ed.png",
+      "size": 286214
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_10.8abf7320d03be888.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_11.2972b0e70d4a01e8.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_12.27980407c75d31db.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_13.fe3e863d8baa0365.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_14.5e6a7857f8d3805a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_15.cf8296d2a4487726.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_16.c602535b6d08b81e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_17.2c44350e35e522e9.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_18.adbeb56873ee0dd7.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_19.bf12ccc2a11b62db.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_2.799f9ecf3b35cbc7.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_20.9a9d7db0b569fa29.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_21.d21b69fbaad0bf9b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_22.553b105b324d9f9b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_23.aecee793b985e64a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_24.ef8b69f1a8b7dbfd.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_25.5ae9183b951850ce.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_26.90cd0cbe8fa9d914.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_27.ed63cbe4e6d8a708.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_28.46d4aa9afd0b6eba.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_29.f564789d0b7a8406.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_3.0e3801e002e4c20f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_30.493e3a8b0b463e81.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_4.cfd6b31bd3f9742e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_5.f73aefd6127f406d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_6.4dc91d51b70f65d1.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_7.21674db705708326.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_8.2173420a490eccda.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/burst/color_burst_9.e56cdd1a9d785662.png",
       "size": 0
     },
     {
@@ -2526,6 +2790,246 @@
     },
     {
       "path": "Assets/粒子/Color/magic particles/magic_particles_9.e280c97d38492c53.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_1.d595c12025f5efaf.png",
+      "size": 267342
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_10.aebe5ebdab75c040.png",
+      "size": 264195
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_2.2903145914c5412d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_3.8d445b61f057b2d3.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_4.7e9b14070b7a4f0b.png",
+      "size": 214315
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_5.6b28ba3d592b2672.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_6.be484f18785d873e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_7.acd040d5ce8a3234.png",
+      "size": 263789
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_8.74b64e2db8b1bc05.png",
+      "size": 221390
+    },
+    {
+      "path": "Assets/粒子/Color/energyball/energyball_9.ccfa7201945dc5c0.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_1.d5e8191ad3a5c124.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_10.cb63979a34712259.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_11.10418bdeb326952e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_12.2ccc691f690785ed.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_13.91e7eda8d77a785f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_14.fda955766d6c428f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_15.e155aee39404c630.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_16.6af8003f3d37dd87.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_17.ef276f719d7bba9e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_18.f8689625be818783.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_19.e484014477d0ac5b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_2.1300ef00f7962d26.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_20.d107766b64be7084.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_21.b05b260bb482eec0.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_22.ec151dd1a78ae1fe.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_23.67739e5915fb25aa.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_24.d1547747f703d267.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_25.4a1e16d8b2f6521f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_26.03593df7a444122b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_27.e516008450c92423.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_28.3ddf671080cbbbdb.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_29.9973ba480eb6962e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_3.787c77df825c7de9.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_30.e4728e3caa21f198.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_31.db34872aa4c633ab.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_32.da4cfb4bba478189.png",
+      "size": 123867
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_33.364c46acf774f8f6.png",
+      "size": 124285
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_34.8491ca8b186df4d7.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_35.cb6c2caf4391a521.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_36.1a868924863823be.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_37.a6c93e74a9da7512.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_38.9d01d12431303e0b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_39.76532db48a33459a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_4.a4f650b191efa37e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_40.8600e366812c8f2d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_5.c3384f88dc2e6b3c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_6.4bdb0ea973213fc9.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_7.73fdfe96c9cf7792.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_8.a6d61439a123639c.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/fire/fire_9.2e4af25347612590.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_1.b4a1fcdc7752f3f7.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_10.bf6912f979213162.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_2.99a106bf034f3bc7.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_3.e4f72efcf4a5d626.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_4.db82979716859673.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_5.da8d6a2f1b63e1ae.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_6.2804bdd329d10e35.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_7.0a0dce1793772d61.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_8.8a1c302652890097.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Color/spirowires/color_spirowires_9.01b649b2d3c50301.png",
       "size": 0
     },
     {
@@ -2929,371 +3433,123 @@
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-115.d42fffb5f23c54a7.png",
+      "path": "Assets/粒子/Complex/lines/lines_1.94dcebd884ff6fb0.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-116.0831f05c3fec298b.png",
+      "path": "Assets/粒子/Complex/lines/lines_10.66804ced749a192d.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-117.6049b2afb09ef9de.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-118.dfbf8c1e6c2c0806.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-132.37c58b083317fed1.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-133.d02821a9f37cd820.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-134.269b940babf12afc.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-135.0c41b702c71eb2c1.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-136.a15252d49f5b51f2.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-137.be324700b9204d30.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-139.c4bfb587855795f1.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-143.e8c07552767dea37.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-144.3ac6ed480bb5768e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-145.39ba9811dc404ddc.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-150.c1260e4939c51a49.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-152.8c46eae987eab264.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-154.81560f153126b66f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-261.a9187e32dd5bc68a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-262.552b0c429b28da26.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-263.b448a0f4ddc96fe5.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-264.4feda1801d691247.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-265.d10afb075f56e126.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-266.f2a2c8f94fa65bc4.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-270.d38b9cdd699601eb.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-271.38c951057772984c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-272.2695aed2273052ed.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-273.ac13c35ba616dc5a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-277.6f887ccbc2623417.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-278.9734c875275d12e4.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-279.6dee59bbeade3d40.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-280.f4fdbee7b363935a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-281.b225edeb3aa7b077.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-282.fa45f6e5c6198e0d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-283.ad84ed232fc19a88.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-339.ec2ee2dc31bebbe4.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-340.0cb2e9a2aa5ddd2e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-349.7d2167b7f67ea242.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-365.ea517ec2e5de9bf3.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-366.c596f59413efe267.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-367.55c7f90721cfc6cf.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-368.d383774f96804ec9.png",
-      "size": 2618
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-369.048e2e83b7d28c4b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-370.e46c28ae5915be15.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-371.1fff5b459a0d45b9.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-372.c5fcac807a3cdc4b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-373.4e4a13e3f252518c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-374.1edc394598735ae9.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-375.4466dd85d376161e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-376.04bd4927bae8dcda.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-377.a4cf4e35c3c36dbb.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-378.f12f472ca86a8b35.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-379.68aa7a636bfbf756.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-380.1264624e84544abb.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-381.9bc05e1b5f96d080.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-385.7cb8e971b9bc6535.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-388.b30fd0ec735612f3.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-389.2e36f7dca31247fc.png",
-      "size": 0
+      "path": "Assets/粒子/Complex/lines/lines_2.099e20373f6cd284.png",
+      "size": 81857
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-390.22aa815f9b0cf035.png",
+      "path": "Assets/粒子/Complex/lines/lines_3.ae296b31cb82c4b5.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-447.42ee55f646df853e.png",
+      "path": "Assets/粒子/Complex/lines/lines_4.4338ea4d8f68980f.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-452.3b27667ecc9e6562.png",
+      "path": "Assets/粒子/Complex/lines/lines_5.8801108882c51b0b.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-453.808544ee961943b4.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-455.0ebd5030c3c458b6.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-456.aabffccfc4e5c15b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-457.963693f0022d98a1.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-458.2edadf75325ede3d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-459.6c2c04e11e118e80.png",
-      "size": 5923
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-460.73e1ac036d7c5c01.png",
-      "size": 0
+      "path": "Assets/粒子/Complex/lines/lines_6.9ec3c92885a53333.png",
+      "size": 59102
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-461.1bfdb60a949975c4.png",
+      "path": "Assets/粒子/Complex/lines/lines_7.a9625b64ac3eb101.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-462.2747115088b33276.png",
+      "path": "Assets/粒子/Complex/lines/lines_8.8c24a512b822dd30.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-464.2074371f67165b9f.png",
-      "size": 0
+      "path": "Assets/粒子/Complex/lines/lines_9.684a2eb8e358a266.png",
+      "size": 65311
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-467.dc8907373b697701.png",
+      "path": "Assets/粒子/Complex/impacts/impact_1.71eeb40eea0e6fb7.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-468.48e0e15ee15f0525.png",
+      "path": "Assets/粒子/Complex/impacts/impact_10.51d9799418bcfd46.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-470.2cb0ff0aa39c12dc.png",
+      "path": "Assets/粒子/Complex/impacts/impact_11.dbf97f25da105832.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-471.5374f3b83e64519d.png",
+      "path": "Assets/粒子/Complex/impacts/impact_12.9bb3bd34da572f37.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-473.ce22a746295e53b2.png",
+      "path": "Assets/粒子/Complex/impacts/impact_13.30bfd6e20560d3df.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-474.3a8cb3bbdebfed9a.png",
+      "path": "Assets/粒子/Complex/impacts/impact_14.2423ca23e4b0af8b.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-475.9dd222f3476ede08.png",
+      "path": "Assets/粒子/Complex/impacts/impact_15.55f4552a3eaa9b1f.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-476.6cdb596c5d2e68ed.png",
+      "path": "Assets/粒子/Complex/impacts/impact_16.5525a47c3819f4a7.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-477.c5904de8e02164f1.png",
+      "path": "Assets/粒子/Complex/impacts/impact_17.8086ebdb34f6e918.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-478.350380215bc41b1d.png",
+      "path": "Assets/粒子/Complex/impacts/impact_18.459f1fe3fe85971f.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-480.8ef9d3c0aeb62af7.png",
+      "path": "Assets/粒子/Complex/impacts/impact_19.9e202a4a6aff2614.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-481.fbe5d5b70247aeae.png",
-      "size": 0
+      "path": "Assets/粒子/Complex/impacts/impact_2.e08fcc28c15a8896.png",
+      "size": 142003
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-482.106887d32ff0507b.png",
+      "path": "Assets/粒子/Complex/impacts/impact_20.cf2901dd0eaecc01.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-486.fefbe9827111ad40.png",
+      "path": "Assets/粒子/Complex/impacts/impact_3.f494e46af021d014.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-487.faf4864568e1624c.png",
+      "path": "Assets/粒子/Complex/impacts/impact_4.0d358613bce98e83.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-488.d143b68673f1cd94.png",
+      "path": "Assets/粒子/Complex/impacts/impact_5.4f10e3fd71cf7904.png",
       "size": 0
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-489.be63d83975cc2d70.png",
-      "size": 2525
-    },
-    {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-490.03585991daaff958.png",
-      "size": 2872
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-491.24754dfba5b6e4b6.png",
+      "path": "Assets/粒子/Complex/impacts/impact_6.3fb71602948199b5.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-492.e789faccdadaeb31.png",
+      "path": "Assets/粒子/Complex/impacts/impact_7.1d2be96c1b6b6925.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-493.e0bd4dbb47bb64fb.png",
+      "path": "Assets/粒子/Complex/impacts/impact_8.e2585bc83732d39c.png",
       "size": 0
     },
     {
-      "path": "Assets/粒子/Basic/ding shapes/dingbats-494.06c0ff43c9fd3f11.png",
+      "path": "Assets/粒子/Complex/impacts/impact_9.b0cdc6cbc829369f.png",
       "size": 0
     },
     {
@@ -3421,46 +3677,6 @@
       "size": 0
     },
     {
-      "path": "Assets/粒子/Complex/lines/lines_1.94dcebd884ff6fb0.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_10.66804ced749a192d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_2.099e20373f6cd284.png",
-      "size": 81857
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_3.ae296b31cb82c4b5.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_4.4338ea4d8f68980f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_5.8801108882c51b0b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_6.9ec3c92885a53333.png",
-      "size": 59102
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_7.a9625b64ac3eb101.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_8.8c24a512b822dd30.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/lines/lines_9.684a2eb8e358a266.png",
-      "size": 65311
-    },
-    {
       "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_1.2febc03847d0856c.png",
       "size": 0
     },
@@ -3482,86 +3698,6 @@
     },
     {
       "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_14.635bf93ef7463b54.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_1.71eeb40eea0e6fb7.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_10.51d9799418bcfd46.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_11.dbf97f25da105832.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_12.9bb3bd34da572f37.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_13.30bfd6e20560d3df.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_14.2423ca23e4b0af8b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_15.55f4552a3eaa9b1f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_16.5525a47c3819f4a7.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_17.8086ebdb34f6e918.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_18.459f1fe3fe85971f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_19.9e202a4a6aff2614.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_2.e08fcc28c15a8896.png",
-      "size": 142003
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_20.cf2901dd0eaecc01.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_3.f494e46af021d014.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_4.0d358613bce98e83.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_5.4f10e3fd71cf7904.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_6.3fb71602948199b5.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_7.1d2be96c1b6b6925.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_8.e2585bc83732d39c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/impacts/impact_9.b0cdc6cbc829369f.png",
       "size": 0
     },
     {
@@ -3609,6 +3745,18 @@
       "size": 71129
     },
     {
+      "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_7.4376af1353fd9874.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_8.01772423cd75d73f.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_9.76b27d7514e87f5e.png",
+      "size": 0
+    },
+    {
       "path": "Assets/粒子/Complex/circle/rounded_1.a2c7e7de8aacbe81.png",
       "size": 0
     },
@@ -3654,18 +3802,6 @@
     },
     {
       "path": "Assets/粒子/Complex/circle/rounded_2.e09621945ccc5cea.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_7.4376af1353fd9874.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_8.01772423cd75d73f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/muzzle flash/muzzle_flash_9.76b27d7514e87f5e.png",
       "size": 0
     },
     {
@@ -4018,6 +4154,50 @@
     },
     {
       "path": "Assets/粒子/Complex/circle/spiky_9.369132e840320205.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_1.7d33a468784ff69e.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_10.2f9aa455fb8fcd58.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_2.86f934a58593bbf1.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_3.5f11c2b877e95b5a.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_4.b1f805324f932913.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_5.72a66b1979201e88.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_6.504e9ab72f81cc0d.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_7.e25e733b4051e91b.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_8.1a7e5170fbe0ab43.png",
+      "size": 52128
+    },
+    {
+      "path": "Assets/粒子/Complex/star/star_9.53cb4b640167ab52.png",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/PGS Fantasy RPG Music Pack/Album.786f939f05837a88.jpg",
       "size": 0
     },
     {
@@ -4581,236 +4761,60 @@
       "size": 0
     },
     {
-      "path": "Assets/粒子/Color/fire/fire_1.d5e8191ad3a5c124.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_10.cb63979a34712259.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_11.10418bdeb326952e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_12.2ccc691f690785ed.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_13.91e7eda8d77a785f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_14.fda955766d6c428f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_15.e155aee39404c630.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_16.6af8003f3d37dd87.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_17.ef276f719d7bba9e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_18.f8689625be818783.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_19.e484014477d0ac5b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_2.1300ef00f7962d26.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_20.d107766b64be7084.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_21.b05b260bb482eec0.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_22.ec151dd1a78ae1fe.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_23.67739e5915fb25aa.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_24.d1547747f703d267.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_25.4a1e16d8b2f6521f.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_26.03593df7a444122b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_27.e516008450c92423.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_28.3ddf671080cbbbdb.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_29.9973ba480eb6962e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_3.787c77df825c7de9.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_30.e4728e3caa21f198.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_31.db34872aa4c633ab.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_32.da4cfb4bba478189.png",
-      "size": 123867
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_33.364c46acf774f8f6.png",
-      "size": 124285
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_34.8491ca8b186df4d7.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_35.cb6c2caf4391a521.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_36.1a868924863823be.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_37.a6c93e74a9da7512.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_38.9d01d12431303e0b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_39.76532db48a33459a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_4.a4f650b191efa37e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_40.8600e366812c8f2d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_5.c3384f88dc2e6b3c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_6.4bdb0ea973213fc9.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_7.73fdfe96c9cf7792.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_8.a6d61439a123639c.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Color/fire/fire_9.2e4af25347612590.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_1.7d33a468784ff69e.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_10.2f9aa455fb8fcd58.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_2.86f934a58593bbf1.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_3.5f11c2b877e95b5a.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_4.b1f805324f932913.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_5.72a66b1979201e88.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_6.504e9ab72f81cc0d.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_7.e25e733b4051e91b.png",
-      "size": 0
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_8.1a7e5170fbe0ab43.png",
-      "size": 52128
-    },
-    {
-      "path": "Assets/粒子/Complex/star/star_9.53cb4b640167ab52.png",
-      "size": 0
-    },
-    {
       "path": "Assets/粒子/方块.40808ded4500d288.png",
       "size": 15390
     },
     {
-      "path": "Assets/音频/音乐/PGS Fantasy RPG Music Pack/Album.786f939f05837a88.jpg",
-      "size": 0
+      "path": "Assets/插件/全局插件/伤害数字/伤害数字_暴击.4a04123cc7bb302f.png",
+      "size": 15779
+    },
+    {
+      "path": "Assets/插件/全局插件/伤害数字/伤害数字_未命中.ea604fd77664b4be.png",
+      "size": 15454
+    },
+    {
+      "path": "Assets/插件/全局插件/伤害数字/伤害数字_生命值减少.78ebb3bb4a63384c.png",
+      "size": 15762
+    },
+    {
+      "path": "Assets/插件/全局插件/伤害数字/伤害数字_生命值增加.080fc8dd5a6fdda8.png",
+      "size": 15787
+    },
+    {
+      "path": "Assets/插件/全局插件/伤害数字/伤害数字_魔法值减少.b595179462dc6267.png",
+      "size": 15767
+    },
+    {
+      "path": "Assets/插件/全局插件/伤害数字/伤害数字_魔法值增加.549197775744222a.png",
+      "size": 15779
+    },
+    {
+      "path": "Assets/插件/全局插件/地图标记/地图标记_选框.60868f0235927990.png",
+      "size": 15437
+    },
+    {
+      "path": "Assets/插件/全局插件/掉落物品/掉落物品_光芒.0fcd4a92ddf48a12.png",
+      "size": 7853
+    },
+    {
+      "path": "Assets/插件/全局插件/生命值条/生命值条_友好.7c621804d5559957.png",
+      "size": 15680
+    },
+    {
+      "path": "Assets/插件/全局插件/生命值条/生命值条_敌对.2b481ebc2d529fe4.png",
+      "size": 15694
+    },
+    {
+      "path": "Assets/插件/全局插件/生命值条/生命值条_特殊.1eb77a9949439cd9.png",
+      "size": 15843
+    },
+    {
+      "path": "Assets/插件/全局插件/生命值条/生命值条_背景.92144fc3fc32fdbf.png",
+      "size": 15559
     },
     {
       "path": "Assets/角色/角色动画/特效/角色 - 升级.426e34f3a140add2.png",
       "size": 5679
-    },
-    {
-      "path": "Assets/技能/001 - 战士技能/技能动画/贴图 - 剑.924099c18893664d.png",
-      "size": 19512
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/贴图 - 火球.16607ed2e8dccbb8.png",
-      "size": 8753
-    },
-    {
-      "path": "Assets/技能/003 - 法师技能/技能动画/贴图 - 燃烧.91675a97ac48e009.png",
-      "size": 3683
-    },
-    {
-      "path": "Assets/技能/005 - 怪物技能/技能动画/精灵 - 冲击波 - 击中.54e737cc5aea7148.png",
-      "size": 1617
-    },
-    {
-      "path": "Assets/技能/005 - 怪物技能/技能动画/精灵 - 冲击波.18be8b76aa2d7ec4.png",
-      "size": 2932
     }
   ],
   "audio": [
@@ -5063,6 +5067,50 @@
       "size": 0
     },
     {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ 80s Zombies Movie _ 2018.76c922b6d013fcf6.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Dark _ 2004.82cf42486ed0b078.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ I want to believe _ 2004.1df5b3e3a869dfb6.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Journey _ 2017.f2092618b4df8771.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Revenge.51f0b42e30440faa.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Round Glasses _ 2016.50376663d982af73.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Unsettling victory _ 2019.dbcbfca4e5a01bcf.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout_ Best Party Ever _ 2019.6f171aa2784487e5.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Modern _ Eastern _ Arabian Princess _ Clement Panchout 2019.8f18db30f8eb241f.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Retro_ Spooky Soundscape_ The Whispering Shadows Dungeon _Clement Panchout 2016.05dd14e40a63a7ee.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音乐/Yet another free music pack/Time Flies _Clement Panchout _2016.3d8a8c64705e6c8f.wav",
+      "size": 0
+    },
+    {
       "path": "Assets/音频/音效/Any Journey RPG Assets/arrowHitGround.8ceec38493127937.wav",
       "size": 0
     },
@@ -5207,50 +5255,6 @@
       "size": 0
     },
     {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ 80s Zombies Movie _ 2018.76c922b6d013fcf6.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Dark _ 2004.82cf42486ed0b078.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ I want to believe _ 2004.1df5b3e3a869dfb6.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Journey _ 2017.f2092618b4df8771.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Revenge.51f0b42e30440faa.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Round Glasses _ 2016.50376663d982af73.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout _ Unsettling victory _ 2019.dbcbfca4e5a01bcf.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Clement Panchout_ Best Party Ever _ 2019.6f171aa2784487e5.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Modern _ Eastern _ Arabian Princess _ Clement Panchout 2019.8f18db30f8eb241f.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Retro_ Spooky Soundscape_ The Whispering Shadows Dungeon _Clement Panchout 2016.05dd14e40a63a7ee.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音乐/Yet another free music pack/Time Flies _Clement Panchout _2016.3d8a8c64705e6c8f.wav",
-      "size": 0
-    },
-    {
       "path": "Assets/音频/音效/Fantasy Sound Pack/Check 1.c957a6df6a6a2594.wav",
       "size": 0
     },
@@ -5283,18 +5287,6 @@
       "size": 0
     },
     {
-      "path": "Assets/音频/音效/Inteface SFX Pack/back_style_1_001.93c17240466f4b42.ogg",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/Inteface SFX Pack/back_style_2_001.bba8318f722bd86a.ogg",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/Inteface SFX Pack/back_style_3_001.2abf765cd3427ced.ogg",
-      "size": 0
-    },
-    {
       "path": "Assets/音频/音效/Fantasy Sound Pack/Obscure.ea7b5b31b2e75642.wav",
       "size": 0
     },
@@ -5320,6 +5312,18 @@
     },
     {
       "path": "Assets/音频/音效/Fantasy Sound Pack/Success 3.830841f04ccf1221.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/Inteface SFX Pack/back_style_1_001.93c17240466f4b42.ogg",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/Inteface SFX Pack/back_style_2_001.bba8318f722bd86a.ogg",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/Inteface SFX Pack/back_style_3_001.2abf765cd3427ced.ogg",
       "size": 0
     },
     {
@@ -5559,43 +5563,11 @@
       "size": 0
     },
     {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_01.44406dff77c00696.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_02.e317a8a13ce1bc26.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_03.83772eb9ffb2d680.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_04.b1700b9b198bf8ae.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_05.cff104ce57f38d03.wav",
-      "size": 0
-    },
-    {
       "path": "Assets/音频/音效/S01L SoundPack/Metal/Hit_ring_01.3bcd607c23a13aa6.wav",
       "size": 0
     },
     {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_06.616f7bf285fb8f66.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_backforth_01.fd5c943392d14bd4.wav",
-      "size": 0
-    },
-    {
       "path": "Assets/音频/音效/S01L SoundPack/Metal/Hit_ring_02.d375a396a3f29ea6.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_backforth_02.672fbe119d7ecad1.wav",
       "size": 0
     },
     {
@@ -5639,6 +5611,38 @@
       "size": 0
     },
     {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_01.44406dff77c00696.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_02.e317a8a13ce1bc26.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_03.83772eb9ffb2d680.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_04.b1700b9b198bf8ae.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_05.cff104ce57f38d03.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_06.616f7bf285fb8f66.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_backforth_01.fd5c943392d14bd4.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/Swoosh/swoosh_backforth_02.672fbe119d7ecad1.wav",
+      "size": 0
+    },
+    {
       "path": "Assets/音频/音效/S01L SoundPack/Water/water_pour_01.b04eb0942b797a0c.wav",
       "size": 0
     },
@@ -5659,55 +5663,7 @@
       "size": 0
     },
     {
-      "path": "Assets/音频/音效/S01L SoundPack/coins/Coins_hit_01.1f90354af5aeb9cf.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/coins/Coins_shuffle_01.7160a53627642d47.wav",
-      "size": 0
-    },
-    {
       "path": "Assets/音频/音效/S01L SoundPack/Water/water_pour_06.520e8206c103582d.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/Boxcutter_blade_retract.f6eb08956af2a96e.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/boxcutter_retract_01.831c823e49acf940.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/boxcutter_retract_02.53b4c73273830ed3.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/boxcutter_retract_03.a7b4650f1049f788.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_01.97b422406ec88bd2.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_02.45bebf79a9dd4105.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_01.0699f3d59e57dc62.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_02.1a64e705b32b066e.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_03.c30c56d478c91811.wav",
-      "size": 0
-    },
-    {
-      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_04.7f6bcc99ccb7f588.wav",
       "size": 0
     },
     {
@@ -5764,6 +5720,10 @@
     },
     {
       "path": "Assets/音频/音效/S01L SoundPack/ceramic/Ceramic_slide_08.b75e8ff90d999ed5.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/Boxcutter_blade_retract.f6eb08956af2a96e.wav",
       "size": 0
     },
     {
@@ -5843,6 +5803,42 @@
       "size": 0
     },
     {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/boxcutter_retract_01.831c823e49acf940.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/boxcutter_retract_02.53b4c73273830ed3.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/boxcutter_retract_03.a7b4650f1049f788.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_01.97b422406ec88bd2.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_02.45bebf79a9dd4105.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_01.0699f3d59e57dc62.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_02.1a64e705b32b066e.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_03.c30c56d478c91811.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/squeak/squeak_long_04.7f6bcc99ccb7f588.wav",
+      "size": 0
+    },
+    {
       "path": "Assets/音频/音效/S01L SoundPack/footsteps/step_sand_10.f19298fb442e9601.wav",
       "size": 0
     },
@@ -5864,6 +5860,14 @@
     },
     {
       "path": "Assets/音频/音效/S01L SoundPack/footsteps/walk_leaves_02.4e8dab1a4b0f07eb.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/coins/Coins_hit_01.1f90354af5aeb9cf.wav",
+      "size": 0
+    },
+    {
+      "path": "Assets/音频/音效/S01L SoundPack/coins/Coins_shuffle_01.7160a53627642d47.wav",
       "size": 0
     },
     {
@@ -6087,7 +6091,7 @@
     },
     {
       "path": "Assets/插件/全局插件/Steamworks.2aafc4d56d4590d8.ts",
-      "size": 3236,
+      "size": 3277,
       "parameters": [
         {
           "key": "appId",
@@ -6098,6 +6102,162 @@
           "key": "verify",
           "type": "boolean",
           "value": true
+        }
+      ]
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/光源_跟随角色.a078df496c5e52e7.ts",
+      "size": 663,
+      "parameters": [
+        {
+          "key": "actor",
+          "type": "actor",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/角色_充电宝.f8d98d5c407a7b96.ts",
+      "size": 2392,
+      "parameters": [
+        {
+          "key": "currentKey",
+          "type": "attribute-key",
+          "value": ""
+        },
+        {
+          "key": "maximumKey",
+          "type": "attribute-key",
+          "value": ""
+        },
+        {
+          "key": "speedKey",
+          "type": "attribute-key",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/触发器_动画色调.9219becd88ad0d59.ts",
+      "size": 1941,
+      "parameters": [
+        {
+          "key": "minRed",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "maxRed",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "minGreen",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "maxGreen",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "minBlue",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "maxBlue",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "minGray",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "maxGray",
+          "type": "number",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/触发器_撞墙反弹.1d9044015c233aaf.ts",
+      "size": 3031,
+      "parameters": []
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/触发器_点光源.4acd97b2c159796f.ts",
+      "size": 9000,
+      "parameters": [
+        {
+          "key": "lightColor",
+          "type": "color",
+          "value": "ffffffff"
+        },
+        {
+          "key": "lightRadius",
+          "type": "number",
+          "value": 1
+        },
+        {
+          "key": "intensity",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "direct",
+          "type": "number",
+          "value": 0.25
+        },
+        {
+          "key": "fadein",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "fadeout",
+          "type": "number",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/触发器_绑定施放角色.c5c6d838fb26afda.ts",
+      "size": 763,
+      "parameters": []
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/触发器_绕施放者旋转.dff6b51e230af1d3.ts",
+      "size": 1594,
+      "parameters": [
+        {
+          "key": "angularSpeed",
+          "type": "number",
+          "value": 90
+        }
+      ]
+    },
+    {
+      "path": "Assets/插件/场景对象脚本/触发器_追踪器.720160a78c089a18.ts",
+      "size": 3497,
+      "parameters": [
+        {
+          "key": "range",
+          "type": "number",
+          "value": 10
+        },
+        {
+          "key": "angularSpeed",
+          "type": "number",
+          "value": 90
+        },
+        {
+          "key": "angularSpeedDev",
+          "type": "number",
+          "value": 0
         }
       ]
     },
@@ -6118,8 +6278,29 @@
       ]
     },
     {
+      "path": "Assets/插件/场景对象脚本/触发器_随机参数.e6bc00a65d2cb60d.ts",
+      "size": 1580,
+      "parameters": [
+        {
+          "key": "speedDev",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "angleDev",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "key": "durationDev",
+          "type": "number",
+          "value": 0
+        }
+      ]
+    },
+    {
       "path": "Assets/插件/界面元素脚本/按钮_选中图片渐变.e0a9d9f1709b2096.ts",
-      "size": 2305,
+      "size": 2279,
       "parameters": [
         {
           "key": "period",
@@ -6135,7 +6316,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/Steamworks.指令.9129c45f4cab8900.ts",
-      "size": 3582,
+      "size": 3643,
       "parameters": [
         {
           "key": "operation",
@@ -6172,7 +6353,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/伤害数字.指令.5fda2218f2770caf.ts",
-      "size": 1034,
+      "size": 1026,
       "parameters": [
         {
           "key": "actor",
@@ -6204,7 +6385,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/创建临时点光源.指令.f4b25e9faf168b8d.ts",
-      "size": 4813,
+      "size": 4812,
       "parameters": [
         {
           "key": "mode",
@@ -6272,7 +6453,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/地图标记.指令.416c90ddca8ee448.ts",
-      "size": 695,
+      "size": 705,
       "parameters": [
         {
           "key": "position",
@@ -6318,7 +6499,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/对话系统.指令.ed78b4463988fe8a.ts",
-      "size": 1859,
+      "size": 1855,
       "parameters": [
         {
           "key": "operation",
@@ -6353,7 +6534,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/手柄震动.指令.a04c0d2e54c10205.ts",
-      "size": 3932,
+      "size": 3965,
       "parameters": [
         {
           "key": "startDelay",
@@ -6439,7 +6620,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/生命值条.指令.70f90f984b009277.ts",
-      "size": 881,
+      "size": 918,
       "parameters": [
         {
           "key": "operation",
@@ -6455,7 +6636,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/移动路径.指令.64fc5a82cef100f5.ts",
-      "size": 928,
+      "size": 916,
       "parameters": [
         {
           "key": "operation",
@@ -6471,7 +6652,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/触发器形状渲染器.指令.24087480f46b320c.ts",
-      "size": 1005,
+      "size": 1009,
       "parameters": [
         {
           "key": "operation",
@@ -6503,7 +6684,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/调试.指令.ab2766d247b75dbf.ts",
-      "size": 7221,
+      "size": 7245,
       "parameters": [
         {
           "key": "operation",
@@ -6682,7 +6863,7 @@
     },
     {
       "path": "Assets/插件/自定义指令/闪光效果.指令.d0570fb007a2bef5.ts",
-      "size": 2027,
+      "size": 2022,
       "parameters": [
         {
           "key": "actor",
@@ -6708,316 +6889,8 @@
       ]
     },
     {
-      "path": "Assets/插件/场景对象脚本/光源_跟随角色.a078df496c5e52e7.ts",
-      "size": 669,
-      "parameters": [
-        {
-          "key": "actor",
-          "type": "actor",
-          "value": ""
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/角色_充电宝.f8d98d5c407a7b96.ts",
-      "size": 2392,
-      "parameters": [
-        {
-          "key": "currentKey",
-          "type": "attribute-key",
-          "value": ""
-        },
-        {
-          "key": "maximumKey",
-          "type": "attribute-key",
-          "value": ""
-        },
-        {
-          "key": "speedKey",
-          "type": "attribute-key",
-          "value": ""
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/触发器_动画色调.9219becd88ad0d59.ts",
-      "size": 1941,
-      "parameters": [
-        {
-          "key": "minRed",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "maxRed",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "minGreen",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "maxGreen",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "minBlue",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "maxBlue",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "minGray",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "maxGray",
-          "type": "number",
-          "value": 0
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/触发器_撞墙反弹.1d9044015c233aaf.ts",
-      "size": 3015,
-      "parameters": []
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/触发器_点光源.4acd97b2c159796f.ts",
-      "size": 9006,
-      "parameters": [
-        {
-          "key": "lightColor",
-          "type": "color",
-          "value": "ffffffff"
-        },
-        {
-          "key": "lightRadius",
-          "type": "number",
-          "value": 1
-        },
-        {
-          "key": "intensity",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "direct",
-          "type": "number",
-          "value": 0.25
-        },
-        {
-          "key": "fadein",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "fadeout",
-          "type": "number",
-          "value": 0
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/触发器_绑定施放角色.c5c6d838fb26afda.ts",
-      "size": 763,
-      "parameters": []
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/触发器_绕施放者旋转.dff6b51e230af1d3.ts",
-      "size": 1571,
-      "parameters": [
-        {
-          "key": "angularSpeed",
-          "type": "number",
-          "value": 90
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/触发器_追踪器.720160a78c089a18.ts",
-      "size": 3455,
-      "parameters": [
-        {
-          "key": "range",
-          "type": "number",
-          "value": 10
-        },
-        {
-          "key": "angularSpeed",
-          "type": "number",
-          "value": 90
-        },
-        {
-          "key": "angularSpeedDev",
-          "type": "number",
-          "value": 0
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/场景对象脚本/触发器_随机参数.e6bc00a65d2cb60d.ts",
-      "size": 1580,
-      "parameters": [
-        {
-          "key": "speedDev",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "angleDev",
-          "type": "number",
-          "value": 0
-        },
-        {
-          "key": "durationDev",
-          "type": "number",
-          "value": 0
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/全局插件/地图标记/地图标记.bea0a4d7621c5076.ts",
-      "size": 2520,
-      "parameters": [
-        {
-          "key": "animationId",
-          "type": "file",
-          "value": ""
-        },
-        {
-          "key": "motion",
-          "type": "enum",
-          "value": ""
-        },
-        {
-          "key": "priority",
-          "type": "number",
-          "value": 0
-        }
-      ]
-    },
-    {
-      "path": "Assets/插件/全局插件/生命值条/生命值条.f0ee6c16284dcf99.ts",
-      "size": 18788,
-      "parameters": [
-        {
-          "key": "state",
-          "type": "option",
-          "value": "enabled",
-          "options": [
-            "enabled",
-            "disabled"
-          ]
-        },
-        {
-          "key": "display",
-          "type": "option",
-          "value": "auto-except-for-player-team",
-          "options": [
-            "always",
-            "auto",
-            "auto-except-for-player-team",
-            "in-the-visible-range"
-          ]
-        },
-        {
-          "key": "duration",
-          "type": "number",
-          "value": 10000
-        },
-        {
-          "key": "range",
-          "type": "number",
-          "value": 10
-        },
-        {
-          "key": "health",
-          "type": "attribute",
-          "value": ""
-        },
-        {
-          "key": "maxHealth",
-          "type": "attribute",
-          "value": ""
-        },
-        {
-          "key": "specialBarEnabled",
-          "type": "option",
-          "value": true,
-          "options": [
-            true,
-            false
-          ]
-        },
-        {
-          "key": "specialAttr",
-          "type": "attribute",
-          "value": ""
-        },
-        {
-          "key": "specialAttrValue",
-          "type": "enum",
-          "value": ""
-        },
-        {
-          "key": "backgroundIdFriendly",
-          "type": "file",
-          "value": ""
-        },
-        {
-          "key": "foregroundIdFriendly",
-          "type": "file",
-          "value": ""
-        },
-        {
-          "key": "backgroundIdEnemy",
-          "type": "file",
-          "value": ""
-        },
-        {
-          "key": "foregroundIdEnemy",
-          "type": "file",
-          "value": ""
-        },
-        {
-          "key": "backgroundIdSpecial",
-          "type": "file",
-          "value": ""
-        },
-        {
-          "key": "foregroundIdSpecial",
-          "type": "file",
-          "value": ""
-        },
-        {
-          "key": "offsetY",
-          "type": "number",
-          "value": -48
-        },
-        {
-          "key": "scale",
-          "type": "number",
-          "value": 1
-        },
-        {
-          "key": "opacity",
-          "type": "number",
-          "value": 1
-        }
-      ]
-    },
-    {
       "path": "Assets/插件/全局插件/伤害数字/伤害数字.ad08a4def6200207.ts",
-      "size": 23904,
+      "size": 23675,
       "parameters": [
         {
           "key": "startXMean",
@@ -7137,8 +7010,29 @@
       ]
     },
     {
+      "path": "Assets/插件/全局插件/地图标记/地图标记.bea0a4d7621c5076.ts",
+      "size": 2552,
+      "parameters": [
+        {
+          "key": "animationId",
+          "type": "file",
+          "value": ""
+        },
+        {
+          "key": "motion",
+          "type": "enum",
+          "value": ""
+        },
+        {
+          "key": "priority",
+          "type": "number",
+          "value": 0
+        }
+      ]
+    },
+    {
       "path": "Assets/插件/全局插件/对话系统.aa20eb36e72e9e90.ts",
-      "size": 12245,
+      "size": 12257,
       "parameters": [
         {
           "key": "state",
@@ -7198,7 +7092,7 @@
     },
     {
       "path": "Assets/插件/全局插件/开发者工具密码.812784b903077a6a.ts",
-      "size": 1372,
+      "size": 1364,
       "parameters": [
         {
           "key": "codes",
@@ -7209,7 +7103,7 @@
     },
     {
       "path": "Assets/插件/全局插件/掉落物品/掉落物品.180a5e540780b997.ts",
-      "size": 22841,
+      "size": 22886,
       "parameters": [
         {
           "key": "eventId",
@@ -7313,8 +7207,118 @@
       ]
     },
     {
+      "path": "Assets/插件/全局插件/生命值条/生命值条.f0ee6c16284dcf99.ts",
+      "size": 18837,
+      "parameters": [
+        {
+          "key": "state",
+          "type": "option",
+          "value": "enabled",
+          "options": [
+            "enabled",
+            "disabled"
+          ]
+        },
+        {
+          "key": "display",
+          "type": "option",
+          "value": "auto-except-for-player-team",
+          "options": [
+            "always",
+            "auto",
+            "auto-except-for-player-team",
+            "in-the-visible-range"
+          ]
+        },
+        {
+          "key": "duration",
+          "type": "number",
+          "value": 10000
+        },
+        {
+          "key": "range",
+          "type": "number",
+          "value": 10
+        },
+        {
+          "key": "health",
+          "type": "attribute",
+          "value": ""
+        },
+        {
+          "key": "maxHealth",
+          "type": "attribute",
+          "value": ""
+        },
+        {
+          "key": "specialBarEnabled",
+          "type": "option",
+          "value": true,
+          "options": [
+            true,
+            false
+          ]
+        },
+        {
+          "key": "specialAttr",
+          "type": "attribute",
+          "value": ""
+        },
+        {
+          "key": "specialAttrValue",
+          "type": "enum",
+          "value": ""
+        },
+        {
+          "key": "backgroundIdFriendly",
+          "type": "file",
+          "value": ""
+        },
+        {
+          "key": "foregroundIdFriendly",
+          "type": "file",
+          "value": ""
+        },
+        {
+          "key": "backgroundIdEnemy",
+          "type": "file",
+          "value": ""
+        },
+        {
+          "key": "foregroundIdEnemy",
+          "type": "file",
+          "value": ""
+        },
+        {
+          "key": "backgroundIdSpecial",
+          "type": "file",
+          "value": ""
+        },
+        {
+          "key": "foregroundIdSpecial",
+          "type": "file",
+          "value": ""
+        },
+        {
+          "key": "offsetY",
+          "type": "number",
+          "value": -48
+        },
+        {
+          "key": "scale",
+          "type": "number",
+          "value": 1
+        },
+        {
+          "key": "opacity",
+          "type": "number",
+          "value": 1
+        }
+      ]
+    },
+    {
       "path": "Assets/插件/全局插件/相机平滑跟随.9c75586916ab9a5b.ts",
-      "size": 1902,
+      "size": 1898,
       "parameters": [
         {
           "key": "smoothFactor",
@@ -7325,7 +7329,7 @@
     },
     {
       "path": "Assets/插件/全局插件/移动路径.c272524ebdfb8a4f.ts",
-      "size": 13592,
+      "size": 13485,
       "parameters": [
         {
           "key": "state",
@@ -7374,7 +7378,7 @@
     },
     {
       "path": "Assets/插件/全局插件/角色文本显示.51274497cfdf6459.ts",
-      "size": 9831,
+      "size": 9813,
       "parameters": [
         {
           "key": "display",
@@ -7416,7 +7420,7 @@
     },
     {
       "path": "Assets/插件/全局插件/角色照明系统.2550bcb8a6e279ae.ts",
-      "size": 7292,
+      "size": 7278,
       "parameters": [
         {
           "key": "lightColor",
@@ -7442,7 +7446,7 @@
     },
     {
       "path": "Assets/插件/全局插件/触发器形状渲染器.905fbd1443c9caf5.ts",
-      "size": 11517,
+      "size": 11519,
       "parameters": [
         {
           "key": "state",
@@ -7477,7 +7481,7 @@
     },
     {
       "path": "Assets/插件/全局插件/闪光效果.2f719d2d4b4cc48a.ts",
-      "size": 3113,
+      "size": 3110,
       "parameters": [
         {
           "key": "red",
@@ -7518,12 +7522,12 @@
       "size": 38
     },
     {
-      "path": "Assets/UI/标题画面/readme.ababdc6caf1a1b92.txt",
-      "size": 151
-    },
-    {
       "path": "Assets/场景/图块/_cc0.53d388c935dcadff.txt",
       "size": 58
+    },
+    {
+      "path": "Assets/UI/标题画面/readme.ababdc6caf1a1b92.txt",
+      "size": 151
     },
     {
       "path": "Assets/场景/视差图/Starry Space Parallaxes/CC BY-SA 4.0.a5ebd44591d66daf.txt",
@@ -7538,12 +7542,12 @@
       "size": 172
     },
     {
-      "path": "Assets/音频/音效/Any Journey RPG Assets/! cc0 license.f5ff8d6543f775e0.txt",
-      "size": 89
-    },
-    {
       "path": "Assets/音频/音乐/Yet another free music pack/! cc by 4.0 license.0355289dee978f3b.txt",
       "size": 111
+    },
+    {
+      "path": "Assets/音频/音效/Any Journey RPG Assets/! cc0 license.f5ff8d6543f775e0.txt",
+      "size": 89
     },
     {
       "path": "Assets/音频/音效/Fantasy Sound Pack/! cc by 4.0 license.014dfe08464a869e.txt",

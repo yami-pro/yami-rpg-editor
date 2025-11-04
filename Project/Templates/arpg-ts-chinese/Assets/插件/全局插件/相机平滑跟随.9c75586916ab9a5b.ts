@@ -15,7 +15,7 @@
 
 @lang ru
 #plugin Плавное следование за камерой
-#smoothFactor Коэфф. сглаживания
+#smoothFactor Коэфф. Плавности
 
 @lang zh
 #plugin 平滑相机跟随

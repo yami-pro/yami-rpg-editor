@@ -66,20 +66,20 @@
 #fadeout Fadeout (ms)
 
 @lang ru
-#plugin Создание временного точечного света
-#desc Создает точечный источник света в месте срабатывания триггера.
+#plugin Временный точечный источник света
+#desc Создает точечный источник света в месте расположения триггера.
 #mode Режим
-#mode-position Местоположение
+#mode-position Указать позицию
 #mode-actor Актер
 #position Позиция
 #actor Актер
 #lightColor Цвет освещения
 #lightRadius Радиус освещения
-#intensity Интенсив.
+#intensity Интенсивность
 #direct Коэф. освещения
 #duration Продолж-сть(ms)
-#fadein Затухание(ms)
-#fadeout Затухание выкл(ms)
+#fadein Появление (ms)
+#fadeout Затухание (ms)
 
 @lang zh
 #plugin 创建临时点光源

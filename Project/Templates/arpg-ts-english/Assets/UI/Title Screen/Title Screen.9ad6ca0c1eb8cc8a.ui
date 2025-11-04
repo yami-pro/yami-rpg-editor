@@ -399,142 +399,14 @@
               "enabled": true,
               "commands": [
                 {
-                  "id": "comment",
+                  "id": "callEvent",
                   "params": {
-                    "comment": "Deleting the event host does not continue the execution and puts it in a separate execution block to ensure completion"
-                  }
-                },
-                {
-                  "id": "comment",
-                  "params": {
-                    "comment": "删除事件宿主后就不会继续执行，放到独立执行块中保证完成"
-                  }
-                },
-                {
-                  "id": "independent",
-                  "params": {
-                    "commands": [
-                      {
-                        "id": "deleteElement",
-                        "params": {
-                          "operation": "delete-all"
-                        }
-                      },
-                      {
-                        "id": "createGlobalActor",
-                        "params": {
-                          "actorId": "42a1df090cd447ff",
-                          "teamId": "09eae4cd86f61848"
-                        }
-                      },
-                      {
-                        "id": "setPlayerActor",
-                        "params": {
-                          "actor": {
-                            "type": "latest"
-                          }
-                        }
-                      },
-                      {
-                        "id": "setPartyMember",
-                        "params": {
-                          "operation": "add",
-                          "actor": {
-                            "type": "player"
-                          }
-                        }
-                      },
-                      {
-                        "id": "setString",
-                        "params": {
-                          "variable": {
-                            "type": "local",
-                            "key": "sceneId"
-                          },
-                          "operation": "set",
-                          "operand": {
-                            "type": "other",
-                            "data": "start-position-scene-id"
-                          }
-                        }
-                      },
-                      {
-                        "id": "setNumber",
-                        "params": {
-                          "variable": {
-                            "type": "local",
-                            "key": "x"
-                          },
-                          "operation": "set",
-                          "operands": [
-                            {
-                              "operation": "add",
-                              "type": "other",
-                              "data": "start-position-x"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "id": "setNumber",
-                        "params": {
-                          "variable": {
-                            "type": "local",
-                            "key": "y"
-                          },
-                          "operation": "set",
-                          "operands": [
-                            {
-                              "operation": "add",
-                              "type": "other",
-                              "data": "start-position-y"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "id": "loadScene",
-                        "params": {
-                          "sceneId": {
-                            "type": "local",
-                            "key": "sceneId"
-                          },
-                          "transfer": true,
-                          "x": {
-                            "type": "local",
-                            "key": "x"
-                          },
-                          "y": {
-                            "type": "local",
-                            "key": "y"
-                          }
-                        }
-                      },
-                      {
-                        "id": "setZoomFactor",
-                        "params": {
-                          "zoom": {
-                            "type": "global",
-                            "key": "271bed60ed964d90"
-                          },
-                          "easingId": "01eac96676bb2ee7",
-                          "duration": 0,
-                          "wait": false
-                        }
-                      },
-                      {
-                        "id": "moveCamera",
-                        "params": {
-                          "mode": "actor",
-                          "actor": {
-                            "type": "player"
-                          },
-                          "easingId": "01eac96676bb2ee7",
-                          "duration": 0,
-                          "wait": false
-                        }
-                      }
-                    ]
+                    "type": "global",
+                    "eventId": "40b2ca62601a61b7",
+                    "eventArgs": [],
+                    "eventResult": {
+                      "type": "none"
+                    }
                   }
                 }
               ]

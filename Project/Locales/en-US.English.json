@@ -1119,7 +1119,7 @@
       "setTextBox.decimals": "Decimal Places",
       "setTextBox.color": "Color",
       "setDialogBox": "Set Dialog Box",
-      "setDialogBox.desc": "设置对话框元素的内置属性",
+      "setDialogBox.desc": "Set the built-in properties of the dialog box element.",
       "setDialogBox.content": "Content",
       "setDialogBox.interval": "PrintInterval",
       "setDialogBox.size": "Size",

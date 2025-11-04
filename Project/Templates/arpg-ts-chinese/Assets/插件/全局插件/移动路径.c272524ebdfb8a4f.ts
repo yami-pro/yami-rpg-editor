@@ -70,11 +70,11 @@ PluginManager.MovementPath.switch()
 #followingPathColor-desc The color of following path arrows
 
 @lang ru
-#plugin Траектория движения
+#plugin Путь Перемещения
 #desc
-Инструмент отладки для отрисовки траектории перемещения персонажа
+Инструмент для отладки при построении траекторий Перемещения
 
-Скриптовый метод:
+Методы написания Скрипта:
 PluginManager.MovementPath.enable()
 PluginManager.MovementPath.disable()
 PluginManager.MovementPath.switch()
@@ -86,16 +86,16 @@ PluginManager.MovementPath.switch()
 #showObstacles-enabled Включить
 #showObstacles-disabled Выключить
 #showObstacles-desc Рендеринг ландшафта и областей препятствий персонажа
-#obstacleColor Цвет препятствий
-#obstacleColor-desc Цвет актерских препятствий
+#obstacleColor Препятствия
+#obstacleColor-desc Цвет препятствия для актера
 #waterColor Поверхность воды
 #waterColor-desc Цвет, используемый для окраски поверхности воды.
-#wallColor Рельеф стены
-#wallColor-desc Цвет области стенового блока
-#movementPathColor Траект. движения
-#movementPathColor-desc Траектория движения Цвет, которым будут рисоваться стрелки пути движения
+#wallColor Поверхность Стен
+#wallColor-desc Цвет поверхности стен
+#movementPathColor Траектории Перемещения
+#movementPathColor-desc Цвет стрелок, указывающих направление Перемещения
 #followingPathColor Стрелки
-#followingPathColor-desc Цвет стрелок,которым будут рисоваться стрелки, следующие по пути.
+#followingPathColor-desc Цвет стрелок, указывающих путь
 
 @lang zh
 #plugin 移动路径

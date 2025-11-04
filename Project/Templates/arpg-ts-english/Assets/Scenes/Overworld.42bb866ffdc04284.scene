@@ -995,13 +995,67 @@
     },
     {
       "class": "actor",
+      "name": "Actor",
+      "type": "global",
+      "enabled": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "0795804d6cf65fa5",
+      "actorId": "469ef64d5f7b9877",
+      "teamId": "2a6ee1684ef7dfa0",
+      "x": 60.5,
+      "y": 37.5,
+      "angle": 0,
+      "scale": 1,
+      "conditions": [],
+      "events": [],
+      "scripts": []
+    },
+    {
+      "class": "actor",
+      "name": "Actor",
+      "type": "global",
+      "enabled": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "d08e2299436f1bd9",
+      "actorId": "ee01eba61f7a38f9",
+      "teamId": "2a6ee1684ef7dfa0",
+      "x": 62.5,
+      "y": 37.5,
+      "angle": 0,
+      "scale": 1,
+      "conditions": [],
+      "events": [],
+      "scripts": []
+    },
+    {
+      "class": "actor",
+      "name": "Actor",
+      "type": "global",
+      "enabled": true,
+      "hidden": false,
+      "locked": false,
+      "presetId": "bf48635577ffa8f9",
+      "actorId": "97b3d6bfefb25235",
+      "teamId": "2a6ee1684ef7dfa0",
+      "x": 64.5,
+      "y": 37.5,
+      "angle": 0,
+      "scale": 1,
+      "conditions": [],
+      "events": [],
+      "scripts": []
+    },
+    {
+      "class": "actor",
       "name": "Monster",
       "type": "local",
       "enabled": true,
       "hidden": false,
       "locked": false,
       "presetId": "e713babea8edc8f5",
-      "actorId": "6145e25b65217d2c",
+      "actorId": "24a711985eaa9df6",
       "teamId": "fa4ec7762d2d7a92",
       "x": 63.5,
       "y": 49.5,
@@ -1054,78 +1108,6 @@
       "blue": 128,
       "direct": 0.5,
       "conditions": [],
-      "events": [],
-      "scripts": []
-    },
-    {
-      "class": "actor",
-      "name": "Actor",
-      "type": "global",
-      "enabled": true,
-      "hidden": false,
-      "locked": false,
-      "presetId": "0795804d6cf65fa5",
-      "actorId": "469ef64d5f7b9877",
-      "teamId": "2a6ee1684ef7dfa0",
-      "x": 60.5,
-      "y": 37.5,
-      "angle": 0,
-      "scale": 1,
-      "conditions": [
-        {
-          "type": "self-boolean",
-          "operation": "unequal",
-          "value": true
-        }
-      ],
-      "events": [],
-      "scripts": []
-    },
-    {
-      "class": "actor",
-      "name": "Actor",
-      "type": "global",
-      "enabled": true,
-      "hidden": false,
-      "locked": false,
-      "presetId": "d08e2299436f1bd9",
-      "actorId": "ee01eba61f7a38f9",
-      "teamId": "2a6ee1684ef7dfa0",
-      "x": 62.5,
-      "y": 37.5,
-      "angle": 0,
-      "scale": 1,
-      "conditions": [
-        {
-          "type": "self-boolean",
-          "operation": "unequal",
-          "value": true
-        }
-      ],
-      "events": [],
-      "scripts": []
-    },
-    {
-      "class": "actor",
-      "name": "Actor",
-      "type": "global",
-      "enabled": true,
-      "hidden": false,
-      "locked": false,
-      "presetId": "bf48635577ffa8f9",
-      "actorId": "97b3d6bfefb25235",
-      "teamId": "2a6ee1684ef7dfa0",
-      "x": 64.5,
-      "y": 37.5,
-      "angle": 0,
-      "scale": 1,
-      "conditions": [
-        {
-          "type": "self-boolean",
-          "operation": "unequal",
-          "value": true
-        }
-      ],
       "events": [],
       "scripts": []
     }

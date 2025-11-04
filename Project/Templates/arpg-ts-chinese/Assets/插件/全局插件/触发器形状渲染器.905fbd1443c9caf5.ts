@@ -43,11 +43,11 @@ PluginManager.TriggerShapeRenderer.switch()
 #actorAnchorSize Actor Anchor Size
 
 @lang ru
-#plugin Визуализация формы триггера (Актера)
+#plugin Рендерер формы триггера
 #desc
-Инструмент отладки рисования триггерных фигур
+Инструмент для отладки при рисовании форм триггеров
 
-Скриптовый метод:
+Методы написания Скрипта:
 PluginManager.TriggerShapeRenderer.enable()
 PluginManager.TriggerShapeRenderer.disable()
 PluginManager.TriggerShapeRenderer.switch()

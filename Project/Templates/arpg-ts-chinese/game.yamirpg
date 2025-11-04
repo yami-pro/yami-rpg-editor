@@ -6,6 +6,7 @@
     "42bb866ffdc04284"
   ],
   "recentTabs": [
+    "9ad6ca0c1eb8cc8a",
     "ac6c056e3a2df259",
     "44bb9f0c9d1c2c77",
     "8d0ef30782c36995",
@@ -14,8 +15,7 @@
     "17620ddd23391b09",
     "09e956467f04bc68",
     "a8ebdfc3e5b314e4",
-    "99c04d7e3832374b",
-    "d96910ab9645ff6f"
+    "99c04d7e3832374b"
   ],
   "scene": {
     "grid": true,
@@ -61,7 +61,7 @@
   "browser": {
     "view": 3,
     "folders": [
-      "Assets/角色"
+      "Assets"
     ]
   },
   "selector": {

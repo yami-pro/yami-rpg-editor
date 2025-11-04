@@ -1572,19 +1572,6 @@
                           "content": "Kick out",
                           "commands": [
                             {
-                              "id": "setBoolean",
-                              "params": {
-                                "variable": {
-                                  "type": "self"
-                                },
-                                "operation": "set",
-                                "operand": {
-                                  "type": "constant",
-                                  "value": false
-                                }
-                              }
-                            },
-                            {
                               "id": "moveActor",
                               "params": {
                                 "actor": {
@@ -1639,19 +1626,6 @@
                     {
                       "content": "Join my party",
                       "commands": [
-                        {
-                          "id": "setBoolean",
-                          "params": {
-                            "variable": {
-                              "type": "self"
-                            },
-                            "operation": "set",
-                            "operand": {
-                              "type": "constant",
-                              "value": true
-                            }
-                          }
-                        },
                         {
                           "id": "changeActorTeam",
                           "params": {

@@ -64,14 +64,14 @@
 #queryResult-desc Return type (Boolean)
 
 @lang ru
-#plugin Steamworks API
-#desc Команда для плагина Steamworks
+#plugin Мастерская Стим (Steamworks)
+#desc Команда для плагина Steamworks API Мастерская Стим
 #operation Операция
-#activate-achievement Активируйте достижение
+#activate-achievement Активировать достижения
 #clear-achievement Отменить достижение
-#is-achievement-activated Достижения активированны?
-#is-app-installed Приложение установлено?
-#is-dlc-installed Установлен ли DLC?
+#is-achievement-activated Достижения Активированны
+#is-app-installed Приложение установлено
+#is-dlc-installed Установлен ли DLC
 #achievementName Назв. достижения 
 #achievementName-desc Название "API Name" достижения
 #appId ID Приложения/DLC 

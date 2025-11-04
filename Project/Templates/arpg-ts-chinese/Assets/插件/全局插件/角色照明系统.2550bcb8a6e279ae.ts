@@ -46,9 +46,9 @@ The rendering area of the light source can be adjusted by modifying Project Sett
 Вы можете настроить область рендеринга источника света, изменив настройки проекта->область рендеринга анимации.
 #lightColor По умолчанию
 #lightColorAttr Цвет освещения
-#lightColorAttr-desc Тип строки: вставьте цветовую метку <color:ffffff> через контекстное меню
+#lightColorAttr-desc Строка: вставьте цветовую метку <color:ffffff> через контекстное меню
 #lightRadiusAttr Радиус освещения
-#lightRadiusAttr-desc Тип значения: равно количеству сеток сцены
+#lightRadiusAttr-desc Числовое: равно количеству сеток сцены
 #intensity Интенсивность
 #intensity-desc Влияет на затухание света
 

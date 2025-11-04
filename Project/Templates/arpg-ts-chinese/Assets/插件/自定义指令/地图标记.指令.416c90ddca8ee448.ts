@@ -14,8 +14,8 @@
 #position Target Position
 
 @lang ru
-#plugin Установить маркер на карте
-#desc Команда для плагина Map Marker
+#plugin Задать Маркер на карте
+#desc Команда для плагина Маркер на карте
 #position Целевая позиция
 
 @lang zh

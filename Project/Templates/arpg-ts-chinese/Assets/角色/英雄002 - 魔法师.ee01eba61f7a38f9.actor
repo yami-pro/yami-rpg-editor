@@ -1781,19 +1781,6 @@
                           "content": "踢出队伍",
                           "commands": [
                             {
-                              "id": "setBoolean",
-                              "params": {
-                                "variable": {
-                                  "type": "self"
-                                },
-                                "operation": "set",
-                                "operand": {
-                                  "type": "constant",
-                                  "value": false
-                                }
-                              }
-                            },
-                            {
                               "id": "moveActor",
                               "params": {
                                 "actor": {
@@ -1848,19 +1835,6 @@
                     {
                       "content": "加入我的队伍，不许拒绝",
                       "commands": [
-                        {
-                          "id": "setBoolean",
-                          "params": {
-                            "variable": {
-                              "type": "self"
-                            },
-                            "operation": "set",
-                            "operand": {
-                              "type": "constant",
-                              "value": true
-                            }
-                          }
-                        },
                         {
                           "id": "changeActorTeam",
                           "params": {

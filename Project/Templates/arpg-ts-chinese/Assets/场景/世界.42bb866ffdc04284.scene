@@ -150,13 +150,7 @@
       "y": 37.5,
       "angle": 0,
       "scale": 1,
-      "conditions": [
-        {
-          "type": "self-boolean",
-          "operation": "unequal",
-          "value": true
-        }
-      ],
+      "conditions": [],
       "events": [],
       "scripts": []
     },
@@ -174,13 +168,7 @@
       "y": 37.5,
       "angle": 0,
       "scale": 1,
-      "conditions": [
-        {
-          "type": "self-boolean",
-          "operation": "unequal",
-          "value": true
-        }
-      ],
+      "conditions": [],
       "events": [],
       "scripts": []
     },
@@ -198,13 +186,7 @@
       "y": 37.5,
       "angle": 0,
       "scale": 1,
-      "conditions": [
-        {
-          "type": "self-boolean",
-          "operation": "unequal",
-          "value": true
-        }
-      ],
+      "conditions": [],
       "events": [],
       "scripts": []
     },
@@ -982,7 +964,7 @@
       "hidden": false,
       "locked": false,
       "presetId": "e713babea8edc8f5",
-      "actorId": "6145e25b65217d2c",
+      "actorId": "24a711985eaa9df6",
       "teamId": "fa4ec7762d2d7a92",
       "x": 63.5,
       "y": 49.5,
