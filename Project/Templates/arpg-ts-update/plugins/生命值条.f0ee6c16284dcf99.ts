@@ -157,7 +157,7 @@ PluginManager.HealthBar.switch()
 @lang ru
 #plugin Индикатор здоровья
 #desc
-Скриптовый метод:
+Методы написания Скрипта:
 PluginManager.HealthBar.enable()
 PluginManager.HealthBar.disable()
 PluginManager.HealthBar.switch()
@@ -168,25 +168,25 @@ PluginManager.HealthBar.switch()
 #display Отобразить
 #always Всегда
 #auto Автоматический
-#auto-except-for-player-team Автомат. (кроме команд игроков)
+#auto-except-for-player-team Авто. (кроме команд игроков)
 #in-the-visible-range В пределах видимого диапазона
-#display-desc Всегда показывайте индикатор жизни или показывайте его после нападения
+#display-desc Всегда показывать Индикатор здоровья или после атаки
 #duration Продол-сть(ms)
-#duration-desc Продолжительность шкалы здоровья после атаки
+#duration-desc Продолжительность отображения Индикатора здоровья после атаки
 #range Видимый диапазон
-#range-desc Если персонаж находится в зоне видимости от центра камеры, отображается полоска здоровья.
-#health Атрибуты здоровья
-#health-desc Название атрибута здоровья персонажа
-#maxHealth Макс. атрибут здоровья
+#range-desc Если персонаж находится в зоне видимости от центра камеры, отобразится полоска-Индикатор здоровья.
+#health Связь Атрибут здоровья
+#health-desc Имя атрибута здоровья актера
+#maxHealth Связь Макс. Атрибут здоровья
 #maxHealth-desc Название максимального показателя здоровья персонажа
-#specialBarEnabled Спец. полоска здоровья
-#specialBarEnabled-true Показать
-#specialBarEnabled-false Скрыть
-#specialBarEnabled-desc Переключите специальную панель здоровья
+#specialBarEnabled Спец. Индикатор здоровья
+#specialBarEnabled-true Включить
+#specialBarEnabled-false Выключить
+#specialBarEnabled-desc Переключить специальный Индикатор здоровья
 #specialAttr Особые атрибуты
 #specialAttr-desc Имя атрибута, которым обладает особая роль
-#specialAttrValue Спец. атрибут
-#specialAttrValue-desc Если значение специального атрибута персонажа является одним из них, отображается специальная панель здоровья
+#specialAttrValue Спец. Атрибут
+#specialAttrValue-desc Если значение специального атрибута персонажа является одним из них, отображается специальная Индикатор здоровья
 #backgroundIdFriendly Фоновое (друг)
 #backgroundIdFriendly-desc Фоновое изображение полосы здоровья дружелюбного персонажа
 #foregroundIdFriendly Перед. план (друг)
@@ -201,7 +201,7 @@ PluginManager.HealthBar.switch()
 #foregroundIdSpecial-desc Отобразить на переднем плане шкалы здоровья особого персонажа
 #offsetY Смещение Y
 #offsetY-desc Расстояние вертикального смещения полосы здоровья
-#scale Масштаб
+#scale Размер
 #scale-desc Коэффициент масштабирования полосы здоровья
 #opacity Непрозрачность
 #opacity-desc Непрозрачность полосы здоровья

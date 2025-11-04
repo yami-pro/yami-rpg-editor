@@ -33,19 +33,19 @@ PluginManager.Steamworks.apps.isDlcInstalled(dlcId)
 #verify-desc After deployment, if steam is not running or the game is not in the library, force quit the game.
 
 @lang ru
-#plugin Мастерская Стим
+#plugin Мастерская Стим (Steamworks)
 #desc
 API игровой платформы STEAM, включая:
 Система достижений, получение статуса покупки ПО и DLC пользователем, функция борьбы с пиратством...
 
-Методы написания сценариев:
+Методы написания Скрипта:
 PluginManager.Steamworks.achievement.activate(name)
 PluginManager.Steamworks.achievement.clear(name)
 PluginManager.Steamworks.achievement.isActivated(name)
 PluginManager.Steamworks.apps.isAppInstalled(appId)
 PluginManager.Steamworks.apps.isDlcInstalled(dlcId)
-#appId ID приложение
-#appId-desc Идентификатор вашей игры в Steamworks
+#appId ID Приложения
+#appId-desc Идентификатор вашей игры в Мастерская Стим (Steamworks)
 #verify Проверить приложение
 #verify-desc После установки, если Steam не работает или игры нет в библиотеке, принудительно закройте игру.
 

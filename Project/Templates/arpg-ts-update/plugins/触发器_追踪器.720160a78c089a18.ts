@@ -27,11 +27,11 @@
 #angularSpeedDev Angular Speed Dev
 
 @lang ru
-#plugin Триггер - Отслеживания
+#plugin Триггер - Отслеживание
 #desc Автоматически находить близлежащие цели и следить за ними
-#range Даль. обнаружения
-#angularSpeed Скор. вращ
-#angularSpeedDev Отклонение
+#range Даль. Обнаружения
+#angularSpeed Углов. Скорость
+#angularSpeedDev Отклонение угловой скорости
 
 @lang zh
 #plugin 触发器 - 追踪器

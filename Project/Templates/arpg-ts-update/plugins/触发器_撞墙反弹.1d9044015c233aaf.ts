@@ -8,7 +8,7 @@
 #plugin Trigger - Rebound on Hit Walls
 
 @lang ru
-#plugin Триггер - Отскок от стены
+#plugin Триггер - Отскок при ударе о стену
 
 @lang zh
 #plugin 触发器 - 撞墙反弹

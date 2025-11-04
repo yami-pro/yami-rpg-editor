@@ -24,9 +24,9 @@
 
 @lang ru
 #plugin Триггер - Случайные параметры
-#speedDev Скор. отклонения
-#angleDev Угол отклонения
-#durationDev Продол. отклонения
+#speedDev Скор. Отклонения
+#angleDev Угол Отклонения
+#durationDev Продол. Отклонения
 
 @lang zh
 #plugin 触发器 - 随机参数

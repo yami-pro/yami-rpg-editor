@@ -28,15 +28,15 @@
 #globalActorKey Actor Variable
 
 @lang ru
-#plugin Воспроизвести Flash-эффект
-#desc Команда для плагина Flash-эффекта
+#plugin Воспроизвести Эффект Вспышки
+#desc Команда для плагина Эффект Вспышки
 #actor Цель Актер
 #actor-trigger Триггер Актер
 #actor-caster Наложить Навык
-#actor-local Локальная переменная
-#actor-global Глобальная переменная
+#actor-local Локальная Переменная
+#actor-global Глобальная Переменная
 #localActorKey Переменная Актер
-#globalActorKey Глобальная переменная Актер
+#globalActorKey Переменная Актер
 
 @lang zh
 #plugin 播放闪光效果

@@ -20,7 +20,7 @@
 #velocityY Velocity Y
 
 @lang ru
-#plugin Прокрутка - Изображения
+#plugin Прокрутка - Изображение
 #desc Автоматическая прокрутка изображения
 #velocityX Скор. X
 #velocityY Скор. Y

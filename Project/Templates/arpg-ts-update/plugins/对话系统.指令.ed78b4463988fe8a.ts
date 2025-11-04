@@ -31,8 +31,8 @@ true: succeeded
 false: failed
 
 @lang ru
-#plugin Система диалога
-#desc Команда для плагина диалоговой системы
+#plugin Система диалогов
+#desc Команда для плагина Система диалога
 #operation Операция
 #enable Включить
 #disable Выключить

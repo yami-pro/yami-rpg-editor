@@ -32,11 +32,11 @@ PluginManager.MapMarker.set(x, y)
 #desc
 Воспроизведите анимацию маркера в указанном месте
 
-Скриптовый метод:
+Методы написания Скрипта:
 PluginManager.MapMarker.set(x, y)
 #animationId Анимация маркера
-#motion Действие
-#priority Приоритет
+#motion Движение
+#priority Приоритет Анимации
 
 @lang zh
 #plugin 地图标记

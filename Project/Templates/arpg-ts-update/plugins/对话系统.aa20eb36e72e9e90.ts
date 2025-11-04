@@ -69,13 +69,13 @@ PluginManager.DialogueSystem.talk(x, y)
 #state-enabled Включить
 #state-disabled Выключить
 #dialogueEvent Событие диалога
-#switchToPreventDialog Прервать диалог
+#switchToPreventDialog Переключить на Прервать диалог
 #triggerDistance Расстояние срабат.
 #triggerKey Кнопка запуска
-#selectionTop Выделить верх
-#selectionLeft Выделить лево
-#selectionRight Выделить право 
-#selectionBottom Выделить низ
+#selectionTop Выбор Вверх
+#selectionLeft Выбор Влево
+#selectionRight Выбор Вправо 
+#selectionBottom Выбор Вниз
 #outlineColor Цвет контура
 
 @lang zh

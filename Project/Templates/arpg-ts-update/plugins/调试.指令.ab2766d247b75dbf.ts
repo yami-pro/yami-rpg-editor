@@ -146,22 +146,22 @@
 #plugin Отладка
 #desc Вывод информации о переменной для проверки
 #operation Операция
-#output-text Вых.данные (текст)
-#output-local Вых.данные (все лок. переменные)
-#output-variable Вых.(переменные)
+#output-text Вых.данные (Текст)
+#output-local Вых.данные (Все лок. переменные)
+#output-variable Вых.(переменная)
 #output-actor Вых.данные (Актер)
-#output-skill Вых.данные (Навыках)
+#output-skill Вых.данные (Навык)
 #output-state Вых.данные (Стояние)
 #output-equipment Вых.данные (Снаряжене)
 #output-item Вых.данные (Предмет)
 #output-element Вых. данные (Элемент)
 #text Текст
 #key Клавиша
-#varId Переменная
-#output Выход
+#variable Переменная
+#output Вывод
 #output-instance Пример
 #output-attributes Выходные данные все атрибуты
-#output-attribute Выходные данные атрибут
+#output-attribute Выходные данные конкретного атрибута
 #attribute Атрибут
 #actor Актер
 #skill Навык

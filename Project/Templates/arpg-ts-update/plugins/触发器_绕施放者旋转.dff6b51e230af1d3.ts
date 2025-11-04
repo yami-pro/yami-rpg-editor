@@ -14,7 +14,7 @@
 #angularSpeed Angular Speed
 
 @lang ru
-#plugin Триггер: Вращение вокруг актера.
+#plugin Триггер: Вращение вокруг применяющего навык.
 #angularSpeed Cкор. вращения
 
 @lang zh
