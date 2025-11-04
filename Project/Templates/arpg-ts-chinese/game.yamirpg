@@ -1,5 +1,5 @@
 {
-  "version": "1.0.145",
+  "version": "1.0.146",
   "activeTab": "42bb866ffdc04284",
   "openTabs": [
     "",
@@ -61,7 +61,7 @@
   "browser": {
     "view": 3,
     "folders": [
-      "Assets"
+      "Assets/角色"
     ]
   },
   "selector": {

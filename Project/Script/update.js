@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.145',
+  latestProjectVersion: '1.0.146',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -1064,7 +1064,7 @@ Updater.updateIncrementalChanges = function (version) {
     }
 
     '1.0.126'(update) {
-      this.logMessage('Fix the incorrect behavior of the “mouse leave element” event in a special case.')
+      this.logMessage('Fix the incorrect behavior of the "mouse leave element" event in a special case.')
       if (!update) return
       this.copyScripts('ui.ts')
     }
@@ -1128,7 +1128,7 @@ Updater.updateIncrementalChanges = function (version) {
     '1.0.130'(update) {
       this.logMessage(
         'Extends the "Block" command with a new asynchronous execution option.',
-        'A warning is issued to the user for “Independent” commands running in the background for over 1 minute.',
+        'A warning is issued to the user for "Independent" commands running in the background for over 1 minute.',
         'Delayed the camera update timing within the current frame, allowing it to lock onto the target more quickly.',
         'Optimized the tilemap loading process. When preloading images, loading is no longer required, enabling seamless map transitions.',
       )
@@ -1220,11 +1220,27 @@ Updater.updateIncrementalChanges = function (version) {
 
     '1.0.145'(update) {
       this.logMessage(
-        'Fixed a bug where entering conditional branches in the synchronous “Block” command caused an error.',
+        'Fixed a bug where entering conditional branches in the synchronous "Block" command caused an error.',
         'Improved the implementation of "For Each" command to make it more reliable during jumps and exits.',
       )
       if (!update) return
       this.copyScripts('ui.ts', 'event.ts', 'command.ts', 'yami/yami.command.d.ts')
+    }
+
+    '1.0.146'(update) {
+      this.logMessage(
+        'Fixed a bug where using numeric variables in the “Discard Targets” command had no effect.',
+        'Fixed a bug where the “Reference Element” was still created even when disabled.',
+        'Fixed a bug that could cause an error when saving the game if one actor referenced another actor’s inventory.',
+        'Improved the “Set Button” command so that when setting the tint, it automatically switches to the corresponding “Effect” option.',
+        'Improved collision handling — when two colliding actors are created in the same position, they now automatically separate.',
+        'Added joystick dead zone and magnitude properties to the Controller object, with a default dead zone radius of 50%.',
+        'Removed appearance conditions for several actors in the new project scene.',
+        'Extracted the logic of the “New Game” button from the new project title screen and moved it to an event file.',
+        'Updated the Russian language packs for the editor and plugins, and included them in the new project.',
+      )
+      if (!update) return
+      this.copyScripts('actor.ts', 'audio.ts', 'command.ts', 'event.ts', 'input.ts', 'ui.ts', 'yami/yami.input.d.ts', 'yami/yami.ui.d.ts')
     }
   }
 

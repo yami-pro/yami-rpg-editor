@@ -449,7 +449,10 @@ class MultipleAudioPlayer {
       const audio = this.play(guid, volume, playbackRate)
       if (audio) {
         audio.update = () => {
-          audio.volume = volume * this.calcVolumeFactor(position, AudioManager.attenDist)
+          const newVolume = volume * this.calcVolumeFactor(position, AudioManager.attenDist)
+          if (Number.isFinite(newVolume)) {
+            audio.volume = newVolume
+          }
         }
         audio.update(0)
         return audio

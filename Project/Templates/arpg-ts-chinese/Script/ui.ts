@@ -128,6 +128,9 @@ let UI = new class UIManager {
             continue
           }
           const copy: UIElementData = Object.create(prefab)
+          copy.name = node.name
+          copy.enabled = node.enabled
+          copy.expanded = node.expanded
           copy.referenceId = node.presetId
           copy.events = Object.setPrototypeOf(node.events, prefab.events)
           copy.scripts = node.scripts

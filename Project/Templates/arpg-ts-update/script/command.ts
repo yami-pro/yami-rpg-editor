@@ -4588,35 +4588,6 @@ let Command = new class CommandCompiler {
           continue
       }
     }
-    // 对单属性变量进行优化
-    if (variables.length === 1 && constants.length === 0) {
-      const {key, value} = variables[0]
-      return () => {
-        const element = getElement()
-        if (element instanceof ButtonElement) {
-          // @ts-ignore
-          element[key] = value()
-        }
-        return true
-      }
-    }
-    // 对单属性常量进行优化
-    if (variables.length === 0 && constants.length === 1) {
-      const {key, value} = constants[0]
-      return () => {
-        const element = getElement()
-        if (element instanceof ButtonElement) {
-          if (method.arrayMap[key]) {
-            // @ts-ignore
-            Array.fill(element[key], value)
-          } else {
-            // @ts-ignore
-            element[key] = value
-          }
-        }
-        return true
-      }
-    }
     return () => {
       const element = getElement()
       if (element instanceof ButtonElement) {
@@ -4628,7 +4599,27 @@ let Command = new class CommandCompiler {
           if (element instanceof ButtonElement) {
             if (method.arrayMap[property.key]) {
               // @ts-ignore
-              element[property.key].set(property.value)
+              Array.fill(element[property.key], property.value)
+              switch (property.key) {
+                case 'normalTint':
+                  if (element.imageEffect === 'none') {
+                    element.imageEffect = 'tint-1'
+                  }
+                  break
+                case 'hoverTint':
+                  if (element.imageEffect === 'none' ||
+                    element.imageEffect === 'tint-1') {
+                    element.imageEffect = 'tint-2'
+                  }
+                  break
+                case 'activeTint':
+                  if (element.imageEffect === 'none' ||
+                    element.imageEffect === 'tint-1' ||
+                    element.imageEffect === 'tint-2') {
+                    element.imageEffect = 'tint-3'
+                  }
+                  break
+              }
             } else {
               // @ts-ignore
               element[property.key] = property.value
@@ -6656,8 +6647,9 @@ let Command = new class CommandCompiler {
     distance: number
   }): CommandFunction {
     const getActor = Command.compileActor(actor)
+    const getDistance = Command.compileNumber(distance)
     return () => {
-      getActor()?.target.discard(selector, distance)
+      getActor()?.target.discard(selector, getDistance())
       return true
     }
   }
@@ -7321,13 +7313,11 @@ let Command = new class CommandCompiler {
     const getZoom = Command.compileNumber(zoom, 1, 1, 8)
     const getDuration = Command.compileNumber(duration)
     return () => {
-      if (Scene.binding !== null) {
-        const zoom = getZoom()
-        const duration = getDuration()
-        Camera.setZoomFactor(zoom, easingId, duration)
-        if (wait && duration > 0) {
-          return CurrentEvent.wait(duration)
-        }
+      const zoom = getZoom()
+      const duration = getDuration()
+      Camera.setZoomFactor(zoom, easingId, duration)
+      if (wait && duration > 0) {
+        return CurrentEvent.wait(duration)
       }
       return true
     }

@@ -70,7 +70,9 @@ type ControllerButtonStateMap = {
   Left: boolean
   Right: boolean
   LeftStickAngle: number
+  LeftStickMagnitude: number
   RightStickAngle: number
+  RightStickMagnitude: number
 }
 
 /** 控制器按钮名称 */

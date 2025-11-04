@@ -1792,12 +1792,19 @@ class ActorCollider {
       const sActor = sCollider.actor
       const dActor = dCollider.actor
       const distMin = sCollider.half + dCollider.half
-      const distX = dActor.x - sActor.x
-      const distY = dActor.y - sActor.y
+      let distX = dActor.x - sActor.x
+      let distY = dActor.y - sActor.y
       const distSquared = distX ** 2 + distY ** 2
       // 如果角色之间的水平和垂直距离小于最小距离，则发生碰撞
       if (distSquared < distMin ** 2) {
-        const dist = Math.sqrt(distSquared)
+        let dist = Math.sqrt(distSquared)
+        // 如果重叠，以随机角度分开
+        if (dist === 0) {
+          dist = 0.001
+          const angle = Math.PI * 2 * Math.random()
+          distX = dist * Math.cos(angle)
+          distY = dist * Math.sin(angle)
+        }
         const offset = distMin - dist
         const offsetX = offset / dist * distX
         const offsetY = offset / dist * distY
@@ -1857,8 +1864,8 @@ class ActorCollider {
       const sr = sx + sCollider.half
       const st = sy - sCollider.half
       const sb = sy + sCollider.half
-      const distX = dx - (dx < sl ? sl : dx > sr ? sr : dx)
-      const distY = dy - (dy < st ? st : dy > sb ? sb : dy)
+      const distX = dx - Math.clamp(dx, sl, sr)
+      const distY = dy - Math.clamp(dy, st, sb)
       const distSquared = distX ** 2 + distY ** 2
       // 如果角色之间的水平和垂直距离小于最小距离，则发生碰撞
       if (distSquared < distMin ** 2) {
@@ -1871,7 +1878,11 @@ class ActorCollider {
           offsetY = offset / distMin * distY
         } else {
           const rx = dx - sx
-          const ry = dy - sy
+          let ry = dy - sy
+          // 如果重叠，上下分开
+          if (rx === 0 && ry === 0) {
+            ry = 0.001
+          }
           if (Math.abs(rx) > Math.abs(ry)) {
             offsetX = offset * Math.sign(rx)
             offsetY = 0
@@ -4663,10 +4674,14 @@ class Inventory {
    */
   public saveData(actor: Actor): InventorySaveData {
     if (actor.savedInventory) {
-      return {
+      const inventory = actor.savedInventory
+      actor.savedInventory = undefined
+      const savedData = {
         ref: this.actor.data.id,
-        ...actor.savedInventory.saveData(actor),
+        ...inventory.saveData(actor),
       }
+      actor.savedInventory = inventory
+      return savedData
     }
     const {list} = this
     const {length} = list

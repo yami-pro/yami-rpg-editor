@@ -398,6 +398,7 @@ type WindowElementData = {
   class: 'window'
   name: string
   enabled: boolean
+  expanded: boolean
   hidden: boolean
   locked: boolean
   presetId: string

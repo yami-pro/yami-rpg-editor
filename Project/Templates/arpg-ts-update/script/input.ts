@@ -682,8 +682,14 @@ let Mouse = new class MouseManager {
 /** ******************************** 游戏手柄管理器 ******************************** */
 
 let Controller = new class ControllerManager {
+  /** 左摇杆事件的触发阈值 */
+  public leftStickDeadZone: number = 0.5
+  /** 右摇杆事件的触发阈值 */
+  public rightStickDeadZone: number = 0.5
   /** 正在触发的摇杆角度 */
   public stickAngle: number = -1
+  /** 正在触发的摇杆强度 */
+  public stickMagnitude: number = 0
   /** 正在触发的按钮码(-1:未按下任何按键) */
   public buttonCode: ControllerButtonCode | -1 = -1
   /** 正在触发的按钮名称 */
@@ -728,7 +734,9 @@ let Controller = new class ControllerManager {
     Left: false,
     Right: false,
     LeftStickAngle: -1,
+    LeftStickMagnitude: 0,
     RightStickAngle: -1,
+    RightStickMagnitude: 0,
   }
 
   /** 初始化 */
@@ -796,36 +804,48 @@ let Controller = new class ControllerManager {
 
     // 更新左摇杆
     let leftStickChanged = false
-    if (axes[0] ** 2 + axes[1] ** 2 > 0.4) {
+    const sqrLeftDeadZone = this.leftStickDeadZone ** 2
+    const sqrLeftMagnitude = axes[0] ** 2 + axes[1] ** 2
+    if (sqrLeftMagnitude > sqrLeftDeadZone) {
       const radians = Math.atan2(axes[1], axes[0])
       const degrees = Math.modDegrees(Math.degrees(radians))
       states.LeftStickAngle = degrees
+      states.LeftStickMagnitude = Math.sqrt(sqrLeftMagnitude)
       leftStickChanged = true
     } else if (states.LeftStickAngle !== -1) {
       states.LeftStickAngle = -1
+      states.LeftStickMagnitude = 0
       leftStickChanged = true
     }
     if (leftStickChanged) {
       this.stickAngle = states.LeftStickAngle
+      this.stickMagnitude = states.LeftStickMagnitude
       Input.emit('gamepadleftstickchange', new ScriptGamepadEvent(pad))
       this.stickAngle = -1
+      this.stickMagnitude = 0
     }
 
     // 更新右摇杆
     let rightStickChanged = false
-    if (axes[2] ** 2 + axes[3] ** 2 > 0.4) {
+    const sqrRightDeadZone = this.rightStickDeadZone ** 2
+    const sqrRightMagnitude = axes[2] ** 2 + axes[3] ** 2
+    if (sqrRightMagnitude > sqrRightDeadZone) {
       const radians = Math.atan2(axes[3], axes[2])
       const degrees = Math.modDegrees(Math.degrees(radians))
       states.RightStickAngle = degrees
+      states.RightStickMagnitude = Math.sqrt(sqrRightMagnitude)
       rightStickChanged = true
     } else if (states.RightStickAngle !== -1) {
       states.RightStickAngle = -1
+      states.RightStickMagnitude = 0
       rightStickChanged = true
     }
     if (rightStickChanged) {
       this.stickAngle = states.RightStickAngle
+      this.stickMagnitude = states.RightStickMagnitude
       Input.emit('gamepadrightstickchange', new ScriptGamepadEvent(pad))
       this.stickAngle = -1
+      this.stickMagnitude = 0
     }
   }
 
