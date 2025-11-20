@@ -630,6 +630,22 @@ type LightSaveDataArea = {
   scripts?: Array<ScriptData> //+
 }
 
+/** 光源移动选项 */
+type LightMoveOptions = {
+  x?: number
+  y?: number
+  red?: number
+  green?: number
+  blue?: number
+  range?: number
+  intensity?: number
+  anchorX?: number
+  anchorY?: number
+  width?: number
+  height?: number
+  angle?: number
+}
+
 /** 光源属性过滤器集合 */
 type LightPropertyFilters = {
   point: {

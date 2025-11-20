@@ -83,7 +83,6 @@ Editor.initialize = async function () {
     ArrayList.initialize()
     AttributeListInterface.initialize()
     ConditionListInterface.initialize()
-    // Workshop.initialize()
 
     // 加载配置文件
     this.loadConfig()

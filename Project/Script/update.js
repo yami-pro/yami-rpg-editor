@@ -5,7 +5,7 @@
 const Updater = {
   // properties
   latestEditorVersion: '1.0.18',
-  latestProjectVersion: '1.0.146',
+  latestProjectVersion: '1.0.147',
   // methods
   updateProject: null,
   updateConfig: null,
@@ -1241,6 +1241,17 @@ Updater.updateIncrementalChanges = function (version) {
       )
       if (!update) return
       this.copyScripts('actor.ts', 'audio.ts', 'command.ts', 'event.ts', 'input.ts', 'ui.ts', 'yami/yami.input.d.ts', 'yami/yami.ui.d.ts')
+    }
+
+    '1.0.147'(update) {
+      this.logMessage(
+        'Improved the English and Simplified Chinese language packs.',
+        'Added the Traditional Chinese language pack.',
+        'Added the tilemap’s "getTile" method.',
+        'Improved the tilemap’s "setTile" method so that setting a tile now updates surrounding autotiles.',
+      )
+      if (!update) return
+      this.copyScripts('scene.ts', 'time.ts', 'ui.ts', 'yami/yami.scene.d.ts')
     }
   }
 

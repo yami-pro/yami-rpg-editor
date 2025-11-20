@@ -269,6 +269,6 @@ let Loader = new class FileLoader {
     })()
 
     audioBuffers[guid] = promise
-    return await promise
+    return promise
   }
 }

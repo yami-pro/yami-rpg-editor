@@ -23,9 +23,9 @@ let Time = new class TimeManager {
   public fps: number = 0
   /** 平均每帧游戏时间 */
   public tpf: number = Infinity
-  // 游戏速度过渡结束后回调
+  /** 游戏速度过渡结束后回调 */
   private callbacks: Array<CallbackFunction> | null = null
-  // 游戏速度过渡上下文
+  /** 游戏速度过渡上下文 */
   private transition: TimeTransitionContext | null = null
 
   /** 初始化游戏时间管理器 */

@@ -2624,7 +2624,7 @@ class SceneParallax {
   }
 
   /** 光线采样模式映射表(字符串 -> 着色器中的采样模式代码) */
-  private static lightSamplingModes: ParallaxLightSamplingMap = {raw: 0, global: 1, anchor: 2, ambient: 3}
+  public static lightSamplingModes: ParallaxLightSamplingMap = {raw: 0, global: 1, anchor: 2, ambient: 3}
 }
 
 /** ******************************** 场景瓦片地图 ******************************** */
@@ -2804,7 +2804,7 @@ class SceneTilemap {
     }
   }
 
-  /** 加载图块纹理 */
+  /** 加载所有图块纹理 */
   private async loadTextures(): Promise<void> {
     await new Promise(resolve => {
       const tiles = this.tiles
@@ -2841,8 +2841,8 @@ class SceneTilemap {
   }
 
   /**
-   * 加载纹理
-   * @param tile 图块码
+   * 加载图块纹理
+   * @param tile 图块ID
    * @param sync 是否同步加载纹理
    * @param callback 回调函数
    */
@@ -2896,7 +2896,7 @@ class SceneTilemap {
 
   /**
    * 创建图块数据
-   * @param tile 图块码
+   * @param tile 图块ID
    */
   private createTileData(tile: number): void {
     // 如果当前图块数据未创建
@@ -2952,7 +2952,7 @@ class SceneTilemap {
 
   /**
    * 创建图像数据
-   * @param tile 图块码
+   * @param tile 图块ID
    */
   private createImageData(tile: number): void {
     // 如果图像数据未创建
@@ -3069,6 +3069,20 @@ class SceneTilemap {
   }
 
   /**
+   * 获取图块ID
+   * @param x 瓦片地图X
+   * @param y 瓦片地图Y
+   * @returns 图块ID(空图块:0，不存在:-1)
+   */
+  public getTile(x: number, y: number): number {
+    if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+      const ti = x + y * this.width
+      return this.tiles[ti] ?? -1
+    }
+    return -1
+  }
+
+  /**
    * 设置图块
    * @param x 瓦片地图X
    * @param y 瓦片地图Y
@@ -3123,6 +3137,7 @@ class SceneTilemap {
       if (this.tiles[ti] !== 0) {
         this.tiles[ti] = 0
         this.scene.updateTerrain(x, y)
+        this.updateSurroundingAutoTiles(x, y)
       }
     }
   }
@@ -3384,7 +3399,7 @@ class SceneTilemap {
   }
 
   /** 静态 - 光线采样模式映射表(字符串 -> 着色器中的采样模式代码) */
-  private static lightSamplingModes: TilemapLightSamplingMap = {raw: 0, global: 1, ambient: 2}
+  public static lightSamplingModes: TilemapLightSamplingMap = {raw: 0, global: 1, ambient: 2}
 }
 
 /** ******************************** 场景分区管理器 ******************************** */
@@ -3590,7 +3605,7 @@ class SceneActorManager {
   public scene: SceneContext
   /** 场景角色实例列表 */
   public list: Array<Actor>
-  /** 场景角色分区列表 */
+  /** 场景角色分区管理器 */
   public partition: ScenePartitionManager<Actor>
 
   /**
@@ -4551,8 +4566,8 @@ class SceneLightManager {
           switch (light.type) {
             case 'point': {
               const rr = light.range! / 2
-              const px = x < ll ? ll : x > lr ? lr : x
-              const py = y < lt ? lt : y > lb ? lb : y
+              const px = Math.clamp(x, ll, lr)
+              const py = Math.clamp(y, lt, lb)
               // 如果点光源可见，添加群组和光源索引到绘制队列
               if ((px - x) ** 2 + ((py - y) * vs) ** 2 < rr ** 2) {
                 queue[qi++] = gi
@@ -5030,7 +5045,7 @@ class SceneLight {
    * @param easingId 过渡曲线ID
    * @param duration 持续时间(毫秒)
    */
-  public move(properties: HashMap<number>, easingId: string = '', duration: number = 0): void {
+  public move(properties: LightMoveOptions, easingId: string = '', duration: number = 0): void {
     // 转换属性词条的数据结构
     const propEntries = Object.entries(properties) as Array<[string, number]>
     // 允许多个过渡同时存在且不冲突
@@ -5138,7 +5153,7 @@ class SceneLight {
     this.script.emit(type, this)
   }
 
-  // 自动执行
+  /** 自动执行 */
   public autorun(): void {
     if (this.started === false) {
       this.started = true

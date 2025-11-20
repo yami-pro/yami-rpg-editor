@@ -1,0 +1,94 @@
+/* --------------------------------
+ * 创意工坊窗口
+ * --------------------------------
+ */
+#workshop {
+  width: 900px;
+  height: 700px;
+}
+
+#workshop-list {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  bottom: 40px;
+  background-color: var(--input-background);
+  border: var(--input-border);
+  border-radius: 2px;
+}
+
+/* .workshop-item {
+  display: flex;
+  padding: 0 10px;
+  height: 20px;
+  line-height: 20px;
+  white-space: pre;
+} */
+
+.workshop-item-preview {
+  display: inline-block;
+  vertical-align: top;
+  margin: 2px 2px 2px 0;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  font-size: 14px;
+  text-indent: 0;
+  text-align: center;
+  font-family: var(--font-family-symbol);
+  pointer-events: none;
+}
+
+.workshop-item-sort {
+  font-weight: bold;
+  color: var(--plugin-name-color);
+}
+
+.workshop-item-title {
+  pointer-events: none;
+}
+
+.workshop-item-desc {
+  margin-left: 10px;
+  pointer-events: none;
+  color: var(--text-color-disabled);
+}
+
+#workshop-upload {
+  left: 10px;
+  bottom: 10px;
+}
+
+#workshop-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#workshop-cancel {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* --------------------------------
+ * 创意工坊项目窗口
+ * --------------------------------
+ */
+#workshop-item {
+  width: 324px;
+  height: 218px;
+}
+
+#workshop-item-description {
+  height: 92px;
+}
+
+#workshop-item-confirm {
+  right: 108px;
+  bottom: 10px;
+}
+
+#workshop-item-cancel {
+  right: 10px;
+  bottom: 10px;
+}

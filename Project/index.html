@@ -33,7 +33,6 @@
 <script src="Script/command.js" defer></script>
 <script src="Script/log.js" defer></script>
 <script src="Script/update.js" defer></script>
-<script src="Script/steamworks.js" defer></script>
 <script src="Script/main.js" defer></script>
 <script src='vs/loader.js' defer></script>
 <script src='vs/editor/editor.main.nls.js' defer></script>
@@ -2656,33 +2655,6 @@
     <file-browser id="selector-browser"></file-browser>
     <button id="selector-confirm" name="confirm">Confirm</button>
     <button id="selector-cancel" name="cancel">Cancel</button>
-  </content-frame>
-</window-frame>
-
-<!-- 创意工坊窗口 -->
-<window-frame id="workshop" mode="center">
-  <title-bar>Workshop<maximize></maximize><close></close></title-bar>
-  <content-frame>
-    <common-list id="workshop-list"></common-list>
-    <button id="workshop-upload">Upload</button>
-    <button id="workshop-confirm" name="confirm">Confirm</button>
-    <button id="workshop-cancel" name="cancel">Cancel</button>
-  </content-frame>
-</window-frame>
-
-<!-- 创意工坊项目窗口 -->
-<window-frame id="workshop-item" mode="center">
-  <title-bar>Workshop Item<maximize></maximize><close></close></title-bar>
-  <content-frame>
-    <grid-box>
-      <text>Type</text><select-box id="workshop-item-type"></select-box>
-      <text>Content</text><custom-box id="workshop-item-content" type="dialog-dir"></custom-box>
-      <text>Title</text><text-box id="workshop-item-title"></text-box>
-      <text>Preview</text><custom-box id="workshop-item-image" type="file" filter="image"></custom-box>
-      <text>Description</text><text-area id="workshop-item-description"></text-area>
-    </grid-box>
-    <button id="workshop-confirm" name="confirm">Confirm</button>
-    <button id="workshop-cancel" name="cancel">Cancel</button>
   </content-frame>
 </window-frame>
 

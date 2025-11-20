@@ -5605,7 +5605,7 @@ class WindowElement extends UIElement {
   private _paddingX!: number
   /** 窗口垂直内边距 */
   private _paddingY!: number
-  /** 一否已发送调整窗口请求 */
+  /** 是否已发送调整窗口请求 */
   private requesting?: boolean
 
   /** 默认窗口元素数据 */
@@ -6208,7 +6208,7 @@ class UIEntityManager extends EntityManager {
   /**
    * 从映射表中获取元素实例
    * @param key 实体ID/预设ID/引用ID/名称
-   * @returns 返回实元素实例
+   * @returns 返回元素实例
    */
   public override get(key: string): UIElement | undefined {
     return (super.get(key) ?? this.referenceIdMap[key]) as UIElement | undefined

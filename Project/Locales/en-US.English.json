@@ -152,7 +152,7 @@
       "skill": "Skills",
       "trigger": "Triggers",
       "item": "Items",
-      "equipment": "Equipments",
+      "equipment": "Equipment",
       "state": "States",
       "event": "Events",
       "animation": "Animations",
@@ -979,7 +979,7 @@
       "switch.gamepad": "Gamepad",
       "switch.mouse": "Mouse",
       "loop": "Loop",
-      "loop.desc": "A block of commands that will be executed repeatedly when the condition is met.\nIf the logic is flawed, it may enter an infinite loop, causing the game program to become unresponsive.",
+      "loop.desc": "A block of commands executed repeatedly while the condition holds.\nIf logic is flawed, it may enter an infinite loop and make the game unresponsive.",
       "loop.while": "While",
       "loop.end": "Repeat",
       "forEach": "For Each",
@@ -1002,7 +1002,7 @@
       "continue": "Continue",
       "continue.desc": "Jump to the next round of \"Loop\" or \"For Each\"",
       "independent": "Independent",
-      "independent.desc": "Separate the commands within the block for asynchronous execution (shared event variables).\nEven if the host object of the event is destroyed, the commands within the block will continue to execute.\nIt is advised not to rely on it, as placing loop logic inside may cause continuous computation in the background.\nWarning: The 'Reset' command will not stop the execution of commands within the 'Independent' block.",
+      "independent.desc": "Separate the commands within the block for asynchronous execution (shared event variables).\nEven if the event's host object is destroyed, commands in the block continue executing.\nAvoid relying on this; putting loops inside may cause continuous background computation.\nWarning: 'Reset' does not stop commands inside an 'Independent' block.",
       "independent.end": "End",
       "callEvent": "Call Event",
       "callEvent.desc": "Trigger a global event or a specified object event.",
@@ -1019,7 +1019,7 @@
       "stopEvent.current": "Current Event",
       "stopEvent.scene": "Current Scene",
       "registerEvent": "Register Event",
-      "registerEvent.desc": "Register or unregister a temporary event\nThe registered event shares local variables with the current event\nThe same event will not be registered multiple times",
+      "registerEvent.desc": "Register or unregister a temporary event\nThe registered event shares local variables with the current event\nThe same event won't be registered more than once",
       "registerEvent.alias.register": "Register",
       "registerEvent.alias.unregister": "Unregister",
       "registerEvent.alias.reset": "Reset",
@@ -1241,11 +1241,11 @@
       "moveElement.skewY": "SkewY",
       "moveElement.opacity": "Opacity",
       "deleteElement": "Delete Element",
-      "deleteElement.desc": "Destroy the specified element. The destroyed element will no longer execute its associated events.",
+      "deleteElement.desc": "Destroy the specified element. The element will no longer run its events.",
       "deleteElement.children": "Children",
       "deleteElement.all-elements": "All Elements",
       "setPointerEventRoot": "Set Pointer Event Root",
-      "setPointerEventRoot.desc": "Set the root element, so that only pointer events for this element and its descendants will be triggered, blocking pointer events for other elements.",
+      "setPointerEventRoot.desc": "Set the root element so only pointer events for it and its descendants fire, blocking others.",
       "setPointerEventRoot.add": "Add",
       "setPointerEventRoot.remove": "Remove",
       "setPointerEventRoot.remove-latest": "Remove the latest",
@@ -1258,7 +1258,7 @@
       "setFocus.reset": "Reset",
       "setFocus.control-child-buttons": "Child",
       "setFocus.control-descendant-buttons": "Descendant",
-      "setFocus.cancelable": "Cancleable",
+      "setFocus.cancelable": "Cancelable",
 
       "object": "Object",
       "createObject": "Create Object",
@@ -1280,14 +1280,14 @@
       "moveLight.size": "Size",
       "moveLight.shadow": "Shadow",
       "deleteObject": "Delete Object",
-      "deleteObject.desc": "Destroy the specified scene object. The destroyed object will no longer execute events.",
+      "deleteObject.desc": "Destroy the specified scene object. The object will no longer run events.",
       "setState": "Set State",
-      "setState.desc": "Set the time for the state. The state will be removed when the countdown reaches 0.",
+      "setState.desc": "Set the state's duration. The state is removed when the countdown reaches 0.",
       "setState.set-time": "SetTime",
       "setState.increase-time": "IncreaseTime",
       "setState.decrease-time": "DecreaseTime",
       "playAnimation": "Play Animation",
-      "playAnimation.desc": "Create an animation object, which will be automatically destroyed once it finishes playing.",
+      "playAnimation.desc": "Create an animation object that is destroyed automatically after it finishes.",
       "playAnimation.bind": "Bind",
       "playAnimation.rotatable": "Rotatable",
       "setObjectAnimation": "Set Object Animation",
@@ -1387,7 +1387,7 @@
       "getMultipleActors.inactive": "Inactive",
       "getMultipleActors.either": "Either",
       "deleteActor": "Delete Actor",
-      "deleteActor.desc": "Delete an actor from the scene. If it's a global actor, it will be removed and placed in the background.",
+      "deleteActor.desc": "Remove an actor from the scene. Global actors are moved to the background.",
       "setPlayerActor": "Set Player Actor",
       "setPlayerActor.desc": "After being set as the player actor, it can be accessed via the actor accessor (player actor).",
       "setPartyMember": "Set Party Member",
@@ -1452,9 +1452,9 @@
       "removeAnimationComponent": "Remove Animation Component",
       "removeAnimationComponent.desc": "Remove the component specified animation and motion from the actor's animation component list.",
       "createGlobalActor": "Create Global Actor",
-      "createGlobalActor.desc": "The global actor's data will be saved in the game save file.",
+      "createGlobalActor.desc": "Global actor data is saved in the game save file.",
       "transferGlobalActor": "Transfer Global Actor",
-      "transferGlobalActor.desc": "Transfer the global actor to a specified position in the current scene. If the actor already exists, the command will have no effect.",
+      "transferGlobalActor.desc": "Transfer the global actor to a specified position in the current scene. If the actor already exists, the command has no effect.",
       "deleteGlobalActor": "Delete Global Actor",
       "deleteGlobalActor.desc": "Completely delete the global actor when it is no longer needed.",
       "setTarget": "Set Target",
@@ -1488,14 +1488,14 @@
 
       "skill": "Skill",
       "castSkill": "Cast Skill",
-      "castSkill.desc": "Triggers the 'Cast Skill' event.\nIf the skill does not exist or is on cooldown, the command will not be executed.\nThe 'Cast Skill' event will inherit the 'Target Actor' from the current event actor accessor.",
+      "castSkill.desc": "Triggers the 'Cast Skill' event.\nIf the skill doesn't exist or is on cooldown, the command is skipped.\nThe 'Cast Skill' event inherits the 'Target Actor' from the current event actor accessor.",
       "setSkill": "Set Skill",
       "setSkill.desc": "Increase or decrease the skill's cooldown time.",
       "setSkill.set-cooldown": "SetCooldownTime",
       "setSkill.increase-cooldown": "IncreaseCooldownTime",
       "setSkill.decrease-cooldown": "DecreaseCooldownTime",
       "createTrigger": "Create Trigger",
-      "createTrigger.desc": "Create a trigger, typically used in skills, to capture actors and trigger the 'Hit Event'\nAll events of the trigger will inherit the 'Target Actor' from the current event actor accessor.",
+      "createTrigger.desc": "Create a trigger (often used in skills) to capture actors and trigger the 'Hit Event'.\nAll trigger events inherit the 'Target Actor' from the current event actor accessor.",
       "setTriggerSpeed": "Set Trigger Speed",
       "setTriggerSpeed.desc": "Trigger's built-in property that affects the speed of movement.",
       "setTriggerAngle": "Set Trigger Angle",
@@ -1528,11 +1528,11 @@
       "useItem": "Use Item",
       "useItem.desc": "Trigger the 'Use Item' event",
       "setItem": "Set Item",
-      "setItem.desc": "Increase or decrease the quantity of an item. The item will be removed from the inventory when the quantity reaches 0.",
+      "setItem.desc": "Increase or decrease the quantity of an item. The item is removed from inventory when its quantity reaches 0.",
       "setItem.increase": "Increase",
       "setItem.decrease": "Decrease",
       "setCooldown": "Set Cooldown",
-      "setCooldown.desc": "Set the cooldown time for the corresponding cooldown key, which will automatically count down in the background.",
+      "setCooldown.desc": "Set the cooldown time for the corresponding cooldown key, which counts down automatically in the background.",
       "setCooldown.set": "Set",
       "setCooldown.increase": "Increase",
       "setCooldown.decrease": "Decrease",
@@ -1628,7 +1628,7 @@
       "setResolution": "Set Resolution",
       "setResolution.desc": "Change the canvas size, scene scaling factor, and UI scaling factor.",
       "script": "Script",
-      "script.desc": "Compile and execute Javascript.",
+      "script.desc": "Compile and execute JavaScript.",
 
       "custom": "Custom",
       "invalidCommand": "Invalid Command",
@@ -1675,15 +1675,15 @@
     "[zoom-0-6]": {"tip": "$Scale\n0: 25%\n1: 50%\n2: 100%\n3: 200%\n4: 400%\n5: 800%\n6: 1600%"},
     "[back]": {"tip": "$Upper Level Directory"},
     "[view]": {"tip": "$View Mode\n0: 16x16\n1: 32x32\n2: 64x64\n3: 128x128\n4: 256x256"},
-    "[easing]": {"label": "Easing", "tip": "The transition method of interpolation calculation."},
-    "[duration]": {"label": "Duration", "tip": "The interpolation is calculated once per frame during the transition."},
+    "[easing]": {"label": "Easing", "tip": "Transition method of interpolation calculation."},
+    "[duration]": {"label": "Duration", "tip": "Interpolation is calculated once per frame during the transition."},
     "[wait]": {"label": "Wait", "tip": "Whether to wait for the command to complete execution.", "options": {
       "true": {"name": "Yes", "tip": "Wait for the related content to finish before executing the next event commands."},
       "false": {"name": "No", "tip": "Immediately execute the next event commands."}
     }},
 
     "[comment]": "********** Title Bar **********",
-    "title-play": {"tip": "$Run Game\nF10：Show Stats/FPS\nF11：Toggle Fullscreen\nF12：Developer Tools"},
+    "title-play": {"tip": "$Run Game\nF10: Show Stats/FPS\nF11: Toggle Fullscreen\nF12: Developer Tools"},
 
     "[comment]": "********** Home **********",
     "home-start-label": {"content": "Start"},
@@ -1758,63 +1758,63 @@
     "particle-view-anchor": {"tip": "$Anchor\nRender the anchor point of the particle element (red cross), and the line from the anchor point to the center of the particle (green line)"},
     "particle-control-restart": {"tip": "$Restart\nClear all particle elements"},
     "particle-control-pause": {"tip": "$Pause\nPause the particle animation"},
-    "particle-speed": {"tip": "$Playback Speed\nThe speed of playing particle animation on the stage\n1: Normal playback speed\n4: 4 times playback speed"},
+    "particle-speed": {"tip": "$Playback Speed\nSpeed of particle animation on stage\n1: Normal playback speed\n4: 4x playback speed"},
 
     "[comment]": "********** Inspector - File - Scene **********",
     "fileScene-general-grid": {"label": "Scene"},
-    "fileScene-width": {"label": "Width", "tip": "The number of horizontal grids for the scene (0 ~ 512)"},
-    "fileScene-height": {"label": "Height", "tip": "The number of vertical grids for the scene (0 ~ 512)"},
-    "fileScene-tileWidth": {"label": "Tile Width", "tip": "The width of the scene grid (16 ~ 256)"},
-    "fileScene-tileHeight": {"label": "Tile Height", "tip": "The height of the scene grid (16 ~ 256)"},
+    "fileScene-width": {"label": "Width", "tip": "Number of horizontal grids in the scene (0 ~ 512)"},
+    "fileScene-height": {"label": "Height", "tip": "Number of vertical grids in the scene (0 ~ 512)"},
+    "fileScene-tileWidth": {"label": "Tile Width", "tip": "Width of scene grid (16 ~ 256)"},
+    "fileScene-tileHeight": {"label": "Tile Height", "tip": "Height of scene grid (16 ~ 256)"},
     "fileScene-ambient-grid": {"label": "Ambient Light"},
     "fileScene-ambient-red-box": {"label": "Red", "tip": "Input Color (red) * Ambient Light (red) / 255 = Output Color (red)"},
     "fileScene-ambient-green-box": {"label": "Green", "tip": "Input color (green) * Ambient Light (green) / 255 = Output Color (green)"},
     "fileScene-ambient-blue-box": {"label": "Blue", "tip": "Input color (blue) * Ambient Light (blue) / 255 = Output Color (blue)"},
-    "fileScene-ambient-direct-box": {"label": "Direct Light Ratio", "tip": "The color of the direct light will be rendered directly on the screen"},
-    "fileScene-events": {"label": "Events", "tip": "A list of scene events that will stop execution when the scene is destroyed\n$Optional types\nCreate: Triggered at scene initialization (once)\nAutorun: Triggered when the scene is loaded (including after loading savedata)"},
+    "fileScene-ambient-direct-box": {"label": "Direct Light Ratio", "tip": "Adjusts how much direct light affects the final rendered color"},
+    "fileScene-events": {"label": "Events", "tip": "A list of scene events that stop execution when the scene is destroyed\n$Optional types\nCreate: Triggered at scene initialization (once)\nAutorun: Triggered when the scene is loaded (including after loading save data)"},
     "fileScene-scripts": {"label": "Scripts", "tip": "Add script files to extend this scene"},
 
     "[comment]": "********** Inspector - File - UI **********",
     "fileUI-foreground-grid": {"label": "Stage Foreground"},
-    "fileUI-width": {"label": "Width", "tip": "The width of the UI stage container, which is only used for preview"},
-    "fileUI-height": {"label": "Height", "tip": "The height of the UI stage container, which is only used for preview"},
+    "fileUI-width": {"label": "Width", "tip": "UI stage width (preview only)"},
+    "fileUI-height": {"label": "Height", "tip": "UI stage height (preview only)"},
 
     "[comment]": "********** Inspector - File - Animation **********",
-    "fileAnimation-sprites": {"label": "Sprites", "tip": "Set the spritesheets of this animation for use in sprite layers"},
+    "fileAnimation-sprites": {"label": "Sprites", "tip": "Set spritesheets of this animation for sprite layers"},
 
     "[comment]": "********** Inspector - File - Tileset **********",
     "palette-scroll": {"tip": "$Vertical Scroll Mode\nOn: Slide the mouse wheel to scroll up and down the tileset\nOff: Slide the mouse wheel to zoom in and out the tileset"},
-    "palette-priority": {"tip": "$Priority\nThe sorting priority of tiles when rendering on the object layer.\nTiles positioned below will always overlay tiles above.\nPriority = -1, which means that the sorting position is shifted up by a distance of one tile\nPriority = 1, which means that the sorting position is shifted down by a distance of one tile"},
+    "palette-priority": {"tip": "$Priority\nSorting priority of tiles when rendering on the object layer.\nTiles below always overlay those above.\nPriority = -1: shift sort up by one tile.\nPriority = 1: shift sort down by one tile."},
     "palette-terrain": {"tip": "$Terrain\nLand: Actors with \"land\" or \"unrestricted\" passage terrain can move here\nWater: Actors with \"water\" or \"unrestricted\" passage terrain can move here\nWall: Actors with \"unrestricted\" passage terrain can move here, it can also prevent triggers from passing"},
     "palette-edit": {"tip": "$Edit Auto Tiles\nIf a file of auto tile is open, switch to edit mode and enable the context menu for tiles"},
     "palette-flip": {"tip": "$Flip normal tiles\nFlip selected normal tiles horizontally (does not change auto tiles)"},
     "fileTileset-general-grid": {"label": "Tileset"},
-    "fileTileset-image": {"label": "Image", "tip": "The sprite image for normal tiles"},
-    "fileTileset-width": {"label": "Width", "tip": "The number of horizontal tiles in the tileset (1 ~ 256)"},
-    "fileTileset-height": {"label": "Height", "tip": "The number of vertical tiles in the tileset (1 ~ 256)"},
-    "fileTileset-tileWidth": {"label": "Tile Width", "tip": "The number of horizontal pixels in a single tile (16 ~ 256)"},
-    "fileTileset-tileHeight": {"label": "Tile Height", "tip": "The number of vertical pixels in a single tile (16 ~ 256)"},
-    "fileTileset-globalOffsetX": {"label": "Tile Offset X", "tip": "The horizontal position offset of tiles drawn on the scene"},
-    "fileTileset-globalOffsetY": {"label": "Tile Offset Y", "tip": "The vertical position offset of tiles drawn on the scene"},
-    "fileTileset-globalPriority": {"label": "Tile Priority", "tip": "The sorting priority of tiles when rendering on the object layer.\nTiles positioned below will always overlay tiles above.\nPriority = -1, which means that the sorting position is shifted up by a distance of one tile\nPriority = 1, which means that the sorting position is shifted down by a distance of one tile"},
+    "fileTileset-image": {"label": "Image", "tip": "Sprite image for normal tiles"},
+    "fileTileset-width": {"label": "Width", "tip": "Number of horizontal tiles in tileset (1 ~ 256)"},
+    "fileTileset-height": {"label": "Height", "tip": "Number of vertical tiles in tileset (1 ~ 256)"},
+    "fileTileset-tileWidth": {"label": "Tile Width", "tip": "Horizontal pixels per tile (16 ~ 256)"},
+    "fileTileset-tileHeight": {"label": "Tile Height", "tip": "Vertical pixels per tile (16 ~ 256)"},
+    "fileTileset-globalOffsetX": {"label": "Tile Offset X", "tip": "Horizontal offset of tiles in scene"},
+    "fileTileset-globalOffsetY": {"label": "Tile Offset Y", "tip": "Vertical offset of tiles in scene"},
+    "fileTileset-globalPriority": {"label": "Tile Priority", "tip": "Sorting priority of tiles when rendering on the object layer.\nTiles below always overlay those above.\nPriority = -1: shift sort up by one tile.\nPriority = 1: shift sort down by one tile."},
 
     "[comment]": "********** Inspector - File - Actor **********",
     "fileActor-general-grid": {"label": "General"},
-    "fileActor-portrait": {"label": "Portrait", "tip": "The initial actor portrait\n$Related commands\nChange Actor Portrait, Load Image"},
-    "fileActor-clip": {"label": "Clip", "tip": "The clip area of ​the portrait\n$Related commands\nChange Actor Portrait, Load Image"},
-    "fileActor-animationId": {"label": "Animation", "tip": "The initial actor animation\n$Related command\nChange Actor Animation"},
-    "fileActor-idleMotion": {"label": "Idle Motion", "tip": "The animation motion that plays automatically when the actor is idle\n$Related command\nChange Actor Motion"},
-    "fileActor-moveMotion": {"label": "Move Motion", "tip": "The animation motion that plays automatically when the actor is moving\n$Related command\nChange Actor Motion"},
+    "fileActor-portrait": {"label": "Portrait", "tip": "Initial actor portrait\n$Related commands\nChange Actor Portrait, Load Image"},
+    "fileActor-clip": {"label": "Clip", "tip": "Clip area of portrait\n$Related commands\nChange Actor Portrait, Load Image"},
+    "fileActor-animationId": {"label": "Animation", "tip": "Initial actor animation\n$Related command\nChange Actor Animation"},
+    "fileActor-idleMotion": {"label": "Idle Motion", "tip": "Animation motion that plays when actor is idle\n$Related command\nChange Actor Motion"},
+    "fileActor-moveMotion": {"label": "Move Motion", "tip": "Animation motion that plays when actor is moving\n$Related command\nChange Actor Motion"},
     "fileActor-rotatable": {"label": "Rotatable", "tip": "Whether to automatically update the animation rotation angle", "options": {
-      "true": {"name": "Yes", "tip": "The animation rotates due to its angle"},
-      "false": {"name": "No", "tip": "The animation never rotates"}
+      "true": {"name": "Yes", "tip": "Animation rotates due to angle"},
+      "false": {"name": "No", "tip": "Animation never rotates"}
     }},
-    "fileActor-passage": {"label": "Passable Terrain", "tip": "The initial passable terrain\n$Related command\nChange Passable Terrain", "options": {
-      "land": {"name": "Land", "tip": "The actor can only move on land"},
-      "water": {"name": "Water", "tip": "The actor can only move in water"},
-      "unrestricted": {"name": "Unrestricted", "tip": "The actor can move on land, in water, in walls"}
+    "fileActor-passage": {"label": "Passable Terrain", "tip": "Initial passable terrain\n$Related command\nChange Passable Terrain", "options": {
+      "land": {"name": "Land", "tip": "Actor can only move on land"},
+      "water": {"name": "Water", "tip": "Actor can only move in water"},
+      "unrestricted": {"name": "Unrestricted", "tip": "Actor can move on land, in water, or through walls"}
     }},
-    "fileActor-speed": {"label": "Movement Speed", "tip": "The initial movement speed (unit: tiles/second)\n$Related command\nSet Movement Speed"},
+    "fileActor-speed": {"label": "Movement Speed", "tip": "Initial movement speed (tiles/second)\n$Related command\nSet Movement Speed"},
     "fileActor-shape": {"label": "Collision Shape", "tip": "Shape affects collision determination", "options": {
       "square": {"name": "Square", "tip": "A square centered on the actor's location"},
       "circle": {"name": "Circle", "tip": "A circle centered on the actor's location"}
@@ -1826,28 +1826,28 @@
       "false": {"name": "No", "tip": "This actor's push distance will be calculated based on its weight."}
     }},
     "fileActor-scale": {"label": "Scale", "tip": "Scaling factor for actor animation."},
-    "fileActor-priority": {"label": "Priority", "tip": "Determines the rendering order of actor animations.\nAnimations positioned lower will always cover those above.\nPriority = -1: The rendering position shifts up by one tile.\nPriority = 1: The rendering position shifts down by one tile."},
-    "fileActor-inherit": {"label": "Inherit", "tip": "Inherits specified actor's attributes, skills, equipments, inventory, events, and scripts\nIf the same attribute exists, it overrides the inherited actor's attribute value\nIf the same type of event exists, it overrides the inherited actor's event\nOverridden events can still be triggered using the 'Call Event' command\nHowever, inherited scripts will stack instead of being overridden"},
-    "fileActor-sprites": {"label": "Sprites", "tip": "The replaced spritesheets of the actor animation\n$Related command\nChange Actor Sprite"},
-    "fileActor-attributes": {"label": "Attributes", "tip": "The initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
-    "fileActor-skills": {"label": "Skills", "tip": "The initial skill list\n$Related commands\nChange Actor Skill, Cast Skill"},
-    "fileActor-equipments": {"label": "Equipments", "tip": "The initial equipment list\n$Related command\nChange Actor Equipment"},
-    "fileActor-inventory": {"label": "Inventory", "tip": "The initial inventory list\n$Related command\nSet Inventory"},
-    "fileActor-events": {"label": "Events", "tip": "A list of actor events\nEvents will stop executing when the actor is inactive or destroyed\n$Optional types\nCreate: Triggered at actor initialization (once)\nAutorun: Triggered when the actor appears in a scene (including after loading savedata)\nCollision: Triggered when the actor collides with another. Access \"Target Actor\" to get the actor that collided with this actor\nHit Trigger: Triggered when the actor is hit by a trigger. Access \"Event Trigger\" to get the trigger that collided with this actor\nCustom: Triggered by the \"Call Event\" command"},
+    "fileActor-priority": {"label": "Priority", "tip": "Determines rendering order of actor animations.\nAnimations positioned lower always cover those above.\nPriority = -1: shift sort up by one tile.\nPriority = 1: shift sort down by one tile."},
+    "fileActor-inherit": {"label": "Inherit", "tip": "Inherits specified actor's attributes, skills, equipment, inventory, events, and scripts\nIf the same attribute exists, it overrides the inherited actor's attribute value\nIf the same type of event exists, it overrides the inherited actor's event\nOverridden events can still be triggered using the 'Call Event' command\nHowever, inherited scripts will stack instead of being overridden"},
+    "fileActor-sprites": {"label": "Sprites", "tip": "Replaced spritesheets of actor animation\n$Related command\nChange Actor Sprite"},
+    "fileActor-attributes": {"label": "Attributes", "tip": "Initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
+    "fileActor-skills": {"label": "Skills", "tip": "Initial skill list\n$Related commands\nChange Actor Skill, Cast Skill"},
+    "fileActor-equipments": {"label": "Equipment", "tip": "Initial equipment list\n$Related command\nChange Actor Equipment"},
+    "fileActor-inventory": {"label": "Inventory", "tip": "Initial inventory list\n$Related command\nSet Inventory"},
+    "fileActor-events": {"label": "Events", "tip": "A list of actor events\nEvents stop executing when the actor is inactive or destroyed\n$Optional types\nCreate: Triggered at actor initialization (once)\nAutorun: Triggered when the actor appears in a scene (including after loading save data)\nCollision: Triggered when the actor collides with another. Access \"Target Actor\" to get the actor that collided with this actor\nHit Trigger: Triggered when the actor is hit by a trigger. Access \"Event Trigger\" to get the trigger that collided with this actor\nCustom: Triggered by the \"Call Event\" command"},
     "fileActor-scripts": {"label": "Scripts", "tip": "Add script files to extend this actor"},
 
     "[comment]": "********** Inspector - File - Skill **********",
     "fileSkill-general-grid": {"label": "General"},
     "fileSkill-icon": {"label": "Icon", "tip": "Skill Icon\n$Related command\nLoad Image"},
-    "fileSkill-clip": {"label": "Clip", "tip": "The clip area of ​the icon\n$Related command\nLoad Image"},
+    "fileSkill-clip": {"label": "Clip", "tip": "Clip area of icon\n$Related command\nLoad Image"},
     "fileSkill-inherit": {"label": "Inherit", "tip": "Inherits specified skill's attributes, events, and scripts\nIf the same attribute exists, it overrides the inherited skill's attribute value\nIf the same type of event exists, it overrides the inherited skill's event\nOverridden events can still be triggered using the 'Call Event' command\nHowever, inherited scripts will stack instead of being overridden"},
-    "fileSkill-attributes": {"label": "Attributes", "tip": "The initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
-    "fileSkill-events": {"label": "Events", "tip": "A list of skill events\nEvents will stop executing when the actor is inactive or destroyed\nAccess \"Skill Caster\" to get the actor with this skill\nAccess \"Event Trigger Actor\" to get the actor with this skill\nAccess \"Event Trigger Skill\" to get this skill\n$Optional types\nCast Skill: Triggered by the \"Cast Skill\" command\nAdd Skill: Triggered when an actor adds this skill\nRemove Skill: Triggered when an actor removes this skill\nCustom: Triggered by the \"Call Event\" command"},
+    "fileSkill-attributes": {"label": "Attributes", "tip": "Initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
+    "fileSkill-events": {"label": "Events", "tip": "A list of skill events\nEvents stop executing when the actor is inactive or destroyed\nAccess \"Skill Caster\" to get the actor with this skill\nAccess \"Event Trigger Actor\" to get the actor with this skill\nAccess \"Event Trigger Skill\" to get this skill\n$Optional types\nCast Skill: Triggered by the \"Cast Skill\" command\nAdd Skill: Triggered when an actor adds this skill\nRemove Skill: Triggered when an actor removes this skill\nCustom: Triggered by the \"Call Event\" command"},
     "fileSkill-scripts": {"label": "Scripts", "tip": "Add script files to extend this skill"},
 
     "[comment]": "********** Inspector - File - Trigger **********",
     "fileTrigger-general-grid": {"label": "General"},
-    "fileTrigger-selector": {"label": "Target", "tip": "The trigger collides with the target actor and triggers the \"Hit Actor\" event", "options": {
+    "fileTrigger-selector": {"label": "Target", "tip": "Trigger collides with target actor and triggers the \"Hit Actor\" event", "options": {
       "enemy": {"name": "Enemy", "tip": "Select enemy actors of the skill caster"},
       "friend": {"name": "Friend", "tip": "Select friendly actors of the skill caster"},
       "team": {"name": "Team Member", "tip": "Select team members of the skill caster"},
@@ -1856,44 +1856,44 @@
       "any": {"name": "Any", "tip": "Select any actor"}
     }},
     "fileTrigger-onHitWalls": {"label": "On Hit Walls", "tip": "What to do when the trigger collides with a wall", "options": {
-      "penetrate": {"name": "Penetrate", "tip": "The trigger is not affected when it hits a wall"},
-      "destroy": {"name": "Destroy", "tip": "Destroy the trigger when its anchor point enters a wall"}
+      "penetrate": {"name": "Penetrate", "tip": "Trigger unaffected when hitting wall"},
+      "destroy": {"name": "Destroy", "tip": "Destroy trigger when its anchor point enters a wall"}
     }},
     "fileTrigger-onHitActors": {"label": "On Hit Actors", "tip": "What to do when the trigger collides with an actor", "options": {
-      "penetrate": {"name": "Penetrate", "tip": "The trigger is not affected when it hits an actor"},
-      "destroy": {"name": "Destroy", "tip": "Destroy the trigger when it hits an actor"},
-      "penetrate-destroy": {"name": "Destroy After Multiple Hits", "tip": "The trigger is destroyed after hitting actors times"}
+      "penetrate": {"name": "Penetrate", "tip": "Trigger unaffected when hitting actor"},
+      "destroy": {"name": "Destroy", "tip": "Destroy trigger when it hits an actor"},
+      "penetrate-destroy": {"name": "Destroy After Multiple Hits", "tip": "Trigger is destroyed after specified number of hits"}
     }},
-    "fileTrigger-hitCount": {"label": "Hit Count", "tip": "The maximum number of times the trigger is allowed to hit actors"},
-    "fileTrigger-shape-type": {"label": "Shape", "tip": "The shape of the trigger for collision detection", "options": {
+    "fileTrigger-hitCount": {"label": "Hit Count", "tip": "Max number of times trigger can hit actors"},
+    "fileTrigger-shape-type": {"label": "Shape", "tip": "Shape of trigger for collision detection", "options": {
       "rectangle": {"name": "Rectangle", "tip": "A rectangle with specified width, height, and anchor"},
-      "circle": {"name": "Circle", "tip": "A circle with the trigger as the center and a specified radius"},
-      "sector": {"name": "Sector", "tip": "A sector with the trigger as the center and a specified radius and central angle"}
+      "circle": {"name": "Circle", "tip": "A circle with the trigger as center and a specified radius"},
+      "sector": {"name": "Sector", "tip": "A sector with the trigger as center and a specified radius and central angle"}
     }},
-    "fileTrigger-shape-width": {"label": "Width", "tip": "The horizontal length of the trigger shape when the trigger is facing the right (0 degrees)"},
-    "fileTrigger-shape-height": {"label": "Height", "tip": "The vertical length of the trigger shape when the trigger is facing the right (0 degrees)"},
-    "fileTrigger-shape-anchor": {"label": "Anchor", "tip": "The horizontal position of the connection point between the trigger and the scene when the trigger is facing the right (0 degrees)\n0 = Left\n0.5 = Center\n1 = Right"},
-    "fileTrigger-shape-radius": {"label": "Radius", "tip": "The radius of the trigger shape"},
-    "fileTrigger-shape-centralAngle": {"label": "Central Angle", "tip": "The sector angle"},
-    "fileTrigger-speed": {"label": "Speed", "tip": "The initial movement speed of the trigger (unit: tiles/second)"},
+    "fileTrigger-shape-width": {"label": "Width", "tip": "Horizontal length of trigger shape at 0 degrees"},
+    "fileTrigger-shape-height": {"label": "Height", "tip": "Vertical length of trigger shape at 0 degrees"},
+    "fileTrigger-shape-anchor": {"label": "Anchor", "tip": "Horizontal position of the connection point between trigger and scene at 0 degrees\n0 = Left\n0.5 = Center\n1 = Right"},
+    "fileTrigger-shape-radius": {"label": "Radius", "tip": "Radius of trigger shape"},
+    "fileTrigger-shape-centralAngle": {"label": "Central Angle", "tip": "Sector angle"},
+    "fileTrigger-speed": {"label": "Speed", "tip": "Initial movement speed of trigger (tiles/second)"},
     "fileTrigger-hitMode": {"label": "Hit Mode", "tip": "How often the trigger collides with an actor", "options": {
       "once": {"name": "Once", "tip": "Only hit an actor once"},
-      "once-on-overlap": {"name": "Once On Overlap", "tip": "Only hit an actor once when he overlaps the trigger\nThe actor can be hit again after being separated from the trigger"},
-      "repeat": {"name": "Repeat", "tip": "Hit an actor multiple times, and the interval time can be specified"}
+      "once-on-overlap": {"name": "Once On Overlap", "tip": "Only hit an actor once when overlapping the trigger\nActor can be hit again after separating from the trigger"},
+      "repeat": {"name": "Repeat", "tip": "Hit an actor multiple times; interval can be specified"}
     }},
-    "fileTrigger-hitInterval": {"label": "Hit Interval", "tip": "The time between multiple hits on the same actor"},
-    "fileTrigger-initialDelay": {"label": "Initial Delay", "tip": "The trigger is delayed to activate, and then it can hit actors"},
-    "fileTrigger-effectiveTime": {"label": "Effective Time", "tip": "The duration of the trigger activation state. Once it times out, it will no longer hit an actor\nIf set to 0, it means permanent activation"},
-    "fileTrigger-duration": {"label": "Duration", "tip": "The time the trigger exists, it will be destroyed after timeout\nIf set to 0, it means using the duration of the trigger animation. So the trigger will be destroyed when the animation ends"},
+    "fileTrigger-hitInterval": {"label": "Hit Interval", "tip": "Time between multiple hits on the same actor"},
+    "fileTrigger-initialDelay": {"label": "Initial Delay", "tip": "Delay before trigger activates and can hit actors"},
+    "fileTrigger-effectiveTime": {"label": "Effective Time", "tip": "Duration of trigger activation. When timed out, it no longer hits actors\n0 = permanent activation"},
+    "fileTrigger-duration": {"label": "Duration", "tip": "Duration of trigger existence; destroyed after timeout\n0 = use trigger animation duration (destroy when animation ends)"},
     "fileTrigger-inherit": {"label": "Inherit", "tip": "Inherits specified trigger's events and scripts\nIf the same type of event exists, it overrides the inherited trigger's event\nOverridden events can still be triggered using the 'Call Event' command\nHowever, inherited scripts will stack instead of being overridden"},
     "fileTrigger-animation-grid": {"label": "Animation"},
-    "fileTrigger-animationId": {"label": "Animation", "tip": "The trigger animation"},
+    "fileTrigger-animationId": {"label": "Animation", "tip": "Trigger animation"},
     "fileTrigger-motion": {"label": "Motion", "tip": "Select a motion of the trigger animation"},
-    "fileTrigger-priority": {"label": "Priority", "tip": "The sorting priority of the trigger animation when rendering\nThe animation positioned below will always overlay the animation above\nPriority = -1: The rendering position is shifted up by one tile distance\nPriority = 1: The rendering position is shifted down by one tile distance"},
-    "fileTrigger-offsetY": {"label": "Offset Y", "tip": "The vertical position offset of the trigger animation (unit: pixels)"},
+    "fileTrigger-priority": {"label": "Priority", "tip": "Sorting priority of trigger animation when rendering\nAnimations below always overlay those above\nPriority = -1: shift sort up by one tile.\nPriority = 1: shift sort down by one tile."},
+    "fileTrigger-offsetY": {"label": "Offset Y", "tip": "Vertical offset of trigger animation (pixels)"},
     "fileTrigger-rotatable": {"label": "Rotatable", "tip": "Whether to automatically update the animation rotation angle", "options": {
-      "true": {"name": "Yes", "tip": "The animation rotates due to its angle"},
-      "false": {"name": "No", "tip": "The animation never rotates"}
+      "true": {"name": "Yes", "tip": "Animation rotates due to angle"},
+      "false": {"name": "No", "tip": "Animation never rotates"}
     }},
     "fileTrigger-events": {"label": "Events", "tip": "A list of trigger events\nAccess \"Skill Caster\" to get the actor who is casting the skill\nAccess \"Event Trigger Actor\" to get the actor who is casting the skill\nAccess \"Event Trigger Skill\" to get the skill that created this trigger\n$Optional types\nAutorun: Triggered when the trigger appears in a scene\nHit Actor: Triggered when the trigger collides with an actor. Access \"Event Trigger Actor\" to get the actor who was hit\nDestroy: Triggered before the trigger is destroyed (hit an actor or wall, timeout)"},
     "fileTrigger-scripts": {"label": "Scripts", "tip": "Add script files to extend this trigger"},
@@ -1901,37 +1901,37 @@
     "[comment]": "********** Inspector - File - Item **********",
     "fileItem-general-grid": {"label": "General"},
     "fileItem-icon": {"label": "Icon", "tip": "Item Icon\n$Related command\nLoad Image"},
-    "fileItem-clip": {"label": "Clip", "tip": "The clip area of ​the icon\n$Related command\nLoad Image"},
+    "fileItem-clip": {"label": "Clip", "tip": "Clip area of icon\n$Related command\nLoad Image"},
     "fileItem-inherit": {"label": "Inherit", "tip": "Inherits specified item's attributes, events, and scripts\nIf the same attribute exists, it overrides the inherited item's attribute value\nIf the same type of event exists, it overrides the inherited item's event\nOverridden events can still be triggered using the 'Call Event' command\nHowever, inherited scripts will stack instead of being overridden"},
-    "fileItem-attributes": {"label": "Attributes", "tip": "The attribute list (readonly)\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
+    "fileItem-attributes": {"label": "Attributes", "tip": "Attribute list (readonly)\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
     "fileItem-events": {"label": "Events", "tip": "A list of item events\nAccess \"Event Trigger Actor\" to get the actor that uses this item\nAccess \"Event Trigger Item\" to get this item\n$Optional types\nUse Item: Triggered when the actor uses this item\nCustom: Triggered by the \"Call Event\" command"},
     "fileItem-scripts": {"label": "Scripts", "tip": "Add script files to extend this item"},
 
     "[comment]": "********** Inspector - File - Equipment **********",
     "fileEquipment-general-grid": {"label": "General"},
     "fileEquipment-icon": {"label": "Icon", "tip": "Equipment Icon\n$Related command\nLoad Image"},
-    "fileEquipment-clip": {"label": "Clip", "tip": "The clip area of ​the icon\n$Related command\nLoad Image"},
+    "fileEquipment-clip": {"label": "Clip", "tip": "Clip area of icon\n$Related command\nLoad Image"},
     "fileEquipment-inherit": {"label": "Inherit", "tip": "Inherits specified equipment's attributes, events, and scripts\nIf the same attribute exists, it overrides the inherited equipment's attribute value\nIf the same type of event exists, it overrides the inherited equipment's event\nOverridden events can still be triggered using the 'Call Event' command\nHowever, inherited scripts will stack instead of being overridden"},
-    "fileEquipment-attributes": {"label": "Attributes", "tip": "The initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
+    "fileEquipment-attributes": {"label": "Attributes", "tip": "Initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
     "fileEquipment-events": {"label": "Events", "tip": "A list of equipment events\nAccess \"Event Trigger Actor\" to get the actor with this equipment\nAccess \"Event Trigger Equipment\" to get this equipment\n$Optional types\nCreate: Triggered at equipment initialization (once)\nAdd Equipment: Triggered when the actor adds this equipment\nRemove Equipment: Triggered when the actor removes this equipment\nCustom: Triggered by the \"Call Event\" command"},
     "fileEquipment-scripts": {"label": "Scripts", "tip": "Add script files to extend this equipment"},
 
     "[comment]": "********** Inspector - File - State **********",
     "fileState-general-grid": {"label": "General"},
     "fileState-icon": {"label": "Icon", "tip": "State Icon\n$Related command\nLoad Image"},
-    "fileState-clip": {"label": "Clip", "tip": "The clip area of ​the icon\n$Related command\nLoad Image"},
+    "fileState-clip": {"label": "Clip", "tip": "Clip area of icon\n$Related command\nLoad Image"},
     "fileState-inherit": {"label": "Inherit", "tip": "Inherits specified state's attributes, events, and scripts\nIf the same attribute exists, it overrides the inherited state's attribute value\nIf the same type of event exists, it overrides the inherited state's event\nOverridden events can still be triggered using the 'Call Event' command\nHowever, inherited scripts will stack instead of being overridden"},
-    "fileState-attributes": {"label": "Attributes", "tip": "The initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
+    "fileState-attributes": {"label": "Attributes", "tip": "Initial attribute list\n$Optional types\nBoolean, Number, String, Enumeration(String)\n$Related commands\nSet Boolean, Set Number, Set String"},
     "fileState-events": {"label": "Events", "tip": "A list of state events\nAccess \"Skill Caster\" to get the actor who cast the skill to create this state\nAccess \"Event Trigger Actor\" to get the actor with this state\nAccess \"Event Trigger State\" to get this state\n$Optional types\nAdd State: Triggered when the actor adds this state\nRemove State: Triggered when the actor removes this state\nCustom: Triggered by the \"Call Event\" command"},
     "fileState-scripts": {"label": "Scripts", "tip": "Add script files to extend this state"},
 
     "[comment]": "********** Inspector - File - Event **********",
     "fileEvent-general-grid": {"label": "General"},
-    "fileEvent-type": {"label": "Type", "tip": "Certain specific behaviors will automatically trigger related type events"},
+    "fileEvent-type": {"label": "Type", "tip": "Certain specific behaviors automatically trigger related type events"},
     "fileEvent-enabled": {"label": "Enabled", "tip": "Automatically triggered by event type"},
-    "fileEvent-priority": {"label": "Priority", "tip": "Triggers before element events, not affected by the \"Pause Game\" and \"Prevent Scene Input\" commands"},
-    "fileEvent-namespace": {"label": "Namespace", "tip": "Enable: After the event is called, it will use an independent variable scope\nDisable: After the event is called, it will share the variable scope with the event that called it"},
-    "fileEvent-returnType": {"label": "Return Type", "tip": "Pass the computed result to the calling event through the \"Return\" command", "options": {
+    "fileEvent-priority": {"label": "Priority", "tip": "Triggers before element events; not affected by \"Pause Game\" and \"Prevent Scene Input\" commands"},
+    "fileEvent-namespace": {"label": "Namespace", "tip": "Enable: event uses independent variable scope when called\nDisable: event shares variable scope with caller"},
+    "fileEvent-returnType": {"label": "Return Type", "tip": "Pass computed result to caller via \"Return\"", "options": {
       "none": {"name": "None", "tip": "Does not return any value"},
       "boolean": {"name": "Boolean", "tip": "Returns a boolean value"},
       "number": {"name": "Number", "tip": "Returns a numerical value"},
@@ -1947,13 +1947,13 @@
       "element": {"name": "Element", "tip": "Returns an element object"}
     }},
     "fileEvent-description": {"label": "Description", "tip": "Remarks or description of the event"},
-    "fileEvent-parameters": {"label": "Parameters", "tip": "Parameter values can be passed when calling this event through the \"Call Event\" command\nThe parameter values will automatically be written to these variables when executing the event"},
+    "fileEvent-parameters": {"label": "Parameters", "tip": "Parameter values can be passed when calling this event via \"Call Event\"\nParameters are automatically written to these variables during execution"},
 
     "[comment]": "********** Inspector - File - Image **********",
     "fileImage-info-grid": {"label": "File Info"},
     "fileImage-name": {"label": "Name", "tip": "File Name"},
     "fileImage-size": {"label": "Size", "tip": "File Size"},
-    "fileImage-resolution": {"label": "Resolution", "tip": "Image's resolution"},
+    "fileImage-resolution": {"label": "Resolution", "tip": "Image resolution"},
     "fileImage-image-viewer": {"label": "Image"},
 
     "[comment]": "********** Inspector - File - Audio **********",
@@ -1964,9 +1964,9 @@
     "fileAudio-bitrate": {"label": "Bitrate", "tip": "Audio bitrate - generally, higher = higher audio quality/file size"},
     "fileAudio-mixer-grid": {"label": "Mixer"},
     "fileAudio-volume-box": {"label": "Volume", "tip": "Global volume"},
-    "fileAudio-pan-box": {"label": "Pan", "tip": "Affects volume placement from Left/Right channels\n0%：L/R channel equalization\n-100%：audio on Left only\n+100%：audio on Right only"},
-    "fileAudio-dry-box": {"label": "Reverb - Dry", "tip": "Dry reverb volume, lower indicates greater distance from sound origin"},
-    "fileAudio-wet-box": {"label": "Reverb - Wet", "tip": "Wet reverb volume simulating reverb in a closed space, higher indicates a larger space"},
+    "fileAudio-pan-box": {"label": "Pan", "tip": "Affects volume placement from Left/Right channels\n0%: L/R channel equalization\n-100%: audio on Left only\n+100%: audio on Right only"},
+    "fileAudio-dry-box": {"label": "Reverb - Dry", "tip": "Dry reverb volume; lower indicates greater distance from sound origin"},
+    "fileAudio-wet-box": {"label": "Reverb - Wet", "tip": "Wet reverb volume simulating closed space; higher indicates larger space"},
     "fileAudio-progress-box": {"label": "Progress"},
     "fileAudio-frequency-canvas": {"label": "Frequency"},
 
@@ -1995,17 +1995,17 @@
     "sceneActor-general-grid": {"label": "General"},
     "sceneActor-name": {"label": "Name", "tip": "Actor Name (note: this is a label for user reference only)"},
     "sceneActor-type": {"label": "Type", "tip": "Choose whether to create a temporary or permanent actor", "options": {
-      "local": {"name": "Local Actor", "tip": "A temporary actor that is automatically destroyed when the scene is unloaded"},
-      "global": {"name": "Global Actor", "tip": "A permanent actor, if it already exists, it will be transported to the current scene"}
+      "local": {"name": "Local Actor", "tip": "Temporary actor automatically destroyed when scene unloads"},
+      "global": {"name": "Global Actor", "tip": "Permanent actor; if exists, it is transported to current scene"}
     }},
     "sceneActor-actorId": {"label": "Actor", "tip": "Selected Actor file"},
     "sceneActor-teamId": {"label": "Team", "tip": "Actor's initial Team"},
     "sceneActor-x": {"label": "X", "tip": "Actor's initial horizontal coordinates"},
     "sceneActor-y": {"label": "Y", "tip": "Actor's initial vertical coordinates"},
-    "sceneActor-angle-box": {"label": "Angle", "tip": "Actor's initial angle, affects animation orientation\nShortcut keys （Ctrl+↑/↓/←/→） can quickly set angle for the selected Actor"},
-    "sceneActor-scale-box": {"label": "Scale", "tip": "Actor scaling, affects size of Actor animations and Animation Components"},
-    "sceneActor-conditions": {"label": "Conditions", "tip": "Set a list of conditions for Actor to be created: if they aren't met, the Actor isn't created"},
-    "sceneActor-events": {"label": "Events", "tip": "$Actor Events\nThese events no longer run if the Actor isn't active (is 'dead') or if they're deleted\nThe Events here will trigger instead of those set in the Actor file\n$Event Types\nCreate: Event triggers when Actor is initialized (executed once)\nAutorun: Event triggers as soon as the Actor appears (including after reading save data)\nCollision: Event triggers when the Actor collides with another Actor (Actor Collision rules are set in Window -> Team)\nHit Trigger: Event triggers when the Actor collides with a Trigger (Trigger settings are set in each Trigger file)\nCustom: triggered using the 'Call Event' command"},
+    "sceneActor-angle-box": {"label": "Angle", "tip": "Actor's initial angle; affects animation orientation\nShortcut keys (Ctrl+↑/↓/←/→) set angle quickly for selected Actor"},
+    "sceneActor-scale-box": {"label": "Scale", "tip": "Actor scaling; affects size of Actor animations and Animation Components"},
+    "sceneActor-conditions": {"label": "Conditions", "tip": "Set conditions for Actor creation; if unmet, Actor isn't created"},
+    "sceneActor-events": {"label": "Events", "tip": "$Actor Events\nThese events do not run if Actor isn't active (is 'dead') or if deleted\nEvents here override those in the Actor file\n$Event Types\nCreate: Triggered at Actor initialization (once)\nAutorun: Triggered when Actor appears (including after reading save data)\nCollision: Triggered when Actor collides with another Actor\nHit Trigger: Triggered when Actor collides with a Trigger\nCustom: triggered via 'Call Event'"},
     "sceneActor-scripts": {"label": "Scripts", "tip": "Add Script files to extend Actor functions"},
 
     "[comment]": "********** Inspector - Scene - Region **********",
@@ -2046,7 +2046,7 @@
     "sceneLight-red-box": {"label": "Red", "tip": "Point Light Mode: Red component in the center of light source\nArea Light Mode: Input Color (red) * Mask Color (red) / 255 * Red / 255 = Output Color (red)"},
     "sceneLight-green-box": {"label": "Green", "tip": "Point Light Mode: Green component in the center of light source\nArea Light Mode: Input Color (green) * Mask Color (green) / 255 * Green / 255 = Output Color (green)"},
     "sceneLight-blue-box": {"label": "Blue", "tip": "Point Light Mode: Blue component in the center of light source\nArea Light Mode: Input Color (blue) * Mask Color (blue) / 255 * Blue / 255 = Output Color (blue)"},
-    "sceneLight-direct-box": {"label": "Direct Light Ratio", "tip": "The color of the direct light will be rendered directly on the screen"},
+    "sceneLight-direct-box": {"label": "Direct Light Ratio", "tip": "Adjusts how much direct light affects the final rendered color"},
     "sceneLight-conditions": {"label": "Conditions", "tip": "Set a list of conditions for Light to be created; if they aren't met, the Light isn't created"},
     "sceneLight-events": {"label": "Events", "tip": "$Light Events\nVisit\"Event Triggered Light\"to set the Light\n$Options\nAutorun: Event triggers as soon as the Light appears (including after reading save data)\nCustom: triggered using the 'Call Event' command"},
     "sceneLight-scripts": {"label": "Scripts", "tip": "Add Script files to extend Light functions"},
@@ -2057,14 +2057,14 @@
     "sceneAnimation-animationId": {"label": "Animation", "tip": "Selected Animation File"},
     "sceneAnimation-motion": {"label": "Motion", "tip": "Select an Action in the Animation"},
     "sceneAnimation-rotatable": {"label": "Rotatable", "tip": "Set to automatically update the Animation's rotation angle", "options": {
-      "true": {"name": "Yes", "tip": "The Animation rotates with angle changes"},
-      "false": {"name": "No", "tip": "The Animation doesn't rotate"}
+      "true": {"name": "Yes", "tip": "Animation rotates with angle changes"},
+      "false": {"name": "No", "tip": "Animation doesn't rotate"}
     }},
     "sceneAnimation-x": {"label": "X", "tip": "Animation's initial horizontal coordinates"},
     "sceneAnimation-y": {"label": "Y", "tip": "Animation's initial vertical coordinates"},
     "sceneAnimation-angle-box": {"label": "Angle", "tip": "Animation's initial angle, affects direction of the action"},
     "sceneAnimation-scale-box": {"label": "Scale", "tip": "Animation scaling, affects the size of the Animation"},
-    "sceneAnimation-speed-box": {"label": "Speed", "tip": "The playback speed of the Animation"},
+    "sceneAnimation-speed-box": {"label": "Speed", "tip": "Animation playback speed"},
     "sceneAnimation-opacity-box": {"label": "Opacity", "tip": "Animation's visibility (transparency adjustment)"},
     "sceneAnimation-priority-box": {"label": "Priority", "tip": "Sorting priority of Animation at render time (render layers)\nAnimations with lower Priority will overlap those with higher Priority\nPriority = -1: render position is offset up by one tile\nPriority = 1: render position is offset down by one tile"},
     "sceneAnimation-conditions": {"label": "Conditions", "tip": "Set a list of conditions for the Animation to be created; if they aren't met, the Animation isn't created"},
@@ -2118,8 +2118,8 @@
     "sceneParallax-anchorY": {"label": "Anchor Y", "tip": "Vertical position of rectangular area connection point between Parallax and Scene"},
     "sceneParallax-offsetX": {"label": "Offset X", "tip": "Parallax's horizontal offset distance (in pixels)"},
     "sceneParallax-offsetY": {"label": "Offset Y", "tip": "Parallax's vertical offset distance (in pixels)"},
-    "sceneParallax-parallaxFactorX": {"label": "Parallax Factor X", "tip": "The coefficient for the horizontal movement of the parallax image when the scene camera moves"},
-    "sceneParallax-parallaxFactorY": {"label": "Parallax Factor Y", "tip": "The coefficient for the vertical movement of the parallax image when the scene camera moves"},
+    "sceneParallax-parallaxFactorX": {"label": "Parallax Factor X", "tip": "Coefficient for horizontal parallax movement when camera moves"},
+    "sceneParallax-parallaxFactorY": {"label": "Parallax Factor Y", "tip": "Coefficient for vertical parallax movement when camera moves"},
     "sceneParallax-shiftSpeedX": {"label": "Shift Speed X", "tip": "Parallax's horizontal auto-scroll speed (in pixels per second)"},
     "sceneParallax-shiftSpeedY": {"label": "Shift Speed Y", "tip": "Parallax's vertical auto-scroll speed (in pixels per second)"},
     "sceneParallax-tint-0-box": {"label": "Tint - Red", "tip": "Input color (red) + Hue (red) = Output Color (red)"},
@@ -2158,8 +2158,8 @@
     "sceneTilemap-anchorY": {"label": "Anchor Y", "tip": "Vertical position of rectangular area connection point between Tilemap and Scene"},
     "sceneTilemap-offsetX": {"label": "Offset X", "tip": "Tilemap's horizontal offset distance (in pixels)"},
     "sceneTilemap-offsetY": {"label": "Offset Y", "tip": "Tilemap's vertical offset distance (in pixels)"},
-    "sceneTilemap-parallaxFactorX": {"label": "Parallax Factor X", "tip": "The coefficient for the horizontal movement of the tilemap when the scene camera moves"},
-    "sceneTilemap-parallaxFactorY": {"label": "Parallax Factor Y", "tip": "The coefficient for the vertical movement of the tilemap when the scene camera moves"},
+    "sceneTilemap-parallaxFactorX": {"label": "Parallax Factor X", "tip": "Coefficient for horizontal tilemap movement when camera moves"},
+    "sceneTilemap-parallaxFactorY": {"label": "Parallax Factor Y", "tip": "Coefficient for vertical tilemap movement when camera moves"},
     "sceneTilemap-opacity": {"label": "Opacity", "tip": "Tilemap's visibility (transparency adjustment)"},
     "sceneTilemap-conditions": {"label": "Conditions", "tip": "Set a list of conditions for the Tilemap to be created; if they aren't met, the Tilemap isn't created"},
     "sceneTilemap-events": {"label": "Events", "tip": "$Tilemap Events\n$Options\nAutorun: Event triggers as soon as the Tilemap appears (including after reading save data)\nCustom: triggered using the 'Call Event' command"},
@@ -2167,7 +2167,7 @@
 
     "[comment]": "********** Inspector - UI - Common **********",
     "uiElement-general-grid": {"label": "General"},
-    "uiElement-name": {"label": "Name", "tip": "The remark name of the element"},
+    "uiElement-name": {"label": "Name", "tip": "Element remark name"},
     "uiElement-pointerEvents": {"label": "Pointer Events", "tip": "Whether to allow triggering mouse and touch events for this element", "options": {
       "enabled": {"name": "Enabled", "tip": "Allows triggering pointer events for this element and its descendants"},
       "disabled": {"name": "Disabled", "tip": "Disables triggering pointer events for this element and its descendants"},
@@ -2206,7 +2206,7 @@
     "uiElement-transform-skewY": {"tip": "$Skew Y\nThe vertical skew factor of the element"},
     "uiElement-transform-opacity-box": {"label": "Opacity"},
     "uiElement-transform-opacity": {"tip": "$Opacity\nAdjusts the visibility of the element"},
-    "uiElement-events": {"label": "Events", "tip": "$Element Events\nVisit\"Event Triggered Light\"to set the Element\n$Options\nCreate: Event triggers when Element is initialized (executed once)\nAutorun: Event triggers as soon as the Element appears (including after reading save data)\nMouse Down LB：Event triggers when left mouse button is pressed\nMouse Down RB：Event triggers when right mouse button is pressed\nMouse Down：Event triggers when ANY mouse button is pressed\nMouse Up LB: Event triggers when left mouse button is released\nMouse Up RB： Event triggers when right mouse button is released\nMouse Up: Event triggers when ANY mouse button is released\nMouse Move: Event triggers when mouse moves within an Element\nMouse Enter: Event triggers when mouse enters an Element\nMouse Leave: Event triggers when mouse leaves an Element\nClick: Event triggers when the mouse is clicked and released\nDouble Click: Event triggers when the mouse is clicked & released twice, triggering on the second release\nWheel: Event triggers when the mouse wheel is moved\nKey Down: Event is triggered when a button Element is selected\nKey Up: Event is triggered when a button Element is deselected\nInput: Event triggers when when something is entered in a text box Element\nFocus: Event is triggered when a text box enters the input state, or through a 'Set Focus' event command\nBlur: Event triggers when a text box exits the input state, or through a 'Set Focus' event command\nEvent triggers just as (before) an Element is destroyed\nGamepad Button Press: Event triggers when a gamepad button is pressed \nGamepad Button Release: Event triggers when a gamepad button is released\nLeft Stick Change: Event triggers when the left stick of the gamepad changes (moves)\nRight Stick Change: Event triggers when the right stick of the gamepad changes (moves)\nCustom: triggered using the 'Call Event' command"},
+    "uiElement-events": {"label": "Events", "tip": "$Element Events\nVisit\"Event Triggered Light\"to set the Element\n$Options\nCreate: Event triggers when Element is initialized (executed once)\nAutorun: Event triggers as soon as the Element appears (including after reading save data)\nMouse Down LB: Event triggers when left mouse button is pressed\nMouse Down RB: Event triggers when right mouse button is pressed\nMouse Down: Event triggers when ANY mouse button is pressed\nMouse Up LB: Event triggers when left mouse button is released\nMouse Up RB:  Event triggers when right mouse button is released\nMouse Up: Event triggers when ANY mouse button is released\nMouse Move: Event triggers when mouse moves within an Element\nMouse Enter: Event triggers when mouse enters an Element\nMouse Leave: Event triggers when mouse leaves an Element\nClick: Event triggers when the mouse is clicked and released\nDouble Click: Event triggers when the mouse is clicked & released twice, triggering on the second release\nWheel: Event triggers when the mouse wheel is moved\nKey Down: Event is triggered when a button Element is selected\nKey Up: Event is triggered when a button Element is deselected\nInput: Event triggers when when something is entered in a text box Element\nFocus: Event is triggered when a text box enters the input state, or through a 'Set Focus' event command\nBlur: Event triggers when a text box exits the input state, or through a 'Set Focus' event command\nEvent triggers just as (before) an Element is destroyed\nGamepad Button Press: Event triggers when a gamepad button is pressed \nGamepad Button Release: Event triggers when a gamepad button is released\nLeft Stick Change: Event triggers when the left stick of the gamepad changes (moves)\nRight Stick Change: Event triggers when the right stick of the gamepad changes (moves)\nCustom: triggered using the 'Call Event' command"},
     "uiElement-scripts": {"label": "Scripts", "tip": "Add Script files to extend Element functions"},
 
     "[comment]": "********** Inspector - UI - Image **********",
@@ -2233,8 +2233,8 @@
     "uiImage-shift-box": {"label": "Shift"},
     "uiImage-shiftX": {"tip": "$Offset X\nHorizontal offset of the image texture (unit: pixels)"},
     "uiImage-shiftY": {"tip": "$Offset Y\nVertical offset of the image texture (unit: pixels)"},
-    "uiImage-clip": {"label": "Clip", "tip": "The clipping area of the image"},
-    "uiImage-border": {"label": "Border", "tip": "The image is divided into 9 parts based on the border size (4 corners, 4 edges, and the center rectangle). These parts tile to fill the element. The border size is the side length of the square corners."},
+    "uiImage-clip": {"label": "Clip", "tip": "Clipping area of image"},
+    "uiImage-border": {"label": "Border", "tip": "Image split into 9 parts by border size (4 corners, 4 edges, center). These parts tile to fill the element. Border size = corner side length."},
     "uiImage-tint-0-box": {"label": "Tint - Red", "tip": "Input color (Red) + Hue (Red) = Output color (Red)"},
     "uiImage-tint-1-box": {"label": "Tint - Green", "tip": "Input color (Green) + Hue (Green) = Output color (Green)"},
     "uiImage-tint-2-box": {"label": "Tint - Blue", "tip": "Input color (Blue) + Hue (Blue) = Output color (Blue)"},
@@ -2256,9 +2256,9 @@
     "uiText-align-bottom": {"tip": "$Bottom\nAlign the bottom edge of the text with the bottom edge of the element."},
     "uiText-content": {"label": "Content", "tip": "Text content of the element."},
     "uiText-size-box": {"label": "Size", "tip": "Initial text size (10 ~ 400)."},
-    "uiText-lineSpacing-box": {"label": "Line Spacing", "tip": "The spacing between text lines (in pixels)."},
-    "uiText-letterSpacing-box": {"label": "Letter Spacing", "tip": "The spacing between each character in the same line (in pixels)."},
-    "uiText-color": {"label": "Color", "tip": "The color of the text"},
+    "uiText-lineSpacing-box": {"label": "Line Spacing", "tip": "Spacing between text lines (pixels)"},
+    "uiText-letterSpacing-box": {"label": "Letter Spacing", "tip": "Spacing between characters on the same line (pixels)"},
+    "uiText-color": {"label": "Color", "tip": "Text color"},
     "uiText-font": {"label": "Font", "placeholder": "Default", "tip": "Enter the font name. If there are multiple fonts, separate them with commas, listed from left to right in order of priority."},
     "uiText-typeface": {"label": "Typeface", "tip": "Choose the text style.", "options": {
       "regular": {"name": "Regular", "tip": "Default text style."},
@@ -2272,10 +2272,10 @@
       "stroke": {"name": "Stroke", "tip": "Render an outline with a specified width, with half the width covered by the text."},
       "outline": {"name": "Outline", "tip": "Render the text four times as an outline, displaced by 1 pixel up, down, left, and right."}
     }},
-    "uiText-effect-shadowOffsetX": {"label": "Shadow X", "tip": "The horizontal offset distance of the text shadow (in pixels)."},
-    "uiText-effect-shadowOffsetY": {"label": "Shadow Y", "tip": "The vertical offset distance of the text shadow (in pixels)."},
-    "uiText-effect-strokeWidth": {"label": "Stroke Width", "tip": "The width of the text outline."},
-    "uiText-effect-color": {"label": "Effect Color", "tip": "The color of the background text."},
+    "uiText-effect-shadowOffsetX": {"label": "Shadow X", "tip": "Horizontal offset of text shadow (pixels)"},
+    "uiText-effect-shadowOffsetY": {"label": "Shadow Y", "tip": "Vertical offset of text shadow (pixels)"},
+    "uiText-effect-strokeWidth": {"label": "Stroke Width", "tip": "Text outline width"},
+    "uiText-effect-color": {"label": "Effect Color", "tip": "Background text color"},
     "uiText-overflow": {"label": "Overflow", "tip": "How to handle text that overflows the element's borders.", "options": {
       "visible": {"name": "Visible", "tip": "Allow text to appear outside the element."},
       "wrap": {"name": "Wrap", "tip": "Wrap the text to the next line when it reaches the edge of the element."},
@@ -2290,39 +2290,39 @@
 
     "[comment]": "********** Inspector - UI - TextBox **********",
     "uiTextBox-properties-grid": {"label": "TextBox Properties"},
-    "uiTextBox-type": {"label": "Type", "tip": "The type of content in the textbox.", "options": {
+    "uiTextBox-type": {"label": "Type", "tip": "Type of content in textbox.", "options": {
       "text": {"name": "Text", "tip": "Content can be read using the 'Set String' command."},
       "number": {"name": "Number", "tip": "Content can be read using the 'Set Number' command."}
     }},
-    "uiTextBox-align": {"label": "Align", "tip": "The alignment of the text content.", "options": {
-      "left": {"name": "Left", "tip": "The left edge of the text aligns with the left edge of the input area."},
-      "center": {"name": "Center", "tip": "The horizontal center of the text aligns with the horizontal center of the input area."},
-      "right": {"name": "Right", "tip": "The right edge of the text aligns with the right edge of the input area."}
+    "uiTextBox-align": {"label": "Align", "tip": "Text alignment.", "options": {
+      "left": {"name": "Left", "tip": "Left edge of text aligns with left edge of input area."},
+      "center": {"name": "Center", "tip": "Horizontal center of text aligns with center of input area."},
+      "right": {"name": "Right", "tip": "Right edge of text aligns with right edge of input area."}
     }},
-    "uiTextBox-text": {"label": "Text", "tip": "The initial string content of the textbox."},
-    "uiTextBox-maxLength": {"label": "Max Length", "tip": "The maximum number of characters allowed."},
-    "uiTextBox-number": {"label": "Number", "tip": "The initial numeric content of the textbox."},
-    "uiTextBox-min": {"label": "Min", "tip": "The minimum allowed value."},
-    "uiTextBox-max": {"label": "Max", "tip": "The maximum allowed value."},
-    "uiTextBox-decimals": {"label": "Decimal Places", "tip": "The maximum number of decimal places to retain."},
-    "uiTextBox-padding": {"label": "Padding", "tip": "The distance between the input content area and the left/right edges."},
-    "uiTextBox-size": {"label": "Size", "tip": "The size of the text (10 ~ 400)."},
-    "uiTextBox-font": {"label": "Font", "placeholder": "Default", "tip": "Enter the font name. If multiple fonts are specified, separate them with commas in the order of preference."},
-    "uiTextBox-color": {"label": "Color", "tip": "The color of the text."},
-    "uiTextBox-selectionColor": {"label": "Selection Color", "tip": "The color of the selected text."},
-    "uiTextBox-selectionBgColor": {"label": "Selection Bg Color", "tip": "The background color of the selected text."},
+    "uiTextBox-text": {"label": "Text", "tip": "Initial string content of textbox."},
+    "uiTextBox-maxLength": {"label": "Max Length", "tip": "Maximum number of characters allowed."},
+    "uiTextBox-number": {"label": "Number", "tip": "Initial numeric content of textbox."},
+    "uiTextBox-min": {"label": "Min", "tip": "Minimum allowed value."},
+    "uiTextBox-max": {"label": "Max", "tip": "Maximum allowed value."},
+    "uiTextBox-decimals": {"label": "Decimal Places", "tip": "Maximum decimal places to retain."},
+    "uiTextBox-padding": {"label": "Padding", "tip": "Distance between input area and left/right edges."},
+    "uiTextBox-size": {"label": "Size", "tip": "Text size (10 ~ 400)."},
+    "uiTextBox-font": {"label": "Font", "placeholder": "Default", "tip": "Enter font name. Separate multiple fonts with commas in priority order."},
+    "uiTextBox-color": {"label": "Color", "tip": "Text color."},
+    "uiTextBox-selectionColor": {"label": "Selection Color", "tip": "Selected text color."},
+    "uiTextBox-selectionBgColor": {"label": "Selection Bg Color", "tip": "Background color of selected text."},
 
     "[comment]": "********** Inspector - UI - DialogBox **********",
     "uiDialogBox-properties-grid": {"label": "DialogBox Properties"},
-    "uiDialogBox-content": {"label": "Content", "tip": "The text content of the element."},
+    "uiDialogBox-content": {"label": "Content", "tip": "Text content of the element."},
     "uiDialogBox-interval": {"label": "Print Interval", "tip": "If set to 0, all text will be printed at once. Otherwise, the text will be printed continuously at intervals until finished or the current page is filled."},
-    "uiDialogBox-size-box": {"label": "Size", "tip": "The size of the text (10 ~ 400)."},
-    "uiDialogBox-lineSpacing-box": {"label": "Line Spacing", "tip": "The line spacing for the text."},
-    "uiDialogBox-letterSpacing-box": {"label": "Letter Spacing", "tip": "The spacing between letters on the same line."},
-    "uiDialogBox-color": {"label": "Color", "tip": "The color of the text."},
+    "uiDialogBox-size-box": {"label": "Size", "tip": "Text size (10 ~ 400)."},
+    "uiDialogBox-lineSpacing-box": {"label": "Line Spacing", "tip": "Line spacing for the text."},
+    "uiDialogBox-letterSpacing-box": {"label": "Letter Spacing", "tip": "Letter spacing on the same line."},
+    "uiDialogBox-color": {"label": "Color", "tip": "Text color."},
     "uiDialogBox-font": {"label": "Font", "placeholder": "Default", "tip": "Enter the font name. If there are multiple fonts, separate them with commas in order of preference."},
     "uiDialogBox-typeface": {"label": "Typeface", "tip": "Select the style of the text.", "options": {
-      "regular": {"name": "Regular", "tip": "The default text style."},
+      "regular": {"name": "Regular", "tip": "Default text style."},
       "bold": {"name": "Bold", "tip": "Bold for emphasis."},
       "italic": {"name": "Italic", "tip": "Italic to simulate cursive."},
       "bold-italic": {"name": "Bold Italic", "tip": "Both bold and italic are applied."}
@@ -2333,10 +2333,10 @@
       "stroke": {"name": "Stroke", "tip": "Render the text outline with a specified width, with half the width hidden by the text."},
       "outline": {"name": "Outline", "tip": "Render the text outline four times at a 1-pixel offset in all directions."}
     }},
-    "uiDialogBox-effect-shadowOffsetX": {"label": "Shadow X", "tip": "The horizontal offset distance for the text shadow."},
-    "uiDialogBox-effect-shadowOffsetY": {"label": "Shadow Y", "tip": "The vertical offset distance for the text shadow."},
-    "uiDialogBox-effect-strokeWidth": {"label": "Stroke Width", "tip": "The width of the text outline stroke."},
-    "uiDialogBox-effect-color": {"label": "Effect Color", "tip": "The color of the background text."},
+    "uiDialogBox-effect-shadowOffsetX": {"label": "Shadow X", "tip": "Horizontal offset for text shadow."},
+    "uiDialogBox-effect-shadowOffsetY": {"label": "Shadow Y", "tip": "Vertical offset for text shadow."},
+    "uiDialogBox-effect-strokeWidth": {"label": "Stroke Width", "tip": "Text outline width."},
+    "uiDialogBox-effect-color": {"label": "Effect Color", "tip": "Text effect color."},
     "uiDialogBox-blend": {"label": "Blend", "tip": "Choose a blending mode to combine the color with the underlying color.", "options": {
       "normal": {"name": "Normal", "tip": "C = A * (1 - a%) + B * a%"},
       "additive": {"name": "Additive", "tip": "C = min(255, A + B)"},
@@ -2350,8 +2350,8 @@
       "stretch": {"name": "Stretch", "tip": "Stretch the image to fill the element"},
       "clip": {"name": "Clip", "tip": "Crop and stretch the image to fill the element"}
     }},
-    "uiProgressBar-clip": {"label": "Clip", "tip": "The cropping area of the image"},
-    "uiProgressBar-type": {"label": "Type", "tip": "The type of progress bar", "options": {
+    "uiProgressBar-clip": {"label": "Clip", "tip": "Image cropping area"},
+    "uiProgressBar-type": {"label": "Type", "tip": "Progress bar type", "options": {
       "horizontal": {"name": "Horizontal", "tip": "Progress displayed from left to right"},
       "vertical": {"name": "Vertical", "tip": "Progress displayed from bottom to top"},
       "round": {"name": "Circular", "tip": "Progress displayed in clockwise or counterclockwise direction"}
@@ -2384,20 +2384,20 @@
       "clip": {"name": "Clip", "tip": "Crop the image and stretch to fill the element"},
       "slice": {"name": "Slice", "tip": "Slice the image into 9 parts and tile to fill the element"}
     }},
-    "uiButton-normalImage": {"label": "Normal Image", "tip": "The image displayed in the button's normal state"},
-    "uiButton-normalClip": {"label": "Normal Clip", "tip": "The cropping area of the normal image"},
-    "uiButton-hoverImage": {"label": "Hover Image", "tip": "The image displayed when the button is hovered over"},
-    "uiButton-hoverClip": {"label": "Hover Clip", "tip": "The cropping area of the hovered image"},
-    "uiButton-activeImage": {"label": "Active Image", "tip": "The image displayed when the button is pressed"},
-    "uiButton-activeClip": {"label": "Active Clip", "tip": "The cropping area of the pressed image"},
+    "uiButton-normalImage": {"label": "Normal Image", "tip": "Image shown in button's normal state"},
+    "uiButton-normalClip": {"label": "Normal Clip", "tip": "Cropping area of normal image"},
+    "uiButton-hoverImage": {"label": "Hover Image", "tip": "Image shown when button is hovered"},
+    "uiButton-hoverClip": {"label": "Hover Clip", "tip": "Cropping area of hovered image"},
+    "uiButton-activeImage": {"label": "Active Image", "tip": "Image shown when button is pressed"},
+    "uiButton-activeClip": {"label": "Active Clip", "tip": "Cropping area of pressed image"},
     "uiButton-flip": {"label": "Flip", "tip": "How to flip the button image", "options": {
       "none": {"name": "None", "tip": "Display the image normally"},
       "horizontal": {"name": "Horizontal", "tip": "Flip the image 180 degrees horizontally"},
       "vertical": {"name": "Vertical", "tip": "Flip the image 180 degrees vertically"},
       "both": {"name": "Both", "tip": "Flip the image horizontally and vertically"}
     }},
-    "uiButton-border": {"label": "Border", "tip": "The image is sliced into 9 parts based on the border size (4 corners, 4 edges, and 1 center rectangle), tiled to fill the element. The border size is the side length of the square corners"},
-    "uiButton-imagePadding-box": {"label": "Padding", "tip": "The space kept between the image and the element's border"},
+    "uiButton-border": {"label": "Border", "tip": "Image sliced into 9 parts (4 corners, 4 edges, 1 center). Border size is corner side length"},
+    "uiButton-imagePadding-box": {"label": "Padding", "tip": "Space between image and element border"},
     "uiButton-imageOpacity-box": {"label": "Opacity", "tip": "Used to adjust the image's visibility"},
     "uiButton-imageEffect": {"label": "Effect", "tip": "Select the effect for the image", "options": {
       "none": {"name": "None", "tip": "Display the original image"},
@@ -2405,9 +2405,9 @@
       "tint-2": {"name": "Tint (Normal, Hover)", "tip": "Set separate tints for the normal and hover images, with the active image inheriting the hover image's tint"},
       "tint-3": {"name": "Tint (Normal, Hover, Active)", "tip": "Set separate tints for the normal, hover, and active images"}
     }},
-    "uiButton-normalTint-box": {"label": "Normal Tint", "tip": "The tint for the button in the normal state"},
-    "uiButton-hoverTint-box": {"label": "Hover Tint", "tip": "The tint for the button in the hover state"},
-    "uiButton-activeTint-box": {"label": "Active Tint", "tip": "The tint for the button in the active state"},
+    "uiButton-normalTint-box": {"label": "Normal Tint", "tip": "Tint for button in normal state"},
+    "uiButton-hoverTint-box": {"label": "Hover Tint", "tip": "Tint for button in hover state"},
+    "uiButton-activeTint-box": {"label": "Active Tint", "tip": "Tint for button in active state"},
     "uiButton-text-properties-grid": {"label": "Text Properties"},
     "uiButton-direction": {"label": "Direction", "tip": "Choose the text layout direction", "options": {
       "horizontal-tb": {"name": "Horizontal", "tip": "Content flows horizontally from left to right"},
@@ -2423,7 +2423,7 @@
     "uiButton-content": {"label": "Content", "tip": "Text content of the element"},
     "uiButton-size-box": {"label": "Size", "tip": "Text size (10 ~ 400)"},
     "uiButton-letterSpacing-box": {"label": "Letter Spacing", "tip": "Spacing between each letter on the same line"},
-    "uiButton-textPadding-box": {"label": "Padding", "tip": "The space kept between the text and the element's border"},
+    "uiButton-textPadding-box": {"label": "Padding", "tip": "Space between text and element border"},
     "uiButton-font": {"label": "Font", "placeholder": "Default", "tip": "Enter the font name. If there are multiple fonts, separate them with commas in left-to-right priority order"},
     "uiButton-typeface": {"label": "Typeface", "tip": "Select the text style", "options": {
       "regular": {"name": "Regular", "tip": "Default text style"},
@@ -2519,7 +2519,7 @@
     }},
     "animMotion-skip": {"label": "Skip Last Frame", "tip": "Skip the last frame when the animation reaches the end (used for looping transition animations)"},
     "animMotion-loop": {"label": "Loop", "tip": "Automatically returns to the starting frame and continues playing after the animation ends"},
-    "animMotion-loopStart": {"label": "Loop Start", "tip": "The starting position of the animation loop"},
+    "animMotion-loopStart": {"label": "Loop Start", "tip": "Animation loop starting position"},
 
     "[comment]": "********** Inspector - Animation - Joint Frame **********",
     "animJointFrame-properties-grid": {"label": "Frame"},
@@ -2544,7 +2544,7 @@
     }},
     "animSpriteLayer-light": {"label": "Light", "tip": "Affects the rendering effect of the image", "options": {
       "raw": {"name": "Raw", "tip": "Not affected by lighting"},
-      "anchor": {"name": "Anchor Sampling", "tip": "Samples light from the image’s anchor point to blend the color"},
+      "anchor": {"name": "Anchor Sampling", "tip": "Samples light from the image's anchor point to blend the color"},
       "global": {"name": "Global Sampling", "tip": "Samples light from multiple pixel locations of the image to blend the color"}
     }},
 
@@ -2576,14 +2576,14 @@
     "animParticleLayer-properties-grid": {"label": "Particle Layer"},
     "animParticleLayer-particleId": {"label": "Particle", "tip": "Select a particle file"},
     "animParticleLayer-position": {"label": "Position", "tip": "Is the reference for particle movement based on the scene or the animation", "options": {
-      "absolute": {"name": "Absolute", "tip": "The emitted particles' position is not affected by the animation"},
-      "relative": {"name": "Relative", "tip": "The emitted particles follow the animation's movement"}
+      "absolute": {"name": "Absolute", "tip": "Emitted particles' position not affected by animation"},
+      "relative": {"name": "Relative", "tip": "Emitted particles follow animation movement"}
     }},
     "animParticleLayer-angle": {"label": "Angle", "tip": "Should the particle's emission and movement angle be adjusted", "options": {
-      "default": {"name": "Default", "tip": "The particle's emission and movement angles follow the preset behavior"},
-      "inherit": {"name": "Inherit", "tip": "The particle's emission and movement angles are affected by the animation and the rotation angle of the parent layer"}
+      "default": {"name": "Default", "tip": "Particle emission and movement angles follow preset behavior"},
+      "inherit": {"name": "Inherit", "tip": "Particle emission and movement angles affected by animation and parent rotation"}
     }},
-    "animParticleLayer-order": {"label": "Order", "tip": "The rendering order of particles relative to animation sprites", "options": {
+    "animParticleLayer-order": {"label": "Order", "tip": "Rendering order of particles vs animation sprites", "options": {
       "before": {"name": "Below Sprites", "tip": "Particles are rendered earlier than sprites"},
       "after": {"name": "Above Sprites", "tip": "Particles are rendered later than sprites"}
     }},
@@ -2617,7 +2617,7 @@
 
     "[comment]": "********** Inspector - Particle - Layer **********",
     "particleLayer-general-grid": {"label": "General"},
-    "particleLayer-name": {"label": "Name", "tip": "The label name of the layer"},
+    "particleLayer-name": {"label": "Name", "tip": "Layer label"},
     "particleLayer-area-type": {"label": "Emission Area", "tip": "Where the particles are emitted", "options": {
       "point": {"name": "Point", "tip": "Emit particles from a fixed point"},
       "rectangle": {"name": "Rectangle", "tip": "Emit particles from random positions within a rectangle"},
@@ -2632,7 +2632,7 @@
     "particleLayer-count": {"label": "Emission Count", "tip": "Total number of particles to emit. Set to 0 to have no limit on the number"},
     "particleLayer-delay": {"label": "Initial Delay", "tip": "Time before the first particle is emitted"},
     "particleLayer-interval": {"label": "Interval", "tip": "Time interval between emitting each particle"},
-    "particleLayer-lifetime": {"label": "Lifetime", "tip": "The lifetime of a particle from creation to destruction"},
+    "particleLayer-lifetime": {"label": "Lifetime", "tip": "Particle lifetime from creation to destruction"},
     "particleLayer-lifetimeDev": {"label": "Lifetime Dev", "tip": "Maximum deviation range for the lifetime\nActual lifetime is a random value\nMin = Lifetime - Deviation\nMax = Lifetime + Deviation"},
     "particleLayer-fadeout": {"label": "Fadeout", "tip": "Time for the particle to transition to complete transparency before destruction"},
     "particleLayer-anchor-grid": {"label": "Anchor"},
@@ -2701,7 +2701,7 @@
     "particleLayer-scale-accel-0": {"tip": "$Scaling Acceleration\nThe rate of change of 'Scaling Speed' per second"},
     "particleLayer-scale-accel-1": {"tip": "#deviation"},
     "particleLayer-rendering-grid": {"label": "Rendering"},
-    "particleLayer-image": {"label": "Image", "tip": "The sprite image for the particle element"},
+    "particleLayer-image": {"label": "Image", "tip": "Sprite image for particle element"},
     "particleLayer-blend": {"label": "Blend", "tip": "Select a formula to blend the color with the underlying color", "options": {
       "normal": {"name": "Normal", "tip": "C = A * (1 - a%) + B * a%"},
       "additive": {"name": "Additive", "tip": "C = min(255, A + B)"},
@@ -2724,7 +2724,7 @@
     }},
     "particleLayer-sprite-hframes": {"label": "Horiz Frames", "tip": "Divide the particle sprite sheet into equal horizontal sections"},
     "particleLayer-sprite-vframes": {"label": "Vert Frames", "tip": "Divide the particle sprite sheet into equal vertical sections"},
-    "particleLayer-sprite-interval": {"label": "Animation Interval", "tip": "The duration each animation frame sprite stays on screen"},
+    "particleLayer-sprite-interval": {"label": "Animation Interval", "tip": "Duration each animation frame sprite stays on screen"},
     "particleLayer-color-mode": {"label": "Color Mode", "tip": "Choose a mode to fill the particle color", "options": {
       "fixed": {"name": "Fixed", "tip": "Specify a fixed color"},
       "random": {"name": "Random", "tip": "Specify a color range, randomly generate a color"},
@@ -2794,9 +2794,9 @@
 
     "[comment]": "********** Auto Tile - Generate Frames **********",
     "autoTile-generateFrames": {"title": "Generate Frames"},
-    "autoTile-generateFrames-strideX": {"label": "Stride X", "tip": "The horizontal offset of the generated animation frame relative to the previous frame"},
-    "autoTile-generateFrames-strideY": {"label": "Stride Y", "tip": "The vertical offset of the generated animation frame relative to the previous frame"},
-    "autoTile-generateFrames-count": {"label": "Count", "tip": "The total number of animation frames to generate, with the selected animation frame as a reference"},
+    "autoTile-generateFrames-strideX": {"label": "Stride X", "tip": "Horizontal offset of generated frame relative to previous"},
+    "autoTile-generateFrames-strideY": {"label": "Stride Y", "tip": "Vertical offset of generated frame relative to previous"},
+    "autoTile-generateFrames-count": {"label": "Count", "tip": "Total number of animation frames to generate (selected frame as reference)"},
 
     "[comment]": "********** Auto Tile - Frame Index **********",
     "autoTile-frameIndex": {"title": "Frame"},
@@ -2806,8 +2806,8 @@
 
     "[comment]": "********** Shift Scene **********",
     "scene-shift": {"title": "Shift"},
-    "scene-shift-x": {"label": "Shift X", "tip": "The horizontal offset distance of the scene object"},
-    "scene-shift-y": {"label": "Shift Y", "tip": "The vertical offset distance of the scene object"},
+    "scene-shift-x": {"label": "Shift X", "tip": "Horizontal offset of the scene object"},
+    "scene-shift-y": {"label": "Shift Y", "tip": "Vertical offset of the scene object"},
 
     "[comment]": "********** Object Folders **********",
     "object-folder": {"title": "Default Object Folders"},
@@ -2824,7 +2824,7 @@
     "newProject-template": {"label": "Template", "tip": "Select a game template for the new project", "options": {
       "minimized-project": {"name": "Minimized Current Project", "tip": "Minimized Current Project\n - Export the currently open project to another location and discard unused files to reduce space usage"}
     }},
-    "newProject-folder": {"label": "Folder", "tip": "The name of the new project folder"},
+    "newProject-folder": {"label": "Folder", "tip": "Name of the new project folder"},
     "newProject-location-box": {"label": "Location"},
     "newProject-location": {"tip": "$Location\nCreate a new project folder at this location"},
     "newProject-choose": {"tip": "$Choose Folder\nOpen the operating system dialog to select a folder as the path"},
@@ -2832,7 +2832,7 @@
     "[comment]": "********** Deployment **********",
     "deployment": {"title": "Deployment"},
     "deployment-platform": {"label": "Platform", "tip": "Select a target operating system platform"},
-    "deployment-folder": {"label": "Folder", "tip": "The name of the output folder"},
+    "deployment-folder": {"label": "Folder", "tip": "Name of the output folder"},
     "deployment-location-box": {"label": "Output Location"},
     "deployment-location": {"tip": "$Output Location\nCreate an output folder at this location"},
     "deployment-choose": {"tip": "$Choose Folder\nOpen the operating system dialog to select a folder as the path"},
@@ -2844,22 +2844,22 @@
     "[comment]": "********** Project Settings **********",
     "project-settings": {"title": "Project Settings"},
     "config-window-summary": {"content": "Window"},
-    "config-window-title": {"label": "Title", "tip": "The title of the game window"},
-    "config-window-width": {"label": "Width", "tip": "The width of the game window, unaffected by maximizing or fullscreen mode"},
-    "config-window-height": {"label": "Height", "tip": "The height of the game window, unaffected by maximizing or fullscreen mode"},
+    "config-window-title": {"label": "Title", "tip": "Game window title"},
+    "config-window-width": {"label": "Width", "tip": "Game window width (unaffected by maximize/fullscreen)"},
+    "config-window-height": {"label": "Height", "tip": "Game window height (unaffected by maximize/fullscreen)"},
     "config-window-display": {"label": "Display", "tip": "Select a window mode\nScale the game screen proportionally", "options": {
       "windowed": {"name": "Windowed", "tip": "Run the game in windowed mode"},
       "maximized": {"name": "Maximized", "tip": "Run the game in maximized window mode"},
       "fullscreen": {"name": "Fullscreen", "tip": "Run the game in fullscreen mode"}
     }},
     "config-resolution-summary": {"content": "Resolution"},
-    "config-resolution-width": {"label": "Width", "tip": "The actual width of the game canvas, automatically scaled when the window size changes (saved after deployment)"},
-    "config-resolution-height": {"label": "Height", "tip": "The actual height of the game canvas, automatically scaled when the window size changes (saved after deployment)"},
+    "config-resolution-width": {"label": "Width", "tip": "Actual game canvas width, auto-scaled when window changes (saved after deployment)"},
+    "config-resolution-height": {"label": "Height", "tip": "Actual game canvas height, auto-scaled when window changes (saved after deployment)"},
     "config-resolution-sceneScale": {"label": "Scene Scale", "tip": "Scale the scene objects proportionally (saved after deployment)"},
     "config-resolution-uiScale": {"label": "UI Scale", "tip": "Scale the user interface proportionally (saved after deployment)"},
     "config-scene-summary": {"content": "Scene"},
-    "config-scene-padding": {"label": "Padding", "tip": "The maximum distance the camera can move outside the scene. If set to 0, the camera is always locked within the scene"},
-    "config-scene-animationInterval": {"label": "Tile Animation Interval", "tip": "The interval time for automatic tile animation frames"},
+    "config-scene-padding": {"label": "Padding", "tip": "Maximum camera distance outside scene. Set 0 to lock camera inside scene"},
+    "config-scene-animationInterval": {"label": "Tile Animation Interval", "tip": "Interval for automatic tile animation frames"},
     "config-tileArea-summary": {"content": "Tile Rendering Area"},
     "config-tileArea-expansionTop": {"label": "Expansion Top", "tip": "Render tiles a specified distance outside the top edge of the screen"},
     "config-tileArea-expansionLeft": {"label": "Expansion Left", "tip": "Render tiles a specified distance outside the left edge of the screen"},
@@ -2891,13 +2891,13 @@
     }},
     "config-collision-scene-actorSize": {"label": "Scene Collision Actor Size", "tip": "When colliding with the scene, the actor is treated as a sphere with this diameter as its collision size"},
     "config-collision-trigger-collideWithActorShape": {"label": "Trigger Collision Mode", "tip": "Select the collision detection mode for triggers with actors", "options": {
-        "true": {"name": "Collide With Actor Shape", "tip": "The collision is detected when the actor's shape overlaps with the trigger's shape.\nMore accurate collision detection"},
-        "false": {"name": "Collide With Actor Anchor", "tip": "The collision is detected when the actor's anchor point is inside the trigger's shape.\nBetter performance"}
+        "true": {"name": "Collide With Actor Shape", "tip": "Collision detected when actor's shape overlaps trigger shape.\nMore accurate collision detection"},
+        "false": {"name": "Collide With Actor Anchor", "tip": "Collision detected when actor's anchor point is inside trigger shape.\nBetter performance"}
       }
     },
     "config-text-summary": {"content": "Text"},
     "config-text-importedFonts": {"label": "Imported Fonts", "tip": "Import external fonts. The font name is the filename (without the extension).\nImporting too many fonts will extend initial loading time"},
-    "config-text-fontFamily": {"label": "Default Font Family", "tip": "The default font used for text, textbox, and dialogbox elements\nIf multiple fonts are specified, separate them with commas, ordered from left to right in priority"},
+    "config-text-fontFamily": {"label": "Default Font Family", "tip": "Default font for text, textbox, and dialogbox elements\nSeparate multiple fonts with commas in priority order"},
     "config-text-highDefinition": {"label": "High Definition", "tip": "Whether to render high-definition text textures", "options": {
       "true": {"name": "Yes", "tip": "Render larger text textures, text remains sharp when scaled or rotated, but consumes more GPU memory"},
       "false": {"name": "No", "tip": "Render normal-sized text textures, text may appear blurry when scaled or rotated, but has better GPU performance"}
@@ -2905,10 +2905,10 @@
     "config-actor-summary": {"content": "Actor"},
     "config-actor-tempAttributes": {"label": "Actor Temporary Attributes", "tip": "All actors automatically add preset temporary attributes when initialized. These attributes cannot be saved and will be reset after loading a saved game"},
     "config-animation-summary": {"content": "Animation"},
-    "config-animation-frameRate": {"label": "Frame Rate", "tip": "The number of animation timeline frames played per second. The actual rendered animation frames are interpolated based on FPS"},
+    "config-animation-frameRate": {"label": "Frame Rate", "tip": "Number of animation timeline frames per second. Rendered frames are interpolated based on FPS"},
     "config-soundAttenuation-summary": {"content": "Sound Attenuation"},
     "config-soundAttenuation-distance": {"label": "Attenuation Distance", "tip": "When playing 'Attenuated sound effects',\nIf the camera center is at the sound effect position, the volume is 1.\nWhen the camera center is at or beyond the attenuation distance from the sound effect, the volume is 0"},
-    "config-soundAttenuation-easingId": {"label": "Attenuation Easing", "tip": "The interpolation curve from volume 1 to volume 0"},
+    "config-soundAttenuation-easingId": {"label": "Attenuation Easing", "tip": "Interpolation curve from volume 1 to 0"},
     "config-webgl-summary": {"content": "WebGL"},
     "config-webgl-desynchronized": {"label": "Low Latency Mode", "tip": "Optional parameter for WebGL context", "options": {
       "true": {"name": "Enable", "tip": "Reduces input latency and improves interaction responsiveness, but may cause slight screen tearing.\nMay crash when running in fullscreen on some AMD hardware PCs."},
@@ -2928,7 +2928,7 @@
       "false": {"name": "Disable", "tip": "Disable automatic compilation and use the code editor's compilation feature instead."}
     }},
     "config-save-summary": {"content": "Save"},
-    "config-save-location": {"label": "Save Location", "tip": "The parent directory where game save data is stored.", "options": {
+    "config-save-location": {"label": "Save Location", "tip": "Parent directory where game save data is stored.", "options": {
       "app-data": {"name": "User Data Directory", "tip": "This directory is the user's application data folder on different platforms.\nWindows: C:\\Users\\UserName\\AppData\\Roaming\\\nmacOS: /Users/UserName/Library/Application Support/\nLinux: /home/UserName/.config/"},
       "documents": {"name": "User Documents Directory", "tip": "If you want saves to be stored in the 'Documents' folder, making it easily accessible to users.\nWindows: C:\\Users\\UserName\\Documents\\\nmacOS: /Users/UserName/Documents/\nLinux: /home/UserName/Documents/"},
       "local": {"name": "Application Local Directory", "tip": "Saves are stored in the local directory, making it easier to inspect save data during development.\nHowever, there is a risk of accidental overwrites when updating the application."}
@@ -2936,7 +2936,7 @@
     "config-save-subdir": {"label": "Subdirectory", "tip": "Relative to the save location, setting a unique directory name can prevent conflicts with other applications' data.\n"},
     "config-localization-summary": {"content": "Localization"},
     "config-localization-languages": {"label": "Languages", "tip": "List of game localization languages, detailed content can be edited in the 'Localization' window"},
-    "config-localization-default": {"label": "Default Game Language", "tip": "The language selected when entering the game. When the game is deployed and the language changes, it will be automatically saved"},
+    "config-localization-default": {"label": "Default Game Language", "tip": "Language selected on game start. When deployed, selected language is saved automatically"},
     "config-other-summary": {"content": "Other Options"},
     "config-preload": {"label": "Preload Files", "tip": "Whether to preload media files when starting the game", "options": {
       "never": {"name": "Never", "tip": "Starts the game quickly, loading image and audio files on demand."},
@@ -2983,19 +2983,19 @@
       "true": {"name": "ON", "tip": "Reverse the animation at the end"},
       "false": {"name": "OFF", "tip": "Replay the animation from the beginning"}
     }},
-    "easing-preview-duration": {"label": "Duration", "tip": "The duration of the transition during preview"},
-    "easing-preview-delay": {"label": "Wait", "tip": "The wait time after the transition ends"},
+    "easing-preview-duration": {"label": "Duration", "tip": "Duration of transition during preview"},
+    "easing-preview-delay": {"label": "Wait", "tip": "Wait time after transition ends"},
 
     "[comment]": "********** Team **********",
     "team": {"title": "Team"},
 
     "[comment]": "********** Object Attribute **********",
     "object-attribute": {"title": "Attribute"},
-    "object-attribute-key": {"label": "Key", "tip": "The name of the attribute"},
-    "object-attribute-boolean-value": {"label": "Boolean", "tip": "The value of the attribute (Boolean)"},
-    "object-attribute-number-value": {"label": "Number", "tip": "The value of the attribute (Number)"},
-    "object-attribute-string-value": {"label": "String", "tip": "The value of the attribute (String)"},
-    "object-attribute-enum-value": {"label": "Option", "tip": "The value of the attribute (Option)"},
+    "object-attribute-key": {"label": "Key", "tip": "Name of the attribute"},
+    "object-attribute-boolean-value": {"label": "Boolean", "tip": "Attribute value (Boolean)"},
+    "object-attribute-number-value": {"label": "Number", "tip": "Attribute value (Number)"},
+    "object-attribute-string-value": {"label": "String", "tip": "Attribute value (String)"},
+    "object-attribute-enum-value": {"label": "Option", "tip": "Attribute value (Option)"},
 
     "[comment]": "********** Condition **********",
     "condition": {"title": "Condition"},
@@ -3030,10 +3030,10 @@
 
     "[comment]": "********** Animation - Sprite **********",
     "fileAnimation-sprite": {"title": "Sprite"},
-    "fileAnimation-sprite-name": {"label": "Name", "tip": "The name of the sprite image"},
+    "fileAnimation-sprite-name": {"label": "Name", "tip": "Sprite image name"},
     "fileAnimation-sprite-image": {"label": "Image", "tip": "Select an image file"},
-    "fileAnimation-sprite-hframes": {"label": "Horiz Frames", "tip": "The number of horizontal divisions in the sprite sheet, rounding down the width of each frame"},
-    "fileAnimation-sprite-vframes": {"label": "Vert Frames", "tip": "The number of vertical divisions in the sprite sheet, rounding down the height of each frame"},
+    "fileAnimation-sprite-hframes": {"label": "Horiz Frames", "tip": "Number of horizontal divisions in the sprite sheet; frame width rounded down"},
+    "fileAnimation-sprite-vframes": {"label": "Vert Frames", "tip": "Number of vertical divisions in the sprite sheet; frame height rounded down"},
 
     "[comment]": "********** Actor - Sprite **********",
     "fileActor-sprite": {"title": "Sprite"},
@@ -3064,7 +3064,7 @@
 
     "[comment]": "********** Event - Parameter **********",
     "fileEvent-parameter": {"title": "Parameter"},
-    "fileEvent-parameter-type": {"label": "Type", "tip": "The type of value received when called", "options": {
+    "fileEvent-parameter-type": {"label": "Type", "tip": "Type of value received when called", "options": {
       "boolean": {"name": "Boolean", "tip": "Pass a boolean value to the initial variable"},
       "number": {"name": "Number", "tip": "Pass a numerical value to the initial variable"},
       "string": {"name": "String", "tip": "Pass a string to the initial variable"},
@@ -3085,7 +3085,7 @@
     "variable": {"title": "Variable"},
     "variable-list": {"label": "List"},
     "variable-properties-flex": {"label": "Properties"},
-    "variable-name": {"label": "Name", "tip": "The name of the variable"},
+    "variable-name": {"label": "Name", "tip": "Variable name"},
     "variable-sort-normal": {"label": "Sort"},
     "variable-sort-normal-label": {"content": "Save to Separate File", "tip": "Write the variable data to a separate save file when saving the game"},
     "variable-sort-shared-label": {"content": "Save to Global File", "tip": "Write the variable data to a global save file when quitting the game"},
@@ -3106,8 +3106,8 @@
     "attribute": {"title": "Attribute"},
     "attribute-list": {"label": "List"},
     "attribute-properties-flex": {"label": "Properties"},
-    "attribute-name": {"label": "Name", "tip": "The name of the attribute"},
-    "attribute-key": {"label": "Key", "placeholder": "Default", "tip": "The key for the attribute, defaults to using the attribute ID as the key"},
+    "attribute-name": {"label": "Name", "tip": "Attribute name"},
+    "attribute-key": {"label": "Key", "placeholder": "Default", "tip": "Attribute key; defaults to attribute ID"},
     "attribute-type-boolean": {"label": "Type"},
     "attribute-type-boolean-label": {"content": "Boolean", "tip": "Can only write boolean values"},
     "attribute-type-number-label": {"content": "Number", "tip": "Can only write numbers"},
@@ -3121,8 +3121,8 @@
     "enum": {"title": "Enumeration"},
     "enum-list": {"label": "List"},
     "enum-properties-flex": {"label": "Properties"},
-    "enum-name": {"label": "Name", "tip": "The name of the enumeration"},
-    "enum-value": {"label": "Value", "placeholder": "Default", "tip": "The value of the enum, defaults to using the enum ID as the value"},
+    "enum-name": {"label": "Name", "tip": "Enumeration name"},
+    "enum-value": {"label": "Value", "placeholder": "Default", "tip": "Enumeration value; defaults to enumeration ID"},
     "enum-note": {"label": "Note", "tip": "Notes about the enum"},
 
     "[comment]": "********** Localization **********",
@@ -3190,7 +3190,7 @@
       "set": {"name": "Set", "tip": "Set to absolute position"},
       "add": {"name": "Add", "tip": "Offset by a certain distance"}
     }},
-    "textPosition-value": {"label": "Value", "tip": "The position of the coordinate"},
+    "textPosition-value": {"label": "Value", "tip": "Coordinate position"},
 
     "[comment]": "********** Tag - Effect **********",
     "textEffect": {"title": "Set Text Effect"},
@@ -3199,10 +3199,10 @@
       "stroke": {"name": "Stroke", "tip": "Render the text outline with the specified width, half of which is covered by the text"},
       "outline": {"name": "Outline", "tip": "Render the text outline by offsetting in four directions by 1 pixel"}
     }},
-    "textEffect-shadowOffsetX": {"label": "Shadow X", "tip": "The horizontal offset of the text shadow"},
-    "textEffect-shadowOffsetY": {"label": "Shadow Y", "tip": "The vertical offset of the text shadow"},
-    "textEffect-strokeWidth": {"label": "Stroke Width", "tip": "The width of the text stroke"},
-    "textEffect-color": {"label": "Effect Color", "tip": "The color of the background text"},
+    "textEffect-shadowOffsetX": {"label": "Shadow X", "tip": "Horizontal offset of text shadow"},
+    "textEffect-shadowOffsetY": {"label": "Shadow Y", "tip": "Vertical offset of text shadow"},
+    "textEffect-strokeWidth": {"label": "Stroke Width", "tip": "Width of text stroke"},
+    "textEffect-color": {"label": "Effect Color", "tip": "Text effect color"},
 
     "[comment]": "********** Tag - Image **********",
     "insertImage": {"title": "Insert Image"},
@@ -3213,9 +3213,9 @@
       "image-clip-size": {"name": "Image - Clip - Size", "tip": "Insert an image and specify the clipping area and size"}
     }},
     "insertImage-image": {"label": "Image", "tip": "Select the image file to insert"},
-    "insertImage-clip": {"label": "Clip", "tip": "The clipping area of the image"},
-    "insertImage-width": {"label": "Width", "tip": "The display width of the image"},
-    "insertImage-height": {"label": "Height", "tip": "The display height of the image"},
+    "insertImage-clip": {"label": "Clip", "tip": "Image clipping area"},
+    "insertImage-width": {"label": "Width", "tip": "Display width of the image"},
+    "insertImage-height": {"label": "Height", "tip": "Display height of the image"},
 
     "[comment]": "********** Tag - Local Variable **********",
     "localVariable": {"title": "Set Local Variable"},
@@ -3232,7 +3232,7 @@
     "[comment]": "********** Language **********",
     "language": {"title": "Language"},
     "language-name": {"label": "Name", "tip": "Choose a language"},
-    "language-font": {"label": "Font", "tip": "The preferred font for this language"},
+    "language-font": {"label": "Font", "tip": "Preferred font for this language"},
     "language-scale": {"label": "Font Scaling Factor", "tip": "Scale the size of all text"},
 
     "[comment]": "********** Export Language Pack **********",
@@ -3246,11 +3246,11 @@
 
     "[comment]": "********** Choice **********",
     "choice": {"title": "Choice"},
-    "choice-content": {"label": "Content", "tip": "The content of the option, which can be read via \"Set String\""},
+    "choice-content": {"label": "Content", "tip": "Option content; readable via \"Set String\""},
 
     "[comment]": "********** Set Key **********",
     "setKey": {"title": "Set Key"},
-    "setKey-key": {"label": "Key", "tip": "Set the key for the transition curve, for access via Javascript"},
+    "setKey-key": {"label": "Key", "tip": "Set the key for the transition curve, for access via JavaScript"},
 
     "[comment]": "********** Set Quantity **********",
     "setQuantity": {"title": "Set Quantity"},
@@ -3296,7 +3296,7 @@
     "[comment]": "********** Actor Getter **********",
     "actorGetter": {"title": "Actor"},
     "actorGetter-type": {"label": "Type", "tip": "如何获取角色", "options": {
-      "trigger": {"name": "Event Trigger Actor", "tip": "The actor that triggered this event, it may be:\nThe actor who owns this event\nThe actor who used the item\nThe actor who added the equipment\nThe actor who cast the skill\nThe actor who got the state"},
+      "trigger": {"name": "Event Trigger Actor", "tip": "Actor that triggered this event, it may be:\nActor who owns this event\nActor who used the item\nActor who added the equipment\nActor who cast the skill\nActor who got the state"},
       "caster": {"name": "Skill Caster", "tip": "Accessible in the 'Cast Skill' event, as well as in trigger and state events"},
       "latest": {"name": "Latest Actor", "tip": "Get the latest created actor, which refreshes when the 'Create Actor' or 'Create Global Actor' command is called"},
       "target": {"name": "Target Actor", "tip": "A temporary container for storing an actor.\nIn an actor 'Collision' event, it refers to the other actor that collided with the 'Trigger Actor'.\nWhen executing the 'Set Target' command, the specified actor is set as the target actor.\nWhen executing the 'Detect Targets' command, a qualifying actor is retrieved from the actor's target pool as the target actor, which may not always exist.\nWhen executing the 'Show Text' command, it is set to the actor obtained from the 'Actor Accessor' in the command, which may not always exist."},
@@ -3307,14 +3307,14 @@
       "variable": {"name": "Variable", "tip": "Get the actor from the specified variable"}
     }},
     "actorGetter-memberId": {"label": "Member ID", "tip": "0 = First member\n1 = Second member\n......"},
-    "actorGetter-actorId": {"label": "Actor", "tip": "The actor file id"},
-    "actorGetter-presetId": {"label": "Data ID", "tip": "The preset actor id in the scene"},
-    "actorGetter-variable": {"label": "Variable", "tip": "The object variable that stores the actor"},
+    "actorGetter-actorId": {"label": "Actor", "tip": "Actor file id"},
+    "actorGetter-presetId": {"label": "Data ID", "tip": "Preset actor id in the scene"},
+    "actorGetter-variable": {"label": "Variable", "tip": "Object variable that stores the actor"},
 
     "[comment]": "********** Skill Getter **********",
     "skillGetter": {"title": "Skill"},
     "skillGetter-type": {"label": "Type", "tip": "How to obtain the skill", "options": {
-      "trigger": {"name": "Event Trigger Skill", "tip": "The skill that triggered this event"},
+      "trigger": {"name": "Event Trigger Skill", "tip": "Skill that triggered this event"},
       "latest": {"name": "Latest Skill", "tip": "Get the most recently created skill, which refreshes when the 'Change Actor Skill' command is called"},
       "by-key": {"name": "By Shortcut Key", "tip": "Get the skill associated with the actor and the shortcut key"},
       "by-id": {"name": "By Skill ID", "tip": "Get the skill associated with the actor and the skill file ID"},
@@ -3328,7 +3328,7 @@
     "[comment]": "********** State Getter **********",
     "stateGetter": {"title": "State"},
     "stateGetter-type": {"label": "Type", "tip": "How to obtain the state", "options": {
-      "trigger": {"name": "Event Trigger State", "tip": "The state that triggered this event"},
+      "trigger": {"name": "Event Trigger State", "tip": "State that triggered this event"},
       "latest": {"name": "Latest State", "tip": "Get the most recently created state, which refreshes when the 'Change Actor State' command is called"},
       "by-id": {"name": "By State ID", "tip": "Get the state associated with the actor and the state file ID"},
       "variable": {"name": "Variable", "tip": "Get the state from the specified variable"}
@@ -3340,7 +3340,7 @@
     "[comment]": "********** Equipment Getter **********",
     "equipmentGetter": {"title": "Equipment"},
     "equipmentGetter-type": {"label": "Type", "tip": "How to obtain the equipment", "options": {
-      "trigger": {"name": "Event Trigger Equipment", "tip": "The equipment that triggered this event"},
+      "trigger": {"name": "Event Trigger Equipment", "tip": "Equipment that triggered this event"},
       "latest": {"name": "Latest Equipment", "tip": "Get the most recently created equipment, which refreshes when the 'Change Actor Equipment' command is called"},
       "by-slot": {"name": "By Equipment Slot", "tip": "Get the equipment from the specified actor's equipment slot"},
       "by-id-equipped": {"name": "By Equipment ID (Equipped)", "tip": "Get the equipment in the slot associated with the actor and the equipment file ID"},
@@ -3355,7 +3355,7 @@
     "[comment]": "********** Item Getter **********",
     "itemGetter": {"title": "Item"},
     "itemGetter-type": {"label": "Type", "tip": "How to obtain the item", "options": {
-      "trigger": {"name": "Event Trigger Item", "tip": "The item that triggered this event"},
+      "trigger": {"name": "Event Trigger Item", "tip": "Item that triggered this event"},
       "latest": {"name": "Latest Item", "tip": "Get the most recently acquired item, which refreshes when the 'Set Inventory' command is called to add items"},
       "by-key": {"name": "By Shortcut Key", "tip": "Get the item in the shortcut bar of the specified actor"},
       "by-id": {"name": "By Item ID", "tip": "Get the item associated with the item file ID of the specified actor"},
@@ -3398,8 +3398,8 @@
     "angleGetter-type": {"label": "Type", "tip": "How to get the angle", "options": {
       "position": {"name": "Towards Position", "tip": "Calculate the angle of the actor towards the target position"},
       "absolute": {"name": "Absolute Angle", "tip": "Specify the angle, 0 degrees = right, clockwise rotation"},
-      "relative": {"name": "Relative Angle", "tip": "The relative angle to the actor's current angle, -180 degrees = opposite direction"},
-      "direction": {"name": "Relative to Direction", "tip": "The relative angle of the actor's current animation direction, affected by the number of animation directions"},
+      "relative": {"name": "Relative Angle", "tip": "Relative angle to actor's current angle, -180 = opposite direction"},
+      "direction": {"name": "Relative to Direction", "tip": "Relative angle of actor's animation direction; affected by number of animation directions"},
       "random": {"name": "Random Angle", "tip": "Randomly generated between 0 ~ 360 degrees"}
     }},
     "angleGetter-position-position": {"label": "Position", "tip": "Calculate the angle towards this position"},
@@ -3408,7 +3408,7 @@
     "[comment]": "********** Trigger Getter **********",
     "triggerGetter": {"title": "Trigger"},
     "triggerGetter-type": {"label": "Type", "tip": "How to get a trigger", "options": {
-      "trigger": {"name": "Event Trigger", "tip": "The trigger that triggered this event"},
+      "trigger": {"name": "Event Trigger", "tip": "Trigger that triggered this event"},
       "latest": {"name": "Latest Trigger", "tip": "Get the latest created trigger, which refreshes when the 'Create Trigger' command is called"},
       "variable": {"name": "Variable", "tip": "Get the trigger from the specified variable"}
     }},
@@ -3417,7 +3417,7 @@
     "[comment]": "********** Light Getter **********",
     "lightGetter": {"title": "Light"},
     "lightGetter-type": {"label": "Type", "tip": "How to get a light source", "options": {
-      "trigger": {"name": "Event Trigger Light", "tip": "The light that triggered this event"},
+      "trigger": {"name": "Event Trigger Light", "tip": "Light that triggered this event"},
       "latest": {"name": "Latest Light", "tip": "Get the latest created light, which refreshes when the 'Create Light' command is called"},
       "by-id": {"name": "By Light ID", "tip": "Get a preset scene light"},
       "variable": {"name": "Variable", "tip": "Get the light from the specified variable"}
@@ -3428,7 +3428,7 @@
     "[comment]": "********** Region Getter **********",
     "regionGetter": {"title": "Region"},
     "regionGetter-type": {"label": "Type", "tip": "How to get a region", "options": {
-      "trigger": {"name": "Event Trigger Region", "tip": "The region that triggered this event"},
+      "trigger": {"name": "Event Trigger Region", "tip": "Region that triggered this event"},
       "by-id": {"name": "By Region ID", "tip": "Get a preset region in the current scene"}
     }},
     "regionGetter-presetId": {"label": "Data ID", "tip": "Get the preset region in the scene"},
@@ -3436,7 +3436,7 @@
     "[comment]": "********** Tilemap Getter **********",
     "tilemapGetter": {"title": "Tilemap"},
     "tilemapGetter-type": {"label": "Type", "tip": "How to get a tilemap", "options": {
-      "trigger": {"name": "Event Trigger Tilemap", "tip": "The tilemap that triggered this event"},
+      "trigger": {"name": "Event Trigger Tilemap", "tip": "Tilemap that triggered this event"},
       "by-id": {"name": "By Tilemap ID", "tip": "Get a preset scene tilemap"}
     }},
     "tilemapGetter-presetId": {"label": "Data ID", "tip": "Get the preset tilemap in the scene"},
@@ -3444,7 +3444,7 @@
     "[comment]": "********** Scene Object Accessor **********",
     "objectGetter": {"title": "Scene Object"},
     "objectGetter-type": {"label": "Type", "tip": "How to get the scene object", "options": {
-      "trigger": {"name": "Event Trigger Object", "tip": "The scene object that triggered this event"},
+      "trigger": {"name": "Event Trigger Object", "tip": "Scene object that triggered this event"},
       "latest": {"name": "Latest Created Object", "tip": "Gets the most recently created scene object, refreshed when the 'Create Object' command is called"},
       "by-id": {"name": "Specified Object ID", "tip": "Gets a predefined object in the scene"},
       "variable": {"name": "Object Variable", "tip": "Gets a scene object stored in a variable"}
@@ -3455,7 +3455,7 @@
     "[comment]": "********** Element Getter **********",
     "elementGetter": {"title": "Element"},
     "elementGetter-type": {"label": "Type", "tip": "How to get an element", "options": {
-      "trigger": {"name": "Event Trigger Element", "tip": "The element that triggered this event"},
+      "trigger": {"name": "Event Trigger Element", "tip": "Element that triggered this event"},
       "latest": {"name": "Latest Element", "tip": "Get the latest created element, which refreshes when the 'Create Element' command is called"},
       "by-id": {"name": "By Element ID", "tip": "Get the latest created element with the specified ID"},
       "by-ancestor-and-id": {"name": "By Ancestor And ID", "tip": "Get the first element with the specified ID among the descendant elements of the specified element"},
@@ -3468,7 +3468,7 @@
     }},
     "elementGetter-ancestor": {"label": "Ancestor", "tip": "Choose the ancestor element of the target"},
     "elementGetter-presetId": {"label": "Data ID", "tip": "Get the preset element"},
-    "elementGetter-index": {"label": "Index", "tip": "The position of the target element in the child element list\nIndex 0 = First child element\nIndex 1 = Second child element\n......"},
+    "elementGetter-index": {"label": "Index", "tip": "Position of target element in child list\nIndex 0 = First child element\nIndex 1 = Second child element\n......"},
     "elementGetter-variable": {"label": "Variable", "tip": "Get the element object from the variable"},
 
     "[comment]": "********** Ancestor Getter **********",
@@ -3492,7 +3492,7 @@
 
     "[comment]": "********** Command - Set Boolean **********",
     "setBoolean": {"title": "Set Boolean"},
-    "setBoolean-variable": {"label": "Variable", "tip": "The target variable to be written"},
+    "setBoolean-variable": {"label": "Variable", "tip": "Target variable to be written"},
     "setBoolean-operation": {"label": "Operation", "options": {
       "set": {"name": "Set", "tip": "Set to the operand"},
       "not": {"name": "Not", "tip": "Set to the opposite value of the operand"},
@@ -3505,21 +3505,21 @@
       "variable": {"name": "Variable", "tip": "Read value from the variable"},
       "list": {"name": "List Item", "tip": "Read the list from the variable, and then read the value from the list at the specified position"},
       "parameter": {"name": "Parameter", "tip": "Parameters entered in the 'Show Text' or 'Show Choices' command"},
-      "script": {"name": "Script", "tip": "Javascript return value"}
+      "script": {"name": "Script", "tip": "JavaScript return value"}
     }},
     "setBoolean-constant-value": {"label": "Constant", "tip": "Fixed value"},
     "setBoolean-common-variable": {"label": "Variable", "tip": "Read data from the variable"},
     "setBoolean-list-index": {"label": "Index", "tip": "Read the value from the Nth (0, 1, 2, ...) position in the list"},
     "setBoolean-parameter-key": {"label": "Param Name", "tip": "Get the value of this parameter"},
-    "setBoolean-script": {"label": "Script", "tip": "Execute Javascript and get the return value"},
+    "setBoolean-script": {"label": "Script", "tip": "Execute JavaScript and get the return value"},
 
     "[comment]": "********** Command - Set Number **********",
     "setNumber": {"title": "Set Number"},
-    "setNumber-variable": {"label": "Variable", "tip": "The target variable to be written"},
+    "setNumber-variable": {"label": "Variable", "tip": "Target variable to be written"},
     "setNumber-operands": {"label": "Expression"},
     "setNumber-operand": {"title": "Number Operand"},
     "setNumber-operation": {"label": "Operation", "tip": "Expression operation", "options": {
-      "set": {"name": "Set", "tip": "The value of the target variable equals the value of the expression"},
+      "set": {"name": "Set", "tip": "Set the target variable to the expression’s value"},
       "add": {"name": "Add", "tip": "Add the value of the expression to the target variable's value"},
       "sub": {"name": "Sub", "tip": "Subtract the value of the expression from the target variable's value"},
       "mul": {"name": "Mul", "tip": "Multiply the target variable's value by the value of the expression"},
@@ -3547,7 +3547,7 @@
       "element": {"name": "Element", "tip": "Element methods"},
       "list": {"name": "List Item", "tip": "Read the list from a variable, then read the value at a specified position in the list"},
       "parameter": {"name": "Parameter", "tip": "Parameters entered in 'Show Text' or 'Show Choices' commands"},
-      "script": {"name": "Script", "tip": "Execute Javascript and get the return value"},
+      "script": {"name": "Script", "tip": "Execute JavaScript and get the return value"},
       "other": {"name": "Other", "tip": "Other methods"}
     }},
     "setNumber-operand-constant-value": {"label": "Constant", "tip": "Fixed value"},
@@ -3579,32 +3579,32 @@
       "actor-ui-y": {"name": "Actor - UI Y", "tip": "Convert the actor's scene Y to UI Y in pixels\nActor UI Y = Actor Screen Y / UI Scale"},
       "actor-screen-x": {"name": "Actor - Screen X", "tip": "Convert the actor's scene X to screen X in pixels"},
       "actor-screen-y": {"name": "Actor - Screen Y", "tip": "Convert the actor's scene Y to screen Y in pixels"},
-      "actor-angle": {"name": "Actor - Angle", "tip": "The angle of the actor"},
-      "actor-direction": {"name": "Actor - Direction Angle", "tip": "The angle corresponding to the direction of the actor animation.\nSingle direction is always 0\nTwo directions may be 0/180\nFour directions may be 0/90/180/270"},
-      "actor-movement-speed": {"name": "Actor - Movement Speed", "tip": "The movement speed of the actor"},
-      "actor-collision-size": {"name": "Actor - Collision Size", "tip": "The collision size of the actor"},
-      "actor-collision-weight": {"name": "Actor - Collision Weight", "tip": "The collision weight of the actor"},
-      "actor-scaling-factor": {"name": "Actor - Scaling Factor", "tip": "The scaling factor of the actor"},
-      "actor-inventory-item-quantity": {"name": "Actor - Item Quantity", "tip": "The number of items in inventory"},
-      "actor-inventory-equipment-quantity": {"name": "Actor - Equipment Quantity", "tip": "The number of equipment items in inventory"},
-      "actor-inventory-money": {"name": "Actor - Inventory Money", "tip": "The amount of money in inventory"},
+      "actor-angle": {"name": "Actor - Angle", "tip": "Actor angle"},
+      "actor-direction": {"name": "Actor - Direction Angle", "tip": "Angle corresponding to actor animation direction.\nSingle direction is 0\nTwo directions may be 0/180\nFour directions may be 0/90/180/270"},
+      "actor-movement-speed": {"name": "Actor - Movement Speed", "tip": "Actor movement speed"},
+      "actor-collision-size": {"name": "Actor - Collision Size", "tip": "Actor collision size"},
+      "actor-collision-weight": {"name": "Actor - Collision Weight", "tip": "Actor collision weight"},
+      "actor-scaling-factor": {"name": "Actor - Scaling Factor", "tip": "Actor scaling factor"},
+      "actor-inventory-item-quantity": {"name": "Actor - Item Quantity", "tip": "Number of items in inventory"},
+      "actor-inventory-equipment-quantity": {"name": "Actor - Equipment Quantity", "tip": "Number of equipment items in inventory"},
+      "actor-inventory-money": {"name": "Actor - Inventory Money", "tip": "Amount of money in inventory"},
       "actor-inventory-used-space": {"name": "Actor - Inventory Used Space", "tip": "Space occupied by items and equipment in the actor's inventory"},
       "actor-inventory-version": {"name": "Actor - Inventory Version", "tip": "Increments when the actor's inventory adds or removes items or equipment"},
       "actor-skill-version": {"name": "Actor - Skill Version", "tip": "Increments when the actor adds or removes skills"},
       "actor-state-version": {"name": "Actor - State Version", "tip": "Increments when the actor adds or removes states"},
       "actor-equipment-version": {"name": "Actor - Equipment Version", "tip": "Increments when the actor equips or unequips equipment"},
       "actor-shortcut-version": {"name": "Actor - Shortcut Version", "tip": "Increments when the actor's shortcut bar is changed"},
-      "actor-animation-current-time": {"name": "Actor - Anim Current Time", "tip": "The elapsed time of the actor animation"},
-      "actor-animation-duration": {"name": "Actor - Anim Duration", "tip": "The duration of the actor animation"},
+      "actor-animation-current-time": {"name": "Actor - Anim Current Time", "tip": "Elapsed time of actor animation"},
+      "actor-animation-duration": {"name": "Actor - Anim Duration", "tip": "Duration of actor animation"},
       "actor-animation-progress": {"name": "Actor - Anim Progress", "tip": "Anim Current Time / Anim Duration"},
       "actor-cooldown-time": {"name": "Actor - Cooldown Time", "tip": "Get the current cooldown time by the specified key"},
       "actor-cooldown-duration": {"name": "Actor - Cooldown Duration", "tip": "Get the cooldown duration by the specified key"},
       "actor-cooldown-progress": {"name": "Actor - Cooldown Progress", "tip": "Cooldown Time / Cooldown Duration"},
-      "skill-cooldown-time": {"name": "Skill - Cooldown Time", "tip": "The cooldown time of the skill"},
-      "skill-cooldown-duration": {"name": "Skill - Cooldown Duration", "tip": "The cooldown duration of the skill"},
+      "skill-cooldown-time": {"name": "Skill - Cooldown Time", "tip": "Skill cooldown time"},
+      "skill-cooldown-duration": {"name": "Skill - Cooldown Duration", "tip": "Skill cooldown duration"},
       "skill-cooldown-progress": {"name": "Skill - Cooldown Progress", "tip": "Cooldown Time / Cooldown Duration"},
-      "state-current-time": {"name": "State - Current Time", "tip": "The current time of the state"},
-      "state-duration": {"name": "State - Duration", "tip": "The duration of the state"},
+      "state-current-time": {"name": "State - Current Time", "tip": "State current time"},
+      "state-duration": {"name": "State - Duration", "tip": "State duration"},
       "state-progress": {"name": "State - Progress", "tip": "Current Time / Duration"},
       "equipment-order": {"name": "Equipment - Order in Inventory", "tip": "Get the order of the equipment in Inventory"},
       "item-order": {"name": "Item - Order in Inventory", "tip": "Get the order of the item in Inventory"},
@@ -3616,35 +3616,35 @@
       "list-length": {"name": "List - Length", "tip": "Get the number of data in the list"}
     }},
     "setNumber-operand-element-property": {"label": "Property", "tip": "Retrieve element property value", "options": {
-      "element-x": {"name": "Element - X", "tip": "The horizontal position of the element (calculated value)"},
-      "element-y": {"name": "Element - Y", "tip": "The vertical position of the element (calculated value)"},
-      "element-width": {"name": "Element - Width", "tip": "The width of the element (calculated value)"},
-      "element-height": {"name": "Element - Height", "tip": "The height of the element (calculated value)"},
+      "element-x": {"name": "Element - X", "tip": "Element horizontal position (calculated)"},
+      "element-y": {"name": "Element - Y", "tip": "Element vertical position (calculated)"},
+      "element-width": {"name": "Element - Width", "tip": "Element width (calculated)"},
+      "element-height": {"name": "Element - Height", "tip": "Element height (calculated)"},
       "element-children-count": {"name": "Element - Number of Children", "tip": "Get the number of child elements of this element"},
       "element-index-of-selected-button": {"name": "Element - Index of the Selected Button", "tip": "Get the position of the selected button of the focused element\n-1 = does not exist\n0 = first button\n1 = second button\n......"},
-      "transform-anchorX": {"name": "Transform - Anchor X", "tip": "The horizontal position of the anchor point in the element relative to the container"},
-      "transform-anchorY": {"name": "Transform - Anchor Y", "tip": "The vertical position of the anchor point in the element relative to the container"},
-      "transform-x": {"name": "Transform - X", "tip": "The horizontal position of the element within the container (pixel value)"},
-      "transform-x2": {"name": "Transform - X2", "tip": "The horizontal position of the element within the container (container width ratio)"},
-      "transform-y": {"name": "Transform - Y", "tip": "The vertical position of the element within the container (pixel value)"},
-      "transform-y2": {"name": "Transform - Y2", "tip": "The vertical position of the element within the container (container height ratio)"},
-      "transform-width": {"name": "Transform - Width", "tip": "The width of the element within the container (pixel value)"},
-      "transform-width2": {"name": "Transform - Width2", "tip": "The width of the element within the container (container width ratio)"},
-      "transform-height": {"name": "Transform - Height", "tip": "The height of the element within the container (pixel value)"},
-      "transform-height2": {"name": "Transform - Height2", "tip": "The height of the element within the container (container height ratio)"},
-      "transform-rotation": {"name": "Transform - Rotation", "tip": "The rotation angle of the element around its anchor point, 0 degrees = right, clockwise rotation"},
-      "transform-scaleX": {"name": "Transform - Scale X", "tip": "The horizontal scaling factor of the element"},
-      "transform-scaleY": {"name": "Transform - Scale Y", "tip": "The vertical scaling factor of the element"},
-      "transform-skewX": {"name": "Transform - Skew X", "tip": "The horizontal skewing factor of the element"},
-      "transform-skewY": {"name": "Transform - Skew Y", "tip": "The vertical skewing factor of the element"},
+      "transform-anchorX": {"name": "Transform - Anchor X", "tip": "Anchor point horizontal position relative to container"},
+      "transform-anchorY": {"name": "Transform - Anchor Y", "tip": "Anchor point vertical position relative to container"},
+      "transform-x": {"name": "Transform - X", "tip": "Horizontal position within container (px)"},
+      "transform-x2": {"name": "Transform - X2", "tip": "Horizontal position within container (container width ratio)"},
+      "transform-y": {"name": "Transform - Y", "tip": "Vertical position within container (px)"},
+      "transform-y2": {"name": "Transform - Y2", "tip": "Vertical position within container (container height ratio)"},
+      "transform-width": {"name": "Transform - Width", "tip": "Width of element within container (px)"},
+      "transform-width2": {"name": "Transform - Width2", "tip": "Width of element within container (container width ratio)"},
+      "transform-height": {"name": "Transform - Height", "tip": "Height of element within container (px)"},
+      "transform-height2": {"name": "Transform - Height2", "tip": "Height of element within container (container height ratio)"},
+      "transform-rotation": {"name": "Transform - Rotation", "tip": "Rotation angle around anchor point; 0° = right, clockwise"},
+      "transform-scaleX": {"name": "Transform - Scale X", "tip": "Horizontal scaling factor of element"},
+      "transform-scaleY": {"name": "Transform - Scale Y", "tip": "Vertical scaling factor of element"},
+      "transform-skewX": {"name": "Transform - Skew X", "tip": "Horizontal skew factor of element"},
+      "transform-skewY": {"name": "Transform - Skew Y", "tip": "Vertical skew factor of element"},
       "transform-opacity": {"name": "Transform - Opacity", "tip": "Adjust the opacity of the element"},
-      "window-visibleGridColumns": {"name": "Window - Visible Grid Columns", "tip": "The number of unhidden grid columns"},
-      "window-visibleGridRows": {"name": "Window - Visible Grid Rows", "tip": "The number of unhidden grid rows"},
-      "text-textWidth": {"name": "Text - Text Width", "tip": "The real width of the rendered text"},
-      "text-textHeight": {"name": "Text - Text Height", "tip": "The real height of the rendered text"},
+      "window-visibleGridColumns": {"name": "Window - Visible Grid Columns", "tip": "Number of visible grid columns"},
+      "window-visibleGridRows": {"name": "Window - Visible Grid Rows", "tip": "Number of visible grid rows"},
+      "text-textWidth": {"name": "Text - Text Width", "tip": "Rendered text width"},
+      "text-textHeight": {"name": "Text - Text Height", "tip": "Rendered text height"},
       "textBox-number": {"name": "Text Box - Number", "tip": "Read the numeric content of the text box"},
-      "dialogBox-printEndX": {"name": "Dialog Box - Print End X", "tip": "The horizontal position of the text at the end of printing"},
-      "dialogBox-printEndY": {"name": "Dialog Box - Print End Y", "tip": "The vertical position of the text at the end of printing"}
+      "dialogBox-printEndX": {"name": "Dialog Box - Print End X", "tip": "Horizontal position of text at end of printing"},
+      "dialogBox-printEndY": {"name": "Dialog Box - Print End Y", "tip": "Vertical position of text at end of printing"}
     }},
     "setNumber-operand-element-element": {"label": "Element", "tip": "Retrieve relevant data of this element"},
     "setNumber-operand-common-variable": {"label": "Variable", "tip": "Read data from a variable"},
@@ -3659,8 +3659,8 @@
     "setNumber-operand-object-equipmentId": {"label": "Equipment", "tip": "Input the equipment file ID"},
     "setNumber-operand-string-search": {"label": "Search String", "tip": "Target string for search location"},
     "setNumber-operand-math-decimals": {"label": "Decimal Places", "tip": "If 0, round to integer, otherwise round to the specified number of decimal places"},
-    "setNumber-operand-math-min": {"label": "Min", "tip": "The generated random integer must be greater than or equal to this value"},
-    "setNumber-operand-math-max": {"label": "Max", "tip": "The generated random integer must be less than or equal to this value"},
+    "setNumber-operand-math-min": {"label": "Min", "tip": "Generated random integer must be greater than or equal to this value"},
+    "setNumber-operand-math-max": {"label": "Max", "tip": "Generated random integer must be less than or equal to this value"},
     "setNumber-operand-math-startPosition": {"label": "Start Position", "tip": "Get the starting position"},
     "setNumber-operand-math-endPosition": {"label": "End Position", "tip": "Get the end position"},
     "setNumber-operand-cooldown-key": {"label": "Cooldown Key", "tip": "Select a cooldown key"},
@@ -3685,29 +3685,29 @@
       "touch-ui-y": {"name": "Touch UI Y", "tip": "Vertical position of the touch within the root element in pixels\nTouch UI Y = Touch Screen Y / UI Scale"},
       "touch-scene-x": {"name": "Touch Scene X", "tip": "Horizontal position of the touch in the scene"},
       "touch-scene-y": {"name": "Touch Scene Y", "tip": "Vertical position of the touch in the scene"},
-      "virtual-axis-x": {"name": "Virtual Axis X", "tip": "The horizontal distance from a point to the center of a circle with radius 1\nAffected by the left and right arrow keys\nRange: [-1, 1]"},
-      "virtual-axis-y": {"name": "Virtual Axis Y", "tip": "The vertical distance from a point to the center of a circle with radius 1\nAffected by the up and down arrow keys\nRange: [-1, 1]"},
-      "virtual-axis-angle": {"name": "Virtual Axis Angle", "tip": "The angle from the center to the virtual axis (X, Y)\nSet to an invalid value after entering the dead zone\n0 degrees = right, rotates clockwise\nValid range: [0, 360)\nInvalid value: -1"},
+      "virtual-axis-x": {"name": "Virtual Axis X", "tip": "Horizontal distance from point to center of unit circle\nAffected by left and right arrow keys\nRange: [-1, 1]"},
+      "virtual-axis-y": {"name": "Virtual Axis Y", "tip": "Vertical distance from point to center of unit circle\nAffected by up and down arrow keys\nRange: [-1, 1]"},
+      "virtual-axis-angle": {"name": "Virtual Axis Angle", "tip": "Angle from center to virtual axis (X, Y)\nSet to invalid value after entering dead zone\n0 degrees = right, rotates clockwise\nValid range: [0, 360)\nInvalid value: -1"},
       "start-position-x": {"name": "Start Position X", "tip": "Set via \"Scene Stage -> Context Menu -> Set Initial Position\""},
       "start-position-y": {"name": "Start Position Y", "tip": "Set via \"Scene Stage -> Context Menu -> Set Initial Position\""},
       "camera-x": {"name": "Camera X", "tip": "Horizontal position of the center of the camera"},
       "camera-y": {"name": "Camera Y", "tip": "Vertical position of the center of the camera"},
-      "camera-zoom": {"name": "Camera Zoom", "tip": "The final zoom ratio of the camera (raw zoom ratio * scene scale)"},
-      "raw-camera-zoom": {"name": "Raw Camera Zoom", "tip": "The camera's own zoom ratio, not affected by the scene scale"},
-      "screen-width": {"name": "Screen Width", "tip": "The width of the game resolution"},
-      "screen-height": {"name": "Screen Height", "tip": "The height of the game resolution"},
-      "scene-width": {"name": "Scene Width", "tip": "The number of horizontal grids in the scene"},
-      "scene-height": {"name": "Scene Height", "tip": "The number of vertical grids in the scene"},
-      "scene-scale": {"name": "Scene Scale", "tip": "The current scene scale"},
-      "ui-scale": {"name": "UI Scale", "tip": "The current UI scale"},
-      "play-time": {"name": "Play Time", "tip": "The player's total play time, will be saved, and cleared when the game is reset."},
-      "elapsed-time": {"name": "Elapsed Time", "tip": "The running time from starting the game to now, it will be cleared after exiting the game"},
-      "delta-time": {"name": "Delta Time", "tip": "The elapsed time from the end of the previous frame to the beginning of the current frame in milliseconds,\nmay be 16.66 at 60FPS. If the game speed is 2, the delta time is scaled to 2 times, which is 33.33ms"},
+      "camera-zoom": {"name": "Camera Zoom", "tip": "Final camera zoom ratio (raw zoom * scene scale)"},
+      "raw-camera-zoom": {"name": "Raw Camera Zoom", "tip": "Camera's own zoom ratio (not affected by scene scale)"},
+      "screen-width": {"name": "Screen Width", "tip": "Game resolution width"},
+      "screen-height": {"name": "Screen Height", "tip": "Game resolution height"},
+      "scene-width": {"name": "Scene Width", "tip": "Number of horizontal grids in scene"},
+      "scene-height": {"name": "Scene Height", "tip": "Number of vertical grids in scene"},
+      "scene-scale": {"name": "Scene Scale", "tip": "Current scene scale"},
+      "ui-scale": {"name": "UI Scale", "tip": "Current UI scale"},
+      "play-time": {"name": "Play Time", "tip": "Player's total play time; saved and cleared on game reset."},
+      "elapsed-time": {"name": "Elapsed Time", "tip": "Running time since game start; cleared after exit"},
+      "delta-time": {"name": "Delta Time", "tip": "Elapsed time between previous frame end and current frame start (ms),\ne.g. 16.66 at 60FPS. If game speed is 2, delta time scales to 33.33ms"},
       "raw-delta-time": {"name": "Raw Delta Time", "tip": "Delta time without scaling"},
       "timestamp": {"name": "Get Timestamp", "tip": "Generate a number for recording the current date in this computer"},
       "party-version": {"name": "Party Version", "tip": "It is incremented when party members change"},
-      "party-member-count": {"name": "Number of Party Members", "tip": "The number of members of the player's party"},
-      "actor-count": {"name": "Number of Actors in the Scene", "tip": "The number of actors in the specified team in the current scene"},
+      "party-member-count": {"name": "Number of Party Members", "tip": "Number of player party members"},
+      "actor-count": {"name": "Number of Actors in the Scene", "tip": "Number of actors in the specified team in current scene"},
       "latest-item-increment": {"name": "Latest Item Increment", "tip": "Refreshed when any actor gains items, used to read the number of items gained"},
       "latest-money-increment": {"name": "Latest Money Increment", "tip": "Refreshed when any actor gains money, used to read the number of money gained"},
       "loader-loaded-bytes": {"name": "Loader - Loaded Bytes", "tip": "Counts the loaded bytes of all files being loaded in the background"},
@@ -3735,7 +3735,7 @@
       "element": {"name": "Element", "tip": "Element method"},
       "list": {"name": "List Item", "tip": "Read list from a variable and fetch the boolean value at the specified position in the list"},
       "parameter": {"name": "Parameter", "tip": "Parameters input in 'Display Text' and 'Display Options' commands"},
-      "script": {"name": "Script", "tip": "Execute Javascript and get the return value"},
+      "script": {"name": "Script", "tip": "Execute JavaScript and get the return value"},
       "other": {"name": "Other", "tip": "Other methods"}
     }},
     "setString-operand-common-value": {"label": "String"},
@@ -3757,7 +3757,7 @@
     "setString-operand-attribute-attributeId": {"label": "Attribute Key", "tip": "Get the key of this attribute"},
     "setString-operand-enum-stringId": {"label": "Enum String", "tip": "Get the value of this enum"},
     "setString-operand-object-property": {"label": "Property", "tip": "Get data related to the object", "options": {
-      "actor-team-id": {"name": "Actor - Team ID", "tip": "The ID of the team the actor is in, 16 characters"},
+      "actor-team-id": {"name": "Actor - Team ID", "tip": "ID of the team the actor is in (16 chars)"},
       "actor-file-id": {"name": "Actor - File ID", "tip": "Actor file ID, 16 characters"},
       "actor-animation-motion-name": {"name": "Actor - Anim Motion Name", "tip": "Enumeration value of the current motion of the actor animation"},
       "skill-file-id": {"name": "Skill - File ID", "tip": "Skill file ID, 16 characters"},
@@ -3783,10 +3783,10 @@
     "setString-operand-object-fileId": {"label": "File", "tip": "Get the ID of this file"},
     "setString-operand-list-index": {"label": "Index", "tip": "Read the value at the Nth position in the list (0, 1, 2, ...)"},
     "setString-operand-parameter-key": {"label": "Param Name"},
-    "setString-operand-script": {"label": "Script", "tip": "Execute Javascript and get the return value"},
+    "setString-operand-script": {"label": "Script", "tip": "Execute JavaScript and get the return value"},
     "setString-operand-other-data": {"label": "Data", "tip": "Other game data", "options": {
       "trigger-key": {"name": "Event Trigger Key", "tip": "Get the key code of the currently triggered 'keyboard event'"},
-      "start-position-scene-id": {"name": "Start Position - Scene ID", "tip": "The ID of the initial scene file, 16 characters\nScene Stage -> Context Menu -> Set Initial Position"},
+      "start-position-scene-id": {"name": "Start Position - Scene ID", "tip": "ID of initial scene file (16 chars)\nScene Stage -> Context Menu -> Set Initial Position"},
       "showText-content": {"name": "Show Text - Content", "tip": "After calling the <Show Text> command, you can read the content of the command"},
       "showChoices-content": {"name": "Show Choices - Content", "tip": "After calling the <Show Choices> command, you can read the content of the command"},
       "parse-timestamp": {"name": "Parse Timestamp", "tip": "Parse the timestamp obtained from <Set Number> into a date string in the specified format"},
@@ -3973,7 +3973,7 @@
       "has-skill": "Has Skill",
       "has-state": "Has State",
       "has-items": "Has Items",
-      "has-equipments": "Has Equipments",
+      "has-equipments": "Has Equipment",
       "has-skill-shortcut": "Has Skill Shortcut",
       "has-item-shortcut": "Has Item Shortcut",
       "equipped": "Equipped",
@@ -4091,8 +4091,8 @@
       "list": {"name": "List Item", "tip": "Read the value in the list one by one"},
       "skill": {"name": "Skill", "tip": "Read all skills of the actor"},
       "state": {"name": "State", "tip": "Read all states of the actor"},
-      "equipment": {"name": "Equipment Slot", "tip": "Read all equipments in the actor's slots"},
-      "inventory": {"name": "Inventory", "tip": "Read all items and equipments in the actor's inventory"},
+      "equipment": {"name": "Equipment Slot", "tip": "Read all equipment in the actor's slots"},
+      "inventory": {"name": "Inventory", "tip": "Read all items and equipment in the actor's inventory"},
       "element": {"name": "Element", "tip": "Read all child elements of the specified element"},
       "member": {"name": "Party Member", "tip": "Read all members of the player party"},
       "attribute": {"name": "Attribute Key", "tip": "Read all attribute keys in the attribute group"},
@@ -4136,7 +4136,7 @@
 
     "[comment]": "********** Command - Return **********",
     "return": {"title": "Return"},
-    "return-type": {"label": "Return Type", "tip": "The type of value this event allows to return. It can be modified in the global event panel.", "options": {
+    "return-type": {"label": "Return Type", "tip": "Type of value this event can return. Modify in global event panel.", "options": {
       "none": {"name": "None", "tip": "Does not return any value"},
       "boolean": {"name": "Boolean", "tip": "Returns a boolean value"},
       "number": {"name": "Number", "tip": "Returns a numerical value"},
@@ -4190,13 +4190,13 @@
 
     "[comment]": "********** Command - Register Event **********",
     "registerEvent": {"title": "Register Event"},
-    "registerEvent-target": {"label": "Target", "tip": "The target object for registering/unloading operations", "options": {
-      "global": {"name": "Global Event", "tip": "The newly registered global event will be appended to the existing event list\nIt will overwrite any previously registered event with the same key and stop the currently running instance of that event"},
-      "actor": {"name": "Actor Event", "tip": "The newly registered actor event will overwrite the existing event of the same type\nIt will also stop the currently running instance of that event\nOverridden events can still be triggered using the 'Call Event' command"},
-      "element": {"name": "Element Event", "tip": "The newly registered element event will overwrite the existing event of the same type\nIt will also stop the currently running instance of that event\nOverridden events can still be triggered using the 'Call Event' command"}
+    "registerEvent-target": {"label": "Target", "tip": "Target object for register/unload operations", "options": {
+      "global": {"name": "Global Event", "tip": "Newly registered global event is appended to the existing event list\nIt overwrites any previously registered event with the same key and stops the currently running instance of that event"},
+      "actor": {"name": "Actor Event", "tip": "Newly registered actor event overwrites the existing event of the same type\nIt also stops the currently running instance of that event\nOverridden events can still be triggered using the 'Call Event' command"},
+      "element": {"name": "Element Event", "tip": "Newly registered element event overwrites the existing event of the same type\nIt also stops the currently running instance of that event\nOverridden events can still be triggered using the 'Call Event' command"}
     }},
-    "registerEvent-actor": {"label": "Actor", "tip": "The actor for registering/unloading the event"},
-    "registerEvent-element": {"label": "Element", "tip": "The element for registering/unloading the event"},
+    "registerEvent-actor": {"label": "Actor", "tip": "Actor for registering/unloading the event"},
+    "registerEvent-element": {"label": "Element", "tip": "Element for registering/unloading the event"},
     "registerEvent-operation": {"label": "Operation", "tip": "Choose whether to register or unload the event", "options": {
       "register": {"name": "Register", "tip": "Package the commands in the block below into a temporary event and add it to the object"},
       "unregister": {"name": "Unregister", "tip": "After unloading the registered event, it will no longer trigger and will stop execution"},
@@ -4224,8 +4224,8 @@
     "[comment]": "********** Command - Transition **********",
     "transition": {"title": "Transition"},
     "transition-variable": {"label": "Write to Variable", "tip": "Write the transition interpolation to this variable"},
-    "transition-start": {"label": "Start Value", "tip": "The starting value for interpolation calculation"},
-    "transition-end": {"label": "End Value", "tip": "The ending value for interpolation calculation"},
+    "transition-start": {"label": "Start Value", "tip": "Starting value for interpolation calculation"},
+    "transition-end": {"label": "End Value", "tip": "Ending value for interpolation calculation"},
 
     "[comment]": "********** Command - Block **********",
     "block": {"title": "Block"},
@@ -4247,7 +4247,7 @@
 
     "[comment]": "********** Command - Wait **********",
     "wait": {"title": "Wait"},
-    "wait-duration": {"label": "Duration", "tip": "The waiting time will be automatically converted to the number of frames.\nAnd the time less than 1 frame will become 1 frame."},
+    "wait-duration": {"label": "Duration", "tip": "Waiting time is converted to number of frames.\nDurations less than 1 frame become 1 frame."},
 
     "[comment]": "********** Command - Create Element **********",
     "createElement": {"title": "Create Element"},
@@ -4664,18 +4664,18 @@
 
     "[comment]": "********** Command - Set Tile **********",
     "setTile": {"title": "Set Tile"},
-    "setTile-tilemap": {"label": "Tilemap", "tip": "The tilemap whose tile is to be replaced"},
-    "setTile-tilemapX": {"label": "Tilemap X", "tip": "The horizontal position of the tile to be replaced"},
-    "setTile-tilemapY": {"label": "Tilemap Y", "tip": "The vertical position of the tile to be replaced"},
+    "setTile-tilemap": {"label": "Tilemap", "tip": "Tilemap whose tile will be replaced"},
+    "setTile-tilemapX": {"label": "Tilemap X", "tip": "Horizontal position of tile to be replaced"},
+    "setTile-tilemapY": {"label": "Tilemap Y", "tip": "Vertical position of tile to be replaced"},
     "setTile-tilesetId": {"label": "Tileset", "tip": "Get tiles from this file"},
-    "setTile-tilesetX": {"label": "Tileset X", "tip": "The horizontal position of the new tile"},
-    "setTile-tilesetY": {"label": "Tileset Y", "tip": "The vertical position of the new tile"},
+    "setTile-tilesetX": {"label": "Tileset X", "tip": "Horizontal position of new tile"},
+    "setTile-tilesetY": {"label": "Tileset Y", "tip": "Vertical position of new tile"},
 
     "[comment]": "********** Command - Delete Tile **********",
     "deleteTile": {"title": "Delete Tile"},
-    "deleteTile-tilemap": {"label": "Tilemap", "tip": "The tilemap from which to delete the tile"},
-    "deleteTile-tilemapX": {"label": "Tilemap X", "tip": "The horizontal position of the tile to be deleted"},
-    "deleteTile-tilemapY": {"label": "Tilemap Y", "tip": "The vertical position of the tile to be deleted"},
+    "deleteTile-tilemap": {"label": "Tilemap", "tip": "Tilemap to delete tile from"},
+    "deleteTile-tilemapX": {"label": "Tilemap X", "tip": "Horizontal position of tile to be deleted"},
+    "deleteTile-tilemapY": {"label": "Tilemap Y", "tip": "Vertical position of tile to be deleted"},
 
     "[comment]": "********** Command - Set Terrain **********",
     "setTerrain": {"title": "Set Terrain"},
@@ -4735,25 +4735,25 @@
       "increase-time": {"name": "Increase Time", "tip": "Increase the current time of the state and update the maximum time"},
       "decrease-time": {"name": "Decrease Time", "tip": "Decrease the current time of the state"}
     }},
-    "setState-time": {"label": "Time", "tip": "The time of the state"},
+    "setState-time": {"label": "Time", "tip": "State time"},
 
     "[comment]": "********** Command - Play Animation **********",
     "playAnimation": {"title": "Play Animation"},
     "playAnimation-mode": {"label": "Mode", "tip": "Choose the reference point for the animation's position", "options": {
-      "position": {"name": "Specify Position", "tip": "The animation is placed at a fixed position"},
-      "actor": {"name": "Bind Actor", "tip": "The animation moves with the actor"}
+      "position": {"name": "Specify Position", "tip": "Animation placed at fixed position"},
+      "actor": {"name": "Bind Actor", "tip": "Animation moves with actor"}
     }},
-    "playAnimation-position": {"label": "Position", "tip": "The position where the animation appears"},
-    "playAnimation-actor": {"label": "Actor", "tip": "The actor that the animation follows"},
+    "playAnimation-position": {"label": "Position", "tip": "Position where animation appears"},
+    "playAnimation-actor": {"label": "Actor", "tip": "Actor that animation follows"},
     "playAnimation-animationId": {"label": "Animation", "tip": "Specify the animation file ID"},
     "playAnimation-motion": {"label": "Motion", "tip": "Play this animation motion"},
     "playAnimation-rotatable": {"label": "Rotatable", "tip": "Whether the animation automatically updates its rotation angle", "options": {
-      "true": {"name": "Yes", "tip": "The animation rotates based on the angle"},
-      "false": {"name": "No", "tip": "The animation never rotates"}
+      "true": {"name": "Yes", "tip": "Animation rotates based on angle"},
+      "false": {"name": "No", "tip": "Animation never rotates"}
     }},
-    "playAnimation-priority": {"label": "Priority", "tip": "The render priority of the animation\nAnimations below will always obscure those above\nPriority = -1: Moves the render position up by one tile\nPriority = 1: Moves the render position down by one tile"},
+    "playAnimation-priority": {"label": "Priority", "tip": "Render priority of the animation\nAnimations below will always obscure those above\nPriority = -1: Moves the render position up by one tile\nPriority = 1: Moves the render position down by one tile"},
     "playAnimation-offsetY": {"label": "Offset Y", "tip": "Vertical offset for the animation render position (in pixels)"},
-    "playAnimation-angle": {"label": "Angle", "tip": "The angle influences the direction change of the motion"},
+    "playAnimation-angle": {"label": "Angle", "tip": "Angle influences motion direction change"},
     "playAnimation-speed": {"label": "Speed", "tip": "Playback speed ratio\n0: Pause\n1: 100% playback speed\n10: 1000% playback speed"},
 
     "[comment]": "********** Command - Set Object Animation **********",
@@ -4792,7 +4792,7 @@
       "se": {"name": "SE", "tip": "Multiple sound effects can be played at the same time"},
       "se-attenuated": {"name": "SE - Attenuated", "tip": "Play the sound effect at the specified position and automatically adjust the volume\nThe farther the sound position is from the center of the camera, the more attenuated it will be\nThe relevant settings can be modified in <Project Settings>"}
     }},
-    "playAudio-audio": {"label": "Audio", "tip": "The audio file ID to play"},
+    "playAudio-audio": {"label": "Audio", "tip": "Audio file ID to play"},
     "playAudio-volume": {"label": "Volume", "tip": "Volume level (0 ~ 1)"},
     "playAudio-location": {"label": "Sound Position", "tip": "Play the sound effect at a specified position, attenuating the volume as it moves away from the center"},
 
@@ -4813,8 +4813,8 @@
     "[comment]": "********** Command - Set Reverb **********",
     "setReverb": {"title": "Set Reverb"},
     "setReverb-type": {"label": "Type", "tip": "Perform operation on this type of sound"},
-    "setReverb-dry": {"label": "Dry", "tip": "The volume of the original sound. The smaller it is, the farther it is from the sound source."},
-    "setReverb-wet": {"label": "Wet", "tip": "The volume of the reflected sound. The larger it is, the larger the enclosed space."},
+    "setReverb-dry": {"label": "Dry", "tip": "Volume of original sound; smaller means farther from source."},
+    "setReverb-wet": {"label": "Wet", "tip": "Volume of reflected sound; larger means larger enclosed space."},
 
     "[comment]": "********** Command - Set Loop **********",
     "setLoop": {"title": "Set Loop"},
@@ -4856,7 +4856,7 @@
     "[comment]": "********** Command - Follow Actor **********",
     "followActor": {"title": "Follow Actor"},
     "followActor-actor": {"label": "Actor", "tip": "Make this actor follow the target actor"},
-    "followActor-target": {"label": "Target", "tip": "The actor being followed"},
+    "followActor-target": {"label": "Target", "tip": "Actor being followed"},
     "followActor-mode": {"label": "Mode", "tip": "Shape of the target area", "options": {
       "circle": {"name": "Circle", "tip": "Actor A follows Actor B within a circle"},
       "rectangle": {"name": "Rectangle", "tip": "Actor A follows Actor B within a rectangle"}
@@ -4899,17 +4899,17 @@
     "setMovementSpeed": {"title": "Set Movement Speed"},
     "setMovementSpeed-actor": {"label": "Actor", "tip": "Change the movement speed of this actor"},
     "setMovementSpeed-property": {"label": "Property", "tip": "Base Speed * Speed Factor * Speed Factor (Temp) = Final movement speed", "options": {
-      "base": {"name": "Base Speed", "tip": "The distance the actor moves per second"},
+      "base": {"name": "Base Speed", "tip": "Distance actor moves per second"},
       "factor": {"name": "Speed Factor", "tip": "Set the actor's movement speed proportionally"},
       "factor-temp": {"name": "Speed Factor (Temp)", "tip": "Set the actor's movement speed proportionally, and it will not be written to the save data"}
     }},
-    "setMovementSpeed-base": {"label": "Base Speed", "tip": "The distance the actor moves per second"},
+    "setMovementSpeed-base": {"label": "Base Speed", "tip": "Distance actor moves per second"},
     "setMovementSpeed-factor": {"label": "Speed Factor", "tip": "Set the actor's movement speed proportionally"},
 
     "[comment]": "********** Command - Set Angle **********",
     "setAngle": {"title": "Set Angle"},
     "setAngle-actor": {"label": "Actor", "tip": "Change the angle of this actor"},
-    "setAngle-angle": {"label": "Angle", "tip": "The angle of the actor"},
+    "setAngle-angle": {"label": "Angle", "tip": "Actor angle"},
 
     "[comment]": "********** Command - Fix Angle **********",
     "fixAngle": {"title": "Fix Angle"},
@@ -4948,7 +4948,7 @@
       "team": {"name": "Team Member", "tip": "Select members of the specified team"},
       "any": {"name": "Any", "tip": "Select any actor"}
     }},
-    "getActor-teamId": {"label": "Team", "tip": "The team of the actor"},
+    "getActor-teamId": {"label": "Team", "tip": "Actor's team"},
     "getActor-condition": {"label": "Condition", "tip": "Second filter for selecting an actor", "options": {
       "nearest": {"name": "Nearest", "tip": "Select the actor closest to the area center"},
       "farthest": {"name": "Farthest", "tip": "Select the actor furthest from the area center"},
@@ -4958,11 +4958,11 @@
       "max-attribute-ratio": {"name": "Max Attribute Ratio", "tip": "Select the actor with the largest ratio between the two specified attributes"},
       "random": {"name": "Random", "tip": "Select an actor randomly"}
     }},
-    "getActor-attribute": {"label": "Attribute", "tip": "The attribute of the target actor"},
-    "getActor-divisor": {"label": "Attribute 2", "tip": "The second attribute of the target actor"},
-    "getActor-activation": {"label": "Activation", "tip": "The activation state of the target actor", "options": {
-      "active": {"name": "Active", "tip": "The actor must be activated"},
-      "inactive": {"name": "Inactive", "tip": "The actor must be deactivated"},
+    "getActor-attribute": {"label": "Attribute", "tip": "Attribute of target actor"},
+    "getActor-divisor": {"label": "Attribute 2", "tip": "Second attribute of target actor"},
+    "getActor-activation": {"label": "Activation", "tip": "Activation state of target actor", "options": {
+      "active": {"name": "Active", "tip": "Actor must be active"},
+      "inactive": {"name": "Inactive", "tip": "Actor must be inactive"},
       "either": {"name": "Either", "tip": "No activation state check"}
     }},
     "getActor-exclusion": {"label": "Exclusion", "tip": "Exclude actors that meet the condition", "options": {
@@ -4970,8 +4970,8 @@
       "actor": {"name": "Exclude Actor", "tip": "Cannot be the specified actor"},
       "team": {"name": "Exclude Team", "tip": "Cannot be from the specified team"}
     }},
-    "getActor-exclusionActor": {"label": "Exclusion Actor", "tip": "The target cannot be this actor"},
-    "getActor-exclusionTeamId": {"label": "Exclusion Team", "tip": "The target cannot be from this team"},
+    "getActor-exclusionActor": {"label": "Exclusion Actor", "tip": "Target cannot be this actor"},
+    "getActor-exclusionTeamId": {"label": "Exclusion Team", "tip": "Target cannot be from this team"},
 
     "[comment]": "********** Command - Get Multiple Actors **********",
     "getMultipleActors": {"title": "Get Multiple Actors"},
@@ -5017,9 +5017,9 @@
     "changePassableTerrain": {"title": "Change Passable Terrain"},
     "changePassableTerrain-actor": {"label": "Actor", "tip": "Change the passable area for this actor"},
     "changePassableTerrain-passage": {"label": "Passable Terrain", "tip": "Set a new passable area", "options": {
-      "land": {"name": "Land", "tip": "The actor can only move on land"},
-      "water": {"name": "Water", "tip": "The actor can only move in water"},
-      "unrestricted": {"name": "Unrestricted", "tip": "The actor can move on land, in water, and through walls"}
+      "land": {"name": "Land", "tip": "Actor can only move on land"},
+      "water": {"name": "Water", "tip": "Actor can only move in water"},
+      "unrestricted": {"name": "Unrestricted", "tip": "Actor can move on land, in water, and through walls"}
     }},
 
     "[comment]": "********** Command - Change Actor Team **********",
@@ -5112,12 +5112,12 @@
     "addAnimationComponent-animationId": {"label": "Animation", "tip": "Select an animation file"},
     "addAnimationComponent-motion": {"label": "Motion", "tip": "Select a motion of the animation.\nThe animation ID plus the motion ID form the ID of the animation component.\nTherefore, components with the same animation and motion cannot be added repeatedly."},
     "addAnimationComponent-rotatable": {"label": "Rotatable", "tip": "Whether to automatically update the animation rotation angle", "options": {
-      "true": {"name": "Yes", "tip": "The animation rotates due to its angle"},
-      "false": {"name": "No", "tip": "The animation never rotates"}
+      "true": {"name": "Yes", "tip": "Animation rotates due to its angle"},
+      "false": {"name": "No", "tip": "Animation never rotates"}
     }},
     "addAnimationComponent-syncAngle": {"label": "Sync Angle", "tip": "Whether to synchronize the animation with the actor's angle", "options": {
-      "true": {"name": "Yes", "tip": "The animation angle is always set to the current angle of the actor.\nAnd the animation angle will affect the switching of the motion direction."},
-      "false": {"name": "No", "tip": "The animation angle does not change automatically."}
+      "true": {"name": "Yes", "tip": "Animation angle is set to actor's current angle.\nAnimation angle affects motion direction switching."},
+      "false": {"name": "No", "tip": "Animation angle does not change automatically."}
     }},
     "addAnimationComponent-priority": {"label": "Priority", "tip": "Sorting priority of the animation component\n - Less than 0: The animation component is displayed below actor animation\n - Greater than or equal to 0: The animation component is displayed above actor animation"},
     "addAnimationComponent-offsetY": {"label": "Offset Y", "tip": "Vertical offset distance of the animation rendering position (unit: pixel)"},
@@ -5193,8 +5193,8 @@
       "max-attribute-ratio": {"name": "Max Attribute Ratio", "tip": "Select the actor with the largest ratio between the two specified attributes"},
       "random": {"name": "Random", "tip": "Select an actor randomly"}
     }},
-    "getTarget-attribute": {"label": "Attribute", "tip": "The attribute of the target actor"},
-    "getTarget-divisor": {"label": "Attribute 2", "tip": "The attribute 2 of the target actor"},
+    "getTarget-attribute": {"label": "Attribute", "tip": "Attribute of target actor"},
+    "getTarget-divisor": {"label": "Attribute 2", "tip": "Second attribute of target actor"},
 
     "[comment]": "********** Command - Append Target **********",
     "appendTarget": {"title": "Append Target"},
@@ -5276,11 +5276,11 @@
     "createTrigger": {"title": "Create Trigger"},
     "createTrigger-triggerId": {"label": "Trigger", "tip": "Create a trigger object corresponding to the file ID"},
     "createTrigger-caster": {"label": "Caster", "tip": "This actor can be accessed through \"Skill Caster\" in the trigger events"},
-    "createTrigger-origin": {"label": "Origin", "tip": "The initial position of this trigger"},
-    "createTrigger-angle": {"label": "Angle", "tip": "The initial angle of this trigger, 0 degrees = right, clockwise rotation"},
-    "createTrigger-distance": {"label": "Distance", "tip": "The distance this trigger is offset from the initial position to the initial angle (actual position)"},
-    "createTrigger-scale": {"label": "Scale", "tip": "The scaling factor for this trigger's shape and animation (can be used as attack range)"},
-    "createTrigger-timeScale": {"label": "Global Speed", "tip": "The playback speed for this trigger and animation (can be used as attack speed)"},
+    "createTrigger-origin": {"label": "Origin", "tip": "Initial position of this trigger"},
+    "createTrigger-angle": {"label": "Angle", "tip": "Initial angle of this trigger, 0 degrees = right, clockwise rotation"},
+    "createTrigger-distance": {"label": "Distance", "tip": "Distance this trigger is offset from initial position along initial angle (actual position)"},
+    "createTrigger-scale": {"label": "Scale", "tip": "Scaling factor for trigger's shape and animation (can be used as attack range)"},
+    "createTrigger-timeScale": {"label": "Global Speed", "tip": "Playback speed for this trigger and animation (can be used as attack speed)"},
 
     "[comment]": "********** Command - Set Trigger Speed **********",
     "setTriggerSpeed": {"title": "Set Trigger Speed"},
@@ -5327,12 +5327,12 @@
       "reset": {"name": "Reset", "tip": "Clear items and money from the inventory"}
     }},
     "setInventory-money": {"label": "Money", "tip": "Money in inventory"},
-    "setInventory-itemId": {"label": "Item", "tip": "The file ID of the item"},
-    "setInventory-quantity": {"label": "Quantity", "tip": "The quantity of this item"},
-    "setInventory-equipmentId": {"label": "Equipment", "tip": "The file ID of the equipment"},
+    "setInventory-itemId": {"label": "Item", "tip": "File ID of the item"},
+    "setInventory-quantity": {"label": "Quantity", "tip": "Quantity of this item"},
+    "setInventory-equipmentId": {"label": "Equipment", "tip": "File ID of the equipment"},
     "setInventory-equipment": {"label": "Equipment", "tip": "Get an existing equipment from the equipment accessor"},
-    "setInventory-order1": {"label": "Order A", "tip": "The order of item A in the inventory (An empty slot is also available)"},
-    "setInventory-order2": {"label": "Order B", "tip": "The order of item B in the inventory (An empty slot is also available)"},
+    "setInventory-order1": {"label": "Order A", "tip": "Order of item A in inventory (empty slot allowed)"},
+    "setInventory-order2": {"label": "Order B", "tip": "Order of item B in inventory (empty slot allowed)"},
     "setInventory-refActor": {"label": "Global Actor", "tip": "Get the inventory of this global actor for sharing"},
 
     "[comment]": "********** Command - Use Item **********",
@@ -5354,7 +5354,7 @@
       "increase": {"name": "Increase", "tip": "Increase the stack size of this item"},
       "decrease": {"name": "Decrease", "tip": "Reduce the stack size of this item (If the quantity of this item is insufficient, it will be deleted)"}
     }},
-    "setItem-quantity": {"label": "Quantity", "tip": "The quantity of this item"},
+    "setItem-quantity": {"label": "Quantity", "tip": "Quantity of this item"},
 
     "[comment]": "********** Command - Set Cooldown **********",
     "setCooldown": {"title": "Set Cooldown"},
@@ -5376,8 +5376,8 @@
       "delete-shortcut": {"name": "Delete Shortcut", "tip": "Unbind the shortcut key from the corresponding item or skill"},
       "swap-shortcuts": {"name": "Swap Shortcuts", "tip": "Swap the contents of the two shortcut key bindings (empty ones are also acceptable)"}
     }},
-    "setShortcut-key": {"label": "Shortcut Key", "tip": "The shortcut key for an item or skill"},
-    "setShortcut-key2": {"label": "Shortcut Key 2", "tip": "The shortcut key 2 for an item or skill"},
+    "setShortcut-key": {"label": "Shortcut Key", "tip": "Shortcut key for item or skill"},
+    "setShortcut-key2": {"label": "Shortcut Key 2", "tip": "Shortcut key 2 for item or skill"},
     "setShortcut-itemId": {"label": "Item", "tip": "Bind this item to the shortcut key"},
     "setShortcut-skillId": {"label": "Skill", "tip": "Bind this skill to the shortcut key"},
 
@@ -5426,11 +5426,11 @@
 
     "[comment]": "********** Command - Set Zoom Factor **********",
     "setZoomFactor": {"title": "Set Zoom Factor"},
-    "setZoomFactor-zoom": {"label": "Zoom Factor", "tip": "The zoom factor of the scene"},
+    "setZoomFactor-zoom": {"label": "Zoom Factor", "tip": "Scene zoom factor"},
 
     "[comment]": "********** Command - Set Game Speed **********",
     "setGameSpeed": {"title": "Set Game Speed"},
-    "setGameSpeed-speed": {"label": "Speed", "tip": "The ratio of game speed that affects the delta time of each frame"},
+    "setGameSpeed-speed": {"label": "Speed", "tip": "Game speed ratio affecting frame delta time"},
 
     "[comment]": "********** Command - Set Cursor **********",
     "setCursor": {"title": "Set Cursor"},
@@ -5461,7 +5461,7 @@
       "load": {"name": "Load", "tip": "Read game data from the save file at the specified index"},
       "delete": {"name": "Delete", "tip": "Delete the save file of the specified index"}
     }},
-    "gameData-index": {"label": "Save Index", "tip": "The number of the save file, corresponding to the number in the file name"},
+    "gameData-index": {"label": "Save Index", "tip": "Save file index matching the number in the filename"},
     "gameData-variables": {"label": "Save Variables", "placeholder": "Separated by Commas", "tip": "Save some simple local variables (boolean, number, string) in the current event\nAutomatically read them when reading each save data by the \"For Each\" command into local variables of the same name"},
 
     "[comment]": "********** Command - Simulate Key **********",
@@ -5479,8 +5479,8 @@
 
     "[comment]": "********** Command - Set Resolution **********",
     "setResolution": {"title": "Set Resolution"},
-    "setResolution-width": {"label": "Width", "tip": "The actual width of the game canvas, which is automatically scaled by the window size (automatically saved after deployment)"},
-    "setResolution-height": {"label": "Height", "tip": "The actual height of the game canvas, which is automatically scaled by the window size (automatically saved after deployment)"},
+    "setResolution-width": {"label": "Width", "tip": "Actual game canvas width, auto-scaled by window size (saved after deployment)"},
+    "setResolution-height": {"label": "Height", "tip": "Actual game canvas height, auto-scaled by window size (saved after deployment)"},
     "setResolution-sceneScale": {"label": "Scene Scale", "tip": "Display scene objects proportionally (automatically saved after deployment)"},
     "setResolution-uiScale": {"label": "UI Scale", "tip": "Display UI elements proportionally (automatically saved after deployment)"},
 
